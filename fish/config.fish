@@ -1,5 +1,5 @@
 # Source bootstrapped environment
-bass source ~/.env.sh
+bass source $HOME/.env.sh
 
 # Vi mode
 fish_vi_key_bindings
@@ -48,6 +48,7 @@ alias v="nvim"
 alias python=python3
 alias pip=pip3
 
+# TODO: source_if_exists
 source $DOTFILES/fish/aliases.fish
 
 # Theme
