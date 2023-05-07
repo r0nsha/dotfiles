@@ -1,3 +1,11 @@
+## ░█▀▀░▀█▀░█▀█░█▀▄░█▀▀░█░█░▀█▀░█▀█
+## ░▀▀█░░█░░█▀█░█▀▄░▀▀█░█▀█░░█░░█▀▀
+## ░▀▀▀░░▀░░▀░▀░▀░▀░▀▀▀░▀░▀░▀▀▀░▀░░
+## CROSS-SHELL PROMPT
+##
+## r0nsha's starship configuration
+## The minimal, blazing-fast, and infinitely customizable prompt for any shell!
+
 format = """
 $username\
 $hostname\
@@ -5,57 +13,54 @@ $directory\
 $git_branch\
 $git_state\
 $git_status\
-$cmd_duration\
+$git_metrics\
+$fill\
+$all\
 $line_break\
 $character"""
 
-right_format = "$time"
-continuation_prompt = "  "
-
-[time]
-disabled = false
-style = "bold bright-black"
-format = "[$time]($style)"
-
-[line_break]
-disabled = true
-
-[directory]
-read_only = " "
-style = "blue"
+right_format = """
+$cmd_duration\
+$jobs\
+$time
+"""
 
 [character]
-success_symbol = "[  ](green)"
-error_symbol = "[  ](red)"
-vimcmd_symbol = "[  ](purple)"
+success_symbol = "[❯](green)"
+error_symbol = "[❯](bold red)"
+vimcmd_symbol = "[❮](purple)"
 
-[git_branch]
-format = "[$branch]($style)"
-style = "bright-black"
-symbol = " "
+[fill]
+symbol = " "
+
+[jobs]
+symbol = ""
+style = "bold red"
+number_threshold = 1
+format = "[$symbol]($style)"
 
 [git_status]
-format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style)"
+format = '([\[$all_status$ahead_behind\]]($style) )'
 style = "cyan"
-conflicted = ""
-ahead = "󰳡"
-behind = "󰳛"
-untracked = ""
-modified = ""
-staged = ""
-renamed = ""
-deleted = ""
-stashed = "≡"
 
 [git_state]
 format = '\([$state( $progress_current/$progress_total)]($style)\) '
 style = "bright-black"
 
+[git_metrics]
+disabled = false
+
 [cmd_duration]
-format = "[$duration]($style) "
+format = "[$duration]($style)"
 style = "yellow"
 
+[time]
+disabled = false
+style = "bold white"
+format = "[$time]($style)"
+
 [aws]
+format = '\[[$symbol($profile)(\($region\))(\[$duration\])]($style)\]'
 symbol = "  "
 
 [buf]
@@ -63,77 +68,109 @@ symbol = " "
 
 [c]
 symbol = " "
+format = '\[[$symbol($version(-$name))]($style)\]'
 
 [conda]
 symbol = " "
+format = '\[[$symbol$environment]($style)\]'
 
 [dart]
 symbol = " "
+format = '\[[$symbol($version)]($style)\]'
+
+[directory]
+style = "blue"
+read_only = " "
+truncation_length = 4
+truncate_to_repo = false
 
 [docker_context]
 symbol = " "
+format = '\[[$symbol$context]($style)\]'
 
 [elixir]
 symbol = " "
+format = '\[[$symbol($version \(OTP $otp_version\))]($style)\]'
 
 [elm]
 symbol = " "
+format = '\[[$symbol($version)]($style)\]'
+
+# [fossil_branch]
+# symbol = " "
+
+[git_branch]
+symbol = " "
+format = "[$symbol$branch]($style) "
+style = "bright-black"
 
 [golang]
 symbol = " "
+format = '\[[$symbol($version)]($style)\]'
 
 [guix_shell]
 symbol = " "
+format = '\[[$symbol]($style)\]'
 
 [haskell]
 symbol = " "
+format = '\[[$symbol($version)]($style)\]'
 
 [haxe]
 symbol = "⌘ "
+format = '\[[$symbol($version)]($style)\]'
 
 [hg_branch]
 symbol = " "
+format = '\[[$symbol$branch]($style)\]'
 
 [hostname]
 ssh_symbol = " "
 
 [java]
 symbol = " "
+format = '\[[$symbol($version)]($style)\]'
 
 [julia]
 symbol = " "
+format = '\[[$symbol($version)]($style)\]'
 
 [lua]
 symbol = " "
+format = '\[[$symbol($version)]($style)\]'
 
 [memory_usage]
 symbol = " "
+format = '\[$symbol[$ram( | $swap)]($style)\]'
 
 [meson]
 symbol = "喝 "
+format = '\[[$symbol$project]($style)\]'
 
 [nim]
 symbol = " "
+format = '\[[$symbol($version)]($style)\]'
 
 [nix_shell]
 symbol = " "
+format = '\[[$symbol$state( \($name\))]($style)\]'
 
 [nodejs]
 symbol = " "
+format = '\[[$symbol($version)]($style)\]'
 
 [os.symbols]
-Alpaquita = " "
+# Alpaquita = " "
 Alpine = " "
 Amazon = " "
 Android = " "
 Arch = " "
-Artix = " "
+# Artix = " "
 CentOS = " "
 Debian = " "
 DragonFly = " "
 Emscripten = " "
 EndeavourOS = " "
-
 Fedora = " "
 FreeBSD = " "
 Garuda = "﯑ "
@@ -141,7 +178,7 @@ Gentoo = " "
 HardenedBSD = "ﲊ "
 Illumos = " "
 Linux = " "
-Mabox = " "
+# Mabox = " "
 Macos = " "
 Manjaro = " "
 Mariner = " "
@@ -165,21 +202,114 @@ Windows = " "
 
 [package]
 symbol = " "
+format = '\[[$symbol$version]($style)\] '
 
 [python]
 symbol = " "
+format = '\[[${symbol}${pyenv_prefix}(${version})(\($virtualenv\))]($style)\]'
 
 [rlang]
 symbol = "ﳒ "
 
 [ruby]
 symbol = " "
+format = '\[[$symbol($version)]($style)\]'
 
 [rust]
 symbol = " "
+format = '\[[$symbol($version)]($style)\]'
 
 [scala]
 symbol = " "
+format = '\[[$symbol($version)]($style)\]'
 
 [spack]
 symbol = "🅢 "
+format = '\[[$symbol$environment]($style)\]'
+
+[bun]
+format = '\[[$symbol($version)]($style)\]'
+
+[cmake]
+format = '\[[$symbol($version)]($style)\]'
+
+[cobol]
+format = '\[[$symbol($version)]($style)\]'
+
+[crystal]
+format = '\[[$symbol($version)]($style)\]'
+
+[daml]
+format = '\[[$symbol($version)]($style)\]'
+
+[deno]
+format = '\[[$symbol($version)]($style)\]'
+
+[dotnet]
+format = '\[[$symbol($version)(🎯 $tfm)]($style)\]'
+
+[erlang]
+format = '\[[$symbol($version)]($style)\]'
+
+[gcloud]
+format = '\[[$symbol$account(@$domain)(\($region\))]($style)\]'
+
+[helm]
+format = '\[[$symbol($version)]($style)\]'
+
+[kotlin]
+format = '\[[$symbol($version)]($style)\]'
+
+[kubernetes]
+format = '\[[$symbol$context( \($namespace\))]($style)\]'
+
+[ocaml]
+format = '\[[$symbol($version)(\($switch_indicator$switch_name\))]($style)\]'
+
+[opa]
+format = '\[[$symbol($version)]($style)\]'
+
+[openstack]
+format = '\[[$symbol$cloud(\($project\))]($style)\]'
+
+[os]
+format = '\[[$symbol]($style)\]'
+
+[perl]
+format = '\[[$symbol($version)]($style)\]'
+
+[php]
+format = '\[[$symbol($version)]($style)\]'
+
+[pulumi]
+format = '\[[$symbol$stack]($style)\]'
+
+[purescript]
+format = '\[[$symbol($version)]($style)\]'
+
+[raku]
+format = '\[[$symbol($version-$vm_version)]($style)\]'
+
+[red]
+format = '\[[$symbol($version)]($style)\]'
+
+[sudo]
+format = '\[[as $symbol]\]'
+
+[swift]
+format = '\[[$symbol($version)]($style)\]'
+
+[terraform]
+format = '\[[$symbol$workspace]($style)\]'
+
+[username]
+format = '\[[$user]($style)\]'
+
+[vagrant]
+format = '\[[$symbol($version)]($style)\]'
+
+[vlang]
+format = '\[[$symbol($version)]($style)\]'
+
+[zig]
+format = '\[[$symbol($version)]($style)\]'
