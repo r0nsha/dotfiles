@@ -3,6 +3,7 @@ bass source $HOME/.env.sh
 
 source_if_exists $DOTFILES/fish/functions.fish
 source_if_exists $DOTFILES/fish/vars.fish
+source_if_exists $DOTFILES/fish/fisher.fish
 
 # Vi mode
 fish_vi_key_bindings
