@@ -1,4 +1,3 @@
-# Source bootstrapped environment
 source $HOME/.env.fish
 
 source $DOTFILES/fish/functions.fish
