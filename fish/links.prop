@@ -1,0 +1,5 @@
+$DOTFILES/fish/config.fish=$HOME/.config/fish/config.fish
+$DOTFILES/fish/aliases.fish=$HOME/.config/fish/aliases.fish
+$DOTFILES/fish/functions.fish=$HOME/.config/fish/functions.fish
+$DOTFILES/fish/kanagawa-theme.fish=$HOME/.config/fish/kanagawa-theme.fish
+$DOTFILES/fish/vars.fish=$HOME/.config/fish/vars.fish
