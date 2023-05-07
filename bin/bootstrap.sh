@@ -27,6 +27,10 @@ fail () {
   exit
 }
 
+os () {
+    uname -s
+}
+
 link_file () {
   local src=$1 dst=$2
 
@@ -136,16 +140,45 @@ install_dotfiles () {
 }
 
 create_env_file () {
-    if test -f "$HOME/.env.sh"; then
-        success "$HOME/.env.sh file already exists, skipping"
+    env_file="$HOME/.env.sh"
+    if test -f "$env_file"
+    then
+        success "$env_file file already exists, skipping"
     else
-        echo "export DOTFILES=$DOTFILES" > $HOME/.env.sh
-        success 'created ~/.env.sh'
+        echo "export DOTFILES=$DOTFILES" > $env_file
+        success "created $env_file"
     fi
 }
 
+macos_defaults () {
+    if [ $(os) == Darwin ]
+    then
+        osx_defaults_file="$HOME/.osx_defaults"
+        if test -f "$osx_defaults_file"
+        then
+            success "$osx_defaults_file file already exists, MacOS defaults have already been set, skipping"
+        else
+            source $DOTFILES/bin/macos.sh
+            touch $osx_defaults_file
+            success "set sensible MacOS defaults"
+        fi
+    fi
+}
+
+install_deps () {
+    case $(os) in
+        Linux )
+        echo TODO: Install Linux deps;;
+        Darwin )
+        echo TODO: Install MacOS deps;;
+        * )
+        ;;
+    esac
+}
 
 install_dotfiles
 create_env_file
+macos_defaults
+install_deps
 
 success 'All installed!'
