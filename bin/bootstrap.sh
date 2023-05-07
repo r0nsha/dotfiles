@@ -168,9 +168,9 @@ macos_defaults () {
 install_deps () {
     case $(os) in
         Linux )
-        echo TODO: Install Linux deps;;
+        source ./install-deps-linux.sh;;
         Darwin )
-        echo TODO: Install MacOS deps;;
+        source ./install-deps-macos.sh;;
         * )
         ;;
     esac
