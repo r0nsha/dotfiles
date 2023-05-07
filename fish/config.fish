@@ -41,18 +41,6 @@ fish_add_path $HOME/.local/bin
 # Node stuff
 set -Ux NVM_DIR "$HOME/.nvm"
 
-# Alias codelldb
-alias codelldb=$HOME/codelldb/extension/adapter/codelldb
-
-# Alias nvim
-alias nvim=$HOME/apps/nvim/bin/nvim
-alias vim="nvim"
-alias vi="nvim"
-alias v="nvim"
-
-# Alias python & pip
-alias python=python3
-alias pip=pip3
 
 # TODO: source_if_exists
 source $DOTFILES/fish/aliases.fish
