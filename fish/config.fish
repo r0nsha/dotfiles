@@ -16,7 +16,7 @@ end
 
 function ensure_tools
     for tool in zoxide exa fd rg gh
-        if command -v -q $tool
+        if not command -v -q $tool
             warn "missing tool: $tool"
         end
     end
@@ -63,6 +63,9 @@ set -Ux NVM_DIR "$HOME/.nvm"
 
 source_if_exists $DOTFILES/fish/aliases.fish
 source_if_exists $DOTFILES/fish/kanagawa-theme.fish
+
+# Optional local config
+source_if_exists $HOME/local.config.fish
 
 ensure_tools
 
