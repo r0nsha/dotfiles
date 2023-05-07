@@ -1,9 +1,10 @@
 # Source bootstrapped environment
-bass source $HOME/.env.sh
+source $HOME/.env.fish
 
-source_if_exists $DOTFILES/fish/functions.fish
+source $DOTFILES/fish/functions.fish
+source $DOTFILES/fish/fisher.fish
+
 source_if_exists $DOTFILES/fish/vars.fish
-source_if_exists $DOTFILES/fish/fisher.fish
 
 # Vi mode
 fish_vi_key_bindings

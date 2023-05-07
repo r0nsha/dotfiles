@@ -140,12 +140,12 @@ install_dotfiles () {
 }
 
 create_env_file () {
-    env_file="$HOME/.env.sh"
+    env_file="$HOME/.env.fish"
     if test -f "$env_file"
     then
         success "$env_file file already exists, skipping"
     else
-        echo "export DOTFILES=$DOTFILES" > $env_file
+        echo "set -Ux DOTFILES $DOTFILES" > $env_file
         success "created $env_file"
     fi
 }
