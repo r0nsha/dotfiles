@@ -1,3 +1,6 @@
+# Source bootstrapped environment
+bass source ~/.env.sh
+
 # Vi mode
 fish_vi_key_bindings
 
@@ -45,8 +48,10 @@ alias v="nvim"
 alias python=python3
 alias pip=pip3
 
+source $DOTFILES/fish/aliases.fish
+
 # Theme
-source $HOME/.config/fish/kanagawa-theme.fish
+source $DOTFILES/fish/kanagawa-theme.fish
 
 # Completions
 gh completion -s fish | source

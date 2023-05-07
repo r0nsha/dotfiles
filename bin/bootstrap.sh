@@ -106,6 +106,15 @@ link_file () {
   fi
 }
 
+init_git_submodules () {
+    info "updating submodules"
+
+    git submodule init
+    git submodule update --init --recursive
+
+    success "updated git submodules"
+}
+
 install_dotfiles () {
   info 'installing dotfiles'
 
@@ -135,8 +144,6 @@ create_env_file () {
     fi
 }
 
-info "updating submodules..."
-git submodule update --init --recursive
 
 install_dotfiles
 create_env_file
