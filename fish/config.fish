@@ -1,3 +1,9 @@
+function source_if_exists
+    if test -r $argv[1]
+        source $argv[1]
+    end
+end
+
 # Source bootstrapped environment
 bass source $HOME/.env.sh
 

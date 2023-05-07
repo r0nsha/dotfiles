@@ -5,11 +5,11 @@ alias dc=docker-compose
 alias dkill="pgrep \"Docker\" | xargs kill -9"
 alias hcat='highlight -O ansi'
 
-alias v='nvim -w ~/.vimlog "$@"'
-alias vi='nvim -w ~/.vimlog "$@"'
-alias vim='nvim -w ~/.vimlog "$@"'
+alias v='nvim -w ~/.vimlog "$argv"'
+alias vi='nvim -w ~/.vimlog "$argv"'
+alias vim='nvim -w ~/.vimlog "$argv"'
 
-alias zn='vim $NOTES_DIR/$(date +"%Y%m%d%H%M.md")'
+alias zn='vim $NOTES_DIR/(date +"%Y%m%d%H%M.md")'
 
 alias ta='tmux attach -t'
 
@@ -59,7 +59,7 @@ alias gbdd='git-branch-utils -d'
 alias gbuu='git-branch-utils -u'
 alias gbrr='git-branch-utils -r -b develop'
 alias gg='git branch | fzf | xargs git checkout'
-alias gup='git branch --set-upstream-to=origin/$(git-current-branch) $(git-current-branch)'
+alias gup='git branch --set-upstream-to=origin/(git-current-branch) (git-current-branch)'
 
-alias gnext='git log --ancestry-path --format=%H ${commit}..master | tail -1 | xargs git checkout'
+alias gnext='git log --ancestry-path --format=%H $commit..master | tail -1 | xargs git checkout'
 alias gprev='git checkout HEAD^'
