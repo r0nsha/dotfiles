@@ -2,6 +2,7 @@
 bass source $HOME/.env.sh
 
 source_if_exists $DOTFILES/fish/functions.fish
+source_if_exists $DOTFILES/fish/vars.fish
 
 # Vi mode
 fish_vi_key_bindings
@@ -19,16 +20,6 @@ set fish_cursor_replace_one underscore
 # The following variable can be used to configure cursor shape in
 # visual mode, but due to fish_cursor_default, is redundant here
 set fish_cursor_visual block
-
-# Set nvim as my default editor
-set -Ux VISUAL nvim
-set -Ux EDITOR nvim
-
-# Set lang to UTF-8
-set -Ux LANGUAGE en_US.UTF-8
-set -Ux LC_ALL en_US.UTF-8
-set -Ux LANG en_US.UTF-8
-set -Ux LC_TYPE en_US.UTF-8
 
 # Rust stuff
 bass source $HOME/.cargo/env
