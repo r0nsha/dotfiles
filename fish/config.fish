@@ -4,6 +4,12 @@ function source_if_exists
     end
 end
 
+function binary_exists
+    if not command -v -q $argv[1]
+        echo "WARN: Could not find '$argv[1]'. Is it installed?"
+    end
+end
+
 # Source bootstrapped environment
 bass source $HOME/.env.sh
 
@@ -41,16 +47,19 @@ fish_add_path $HOME/.local/bin
 # Node stuff
 set -Ux NVM_DIR "$HOME/.nvm"
 
-
-# TODO: source_if_exists
-source $DOTFILES/fish/aliases.fish
-
-# Theme
-source $DOTFILES/fish/kanagawa-theme.fish
+source_if_exists $DOTFILES/fish/aliases.fish
+source_if_exists $DOTFILES/fish/kanagawa-theme.fish
 
 # Completions
-gh completion -s fish | source
-zoxide init fish | source
+if binary_exists gh
+    gh completion -s fish | source
+end
 
+if binary_exists zoxide
+    zoxide init fish | source
+end
+    
 # Starship
-source (/usr/local/bin/starship init fish --print-full-init | psub)
+if binary_exists starship
+    source (starship init fish --print-full-init | psub)
+end
