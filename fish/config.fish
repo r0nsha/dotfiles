@@ -15,21 +15,22 @@ set fish_cursor_replace_one underscore
 # visual mode, but due to fish_cursor_default, is redundant here
 set fish_cursor_visual block
 
-# Set VIM as my default editor
-set -x EDITOR vim
+# Set nvim as my default editor
+set -Ux VISUAL nvim
+set -Ux EDITOR nvim
 
 # Set lang to UTF-8
-set -x LANGUAGE en_US.UTF-8
-set -x LC_ALL en_US.UTF-8
-set -x LANG en_US.UTF-8
-set -x LC_TYPE en_US.UTF-8
+set -Ux LANGUAGE en_US.UTF-8
+set -Ux LC_ALL en_US.UTF-8
+set -Ux LANG en_US.UTF-8
+set -Ux LC_TYPE en_US.UTF-8
 
 # Rust stuff
 bass source $HOME/.cargo/env
 fish_add_path $HOME/.local/bin
 
 # Node stuff
-set -x NVM_DIR "$HOME/.nvm"
+set -Ux NVM_DIR "$HOME/.nvm"
 
 # Alias codelldb
 alias codelldb=$HOME/codelldb/extension/adapter/codelldb

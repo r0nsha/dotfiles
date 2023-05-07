@@ -318,9 +318,9 @@ return {
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp" },
 					{ name = "luasnip" },
-					{ name = "buffer" },
-					{ name = "path" },
 					{ name = "git" },
+					{ name = "path" },
+					{ name = "buffer", keyword_length = 5 },
 					-- { name = "cmdline" },
 				}),
 				window = {
