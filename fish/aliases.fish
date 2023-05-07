@@ -1,15 +1,11 @@
 # ALIASES ---------------------------------------------------------------------
-alias unmount_all_and_exit='unmount_all && exit'
 alias d=docker
 alias dc=docker-compose
 alias dkill="pgrep \"Docker\" | xargs kill -9"
-alias hcat='highlight -O ansi'
 
 alias v='nvim -w ~/.vimlog "$argv"'
 alias vi='nvim -w ~/.vimlog "$argv"'
 alias vim='nvim -w ~/.vimlog "$argv"'
-
-alias zn='vim $NOTES_DIR/(date +"%Y%m%d%H%M.md")'
 
 alias ta='tmux attach -t'
 
@@ -17,12 +13,9 @@ alias l='exa -lah'
 alias ls=exa
 alias sl=exa
 alias c='clear'
-alias s='source ~/.zshrc'
-alias h=heroku
+alias s='source $DOTFILES/fish/config.fish'
 alias jj='pbpaste | jsonpp | pbcopy'
-alias rm=trash
 alias trim="awk '{\$1=\$1;print}'"
-
 
 # GIT ALIASES -----------------------------------------------------------------
 alias gc='git commit'
@@ -42,10 +35,8 @@ alias ff='gpr && git pull --ff-only'
 alias grd='git fetch origin && git rebase origin/master'
 alias gbb='git-switchbranch'
 alias gbf='git branch | head -1 | xargs' # top branch
-alias gl=pretty_git_log
-alias gla=pretty_git_log_all
-#alias gl="git log --graph --format=format:'%C(bold blue)%h%C(reset) - %C(white)%s%C(reset) %C(green)%an %ar %C(reset) %C(bold magenta)%d%C(reset)'"
-#alias gla="git log --all --graph --format=format:'%C(bold blue)%h%C(reset) - %C(white)%s%C(reset) %C(bold magenta)%d%C(reset)'"
+alias gla="git log --all --graph --format=format:'%C(bold blue)%h%C(reset) - %C(white)%s%C(reset) %C(bold magenta)%d%C(reset)'"
+alias glv="git log --graph --format=format:'%C(bold blue)%h%C(reset) - %C(white)%s%C(reset) %C(green)%an %ar %C(reset) %C(bold magenta)%d%C(reset)'"
 alias git-current-branch="git branch | grep \* | cut -d ' ' -f2"
 alias grc='git rebase --continue'
 alias gra='git rebase --abort'
