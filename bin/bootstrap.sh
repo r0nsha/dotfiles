@@ -158,7 +158,7 @@ macos_defaults () {
         then
             success "$osx_defaults_file file already exists, MacOS defaults have already been set, skipping"
         else
-            source $DOTFILES/bin/macos.sh
+            sudo source $DOTFILES/bin/macos.sh
             touch $osx_defaults_file
             success "set sensible MacOS defaults"
         fi
