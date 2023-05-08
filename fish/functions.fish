@@ -23,3 +23,11 @@ function ensure_tools
     # TODO: install tools if not already installed
     # https://remarkablemark.org/blog/2020/10/31/bash-check-mac/
 end
+
+function tmux_dashboard
+    tmux new-session -d -s dashboard
+    tmux send-keys -t dashboard:1.1 "tmux split-window -h" enter
+    tmux send-keys -t dashboard:1.1 "tmux clock-mode" enter
+    tmux send-keys -t dashboard:1.1 "tmux split-window -v" enter
+    tmux send-keys -t dashboard:1.1 "btm" enter
+end
