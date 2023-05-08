@@ -9,7 +9,7 @@ return {
 			require("which-key").register({
 				["-"] = {
 					function()
-						oil.open()
+						oil.open_float()
 					end,
 					"Oil: Parent directory",
 				},
