@@ -3,4 +3,3 @@ $DOTFILES/alacritty/ayu_dark.yml=$HOME/.config/alacritty/ayu_dark.yml
 $DOTFILES/alacritty/kanagawa.yml=$HOME/.config/alacritty/kanagawa.yml
 $DOTFILES/alacritty/nordfox.yml=$HOME/.config/alacritty/nordfox.yml
 $DOTFILES/alacritty/tokyonight.yml=$HOME/.config/alacritty/tokyonight.yml
-$DOTFILES/alacritty/catppuccin=$HOME/.config/alacritty/catppuccin
