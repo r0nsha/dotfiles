@@ -51,11 +51,19 @@ install_rustup () {
   curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable
 }
 
-# setup_tmux () {
-#
-# }
+install_tmux () {
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+  cargo install tmux-sessionizer
+}
+
+install_n () {
+  curl -fsSL https://raw.githubusercontent.com/tj/n/master/bin/n | bash -s lts
+  npm install -g n
+}
 
 # install_deps
 # install_wrapper nvim install_nvim
 # install_wrapper starship install_starship
 # install_wrapper rustup install_rustup
+# install_wrapper tmux install_tmux
+install_wrapper n install_n
