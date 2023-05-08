@@ -73,7 +73,8 @@ install_tmux () {
 }
 
 install_n () {
-  sudo -v
+  export N_PREFIX=$HOME/.n
+  export PATH=$N_PREFIX/bin:$PATH
   curl -fsSL https://raw.githubusercontent.com/tj/n/master/bin/n | bash -s lts
   npm install -g n
 }
