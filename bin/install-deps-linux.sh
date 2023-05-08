@@ -13,10 +13,10 @@ install_deps () {
 
   install () {
     info "installing $1"
-    sudo apt install $1
+    sudo apt -y -qq install $1
   }
 
-  sudo apt update
+  sudo apt -y -qq update
 
   while read dep
   do
