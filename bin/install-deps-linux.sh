@@ -27,9 +27,9 @@ install_deps () {
 }
 
 install_nvim () {
-  if command -v nvim &> /dev/null
+  if ! command -v nvim &> /dev/null
   then
-    info "downloading neovim"
+    info "installing neovim"
     mkdir -p $DOWNLOADS
     curl -sL https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz | tar -xz -C $DOWNLOADS
     ln -sf $DOWNLOADS/nvim-linux64/bin/nvim $HOME/.local/bin/nvim
@@ -39,5 +39,21 @@ install_nvim () {
   fi
 }
 
+install_starship () {
+  if ! command -v nvim &> /dev/null
+  then
+    info "installing starship"
+    curl -sS https://starship.rs/install.sh | sh
+    success "installed starship"
+  else
+    success "starship is already installed, skipping"
+  fi
+}
+
+# setup_tmux () {
+#
+# }
+
 install_deps
 install_nvim
+install_starship
