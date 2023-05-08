@@ -4,9 +4,9 @@ return {
 		event = "VeryLazy",
 		keys = {
 			{ "<C-\\>", "<cmd>1ToggleTerm direction=float<cr>", mode = { "n", "t" } },
-			{ ",1",     "<cmd>1ToggleTerm direction=float<cr>", mode = "n" },
+			{ ",1", "<cmd>1ToggleTerm direction=float<cr>", mode = "n" },
 			{ "<A-\\>", "<cmd>2ToggleTerm direction=float<cr>", mode = { "n", "t" } },
-			{ ",2",     "<cmd>2ToggleTerm direction=float<cr>", mode = "n" },
+			{ ",2", "<cmd>2ToggleTerm direction=float<cr>", mode = "n" },
 		},
 		config = function()
 			require("toggleterm").setup({

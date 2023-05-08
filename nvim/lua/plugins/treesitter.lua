@@ -27,7 +27,7 @@ return {
 					"yaml",
 					"regex",
 					"bash",
-					"fish"
+					"fish",
 				},
 				matchup = {
 					enable = true,

@@ -121,4 +121,15 @@ return {
 			end
 		end,
 	},
+	{
+		"catppuccin/nvim",
+		name = "catppuccin",
+		config = function()
+			require("catppuccin").setup({})
+
+			if colorscheme == "catppuccin" then
+				vim.cmd([[colorscheme catppuccin]])
+			end
+		end,
+	},
 }

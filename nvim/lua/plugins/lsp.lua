@@ -1,7 +1,7 @@
 return {
 	-- Flutter tools
 	{ "akinsho/flutter-tools.nvim", event = "VeryLazy" },
-	{ "reisub0/hot-reload.vim",     event = "VeryLazy" },
+	{ "reisub0/hot-reload.vim", event = "VeryLazy" },
 
 	-- Lsp
 	{

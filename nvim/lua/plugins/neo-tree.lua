@@ -8,7 +8,7 @@ return {
 			"MunifTanjim/nui.nvim",
 		},
 		keys = {
-			{ "<leader>e", "<cmd>Neotree toggle<cr>",            desc = "NeoTree" },
+			{ "<leader>e", "<cmd>Neotree toggle<cr>", desc = "NeoTree" },
 			{ "<leader>o", "<cmd>Neotree filesystem reveal<cr>", desc = "NeoTree" },
 		},
 		config = function()

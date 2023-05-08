@@ -3,7 +3,7 @@ return {
 		"nvim-neotest/neotest",
 		event = "VeryLazy",
 		dependencies = {
-			{ "nvim-neotest/neotest-python",  event = "VeryLazy" },
+			{ "nvim-neotest/neotest-python", event = "VeryLazy" },
 			{ "nvim-neotest/neotest-plenary", event = "VeryLazy" },
 		},
 		config = function()
