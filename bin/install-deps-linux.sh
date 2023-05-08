@@ -37,6 +37,7 @@ install_deps () {
     exa
     ripgrep
     gh
+    fzf
   )
 
   for dep in ${deps[@]}
