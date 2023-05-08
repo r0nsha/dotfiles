@@ -62,6 +62,7 @@ install_n () {
 }
 
 install_deps
+echo ""
 install_wrapper nvim install_nvim
 install_wrapper starship install_starship
 install_wrapper rustup install_rustup
