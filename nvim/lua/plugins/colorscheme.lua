@@ -1,17 +1,19 @@
+local colorscheme = "kanagawa"
+
 return {
 	{
 		"ellisonleao/gruvbox.nvim",
 		priority = 1000,
-		enabled = false,
 		config = function()
 			require("gruvbox").setup({ contrast = "dark", italics = false })
-			vim.cmd([[colorscheme gruvbox]])
+			if colorscheme == "gruvbox" then
+				vim.cmd([[colorscheme gruvbox]])
+			end
 		end,
 	},
 	{
 		"Shatur/neovim-ayu",
 		priority = 1000,
-		enabled = false,
 		config = function()
 			local mirage = false
 			local colors = require("ayu.colors")
@@ -26,22 +28,25 @@ return {
 				end,
 			})
 
-			ayu.colorscheme()
+			if colorscheme == "ayu" then
+				ayu.colorscheme()
+			end
 		end,
 	},
 	{
 		"EdenEast/nightfox.nvim",
 		priority = 1000,
-		enabled = false,
 		config = function()
 			require("nightfox").setup()
-			vim.cmd([[colorscheme nordfox]])
+
+			if colorscheme == "nightfox" then
+				vim.cmd([[colorscheme nordfox]])
+			end
 		end,
 	},
 	{
 		"folke/tokyonight.nvim",
 		priority = 1000,
-		enabled = false,
 		config = function()
 			require("tokyonight").setup({
 				style = "storm",
@@ -50,13 +55,15 @@ return {
 					keywords = { italic = false },
 				},
 			})
-			vim.cmd([[colorscheme tokyonight]])
+
+			if colorscheme == "tokyonight" then
+				vim.cmd([[colorscheme tokyonight]])
+			end
 		end,
 	},
 	{
 		"rebelot/kanagawa.nvim",
 		priority = 1000,
-		enabled = true,
 		config = function()
 			require("kanagawa").setup({
 				compile = false,
@@ -109,7 +116,9 @@ return {
 				},
 			})
 
-			vim.cmd([[colorscheme kanagawa]])
+			if colorscheme == "kanagawa" then
+				vim.cmd([[colorscheme kanagawa]])
+			end
 		end,
 	},
 }
