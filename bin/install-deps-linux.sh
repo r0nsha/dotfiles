@@ -8,6 +8,17 @@ success () {
 
 DOWNLOADS=$HOME/downloads
 
+install_wrapper () {
+  if ! command -v $1 &> /dev/null
+  then
+    info "installing $1"
+    $2
+    success "installed $1"
+  else
+    success "$1 is already installed, skipping"
+  fi
+}
+
 install_deps () {
   info "root access is needed to install dependencies"
 
@@ -24,17 +35,6 @@ install_deps () {
   done <$DOTFILES/bin/deps
 
   unset install
-}
-
-install_wrapper () {
-  if ! command -v $1 &> /dev/null
-  then
-    info "installing $1"
-    $2
-    success "installed $1"
-  else
-    success "$1 is already installed, skipping"
-  fi
 }
 
 install_nvim () {
