@@ -150,21 +150,6 @@ create_env_file () {
     fi
 }
 
-macos_defaults () {
-    if [ $(os) == Darwin ]
-    then
-        osx_defaults_file="$HOME/.osx_defaults"
-        if test -f "$osx_defaults_file"
-        then
-            success "$osx_defaults_file file already exists, MacOS defaults have already been set, skipping"
-        else
-            source $DOTFILES/bin/macos.sh
-            touch $osx_defaults_file
-            success "set sensible MacOS defaults"
-        fi
-    fi
-}
-
 install_deps () {
     case $(os) in
         Linux )
@@ -194,7 +179,6 @@ default_shell () {
 
 install_dotfiles
 create_env_file
-macos_defaults
 install_deps
 default_shell
 
