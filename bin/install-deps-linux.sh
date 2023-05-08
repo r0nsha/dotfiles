@@ -39,5 +39,5 @@ install_nvim () {
   fi
 }
 
-# install_deps
+install_deps
 install_nvim
