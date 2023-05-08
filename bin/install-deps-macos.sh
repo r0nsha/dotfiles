@@ -32,12 +32,20 @@ install_deps () {
     brew install -q $1
   }
 
-  while read dep
+  deps=(
+    fish
+    tmux
+    zoxide
+    fd-find
+    exa
+    ripgrep
+    gh
+  )
+
+  for dep in ${deps[@]}
   do
     install $dep
-  done <$DOTFILES/bin/deps
-
-  unset install
+  done
 }
 
 

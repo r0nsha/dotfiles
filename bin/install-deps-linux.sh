@@ -29,12 +29,20 @@ install_deps () {
 
   sudo apt -y -qq update
 
-  while read dep
+  deps=(
+    fish
+    tmux
+    zoxide
+    fd
+    exa
+    ripgrep
+    gh
+  )
+
+  for dep in ${deps[@]}
   do
     install $dep
-  done <$DOTFILES/bin/deps
-
-  unset install
+  done
 }
 
 install_nvim () {
