@@ -26,34 +26,31 @@ install_deps () {
   unset install
 }
 
-install_nvim () {
-  if ! command -v nvim &> /dev/null
+install_wrapper () {
+  if command -v $1 &> /dev/null
   then
-    info "installing neovim"
-    mkdir -p $DOWNLOADS
-    curl -sL https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz | tar -xz -C $DOWNLOADS
-    ln -sf $DOWNLOADS/nvim-linux64/bin/nvim $HOME/.local/bin/nvim
-    success "installed neovim"
+    info "installing $1"
+    $2
+    success "installed $1"
   else
-    success "neovim is already installed, skipping"
+    success "$1 is already installed, skipping"
   fi
 }
 
+install_nvim () {
+  mkdir -p $DOWNLOADS
+  curl -sL https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz | tar -xz -C $DOWNLOADS
+  ln -sf $DOWNLOADS/nvim-linux64/bin/nvim $HOME/.local/bin/nvim
+}
+
 install_starship () {
-  if ! command -v nvim &> /dev/null
-  then
-    info "installing starship"
-    curl -sS https://starship.rs/install.sh | sh
-    success "installed starship"
-  else
-    success "starship is already installed, skipping"
-  fi
+  curl -sS https://starship.rs/install.sh | sh
 }
 
 # setup_tmux () {
 #
 # }
 
-install_deps
-install_nvim
-install_starship
+# install_deps
+install_wrapper nvim install_nvim
+install_wrapper starship install_starship
