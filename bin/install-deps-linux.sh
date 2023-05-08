@@ -27,7 +27,7 @@ install_deps () {
 }
 
 install_wrapper () {
-  if  command -v $1 &> /dev/null
+  if ! command -v $1 &> /dev/null
   then
     info "installing $1"
     $2
@@ -61,9 +61,9 @@ install_n () {
   npm install -g n
 }
 
-# install_deps
-# install_wrapper nvim install_nvim
-# install_wrapper starship install_starship
-# install_wrapper rustup install_rustup
-# install_wrapper tmux install_tmux
+install_deps
+install_wrapper nvim install_nvim
+install_wrapper starship install_starship
+install_wrapper rustup install_rustup
+install_wrapper tmux install_tmux
 install_wrapper n install_n
