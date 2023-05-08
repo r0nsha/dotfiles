@@ -33,7 +33,7 @@ install_deps () {
     fish
     tmux
     zoxide
-    fd
+    fd-find
     exa
     ripgrep
     gh
