@@ -1,2 +1,4 @@
-search_paths = ['~/dotfiles', '~/dev']
-default_session = 'main'
+search_paths = [
+    '~/dotfiles',
+    '~/dev',
+]
