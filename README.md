@@ -8,6 +8,10 @@ cd <this-repo>
 ./bin/bootstrap.sh
 ```
 
+## MacOS Defaults
+
+If you're on MacOS and want some sensible defaults, you can run `./bin/.macos`.
+
 ## Local Fish Config
 
 If there's customization you want Fish to load on startup that is specific to 
@@ -16,7 +20,7 @@ and put it all in there. It will be loaded at the top of `fish/config.fish`.
 
 ## Font
 
-The config assumes that you have [Iosevka Nerd Font](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.0/Iosevka.zip) installed on this machine.
+The config assumes that you have [Iosevka Nerd Font](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.0/Iosevka.zip) installed on your machine.
 
 ## References
 
