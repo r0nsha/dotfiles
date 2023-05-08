@@ -168,9 +168,9 @@ macos_defaults () {
 install_deps () {
     case $(os) in
         Linux )
-        source ./install-deps-linux.sh;;
+        source $DOTFILES/bin/install-deps-linux.sh;;
         Darwin )
-        source ./install-deps-macos.sh;;
+        source $DOTFILES/bin/install-deps-macos.sh;;
         * )
         ;;
     esac
