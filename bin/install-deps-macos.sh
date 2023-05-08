@@ -73,6 +73,7 @@ install_tmux () {
 }
 
 install_n () {
+  sudo -v
   curl -fsSL https://raw.githubusercontent.com/tj/n/master/bin/n | bash -s lts
   npm install -g n
 }
