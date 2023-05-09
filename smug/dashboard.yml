@@ -1,0 +1,17 @@
+session: dashboard
+
+root: ~
+
+windows:
+  - name: term
+    layout: main-vertical
+    panes:
+      - type: vertical
+        root: .
+        commands:
+          - tmux clock-mode
+
+      - type: horizontal
+        root: .
+        commands:
+          - btm

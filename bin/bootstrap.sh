@@ -177,6 +177,7 @@ default_shell () {
   fi
 }
 
+init_git_submodules
 install_dotfiles
 create_env_file
 install_deps

@@ -38,6 +38,7 @@ return {
           null_ls.setup {
             sources = {
               null_ls.builtins.formatting.stylua,
+              null_ls.builtins.formatting.yamlfmt,
               null_ls.builtins.formatting.rome.with {
                 condition = function()
                   -- Disable Rome on my day job's MacOS
