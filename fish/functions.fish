@@ -14,16 +14,6 @@ function binary_exists
     end
 end
 
-function ensure_tools
-    for tool in zoxide exa fd rg gh
-        if not command -v -q $tool
-            warn "missing tool: $tool"
-        end
-    end
-    # TODO: install tools if not already installed
-    # https://remarkablemark.org/blog/2020/10/31/bash-check-mac/
-end
-
 function tmux_dashboard
     tmux new-session -d -s dashboard
     tmux send-keys -t dashboard:1.1 "tmux split-window -h -l 35%" enter
