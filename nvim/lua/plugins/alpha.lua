@@ -216,7 +216,10 @@ return {
       }
 
       require("alpha").setup(config)
-      vim.cmd [[Alpha]]
+
+      vim.schedule(function()
+        vim.cmd [[Alpha]]
+      end)
     end,
   },
 }
