@@ -72,10 +72,10 @@ install_n () {
   npm install -g n
 }
 
-install_smug () {
-  curl -sL https://github.com/ivaaaan/smug/releases/download/v0.3.3/smug_0.3.3_Linux_x86_64.tar.gz | tar -xz -C $DOWNLOADS
-  sudo mv $DOWNLOADS/smug /usr/local/bin
-}
+# install_smug () {
+#   curl -sL https://github.com/ivaaaan/smug/releases/download/v0.3.3/smug_0.3.3_Linux_x86_64.tar.gz | tar -xz -C $DOWNLOADS
+#   sudo mv $DOWNLOADS/smug /usr/local/bin
+# }
 
 install_deps
 echo ""
@@ -84,4 +84,4 @@ install_wrapper starship install_starship
 install_wrapper rustup install_rustup
 install_wrapper tmux install_tmux
 install_wrapper n install_n
-install_wrapper smug install_smug
+# install_wrapper smug install_smug

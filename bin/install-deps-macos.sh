@@ -41,7 +41,7 @@ install_deps () {
     ripgrep
     gh
     fzf
-    smug
+    # smug
   )
 
   for dep in ${deps[@]}
