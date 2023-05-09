@@ -16,8 +16,9 @@ end
 
 function tmux_dashboard
     tmux new-session -d -s dashboard
-    tmux send-keys -t dashboard:1.1 "tmux split-window -h -l 35%" enter
+    tmux send-keys -t dashboard:1.1 "tmux split-window -h -l 65%" enter
     tmux send-keys -t dashboard:1.1 "tmux clock-mode" enter
-    tmux send-keys -t dashboard:1.1 "tmux split-window -v -l 65%" enter
+    tmux send-keys -t dashboard:1.1 "tmux split-window -v -l 35%" enter
     tmux send-keys -t dashboard:1.1 "btm" enter
+    tmux switch-client -t dashboard
 end
