@@ -18,11 +18,11 @@ vim.keymap.set("n", "<c-v>", "<Nop>", opts)
 vim.keymap.set("n", "<leader>y", 'ggVG"+y', opts)
 
 -- Window mappings when tmux is not available
-if vim.fn.executable("tmux") ~= 1 then
-	vim.keymap.set("n", "<c-h>", "<c-w>h", opts)
-	vim.keymap.set("n", "<c-j>", "<c-w>j", opts)
-	vim.keymap.set("n", "<c-k>", "<c-w>k", opts)
-	vim.keymap.set("n", "<c-l>", "<c-w>l", opts)
+if vim.fn.executable "tmux" ~= 1 then
+  vim.keymap.set("n", "<c-h>", "<c-w>h", opts)
+  vim.keymap.set("n", "<c-j>", "<c-w>j", opts)
+  vim.keymap.set("n", "<c-k>", "<c-w>k", opts)
+  vim.keymap.set("n", "<c-l>", "<c-w>l", opts)
 end
 
 -- Cancel highlight
