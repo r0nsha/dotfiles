@@ -1,11 +1,11 @@
 return {
-  -- {
-  -- 	"windwp/nvim-autopairs",
-  -- 	event = "VeryLazy",
-  -- 	config = function()
-  -- 		require("nvim-autopairs").setup()
-  -- 	end,
-  -- },
+  {
+    "windwp/nvim-autopairs",
+    event = "VeryLazy",
+    config = function()
+      require("nvim-autopairs").setup()
+    end,
+  },
   {
     "windwp/nvim-ts-autotag",
     event = "InsertEnter",

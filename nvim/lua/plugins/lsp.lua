@@ -1,7 +1,7 @@
 return {
   -- Flutter tools
   { "akinsho/flutter-tools.nvim", event = "VeryLazy" },
-  { "reisub0/hot-reload.vim", event = "VeryLazy" },
+  { "reisub0/hot-reload.vim",     event = "VeryLazy" },
 
   -- Lsp
   {
@@ -32,12 +32,20 @@ return {
         "jose-elias-alvarez/null-ls.nvim",
         event = { "BufReadPre", "BufNewFile" },
         config = function()
+          local utils = require "utils"
           local null_ls = require "null-ls"
+
           null_ls.setup {
             sources = {
               null_ls.builtins.formatting.stylua,
-              null_ls.builtins.formatting.rome,
-              null_ls.builtins.formatting.prettierd.with {
+              null_ls.builtins.formatting.rome.with {
+                condition = function()
+                  -- Disable Rome on my day job's MacOS
+                  return not utils.is_macos()
+                end,
+              },
+              -- Use prettierd for everything on my day job's MacOS
+              null_ls.builtins.formatting.prettierd.with(utils.is_macos() and {} or {
                 filetypes = {
                   -- NOTE: Remove js/ts/json formatting because rome handles those
                   -- "javascript",
@@ -57,7 +65,7 @@ return {
                   "graphql",
                   "handlebars",
                 },
-              },
+              }),
             },
           }
         end,
@@ -137,7 +145,7 @@ return {
 
       lsp.skip_server_setup {
         "rust_analyzer", -- We setup rust_analyzer via rust-tools
-        "rome", -- FIXME: Rome makes things slow af
+        "rome",          -- FIXME: Rome makes things slow af
       }
 
       lsp.on_attach(function(client, buffer)
@@ -320,7 +328,7 @@ return {
           { name = "luasnip" },
           { name = "git" },
           { name = "path" },
-          { name = "buffer", keyword_length = 5 },
+          { name = "buffer",  keyword_length = 5 },
           -- { name = "cmdline" },
         },
         window = {
