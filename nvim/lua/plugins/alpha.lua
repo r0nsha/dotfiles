@@ -186,12 +186,12 @@ return {
         val = function()
           local lazy_stats = require("lazy").stats()
           return "󱐋 loaded "
-            .. lazy_stats.loaded
-            .. "/"
-            .. lazy_stats.count
-            .. " plugins in "
-            .. string.format("%.2f", lazy_stats.startuptime)
-            .. "ms"
+              .. lazy_stats.loaded
+              .. "/"
+              .. lazy_stats.count
+              .. " plugins in "
+              .. string.format("%.2f", lazy_stats.startuptime)
+              .. "ms"
         end,
         opts = {
           position = "center",
@@ -216,6 +216,7 @@ return {
       }
 
       require("alpha").setup(config)
+      vim.cmd [[Alpha]]
     end,
   },
 }
