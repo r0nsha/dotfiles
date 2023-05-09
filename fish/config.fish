@@ -29,14 +29,6 @@ fish_add_path $HOME/.local/bin
 # Node stuff
 set -Ux NVM_DIR "$HOME/.nvm"
 
-source_if_exists $DOTFILES/fish/aliases.fish
-source_if_exists $DOTFILES/fish/kanagawa-theme.fish
-
-# Optional local config
-source_if_exists $HOME/local.config.fish
-
-ensure_tools
-
 # Completions
 if binary_exists gh
     gh completion -s fish | source
@@ -50,3 +42,9 @@ end
 if binary_exists starship
     source (starship init fish --print-full-init | psub)
 end
+
+source_if_exists $DOTFILES/fish/aliases.fish
+source_if_exists $DOTFILES/fish/kanagawa-theme.fish
+
+# Optional local config
+source_if_exists $HOME/local.config.fish

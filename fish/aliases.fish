@@ -1,4 +1,7 @@
 # ALIASES ---------------------------------------------------------------------
+alias s='source $DOTFILES/fish/config.fish'
+alias tmuxs='tmux source $DOTFILES/tmux/tmux.conf'
+
 alias d=docker
 alias dc=docker-compose
 alias dkill="pgrep \"Docker\" | xargs kill -9"
@@ -13,7 +16,6 @@ alias l='exa -lah'
 alias ls=exa
 alias sl=exa
 alias c='clear'
-alias s='source $DOTFILES/fish/config.fish'
 alias jj='pbpaste | jsonpp | pbcopy'
 alias trim="awk '{\$1=\$1;print}'"
 
