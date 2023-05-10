@@ -6,9 +6,9 @@ alias d=docker
 alias dc=docker-compose
 alias dkill="pgrep \"Docker\" | xargs kill -9"
 
-alias v='nvim -w ~/.vimlog "$argv"'
-alias vi='nvim -w ~/.vimlog "$argv"'
-alias vim='nvim -w ~/.vimlog "$argv"'
+alias v='nvim'
+alias vi='nvim'
+alias vim='nvim'
 
 alias ta='tmux attach -t'
 
