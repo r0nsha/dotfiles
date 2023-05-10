@@ -3,6 +3,7 @@ return {
   {
     "VonHeikemen/lsp-zero.nvim",
     lazy = true,
+    command = { "LspZeroSetupServers" },
     config = function()
       require("lsp-zero.settings").preset {}
     end,
@@ -16,6 +17,7 @@ return {
       "williamboman/mason-lspconfig.nvim",
       {
         "williamboman/mason.nvim",
+        command = { "Mason", "MasonUpdate" },
         build = function()
           vim.cmd [[MasonUpdate]]
         end,
@@ -52,7 +54,7 @@ return {
 
       lsp.skip_server_setup {
         "rust_analyzer", -- Replaced by rust-tools
-        "rome",          -- Rome's lsp makes things slow af
+        "rome", -- Rome's lsp makes things slow af
       }
 
       lsp.on_attach(function(client, buffer)
