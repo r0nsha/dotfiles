@@ -185,6 +185,7 @@ return {
         type = "text",
         val = function()
           local lazy_stats = require("lazy").stats()
+
           return "󱐋 loaded "
               .. lazy_stats.loaded
               .. "/"
