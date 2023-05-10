@@ -187,12 +187,12 @@ return {
           local lazy_stats = require("lazy").stats()
 
           return "󱐋 loaded "
-              .. lazy_stats.loaded
-              .. "/"
-              .. lazy_stats.count
-              .. " plugins in "
-              .. string.format("%.2f", lazy_stats.startuptime)
-              .. "ms"
+            .. lazy_stats.loaded
+            .. "/"
+            .. lazy_stats.count
+            .. " plugins in "
+            .. string.format("%.2f", lazy_stats.startuptime)
+            .. "ms"
         end,
         opts = {
           position = "center",
@@ -215,6 +215,13 @@ return {
           margin = 5,
         },
       }
+
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "LazyVimStarted",
+        callback = function()
+          vim.cmd [[AlphaRedraw]]
+        end,
+      })
 
       require("alpha").setup(config)
     end,
