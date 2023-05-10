@@ -19,6 +19,8 @@ alias c='clear'
 alias jj='pbpaste | jsonpp | pbcopy'
 alias trim="awk '{\$1=\$1;print}'"
 
+alias rmvswap='rm -rf ~/.local/share/nvim/swap'
+
 # GIT ALIASES -----------------------------------------------------------------
 alias gc='git commit'
 alias gco='git checkout'
