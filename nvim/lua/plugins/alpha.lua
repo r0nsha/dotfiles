@@ -153,7 +153,7 @@ return {
         }
       end
 
-      local main_group = {
+      local buttons = {
         type = "group",
         val = {
           button("e", "󰈔  New", "<cmd>ene <bar> startinsert <cr>", {}),
@@ -164,17 +164,7 @@ return {
             {}
           ),
           button("r", "󰋚  Recents", "<cmd>lua require'telescope.builtin'.oldfiles{}<cr>", {}),
-        },
-        opts = {
-          spacing = 1,
-        },
-      }
-
-      local tools_group = {
-        type = "group",
-        val = {
           button("L", "󰚥  Lazy", "<cmd>Lazy<cr>", {}),
-          button("M", "󱊈  Mason", "<cmd>Mason<cr>", {}),
         },
         opts = {
           spacing = 1,
@@ -205,9 +195,7 @@ return {
           { type = "padding", val = math.max(7, math.floor(#chosen_header * 0.6)) },
           header,
           { type = "padding", val = math.floor(#chosen_header * 0.4) },
-          main_group,
-          { type = "padding", val = 1 },
-          tools_group,
+          buttons,
           { type = "padding", val = 4 },
           footer,
         },

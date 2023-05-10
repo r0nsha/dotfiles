@@ -17,7 +17,6 @@ return {
       "williamboman/mason-lspconfig.nvim",
       {
         "williamboman/mason.nvim",
-        command = { "Mason", "MasonUpdate" },
         build = function()
           vim.cmd [[MasonUpdate]]
         end,
