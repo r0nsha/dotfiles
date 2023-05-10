@@ -11,9 +11,6 @@ vim.keymap.set({ "n", "i", "v" }, "<Down>", "<Nop>", opts)
 vim.keymap.set({ "n", "i", "v" }, "<Left>", "<Nop>", opts)
 vim.keymap.set({ "n", "i", "v" }, "<Right>", "<Nop>", opts)
 
--- Unmap visual block in favor of <c-q>
-vim.keymap.set("n", "<c-v>", "<Nop>", opts)
-
 -- Yank entire buffer
 vim.keymap.set("n", "<leader>y", 'ggVG"+y', opts)
 
