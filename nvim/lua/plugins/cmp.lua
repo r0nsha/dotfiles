@@ -2,16 +2,14 @@ return {
 
   {
     "hrsh7th/nvim-cmp",
+    event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
       {
         "L3MON4D3/LuaSnip",
-        event = "InsertCharPre",
         build = "make install_jsregexp",
         dependencies = {
           {
             "rafamadriz/friendly-snippets",
-            event = "InsertCharPre",
             config = function()
               local loader = require "luasnip.loaders.from_vscode"
               loader.lazy_load()

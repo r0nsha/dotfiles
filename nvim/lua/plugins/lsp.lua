@@ -1,112 +1,25 @@
 return {
-
   -- Lsp
   {
     "VonHeikemen/lsp-zero.nvim",
-    branch = "v2.x",
+    lazy = true,
+    config = function()
+      require("lsp-zero.settings").preset {}
+    end,
+  },
+  {
+    "neovim/nvim-lspconfig",
+    cmd = "LspInfo",
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      -- Lsp
-      "neovim/nvim-lspconfig",
+      "hrsh7th/cmp-nvim-lsp",
       "williamboman/mason-lspconfig.nvim",
-      {
-        "j-hui/fidget.nvim",
-        event = "BufRead",
-        config = function()
-          require("fidget").setup {}
-        end,
-      },
-      {
-        "simrat39/rust-tools.nvim",
-        config = function()
-          local rust_tools = require "rust-tools"
-
-          rust_tools.setup {
-            -- server = {
-            -- 	on_attach = function(_, buffer)
-            -- 		vim.keymap.set("n", "<leader>ca", rust_tools.hover_actions.hover_actions, { remap = false, buffer = buffer })
-            -- 		vim.keymap.set("n", "ga", rust_tools.code_action_group.code_action_group, { remap = true, buffer = buffer })
-            -- 	end
-            -- },
-            settings = {
-              ["rust_analyzer"] = {
-                imports = {
-                  granularity = {
-                    group = "module",
-                  },
-                  prefix = "self",
-                },
-                assist = {
-                  importEnforceGranularity = true,
-                  importPrefix = "crate",
-                },
-                cargo = {
-                  allFeatures = true,
-                  buildScripts = {
-                    enable = true,
-                  },
-                },
-                checkOnSave = {
-                  command = "clippy",
-                },
-                procMacro = {
-                  enable = true,
-                },
-              },
-            },
-          }
-        end,
-      },
       {
         "williamboman/mason.nvim",
         build = function()
           vim.cmd [[MasonUpdate]]
         end,
-        config = function()
-          require("mason").setup()
-        end,
-      },
-      {
-        "jose-elias-alvarez/null-ls.nvim",
-        event = { "BufReadPre", "BufNewFile" },
-        config = function()
-          local utils = require "utils"
-          local null_ls = require "null-ls"
-
-          null_ls.setup {
-            sources = {
-              null_ls.builtins.formatting.stylua,
-              null_ls.builtins.formatting.yamlfmt,
-              null_ls.builtins.formatting.rome.with {
-                condition = function()
-                  -- Disable Rome on my day job's MacOS
-                  return not utils.is_macos()
-                end,
-              },
-              -- Use prettierd for everything on my day job's MacOS
-              null_ls.builtins.formatting.prettierd.with(utils.is_macos() and {} or {
-                filetypes = {
-                  -- NOTE: Remove js/ts/json formatting because rome handles those
-                  -- "javascript",
-                  -- "javascriptreact",
-                  -- "typescript",
-                  -- "typescriptreact",
-                  -- "json",
-                  -- "jsonc",
-                  -- "yaml",
-                  "vue",
-                  "css",
-                  "scss",
-                  "less",
-                  "html",
-                  "markdown",
-                  "markdown.mdx",
-                  "graphql",
-                  "handlebars",
-                },
-              }),
-            },
-          }
-        end,
+        config = true,
       },
       {
         "SmiteshP/nvim-navic",
@@ -244,11 +157,94 @@ return {
       }
     end,
   },
+  {
+    "jose-elias-alvarez/null-ls.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      local utils = require "utils"
+      local null_ls = require "null-ls"
 
-  -- Flutter tools
+      null_ls.setup {
+        sources = {
+          null_ls.builtins.formatting.stylua,
+          null_ls.builtins.formatting.yamlfmt,
+          null_ls.builtins.formatting.rome.with {
+            condition = function()
+              -- Disable Rome on my day job's MacOS
+              return not utils.is_macos()
+            end,
+          },
+          -- Use prettierd for everything on my day job's MacOS
+          null_ls.builtins.formatting.prettierd.with(utils.is_macos() and {} or {
+            filetypes = {
+              -- NOTE: Remove js/ts/json formatting because rome handles those
+              -- "javascript",
+              -- "javascriptreact",
+              -- "typescript",
+              -- "typescriptreact",
+              -- "json",
+              -- "jsonc",
+              -- "yaml",
+              "vue",
+              "css",
+              "scss",
+              "less",
+              "html",
+              "markdown",
+              "markdown.mdx",
+              "graphql",
+              "handlebars",
+            },
+          }),
+        },
+      }
+    end,
+  },
+  {
+    "simrat39/rust-tools.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      local rust_tools = require "rust-tools"
+
+      rust_tools.setup {
+        -- server = {
+        -- 	on_attach = function(_, buffer)
+        -- 		vim.keymap.set("n", "<leader>ca", rust_tools.hover_actions.hover_actions, { remap = false, buffer = buffer })
+        -- 		vim.keymap.set("n", "ga", rust_tools.code_action_group.code_action_group, { remap = true, buffer = buffer })
+        -- 	end
+        -- },
+        settings = {
+          ["rust_analyzer"] = {
+            imports = {
+              granularity = {
+                group = "module",
+              },
+              prefix = "self",
+            },
+            assist = {
+              importEnforceGranularity = true,
+              importPrefix = "crate",
+            },
+            cargo = {
+              allFeatures = true,
+              buildScripts = {
+                enable = true,
+              },
+            },
+            checkOnSave = {
+              command = "clippy",
+            },
+            procMacro = {
+              enable = true,
+            },
+          },
+        },
+      }
+    end,
+  },
   {
     "akinsho/flutter-tools.nvim",
-    event = "VeryLazy",
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = { "reisub0/hot-reload.vim" },
     config = function()
       local lsp = require "lsp-zero"
@@ -259,6 +255,13 @@ return {
           capabilities = dart_lsp.capabilities,
         },
       }
+    end,
+  },
+  {
+    "j-hui/fidget.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      require("fidget").setup {}
     end,
   },
 }
