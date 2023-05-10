@@ -51,8 +51,8 @@ return {
       }
 
       lsp.skip_server_setup {
-        "rust_analyzer", -- We setup rust_analyzer via rust-tools
-        "rome",          -- FIXME: Rome makes things slow af
+        "rust_analyzer", -- Replaced by rust-tools
+        "rome",          -- Rome's lsp makes things slow af
       }
 
       lsp.on_attach(function(client, buffer)

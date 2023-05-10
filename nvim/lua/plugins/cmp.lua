@@ -44,8 +44,10 @@ return {
 
       luasnip.filetype_extend("all", { "_" })
 
+      require("lsp-zero.cmp").extend()
+
       local cmp = require "cmp"
-      local cmp_action = require("lsp-zero").cmp_action()
+      local cmp_action = require("lsp-zero.cmp").action()
 
       cmp.setup {
         completion = {
@@ -59,6 +61,8 @@ return {
         mapping = cmp.mapping.preset.insert {
           ["<C-,>"] = cmp.mapping.complete(),
           ["<C-Space>"] = cmp.mapping.complete(),
+          ["C-n"] = cmp_action.luasnip_jump_forward(),
+          ["C-p"] = cmp_action.luasnip_jump_backward(),
           ["<Tab>"] = cmp_action.luasnip_supertab(),
           ["<S-Tab>"] = cmp_action.luasnip_shift_supertab(),
           ["<cr>"] = cmp.mapping.confirm { select = true },
@@ -72,7 +76,7 @@ return {
           { name = "luasnip" },
           { name = "git" },
           { name = "path" },
-          { name = "buffer",  keyword_length = 5 },
+          { name = "buffer", keyword_length = 3 },
           -- { name = "cmdline" },
         },
         window = {
