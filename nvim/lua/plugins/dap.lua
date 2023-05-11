@@ -13,8 +13,6 @@ return {
       { "jbyuki/one-small-step-for-vimkind" },
     },
     config = function()
-      local wk = require "which-key"
-
       require("nvim-dap-virtual-text").setup {
         commented = true,
       }
@@ -70,156 +68,55 @@ return {
         python = { "./venv/bin/python" },
       })
 
-      -- Debug: Mappings
-      wk.register({
-        d = {
-          name = "Debug",
-          R = {
-            function()
-              dap.run_to_cursor()
-            end,
-            "Run to Cursor",
-          },
-          E = {
-            function()
-              dapui.eval(vim.fn.input "[Expression] > ")
-            end,
-            "Evaluate Input",
-          },
-          C = {
-            function()
-              dap.set_breakpoint(vim.fn.input "[Condition] > ")
-            end,
-            "Conditional Breakpoint",
-          },
-          U = {
-            function()
-              dapui.toggle()
-            end,
-            "Toggle UI",
-          },
-          b = {
-            function()
-              dap.step_back()
-            end,
-            "Step Back",
-          },
-          c = {
-            function()
-              dap.continue()
-            end,
-            "Continue",
-          },
-          d = {
-            function()
-              dap.disconnect()
-            end,
-            "Disconnect",
-          },
-          e = {
-            function()
-              dapui.eval()
-            end,
-            "Evaluate",
-          },
-          g = {
-            function()
-              dap.session()
-            end,
-            "Get Session",
-          },
-          h = {
-            function()
-              require("dap.ui.widgets").hover()
-            end,
-            "Hover Variables",
-          },
-          S = {
-            function()
-              require("dap.ui.widgets").scopes()
-            end,
-            "Scopes",
-          },
-          i = {
-            function()
-              dap.step_into()
-            end,
-            "Step Into",
-          },
-          o = {
-            function()
-              dap.step_over()
-            end,
-            "Step Over",
-          },
-          p = {
-            function()
-              dap.pause.toggle()
-            end,
-            "Pause",
-          },
-          q = {
-            function()
-              dap.close()
-            end,
-            "Quit",
-          },
-          r = {
-            function()
-              dap.repl.toggle()
-            end,
-            "Toggle Repl",
-          },
-          s = {
-            function()
-              dap.continue()
-            end,
-            "Start",
-          },
-          t = {
-            function()
-              dap.toggle_breakpoint()
-            end,
-            "Toggle Breakpoint",
-          },
-          x = {
-            function()
-              dap.terminate()
-            end,
-            "Terminate",
-          },
-          u = {
-            function()
-              dap.step_out()
-            end,
-            "Step Out",
-          },
-        },
-      }, {
-        mode = "n",
-        prefix = "<leader>",
-        buffer = nil,
-        silent = true,
-        remap = false,
-        nowait = false,
-      })
+      local function key(k)
+        return "<leader>d" .. k
+      end
 
-      wk.register({
-        name = "Debug",
-        e = {
-          function()
-            dapui.eval()
-          end,
-          "Evaluate",
-        },
-      }, {
-        mode = "v",
-        prefix = "<leader>",
-        buffer = nil,
-        silent = true,
-        remap = false,
-        nowait = false,
-      })
+      local function opts(name)
+        return {
+          remap = false,
+          desc = "Debug: " .. name,
+        }
+      end
+
+      vim.keymap.set("n", key "s", dap.continue, opts "Start")
+      vim.keymap.set("n", key "d", dap.disconnect, opts "Disconnect")
+
+      vim.keymap.set("n", key "U", dapui.toggle, opts "Toggle UI")
+      vim.keymap.set({ "n", "v" }, key "e", dapui.eval, opts "Evaluate")
+      vim.keymap.set("n", key "g", dap.session, opts "Get session")
+
+      vim.keymap.set("n", key "R", dap.run_to_cursor, opts "Run to cursor")
+
+      vim.keymap.set("n", key "c", dap.continue, opts "Continue")
+      vim.keymap.set("n", key "i", dap.step_into, opts "Step into")
+      vim.keymap.set("n", key "o", dap.step_over, opts "Step over")
+      vim.keymap.set("n", key "u", dap.step_out, opts "Step out")
+      vim.keymap.set("n", key "b", dap.step_back, opts "Step back")
+
+      vim.keymap.set("n", key "p", dap.pause.toggle, opts "Pause")
+      vim.keymap.set("n", key "t", dap.toggle_breakpoint, opts "Toggle breakpoint")
+
+      vim.keymap.set("n", key "r", dap.repl.toggle, opts "Toggle Repl")
+
+      vim.keymap.set("n", key "h", function()
+        require("dap.ui.widgets").hover()
+      end, opts "Hover variables")
+
+      vim.keymap.set("n", key "S", function()
+        require("dap.ui.widgets").scopes()
+      end, opts "Scopes")
+
+      vim.keymap.set("n", key "E", function()
+        dapui.eval(vim.fn.input "[Expression] > ")
+      end, opts "Evaluate input")
+
+      vim.keymap.set("n", key "C", function()
+        dap.set_breakpoint(vim.fn.input "[Condition] > ")
+      end, opts "Conditional breakpoint")
+
+      vim.keymap.set("n", key "x", dap.terminate, opts "Terminate")
+      vim.keymap.set("n", key "q", dap.close, opts "Quit")
     end,
   },
 }
