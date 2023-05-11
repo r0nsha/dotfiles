@@ -94,7 +94,10 @@ return {
       vim.keymap.set("n", key "u", dap.step_out, opts "Step out")
       vim.keymap.set("n", key "b", dap.step_back, opts "Step back")
 
-      vim.keymap.set("n", key "p", dap.pause.toggle, opts "Pause")
+      vim.keymap.set("n", key "p", function()
+        dap.pause.toggle()
+      end, opts "Pause")
+
       vim.keymap.set("n", key "t", dap.toggle_breakpoint, opts "Toggle breakpoint")
 
       vim.keymap.set("n", key "r", dap.repl.toggle, opts "Toggle Repl")
