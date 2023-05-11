@@ -63,10 +63,6 @@ return {
 
       -- Mappings
 
-      local function key(k)
-        return ";" .. k
-      end
-
       local function opts(desc)
         return {
           silent = false,
@@ -75,7 +71,11 @@ return {
         }
       end
 
-      vim.keymap.set("n", key "f", function()
+      vim.keymap.set("n", "<leader><leader>", function()
+        builtin.resume {}
+      end, opts "Resume")
+
+      vim.keymap.set("n", "<leader>sf", function()
         local _, ret, _ = require("telescope.utils").get_os_command_output {
           "git",
           "rev-parse",
@@ -89,26 +89,18 @@ return {
         end
       end, opts "Find files")
 
-      vim.keymap.set("n", key "F", function()
+      vim.keymap.set("n", "<leader>sF", function()
         builtin.find_files {
           no_ignore = true,
           hidden = true,
         }
       end, opts "Find all files")
 
-      vim.keymap.set("n", key "c", function()
-        builtin.commands {}
-      end, opts "Commands")
-
-      vim.keymap.set("n", key "t", function()
+      vim.keymap.set("n", "<leader>sc", function()
         builtin.colorscheme {}
       end, opts "Colorschemes")
 
-      vim.keymap.set("n", key ";", function()
-        builtin.resume {}
-      end, opts "Resume")
-
-      vim.keymap.set("n", key "p", function()
+      vim.keymap.set("n", "<leader>sp", function()
         telescope.extensions.project.project {
           display_type = "full",
           no_ignore = true,
@@ -116,23 +108,23 @@ return {
         }
       end, opts "Projects")
 
-      vim.keymap.set("n", key "e", function()
+      vim.keymap.set("n", "<leader>se", function()
         builtin.diagnostics {}
       end, opts "Diagnostics")
 
-      vim.keymap.set("n", key "o", function()
+      vim.keymap.set("n", "<leader>so", function()
         builtin.oldfiles {}
       end, opts "Recent files")
 
-      vim.keymap.set("n", key "w", function()
+      vim.keymap.set("n", "<leader>sw", function()
         builtin.grep_string {}
       end, opts "Find word")
 
-      vim.keymap.set("n", key "b", function()
+      vim.keymap.set("n", "<leader>sb", function()
         builtin.current_buffer_fuzzy_find { skip_empty_lines = false }
       end, opts "Search in buffer")
 
-      vim.keymap.set({ "n", "v" }, key "r", function()
+      vim.keymap.set({ "n", "v" }, "<leader>ss", function()
         local function get_visual_selection()
           vim.cmd 'noau normal! "vy"'
           local text = vim.fn.getreg "v"
@@ -152,7 +144,7 @@ return {
         }
       end, opts "Search")
 
-      vim.keymap.set("n", key "R", function()
+      vim.keymap.set("n", "<leader>sS", function()
         telescope.extensions.live_grep_args.live_grep_args()
       end, opts "Search w/ args")
     end,
