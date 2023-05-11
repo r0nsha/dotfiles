@@ -6,7 +6,6 @@ return {
       "nvim-dap-virtual-text",
       "nvim-dap-ui",
       "nvim-dap-python",
-      "which-key.nvim",
       "theHamsta/nvim-dap-virtual-text",
       "rcarriga/nvim-dap-ui",
       "mfussenegger/nvim-dap-python",
