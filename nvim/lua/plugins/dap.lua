@@ -72,10 +72,10 @@ return {
         return "<leader>d" .. k
       end
 
-      local function opts(name)
+      local function opts(desc)
         return {
           remap = false,
-          desc = "Debug: " .. name,
+          desc = "Debug: " .. desc,
         }
       end
 

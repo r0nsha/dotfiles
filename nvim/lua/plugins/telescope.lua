@@ -63,134 +63,98 @@ return {
 
       -- Mappings
 
-      local wk = require "which-key"
+      local function key(k)
+        return ";" .. k
+      end
 
-      wk.register({
-        f = {
-          function()
-            local _, ret, _ = require("telescope.utils").get_os_command_output {
-              "git",
-              "rev-parse",
-              "--is-inside-work-tree",
-            }
+      local function opts(desc)
+        return {
+          silent = false,
+          remap = false,
+          desc = desc,
+        }
+      end
 
-            local opts = { no_ignore = true, hidden = true }
+      vim.keymap.set("n", key "f", function()
+        local _, ret, _ = require("telescope.utils").get_os_command_output {
+          "git",
+          "rev-parse",
+          "--is-inside-work-tree",
+        }
 
-            if ret == 0 then
-              builtin.git_files(opts)
-            else
-              builtin.find_files(opts)
-            end
-          end,
-          "Project files",
-        },
-        F = {
-          function()
-            builtin.find_files {
-              no_ignore = true,
-              hidden = true,
-            }
-          end,
-          "Find files",
-        },
-        w = {
-          function()
-            builtin.grep_string {}
-          end,
-          "Grep word",
-        },
-        c = {
-          function()
-            builtin.commands {}
-          end,
-          "Commands",
-        },
-        t = {
-          function()
-            builtin.colorscheme {}
-          end,
-          "Colorscheme",
-        },
-        [";"] = {
-          function()
-            builtin.resume {}
-          end,
-          "W",
-        },
-        p = {
-          function()
-            telescope.extensions.project.project {
-              display_type = "full",
-              no_ignore = true,
-              hidden_files = true,
-            }
-          end,
-          "Project",
-        },
-        e = {
-          function()
-            builtin.diagnostics {}
-          end,
-          "Diagnostics",
-        },
-        o = {
-          function()
-            builtin.oldfiles {}
-          end,
-          "Recent files",
-        },
-        R = {
-          function()
-            telescope.extensions.live_grep_args.live_grep_args()
-          end,
-          "Live Grep w/ args",
-        },
-        b = {
-          function()
-            builtin.current_buffer_fuzzy_find { skip_empty_lines = false }
-          end,
-          "Current buffer fuzzy find",
-        },
-      }, {
-        mode = "n",
-        prefix = ";",
-        buffer = nil,
-        silent = false,
-        remap = false,
-        nowait = false,
-      })
+        if ret == 0 then
+          builtin.git_files { no_ignore = true, hidden = true }
+        else
+          builtin.find_files { no_ignore = true, hidden = true }
+        end
+      end, opts "Find files")
 
-      wk.register({
-        r = {
-          function()
-            local function get_visual_selection()
-              vim.cmd 'noau normal! "vy"'
-              local text = vim.fn.getreg "v"
-              vim.fn.setreg("v", {})
+      vim.keymap.set("n", key "F", function()
+        builtin.find_files {
+          no_ignore = true,
+          hidden = true,
+        }
+      end, opts "Find all files")
 
-              text = string.gsub(text, "\n", "")
-              if #text > 0 then
-                return text
-              else
-                return ""
-              end
-            end
+      vim.keymap.set("n", key "c", function()
+        builtin.commands {}
+      end, opts "Commands")
 
-            local selected_text = get_visual_selection()
-            builtin.live_grep {
-              default_text = selected_text,
-            }
-          end,
-          "Live Grep",
-        },
-      }, {
-        mode = { "n", "v" },
-        prefix = ";",
-        buffer = nil,
-        silent = false,
-        remap = false,
-        nowait = false,
-      })
+      vim.keymap.set("n", key "t", function()
+        builtin.colorscheme {}
+      end, opts "Colorschemes")
+
+      vim.keymap.set("n", key ";", function()
+        builtin.resume {}
+      end, opts "Resume")
+
+      vim.keymap.set("n", key "p", function()
+        telescope.extensions.project.project {
+          display_type = "full",
+          no_ignore = true,
+          hidden_files = true,
+        }
+      end, opts "Projects")
+
+      vim.keymap.set("n", key "e", function()
+        builtin.diagnostics {}
+      end, opts "Diagnostics")
+
+      vim.keymap.set("n", key "o", function()
+        builtin.oldfiles {}
+      end, opts "Recent files")
+
+      vim.keymap.set("n", key "w", function()
+        builtin.grep_string {}
+      end, opts "Find word")
+
+      vim.keymap.set("n", key "b", function()
+        builtin.current_buffer_fuzzy_find { skip_empty_lines = false }
+      end, opts "Search in buffer")
+
+      vim.keymap.set({ "n", "v" }, key "r", function()
+        local function get_visual_selection()
+          vim.cmd 'noau normal! "vy"'
+          local text = vim.fn.getreg "v"
+          vim.fn.setreg("v", {})
+
+          text = string.gsub(text, "\n", "")
+          if #text > 0 then
+            return text
+          else
+            return ""
+          end
+        end
+
+        local selected_text = get_visual_selection()
+        builtin.live_grep {
+          default_text = selected_text,
+        }
+      end, opts "Search")
+
+      vim.keymap.set("n", key "R", function()
+        telescope.extensions.live_grep_args.live_grep_args()
+      end, opts "Search w/ args")
     end,
   },
 }
