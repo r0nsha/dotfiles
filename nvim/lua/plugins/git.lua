@@ -23,7 +23,7 @@ return {
   },
   {
     "lewis6991/gitsigns.nvim",
-    event = "BufRead",
+    event = { "BufRead", "BufNewFile" },
     config = function()
       local gitsigns = require "gitsigns"
 
@@ -38,7 +38,7 @@ return {
   },
   {
     "akinsho/git-conflict.nvim",
-    event = "BufRead",
+    event = "BufReadPre",
     config = function()
       require("git-conflict").setup()
       vim.keymap.set("n", "<leader>gl", "<cmd>GitConflictListQf<cr>")
