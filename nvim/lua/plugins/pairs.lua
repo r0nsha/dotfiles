@@ -1,7 +1,7 @@
 return {
   {
     "windwp/nvim-autopairs",
-    event = "VeryLazy",
+    event = "InsertEnter",
     config = function()
       require("nvim-autopairs").setup()
     end,
@@ -15,6 +15,6 @@ return {
   },
   {
     "andymass/vim-matchup",
-    event = "VeryLazy",
+    event = { "BufReadPost", "BufNewFile" },
   },
 }
