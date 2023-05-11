@@ -69,8 +69,8 @@ return {
       },
     },
     dependencies = {
-      { "nvim-neotest/neotest-python", event = "VeryLazy" },
-      { "nvim-neotest/neotest-plenary", event = "VeryLazy" },
+      "nvim-neotest/neotest-python",
+      "nvim-neotest/neotest-plenary",
     },
     config = function()
       require("neotest").setup {
