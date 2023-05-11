@@ -48,7 +48,9 @@ return {
         "rome",
         "rust_analyzer",
         "lua_ls",
-        "yamlls",
+        "stylua",
+        "yamlfmt",
+        "markdownlint",
       }
 
       lsp.skip_server_setup {
@@ -169,6 +171,7 @@ return {
         sources = {
           null_ls.builtins.formatting.stylua,
           null_ls.builtins.formatting.yamlfmt,
+          null_ls.builtins.formatting.markdownlint,
           null_ls.builtins.formatting.rome.with {
             condition = function()
               -- Disable Rome on my day job's MacOS
