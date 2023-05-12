@@ -22,13 +22,29 @@ function dashboard
 end
 
 function t
-	set -l repo (begin
-		for path in $HOME/dev $HOME/dotfiles $HOME/repos
+	set -l search_dirs $HOME/dev $HOME/dotfiles $HOME/repos
+
+	set -l all_repos (begin
+		for path in $search_dirs
 			if test -d $path
 				fd -uu --type d --full-path '\.git$' $path
 			end
 		end
-	end | xargs dirname | xargs -n 1 basename | fzf)
+	end | xargs dirname)
 
-	echo $repo
+	echo $all_repos
+
+	set -l repo ($all_repos | xargs -n 1 basename | fzf)
+
+	echo repo : $repo
+
+	if test "$repo" = ""
+		return
+	end
+
+	if [ tmux has-session -t $repo 2>/dev/null ]
+		echo create session!
+	end
+
+	echo attach session!
 end
