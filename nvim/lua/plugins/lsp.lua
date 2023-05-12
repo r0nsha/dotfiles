@@ -48,7 +48,6 @@ return {
         "rome",
         "rust_analyzer",
         "lua_ls",
-        "stylua",
       }
 
       lsp.skip_server_setup {
