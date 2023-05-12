@@ -49,8 +49,6 @@ return {
         "rust_analyzer",
         "lua_ls",
         "stylua",
-        "yamlfmt",
-        "markdownlint",
       }
 
       lsp.skip_server_setup {
