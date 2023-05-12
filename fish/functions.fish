@@ -20,3 +20,15 @@ function dashboard
     tmux send-keys -t dashboard:1.1 "btm" enter
     tmux switch-client -t dashboard
 end
+
+function t
+	set -l repo (begin
+		for path in $HOME/dev $HOME/dotfiles $HOME/repos
+			if test -d $path
+				fd -uu --type d --full-path '\.git$' $path
+			end
+		end
+	end | xargs dirname | xargs -n 1 basename | fzf)
+
+	echo $repo
+end
