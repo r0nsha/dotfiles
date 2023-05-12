@@ -12,14 +12,25 @@ alias vim='nvim'
 
 alias ta='tmux attach -t'
 
-alias l='exa -lah'
-alias ls=exa
-alias sl=exa
 alias c='clear'
 alias jj='pbpaste | jsonpp | pbcopy'
 alias trim="awk '{\$1=\$1;print}'"
 
 alias rmvswap='rm -rf ~/.local/share/nvim/swap'
+
+# TOOL ALIASES ----------------------------------------------------------------
+
+if binary_exists exa
+    alias l='exa -lah'
+    alias ls=exa
+    alias sl=exa
+end
+
+if binary_exists bat
+    alias cat=bat
+else if binary_exists batcat
+    alias cat=batcat
+end
 
 # GIT ALIASES -----------------------------------------------------------------
 alias gc='git commit'

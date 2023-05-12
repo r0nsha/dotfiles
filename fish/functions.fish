@@ -9,9 +9,7 @@ function source_if_exists
 end
 
 function binary_exists
-    if not command -v -q $argv[1]
-        warn "missing binary: $argv[1]"
-    end
+    command -v -q $argv[1]
 end
 
 function dashboard

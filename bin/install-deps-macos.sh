@@ -41,6 +41,7 @@ install_deps () {
     ripgrep
     gh
     fzf
+    bat
     # smug
   )
 
