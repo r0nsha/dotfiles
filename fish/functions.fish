@@ -38,7 +38,7 @@ function t
 
 	echo repo : $repo
 
-	if test "$repo" = ""
+	if test -z $repo
 		return
 	end
 
@@ -53,6 +53,24 @@ function cht
 	set -l cht_url "https://cht.sh"
 	set -l cht_list $DOTFILES/fish/cht_list
 
-	echo < $cht_list
-	# echo (curl -s $cht_url/split)
+	set -l selected (cat --plain $cht_list | fzf)
+
+	if test -z $selected
+		return
+	end
+
+	echo Selected: $selected
+
+	read --prompt "echo 'Query: ' " -l query
+	set -l query (echo $query | tr ' ' '+')
+
+	set -l url (
+		if test -z $query
+			echo $cht_url/$selected
+		else
+			echo $cht_url/$selected/$query
+		end
+	)
+
+	tmux neww fish -c "curl $url | cat --style auto & while [ : ]; sleep 1; end"
 end
