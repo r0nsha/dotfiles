@@ -39,7 +39,6 @@ install_deps () {
     gh
     fzf
     bat
-    gum
   )
 
   for dep in ${deps[@]}
