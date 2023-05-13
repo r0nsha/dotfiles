@@ -42,7 +42,7 @@ function t
 	set -l name (basename $repo)
 
 	if ! tmux has-session -t $name 2>/dev/null
-		tmux new-session -d -s $name
+		tmux new-session -d -s $name -c $repo
 	end
 
 	if test -z $TMUX
