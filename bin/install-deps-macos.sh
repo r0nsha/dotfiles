@@ -42,6 +42,7 @@ install_deps () {
     gh
     fzf
     bat
+    gum
     # smug
   )
 

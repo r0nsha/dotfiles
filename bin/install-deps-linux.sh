@@ -38,7 +38,8 @@ install_deps () {
     ripgrep
     gh
     fzf
-	bat
+    bat
+    gum
   )
 
   for dep in ${deps[@]}

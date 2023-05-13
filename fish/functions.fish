@@ -34,7 +34,7 @@ function t
 
 	echo $all_repos
 
-	set -l repo ($all_repos | xargs -n 1 basename | fzf)
+	set -l repo ($all_repos | xargs -n 1 basename) #| fzf)
 
 	echo repo : $repo
 
@@ -47,4 +47,12 @@ function t
 	end
 
 	echo attach session!
+end
+
+function cht
+	set -l cht_url "https://cht.sh"
+	set -l cht_list $DOTFILES/fish/cht_list
+
+	echo < $cht_list
+	# echo (curl -s $cht_url/split)
 end
