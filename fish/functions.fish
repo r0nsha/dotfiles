@@ -13,12 +13,13 @@ function binary_exists
 end
 
 function dashboard
-    tmux new-session -d -s dashboard
-    tmux send-keys -t dashboard:1.1 "tmux split-window -h -l 35%" enter
-    tmux send-keys -t dashboard:1.1 "tmux clock-mode" enter
-    tmux send-keys -t dashboard:1.1 "tmux split-window -v -l 65%" enter
-    tmux send-keys -t dashboard:1.1 "btm" enter
-    tmux switch-client -t dashboard
+	set -l name dashboard
+    tmux new-session -d -s $name
+    tmux send-keys -t $name:1.1 "tmux split-window -h -l 35%" enter
+    tmux send-keys -t $name:1.1 "tmux clock-mode" enter
+    tmux send-keys -t $name:1.1 "tmux split-window -v -l 65%" enter
+    tmux send-keys -t $name:1.1 "btm" enter
+    tmux switch-client -t $name
 end
 
 function t
@@ -32,21 +33,24 @@ function t
 		end
 	end | xargs dirname)
 
-	echo $all_repos
-
-	set -l repo ($all_repos | xargs -n 1 basename) #| fzf)
-
-	echo repo : $repo
+	set -l repo (echo $all_repos | tr ' ' '\n' | fzf)
 
 	if test -z $repo
 		return
 	end
 
-	if [ tmux has-session -t $repo 2>/dev/null ]
-		echo create session!
+	set -l name (basename $repo)
+
+	if ! tmux has-session -t $name 2>/dev/null
+		echo create!
+		tmux new-session -d -s $name
 	end
 
-	echo attach session!
+	if test -z $TMUX
+		tmux attach -t $name
+	else
+		tmux switch-client -t $name
+	end
 end
 
 function cht
