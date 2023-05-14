@@ -2,7 +2,7 @@ return {
   -- Lsp
   {
     "VonHeikemen/lsp-zero.nvim",
-    lazy = true,
+    -- lazy = true,
     config = function()
       require("lsp-zero.settings").preset {}
     end,
