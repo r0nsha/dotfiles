@@ -132,5 +132,4 @@ return {
     },
   },
   "derektata/lorem.nvim",
-  "mbledkowski/neuleetcode.vim",
 }
