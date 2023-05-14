@@ -3,7 +3,6 @@ return {
   {
     "VonHeikemen/lsp-zero.nvim",
     lazy = true,
-    command = { "LspZeroSetupServers" },
     config = function()
       require("lsp-zero.settings").preset {}
     end,
