@@ -18,7 +18,7 @@ function dashboard
     tmux send-keys -t $name:1.1 "tmux split-window -h -l 35%" enter
     tmux send-keys -t $name:1.1 "tmux clock-mode" enter
     tmux send-keys -t $name:1.1 "tmux split-window -v -l 65%" enter
-    tmux send-keys -t $name:1.1 "btm" enter
+    tmux send-keys -t $name:1.1 btm enter
     tmux switch-client -t $name
 end
 
@@ -36,19 +36,19 @@ function t
     set -l repo (echo $all_repos | tr ' ' '\n' | fzf)
 
     if test -z $repo
-	return
+        return
     end
 
     set -l name (basename $repo)
 
     if ! tmux has-session -t $name 2>/dev/null
-	tmux new-session -d -s $name -c $repo
+        tmux new-session -d -s $name -c $repo
     end
 
     if test -z $TMUX
-	tmux attach -t $name
+        tmux attach -t $name
     else
-	tmux switch-client -t $name
+        tmux switch-client -t $name
     end
 end
 
@@ -59,7 +59,7 @@ function cht
     set -l selected (cat --plain $cht_list | fzf)
 
     if test -z $selected
-	return
+        return
     end
 
     echo Selected: $selected

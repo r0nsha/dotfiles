@@ -37,7 +37,7 @@ end
 if binary_exists zoxide
     zoxide init fish | source
 end
-    
+
 # Starship
 if binary_exists starship
     source (starship init fish --print-full-init | psub)
