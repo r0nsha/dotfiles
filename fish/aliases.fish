@@ -1,6 +1,4 @@
 # ALIASES ---------------------------------------------------------------------
-alias XDG_CONFIG_HOME="$HOME/.config"
-
 alias s='source $DOTFILES/fish/config.fish'
 alias tmuxs='tmux source $DOTFILES/tmux/tmux.conf'
 
