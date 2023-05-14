@@ -61,7 +61,7 @@ return {
         vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
         vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
         vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-        vim.keymap.set("n", "go", vim.lsp.buf.type_definition, opts)
+        vim.keymap.set("n", "gT", vim.lsp.buf.type_definition, opts)
         vim.keymap.set("n", "gr", vim.lsp.buf.rename, opts)
         vim.keymap.set("n", "gR", function()
           require("telescope.builtin").lsp_references {}
