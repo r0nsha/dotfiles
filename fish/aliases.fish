@@ -32,6 +32,10 @@ else if binary_exists batcat
     alias cat=batcat
 end
 
+if binary_exists leetcode
+    alias leetlist='leetcode list --query LD --range 1 500'
+end
+
 # GIT ALIASES -----------------------------------------------------------------
 alias gc='git commit'
 alias gco='git checkout'
