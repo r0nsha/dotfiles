@@ -48,3 +48,10 @@ source_if_exists $DOTFILES/fish/kanagawa-theme.fish
 
 # Optional local config
 source_if_exists $HOME/local.config.fish
+
+# pnpm
+set -gx PNPM_HOME "/home/ron/.local/share/pnpm"
+if not string match -q -- $PNPM_HOME $PATH
+  set -gx PATH "$PNPM_HOME" $PATH
+end
+# pnpm end
