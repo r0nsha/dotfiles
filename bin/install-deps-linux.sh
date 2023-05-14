@@ -61,7 +61,6 @@ install_rustup() {
 
 install_tmux() {
 	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-	cargo install tmux-sessionizer
 }
 
 install_n() {
