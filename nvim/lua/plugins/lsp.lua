@@ -2,10 +2,10 @@ return {
   -- Lsp
   {
     "VonHeikemen/lsp-zero.nvim",
-    -- lazy = true,
-    config = function()
-      require("lsp-zero.settings").preset {}
-    end,
+    lazy = true,
+    -- config = function()
+    --   require("lsp-zero.settings").preset {}
+    -- end,
   },
   {
     "neovim/nvim-lspconfig",
@@ -242,21 +242,6 @@ return {
               enable = true,
             },
           },
-        },
-      }
-    end,
-  },
-  {
-    "akinsho/flutter-tools.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    dependencies = { "reisub0/hot-reload.vim" },
-    config = function()
-      local lsp = require "lsp-zero"
-      local dart_lsp = lsp.build_options("dartls", {})
-
-      require("flutter-tools").setup {
-        lsp = {
-          capabilities = dart_lsp.capabilities,
         },
       }
     end,
