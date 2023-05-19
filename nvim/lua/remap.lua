@@ -22,9 +22,6 @@ if vim.fn.executable "tmux" ~= 1 then
   vim.keymap.set("n", "<c-l>", "<c-w>l", opts)
 end
 
--- Cancel highlight
-vim.keymap.set("n", "/\\", ":noh<cr>", opts)
-
 -- Move visual selection
 vim.keymap.set("v", "J", ":m '>+1<cr>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<cr>gv=gv")
