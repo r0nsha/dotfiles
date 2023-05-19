@@ -30,23 +30,12 @@ return {
           "bash",
           "fish",
         },
-        matchup = {
-          enable = true,
-        },
-        highlight = {
-          enable = true,
-          disable = {},
-        },
-        indent = {
-          enable = true,
-          disable = {},
-        },
-        autotag = {
-          enable = true,
-        },
-        context_commentstring = {
-          enable = true,
-        },
+        matchup = { enable = true },
+        highlight = { enable = true },
+        indent = { enable = true },
+        autotag = { enable = true },
+        context_commentstring = { enable = true },
+        textobjects = { enable = true },
       }
 
       local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
