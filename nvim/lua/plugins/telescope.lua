@@ -20,6 +20,10 @@ return {
             n = {
               ["q"] = actions.close,
             },
+            i = {
+              ["<C-u>"] = false,
+              ["<C-d>"] = false,
+            },
           },
           prompt_prefix = "   ",
           selection_caret = "󰅂 ",

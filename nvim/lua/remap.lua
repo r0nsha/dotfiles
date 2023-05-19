@@ -4,7 +4,7 @@ local opts = { remap = false }
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-vim.keymap.set("n", "<Space>", "<Nop>", opts)
+vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", opts)
 
 -- Unmap arrow keys
 vim.keymap.set({ "n", "i", "v" }, "<Up>", "<Nop>", opts)
@@ -23,6 +23,10 @@ if vim.fn.executable "tmux" ~= 1 then
   vim.keymap.set("n", "<c-l>", "<c-w>l", opts)
 end
 
+-- Remap for dealing with word wrap
+vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
 -- Move visual selection
 vim.keymap.set("v", "J", ":m '>+1<cr>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<cr>gv=gv")
@@ -37,3 +41,14 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz", opts)
 -- Justify center search next/prev
 vim.keymap.set("n", "n", "nzzzv", opts)
 vim.keymap.set("n", "N", "Nzzzv", opts)
+
+-- [[ Highlight on yank ]]
+-- See `:help vim.highlight.on_yank()`
+local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+vim.api.nvim_create_autocmd("TextYankPost", {
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+  group = highlight_group,
+  pattern = "*",
+})

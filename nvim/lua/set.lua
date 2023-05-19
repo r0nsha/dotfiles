@@ -46,7 +46,7 @@ vim.o.joinspaces = true
 
 vim.o.cursorline = true
 
-vim.o.wrap = false
+vim.o.wrap = true
 vim.o.breakindent = true
 
 if vim.o.wrap then
