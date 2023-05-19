@@ -3,9 +3,6 @@ return {
   {
     "VonHeikemen/lsp-zero.nvim",
     lazy = true,
-    -- config = function()
-    --   require("lsp-zero.settings").preset {}
-    -- end,
   },
   {
     "neovim/nvim-lspconfig",
@@ -103,13 +100,20 @@ return {
         end
       end)
 
-      lspconfig.lua_ls.setup(lsp.nvim_lua_ls())
+      local function disable_formatting(client)
+        client.server_capabilities.documentFormattingProvider = false
+        client.server_capabilities.documentFormattingRangeProvider = false
+      end
+
+      lspconfig.lua_ls.setup(lsp.nvim_lua_ls {
+        on_init = function(client)
+          disable_formatting(client) -- We use stylua instead
+        end,
+      })
 
       lspconfig.tsserver.setup {
         on_init = function(client)
-          -- Disable formatting for tsserver, we use Rome/Prettier instead
-          client.server_capabilities.documentFormattingProvider = false
-          client.server_capabilities.documentFormattingRangeProvider = false
+          disable_formatting(client) -- We use Rome/Prettier instead
         end,
         init_options = {
           preferences = {
