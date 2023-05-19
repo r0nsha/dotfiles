@@ -29,14 +29,6 @@ return {
       "hrsh7th/cmp-cmdline",
       "petertriho/cmp-git",
       "onsails/lspkind-nvim",
-      {
-        "folke/neodev.nvim",
-        opts = {
-          experimental = {
-            pathStrict = true,
-          },
-        },
-      },
     },
     config = function()
       local luasnip = require "luasnip"

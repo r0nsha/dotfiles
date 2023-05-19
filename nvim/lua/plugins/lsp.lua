@@ -33,6 +33,21 @@ return {
           }
         end,
       },
+      {
+        "j-hui/fidget.nvim",
+        event = { "BufReadPre", "BufNewFile" },
+        config = function()
+          require("fidget").setup {}
+        end,
+      },
+      {
+        "folke/neodev.nvim",
+        opts = {
+          experimental = {
+            pathStrict = true,
+          },
+        },
+      },
     },
     config = function()
       local lsp = require "lsp-zero"
@@ -245,13 +260,6 @@ return {
           },
         },
       }
-    end,
-  },
-  {
-    "j-hui/fidget.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    config = function()
-      require("fidget").setup {}
     end,
   },
 }
