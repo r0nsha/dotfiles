@@ -50,6 +50,7 @@ return {
       }
 
       lsp.skip_server_setup {
+        "tsserver", -- Manual setup
         "rust_analyzer", -- Replaced by rust-tools
         "rome", -- Rome's lsp makes things slow af
       }
@@ -91,9 +92,9 @@ return {
 
       lspconfig.tsserver.setup {
         on_init = function(client)
-          -- Disable formatting for tsserver, since we use Rome for this
-          client.server_capabilities.document_formatting = false
-          client.server_capabilities.document_range_formatting = false
+          -- Disable formatting for tsserver, we use Rome/Prettier instead
+          client.server_capabilities.documentFormattingProvider = false
+          client.server_capabilities.documentFormattingRangeProvider = false
         end,
         init_options = {
           preferences = {
