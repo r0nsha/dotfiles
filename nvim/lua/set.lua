@@ -4,64 +4,67 @@ local utils = require "utils"
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-vim.opt.shadafile = ""
+vim.o.shadafile = ""
 
-vim.opt.completeopt = "menuone,noinsert,noselect"
-vim.opt.backspace = "indent,start,eol"
-vim.opt.clipboard = "unnamedplus"
+vim.o.mouse = "a"
+vim.o.completeopt = "menuone,noselect"
+vim.o.backspace = "indent,start,eol"
+vim.o.clipboard = "unnamedplus"
 
-vim.opt.autoread = true
-vim.opt.autoindent = true
+vim.o.autoread = true
+vim.o.autoindent = true
 
-vim.opt.number = true
-vim.opt.relativenumber = true
+vim.wo.number = true
+vim.wo.relativenumber = true
 
-vim.opt.incsearch = true
-vim.opt.hlsearch = true
+vim.o.incsearch = true
+vim.o.hlsearch = true
 
-vim.opt.termguicolors = true
+vim.o.termguicolors = true
 
-vim.opt.smartcase = true
-vim.opt.smartindent = true
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftround = true
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = false
+vim.o.smartcase = true
+vim.o.smartindent = true
+vim.o.tabstop = 4
+vim.o.softtabstop = 4
+vim.o.shiftround = true
+vim.o.shiftwidth = 4
+vim.o.expandtab = false
 
-vim.opt.scrolloff = 8
-vim.opt.sidescrolloff = 8
+vim.o.scrolloff = 8
+vim.o.sidescrolloff = 8
 
-vim.opt.signcolumn = "yes"
+vim.o.signcolumn = "yes"
 vim.opt.isfname:append "@-@"
 
-vim.opt.updatetime = 50
+vim.o.updatetime = 250
+vim.o.timeout = true
+vim.o.timeoutlen = 300
 
-vim.opt.hidden = true
-vim.opt.ignorecase = true
-vim.opt.joinspaces = true
+vim.o.hidden = true
+vim.o.ignorecase = true
+vim.o.joinspaces = true
 
-vim.opt.cursorline = true
+vim.o.cursorline = true
 
-vim.opt.wrap = false
+vim.o.wrap = false
+vim.o.breakindent = true
 
-if vim.opt.wrap then
-  vim.opt.linebreak = true
-  vim.opt.breakindent = true
+if vim.o.wrap then
+  vim.o.linebreak = true
 end
 
-vim.opt.splitbelow = true
-vim.opt.splitright = true
+vim.o.splitbelow = true
+vim.o.splitright = true
 
 -- Windows specific options
 if utils.is_windows() then
-  vim.opt.shell = vim.fn.executable "powershell" and "powershell" or "pwsh"
-  vim.opt.shellcmdflag =
+  vim.o.shell = vim.fn.executable "powershell" and "powershell" or "pwsh"
+  vim.o.shellcmdflag =
     "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
-  vim.opt.shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait"
-  vim.opt.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
-  vim.opt.shellquote = ""
-  vim.opt.shellxquote = ""
+  vim.o.shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait"
+  vim.o.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
+  vim.o.shellquote = ""
+  vim.o.shellxquote = ""
 end
 
 vim.fn.sign_define("DiagnosticSignError", { text = utils.icons.error .. " ", texthl = "DiagnosticSignError" })
