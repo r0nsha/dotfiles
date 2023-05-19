@@ -50,6 +50,10 @@ return {
           end,
         },
         mapping = cmp.mapping.preset.insert {
+          ["<C-n>"] = cmp.mapping.select_next_item(),
+          ["<C-p>"] = cmp.mapping.select_prev_item(),
+          ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+          ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-,>"] = cmp.mapping.complete(),
           ["<C-Space>"] = cmp.mapping.complete(),
           ["C-n"] = cmp_action.luasnip_jump_forward(),
@@ -57,10 +61,7 @@ return {
           ["<Tab>"] = cmp_action.luasnip_supertab(),
           ["<S-Tab>"] = cmp_action.luasnip_shift_supertab(),
           ["<cr>"] = cmp.mapping.confirm { select = true },
-          ["<S-cr>"] = cmp.mapping.confirm {
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = true,
-          },
+          ["<S-cr>"] = cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Replace, select = true },
         },
         sources = cmp.config.sources {
           { name = "nvim_lsp" },
