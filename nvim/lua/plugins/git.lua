@@ -47,7 +47,7 @@ return {
           )
           vim.keymap.set("n", "<leader>gB", function()
             gitsigns.blame_line { full = true }
-          end, { bufnr = bufnr, desc = "Git blame line (Full)" })
+          end, { buffer = bufnr, desc = "Git blame line (Full)" })
         end,
       }
     end,
