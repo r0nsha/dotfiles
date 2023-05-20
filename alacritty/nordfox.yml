@@ -24,5 +24,5 @@ colors:
     cyan: "0x93ccdc"
     white: "0xe7ecf4"
   indexed_colors:
-    - { index: 16, color: "0xc9826b" }
-    - { index: 17, color: "0xbf88bc" }
+    - {index: 16, color: "0xc9826b"}
+    - {index: 17, color: "0xbf88bc"}
