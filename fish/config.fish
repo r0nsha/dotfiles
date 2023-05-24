@@ -28,10 +28,6 @@ fish_add_path $HOME/.local/bin
 # Node stuff
 set -Ux NVM_DIR "$HOME/.nvm"
 
-# Completions
-if binary_exists zoxide
-    zoxide init fish | source
-end
 
 source $DOTFILES/fish/aliases.fish
 source $DOTFILES/fish/kanagawa-theme.fish
@@ -42,6 +38,11 @@ source_if_exists $HOME/local.config.fish
 # pnpm
 set -Ux PNPM_HOME "$HOME/.local/share/pnpm"
 fish_add_path $PNPM_HOME
+
+# Zoxide
+if binary_exists zoxide
+    zoxide init fish | source
+end
 
 # Starship
 if binary_exists starship
