@@ -3,7 +3,7 @@ source $HOME/.env.fish
 source $DOTFILES/fish/functions.fish
 source $DOTFILES/fish/fisher.fish
 
-source_if_exists $DOTFILES/fish/vars.fish
+source $DOTFILES/fish/vars.fish
 
 # Vi mode
 fish_vi_key_bindings
@@ -22,8 +22,7 @@ set fish_cursor_replace_one underscore
 # visual mode, but due to fish_cursor_default, is redundant here
 set fish_cursor_visual block
 
-# Rust stuff
-bass source $HOME/.cargo/env
+fish_add_path $HOME/.cargo/bin
 fish_add_path $HOME/.local/bin
 
 # Node stuff
@@ -38,20 +37,17 @@ if binary_exists zoxide
     zoxide init fish | source
 end
 
-# Starship
-if binary_exists starship
-    source (starship init fish --print-full-init | psub)
-end
-
-source_if_exists $DOTFILES/fish/aliases.fish
-source_if_exists $DOTFILES/fish/kanagawa-theme.fish
+source $DOTFILES/fish/aliases.fish
+source $DOTFILES/fish/kanagawa-theme.fish
 
 # Optional local config
 source_if_exists $HOME/local.config.fish
 
 # pnpm
-set -gx PNPM_HOME "/home/ron/.local/share/pnpm"
-if not string match -q -- $PNPM_HOME $PATH
-  set -gx PATH "$PNPM_HOME" $PATH
+set -Ux PNPM_HOME "$HOME/.local/share/pnpm"
+fish_add_path $PNPM_HOME
+
+# Starship
+if binary_exists starship
+    source (starship init fish --print-full-init | psub)
 end
-# pnpm end
