@@ -158,14 +158,14 @@ install_deps() {
 }
 
 default_shell() {
-	fish_bin=$(which fish)
+	fish_bin=$(command -v fish)
 
 	echo ""
 
 	if [ "$SHELL" != "$fish_bin" ]; then
 		info "changing your default shell to fish"
-		echo fish_bin | sudo tee -a /etc/shells
-		chsh -s fish_bin
+		echo $fish_bin | sudo tee -a /etc/shells
+		chsh -s $fish_bin
 		success "your default shell is now fish. yay!"
 	else
 		success "your default shell is already fish, skipping"
