@@ -29,10 +29,6 @@ fish_add_path $HOME/.local/bin
 set -Ux NVM_DIR "$HOME/.nvm"
 
 # Completions
-if binary_exists gh
-    gh completion -s fish | source
-end
-
 if binary_exists zoxide
     zoxide init fish | source
 end
