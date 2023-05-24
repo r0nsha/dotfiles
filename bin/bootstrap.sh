@@ -158,7 +158,7 @@ install_deps() {
 }
 
 default_shell() {
-	fish_bin=$(command -v fish)
+	fish_bin=$(which fish)
 
 	echo ""
 
