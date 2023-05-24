@@ -3,7 +3,9 @@ source $HOME/.env.fish
 source $DOTFILES/fish/functions.fish
 source $DOTFILES/fish/fisher.fish
 
+source $DOTFILES/fish/aliases.fish
 source $DOTFILES/fish/vars.fish
+source $DOTFILES/fish/kanagawa-theme.fish
 
 # Vi mode
 fish_vi_key_bindings
@@ -27,10 +29,6 @@ fish_add_path $HOME/.local/bin
 
 # Node stuff
 set -Ux NVM_DIR "$HOME/.nvm"
-
-
-source $DOTFILES/fish/aliases.fish
-source $DOTFILES/fish/kanagawa-theme.fish
 
 # Optional local config
 source_if_exists $HOME/local.config.fish
