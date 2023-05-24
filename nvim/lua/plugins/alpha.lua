@@ -156,7 +156,7 @@ return {
       local buttons = {
         type = "group",
         val = {
-          button("e", "󰈔  New", "<cmd>ene <bar> startinsert <cr>", {}),
+          button("e", "󰈔  New", "<cmd>ene <bar> set filetype=markdown <bar> startinsert <cr>", {}),
           button(
             "p",
             "󰂺  Projects",

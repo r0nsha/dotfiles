@@ -54,7 +54,7 @@ return {
   },
   {
     "akinsho/git-conflict.nvim",
-    event = "BufReadPre",
+    event = { "BufReadPre", "BufNewFile" },
     config = function()
       require("git-conflict").setup()
       vim.keymap.set("n", "<leader>gl", "<cmd>GitConflictListQf<cr>")

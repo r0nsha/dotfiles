@@ -1,7 +1,7 @@
 return {
   {
     "mg979/vim-visual-multi",
-    event = "BufReadPost",
+    event = { "BufReadPost", "BufNewFile" },
     config = function()
       vim.keymap.set(
         "n",

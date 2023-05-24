@@ -42,6 +42,10 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz", opts)
 vim.keymap.set("n", "n", "nzzzv", opts)
 vim.keymap.set("n", "N", "Nzzzv", opts)
 
+-- Don't put yanked objects when using 'c' or 'C'
+vim.keymap.set("n", "c", '"_c', opts)
+vim.keymap.set("n", "C", '"_C', opts)
+
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
