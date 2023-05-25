@@ -9,5 +9,5 @@ if test (uname -s) = Darwin
 	    echo /usr/local
 	end
 	)
-    eval "($HOMEBREW_PREFIX/bin/brew shellenv)"
+    eval $HOMEBREW_PREFIX/bin/brew shellenv
 end
