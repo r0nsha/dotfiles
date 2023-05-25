@@ -34,6 +34,12 @@ end
 
 alias leetlist='leetcode list --query HLD --range 1 500'
 
+alias yabais='yabai --start-service'
+alias yabair='yabai --stop-service && yabai --start-service'
+
+alias skhds='skhd --start-service'
+alias skhdr='skhd --stop-service && skhd --start-service'
+
 # GIT ALIASES -----------------------------------------------------------------
 alias gc='git commit'
 alias gco='git checkout'
