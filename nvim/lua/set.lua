@@ -7,6 +7,8 @@ vim.g.loaded_netrwPlugin = 1
 vim.o.shadafile = ""
 
 vim.o.mouse = "a"
+vim.o.guicursor = ""
+
 vim.o.completeopt = "menuone,noselect"
 vim.o.backspace = "indent,start,eol"
 vim.o.clipboard = "unnamedplus"
