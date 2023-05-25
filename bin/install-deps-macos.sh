@@ -36,6 +36,8 @@ install_deps() {
 		gh
 		fzf
 		bat
+		koekeishiya/formulae/yabai
+		koekeishiya/formulae/skhd
 	)
 
 	for dep in ${deps[@]}; do
