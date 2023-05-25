@@ -11,5 +11,6 @@ if test (uname -s) = Darwin
 	)
 
     # eval $HOMEBREW_PREFIX/bin/brew shellenv
-    eval "\$($HOMEBREW_PREFIX/bin/brew shellenv)"
+    set -l cmd $HOMEBREW_PREFIX/bin/brew shellenv
+    eval $cmd
 end
