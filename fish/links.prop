@@ -4,4 +4,5 @@ $DOTFILES/fish/functions.fish=$HOME/.config/fish/functions.fish
 $DOTFILES/fish/kanagawa-theme.fish=$HOME/.config/fish/kanagawa-theme.fish
 $DOTFILES/fish/vars.fish=$HOME/.config/fish/vars.fish
 $DOTFILES/fish/fisher.fish=$HOME/.config/fish/fisher.fish
+$DOTFILES/fish/macos.fish=$HOME/.config/fish/macos.fish
 $DOTFILES/fish/fish_plugins=$HOME/.config/fish/fish_plugins

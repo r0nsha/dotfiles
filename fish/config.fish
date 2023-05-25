@@ -1,11 +1,10 @@
 source $HOME/.env.fish
-
-source $DOTFILES/fish/functions.fish
 source $DOTFILES/fish/fisher.fish
-
+source $DOTFILES/fish/functions.fish
 source $DOTFILES/fish/aliases.fish
 source $DOTFILES/fish/vars.fish
 source $DOTFILES/fish/kanagawa-theme.fish
+source $DOTFILES/fish/macos.fish
 
 # Vi mode
 fish_vi_key_bindings
