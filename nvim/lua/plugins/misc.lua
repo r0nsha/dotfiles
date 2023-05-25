@@ -132,4 +132,13 @@ return {
     },
   },
   "derektata/lorem.nvim",
+  {
+    "xiyaowong/transparent.nvim",
+    enabled = function()
+      return require("utils").is_macos()
+    end,
+    config = function()
+      require("transparent").setup()
+    end,
+  },
 }
