@@ -3,6 +3,19 @@ source $DOTFILES/bin/shared.sh
 install_brew() {
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 	brew update --force
+
+	# Taken from homebrew's install.sh script
+	UNAME_MACHINE="$(/usr/bin/uname -m)"
+
+	if [[ "${UNAME_MACHINE}" == "arm64" ]]; then
+		# On ARM macOS, this script installs to /opt/homebrew only
+		HOMEBREW_PREFIX="/opt/homebrew"
+	else
+		# On Intel macOS, this script installs to /usr/local only
+		HOMEBREW_PREFIX="/usr/local"
+	fi
+
+	eval "\$(${HOMEBREW_PREFIX}/bin/brew shellenv)"
 }
 
 install_deps() {
