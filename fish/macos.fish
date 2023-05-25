@@ -10,5 +10,5 @@ switch (uname)
                 set HOMEBREW_PREFIX /usr/local
         end
 
-        eval ($HOMEBREW_PREFIX/bin/brew shellenv &>/dev/null)
+        eval ($HOMEBREW_PREFIX/bin/brew shellenv)
 end
