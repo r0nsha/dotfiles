@@ -65,8 +65,6 @@ return {
     "rebelot/kanagawa.nvim",
     priority = 1000,
     config = function()
-      local is_macos = require("utils").is_macos()
-
       require("kanagawa").setup {
         compile = false,
         undercurl = true,
@@ -78,7 +76,7 @@ return {
         variablebuiltinStyle = { italic = false },
         specialReturn = true,
         specialException = true,
-        transparent = is_macos,
+        transparent = true,
         dimInactive = false,
         globalStatus = false,
         terminalColors = true,
@@ -122,10 +120,8 @@ return {
         vim.cmd [[colorscheme kanagawa]]
 
         -- transparent telescope
-        if is_macos then
-          vim.cmd "highlight TelescopeBorder guibg=none"
-          vim.cmd "highlight TelescopeTitle guibg=none"
-        end
+        vim.cmd "highlight TelescopeBorder guibg=none"
+        vim.cmd "highlight TelescopeTitle guibg=none"
       end
     end,
   },
