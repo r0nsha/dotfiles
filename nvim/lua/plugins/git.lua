@@ -41,13 +41,13 @@ return {
           vim.keymap.set("n", "]c", require("gitsigns").next_hunk, { buffer = bufnr, desc = "Go to Next Hunk" })
           vim.keymap.set(
             "n",
-            "<leader>ph",
+            "<leader>gh",
             require("gitsigns").preview_hunk,
-            { buffer = bufnr, desc = "[P]review [H]unk" }
+            { buffer = bufnr, desc = "Git Preview Hunk" }
           )
           vim.keymap.set("n", "<leader>gB", function()
             gitsigns.blame_line { full = true }
-          end, { buffer = bufnr, desc = "Git blame line (Full)" })
+          end, { buffer = bufnr, desc = "Git Blame Line (Full)" })
         end,
       }
     end,
