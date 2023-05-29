@@ -1,5 +1,7 @@
 source $HOME/.env.fish
+
 source $DOTFILES/fish/fisher.fish
+
 source $DOTFILES/fish/functions.fish
 source $DOTFILES/fish/aliases.fish
 source $DOTFILES/fish/vars.fish
@@ -36,12 +38,14 @@ source_if_exists $HOME/local.config.fish
 set -Ux PNPM_HOME "$HOME/.local/share/pnpm"
 fish_add_path $PNPM_HOME
 
-# Zoxide
-if binary_exists zoxide
-    zoxide init fish | source
-end
+if status is-interactive
+    # Zoxide
+    if binary_exists zoxide
+        zoxide init fish | source
+    end
 
-# Starship
-if binary_exists starship
-    source (starship init fish --print-full-init | psub)
+    # Starship
+    if binary_exists starship
+        source (starship init fish --print-full-init | psub)
+    end
 end
