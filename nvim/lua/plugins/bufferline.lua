@@ -24,7 +24,12 @@ return {
       }
 
       for i = 1, 9, 1 do
-        vim.keymap.set("n", "<leader>b" .. i, "<cmd>BufferLineGoToBuffer " .. i .. "<cr>", { desc = "Buffer: Go to " .. i })
+        vim.keymap.set(
+          "n",
+          "<leader>b" .. i,
+          "<cmd>BufferLineGoToBuffer " .. i .. "<cr>",
+          { desc = "Buffer: Go to " .. i }
+        )
       end
 
       vim.keymap.set("n", "<leader>bh", "<cmd>BufferLineCyclePrev<cr>", { desc = "Buffer: Cycle Prev" })
@@ -33,7 +38,7 @@ return {
       vim.keymap.set("n", "<leader>bH", "<cmd>BufferLineMovePrev<cr>", { desc = "Buffer: Move Prev" })
       vim.keymap.set("n", "<leader>bL", "<cmd>BufferLineMoveNext<cr>", { desc = "Buffer: Move Next" })
 
-      vim.keymap.set("n", "<leader>bp", "<cmd>BufferLineTogglePin<cr>", { desc = "Buffer: Toggle Pin" })
+      vim.keymap.set("n", "<leader>bP", "<cmd>BufferLineTogglePin<cr>", { desc = "Buffer: Toggle Pin" })
       vim.keymap.set(
         "n",
         "<leader>bxu",
@@ -41,7 +46,7 @@ return {
         { desc = "Buffer: Close Ungrouped" }
       )
 
-      vim.keymap.set("n", "<leader>p", "<cmd>BufferLinePick<cr>", { desc = "Buffer: Pick" })
+      vim.keymap.set("n", "<leader>bp", "<cmd>BufferLinePick<cr>", { desc = "Buffer: Pick" })
     end,
   },
   {

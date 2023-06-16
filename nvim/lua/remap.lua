@@ -15,6 +15,9 @@ vim.keymap.set({ "n", "i", "v" }, "<Right>", "<Nop>", opts)
 -- Yank to clipboard
 vim.keymap.set("n", "<leader>y", '"+y', opts)
 
+-- Paste from clipboard
+vim.keymap.set("n", "<leader>p", '"+p', opts)
+
 -- Window mappings when tmux is not available
 if vim.fn.executable "tmux" ~= 1 then
   vim.keymap.set("n", "<c-h>", "<c-w>h", opts)
