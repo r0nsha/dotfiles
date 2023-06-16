@@ -17,7 +17,7 @@ return {
 
       telescope.setup {
         defaults = {
-          path_display = { "smart" },
+          path_display = { "truncate" },
           mappings = {
             n = {
               ["q"] = actions.close,
