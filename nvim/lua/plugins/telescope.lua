@@ -1,13 +1,15 @@
+local function opts(desc)
+  return {
+    silent = false,
+    remap = false,
+    desc = desc,
+  }
+end
+
 return {
   { "nvim-lua/plenary.nvim" },
   {
     "nvim-telescope/telescope.nvim",
-    dependencies = {
-      "nvim-telescope/telescope-live-grep-args.nvim",
-      "nvim-telescope/telescope-fzy-native.nvim",
-      "nvim-telescope/telescope-ui-select.nvim",
-      "nvim-telescope/telescope-project.nvim",
-    },
     config = function()
       local telescope = require "telescope"
       local actions = require "telescope.actions"
@@ -58,23 +60,7 @@ return {
         },
       }
 
-      -- Extensions
-      telescope.load_extension "fzy_native"
-      telescope.load_extension "live_grep_args"
-      telescope.load_extension "ui-select"
-      telescope.load_extension "project"
-      telescope.load_extension "live_grep_args"
-
       -- Mappings
-
-      local function opts(desc)
-        return {
-          silent = false,
-          remap = false,
-          desc = desc,
-        }
-      end
-
       vim.keymap.set("n", "<leader><leader>", function()
         builtin.resume {}
       end, opts "Resume")
@@ -103,14 +89,6 @@ return {
       vim.keymap.set("n", "<leader>sc", function()
         builtin.colorscheme {}
       end, opts "Colorschemes")
-
-      vim.keymap.set("n", "<leader>sp", function()
-        telescope.extensions.project.project {
-          display_type = "full",
-          no_ignore = true,
-          hidden_files = true,
-        }
-      end, opts "Projects")
 
       vim.keymap.set("n", "<leader>se", function()
         builtin.diagnostics {}
@@ -147,10 +125,50 @@ return {
           default_text = selected_text,
         }
       end, opts "Search")
+    end,
+  },
+  {
+    "nvim-telescope/telescope-fzy-native.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    config = function()
+      require("telescope").load_extension "fzy_native"
+    end,
+  },
+  {
+    "nvim-telescope/telescope-ui-select.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    config = function()
+      require("telescope").load_extension "ui-select"
+    end,
+  },
+  {
+    "nvim-telescope/telescope-live-grep-args.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    config = function()
+      local telescope = require "telescope"
+
+      telescope.load_extension "live_grep_args"
 
       vim.keymap.set("n", "<leader>sS", function()
         telescope.extensions.live_grep_args.live_grep_args()
       end, opts "Search w/ args")
+    end,
+  },
+  {
+    "nvim-telescope/telescope-project.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    config = function()
+      local telescope = require "telescope"
+
+      telescope.load_extension "project"
+
+      vim.keymap.set("n", "<leader>sp", function()
+        telescope.extensions.project.project {
+          display_type = "full",
+          no_ignore = true,
+          hidden_files = true,
+        }
+      end, opts "Projects")
     end,
   },
 }
