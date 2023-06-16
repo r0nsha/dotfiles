@@ -12,9 +12,12 @@ vim.o.guicursor = ""
 vim.o.completeopt = "menuone,noselect"
 vim.o.backspace = "indent,start,eol"
 vim.o.clipboard = "unnamedplus"
+vim.o.swapfile = false
+vim.o.backup = false
 
 vim.o.autoread = true
 vim.o.autoindent = true
+vim.o.colorcolumn = 80
 
 vim.wo.number = true
 vim.wo.relativenumber = true

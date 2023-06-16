@@ -12,8 +12,8 @@ vim.keymap.set({ "n", "i", "v" }, "<Down>", "<Nop>", opts)
 vim.keymap.set({ "n", "i", "v" }, "<Left>", "<Nop>", opts)
 vim.keymap.set({ "n", "i", "v" }, "<Right>", "<Nop>", opts)
 
--- Yank entire buffer
-vim.keymap.set("n", "<leader>y", 'ggVG"+y', opts)
+-- Yank to clipboard
+vim.keymap.set("n", "<leader>y", '"+y', opts)
 
 -- Window mappings when tmux is not available
 if vim.fn.executable "tmux" ~= 1 then
