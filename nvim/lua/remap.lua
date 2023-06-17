@@ -4,13 +4,8 @@ local opts = { remap = false }
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- Unmap leader key
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", opts)
-
--- Unmap arrow keys
-vim.keymap.set({ "n", "i", "v" }, "<Up>", "<Nop>", opts)
-vim.keymap.set({ "n", "i", "v" }, "<Down>", "<Nop>", opts)
-vim.keymap.set({ "n", "i", "v" }, "<Left>", "<Nop>", opts)
-vim.keymap.set({ "n", "i", "v" }, "<Right>", "<Nop>", opts)
 
 -- Yank to clipboard
 vim.keymap.set("n", "<leader>y", '"+y', opts)
