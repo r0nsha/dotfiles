@@ -132,4 +132,11 @@ return {
     },
   },
   "derektata/lorem.nvim",
+  {
+    "lambdalisue/suda.vim",
+    config = function()
+      vim.keymap.set("n", "<leader>w", "<cmd>w<cr>", { remap = false, desc = "Write current file" })
+      vim.keymap.set("n", "<leader>W", "<cmd>SudaWrite<cr>", { remap = false, desc = "Write current file with sudo" })
+    end,
+  },
 }
