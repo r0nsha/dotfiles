@@ -8,7 +8,7 @@ vim.g.maplocalleader = " "
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", opts)
 
 -- Yank to clipboard
-vim.keymap.set("n", "<leader>y", '"+y', opts)
+vim.keymap.set({ "n", "v" }, "<leader>y", '"+y', opts)
 
 -- Paste from clipboard
 vim.keymap.set("n", "<leader>p", '"+p', opts)
