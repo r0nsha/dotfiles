@@ -80,6 +80,7 @@ return {
         keys = {
           { "<leader>gd", "<cmd>DiffviewOpen<cr>" },
           { "<leader>gD", "<cmd>DiffviewClose<cr>" },
+          { "<leader>gH", "<cmd>DiffviewFileHistory %<cr>" },
         },
       },
     },
