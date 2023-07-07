@@ -61,7 +61,7 @@ return {
     end,
   },
   {
-    "TimUntersberger/neogit",
+    "NeogitOrg/neogit",
     keys = {
       { "<leader>gs", "<cmd>Neogit kind=split<cr>" },
     },
