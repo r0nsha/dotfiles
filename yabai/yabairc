@@ -30,7 +30,7 @@ yabai -m config \
 # mouse
 yabai -m config \
                 mouse_follows_focus             on \
-                focus_follows_mouse             autoraise \
+                focus_follows_mouse             off \
                 mouse_modifier                  alt \
                 mouse_action1                   move \
                 mouse_action2                   resize \
