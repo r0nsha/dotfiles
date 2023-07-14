@@ -3,7 +3,7 @@ return {
     "mhartington/formatter.nvim",
     event = { "BufReadPre", "BufNewFile" },
     config = function()
-      local prettierd = require "formatter.defaults"
+      local prettierd = require "formatter.defaults".prettierd
 
       require("formatter").setup {
         filetype = {
