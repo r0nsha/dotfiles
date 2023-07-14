@@ -89,11 +89,15 @@ return {
         end, opts)
 
         -- lsp.buffer_autoformat()
+        local formatkey = "<leader>f"
+        local formatopts = { buffer = buffer, remap = false, desc = "Format document" }
 
         if client.server_capabilities.documentFormattingProvider then
-          vim.keymap.set({ "n", "v", "x" }, "<leader>f", function()
+          vim.keymap.set({ "n", "v" }, formatkey, function()
             vim.lsp.buf.format { async = false, timeout_ms = 10000 }
-          end, { buffer = buffer, remap = false, desc = "Format document" })
+          end, formatopts)
+        else
+          vim.keymap.set({ "n", "v" }, formatkey, "<cmd>Format<cr>", formatopts)
         end
 
         if client.server_capabilities.documentSymbolProvider then
@@ -190,7 +194,7 @@ return {
 
           null_ls.builtins.formatting.shfmt,
           null_ls.builtins.formatting.fish_indent,
-          null_ls.builtins.formatting.stylua,
+          -- null_ls.builtins.formatting.stylua,
           null_ls.builtins.formatting.taplo,
           null_ls.builtins.formatting.yamlfmt,
           null_ls.builtins.formatting.markdownlint,
