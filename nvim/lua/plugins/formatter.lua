@@ -15,6 +15,9 @@ return {
           fish = {
             require("formatter.filetypes.fish").fishindent,
           },
+          toml = {
+            require("formatter.filetypes.toml").taplo,
+          },
         },
 
         ["*"] = {
