@@ -88,16 +88,17 @@ return {
           require("telescope.builtin").lsp_workspace_symbols {}
         end, opts)
 
-        -- lsp.buffer_autoformat()
-        local formatkey = "<leader>f"
-        local formatopts = { buffer = buffer, remap = false, desc = "Format document" }
-
         if client.server_capabilities.documentFormattingProvider then
-          vim.keymap.set({ "n", "v" }, formatkey, function()
+          vim.keymap.set({ "n", "v" }, "<leader>f", function()
             vim.lsp.buf.format { async = false, timeout_ms = 10000 }
-          end, formatopts)
+          end, { buffer = buffer, remap = false, desc = "Format document (LSP)" })
         else
-          vim.keymap.set({ "n", "v" }, formatkey, "<cmd>Format<cr>", formatopts)
+          vim.keymap.set(
+            { "n", "v" },
+            "<leader>f",
+            "<cmd>Format<cr>",
+            { buffer = buffer, remap = false, desc = "Format document (Formatter)" }
+          )
         end
 
         if client.server_capabilities.documentSymbolProvider then
@@ -190,10 +191,9 @@ return {
 
       null_ls.setup {
         sources = {
-          null_ls.builtins.diagnostics.fish,
+          -- null_ls.builtins.diagnostics.fish,
 
           null_ls.builtins.formatting.shfmt,
-          null_ls.builtins.formatting.fish_indent,
           null_ls.builtins.formatting.taplo,
           null_ls.builtins.formatting.yamlfmt,
           null_ls.builtins.formatting.markdownlint,
