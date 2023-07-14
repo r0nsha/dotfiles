@@ -193,7 +193,6 @@ return {
         sources = {
           -- null_ls.builtins.diagnostics.fish,
 
-          null_ls.builtins.formatting.yamlfmt,
           null_ls.builtins.formatting.markdownlint,
           null_ls.builtins.formatting.rome.with {
             condition = function()
