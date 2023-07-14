@@ -32,6 +32,7 @@ return {
       },
       {
         "j-hui/fidget.nvim",
+        tag = "legacy",
         event = { "BufReadPre", "BufNewFile" },
         config = function()
           require("fidget").setup {}
