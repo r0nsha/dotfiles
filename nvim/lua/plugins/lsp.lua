@@ -194,7 +194,6 @@ return {
 
           null_ls.builtins.formatting.shfmt,
           null_ls.builtins.formatting.fish_indent,
-          -- null_ls.builtins.formatting.stylua,
           null_ls.builtins.formatting.taplo,
           null_ls.builtins.formatting.yamlfmt,
           null_ls.builtins.formatting.markdownlint,
