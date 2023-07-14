@@ -183,54 +183,6 @@ return {
     end,
   },
   {
-    "jose-elias-alvarez/null-ls.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    config = function()
-      local utils = require "utils"
-      local null_ls = require "null-ls"
-
-      null_ls.setup {
-        sources = {
-          -- null_ls.builtins.diagnostics.fish,
-
-          null_ls.builtins.formatting.markdownlint,
-          null_ls.builtins.formatting.rome.with {
-            condition = function()
-              -- Disable Rome on my day job's MacOS
-              return not utils.is_macos()
-            end,
-          },
-          -- Use prettierd for everything on my day job's MacOS
-          null_ls.builtins.formatting.prettierd.with(utils.is_macos() and {} or {
-            filetypes = {
-              -- NOTE: Remove js/ts/json formatting because rome handles those
-              -- "javascript",
-              -- "javascriptreact",
-              -- "typescript",
-              -- "typescriptreact",
-              -- "json",
-              -- "jsonc",
-              -- "yaml",
-              "vue",
-              "css",
-              "scss",
-              "less",
-              "html",
-              "markdown",
-              "markdown.mdx",
-              "graphql",
-              "handlebars",
-            },
-          }),
-          -- Python
-          null_ls.builtins.formatting.black,
-          null_ls.builtins.formatting.isort,
-          null_ls.builtins.formatting.ruff,
-        },
-      }
-    end,
-  },
-  {
     "simrat39/rust-tools.nvim",
     event = { "BufReadPre", "BufNewFile" },
     config = function()

@@ -1,11 +1,25 @@
 return {
   {
     "mhartington/formatter.nvim",
+    event = { "BufReadPre", "BufNewFile" },
     config = function()
-      -- local util = require "formatter.util"
+      local prettierd = require "formatter.defaults"
 
       require("formatter").setup {
         filetype = {
+          javasriptreact = { prettierd },
+          typescript = { prettierd },
+          typescriptreact = { prettierd },
+          json = { prettierd },
+          jsonc = { prettierd },
+          vue = { prettierd },
+          css = { prettierd },
+          scss = { prettierd },
+          less = { prettierd },
+          html = { prettierd },
+          graphql = { prettierd },
+          handlebars = { prettierd },
+          markdown = { prettierd },
           lua = {
             require("formatter.filetypes.lua").stylua,
           },
@@ -21,6 +35,10 @@ return {
           yaml = {
             require("formatter.filetypes.yaml").yamlfmt,
           },
+          python = {
+            require("formatter.filetypes.python").black,
+            require("formatter.filetypes.python").isort,
+          },
         },
 
         ["*"] = {
@@ -28,7 +46,12 @@ return {
         },
       }
 
-      vim.keymap.set({ "n", "v" }, "<leader>f", "<cmd>Format<cr>", { silent = false, desc = "Format document (Formatter)" })
+      vim.keymap.set(
+        { "n", "v" },
+        "<leader>f",
+        "<cmd>Format<cr>",
+        { silent = false, desc = "Format document (Formatter)" }
+      )
     end,
   },
 }
