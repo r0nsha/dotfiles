@@ -1,6 +1,7 @@
 return {
   {
     "nvim-neo-tree/neo-tree.nvim",
+    version = "v3.x",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons",
@@ -27,7 +28,9 @@ return {
           "NeogitPopup",
         },
         filesystem = {
-          follow_current_file = false,
+          follow_current_file = {
+            enabled = true,
+          },
         },
         default_component_configs = {
           indent = {

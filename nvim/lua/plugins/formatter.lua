@@ -3,11 +3,12 @@ return {
     "mhartington/formatter.nvim",
     event = { "BufReadPre", "BufNewFile" },
     config = function()
-      local prettierd = require "formatter.defaults".prettierd
+      local prettierd = require("formatter.defaults").prettierd
 
       require("formatter").setup {
         filetype = {
-          javasriptreact = { prettierd },
+          javascript = { prettierd },
+          javascriptreact = { prettierd },
           typescript = { prettierd },
           typescriptreact = { prettierd },
           json = { prettierd },

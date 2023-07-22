@@ -73,15 +73,15 @@ return {
               ["[]"] = "@class.outer",
             },
           },
-          swap = {
-            enable = true,
-            swap_next = {
-              ["ip"] = "@parameter.inner",
-            },
-            swap_previous = {
-              ["iP"] = "@parameter.inner",
-            },
-          },
+          -- swap = {
+          --   enable = true,
+          --   swap_next = {
+          --     ["ip"] = "@parameter.inner",
+          --   },
+          --   swap_previous = {
+          --     ["iP"] = "@parameter.inner",
+          --   },
+          -- },
         },
       }
 

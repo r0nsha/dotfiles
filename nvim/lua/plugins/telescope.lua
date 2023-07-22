@@ -103,7 +103,7 @@ return {
       end, opts "Find word")
 
       vim.keymap.set("n", "<leader>sb", function()
-        builtin.current_buffer_fuzzy_find { skip_empty_lines = false }
+        builtin.buffers {}
       end, opts "Search in buffer")
 
       vim.keymap.set({ "n", "v" }, "<leader>ss", function()

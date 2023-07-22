@@ -130,6 +130,7 @@ return {
         desc = "Replace in files (Spectre)",
       },
     },
+    cmd = { "Spectre" },
   },
   "derektata/lorem.nvim",
   {
