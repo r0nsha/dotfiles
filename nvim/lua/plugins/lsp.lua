@@ -234,6 +234,15 @@ return {
             checkOnSave = {
               command = "clippy",
             },
+            inlayHints = {
+              locationLinks = false,
+            },
+            diagnostics = {
+              enable = true,
+              experimental = {
+                enable = true,
+              },
+            },
             procMacro = {
               enable = true,
             },
