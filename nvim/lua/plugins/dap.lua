@@ -68,6 +68,10 @@ return {
         python = { "./venv/bin/python" },
       })
 
+      -- Debug: Rust
+      -- dap.configurations.rust = {}
+
+      -- Mappings
       local function key(k)
         return "<leader>d" .. k
       end
