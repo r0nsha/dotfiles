@@ -203,19 +203,22 @@ return {
   {
     "simrat39/rust-tools.nvim",
     event = { "BufReadPre", "BufNewFile" },
+    dependencies = {
+      "mfussenegger/nvim-dap",
+    },
     config = function()
-      local rust_tools = require "rust-tools"
+      local mason_registry = require "mason-registry"
+      local codelldb = mason_registry.get_package "codelldb"
+      local extension_path = codelldb:get_install_path() .. "/extension/"
+      local codelldb_path = extension_path .. "adapter/codelldb"
+      local liblldb_path = extension_path .. "lldb/lib/liblldb.dylib"
 
-      rust_tools.setup {
+      require("rust-tools").setup {
         server = {
           standalone = true,
         },
         dap = {
-          adapter = {
-            type = "executable",
-            command = "lldb-vscode",
-            name = "rt_lldb",
-          },
+          adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path),
         },
         settings = {
           ["rust_analyzer"] = {
