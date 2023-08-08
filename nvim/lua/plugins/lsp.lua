@@ -216,6 +216,14 @@ return {
       local liblldb_path = extension_path .. "lldb/lib/liblldb.dylib"
 
       rt.setup {
+        dap = {
+          adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path),
+        },
+        tools = {
+          hover_actions = {
+            auto_focus = true,
+          },
+        },
         server = {
           capabilities = require("cmp_nvim_lsp").default_capabilities(),
           on_attach = function(_, bufnr)
@@ -232,9 +240,6 @@ return {
               { buffer = bufnr, desc = "Rust tools: Code action group" }
             )
           end,
-        },
-        dap = {
-          adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path),
         },
         settings = {
           ["rust_analyzer"] = {
