@@ -17,6 +17,9 @@ return {
         commented = true,
       }
 
+      -- https://github.com/simrat39/rust-tools.nvim/wiki/Use-with-dap.ext.vscode-launch.json
+      require("dap.ext.vscode").load_launchjs(nil, { rt_lldb = { "rust" } })
+
       local dap, dapui = require "dap", require "dapui"
 
       dapui.setup {}
