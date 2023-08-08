@@ -34,16 +34,16 @@ return {
       end
 
       -- Debug: Rust
-      local mason_registry = require "mason-registry"
+      -- local mason_registry = require "mason-registry"
 
       -- https://github.com/simrat39/rust-tools.nvim/wiki/Use-with-dap.ext.vscode-launch.json
-      require("dap.ext.vscode").load_launchjs(nil, { rt_lldb = { "rust" } })
+      -- require("dap.ext.vscode").load_launchjs(nil, { rt_lldb = { "rust" } })
 
-      local extension_path = mason_registry.get_package("codelldb"):get_install_path() .. "/extension/"
-      local codelldb_path = extension_path .. "adapter/codelldb"
-      local liblldb_path = extension_path .. "lldb/lib/liblldb.so"
-
-      dap.adapters.rust = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path)
+      -- local extension_path = mason_registry.get_package("codelldb"):get_install_path() .. "/extension/"
+      -- local codelldb_path = extension_path .. "adapter/codelldb"
+      -- local liblldb_path = extension_path .. "lldb/lib/liblldb.so"
+      --
+      -- dap.adapters.rust = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path)
 
       -- Debug: Lua
       dap.configurations.lua = {
