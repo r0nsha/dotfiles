@@ -71,15 +71,6 @@ return {
         python = { "./venv/bin/python" },
       })
 
-      -- Debug: LLDB/Rust
-      dap.configurations.rust = {
-        {
-          type = "executable",
-          command = "lldb-vscode",
-          name = "lldb",
-        },
-      }
-
       -- Mappings
       local function key(k)
         return "<leader>d" .. k
