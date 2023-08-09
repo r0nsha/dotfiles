@@ -34,7 +34,6 @@ return {
       end
 
       -- Debug: Rust
-
       dap.configurations.rust = {
         {
           name = "Launch",
