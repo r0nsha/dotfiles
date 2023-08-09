@@ -214,11 +214,12 @@ return {
       local codelldb_path = extension_path .. "adapter/codelldb"
       local liblldb_path = extension_path .. "lldb/lib/liblldb.so"
 
-      local adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path)
+      -- https://github.com/simrat39/rust-tools.nvim/wiki/Use-with-dap.ext.vscode-launch.json
+      require("dap.ext.vscode").load_launchjs(nil, { rt_lldb = { "rust" } })
 
       rt.setup {
         dap = {
-          adapter = adapter,
+          adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path),
         },
         tools = {
           hover_actions = {
