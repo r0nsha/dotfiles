@@ -212,7 +212,7 @@ return {
       local mason_registry = require "mason-registry"
       local extension_path = mason_registry.get_package("codelldb"):get_install_path() .. "/extension/"
       local codelldb_path = extension_path .. "adapter/codelldb"
-      local liblldb_path = extension_path .. "lldb/lib/liblldb.so"
+      local liblldb_path = extension_path .. "lldb/lib/liblldb"
 
       local this_os = vim.loop.os_uname().sysname
 
