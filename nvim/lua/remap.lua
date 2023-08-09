@@ -37,8 +37,8 @@ vim.keymap.set("n", "n", "nzzzv", { remap = false })
 vim.keymap.set("n", "N", "Nzzzv", { remap = false })
 
 -- Don't put yanked objects when using 'c' or 'C'
-vim.keymap.set("n", "c", '"_c', { remap = false })
-vim.keymap.set("n", "C", '"_C', { remap = false })
+-- vim.keymap.set("n", "c", '"_c', { remap = false })
+-- vim.keymap.set("n", "C", '"_C', { remap = false })
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
