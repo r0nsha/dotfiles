@@ -240,10 +240,11 @@ return {
               assist = {
                 importEnforceGranularity = true,
                 importPrefix = "crate",
+                emitMustUse = true,
               },
               cargo = {
-                allFeatures = true,
-                autoReload = true,
+                features = "all",
+                -- allFeatures = true,
                 buildScripts = {
                   enable = true,
                 },
@@ -261,6 +262,14 @@ return {
               },
               procMacro = {
                 enable = true,
+              },
+              semanticHighlighting = {
+                operator = { specialization = { enable = true } },
+                puncutation = {
+                  enable = true,
+                  specialization = { enable = true },
+                  separate = { macro = { bang = true } },
+                },
               },
             },
           },
