@@ -248,10 +248,7 @@ return {
                   enable = true,
                 },
               },
-              check = {
-                command = "clippy",
-              },
-              checkOnSave = true,
+              check = { command = "clippy" },
               inlayHints = {
                 enable = false,
                 locationLinks = false,
