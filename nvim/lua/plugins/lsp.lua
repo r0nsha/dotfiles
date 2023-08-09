@@ -237,40 +237,40 @@ return {
               { buffer = bufnr, desc = "Rust tools: Code action group" }
             )
           end,
-        },
-        settings = {
-          ["rust_analyzer"] = {
-            imports = {
-              granularity = {
-                group = "module",
+          settings = {
+            ["rust_analyzer"] = {
+              imports = {
+                granularity = {
+                  group = "module",
+                },
+                prefix = "self",
               },
-              prefix = "self",
-            },
-            assist = {
-              importEnforceGranularity = true,
-              importPrefix = "crate",
-            },
-            cargo = {
-              allFeatures = true,
-              buildScripts = {
+              assist = {
+                importEnforceGranularity = true,
+                importPrefix = "crate",
+              },
+              cargo = {
+                allFeatures = true,
+                buildScripts = {
+                  enable = true,
+                },
+              },
+              checkOnSave = {
+                command = "clippy",
+              },
+              inlayHints = {
+                enable = false,
+                locationLinks = false,
+              },
+              diagnostics = {
+                enable = true,
+                experimental = {
+                  enable = true,
+                },
+              },
+              procMacro = {
                 enable = true,
               },
-            },
-            checkOnSave = {
-              command = "clippy",
-            },
-            inlayHints = {
-              enable = false,
-              locationLinks = false,
-            },
-            diagnostics = {
-              enable = true,
-              experimental = {
-                enable = true,
-              },
-            },
-            procMacro = {
-              enable = true,
             },
           },
         },
