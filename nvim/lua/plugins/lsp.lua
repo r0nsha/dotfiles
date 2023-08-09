@@ -225,9 +225,6 @@ return {
         liblldb_path = liblldb_path .. (this_os == "Linux" and ".so" or ".dylib")
       end
 
-      -- https://github.com/simrat39/rust-tools.nvim/wiki/Use-with-dap.ext.vscode-launch.json
-      require("dap.ext.vscode").load_launchjs(nil, { rt_lldb = { "rust" } })
-
       rt.setup {
         dap = {
           adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path),
