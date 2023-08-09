@@ -251,13 +251,15 @@ return {
               },
               cargo = {
                 allFeatures = true,
+                autoReload = true,
                 buildScripts = {
                   enable = true,
                 },
               },
-              checkOnSave = {
+              check = {
                 command = "clippy",
               },
+              checkOnSave = true,
               inlayHints = {
                 enable = false,
                 locationLinks = false,
