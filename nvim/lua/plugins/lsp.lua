@@ -204,6 +204,7 @@ return {
     "simrat39/rust-tools.nvim",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
+      "neovim/nvim-lspconfig",
       "mfussenegger/nvim-dap",
     },
     config = function()
