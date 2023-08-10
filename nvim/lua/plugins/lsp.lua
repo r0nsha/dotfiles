@@ -215,23 +215,22 @@ return {
 
       rt.setup {
         server = {
-          -- capabilities = require("cmp_nvim_lsp").default_capabilities(),
-          -- on_attach = function(_, bufnr)
-          --   vim.keymap.set(
-          --     "n",
-          --     "<leader>K",
-          --     rt.hover_actions.hover_actions,
-          --     { buffer = bufnr, desc = "Rust tools: Hover actions" }
-          --   )
-          --   vim.keymap.set(
-          --     "n",
-          --     "<leader>A",
-          --     rt.code_action_group.code_action_group,
-          --     { buffer = bufnr, desc = "Rust tools: Code action group" }
-          --   )
-          -- end,
+          on_attach = function(_, bufnr)
+            vim.keymap.set(
+              "n",
+              "<leader>K",
+              rt.hover_actions.hover_actions,
+              { buffer = bufnr, desc = "Rust tools: Hover actions" }
+            )
+            vim.keymap.set(
+              "n",
+              "<leader>A",
+              rt.code_action_group.code_action_group,
+              { buffer = bufnr, desc = "Rust tools: Code action group" }
+            )
+          end,
           settings = {
-            ["rust_analyzer"] = {
+            ["rust-analyzer"] = {
               imports = {
                 granularity = {
                   group = "module",
