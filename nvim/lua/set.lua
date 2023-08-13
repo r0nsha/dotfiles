@@ -50,10 +50,10 @@ vim.o.joinspaces = true
 
 vim.o.cursorline = true
 
-vim.o.wrap = true
-vim.o.breakindent = true
+vim.o.wrap = false
 
 if vim.o.wrap then
+  vim.o.breakindent = true
   vim.o.linebreak = true
 end
 
