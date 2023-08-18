@@ -75,3 +75,5 @@ vim.fn.sign_define("DiagnosticSignError", { text = utils.icons.error .. " ", tex
 vim.fn.sign_define("DiagnosticSignWarn", { text = utils.icons.warning .. " ", texthl = "DiagnosticSignWarn" })
 vim.fn.sign_define("DiagnosticSignInfo", { text = utils.icons.info .. " ", texthl = "DiagnosticSignInfo" })
 vim.fn.sign_define("DiagnosticSignHint", { text = utils.icons.bulb, texthl = "DiagnosticSignHint" })
+
+vim.filetype.add { extension = { ll = "llvm" } }
