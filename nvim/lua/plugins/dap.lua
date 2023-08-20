@@ -33,7 +33,17 @@ return {
         dapui.close()
       end
 
-      -- Debug: Rust
+      -- https://github.com/simrat39/rust-tools.nvim/wiki/Use-with-dap.ext.vscode-launch.json
+      require("dap.ext.vscode").load_launchjs(nil, { rt_lldb = { "rust" } })
+
+      -- Adapters
+
+      dap.adapters.nlua = function(callback, config)
+        callback { type = "server", host = config.host, port = config.port }
+      end
+
+      -- Configurations
+
       dap.configurations.rust = {
         {
           name = "Launch",
@@ -67,10 +77,6 @@ return {
         },
       }
 
-      -- https://github.com/simrat39/rust-tools.nvim/wiki/Use-with-dap.ext.vscode-launch.json
-      require("dap.ext.vscode").load_launchjs(nil, { rt_lldb = { "rust" } })
-
-      -- Debug: Lua
       dap.configurations.lua = {
         {
           type = "nlua",
@@ -91,11 +97,6 @@ return {
         },
       }
 
-      dap.adapters.nlua = function(callback, config)
-        callback { type = "server", host = config.host, port = config.port }
-      end
-
-      -- Debug: Python
       require("dap-python").setup("~/.virtualenvs/debugpy/bin/python", {})
       table.insert(dap.configurations.python, {
         type = "python",
@@ -105,7 +106,6 @@ return {
         python = { "./venv/bin/python" },
       })
 
-      -- Mappings
       local function key(k)
         return "<leader>d" .. k
       end
@@ -121,26 +121,28 @@ return {
       vim.keymap.set("n", key "d", dap.disconnect, opts "Disconnect")
 
       vim.keymap.set("n", key "U", dapui.toggle, opts "Toggle UI")
-      vim.keymap.set({ "n", "v" }, key "e", dapui.eval, opts "Evaluate")
       vim.keymap.set("n", key "g", dap.session, opts "Get session")
 
       vim.keymap.set("n", key "R", dap.run_to_cursor, opts "Run to cursor")
 
       vim.keymap.set("n", key "c", dap.continue, opts "Continue")
-      vim.keymap.set("n", key "i", dap.step_into, opts "Step into")
-      vim.keymap.set("n", key "o", dap.step_over, opts "Step over")
-      vim.keymap.set("n", key "u", dap.step_out, opts "Step out")
-      vim.keymap.set("n", key "b", dap.step_back, opts "Step back")
+      vim.keymap.set("n", key "h", dap.step_back, opts "Step back")
+      vim.keymap.set("n", key "j", dap.step_into, opts "Step into")
+      vim.keymap.set("n", key "k", dap.step_out, opts "Step out")
+      vim.keymap.set("n", key "l", dap.step_over, opts "Step over")
 
       vim.keymap.set("n", key "p", function()
         dap.pause.toggle()
       end, opts "Pause")
 
       vim.keymap.set("n", key "t", dap.toggle_breakpoint, opts "Toggle breakpoint")
+      vim.keymap.set("n", key "T", function()
+        dap.set_breakpoint(vim.fn.input "[Condition] > ")
+      end, opts "Conditional breakpoint")
 
       vim.keymap.set("n", key "r", dap.repl.toggle, opts "Toggle Repl")
 
-      vim.keymap.set("n", key "h", function()
+      vim.keymap.set("n", key "K", function()
         require("dap.ui.widgets").hover()
       end, opts "Hover variables")
 
@@ -148,13 +150,10 @@ return {
         require("dap.ui.widgets").scopes()
       end, opts "Scopes")
 
+      vim.keymap.set({ "n", "v" }, key "e", dapui.eval, opts "Evaluate")
       vim.keymap.set("n", key "E", function()
         dapui.eval(vim.fn.input "[Expression] > ")
       end, opts "Evaluate input")
-
-      vim.keymap.set("n", key "C", function()
-        dap.set_breakpoint(vim.fn.input "[Condition] > ")
-      end, opts "Conditional breakpoint")
 
       vim.keymap.set("n", key "x", dap.terminate, opts "Terminate")
       vim.keymap.set("n", key "q", dap.close, opts "Quit")
