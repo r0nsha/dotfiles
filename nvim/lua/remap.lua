@@ -19,8 +19,8 @@ if vim.fn.executable "tmux" ~= 1 then
 end
 
 -- Remap for dealing with word wrap
-vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+-- vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+-- vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 vim.keymap.set("v", "J", ":m '>+1<cr>gv=gv", { remap = false, desc = "Move Visual Selection: Down" })
 vim.keymap.set("v", "K", ":m '<-2<cr>gv=gv", { remap = false, desc = "Move Visual Selection: Up" })
@@ -36,7 +36,14 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz", { remap = false })
 vim.keymap.set("n", "n", "nzzzv", { remap = false })
 vim.keymap.set("n", "N", "Nzzzv", { remap = false })
 
--- Don't put yanked objects when using 'c' or 'C'
+-- Stay in visual mode when indenting
+vim.keymap.set("v", "<", "<gv", { remap = false })
+vim.keymap.set("v", ">", ">gv", { remap = false })
+
+-- Don't yank when using 'p' in visual mode
+vim.keymap.set("v", "p", '"_dP', { remap = false })
+
+-- Don't yank when using 'c' or 'C'
 -- vim.keymap.set("n", "c", '"_c', { remap = false })
 -- vim.keymap.set("n", "C", '"_C', { remap = false })
 
