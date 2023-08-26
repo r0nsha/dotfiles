@@ -50,8 +50,9 @@ return {
           end,
         },
         mapping = cmp.mapping.preset.insert {
-          ["C-n"] = cmp_action.luasnip_jump_forward(),
-          ["C-p"] = cmp_action.luasnip_jump_backward(),
+          ["C-n"] = cmp_action.luasnip_supertab(),
+          ["C-p"] = cmp_action.luasnip_shift_supertab(),
+          ["C-y"] = cmp.mapping.confirm { select = true },
           ["<C-d>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-,>"] = cmp.mapping.complete(),
