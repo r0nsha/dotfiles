@@ -65,7 +65,7 @@ return {
             end,
           },
         },
-        extensions = { "fugitive", "neo-tree", "lazy" },
+        extensions = { "neo-tree" },
       }
     end,
   },
