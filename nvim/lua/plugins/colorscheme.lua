@@ -91,9 +91,9 @@ return {
               -- TelescopePreviewBorder = { bg = theme.ui.bg_dim, fg = theme.ui.bg_dim },
             }
           end,
-          theme = "wave",
+          theme = "dragon",
           background = {
-            dark = "wave",
+            dark = "dragon",
             light = "lotus",
           },
         }
