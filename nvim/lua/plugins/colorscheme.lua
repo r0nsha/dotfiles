@@ -50,7 +50,7 @@ return {
           specialReturn = true,
           specialException = true,
           transparent = true,
-          dimInactive = false,
+          dimInactive = true,
           globalStatus = false,
           terminalColors = true,
           colors = {
