@@ -56,8 +56,8 @@ return {
         "rome", -- Rome's lsp makes things slow af
       }
 
-      lsp.on_attach(function(client, buffer)
-        local opts = { buffer = buffer, remap = false }
+      lsp.on_attach(function(client, bufnr)
+        local opts = { buffer = bufnr, remap = false }
 
         vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
         vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
@@ -79,14 +79,18 @@ return {
         if client.server_capabilities.documentFormattingProvider then
           vim.keymap.set({ "n", "v" }, "<leader>f", function()
             vim.lsp.buf.format { async = false, timeout_ms = 10000 }
-          end, { buffer = buffer, remap = false, desc = "Format document (LSP)" })
+          end, { buffer = bufnr, remap = false, desc = "Format document (LSP)" })
         else
           vim.keymap.set(
             { "n", "v" },
             "<leader>f",
             "<cmd>Format<cr>",
-            { buffer = buffer, remap = false, desc = "Format document (Formatter)" }
+            { buffer = bufnr, remap = false, desc = "Format document (Formatter)" }
           )
+        end
+
+        if client.server_capabilities.documentSymbolProvider then
+          require("nvim-navic").attach(client, bufnr)
         end
       end)
 
