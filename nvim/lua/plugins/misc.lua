@@ -140,5 +140,4 @@ return {
       vim.keymap.set("n", "<leader>W", "<cmd>SudaWrite<cr>", { remap = false, desc = "Write current file with sudo" })
     end,
   },
-  { "NTBBloodbath/color-converter.nvim", event = "VeryLazy" },
 }
