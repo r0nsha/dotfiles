@@ -38,7 +38,9 @@ return {
     priority = 1000,
     config = function()
       if colorscheme == "kanagawa" then
-        require("kanagawa").setup {
+        local kanagawa = require "kanagawa"
+
+        kanagawa.setup {
           compile = false,
           undercurl = true,
           commentStyle = { italic = false },
@@ -81,6 +83,8 @@ return {
               NormalDark = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m3 },
               LazyNormal = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
               MasonNormal = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
+              TelescopeBorder = { bg = "none" },
+              TelescopeTitle = { bg = "none" },
             }
           end,
           theme = "dragon",
@@ -90,11 +94,7 @@ return {
           },
         }
 
-        vim.cmd.colorscheme "kanagawa"
-
-        -- transparent telescope
-        vim.cmd "highlight TelescopeBorder guibg=none"
-        vim.cmd "highlight TelescopeTitle guibg=none"
+        kanagawa.load()
       end
     end,
   },
