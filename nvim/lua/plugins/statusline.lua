@@ -17,11 +17,10 @@ return {
           lualine_a = {
             "mode",
           },
-          lualine_b = {
+          lualine_b = {},
+          lualine_c = {
             "branch",
             "diff",
-          },
-          lualine_c = {
             {
               "filename",
               file_status = true,
@@ -45,8 +44,6 @@ return {
             },
             "encoding",
             "filetype",
-          },
-          lualine_y = {
             {
               "progress",
               separator = " ",
@@ -57,6 +54,7 @@ return {
               padding = { left = 0, right = 1 },
             },
           },
+          lualine_y = {},
           lualine_z = {
             function()
               return utils.icons.clock .. " " .. os.date "%R"
