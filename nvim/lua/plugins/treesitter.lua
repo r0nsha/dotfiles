@@ -4,6 +4,7 @@ return {
     build = ":TSUpdate",
     dependencies = {
       "nvim-treesitter/nvim-treesitter-context",
+      "theHamsta/nvim-treesitter-pairs",
       "nvim-treesitter/nvim-treesitter-textobjects",
       "JoosepAlviste/nvim-ts-context-commentstring",
     },
@@ -34,6 +35,7 @@ return {
           "bash",
           "fish",
         },
+        pairs = { enable = true },
         matchup = { enable = true },
         highlight = { enable = true },
         indent = { enable = true },

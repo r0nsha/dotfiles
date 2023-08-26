@@ -13,8 +13,4 @@ return {
       require("nvim-ts-autotag").setup()
     end,
   },
-  {
-    "andymass/vim-matchup",
-    event = { "BufReadPost", "BufNewFile" },
-  },
 }
