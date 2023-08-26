@@ -19,18 +19,6 @@ return {
         config = true,
       },
       {
-        "SmiteshP/nvim-navic",
-        lazy = true,
-        config = function()
-          vim.g.navic_silence = true
-          require("nvim-navic").setup {
-            separator = " ",
-            highlight = true,
-            depth_limit = 5,
-          }
-        end,
-      },
-      {
         "j-hui/fidget.nvim",
         tag = "legacy",
         event = { "BufReadPre", "BufNewFile" },
@@ -99,10 +87,6 @@ return {
             "<cmd>Format<cr>",
             { buffer = buffer, remap = false, desc = "Format document (Formatter)" }
           )
-        end
-
-        if client.server_capabilities.documentSymbolProvider then
-          require("nvim-navic").attach(client, buffer)
         end
       end)
 
