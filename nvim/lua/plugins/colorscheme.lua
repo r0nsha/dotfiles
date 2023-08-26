@@ -1,38 +1,38 @@
 local colorscheme = "kanagawa"
 
 return {
-  {
-    "ellisonleao/gruvbox.nvim",
-    priority = 1000,
-    config = function()
-      if colorscheme == "gruvbox" then
-        require("gruvbox").setup { contrast = "dark", italics = false }
-        vim.cmd.colorscheme "gruvbox"
-      end
-    end,
-  },
-  {
-    "Shatur/neovim-ayu",
-    priority = 1000,
-    config = function()
-      if colorscheme == "ayu" then
-        local mirage = false
-        local colors = require "ayu.colors"
-        colors.generate(mirage)
-
-        local ayu = require "ayu"
-
-        ayu.setup {
-          mirage = mirage,
-          overrides = function()
-            return { Comment = { fg = colors.comment } }
-          end,
-        }
-
-        ayu.colorscheme()
-      end
-    end,
-  },
+  -- {
+  --   "ellisonleao/gruvbox.nvim",
+  --   priority = 1000,
+  --   config = function()
+  --     if colorscheme == "gruvbox" then
+  --       require("gruvbox").setup { contrast = "dark", italics = false }
+  --       vim.cmd.colorscheme "gruvbox"
+  --     end
+  --   end,
+  -- },
+  -- {
+  --   "Shatur/neovim-ayu",
+  --   priority = 1000,
+  --   config = function()
+  --     if colorscheme == "ayu" then
+  --       local mirage = false
+  --       local colors = require "ayu.colors"
+  --       colors.generate(mirage)
+  --
+  --       local ayu = require "ayu"
+  --
+  --       ayu.setup {
+  --         mirage = mirage,
+  --         overrides = function()
+  --           return { Comment = { fg = colors.comment } }
+  --         end,
+  --       }
+  --
+  --       ayu.colorscheme()
+  --     end
+  --   end,
+  -- },
   {
     "rebelot/kanagawa.nvim",
     priority = 1000,
@@ -98,22 +98,22 @@ return {
       end
     end,
   },
-  {
-    "nyoom-engineering/oxocarbon.nvim",
-    priority = 1000,
-    config = function()
-      if colorscheme == "oxocarbon" then
-        vim.cmd.colorscheme "oxocarbon"
-      end
-    end,
-  },
-  {
-    "phha/zenburn.nvim",
-    priority = 1000,
-    config = function()
-      if colorscheme == "zenburn" then
-        vim.cmd.colorscheme "zenburn"
-      end
-    end,
-  },
+  -- {
+  --   "nyoom-engineering/oxocarbon.nvim",
+  --   priority = 1000,
+  --   config = function()
+  --     if colorscheme == "oxocarbon" then
+  --       vim.cmd.colorscheme "oxocarbon"
+  --     end
+  --   end,
+  -- },
+  -- {
+  --   "phha/zenburn.nvim",
+  --   priority = 1000,
+  --   config = function()
+  --     if colorscheme == "zenburn" then
+  --       vim.cmd.colorscheme "zenburn"
+  --     end
+  --   end,
+  -- },
 }
