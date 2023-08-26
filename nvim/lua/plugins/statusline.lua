@@ -19,7 +19,7 @@ return {
           },
           lualine_b = {
             "branch",
-            "digff",
+            "diff",
           },
           lualine_c = {
             {
