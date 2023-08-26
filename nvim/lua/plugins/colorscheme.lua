@@ -7,7 +7,7 @@ return {
     config = function()
       require("gruvbox").setup { contrast = "dark", italics = false }
       if colorscheme == "gruvbox" then
-        vim.cmd [[colorscheme gruvbox]]
+        vim.cmd.colorscheme "gruvbox"
       end
     end,
   },
@@ -40,7 +40,7 @@ return {
       require("nightfox").setup()
 
       if colorscheme == "nightfox" then
-        vim.cmd [[colorscheme nordfox]]
+        vim.cmd.colorscheme "nordfox"
       end
     end,
   },
@@ -57,7 +57,7 @@ return {
       }
 
       if colorscheme == "tokyonight" then
-        vim.cmd [[colorscheme tokyonight]]
+        vim.cmd.colorscheme "tokyonight"
       end
     end,
   },
@@ -117,7 +117,7 @@ return {
       }
 
       if colorscheme == "kanagawa" then
-        vim.cmd [[colorscheme kanagawa]]
+        vim.cmd.colorscheme "kanagawa"
 
         -- transparent telescope
         vim.cmd "highlight TelescopeBorder guibg=none"
@@ -132,7 +132,23 @@ return {
       require("catppuccin").setup {}
 
       if colorscheme == "catppuccin" then
-        vim.cmd [[colorscheme catppuccin]]
+        vim.cmd.colorscheme "catppuccin"
+      end
+    end,
+  },
+  {
+    "nyoom-engineering/oxocarbon.nvim",
+    config = function()
+      if colorscheme == "oxocarbon" then
+        vim.cmd.colorscheme "oxocarbon"
+      end
+    end,
+  },
+  {
+    "phha/zenburn.nvim",
+    config = function()
+      if colorscheme == "zenburn" then
+        vim.cmd.colorscheme "zenburn"
       end
     end,
   },

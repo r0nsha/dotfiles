@@ -8,6 +8,7 @@ vim.o.shadafile = ""
 
 vim.o.mouse = "a"
 vim.o.guicursor = ""
+vim.opt.background = "dark"
 
 vim.o.completeopt = "menuone,noselect"
 vim.o.backspace = "indent,start,eol"
