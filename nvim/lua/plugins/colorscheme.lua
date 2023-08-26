@@ -34,33 +34,6 @@ return {
     end,
   },
   {
-    "EdenEast/nightfox.nvim",
-    priority = 1000,
-    config = function()
-      if colorscheme == "nightfox" then
-        require("nightfox").setup {}
-        vim.cmd.colorscheme "nordfox"
-      end
-    end,
-  },
-  {
-    "folke/tokyonight.nvim",
-    priority = 1000,
-    config = function()
-      if colorscheme == "tokyonight" then
-        require("tokyonight").setup {
-          style = "storm",
-          styles = {
-            comments = { italic = false },
-            keywords = { italic = false },
-          },
-        }
-
-        vim.cmd.colorscheme "tokyonight"
-      end
-    end,
-  },
-  {
     "rebelot/kanagawa.nvim",
     priority = 1000,
     config = function()
@@ -125,17 +98,8 @@ return {
     end,
   },
   {
-    "catppuccin/nvim",
-    name = "catppuccin",
-    config = function()
-      if colorscheme == "catppuccin" then
-        require("catppuccin").setup {}
-        vim.cmd.colorscheme "catppuccin"
-      end
-    end,
-  },
-  {
     "nyoom-engineering/oxocarbon.nvim",
+    priority = 1000,
     config = function()
       if colorscheme == "oxocarbon" then
         vim.cmd.colorscheme "oxocarbon"
@@ -144,6 +108,7 @@ return {
   },
   {
     "phha/zenburn.nvim",
+    priority = 1000,
     config = function()
       if colorscheme == "zenburn" then
         vim.cmd.colorscheme "zenburn"
