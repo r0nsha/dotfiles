@@ -88,10 +88,6 @@ return {
             { buffer = bufnr, remap = false, desc = "Format document (Formatter)" }
           )
         end
-
-        if client.server_capabilities.documentSymbolProvider then
-          require("nvim-navic").attach(client, bufnr)
-        end
       end)
 
       local function disable_formatting(client)
