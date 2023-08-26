@@ -3,16 +3,16 @@
 # Kanagawa Fish shell theme
 # A template was taken and modified from Tokyonight:
 # https://github.com/folke/tokyonight.nvim/blob/main/extras/fish_tokyonight_night.fish
-set -l foreground DCD7BA
-set -l selection 2D4F67
-set -l comment 727169
-set -l red C34043
-set -l orange FF9E64
-set -l yellow C0A36E
-set -l green 76946A
-set -l purple 957FB8
-set -l cyan 7AA89F
-set -l pink D27E99
+set -l foreground C5C9C5
+set -l selection 7AA89F
+set -l comment A6A69C
+set -l red C4746E
+set -l orange E6C384
+set -l yellow C4B28A
+set -l green 8A9A7B
+set -l purple A292A3
+set -l cyan 8EA4A2
+set -l pink 938AA9
 
 # Syntax Highlighting Colors
 set -g fish_color_normal $foreground
