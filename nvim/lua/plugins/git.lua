@@ -28,13 +28,13 @@ return {
       local gitsigns = require "gitsigns"
 
       gitsigns.setup {
-        -- signs = {
-        --   add = { text = "+" },
-        --   change = { text = "~" },
-        --   delete = { text = "_" },
-        --   topdelete = { text = "‾" },
-        --   changedelete = { text = "~" },
-        -- },
+        signs = {
+          add = { text = "+" },
+          change = { text = "~" },
+          delete = { text = "_" },
+          topdelete = { text = "‾" },
+          changedelete = { text = "~" },
+        },
         current_line_blame = true,
         on_attach = function(bufnr)
           vim.keymap.set("n", "[c", require("gitsigns").prev_hunk, { buffer = bufnr, desc = "Go to Previous Hunk" })
