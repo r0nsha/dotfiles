@@ -58,8 +58,8 @@ return {
           -- ["<C-,>"] = cmp.mapping.complete(),
           -- ["<Tab>"] = cmp_action.luasnip_supertab(),
           -- ["<S-Tab>"] = cmp_action.luasnip_shift_supertab(),
-          -- ["<cr>"] = cmp.mapping.confirm { select = true },
-          -- ["<S-cr>"] = cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Replace, select = true },
+          ["<cr>"] = cmp.mapping.confirm { select = true },
+          ["<S-cr>"] = cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Replace, select = true },
         },
         sources = cmp.config.sources {
           { name = "nvim_lsp" },
