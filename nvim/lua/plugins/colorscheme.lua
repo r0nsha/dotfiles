@@ -83,7 +83,8 @@ return {
               NormalDark = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m3 },
               LazyNormal = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
               MasonNormal = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
-              TelescopeBorder = { bg = "none" },
+              -- TelescopeBorder = { bg = "none" },
+              -- TelescopeTitle = { bg = "none" },
               -- block-like telescope ui
               TelescopeTitle = { fg = theme.ui.special, bold = true },
               TelescopePromptNormal = { bg = theme.ui.bg_p1 },
