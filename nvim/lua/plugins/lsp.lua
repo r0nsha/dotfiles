@@ -45,7 +45,6 @@ return {
         "tsserver",
         "cssls",
         "unocss",
-        "rome",
         "rust_analyzer",
         "lua_ls",
       }
@@ -53,7 +52,6 @@ return {
       lsp.skip_server_setup {
         "tsserver", -- Manual setup
         "rust_analyzer", -- Replaced by rust-tools
-        "rome", -- Rome's lsp makes things slow af
       }
 
       lsp.on_attach(function(client, bufnr)
@@ -104,7 +102,7 @@ return {
 
       lspconfig.tsserver.setup {
         on_init = function(client)
-          disable_formatting(client) -- We use Rome/Prettier instead
+          disable_formatting(client) -- We use Prettier instead
         end,
         init_options = {
           preferences = {
