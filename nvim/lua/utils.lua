@@ -8,6 +8,10 @@ function M.is_macos()
   return vim.fn.has "macunix" == 1
 end
 
+function M.is_wsl()
+  return vim.fn.has "wsl" == 1
+end
+
 function M.get_codelldb_paths()
   local mason_registry = require "mason-registry"
   local extension_path = mason_registry.get_package("codelldb"):get_install_path() .. "/extension/"
