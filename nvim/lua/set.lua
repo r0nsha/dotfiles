@@ -7,6 +7,7 @@ vim.g.loaded_netrwPlugin = 1
 vim.o.shadafile = ""
 
 vim.o.mouse = "a"
+vim.o.mousemodel = "extend"
 vim.o.guicursor = ""
 vim.opt.background = "dark"
 
