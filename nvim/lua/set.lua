@@ -11,6 +11,7 @@ vim.o.mousemodel = "extend"
 vim.o.guicursor = ""
 vim.opt.background = "dark"
 
+vim.opt.shortmess:append { I = true }
 vim.o.completeopt = "menuone,noselect"
 vim.o.backspace = "indent,start,eol"
 vim.o.swapfile = false
