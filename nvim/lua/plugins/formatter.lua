@@ -3,7 +3,9 @@ return {
     "mhartington/formatter.nvim",
     event = { "BufReadPre", "BufNewFile" },
     config = function()
-      local prettierd = require("formatter.defaults").prettierd
+      local defaults = require "formatter.defaults"
+      local prettierd = defaults.prettierd
+      local clangformat = defaults.clangformat
 
       require("formatter").setup {
         filetype = {
@@ -21,6 +23,8 @@ return {
           graphql = { prettierd },
           handlebars = { prettierd },
           markdown = { prettierd },
+          c = { clangformat },
+          cpp = { clangformat },
           lua = {
             require("formatter.filetypes.lua").stylua,
           },
