@@ -63,11 +63,10 @@ return {
   {
     "NeogitOrg/neogit",
     keys = {
-      { "<leader>gs", "<cmd>Neogit kind=split<cr>" },
+      { "<leader>gs", "<cmd>Neogit kind=auto<cr>" },
     },
     config = function()
       require("neogit").setup {
-        kind = "tab",
         integrations = { diffview = true },
         disable_insert_on_commit = false,
         disable_commit_confirmation = true,
