@@ -245,6 +245,7 @@ return {
                 experimental = {
                   enable = true,
                 },
+                disabled = { "inactive-code" },
               },
               procMacro = {
                 enable = true,
