@@ -3,7 +3,14 @@ return {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     dependencies = {
-      "nvim-treesitter/nvim-treesitter-context",
+      {
+        "nvim-treesitter/nvim-treesitter-context",
+        config = function()
+          require("treesitter-context").setup {
+            multiline_threshold = 1,
+          }
+        end,
+      },
       "theHamsta/nvim-treesitter-pairs",
       "nvim-treesitter/nvim-treesitter-textobjects",
       "JoosepAlviste/nvim-ts-context-commentstring",
