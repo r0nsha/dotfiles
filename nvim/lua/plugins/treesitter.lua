@@ -6,7 +6,8 @@ return {
       {
         "nvim-treesitter/nvim-treesitter-context",
         config = function()
-          require("treesitter-context").setup {
+          vim.g.skip_ts_context_commentstring_module = true
+          require("ts_context_commentstring").setup {
             multiline_threshold = 1,
           }
         end,
