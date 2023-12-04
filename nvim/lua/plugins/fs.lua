@@ -1,46 +1,5 @@
 return {
   {
-    "nvim-neo-tree/neo-tree.nvim",
-    version = "v3.x",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons",
-      "MunifTanjim/nui.nvim",
-    },
-    keys = {
-      { "<leader>e", "<cmd>Neotree toggle<cr>", desc = "NeoTree" },
-      { "<leader>o", "<cmd>Neotree filesystem reveal<cr>", desc = "NeoTree" },
-    },
-    config = function()
-      vim.cmd [[ let g:neo_tree_remove_legacy_commands = 1 ]]
-
-      require("neo-tree").setup {
-        close_if_last_window = false,
-        popup_border_style = "rounded",
-        enable_git_status = true,
-        enable_diagnostics = true,
-        open_files_do_not_replace_types = {
-          "terminal",
-          "trouble",
-          "qf",
-          "toggleterm",
-          "NeogitStatus",
-          "NeogitPopup",
-        },
-        filesystem = {
-          follow_current_file = {
-            enabled = true,
-          },
-        },
-        default_component_configs = {
-          indent = {
-            with_expanders = true,
-          },
-        },
-      }
-    end,
-  },
-  {
     "echasnovski/mini.files",
     opts = {
       windows = {
@@ -54,14 +13,14 @@ return {
     },
     keys = {
       {
-        "<leader>E",
+        "<leader>e",
         function()
           require("mini.files").open(vim.loop.cwd(), true)
         end,
         desc = "Open mini.files (cwd)",
       },
       {
-        "<leader>O",
+        "<leader>o",
         function()
           require("mini.files").open(vim.api.nvim_buf_get_name(0), true)
         end,
