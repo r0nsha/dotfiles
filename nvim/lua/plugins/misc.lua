@@ -106,4 +106,10 @@ return {
       vim.keymap.set("n", "<leader>W", "<cmd>SudaWrite<cr>", { remap = false, desc = "Write current file with sudo" })
     end,
   },
+  {
+    "b0o/incline.nvim",
+    config = function()
+      require("incline").setup {}
+    end,
+  },
 }
