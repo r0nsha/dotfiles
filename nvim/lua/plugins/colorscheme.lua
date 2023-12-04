@@ -1,5 +1,3 @@
-local colorscheme = "kanagawa"
-
 return {
   -- {
   --   "ellisonleao/gruvbox.nvim",
@@ -108,26 +106,9 @@ return {
   -- },
   {
     "phha/zenburn.nvim",
+    priority = 1000,
     config = function()
-      require("zenburn").setup {}
+      vim.cmd.colorscheme "zenburn"
     end,
   },
-  -- {
-  --   "nyoom-engineering/oxocarbon.nvim",
-  --   priority = 1000,
-  --   config = function()
-  --     if colorscheme == "oxocarbon" then
-  --       vim.cmd.colorscheme "oxocarbon"
-  --     end
-  --   end,
-  -- },
-  -- {
-  --   "phha/zenburn.nvim",
-  --   priority = 1000,
-  --   config = function()
-  --     if colorscheme == "zenburn" then
-  --       vim.cmd.colorscheme "zenburn"
-  --     end
-  --   end,
-  -- },
 }
