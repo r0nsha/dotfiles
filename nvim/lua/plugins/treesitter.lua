@@ -7,15 +7,20 @@ return {
         "nvim-treesitter/nvim-treesitter-context",
         config = function()
           vim.g.skip_ts_context_commentstring_module = true
-          require("ts_context_commentstring").setup {
-            enable = false,
+          require("treesitter-context").setup {
+            enable = true,
             multiline_threshold = 1,
           }
         end,
       },
       "theHamsta/nvim-treesitter-pairs",
       "nvim-treesitter/nvim-treesitter-textobjects",
-      "JoosepAlviste/nvim-ts-context-commentstring",
+      {
+        "JoosepAlviste/nvim-ts-context-commentstring",
+        config = function()
+          require("ts_context_commentstring").setup {}
+        end,
+      },
     },
     config = function()
       local utils = require "utils"
