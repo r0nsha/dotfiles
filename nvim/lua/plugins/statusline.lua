@@ -7,7 +7,8 @@ return {
       require("lualine").setup {
         options = {
           icons_enabled = true,
-          theme = "auto",
+          -- theme = "auto",
+          theme = "zenburn",
           globalstatus = true,
           disabled_filetypes = { statusline = { "dashboard", "alpha" } },
           component_separators = "|",
