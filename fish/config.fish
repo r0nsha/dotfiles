@@ -28,6 +28,9 @@ set fish_cursor_visual block
 fish_add_path $HOME/.cargo/bin
 fish_add_path $HOME/.local/bin
 
+# npm
+fish_add_path ./node_modules/.bin
+
 # Node stuff
 set -Ux NVM_DIR "$HOME/.nvm"
 
