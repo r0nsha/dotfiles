@@ -5,12 +5,12 @@ return {
     dependencies = {
       "nvim-dap-virtual-text",
       "nvim-dap-ui",
-      "nvim-dap-python",
       "theHamsta/nvim-dap-virtual-text",
       "rcarriga/nvim-dap-ui",
-      "mfussenegger/nvim-dap-python",
       "nvim-telescope/telescope-dap.nvim",
       { "jbyuki/one-small-step-for-vimkind" },
+      -- "nvim-dap-python",
+      -- "mfussenegger/nvim-dap-python",
     },
     config = function()
       require("nvim-dap-virtual-text").setup {
@@ -97,18 +97,19 @@ return {
         },
       }
 
-      local mason_registry = require "mason-registry"
-      local python_path = mason_registry.get_package("debugpy"):get_install_path() .. "/venv/bin/python"
-
-      require("dap-python").setup(python_path, {})
-      table.insert(dap.configurations.python, {
-        type = "python",
-        request = "launch",
-        name = "Launch main.py",
-        program = "./main.py",
-        python = { "./venv/bin/python" },
-        cwd = "${workspaceFolder}",
-      })
+      -- -- Python debugger
+      -- local mason_registry = require "mason-registry"
+      -- local python_path = mason_registry.get_package("debugpy"):get_install_path() .. "/venv/bin/python"
+      --
+      -- require("dap-python").setup(python_path, {})
+      -- table.insert(dap.configurations.python, {
+      --   type = "python",
+      --   request = "launch",
+      --   name = "Launch main.py",
+      --   program = "./main.py",
+      --   python = { "./venv/bin/python" },
+      --   cwd = "${workspaceFolder}",
+      -- })
 
       local function key(k)
         return "<leader>d" .. k
