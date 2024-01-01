@@ -1,4 +1,5 @@
 import = ["/home/ron/dotfiles/alacritty/kanagawa_dragon.toml"]
+# import = ["/home/ron/dotfiles/alacritty/zenburn.toml"]
 live_config_reload = true
 
 [bell]
