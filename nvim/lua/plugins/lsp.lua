@@ -2,6 +2,7 @@ return {
   -- Lsp
   {
     "VonHeikemen/lsp-zero.nvim",
+    branch = "v3.x",
     lazy = true,
   },
   {
@@ -41,19 +42,6 @@ return {
 
       lsp.preset "recommended"
 
-      lsp.ensure_installed {
-        "tsserver",
-        "cssls",
-        "unocss",
-        "rust_analyzer",
-        "lua_ls",
-      }
-
-      lsp.skip_server_setup {
-        "tsserver", -- Manual setup
-        "rust_analyzer", -- Replaced by rust-tools
-      }
-
       lsp.on_attach(function(client, bufnr)
         local opts = { buffer = bufnr, remap = false }
 
@@ -88,6 +76,16 @@ return {
           )
         end
       end)
+
+      require("mason-lspconfig").setup {
+        ensure_installed = {
+          "tsserver",
+          "cssls",
+          "rust_analyzer",
+          "lua_ls",
+        },
+        handlers = { lsp.default_setup },
+      }
 
       local function disable_formatting(client)
         client.server_capabilities.documentFormattingProvider = false
