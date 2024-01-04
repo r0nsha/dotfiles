@@ -1,36 +1,4 @@
 return {
-  -- {
-  --   "ellisonleao/gruvbox.nvim",
-  --   priority = 1000,
-  --   config = function()
-  --     if colorscheme == "gruvbox" then
-  --       require("gruvbox").setup { contrast = "dark", italics = false }
-  --       vim.cmd.colorscheme "gruvbox"
-  --     end
-  --   end,
-  -- },
-  -- {
-  --   "Shatur/neovim-ayu",
-  --   priority = 1000,
-  --   config = function()
-  --     if colorscheme == "ayu" then
-  --       local mirage = false
-  --       local colors = require "ayu.colors"
-  --       colors.generate(mirage)
-  --
-  --       local ayu = require "ayu"
-  --
-  --       ayu.setup {
-  --         mirage = mirage,
-  --         overrides = function()
-  --           return { Comment = { fg = colors.comment } }
-  --         end,
-  --       }
-  --
-  --       ayu.colorscheme()
-  --     end
-  --   end,
-  -- },
   {
     "rebelot/kanagawa.nvim",
     priority = 1000,
@@ -102,11 +70,11 @@ return {
       kanagawa.load()
     end,
   },
-  -- {
-  --   "phha/zenburn.nvim",
-  --   priority = 1000,
-  --   config = function()
-  --     vim.cmd.colorscheme "zenburn"
-  --   end,
-  -- },
+  {
+    "phha/zenburn.nvim",
+    priority = 1000,
+    config = function()
+      vim.cmd.colorscheme "zenburn"
+    end,
+  },
 }

@@ -16,7 +16,6 @@ require("lazy").setup({
 }, {
   install = {
     colorscheme = { "kanagawa" },
-    -- colorscheme = { "zenburn" },
   },
   checker = {
     enabled = true,
