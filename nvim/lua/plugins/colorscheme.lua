@@ -48,7 +48,7 @@ return {
         variablebuiltinStyle = { italic = false },
         specialReturn = true,
         specialException = true,
-        transparent = true,
+        transparent = false,
         dimInactive = false,
         globalStatus = false,
         terminalColors = true,
