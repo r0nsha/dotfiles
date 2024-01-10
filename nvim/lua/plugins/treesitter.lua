@@ -21,6 +21,7 @@ return {
           require("ts_context_commentstring").setup {}
         end,
       },
+      { "nvim-treesitter/playground" },
     },
     config = function()
       local utils = require "utils"
@@ -124,4 +125,5 @@ return {
       -- }
     end,
   },
+  { "r0nsha/jin.vim" },
 }
