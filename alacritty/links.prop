@@ -5,7 +5,6 @@ $DOTFILES/alacritty/kanagawa_dragon.yml=$HOME/.config/alacritty/kanagawa_dragon.
 $DOTFILES/alacritty/nordfox.yml=$HOME/.config/alacritty/nordfox.yml
 $DOTFILES/alacritty/tokyonight.yml=$HOME/.config/alacritty/tokyonight.yml
 $DOTFILES/alacritty/zenburn.yml=$HOME/.config/alacritty/zenburn.yml
-
 $DOTFILES/alacritty/alacritty.toml=$HOME/.config/alacritty/alacritty.toml
 $DOTFILES/alacritty/ayu_dark.toml=$HOME/.config/alacritty/ayu_dark.toml
 $DOTFILES/alacritty/kanagawa_wave.toml=$HOME/.config/alacritty/kanagawa_wave.toml
