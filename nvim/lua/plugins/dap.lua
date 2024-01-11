@@ -42,7 +42,33 @@ return {
         callback { type = "server", host = config.host, port = config.port }
       end
 
+      dap.adapters.lldb = {
+        type = "executable",
+        command = "lldb-vscode",
+        name = "lldb",
+      }
+
       -- Configurations
+
+      local lldb_config = {
+        {
+          name = "Launch",
+          type = "lldb",
+          request = "launch",
+          program = function()
+            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+          end,
+          cwd = "${workspaceFolder}",
+          stopOnEntry = false,
+          args = function()
+            local argument_string = vim.fn.input "Program arguments: "
+            return vim.fn.split(argument_string, " ", true)
+          end,
+        },
+      }
+
+      dap.configurations.c = lldb_config
+      dap.configurations.cpp = lldb_config
 
       dap.configurations.rust = {
         {
