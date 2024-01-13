@@ -153,6 +153,8 @@ return {
         ),
       }
 
+      lspconfig.clangd.setup {}
+
       lsp.setup()
 
       vim.diagnostic.config {
