@@ -69,6 +69,7 @@ return {
 
       dap.configurations.c = lldb_config
       dap.configurations.cpp = lldb_config
+      dap.configurations.zig = lldb_config
 
       dap.configurations.rust = {
         {
