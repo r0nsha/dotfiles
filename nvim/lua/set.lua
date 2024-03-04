@@ -36,6 +36,7 @@ vim.o.softtabstop = 4
 vim.o.shiftwidth = 4
 vim.o.expandtab = false
 vim.o.shiftround = true
+vim.opt.iskeyword:append "-"
 
 vim.o.scrolloff = 8
 vim.o.sidescrolloff = 8
