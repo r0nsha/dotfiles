@@ -43,8 +43,16 @@ vim.o.sidescrolloff = 8
 
 vim.o.signcolumn = "yes"
 vim.opt.isfname:append "@-@"
+
 vim.opt.list = true
-vim.opt.listchars:append "eol:↲"
+vim.opt.listchars = {
+  eol = "↲",
+  tab = "» ",
+  multispace = " ",
+  lead = " ",
+  trail = " ",
+  nbsp = " ",
+}
 
 vim.o.updatetime = 250
 vim.o.timeout = true
