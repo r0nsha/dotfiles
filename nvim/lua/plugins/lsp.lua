@@ -196,6 +196,56 @@ return {
         local codelldb_path, liblldb_path = require("utils").get_codelldb_paths()
 
         return {
+          server = {
+            settings = {
+              ["rust-analyzer"] = {
+                imports = {
+                  granularity = {
+                    group = "module",
+                  },
+                  prefix = "self",
+                },
+                assist = {
+                  importEnforceGranularity = true,
+                  importPrefix = "crate",
+                  emitMustUse = true,
+                },
+                cargo = {
+                  features = "all",
+                  allFeatures = true,
+                  buildScripts = {
+                    enable = true,
+                  },
+                },
+                check = {
+                  command = "clippy",
+                },
+                checkOnSave = true,
+                inlayHints = {
+                  enable = false,
+                  locationLinks = false,
+                },
+                diagnostics = {
+                  enable = true,
+                  experimental = {
+                    enable = true,
+                  },
+                  disabled = { "inactive-code" },
+                },
+                procMacro = {
+                  enable = true,
+                },
+                semanticHighlighting = {
+                  operator = { specialization = { enable = true } },
+                  puncutation = {
+                    enable = true,
+                    specialization = { enable = true },
+                    separate = { macro = { bang = true } },
+                  },
+                },
+              },
+            },
+          },
           dap = {
             adapter = cfg.get_codelldb_adapter(codelldb_path, liblldb_path),
           },

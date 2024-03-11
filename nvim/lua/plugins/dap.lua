@@ -45,6 +45,14 @@ return {
         name = "lldb",
       }
 
+      dap.adapters.rust = {
+        type = "executable",
+        attach = { pidProperty = "pid", pidSelect = "ask" },
+        command = "lldb-vscode", -- my binary was called 'lldb-vscode-11'
+        env = { LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES" },
+        name = "lldb",
+      }
+
       -- Configurations
 
       local lldb_config = {
@@ -67,6 +75,39 @@ return {
       dap.configurations.c = lldb_config
       dap.configurations.cpp = lldb_config
       dap.configurations.zig = lldb_config
+
+      dap.configurations.rust = {
+        {
+          name = "Launch",
+          type = "rust",
+          request = "launch",
+          cwd = "${workspaceFolder}",
+          program = "${workspaceFolder}/target/debug/${workspaceFolderBasename}",
+          stopOnEntry = false,
+          args = { "build" },
+
+          -- Types
+          initCommands = function()
+            -- Find out where to look for the pretty printer Python module
+            local rustc_sysroot = vim.fn.trim(vim.fn.system "rustc --print sysroot")
+
+            local script_import = 'command script import "' .. rustc_sysroot .. '/lib/rustlib/etc/lldb_lookup.py"'
+            local commands_file = rustc_sysroot .. "/lib/rustlib/etc/lldb_commands"
+
+            local commands = {}
+            local file = io.open(commands_file, "r")
+            if file then
+              for line in file:lines() do
+                table.insert(commands, line)
+              end
+              file:close()
+            end
+            table.insert(commands, 1, script_import)
+
+            return commands
+          end,
+        },
+      }
 
       dap.configurations.lua = {
         {
