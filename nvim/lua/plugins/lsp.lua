@@ -37,12 +37,12 @@ return {
       },
     },
     config = function()
-      local lsp = require "lsp-zero"
+      local lsp_zero = require "lsp-zero"
       local lspconfig = require "lspconfig"
 
-      lsp.preset "recommended"
+      lsp_zero.preset "recommended"
 
-      lsp.on_attach(function(client, bufnr)
+      lsp_zero.on_attach(function(client, bufnr)
         local opts = { buffer = bufnr, remap = false }
 
         vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
@@ -84,7 +84,10 @@ return {
           "rust_analyzer",
           "lua_ls",
         },
-        handlers = { lsp.default_setup },
+        handlers = {
+          lsp_zero.default_setup,
+          rust_analyzer = lsp_zero.noop,
+        },
       }
 
       local function disable_formatting(client)
@@ -92,7 +95,7 @@ return {
         client.server_capabilities.documentFormattingRangeProvider = false
       end
 
-      lspconfig.lua_ls.setup(lsp.nvim_lua_ls {
+      lspconfig.lua_ls.setup(lsp_zero.nvim_lua_ls {
         on_init = function(client)
           disable_formatting(client) -- We use stylua instead
         end,
@@ -155,7 +158,7 @@ return {
 
       lspconfig.clangd.setup {}
 
-      lsp.setup()
+      lsp_zero.setup()
 
       vim.diagnostic.config {
         virtual_text = true,
@@ -184,93 +187,9 @@ return {
     end,
   },
   {
-    "simrat39/rust-tools.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    dependencies = {
-      "neovim/nvim-lspconfig",
-      "mfussenegger/nvim-dap",
-    },
-    config = function()
-      local rt = require "rust-tools"
-      local utils = require "utils"
-
-      local codelldb_path, liblldb_path = utils.get_codelldb_paths()
-
-      rt.setup {
-        server = {
-          on_attach = function(_, bufnr)
-            vim.keymap.set(
-              "n",
-              "<leader>K",
-              rt.hover_actions.hover_actions,
-              { buffer = bufnr, desc = "Rust tools: Hover actions" }
-            )
-            vim.keymap.set(
-              "n",
-              "<leader>A",
-              rt.code_action_group.code_action_group,
-              { buffer = bufnr, desc = "Rust tools: Code action group" }
-            )
-          end,
-          settings = {
-            ["rust-analyzer"] = {
-              imports = {
-                granularity = {
-                  group = "module",
-                },
-                prefix = "self",
-              },
-              assist = {
-                importEnforceGranularity = true,
-                importPrefix = "crate",
-                emitMustUse = true,
-              },
-              cargo = {
-                features = "all",
-                allFeatures = true,
-                buildScripts = {
-                  enable = true,
-                },
-              },
-              check = {
-                command = "clippy",
-              },
-              checkOnSave = true,
-              inlayHints = {
-                enable = false,
-                locationLinks = false,
-              },
-              diagnostics = {
-                enable = true,
-                experimental = {
-                  enable = true,
-                },
-                disabled = { "inactive-code" },
-              },
-              procMacro = {
-                enable = true,
-              },
-              semanticHighlighting = {
-                operator = { specialization = { enable = true } },
-                puncutation = {
-                  enable = true,
-                  specialization = { enable = true },
-                  separate = { macro = { bang = true } },
-                },
-              },
-            },
-          },
-        },
-        dap = {
-          adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path),
-        },
-        tools = {
-          hover_actions = {
-            auto_focus = true,
-          },
-        },
-      }
-    end,
+    "mrcjkb/rustaceanvim",
+    version = "^4", -- Recommended
+    ft = { "rust" },
   },
   {
     "dgagn/diagflow.nvim",
