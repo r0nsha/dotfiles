@@ -190,6 +190,18 @@ return {
     "mrcjkb/rustaceanvim",
     version = "^4", -- Recommended
     ft = { "rust" },
+    config = function()
+      vim.g.rustaceanvim = function()
+        local cfg = require "rustaceanvim.config"
+        local codelldb_path, liblldb_path = require("utils").get_codelldb_paths()
+
+        return {
+          dap = {
+            adapter = cfg.get_codelldb_adapter(codelldb_path, liblldb_path),
+          },
+        }
+      end
+    end,
   },
   {
     "dgagn/diagflow.nvim",
