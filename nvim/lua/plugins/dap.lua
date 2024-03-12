@@ -85,8 +85,9 @@ return {
           program = "${workspaceFolder}/target/debug/${workspaceFolderBasename}",
           stopOnEntry = false,
           args = function()
-            local argument_string = vim.fn.input "Program arguments: "
-            return "build -o build " .. vim.fn.split(argument_string, " ", true)
+            local args_str = vim.fn.input "Program arguments: "
+            local args = vim.fn.split(args_str, " ", true)
+            return { "build", "-o", "build", unpack(args) }
           end,
 
           -- Types
