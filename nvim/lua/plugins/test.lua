@@ -71,6 +71,7 @@ return {
     dependencies = {
       "nvim-neotest/neotest-python",
       "nvim-neotest/neotest-plenary",
+      "nvim-lua/plenary.nvim",
     },
     config = function()
       require("neotest").setup {

@@ -52,7 +52,7 @@ return {
         vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, opts)
         vim.keymap.set("n", "gr", vim.lsp.buf.rename, opts)
         vim.keymap.set("n", "gR", function()
-          require("telescope.builtin").lsp_references {}
+          require("fzf-lua").lsp_references {}
         end, opts)
         vim.keymap.set({ "n", "v" }, "ga", vim.lsp.buf.code_action, opts)
         vim.keymap.set("n", "gl", vim.diagnostic.open_float, opts)
@@ -60,7 +60,7 @@ return {
         vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
         vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
         vim.keymap.set("n", "<leader>ws", function()
-          require("telescope.builtin").lsp_workspace_symbols {}
+          require("fzf-lua").lsp_workspace_symbols {}
         end, opts)
 
         if client.server_capabilities.documentFormattingProvider then

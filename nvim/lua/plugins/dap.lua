@@ -7,7 +7,7 @@ return {
       "nvim-dap-ui",
       "theHamsta/nvim-dap-virtual-text",
       "rcarriga/nvim-dap-ui",
-      "nvim-telescope/telescope-dap.nvim",
+      -- "nvim-telescope/telescope-dap.nvim",
       { "jbyuki/one-small-step-for-vimkind" },
       -- "nvim-dap-python",
       -- "mfussenegger/nvim-dap-python",

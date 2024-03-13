@@ -13,9 +13,9 @@ return {
             wrap = false,
           },
         },
-        select = {
-          telescope = require("telescope.themes").get_cursor(),
-        },
+        -- select = {
+        --   telescope = require("telescope.themes").get_cursor(),
+        -- },
       }
     end,
   },
