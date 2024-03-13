@@ -19,7 +19,7 @@ return {
         fzf.resume()
       end, opts "Resume")
 
-      local default_fzf_args = { fzf_cli_args = "--keep-right" }
+      local default_fzf_args = {}
 
       vim.keymap.set("n", "<leader>sf", function()
         fzf.files(default_fzf_args)
