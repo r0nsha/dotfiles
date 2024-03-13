@@ -5,7 +5,7 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
       local fzf = require "fzf-lua"
-      fzf.setup { "borderless_full" }
+      fzf.setup { "borderless" }
 
       local function opts(desc)
         return {
