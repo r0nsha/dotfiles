@@ -161,21 +161,4 @@ return {
       end, opts "Search w/ args")
     end,
   },
-  {
-    "nvim-telescope/telescope-project.nvim",
-    dependencies = { "nvim-telescope/telescope.nvim" },
-    config = function()
-      local telescope = require "telescope"
-
-      telescope.load_extension "project"
-
-      vim.keymap.set("n", "<leader>sp", function()
-        telescope.extensions.project.project {
-          display_type = "full",
-          no_ignore = true,
-          hidden_files = true,
-        }
-      end, opts "Projects")
-    end,
-  },
 }
