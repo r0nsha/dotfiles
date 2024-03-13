@@ -127,11 +127,18 @@ return {
       end, opts "Search")
     end,
   },
+  -- {
+  --   "nvim-telescope/telescope-fzy-native.nvim",
+  --   dependencies = { "nvim-telescope/telescope.nvim" },
+  --   config = function()
+  --     require("telescope").load_extension "fzy_native"
+  --   end,
+  -- },
   {
-    "nvim-telescope/telescope-fzy-native.nvim",
+    "natecraddock/telescope-zf-native.nvim",
     dependencies = { "nvim-telescope/telescope.nvim" },
     config = function()
-      require("telescope").load_extension "fzy_native"
+      require("telescope").load_extension "zf-native"
     end,
   },
   {
