@@ -5,7 +5,43 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
       local fzf = require "fzf-lua"
-      fzf.setup { "borderless" }
+
+      -- Borderless
+
+      local hls = {
+        bg = "PmenuSbar",
+        sel = "PmenuSel",
+      }
+
+      fzf.setup {
+        desc = "borderless and minimalistic",
+        fzf_opts = {},
+        winopts = {
+          border = { " ", " ", " ", " ", " ", " ", " ", " " },
+          preview = {
+            scrollbar = "float",
+            scrolloff = "-2",
+            title_pos = "center",
+          },
+        },
+        hls = {
+          border = hls.bg,
+          preview_border = hls.bg,
+          preview_title = hls.sel,
+          scrollfloat_e = "",
+          scrollfloat_f = hls.sel,
+        },
+        fzf_colors = {
+          ["gutter"] = { "bg", hls.bg },
+          ["bg"] = { "bg", hls.bg },
+          ["bg+"] = { "bg", hls.sel },
+          ["fg+"] = { "fg", hls.sel },
+        },
+        defaults = {
+          git_icons = false,
+          file_icons = true,
+        },
+      }
 
       local function opts(desc)
         return {
