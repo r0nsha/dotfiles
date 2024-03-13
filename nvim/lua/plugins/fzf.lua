@@ -6,8 +6,7 @@ return {
     config = function()
       local fzf = require "fzf-lua"
 
-      -- Borderless
-
+      -- Taken from the "borderless" profile. The only difference is that `file_icons` is set to `true`
       local hls = {
         bg = "PmenuSbar",
         sel = "PmenuSel",
