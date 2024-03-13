@@ -19,17 +19,19 @@ return {
         fzf.resume()
       end, opts "Resume")
 
+      local default_fzf_args = { fzf_cli_args = "--keep-right" }
+
       vim.keymap.set("n", "<leader>sf", function()
-        fzf.files {}
+        fzf.files(default_fzf_args)
       end, opts "Files")
 
       vim.keymap.set("n", "<leader>sF", function()
         local exit = os.execute "git rev-parse --is-inside-work-tree"
 
         if exit == 0 then
-          fzf.git_files {}
+          fzf.git_files(default_fzf_args)
         else
-          fzf.files {}
+          fzf.files(default_fzf_args)
         end
       end, opts "Git files")
 
@@ -42,7 +44,7 @@ return {
       end, opts "Diagnostics")
 
       vim.keymap.set("n", "<leader>so", function()
-        fzf.oldfiles {}
+        fzf.oldfiles(default_fzf_args)
       end, opts "Oldfiles")
 
       vim.keymap.set("n", "<leader>sw", function()
