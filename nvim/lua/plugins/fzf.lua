@@ -101,6 +101,10 @@ return {
       vim.keymap.set("v", "<leader>ss", function()
         fzf.grep_visual()
       end, opts "Grep visual selection")
+
+      vim.keymap.set("n", "<leader>sS", function()
+        fzf.live_grep_glob()
+      end, opts "Live grep (Glob)")
     end,
   },
 }
