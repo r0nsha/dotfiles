@@ -40,6 +40,11 @@ return {
           git_icons = false,
           file_icons = true,
         },
+        keymap = {
+          fzf = {
+            ["ctrl-q"] = "select-all+accept",
+          },
+        },
       }
 
       local function opts(desc)

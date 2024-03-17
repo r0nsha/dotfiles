@@ -44,6 +44,9 @@ return {
             require("formatter.filetypes.python").black,
             require("formatter.filetypes.python").isort,
           },
+          xml = {
+            require("formatter.filetypes.xml").xmlformat,
+          },
         },
 
         ["*"] = {
