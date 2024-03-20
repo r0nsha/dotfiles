@@ -13,7 +13,6 @@ return {
           }
         end,
       },
-      "theHamsta/nvim-treesitter-pairs",
       "nvim-treesitter/nvim-treesitter-textobjects",
       {
         "JoosepAlviste/nvim-ts-context-commentstring",
@@ -21,7 +20,7 @@ return {
           require("ts_context_commentstring").setup {}
         end,
       },
-      { "nvim-treesitter/playground" },
+      { "nvim-treesitter/playground", cmd = { "TSPlaygroundToggle" } },
     },
     config = function()
       local utils = require "utils"
@@ -50,7 +49,6 @@ return {
           "bash",
           "fish",
         },
-        pairs = { enable = true },
         matchup = { enable = true },
         highlight = { enable = true },
         indent = { enable = true },

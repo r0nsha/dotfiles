@@ -31,28 +31,32 @@ return {
   },
   {
     "ThePrimeagen/harpoon",
-    lazy = false,
+    branch = "harpoon2",
+    dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
-      require("harpoon").setup {
-        global_settings = {
-          tabline = true,
-        },
-        menu = {
-          width = math.min(vim.api.nvim_win_get_width(0) - 4, 100),
-        },
-      }
+      local harpoon = require "harpoon"
 
-      local mark = require "harpoon.mark"
-      local ui = require "harpoon.ui"
+      harpoon:setup()
 
-      vim.keymap.set("n", "<leader>a", mark.add_file, { remap = false, desc = "Harpoon: Add File" })
-      vim.keymap.set("n", "<leader>k", ui.toggle_quick_menu, { remap = false, desc = "Harpoon: Toggle Quick Menu" })
-      vim.keymap.set("n", "<leader>h", ui.nav_prev, { remap = false, desc = "Harpoon: Prev" })
-      vim.keymap.set("n", "<leader>l", ui.nav_next, { remap = false, desc = "Harpoon: Next" })
+      vim.keymap.set("n", "<leader>a", function()
+        harpoon:list():append()
+      end, { remap = false, desc = "Harpoon: Add File" })
+
+      vim.keymap.set("n", "<leader>k", function()
+        harpoon.ui:toggle_quick_menu(harpoon:list())
+      end, { remap = false, desc = "Harpoon: Toggle Quick Menu" })
+
+      vim.keymap.set("n", "<leader>h", function()
+        harpoon:list():prev()
+      end, { remap = false, desc = "Harpoon: Prev" })
+
+      vim.keymap.set("n", "<leader>l", function()
+        harpoon:list():next()
+      end, { remap = false, desc = "Harpoon: Next" })
 
       for i = 1, 9 do
         vim.keymap.set("n", "<leader>" .. i, function()
-          ui.nav_file(i)
+          harpoon:list():select(i)
         end, { remap = false, desc = "Harpoon: Go to " .. i })
       end
     end,

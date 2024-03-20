@@ -6,7 +6,9 @@ return {
       "nvim-dap-virtual-text",
       "nvim-dap-ui",
       "theHamsta/nvim-dap-virtual-text",
-      "rcarriga/nvim-dap-ui",
+      { "rcarriga/nvim-dap-ui", dependencies = {
+        "nvim-neotest/nvim-nio",
+      } },
       -- "nvim-telescope/telescope-dap.nvim",
       { "jbyuki/one-small-step-for-vimkind" },
       -- "nvim-dap-python",
