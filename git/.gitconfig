@@ -1,0 +1,56 @@
+[user]
+	name = r0nsha
+	email = r0nsh4v1t@gmail.com
+
+[push]
+	autoSetupRemote = true
+
+[core]
+	fsmonitor = true
+	untrackedcache = true
+
+[core]
+	editor = nvim
+	pager = delta
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	true-color = always
+	syntax-theme = Kanagawa
+
+	features = decorations
+	whitespace-error-style = 22 reverse
+	line-numbers = true
+	navigate = true    # use n and N to move between diff sections
+
+	light = false
+	file-style                    = blue
+	minus-style                   = syntax "#43242B"
+	minus-non-emph-style          = syntax "#43242B"
+	minus-emph-style              = "#1F1F28" "#C34043"
+	minus-empty-line-marker-style = normal "#43242B"
+	zero-style                    = syntax
+	plus-style                    = syntax "#2B3328"
+	plus-non-emph-style           = syntax "#2B3328"
+	plus-emph-style               = "#1F1F28" "#76946A"
+	plus-empty-line-marker-style  = normal "#2B3328"
+	line-numbers-plus-style       = green
+	line-numbers-minus-style      = red
+	line-numbers-left-format      = "{nm:>4}┊"
+	line-numbers-right-format     = "{np:>4}┊"
+	line-numbers-left-style       = red
+	line-numbers-right-style      = green
+
+[delta "decorations"]
+	commit-decoration-style = normal box ul
+	file-style = normal ul
+	file-decoration-style = normal box
+	hunk-header-decoration-style = normal box ul
+
+[merge]
+	conflictstyle = diff3
+
+[diff]
+	colorMoved = default
