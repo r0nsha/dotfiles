@@ -2,8 +2,25 @@
 	name = r0nsha
 	email = r0nsh4v1t@gmail.com
 
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+
 [push]
 	autoSetupRemote = true
+
+[merge]
+	conflictstyle = diff3
+
+[diff]
+	colorMoved = default
+
+[maintenance]
+	repo = /home/ron/dev/jin
 
 [core]
 	fsmonitor = true
@@ -48,9 +65,3 @@
 	file-style = normal ul
 	file-decoration-style = normal box
 	hunk-header-decoration-style = normal box ul
-
-[merge]
-	conflictstyle = diff3
-
-[diff]
-	colorMoved = default
