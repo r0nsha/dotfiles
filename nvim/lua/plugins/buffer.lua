@@ -1,9 +1,9 @@
 local function delete_buffer(force)
   require("mini.bufremove").delete(0, force)
-
-  local mark = require "harpoon.mark"
-  local index = mark.get_index_of(vim.fn.bufname())
-  mark.rm_file(index)
+  -- TODO: remove from harpoon list
+  -- local mark = require "harpoon.mark"
+  -- local index = mark.get_index_of(vim.fn.bufname())
+  -- mark.rm_file(index)
 end
 
 return {
