@@ -541,7 +541,7 @@ mouse = "Middle"
 save_to_clipboard = true
 
 [window]
-decorations = "buttonless"
+decorations = "Full"
 dynamic_padding = true
 dynamic_title = true
 opacity = 0.95

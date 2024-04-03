@@ -16,9 +16,9 @@ return {
         variablebuiltinStyle = { italic = false },
         specialReturn = true,
         specialException = true,
-        transparent = false,
+        transparent = true,
         dimInactive = false,
-        globalStatus = false,
+        globalStatus = true,
         terminalColors = true,
         colors = {
           theme = {
