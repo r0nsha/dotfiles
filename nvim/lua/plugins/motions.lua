@@ -2,7 +2,11 @@ return {
   {
     "folke/flash.nvim",
     event = "VeryLazy",
-    opts = {},
+    opts = {
+      modes = {
+        search = { enabled = true },
+      },
+    },
     keys = {
       {
         "s",
@@ -28,7 +32,6 @@ return {
         end,
         desc = "Remote Flash",
       },
-
       {
         "R",
         mode = { "o", "x" },
