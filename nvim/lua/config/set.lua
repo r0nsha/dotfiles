@@ -1,4 +1,4 @@
-local utils = require "utils"
+local utils = require "config.utils"
 
 -- disable netrw
 vim.g.loaded_netrw = 1
@@ -19,7 +19,8 @@ vim.o.backup = false
 
 vim.o.autoread = true
 vim.o.autoindent = true
-vim.o.colorcolumn = 80
+vim.o.colorcolumn = "80"
+vim.o.fixeol = false
 
 vim.wo.number = true
 vim.wo.relativenumber = true
@@ -36,7 +37,6 @@ vim.o.softtabstop = 4
 vim.o.shiftwidth = 4
 vim.o.expandtab = false
 vim.o.shiftround = true
-vim.opt.iskeyword:append "-"
 
 vim.o.scrolloff = 8
 vim.o.sidescrolloff = 8

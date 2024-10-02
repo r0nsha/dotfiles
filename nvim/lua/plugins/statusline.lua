@@ -2,7 +2,7 @@ return {
   {
     "nvim-lualine/lualine.nvim",
     config = function()
-      local utils = require "utils"
+      local utils = require "config.utils"
 
       require("lualine").setup {
         options = {

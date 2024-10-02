@@ -79,7 +79,7 @@ return {
 
       require("mason-lspconfig").setup {
         ensure_installed = {
-          "tsserver",
+          "ts_ls",
           "cssls",
           "rust_analyzer",
           "lua_ls",
@@ -101,7 +101,7 @@ return {
         end,
       })
 
-      lspconfig.tsserver.setup {
+      lspconfig.ts_ls.setup {
         on_init = function(client)
           disable_formatting(client) -- We use Prettier instead
         end,

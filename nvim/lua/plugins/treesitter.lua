@@ -23,7 +23,7 @@ return {
       { "nvim-treesitter/playground", cmd = { "TSPlaygroundToggle" } },
     },
     config = function()
-      local utils = require "utils"
+      local utils = require "config.utils"
 
       require("nvim-treesitter.configs").setup {
         ensure_installed = {
@@ -52,7 +52,6 @@ return {
         matchup = { enable = true },
         highlight = { enable = true },
         indent = { enable = true },
-        autotag = { enable = true },
         context_commentstring = { enable = true, enable_autocmd = false },
         textobjects = {
           select = {
