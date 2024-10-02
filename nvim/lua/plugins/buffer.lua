@@ -39,7 +39,7 @@ return {
       harpoon:setup()
 
       vim.keymap.set("n", "<leader>a", function()
-        harpoon:list():append()
+        harpoon:list():add()
       end, { remap = false, desc = "Harpoon: Add File" })
 
       vim.keymap.set("n", "<leader>k", function()
