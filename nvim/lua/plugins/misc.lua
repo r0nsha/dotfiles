@@ -85,17 +85,20 @@ return {
     end,
   },
   {
-    "nvim-pack/nvim-spectre",
+    "MagicDuck/grug-far.nvim",
     keys = {
       {
         "<leader>sr",
         function()
-          require("spectre").open()
+          require("grug-far").open()
         end,
         desc = "Replace in files (Spectre)",
       },
     },
-    cmd = { "Spectre" },
+    cmd = "GrugFar",
+    config = function()
+      require("grug-far").setup {}
+    end,
   },
   "derektata/lorem.nvim",
   {
