@@ -1,11 +1,3 @@
-local function delete_buffer(force)
-  require("mini.bufremove").delete(0, force)
-  -- TODO: remove from harpoon list
-  -- local mark = require "harpoon.mark"
-  -- local index = mark.get_index_of(vim.fn.bufname())
-  -- mark.rm_file(index)
-end
-
 return {
   {
     "echasnovski/mini.bufremove",
@@ -13,14 +5,14 @@ return {
       {
         "<leader>bd",
         function()
-          delete_buffer(false)
+          require("mini.bufremove").delete(0, false)
         end,
         desc = "Buffer: Delete",
       },
       {
         "<leader>bD",
         function()
-          delete_buffer(true)
+          require("mini.bufremove").delete(0, true)
         end,
         desc = "Buffer: Delete (Force)",
       },
@@ -59,6 +51,12 @@ return {
           harpoon:list():select(i)
         end, { remap = false, desc = "Harpoon: Go to " .. i })
       end
+    end,
+  },
+  {
+    "pteroctopus/faster.nvim",
+    config = function()
+      require("faster").setup()
     end,
   },
 }
