@@ -1,56 +1,73 @@
 return {
   {
-    "echasnovski/mini.files",
-    opts = {
-      windows = {
-        preview = true,
-      },
-      options = {
-        -- Whether to use for editing directories
-        -- Disabled by default in LazyVim because neo-tree is used for that
-        use_as_default_explorer = false,
-      },
-    },
-    keys = {
-      {
-        "<leader>e",
-        function()
-          require("mini.files").open(vim.loop.cwd(), true)
-        end,
-        desc = "Open mini.files (cwd)",
-      },
-      {
-        "<leader>o",
-        function()
-          require("mini.files").open(vim.api.nvim_buf_get_name(0), true)
-        end,
-        desc = "Open mini.files (directory of current file)",
-      },
-    },
-    config = function(_, opts)
-      require("mini.files").setup(opts)
+    "stevearc/oil.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      local oil = require "oil"
+      local utils = require "config.utils"
 
-      local show_dotfiles = true
-      local filter_show = function(_)
-        return true
-      end
-      local filter_hide = function(fs_entry)
-        return not vim.startswith(fs_entry.name, ".")
-      end
+      oil.setup {
+        default_file_explorer = true,
+        keymaps = {
+          ["g?"] = "actions.show_help",
 
-      local toggle_dotfiles = function()
-        show_dotfiles = not show_dotfiles
-        local new_filter = show_dotfiles and filter_show or filter_hide
-        require("mini.files").refresh { content = { filter = new_filter } }
-      end
+          ["<CR>"] = "actions.select",
+          ["<C-S>"] = { "actions.select", opts = { vertical = true }, desc = "Open the entry in a vertical split" },
+          ["<C-H>"] = { "actions.select", opts = { horizontal = true }, desc = "Open the entry in a horizontal split" },
+          ["<C-t>"] = false,
+          ["<C-p>"] = "actions.preview",
+          ["<C-c>"] = "actions.close",
+          ["<C-l>"] = "actions.refresh",
 
-      vim.api.nvim_create_autocmd("User", {
-        pattern = "MiniFilesBufferCreate",
-        callback = function(args)
-          local buf_id = args.data.buf_id
-          -- Tweak left-hand side of mapping to your liking
-          vim.keymap.set("n", "g.", toggle_dotfiles, { buffer = buf_id })
-        end,
+          ["-"] = "actions.parent",
+          ["_"] = "actions.open_cwd",
+          ["`"] = "actions.cd",
+          ["~"] = { "actions.cd", opts = { scope = "tab" }, desc = ":tcd to the current oil directory" },
+
+          ["gs"] = "actions.change_sort",
+          ["gx"] = "actions.open_external",
+
+          ["g."] = "actions.toggle_hidden",
+          ["g\\"] = "actions.toggle_trash",
+          ["gd"] = {
+            desc = "Toggle file detail view",
+            callback = function()
+              DETAIL = not DETAIL
+
+              if DETAIL then
+                require("oil").set_columns { "icon", "permissions", "size", "mtime" }
+              else
+                require("oil").set_columns { "icon" }
+              end
+            end,
+          },
+        },
+      }
+
+      vim.keymap.set("n", "<leader>e", function()
+        oil.open(vim.loop.cwd())
+      end, {
+        desc = "Explore CWD (VSplit)",
+      })
+
+      vim.keymap.set("n", "<leader>E", function()
+        utils.vsplit()
+        oil.open(vim.loop.cwd())
+      end, {
+        desc = "Explore CWD (VSplit)",
+      })
+
+      vim.keymap.set("n", "<leader>o", function()
+        oil.open()
+      end, {
+        desc = "Explore parent directory (VSplit)",
+      })
+
+      vim.keymap.set("n", "<leader>O", function()
+        utils.vsplit()
+        oil.open()
+      end, {
+        desc = "Explore parent directory (VSplit)",
       })
     end,
   },
