@@ -61,6 +61,7 @@ return {
           -- ["<C-,>"] = cmp.mapping.complete(),
           -- ["<Tab>"] = cmp_action.luasnip_supertab(),
           -- ["<S-Tab>"] = cmp_action.luasnip_shift_supertab(),
+          ["<C-.>"] = cmp.mapping.complete(),
           ["<cr>"] = cmp.mapping.confirm { select = true },
           ["<S-cr>"] = cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Replace, select = true },
         },
