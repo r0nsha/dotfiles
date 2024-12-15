@@ -59,6 +59,9 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 -- Quickfix list remaps
+vim.keymap.set("n", "<M-k>", "<cmd>cprev<cr>", { desc = "Quickfix: Prev" })
+vim.keymap.set("n", "<M-j>", "<cmd>cnext<cr>", { desc = "Quickfix: Next" })
+
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "qf",
   callback = function(event)
