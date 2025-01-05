@@ -32,7 +32,7 @@ fish_add_path $HOME/.local/bin
 fish_add_path ./node_modules/.bin
 
 # Node stuff
-set -Ux NVM_DIR "$HOME/.nvm"
+# set -Ux NVM_DIR "$HOME/.nvm"
 
 # Optional local config
 source_if_exists $HOME/local.config.fish

@@ -1,7 +1,3 @@
-import = ["/home/ron/dotfiles/alacritty/kanagawa_dragon.toml"]
-# import = ["/home/ron/dotfiles/alacritty/zenburn.toml"]
-live_config_reload = true
-
 [bell]
 animation = "EaseOutExpo"
 duration = 0
@@ -558,3 +554,8 @@ y = 0
 [window.position]
 x = 0
 y = 0
+
+[general]
+# import = ["/home/ron/dotfiles/alacritty/zenburn.toml"]
+live_config_reload = true
+import = ["/home/ron/dotfiles/alacritty/kanagawa_dragon.toml"]
