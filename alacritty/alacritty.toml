@@ -16,6 +16,9 @@ shape = "Block"
 [env]
 TERM = "xterm-256color"
 
+[terminal]
+shell = "fish"
+
 [font]
 size = 16.0
 

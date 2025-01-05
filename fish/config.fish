@@ -49,6 +49,6 @@ if status is-interactive
 
     # Starship
     if binary_exists starship
-        source (starship init fish --print-full-init | psub)
+        starship init fish | source
     end
 end
