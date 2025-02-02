@@ -16,8 +16,8 @@ install_wrapper() {
 	fi
 }
 
-DOWNLOADS=$HOME/downloads
-mkdir -p $HOME/downloads
+DOWNLOADS=$HOME/Downloads
+mkdir -p $DOWNLOADS
 mkdir -p $HOME/.local/bin
 mkdir -p $HOME/.local/share
 

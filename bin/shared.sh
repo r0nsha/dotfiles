@@ -20,7 +20,7 @@ os() {
 	uname -s
 }
 
-DOWNLOADS=$HOME/downloads
+DOWNLOADS=$HOME/Downloads
 
 install_wrapper() {
 	if ! command -v $1 &>/dev/null; then

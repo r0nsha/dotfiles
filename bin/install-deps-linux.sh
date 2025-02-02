@@ -28,8 +28,8 @@ install_deps() {
 }
 
 install_nvim() {
-	curl -sL https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz | tar -xz -C $DOWNLOADS
-	ln -sf $DOWNLOADS/nvim-linux64/bin/nvim $HOME/.local/bin/nvim
+	curl -sL https://github.com/neovim/neovim/releases/download/stable/nvim-linux-x86_64.tar.gz | tar -xz -C $DOWNLOADS
+	ln -sf $DOWNLOADS/nvim-linux-x86_64/bin/nvim $HOME/.local/bin/nvim
 }
 
 install_starship() {
@@ -41,7 +41,7 @@ install_rustup() {
 }
 
 install_tmux() {
-	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+	git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
 }
 
 install_n() {
@@ -51,6 +51,11 @@ install_n() {
 	npm install -g n
 }
 
+install_fd() {
+	ln -s $(which fdfind) $HOME/.local/bin/fd
+}
+
 install_deps
 echo ""
 install_wrapper nvim install_nvim
+install_wrapper fdfind install_fd
