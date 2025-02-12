@@ -12,13 +12,7 @@ return {
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "williamboman/mason-lspconfig.nvim",
-      {
-        "williamboman/mason.nvim",
-        build = function()
-          vim.cmd [[MasonUpdate]]
-        end,
-        config = true,
-      },
+      "williamboman/mason.nvim",
       {
         "j-hui/fidget.nvim",
         tag = "legacy",
@@ -84,6 +78,7 @@ return {
           "rust_analyzer",
           "lua_ls",
           "stylua",
+          "taplo",
         },
         handlers = {
           lsp_zero.default_setup,
@@ -260,5 +255,12 @@ return {
     config = function()
       require("diagflow").setup {}
     end,
+  },
+  {
+    "williamboman/mason.nvim",
+    build = function()
+      vim.cmd [[MasonUpdate]]
+    end,
+    config = true,
   },
 }
