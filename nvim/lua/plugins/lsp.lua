@@ -77,7 +77,6 @@ return {
           "cssls",
           "rust_analyzer",
           "lua_ls",
-          "stylua",
           "taplo",
         },
         handlers = {
