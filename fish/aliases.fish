@@ -12,10 +12,11 @@ alias rmswap 'rm -rf ~/.local/share/nvim/swap'
 
 # TOOL ALIASES ----------------------------------------------------------------
 
-if binary_exists exa
-    alias l 'exa -lah'
-    alias ls exa
-    alias sl exa
+if binary_exists eza
+    alias l eza
+    alias ll 'eza -lah'
+    alias ls eza
+    alias sl eza
 end
 
 if binary_exists bat
@@ -37,7 +38,7 @@ alias ga 'git add'
 alias gb 'git branch'
 alias gd 'git diff -w'
 alias gr 'git restore'
-alias gst 'git rev-parse --git-dir > /dev/null 2>&1 && git status || exa'
+alias gst 'git rev-parse --git-dir > /dev/null 2>&1 && git status || eza'
 alias gu 'git reset --soft HEAD~1'
 alias gpr 'git remote prune origin'
 alias ff 'gpr && git pull --ff-only'

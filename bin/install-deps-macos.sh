@@ -31,7 +31,7 @@ install_deps() {
 		tmux
 		zoxide
 		fd
-		exa
+		eza
 		ripgrep
 		gh
 		fzf

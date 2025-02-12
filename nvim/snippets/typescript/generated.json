@@ -1605,7 +1605,7 @@
   },
   "exportAs": {
     "key": "exportAs",
-    "prefix": "exa",
+    "prefix": "eza",
     "body": ["export { ${2:second} as ${3:third} } from '${1:first}'"],
     "scope": "typescript,typescriptreact,javascript,javascriptreact"
   },
