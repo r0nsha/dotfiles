@@ -540,7 +540,7 @@ save_to_clipboard = true
 decorations = "Full"
 dynamic_padding = true
 dynamic_title = true
-opacity = 0.95
+opacity = 1
 startup_mode = "Maximized"
 
 [window.dimensions]
