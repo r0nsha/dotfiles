@@ -83,6 +83,7 @@ return {
           "cssls",
           "rust_analyzer",
           "lua_ls",
+          "stylua",
         },
         handlers = {
           lsp_zero.default_setup,
