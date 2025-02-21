@@ -1,6 +1,6 @@
 -- Leader (Space)
 vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+vim.g.maplocalleader = ","
 
 -- Unmap leader key
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { remap = false })
