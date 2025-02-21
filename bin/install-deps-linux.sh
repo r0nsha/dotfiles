@@ -66,8 +66,31 @@ install_eza() {
 	sudo apt install -y eza
 }
 
+install_luarocks() {
+	# Install prerequisites
+	sudo apt install build-essential libreadline-dev unzip
+
+	# Install Lua 5.4.7
+	cd $DOWNLOADS
+	curl -L -R -O https://www.lua.org/ftp/lua-5.4.7.tar.gz
+	tar zxf lua-5.4.7.tar.gz
+	cd lua-5.4.7
+	make linux test
+	sudo make install
+
+	# Install LuaRocks 3.11.1
+	cd $DOWNLOADS
+	curl -L -R -O http://luarocks.github.io/luarocks/releases/luarocks-3.11.1.tar.gz
+	tar zxf luarocks-3.11.1.tar.gz
+	cd luarocks-3.11.1
+	./configure --with-lua-include=/usr/local/include
+	make
+	sudo make install
+}
+
 install_deps
 echo ""
 install_wrapper nvim install_nvim
 install_wrapper fdfind install_fd
 install_wrapper eza install_eza
+install_wrapper luarocks install_luarocks
