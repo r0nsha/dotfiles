@@ -12,6 +12,7 @@ return {
               engine = "nvim-cmp",
             },
           },
+          ["core.concealer"] = {},
           ["core.integrations.nvim-cmp"] = {},
           ["core.dirman"] = {
             config = {

@@ -74,6 +74,8 @@ end
 vim.o.splitbelow = true
 vim.o.splitright = true
 
+vim.o.conceallevel = 2
+
 -- Windows specific options
 if utils.is_windows() then
   vim.o.shell = vim.fn.executable "powershell" and "powershell" or "pwsh"
