@@ -13,6 +13,14 @@ return {
             },
           },
           ["core.integrations.nvim-cmp"] = {},
+          ["core.dirman"] = {
+            config = {
+              workspaces = {
+                personal = "~/neorg/personal",
+              },
+            },
+            disable = true,
+          },
         },
       }
     end,
