@@ -37,8 +37,8 @@ vim.keymap.set("n", "n", "nzzzv", { remap = false })
 vim.keymap.set("n", "N", "Nzzzv", { remap = false })
 
 -- Stay in visual mode when indenting
-vim.keymap.set("v", "<", "<gv", { remap = false })
-vim.keymap.set("v", ">", ">gv", { remap = false })
+-- vim.keymap.set("v", "<", "<gv")
+-- vim.keymap.set("v", ">", ">gv")
 
 -- Don't yank when using 'p' in visual mode
 vim.keymap.set("v", "p", '"_dP', { remap = false })

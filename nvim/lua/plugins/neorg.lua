@@ -7,8 +7,6 @@ return {
       require("neorg").setup {
         load = {
           ["core.defaults"] = {},
-          ["core.esupports.hop"] = {},
-          ["core.esupports.indent"] = {},
           ["core.completion"] = {
             config = {
               engine = "nvim-cmp",
