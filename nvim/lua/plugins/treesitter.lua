@@ -48,6 +48,8 @@ return {
           "regex",
           "bash",
           "fish",
+          "norg",
+          "norg_meta",
         },
         matchup = { enable = true },
         highlight = { enable = true },
@@ -107,20 +109,6 @@ return {
         install.prefer_git = false
         install.compilers = { "clang" }
       end
-
-      -- Jin parser
-      -- parser_config.jin = {
-      --   install_info = {
-      --     -- url = "https://github.com/r0nsha/tree-sitter-jin",
-      --     url = "~/dev/tree-sitter-jin",
-      --     files = { "src/parser.c" },
-      --     branch = "master",
-      --     generate_requires_npm = false,
-      --     requires_generate_from_grammar = false,
-      --   },
-      --   filetype = "jin",
-      -- }
     end,
   },
-  { "r0nsha/jin.vim" },
 }
