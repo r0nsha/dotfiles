@@ -62,8 +62,6 @@ return {
           ["<S-Tab>"] = cmp_action.luasnip_jump_backward(),
 
           ["C-y"] = cmp.mapping.confirm { select = true },
-          ["<cr>"] = cmp.mapping.confirm { select = true },
-          ["<S-cr>"] = cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Replace, select = true },
 
           ["<C-b>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
