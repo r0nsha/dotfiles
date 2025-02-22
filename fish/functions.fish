@@ -23,7 +23,7 @@ function dashboard
 end
 
 function t
-    set -l search_dirs $HOME/dev $HOME/dotfiles $HOME/repos
+    set -l search_dirs $HOME/dev $HOME/dotfiles $HOME/repos $HOME/neorg
 
     set -l all_repos (begin
 	for path in $search_dirs
