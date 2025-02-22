@@ -19,7 +19,6 @@ return {
                 personal = "~/neorg/personal",
               },
             },
-            disable = true,
           },
         },
       }
