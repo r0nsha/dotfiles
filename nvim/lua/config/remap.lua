@@ -37,8 +37,17 @@ vim.keymap.set("n", "n", "nzzzv", { remap = false })
 vim.keymap.set("n", "N", "Nzzzv", { remap = false })
 
 -- Stay in visual mode when indenting
--- vim.keymap.set("v", "<", "<gv")
--- vim.keymap.set("v", ">", ">gv")
+vim.api.nvim_create_autocmd("Filetype", {
+  pattern = "*",
+  callback = function()
+    if vim.bo.filetype == "norg" then
+      return
+    end
+
+    vim.keymap.set("v", "<", "<gv", { buffer = true })
+    vim.keymap.set("v", ">", ">gv", { buffer = true })
+  end,
+})
 
 -- Don't yank when using 'p' in visual mode
 vim.keymap.set("v", "p", '"_dP', { remap = false })

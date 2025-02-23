@@ -23,6 +23,13 @@ return {
           },
         },
       }
+
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "norg",
+        callback = function()
+          vim.keymap.set("n", "gd", "<Plug>(neorg.esupports.hop.hop-link)", { buffer = true })
+        end,
+      })
     end,
   },
 }
