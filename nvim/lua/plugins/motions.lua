@@ -30,7 +30,6 @@ return {
     "jake-stewart/multicursor.nvim",
     config = function()
       local mc = require "multicursor-nvim"
-
       mc.setup()
 
       -- Add or skip cursor above/below the main cursor.
@@ -47,18 +46,12 @@ return {
         mc.lineSkipCursor(1)
       end)
 
-      -- Add or skip adding a new cursor by matching word/selection
+      -- Add a new cursor by matching word/selection
       vim.keymap.set({ "n", "x" }, "<c-N>", function()
         mc.matchAddCursor(-1)
       end)
       vim.keymap.set({ "n", "x" }, "<c-n>", function()
         mc.matchAddCursor(1)
-      end)
-      vim.keymap.set({ "n", "x" }, "<c-M>", function()
-        mc.matchSkipCursor(-1)
-      end)
-      vim.keymap.set({ "n", "x" }, "<c-m>", function()
-        mc.matchSkipCursor(1)
       end)
 
       -- -- In normal/visual mode, press `mwap` will create a cursor in every match of
@@ -81,6 +74,13 @@ return {
       vim.keymap.set("x", "mm", mc.matchCursors)
 
       mc.addKeymapLayer(function(layerSet)
+        layerSet({ "n", "x" }, "<c-Q>", function()
+          mc.matchSkipCursor(-1)
+        end)
+        layerSet({ "n", "x" }, "<c-q>", function()
+          mc.matchSkipCursor(1)
+        end)
+
         -- Rotate the main cursor.
         layerSet({ "n", "x" }, "<left>", mc.prevCursor)
         layerSet({ "n", "x" }, "<right>", mc.nextCursor)
