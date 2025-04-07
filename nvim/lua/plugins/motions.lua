@@ -80,34 +80,36 @@ return {
       -- Match new cursors within visual selections by regex.
       vim.keymap.set("x", "mm", mc.matchCursors)
 
-      -- Rotate the main cursor.
-      vim.keymap.set({ "n", "x" }, "<left>", mc.prevCursor)
-      vim.keymap.set({ "n", "x" }, "<right>", mc.nextCursor)
+      mc.addKeymapLayer(function(layerSet)
+        -- Rotate the main cursor.
+        layerSet({ "n", "x" }, "<left>", mc.prevCursor)
+        layerSet({ "n", "x" }, "<right>", mc.nextCursor)
 
-      -- Delete the main cursor.
-      vim.keymap.set({ "n", "x" }, "mx", mc.deleteCursor)
+        -- Delete the main cursor.
+        layerSet({ "n", "x" }, "mx", mc.deleteCursor)
 
-      -- Easy way to add and remove cursors using the main cursor.
-      vim.keymap.set({ "n", "x" }, "mq", mc.toggleCursor)
+        -- Easy way to add and remove cursors using the main cursor.
+        layerSet({ "n", "x" }, "mq", mc.toggleCursor)
 
-      -- Clone every cursor and disable the originals.
-      vim.keymap.set({ "n", "x" }, "mD", mc.duplicateCursors)
+        -- Clone every cursor and disable the originals.
+        layerSet({ "n", "x" }, "mD", mc.duplicateCursors)
 
-      vim.keymap.set("n", "<esc>", function()
-        if not mc.cursorsEnabled() then
-          mc.enableCursors()
-        elseif mc.hasCursors() then
-          mc.clearCursors()
-        else
-          -- Default <esc> handler.
-        end
+        layerSet("n", "<esc>", function()
+          if not mc.cursorsEnabled() then
+            mc.enableCursors()
+          elseif mc.hasCursors() then
+            mc.clearCursors()
+          else
+            -- Default <esc> handler.
+          end
+        end)
+
+        -- Align cursor columns.
+        layerSet("n", "ma", mc.alignCursors)
+
+        -- Bring back cursors if you accidentally clear them
+        layerSet("n", "mr", mc.restoreCursors)
       end)
-
-      -- bring back cursors if you accidentally clear them
-      vim.keymap.set("n", "mr", mc.restoreCursors)
-
-      -- Align cursor columns.
-      vim.keymap.set("n", "ma", mc.alignCursors)
 
       -- Split visual selections by regex.
       vim.keymap.set("x", "ms", mc.splitCursors)
