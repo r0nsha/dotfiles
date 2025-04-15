@@ -96,6 +96,8 @@ return {
         end,
       })
 
+      lspconfig.biome.setup {}
+
       lspconfig.ts_ls.setup {
         on_init = function(client)
           disable_formatting(client) -- We use Prettier instead
