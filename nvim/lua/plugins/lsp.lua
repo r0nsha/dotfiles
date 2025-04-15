@@ -264,4 +264,8 @@ return {
     end,
     config = true,
   },
+  {
+    "dmmulroy/tsc.nvim",
+    opts = {},
+  },
 }
