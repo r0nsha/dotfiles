@@ -78,6 +78,8 @@ return {
           "rust_analyzer",
           "lua_ls",
           "taplo",
+          "biome",
+          "unocss",
         },
         handlers = {
           lsp_zero.default_setup,
