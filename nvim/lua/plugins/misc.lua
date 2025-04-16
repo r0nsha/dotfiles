@@ -49,8 +49,9 @@ return {
   },
   {
     "RRethy/vim-illuminate",
+    enabled = false, -- disabled until https://github.com/RRethy/vim-illuminate/issues/232 is fixed
     event = { "BufReadPost", "BufNewFile" },
-    config = function(_, opts)
+    config = function(_)
       require("illuminate").configure {
         delay = 100,
       }
