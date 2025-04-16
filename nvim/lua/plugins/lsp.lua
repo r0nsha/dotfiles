@@ -1,15 +1,10 @@
 return {
-  -- Lsp
-  {
-    "VonHeikemen/lsp-zero.nvim",
-    branch = "v3.x",
-    lazy = true,
-  },
   {
     "neovim/nvim-lspconfig",
     cmd = "LspInfo",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
+      "yioneko/nvim-cmp",
       "hrsh7th/cmp-nvim-lsp",
       "williamboman/mason-lspconfig.nvim",
       "williamboman/mason.nvim",
@@ -31,45 +26,56 @@ return {
       },
     },
     config = function()
-      local lsp_zero = require "lsp-zero"
       local lspconfig = require "lspconfig"
 
-      lsp_zero.preset "recommended"
+      -- Add cmp_nvim_lsp capabilities settings to lspconfig
+      local lspconfig_defaults = require("lspconfig").util.default_config
+      lspconfig_defaults.capabilities =
+        vim.tbl_deep_extend("force", lspconfig_defaults.capabilities, require("cmp_nvim_lsp").default_capabilities())
 
-      lsp_zero.on_attach(function(client, bufnr)
-        local opts = { buffer = bufnr, remap = false }
+      vim.api.nvim_create_autocmd("LspAttach", {
+        desc = "LSP actions",
+        callback = function(event)
+          local buf = event.buf
+          local id = vim.tbl_get(event, "data", "client_id")
+          local client = id and vim.lsp.get_client_by_id(id)
+          if client == nil then
+            return
+          end
+          local opts = { buffer = buf }
 
-        vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-        vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-        vim.keymap.set("n", "gv", "<cmd>vs<cr>gd", opts)
-        vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-        vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, opts)
-        vim.keymap.set("n", "gr", vim.lsp.buf.rename, opts)
-        vim.keymap.set("n", "gR", function()
-          require("fzf-lua").lsp_references {}
-        end, opts)
-        vim.keymap.set({ "n", "v" }, "ga", vim.lsp.buf.code_action, opts)
-        vim.keymap.set("n", "gl", vim.diagnostic.open_float, opts)
-        vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
-        vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
-        vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
-        vim.keymap.set("n", "<leader>ws", function()
-          require("fzf-lua").lsp_workspace_symbols {}
-        end, opts)
+          vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+          vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+          vim.keymap.set("n", "gv", "<cmd>vs<cr>gd", opts)
+          vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+          vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, opts)
+          vim.keymap.set("n", "gr", vim.lsp.buf.rename, opts)
+          vim.keymap.set("n", "gR", function()
+            require("fzf-lua").lsp_references {}
+          end, opts)
+          vim.keymap.set({ "n", "v" }, "ga", vim.lsp.buf.code_action, opts)
+          vim.keymap.set("n", "gl", vim.diagnostic.open_float, opts)
+          vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
+          vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+          vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
+          vim.keymap.set("n", "<leader>ws", function()
+            require("fzf-lua").lsp_workspace_symbols {}
+          end, opts)
 
-        if client.server_capabilities.documentFormattingProvider then
-          vim.keymap.set({ "n", "v" }, "<leader>f", function()
-            vim.lsp.buf.format { async = false, timeout_ms = 10000 }
-          end, { buffer = bufnr, remap = false, desc = "Format document (LSP)" })
-        else
-          vim.keymap.set(
-            { "n", "v" },
-            "<leader>f",
-            "<cmd>Format<cr>",
-            { buffer = bufnr, remap = false, desc = "Format document (Formatter)" }
-          )
-        end
-      end)
+          if client.server_capabilities.documentFormattingProvider then
+            vim.keymap.set({ "n", "v" }, "<leader>f", function()
+              vim.lsp.buf.format { async = false, timeout_ms = 10000 }
+            end, { buffer = buf, desc = "Format document (LSP)" })
+          else
+            vim.keymap.set(
+              { "n", "v" },
+              "<leader>f",
+              "<cmd>Format<cr>",
+              { buffer = buf, desc = "Format document (Formatter)" }
+            )
+          end
+        end,
+      })
 
       require("mason-lspconfig").setup {
         ensure_installed = {
@@ -80,10 +86,11 @@ return {
           "taplo",
           "unocss",
         },
-        handlers = {
-          lsp_zero.default_setup,
-          rust_analyzer = lsp_zero.noop,
-        },
+        -- handlers = {
+        --   function(server_name)
+        --     require("lspconfig")[server_name].setup {}
+        --   end,
+        -- },
       }
 
       local function disable_formatting(client)
@@ -91,11 +98,47 @@ return {
         client.server_capabilities.documentFormattingRangeProvider = false
       end
 
-      lspconfig.lua_ls.setup(lsp_zero.nvim_lua_ls {
+      lspconfig.lua_ls.setup {
+        settings = {
+          Lua = {
+            telemetry = {
+              enable = false,
+            },
+          },
+        },
         on_init = function(client)
+          local join = vim.fs.joinpath
+          local path = client.workspace_folders[1].name
+
+          -- Don't do anything if there is project local config
+          if vim.uv.fs_stat(join(path, ".luarc.json")) or vim.uv.fs_stat(join(path, ".luarc.jsonc")) then
+            return
+          end
+
+          local nvim_settings = {
+            runtime = {
+              -- Tell the language server which version of Lua you're using
+              version = "LuaJIT",
+            },
+            diagnostics = {
+              -- Get the language server to recognize the `vim` global
+              globals = { "vim" },
+            },
+            workspace = {
+              checkThirdParty = false,
+              library = {
+                -- Make the server aware of Neovim runtime files
+                vim.env.VIMRUNTIME,
+                vim.fn.stdpath "config",
+              },
+            },
+          }
+
+          client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, nvim_settings)
+
           disable_formatting(client) -- We use stylua instead
         end,
-      })
+      }
 
       lspconfig.ts_ls.setup {
         on_init = function(client)
@@ -147,8 +190,6 @@ return {
 
       lspconfig.clangd.setup {}
 
-      lsp_zero.setup()
-
       vim.diagnostic.config {
         virtual_text = true,
         signs = true,
@@ -177,7 +218,7 @@ return {
   },
   {
     "mrcjkb/rustaceanvim",
-    version = "^4", -- Recommended
+    version = "^4",
     ft = { "rust" },
     config = function()
       vim.g.rustaceanvim = function()

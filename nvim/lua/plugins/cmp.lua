@@ -38,10 +38,7 @@ return {
 
       luasnip.filetype_extend("all", { "_" })
 
-      require("lsp-zero.cmp").extend()
-
       local cmp = require "cmp"
-      local cmp_action = require("lsp-zero.cmp").action()
 
       cmp.setup {
         completion = {
@@ -54,17 +51,9 @@ return {
         },
         mapping = cmp.mapping.preset.insert {
           ["<C-.>"] = cmp.mapping.complete(),
-
-          ["C-n"] = cmp_action.luasnip_supertab(),
-          ["C-p"] = cmp_action.luasnip_shift_supertab(),
-
-          ["<Tab>"] = cmp_action.luasnip_jump_forward(),
-          ["<S-Tab>"] = cmp_action.luasnip_jump_backward(),
-
           ["C-y"] = cmp.mapping.confirm { select = true },
-
-          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-          ["<C-f>"] = cmp.mapping.scroll_docs(4),
+          ["<C-u>"] = cmp.mapping.scroll_docs(-4),
+          ["<C-d>"] = cmp.mapping.scroll_docs(4),
         },
         sources = cmp.config.sources {
           { name = "nvim_lsp" },
