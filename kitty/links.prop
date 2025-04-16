@@ -1,0 +1,2 @@
+$DOTFILES/kitty/current-theme.conf=$HOME/.config/kitty/current-theme.conf
+$DOTFILES/kitty/kitty.conf=$HOME/.config/kitty/kitty.conf
