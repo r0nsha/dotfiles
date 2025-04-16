@@ -78,7 +78,6 @@ return {
           "rust_analyzer",
           "lua_ls",
           "taplo",
-          "biome",
           "unocss",
         },
         handlers = {
@@ -97,8 +96,6 @@ return {
           disable_formatting(client) -- We use stylua instead
         end,
       })
-
-      lspconfig.biome.setup {}
 
       lspconfig.ts_ls.setup {
         on_init = function(client)
