@@ -85,6 +85,7 @@ return {
           "lua_ls",
           "taplo",
           "unocss",
+          "biome",
         },
         -- handlers = {
         --   function(server_name)
@@ -187,6 +188,7 @@ return {
       }
 
       lspconfig.unocss.setup {}
+      lspconfig.biome.setup {}
 
       lspconfig.clangd.setup {}
 
