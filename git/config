@@ -14,7 +14,7 @@
 	defaultBranch = master
 
 [commit]
-	gpgSign = true
+	; gpgSign = true # don't sign commits by default, it's annoying
 	template = ~/.config/git/template
 
 [push]
