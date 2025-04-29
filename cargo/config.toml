@@ -1,11 +1,10 @@
-[cargo-new]
-vcs = "none" # do not automatically create git repository
+# [cargo-new]
+# vcs = "none"
 
-# Let's make cargo quiet, more UNIX-like
-[term]
-quiet = true
-verbose = false
-progress.when = "never"
+# [term]
+# quiet = true
+# verbose = false
+# progress.when = "never"
 
 [build]
 # WARN: be careful deploying stuff built locally
