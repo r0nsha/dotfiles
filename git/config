@@ -10,37 +10,80 @@
 	helper = 
 	helper = !/usr/bin/gh auth git-credential
 
+[init]
+	defaultBranch = master
+
+[commit]
+	gpgSign = true
+	template = ~/.config/git/template
+
 [push]
+	default = tracking
 	autoSetupRemote = true
 
+[pull]
+	; rebase = true
+
+[rebase]
+	autoStash = true
+
 [merge]
-	conflictstyle = diff3
+	conflictstyle = zdiff3
 
 [diff]
 	colorMoved = default
+	context = 3
+	renames = copies
+	interHunkContext = 10
 
 [maintenance]
 	repo = /home/ron/dev/jin
 
 [core]
+	compression = 9 # trade cpu for disk space & network speed
+	preloadindex = true
 	fsmonitor = true
 	untrackedcache = true
-
-[core]
 	editor = nvim
 	pager = delta
+	autocrlf = input
+	whitespace = error
+
+[color]
+	ui = true
+
+[advice]
+	addEmptyPathspec = false
+	pushNonFastForward = false
+	statusHints = false
+
+[blame]
+	coloring = highlightRecent
+	date = relative
+
+[log]
+	abbrevCommit = true
+	graphColors = blue,yellow,cyan,magenta,green,red
+
+[status]
+	branch = true
+	short = true
+	showStash = true
+	showUntrackedFiles = all
 
 [interactive]
 	diffFilter = delta --color-only
+	singleKey = true
 
 [delta]
 	true-color = always
-	syntax-theme = Kanagawa
+	syntax-theme = zenburn
 
 	features = decorations
 	whitespace-error-style = 22 reverse
 	line-numbers = true
 	navigate = true    # use n and N to move between diff sections
+	dark = true
 
 	light = false
 	file-style                    = blue
@@ -65,3 +108,13 @@
 	file-style = normal ul
 	file-decoration-style = normal box
 	hunk-header-decoration-style = normal box ul
+
+[color "blame"]
+    highlightRecent = black bold,1 year ago,white,1 month ago,default,7 days ago,blue
+
+[color "branch"]
+    current  = magenta
+    local    = default
+    remote   = yellow
+    upstream = green
+    plain    = blue

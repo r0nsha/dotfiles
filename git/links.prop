@@ -1,1 +1,3 @@
-$DOTFILES/git/.gitconfig=$HOME/.config/.gitconfig
+$DOTFILES/git/config=$HOME/.config/git/config
+$DOTFILES/git/ignore=$HOME/.config/git/ignore
+$DOTFILES/git/template=$HOME/.config/git/template

@@ -1,0 +1,8 @@
+
+
+# all of the following prefixes are required for every commit message.
+# all commits follow the following format: <type>[optional scope]: <description>
+# ------------------------------------------------------------------------------
+# type: feat|fix|style|ci|deploy|chore|docs|refactor|perf|test|debug
+# scope: the scope of the change. scope is optional, but if provided, must be in lower-case
+# description: a short description of the change
