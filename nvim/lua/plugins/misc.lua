@@ -87,6 +87,7 @@ return {
   },
   {
     "MagicDuck/grug-far.nvim",
+    tag = "1.6.3",
     keys = {
       {
         "<leader>sr",

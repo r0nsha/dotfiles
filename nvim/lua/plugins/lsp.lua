@@ -8,14 +8,7 @@ return {
       "hrsh7th/cmp-nvim-lsp",
       "williamboman/mason-lspconfig.nvim",
       "williamboman/mason.nvim",
-      {
-        "j-hui/fidget.nvim",
-        tag = "legacy",
-        event = { "BufReadPre", "BufNewFile" },
-        config = function()
-          require("fidget").setup {}
-        end,
-      },
+      "j-hui/fidget.nvim",
       {
         "folke/neodev.nvim",
         opts = {
