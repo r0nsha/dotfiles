@@ -6,8 +6,6 @@ return {
     dependencies = {
       "yioneko/nvim-cmp",
       "hrsh7th/cmp-nvim-lsp",
-      "williamboman/mason-lspconfig.nvim",
-      "williamboman/mason.nvim",
       "j-hui/fidget.nvim",
       {
         "folke/neodev.nvim",
@@ -25,6 +23,8 @@ return {
       local lspconfig_defaults = require("lspconfig").util.default_config
       lspconfig_defaults.capabilities =
         vim.tbl_deep_extend("force", lspconfig_defaults.capabilities, require("cmp_nvim_lsp").default_capabilities())
+
+      local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
       vim.api.nvim_create_autocmd("LspAttach", {
         desc = "LSP actions",
@@ -55,37 +55,29 @@ return {
             require("fzf-lua").lsp_workspace_symbols {}
           end, opts)
 
-          if client.server_capabilities.documentFormattingProvider then
-            vim.keymap.set({ "n", "v" }, "<leader>f", function()
-              vim.lsp.buf.format { async = false, timeout_ms = 10000 }
-            end, { buffer = buf, desc = "Format document (LSP)" })
-          else
-            vim.keymap.set(
-              { "n", "v" },
-              "<leader>f",
-              "<cmd>Format<cr>",
-              { buffer = buf, desc = "Format document (Formatter)" }
-            )
-          end
+          local can_format = client.supports_method "textDocument/formatting"
+          local format_fn = can_format
+              and function()
+                vim.lsp.buf.format { async = false, timeout_ms = 10000 }
+              end
+            or function()
+              print "Hello"
+              vim.cmd [[Format]]
+            end
+          local format_desc = can_format and "Format document (LSP)" or "Format document (Formatter)"
+
+          vim.keymap.set({ "n", "v" }, "<leader>f", format_fn, { buffer = buf, desc = format_desc })
+
+          vim.api.nvim_clear_autocmds { group = augroup, buffer = buf }
+          vim.api.nvim_create_autocmd("BufWritePre", {
+            group = augroup,
+            buffer = buf,
+            callback = function()
+              pcall(format_fn)
+            end,
+          })
         end,
       })
-
-      require("mason-lspconfig").setup {
-        ensure_installed = {
-          "ts_ls",
-          "cssls",
-          "rust_analyzer",
-          "lua_ls",
-          "taplo",
-          "unocss",
-          "biome",
-        },
-        -- handlers = {
-        --   function(server_name)
-        --     require("lspconfig")[server_name].setup {}
-        --   end,
-        -- },
-      }
 
       local function disable_formatting(client)
         client.server_capabilities.documentFormattingProvider = false
@@ -284,12 +276,5 @@ return {
     config = function()
       require("diagflow").setup {}
     end,
-  },
-  {
-    "williamboman/mason.nvim",
-    build = function()
-      vim.cmd [[MasonUpdate]]
-    end,
-    config = true,
   },
 }
