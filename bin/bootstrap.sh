@@ -43,6 +43,12 @@ install_deps() {
 	esac
 }
 
+stow_dotfiles() {
+	info 'stowing dotfiles...'
+	stow .
+	and success 'stowed dotfiles'
+}
+
 set_default_shell() {
 	fish_bin=$(command -v fish)
 
@@ -61,6 +67,7 @@ set_default_shell() {
 init_git_submodules
 create_env_file
 install_deps
+stow_dotfiles
 set_default_shell
 
 echo ""
