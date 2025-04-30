@@ -29,6 +29,7 @@ install_deps() {
 	deps=(
 		fish
 		tmux
+		stow
 		zoxide
 		fd
 		eza
