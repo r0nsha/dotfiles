@@ -7,7 +7,7 @@ local utils = require "config.utils"
 vim.o.shadafile = ""
 
 vim.o.mouse = "a"
-vim.o.mousemodel = "extend"
+vim.o.mousemodel = "popup_setpos"
 vim.o.guicursor = ""
 vim.opt.background = "dark"
 
