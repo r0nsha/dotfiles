@@ -28,6 +28,7 @@ return {
         "gopls",
         "gofumpt",
         "goimports",
+        "goimports-reviser",
         "golines",
         "shfmt",
       },

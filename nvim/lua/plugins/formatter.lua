@@ -8,6 +8,8 @@ return {
       local biome = defaults.biome
       local clangformat = defaults.clangformat
 
+      local go = require "formatter.filetypes.go"
+
       require("formatter").setup {
         filetype = {
           javascript = { biome },
@@ -47,6 +49,11 @@ return {
           },
           xml = {
             require("formatter.filetypes.xml").xmlformat,
+          },
+          go = {
+            go.gofumpt,
+            go.goimports_reviser,
+            go.golines,
           },
         },
 

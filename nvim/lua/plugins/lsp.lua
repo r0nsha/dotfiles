@@ -61,7 +61,6 @@ return {
                 vim.lsp.buf.format { async = false, timeout_ms = 10000 }
               end
             or function()
-              print "Hello"
               vim.cmd [[Format]]
             end
           local format_desc = can_format and "Format document (LSP)" or "Format document (Formatter)"
@@ -69,7 +68,7 @@ return {
           vim.keymap.set({ "n", "v" }, "<leader>f", format_fn, { buffer = buf, desc = format_desc })
 
           vim.api.nvim_clear_autocmds { group = augroup, buffer = buf }
-          vim.api.nvim_create_autocmd("BufWritePre", {
+          vim.api.nvim_create_autocmd("BufWritePost", {
             group = augroup,
             buffer = buf,
             callback = function()
