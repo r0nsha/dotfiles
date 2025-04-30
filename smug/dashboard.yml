@@ -1,9 +1,0 @@
-session: dashboard
-root: ~
-windows:
-  - name: main
-    layout: main-vertical
-    panes:
-      - type: vertical
-        commands:
-          - btm

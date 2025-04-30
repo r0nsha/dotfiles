@@ -1,3 +1,0 @@
-$DOTFILES/nvim/init.lua=$HOME/.config/nvim/init.lua
-$DOTFILES/nvim/lua=$HOME/.config/nvim/lua
-$DOTFILES/nvim/snippets=$HOME/.config/nvim/snippets

@@ -21,3 +21,8 @@ _darcs
 ^/README.*
 ^/LICENSE.*
 ^/COPYING
+
+bin
+.stowrc
+DS_Store
+.DS_Store

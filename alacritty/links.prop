@@ -1,7 +1,0 @@
-$DOTFILES/alacritty/alacritty.toml=$HOME/.config/alacritty/alacritty.toml
-$DOTFILES/alacritty/ayu_dark.toml=$HOME/.config/alacritty/ayu_dark.toml
-$DOTFILES/alacritty/kanagawa_wave.toml=$HOME/.config/alacritty/kanagawa_wave.toml
-$DOTFILES/alacritty/kanagawa_dragon.toml=$HOME/.config/alacritty/kanagawa_dragon.toml
-$DOTFILES/alacritty/nordfox.toml=$HOME/.config/alacritty/nordfox.toml
-$DOTFILES/alacritty/tokyonight.toml=$HOME/.config/alacritty/tokyonight.toml
-$DOTFILES/alacritty/zenburn.toml=$HOME/.config/alacritty/zenburn.toml

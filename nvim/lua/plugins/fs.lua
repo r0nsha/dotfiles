@@ -8,16 +8,19 @@ return {
 
       oil.setup {
         default_file_explorer = true,
+        view_options = {
+          show_hidden = true,
+        },
         keymaps = {
           ["g?"] = "actions.show_help",
 
           ["<CR>"] = "actions.select",
-          ["<C-S>"] = { "actions.select", opts = { vertical = true }, desc = "Open the entry in a vertical split" },
-          ["<C-H>"] = { "actions.select", opts = { horizontal = true }, desc = "Open the entry in a horizontal split" },
+          ["<C-f>"] = { "actions.select", opts = { vertical = true }, desc = "Open the entry in a vertical split" },
+          ["<C-g>"] = { "actions.select", opts = { horizontal = true }, desc = "Open the entry in a horizontal split" },
           ["<C-t>"] = false,
           ["<C-p>"] = "actions.preview",
           ["<C-c>"] = "actions.close",
-          ["<C-l>"] = "actions.refresh",
+          ["<C-r>"] = "actions.refresh",
 
           ["-"] = "actions.parent",
           ["_"] = "actions.open_cwd",
