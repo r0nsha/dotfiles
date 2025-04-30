@@ -19,7 +19,6 @@ return {
                 paths = {
                   "../../snippets/typescript",
                   "../../snippets/python",
-                  "../../snippets/solidjs",
                 },
               }
             end,
