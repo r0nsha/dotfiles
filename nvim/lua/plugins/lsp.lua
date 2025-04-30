@@ -4,6 +4,7 @@ return {
     cmd = "LspInfo",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
+      "stevearc/conform.nvim",
       "yioneko/nvim-cmp",
       "hrsh7th/cmp-nvim-lsp",
       "j-hui/fidget.nvim",
@@ -23,8 +24,6 @@ return {
       local lspconfig_defaults = require("lspconfig").util.default_config
       lspconfig_defaults.capabilities =
         vim.tbl_deep_extend("force", lspconfig_defaults.capabilities, require("cmp_nvim_lsp").default_capabilities())
-
-      local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
       vim.api.nvim_create_autocmd("LspAttach", {
         desc = "LSP actions",
@@ -54,34 +53,11 @@ return {
           vim.keymap.set("n", "<leader>ws", function()
             require("fzf-lua").lsp_workspace_symbols {}
           end, opts)
-
-          local can_format = client.supports_method "textDocument/formatting"
-          local format_fn = can_format
-              and function()
-                vim.lsp.buf.format { async = false, timeout_ms = 10000 }
-              end
-            or function()
-              vim.cmd [[Format]]
-            end
-          local format_desc = can_format and "Format document (LSP)" or "Format document (Formatter)"
-
-          vim.keymap.set({ "n", "v" }, "<leader>f", format_fn, { buffer = buf, desc = format_desc })
-
-          vim.api.nvim_clear_autocmds { group = augroup, buffer = buf }
-          vim.api.nvim_create_autocmd("BufWritePost", {
-            group = augroup,
-            buffer = buf,
-            callback = function()
-              pcall(format_fn)
-            end,
-          })
+          vim.keymap.set("n", "<leader>f", function()
+            require("conform").format { bufnr = buf }
+          end, opts)
         end,
       })
-
-      local function disable_formatting(client)
-        client.server_capabilities.documentFormattingProvider = false
-        client.server_capabilities.documentFormattingRangeProvider = false
-      end
 
       lspconfig.lua_ls.setup {
         settings = {
@@ -120,15 +96,10 @@ return {
           }
 
           client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, nvim_settings)
-
-          disable_formatting(client) -- We use stylua instead
         end,
       }
 
       lspconfig.ts_ls.setup {
-        on_init = function(client)
-          disable_formatting(client) -- We use Prettier instead
-        end,
         init_options = {
           preferences = {
             importModuleSpecifierPreference = "relative",
@@ -253,7 +224,7 @@ return {
                 },
                 semanticHighlighting = {
                   operator = { specialization = { enable = true } },
-                  puncutation = {
+                  punctuation = {
                     enable = true,
                     specialization = { enable = true },
                     separate = { macro = { bang = true } },

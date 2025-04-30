@@ -31,6 +31,7 @@ return {
         "goimports-reviser",
         "golines",
         "shfmt",
+        "codespell",
       },
     },
   },
