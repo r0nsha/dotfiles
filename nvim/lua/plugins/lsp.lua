@@ -147,6 +147,22 @@ return {
 
       lspconfig.clangd.setup {}
 
+      lspconfig.gopls.setup {
+        filetypes = { "go", "gomod", "gowork", "gotmpl" },
+        settings = {
+          gopls = {
+            env = {
+              GOEXPERIMENT = "rangefunc",
+            },
+            analyses = {
+              unusedparams = true,
+            },
+            staticcheck = true,
+            gofumpt = true,
+          },
+        },
+      }
+
       vim.diagnostic.config {
         virtual_text = true,
         signs = true,

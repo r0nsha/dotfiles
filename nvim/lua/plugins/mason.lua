@@ -25,14 +25,21 @@ return {
         "taplo",
         "lua-language-server",
         "stylua",
+        "shfmt",
+        "yamlfmt",
+        "xmlformat",
+        "clangformat",
         "gopls",
         "gofumpt",
         "goimports",
         "goimports-reviser",
         "golines",
-        "shfmt",
+        "delve",
         "codespell",
       },
     },
   },
+  build = function()
+    pcall(vim.cmd, "MasonToolsUpdate")
+  end,
 }
