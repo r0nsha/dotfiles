@@ -1,4 +1,3 @@
---dir=~/dotfiles
---target=~/test
+--target=~/.config
 --ignore=.stowrc
 --ignore=DS_Store
