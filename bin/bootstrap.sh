@@ -45,8 +45,13 @@ install_deps() {
 
 stow_dotfiles() {
 	info 'stowing dotfiles...'
+	cd $DOTFILES
 	stow .
-	and success 'stowed dotfiles'
+	if [ $? -eq 0 ]; then
+		success 'stowed dotfiles, great success!'
+	else
+		error 'stow failed!'
+	fi
 }
 
 set_default_shell() {

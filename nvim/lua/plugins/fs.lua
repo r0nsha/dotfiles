@@ -17,10 +17,12 @@ return {
           ["<CR>"] = "actions.select",
           ["<C-f>"] = { "actions.select", opts = { vertical = true }, desc = "Open the entry in a vertical split" },
           ["<C-g>"] = { "actions.select", opts = { horizontal = true }, desc = "Open the entry in a horizontal split" },
-          ["<C-t>"] = false,
           ["<C-p>"] = "actions.preview",
           ["<C-c>"] = "actions.close",
           ["<C-r>"] = "actions.refresh",
+          ["<C-t>"] = false,
+          ["<C-h>"] = false,
+          ["<C-l>"] = false,
 
           ["-"] = "actions.parent",
           ["_"] = "actions.open_cwd",
