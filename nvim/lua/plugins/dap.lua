@@ -6,31 +6,36 @@ return {
       "nvim-dap-virtual-text",
       "nvim-dap-ui",
       "theHamsta/nvim-dap-virtual-text",
-      { "rcarriga/nvim-dap-ui", dependencies = {
-        "nvim-neotest/nvim-nio",
-      } },
-      -- "nvim-telescope/telescope-dap.nvim",
+      {
+        "rcarriga/nvim-dap-ui",
+        dependencies = { "nvim-neotest/nvim-nio" },
+      },
       { "jbyuki/one-small-step-for-vimkind" },
-      -- "nvim-dap-python",
-      -- "mfussenegger/nvim-dap-python",
+      {
+        "leoluz/nvim-dap-go",
+        ft = "go",
+        config = function()
+          require("dap-go").setup {}
+        end,
+      },
     },
     config = function()
       require("nvim-dap-virtual-text").setup {
         commented = true,
       }
 
-      local dap, dapui = require "dap", require "dapui"
+      local dap = require "dap"
+      local dapui = require "dapui"
 
+      dap.set_log_level "INFO"
       dapui.setup {}
 
       dap.listeners.after.event_initialized["dapui_config"] = function()
         dapui.open()
       end
-
       dap.listeners.before.event_terminated["dapui_config"] = function()
         dapui.close()
       end
-
       dap.listeners.before.event_exited["dapui_config"] = function()
         dapui.close()
       end
@@ -56,7 +61,6 @@ return {
       }
 
       -- Configurations
-
       local lldb_config = {
         {
           name = "Launch",
@@ -134,20 +138,6 @@ return {
           end,
         },
       }
-
-      -- -- Python debugger
-      -- local mason_registry = require "mason-registry"
-      -- local python_path = mason_registry.get_package("debugpy"):get_install_path() .. "/venv/bin/python"
-      --
-      -- require("dap-python").setup(python_path, {})
-      -- table.insert(dap.configurations.python, {
-      --   type = "python",
-      --   request = "launch",
-      --   name = "Launch main.py",
-      --   program = "./main.py",
-      --   python = { "./venv/bin/python" },
-      --   cwd = "${workspaceFolder}",
-      -- })
 
       local function key(k)
         return "<leader>d" .. k
