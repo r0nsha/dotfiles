@@ -10,11 +10,12 @@ DOTFILES=$(pwd -P)
 source $DOTFILES/bin/shared.sh
 source $DOTFILES/bin/detect.sh
 
-# init git submodules
-running "updating submodules..."
+# init git things
+running "doing git things..."
+chmod ug+x $DOTFILES/.git/hooks/*
 git submodule init
 git submodule update --init --recursive
-success "updated git submodules"
+success "did all git things"
 
 echo ""
 
@@ -62,7 +63,7 @@ if [ "$SHELL" != "$fish_bin" ]; then
 	info "changing your default shell to fish"
 	echo $fish_bin | sudo tee -a /etc/shells
 	chsh -s $fish_bin
-	success "your default shell is now fish. yay!"
+	success "your default shell is now fish. yay"
 else
 	info "your default shell is already fish, skipping"
 fi
