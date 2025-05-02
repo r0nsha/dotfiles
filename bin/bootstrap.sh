@@ -32,7 +32,7 @@ fi
 echo ""
 
 # load dconf settings
-if [[ $MACHINE == "linux" ]] && which dconf &>/dev/null; then
+if which dconf &>/dev/null; then
 	running "loading dconf settings..."
 	dconf load / <$DOTFILES/dconf/settings.ini
 	success "loaded dconf settings"
