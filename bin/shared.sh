@@ -28,10 +28,10 @@ DOWNLOADS=$HOME/Downloads
 
 install_wrapper() {
 	if ! command -v $1 &>/dev/null; then
-		running "installing $1"
+		running "installing '$1'"
 		$2
-		success "installed $1"
+		success "installed '$1'"
 	else
-		info "$1 is already installed, skipping"
+		info "'$1' is already installed, skipping"
 	fi
 }

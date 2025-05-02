@@ -2,10 +2,10 @@
 #
 # bootstrap.sh installs my things.
 
+set -e
+
 cd "$(dirname "$0")/.."
 DOTFILES=$(pwd -P)
-
-set -e
 
 source $DOTFILES/bin/shared.sh
 source $DOTFILES/bin/detect.sh
@@ -13,9 +13,10 @@ source $DOTFILES/bin/detect.sh
 # init git submodules
 running "updating submodules..."
 git submodule init
-sleep 1
 git submodule update --init --recursive
 success "updated git submodules"
+
+echo ""
 
 # create env file
 running "creating env file..."
@@ -27,6 +28,8 @@ else
 	success "created $env_file"
 fi
 
+echo ""
+
 # install dependencies
 running "installing dependencies..."
 source $DOTFILES/bin/install-deps-cross-platform.sh
@@ -36,6 +39,8 @@ macos) source $DOTFILES/bin/install-deps-macos.sh ;;
 *) ;;
 esac
 success "dependencies installed"
+
+echo ""
 
 # stow dotfiles
 running "stowing dotfiles..."
@@ -47,11 +52,11 @@ else
 	error 'stow failed!'
 fi
 
+echo ""
+
 # set default shell
 running "setting default shell to fish..."
 fish_bin=$(command -v fish)
-
-echo ""
 
 if [ "$SHELL" != "$fish_bin" ]; then
 	info "changing your default shell to fish"
@@ -62,6 +67,5 @@ else
 	info "your default shell is already fish, skipping"
 fi
 
-echo ""
 echo ""
 success 'all installed!'
