@@ -3,11 +3,11 @@
 	email = r0nsh4v1t@gmail.com
 
 [credential "https://github.com"]
-	helper = 
+	helper =
 	helper = !/usr/bin/gh auth git-credential
 
 [credential "https://gist.github.com"]
-	helper = 
+	helper =
 	helper = !/usr/bin/gh auth git-credential
 
 [init]
@@ -48,6 +48,7 @@
 	pager = delta
 	autocrlf = input
 	whitespace = error
+	hooksPath = hooks
 
 [color]
 	ui = true

@@ -31,6 +31,15 @@ fi
 
 echo ""
 
+# load dconf settings
+if [[ $MACHINE == "linux" ]] && which dconf &>/dev/null; then
+	running "loading dconf settings..."
+	dconf load / <$DOTFILES/dconf/settings.ini
+	success "loaded dconf settings"
+fi
+
+exit
+
 # install dependencies
 running "installing dependencies..."
 source $DOTFILES/bin/install-deps-cross-platform.sh
