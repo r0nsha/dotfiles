@@ -41,7 +41,7 @@ fi
 # install dependencies
 running "installing dependencies..."
 source $DOTFILES/bin/install-deps-cross-platform.sh
-case "$machine" in
+case "$MACHINE" in
 linux) source $DOTFILES/bin/install-deps-linux.sh ;;
 macos) source $DOTFILES/bin/install-deps-macos.sh ;;
 *) ;;
