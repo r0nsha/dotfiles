@@ -48,6 +48,10 @@ return {
           timeout_ms = 500,
         },
       }
+
+      vim.keymap.set("n", "<leader>f", function()
+        conform.format {}
+      end)
     end,
   },
 }

@@ -1,22 +1,5 @@
-info() {
-	printf "\r  [ \033[00;34m..\033[0m ] $1\n"
-}
+source $DOTFILES/bin/shared.sh
 
-success() {
-	printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
-}
-
-install_wrapper() {
-	if ! command -v $1 &>/dev/null; then
-		info "installing $1"
-		$2
-		success "installed $1"
-	else
-		success "$1 is already installed, skipping"
-	fi
-}
-
-DOWNLOADS=$HOME/Downloads
 mkdir -p $DOWNLOADS
 mkdir -p $HOME/.local/bin
 mkdir -p $HOME/.local/share

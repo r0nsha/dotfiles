@@ -1,33 +1,37 @@
-info() {
-	printf "\r  [ \033[00;34m..\033[0m ] $1\n"
+log_message() {
+	local color="$1"
+	local prefix="$2"
+	local message="$3"
+	local nc='\033[0m'
+	echo -e "\r[${color}${prefix}${nc}] ${message}"
 }
 
-user() {
-	printf "\r  [ \033[0;33m??\033[0m ] $1\n"
+info() {
+	log_message '\033[0;34m' 'i' "$*"
+}
+
+running() {
+	log_message '\033[0;33m' '~' "$*"
 }
 
 success() {
-	printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
+	log_message '\033[0;32m' '+' "$*"
 }
 
 fail() {
-	printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
-	echo ''
-	exit
-}
-
-os() {
-	uname -s
+	log_message '\033[0;31m' '!' "$*"
+	echo ""
+	exit 1
 }
 
 DOWNLOADS=$HOME/Downloads
 
 install_wrapper() {
 	if ! command -v $1 &>/dev/null; then
-		info "installing $1"
+		running "installing $1"
 		$2
 		success "installed $1"
 	else
-		success "$1 is already installed, skipping"
+		info "$1 is already installed, skipping"
 	fi
 }
