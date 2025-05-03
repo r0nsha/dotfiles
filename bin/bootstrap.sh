@@ -51,11 +51,11 @@ if [ "$MACHINE" = "linux" ]; then
 	sudo bash -c "$DOTFILES/gtk/Kanagawa-GTK-Theme/themes/install.sh --dest $GTK_THEMES --name Kanagawa --theme yellow --size compact --tweaks dragon black float"
 	success "installed GTK theme"
 
-	running "installing GTK icons..."
-	GTK_ICONS=$HOME/.local/share/icons
-	mkdir -p $GTK_ICONS
-	cp -r $DOTFILES/gtk/kora/kora* $GTK_ICONS/.
-	success "installed GTK icons"
+	# running "installing GTK icons..."
+	# GTK_ICONS=$HOME/.local/share/icons
+	# mkdir -p $GTK_ICONS
+	# cp -r $DOTFILES/gtk/Kanagawa-GTK-Theme/icons/* $GTK_ICONS/.
+	# success "installed GTK icons"
 fi
 
 # setup fonts
