@@ -17,6 +17,9 @@ git submodule init
 git submodule update --init --recursive
 success "did all git things"
 
+# chmod scripts
+chmod ug+x $DOTFILES/*.sh
+
 echo ""
 
 # create env file
