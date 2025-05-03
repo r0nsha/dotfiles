@@ -41,6 +41,11 @@ if which dconf &>/dev/null; then
 	success "loaded dconf settings"
 fi
 
+# setup wallpapers
+running "setting up wallpapers..."
+ln -siT $DOTFILES/wallpapers $HOME/Pictures/Wallpapers
+success "wallpapers set up"
+
 # install dependencies
 running "installing dependencies..."
 source $DOTFILES/bin/install-deps-cross-platform.sh
