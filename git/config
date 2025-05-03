@@ -35,6 +35,7 @@
 	context = 3
 	renames = copies
 	interHunkContext = 10
+	ignoreSubmodules = dirty
 
 [maintenance]
 	repo = /home/ron/dev/jin
