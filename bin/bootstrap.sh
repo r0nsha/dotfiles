@@ -38,6 +38,25 @@ fi
 
 echo ""
 
+# setup wallpapers
+running "setting up wallpapers..."
+ln -siT $DOTFILES/wallpapers $HOME/Pictures/Wallpapers
+success "wallpapers set up"
+
+# Install GTK user theme
+if [ "$MACHINE" = "linux" ]; then
+	running "installing GTK theme..."
+	GTK_THEMES=$HOME/.local/share/themes
+	mkdir -p $GTK_THEMES
+	sudo bash -c $DOTFILES/gtk/Kanagawa-GTK-Theme/themes/install.sh \
+		--dest $GTK_THEMES \
+		--name Kanagawa \
+		--theme default \
+		--size compact \
+		--tweaks dragon black float
+	success "installed GTK theme"
+fi
+
 # setup fonts
 install_fonts() {
 	case "$MACHINE" in
@@ -75,13 +94,6 @@ install_fonts() {
 }
 
 install_fonts
-
-exit
-
-# setup wallpapers
-running "setting up wallpapers..."
-ln -siT $DOTFILES/wallpapers $HOME/Pictures/Wallpapers
-success "wallpapers set up"
 
 # load dconf settings
 if which dconf &>/dev/null; then
