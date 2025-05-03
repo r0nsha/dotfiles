@@ -1,9 +1,5 @@
 source $DOTFILES/bin/shared.sh
 
-mkdir -p $DOWNLOADS
-mkdir -p $HOME/.local/bin
-mkdir -p $HOME/.local/share
-
 install_starship() {
 	curl -sS https://starship.rs/install.sh | sh
 }

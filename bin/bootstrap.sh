@@ -10,6 +10,10 @@ DOTFILES=$(pwd -P)
 source $DOTFILES/bin/shared.sh
 source $DOTFILES/bin/detect.sh
 
+mkdir -p $DOWNLOADS
+mkdir -p $HOME/.local/bin
+mkdir -p $HOME/.local/share
+
 # init git things
 running "doing git things..."
 chmod ug+x $DOTFILES/hooks/*
@@ -34,17 +38,55 @@ fi
 
 echo ""
 
+# setup fonts
+install_fonts() {
+	case "$MACHINE" in
+	linux) local fonts=$HOME/.local/share/fonts ;;
+	macos) local fonts=/Library/Fonts ;;
+	*) ;;
+	esac
+
+	mkdir -p $fonts
+
+	local fonts_base_url=https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0
+	local font=Iosevka
+	local font_term=IosevkaTerm
+
+	# Check if fonts are already installed
+	if [[ $(ls "$fonts" | grep -c "${font// /}NerdFont") -gt 0 &&
+	$(ls "$fonts" | grep -c "${font_term// /}NerdFont") -gt 0 ]]; then
+		success "fonts already installed, skipping"
+		return
+	fi
+
+	running "downloading $font and $font_term from $fonts_base_url..."
+	wget -nv -O $DOWNLOADS/$font.zip $fonts_base_url/$font.zip &
+	wget -nv -O $DOWNLOADS/$font_term.zip $fonts_base_url/$font_term.zip &
+	wait
+
+	running "installing $font and $font_term in $fonts..."
+	unzip -q -o $DOWNLOADS/$font.zip '*.ttf' -d $fonts &
+	unzip -q -o $DOWNLOADS/$font_term.zip '*.ttf' -d $fonts &
+	wait
+
+	success "fonts installed"
+}
+
+install_fonts
+
+exit
+
+# setup wallpapers
+running "setting up wallpapers..."
+ln -siT $DOTFILES/wallpapers $HOME/Pictures/Wallpapers
+success "wallpapers set up"
+
 # load dconf settings
 if which dconf &>/dev/null; then
 	running "loading dconf settings..."
 	dconf load / <$DOTFILES/dconf/settings.ini
 	success "loaded dconf settings"
 fi
-
-# setup wallpapers
-running "setting up wallpapers..."
-ln -siT $DOTFILES/wallpapers $HOME/Pictures/Wallpapers
-success "wallpapers set up"
 
 # install dependencies
 running "installing dependencies..."

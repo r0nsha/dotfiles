@@ -20,6 +20,7 @@ install_deps() {
 		gh
 		fzf
 		bat
+		gnome-tweaks
 	)
 
 	for dep in ${deps[@]}; do
