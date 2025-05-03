@@ -21,6 +21,7 @@ install_deps() {
 		fzf
 		bat
 		gnome-tweaks
+		gtk2-engine-murrine
 	)
 
 	for dep in ${deps[@]}; do
