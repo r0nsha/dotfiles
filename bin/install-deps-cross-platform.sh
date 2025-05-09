@@ -19,7 +19,12 @@ install_n() {
 	npm install -g n
 }
 
+install_yazi() {
+	cargo install yazi --locked
+}
+
 install_wrapper starship install_starship
 install_wrapper rustup install_rustup
 install_wrapper tmux install_tmux
 install_wrapper n install_n
+install_wrapper yazi install_yazi
