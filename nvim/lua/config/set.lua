@@ -12,7 +12,7 @@ vim.o.guicursor = ""
 vim.opt.background = "dark"
 
 vim.opt.shortmess:append { I = true }
-vim.o.completeopt = "menuone,noselect"
+vim.o.completeopt = "menu,menuone,noselect"
 vim.o.backspace = "indent,start,eol"
 vim.o.swapfile = false
 vim.o.backup = false

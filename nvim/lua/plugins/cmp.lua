@@ -43,17 +43,6 @@ return {
         completion = {
           completeopt = "menu,menuone,noinsert",
         },
-        snippet = {
-          expand = function(args)
-            luasnip.lsp_expand(args.body)
-          end,
-        },
-        mapping = cmp.mapping.preset.insert {
-          ["<C-.>"] = cmp.mapping.complete(),
-          ["C-y"] = cmp.mapping.confirm { select = true },
-          ["<C-u>"] = cmp.mapping.scroll_docs(-4),
-          ["<C-d>"] = cmp.mapping.scroll_docs(4),
-        },
         sources = cmp.config.sources {
           { name = "nvim_lsp" },
           { name = "luasnip" },
@@ -73,7 +62,21 @@ return {
               end,
             },
           },
-          -- { name = "cmdline" },
+        },
+        mapping = cmp.mapping.preset.insert {
+          ["<C-n>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
+          ["<C-p>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
+          ["<C-y>"] = cmp.mapping.confirm({
+            behavior = cmp.ConfirmBehavior.Insert,
+            select = true,
+          }, { "i", "c" }),
+          ["<C-u>"] = cmp.mapping.scroll_docs(-4),
+          ["<C-d>"] = cmp.mapping.scroll_docs(4),
+        },
+        snippet = {
+          expand = function(args)
+            luasnip.lsp_expand(args.body)
+          end,
         },
         window = {
           completion = cmp.config.window.bordered(),
