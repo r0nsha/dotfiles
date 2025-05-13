@@ -53,9 +53,6 @@ return {
           vim.keymap.set("n", "<leader>ws", function()
             require("fzf-lua").lsp_workspace_symbols {}
           end, opts)
-          vim.keymap.set("n", "<leader>f", function()
-            require("conform").format { bufnr = buf }
-          end, opts)
         end,
       })
 

@@ -49,7 +49,7 @@ return {
         },
       }
 
-      vim.keymap.set("n", "<leader>f", function()
+      vim.keymap.set({ "n", "v" }, "<leader>f", function()
         conform.format {}
       end)
     end,
