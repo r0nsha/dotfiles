@@ -103,11 +103,6 @@ if utils.is_wsl() then
   }
 end
 
-vim.fn.sign_define("DiagnosticSignError", { text = utils.icons.error .. " ", texthl = "DiagnosticSignError" })
-vim.fn.sign_define("DiagnosticSignWarn", { text = utils.icons.warning .. " ", texthl = "DiagnosticSignWarn" })
-vim.fn.sign_define("DiagnosticSignInfo", { text = utils.icons.info .. " ", texthl = "DiagnosticSignInfo" })
-vim.fn.sign_define("DiagnosticSignHint", { text = utils.icons.bulb, texthl = "DiagnosticSignHint" })
-
 vim.filetype.add { extension = { ll = "llvm" } }
 
 local gitconfig_group = vim.api.nvim_create_augroup("GitConfig", { clear = true })

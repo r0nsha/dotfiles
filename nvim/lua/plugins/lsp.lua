@@ -19,6 +19,7 @@ return {
     },
     config = function()
       local lspconfig = require "lspconfig"
+      local utils = require "config.utils"
 
       -- Add cmp_nvim_lsp capabilities settings to lspconfig
       local lspconfig_defaults = require("lspconfig").util.default_config
@@ -162,9 +163,16 @@ return {
 
       vim.diagnostic.config {
         virtual_text = true,
-        signs = true,
+        underline = true,
         update_in_insert = false,
-        underline = false,
+        signs = {
+          text = {
+            [vim.diagnostic.severity.HINT] = utils.icons.bulb,
+            [vim.diagnostic.severity.INFO] = utils.icons.info,
+            [vim.diagnostic.severity.WARN] = utils.icons.warning,
+            [vim.diagnostic.severity.ERROR] = utils.icons.error,
+          },
+        },
       }
     end,
   },
