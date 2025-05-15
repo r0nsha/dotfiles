@@ -10,7 +10,7 @@ return {
         desc = "Diagnostics (Trouble)",
       },
       {
-        "<leader>xX",
+        "<leader>xb",
         "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
         desc = "Buffer Diagnostics (Trouble)",
       },
@@ -20,12 +20,12 @@ return {
         desc = "Symbols (Trouble)",
       },
       {
-        "<leader>xh",
+        "<leader>xp",
         "<cmd>Trouble diagnostics prev<cr>",
         desc = "Previous (Trouble)",
       },
       {
-        "<leader>xl",
+        "<leader>xn",
         "<cmd>Trouble diagnostics next<cr>",
         desc = "Next (Trouble)",
       },
