@@ -6,13 +6,6 @@ return {
       local gitsigns = require "gitsigns"
 
       gitsigns.setup {
-        signs = {
-          add = { text = "+" },
-          change = { text = "~" },
-          delete = { text = "_" },
-          topdelete = { text = "‾" },
-          changedelete = { text = "~" },
-        },
         current_line_blame = true,
         on_attach = function(bufnr)
           vim.keymap.set("n", "[h", function()
@@ -26,12 +19,20 @@ return {
           vim.keymap.set(
             "n",
             "<leader>gp",
-            require("gitsigns").preview_hunk,
+            require("gitsigns").preview_hunk_inline,
             { buffer = bufnr, desc = "Git: Preview Hunk" }
           )
 
           vim.keymap.set("n", "<leader>gb", function()
+            gitsigns.blame()
+          end, { buffer = bufnr, desc = "Git: Blame Line (Full)" })
+
+          vim.keymap.set("n", "<leader>gl", function()
             gitsigns.blame_line { full = true }
+          end, { buffer = bufnr, desc = "Git: Blame Line (Full)" })
+
+          vim.keymap.set("n", "<leader>gw", function()
+            gitsigns.toggle_word_diff()
           end, { buffer = bufnr, desc = "Git: Blame Line (Full)" })
         end,
       }

@@ -62,10 +62,6 @@ return {
       local default_fzf_args = {}
 
       vim.keymap.set("n", "<leader>sf", function()
-        fzf.files(default_fzf_args)
-      end, opts "Files")
-
-      vim.keymap.set("n", "<leader>sF", function()
         local exit = os.execute "git rev-parse --is-inside-work-tree"
 
         if exit == 0 then
@@ -73,7 +69,11 @@ return {
         else
           fzf.files(default_fzf_args)
         end
-      end, opts "Git files")
+      end, opts "Git Files")
+
+      vim.keymap.set("n", "<leader>sF", function()
+        fzf.files(default_fzf_args)
+      end, opts "All files")
 
       vim.keymap.set("n", "<leader>sc", function()
         fzf.colorschemes {}
