@@ -37,17 +37,22 @@ return {
         },
         current_line_blame = false,
         on_attach = function(bufnr)
-          vim.keymap.set("n", "[c", require("gitsigns").prev_hunk, { buffer = bufnr, desc = "Go to Previous Hunk" })
-          vim.keymap.set("n", "]c", require("gitsigns").next_hunk, { buffer = bufnr, desc = "Go to Next Hunk" })
+          vim.keymap.set(
+            "n",
+            "[c",
+            require("gitsigns").prev_hunk,
+            { buffer = bufnr, desc = "Git: Go to Previous Hunk" }
+          )
+          vim.keymap.set("n", "]c", require("gitsigns").next_hunk, { buffer = bufnr, desc = "Git: Go to Next Hunk" })
           vim.keymap.set(
             "n",
             "<leader>gh",
             require("gitsigns").preview_hunk,
-            { buffer = bufnr, desc = "Git Preview Hunk" }
+            { buffer = bufnr, desc = "Git: Preview Hunk" }
           )
           vim.keymap.set("n", "<leader>gB", function()
             gitsigns.blame_line { full = true }
-          end, { buffer = bufnr, desc = "Git Blame Line (Full)" })
+          end, { buffer = bufnr, desc = "Git: Blame Line (Full)" })
         end,
       }
     end,
@@ -57,7 +62,7 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     config = function()
       require("git-conflict").setup()
-      vim.keymap.set("n", "<leader>gl", "<cmd>GitConflictListQf<cr>")
+      vim.keymap.set("n", "<leader>gl", "<cmd>GitConflictListQf<cr>", { desc = "Git: Open Conflict List" })
     end,
   },
   {

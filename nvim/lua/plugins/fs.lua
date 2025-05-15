@@ -52,27 +52,27 @@ return {
       vim.keymap.set("n", "<leader>e", function()
         oil.open(vim.loop.cwd())
       end, {
-        desc = "Explore CWD (VSplit)",
+        desc = "Oil: CWD (VSplit)",
       })
 
       vim.keymap.set("n", "<leader>E", function()
         utils.vsplit()
         oil.open(vim.loop.cwd())
       end, {
-        desc = "Explore CWD (VSplit)",
+        desc = "Oil: CWD (VSplit)",
       })
 
       vim.keymap.set("n", "<leader>o", function()
         oil.open()
       end, {
-        desc = "Explore parent directory (VSplit)",
+        desc = "Oil: Parent Directory (VSplit)",
       })
 
       vim.keymap.set("n", "<leader>O", function()
         utils.vsplit()
         oil.open()
       end, {
-        desc = "Explore parent directory (VSplit)",
+        desc = "Oil: Parent Directory (VSplit)",
       })
     end,
   },

@@ -35,25 +35,29 @@ return {
           if client == nil then
             return
           end
-          local opts = { buffer = buf }
+          local opts = function(desc)
+            return {
+              buffer = buf,
+              desc = "LSP: " .. desc,
+            }
+          end
 
-          vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-          vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-          vim.keymap.set("n", "gv", "<cmd>vs<cr>gd", opts)
-          vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-          vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, opts)
-          vim.keymap.set("n", "gr", vim.lsp.buf.rename, opts)
-          vim.keymap.set("n", "gR", function()
+          vim.keymap.set("n", "K", vim.lsp.buf.hover, opts "Hover")
+          vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts "Go to Definition")
+          vim.keymap.set("n", "gv", "<cmd>vs<cr>gd", opts "Go to Definition (Vertical Split)")
+          vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts "Go to Implementation")
+          vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, opts "Go to Type Definition")
+          vim.keymap.set("n", "grn", vim.lsp.buf.rename, opts "Rename")
+          vim.keymap.set("n", "grr", function()
             require("fzf-lua").lsp_references {}
-          end, opts)
-          vim.keymap.set({ "n", "v" }, "ga", vim.lsp.buf.code_action, opts)
-          vim.keymap.set("n", "gl", vim.diagnostic.open_float, opts)
-          vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
-          vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
-          vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
+          end, opts "References")
+          vim.keymap.set({ "n", "v" }, "ga", vim.lsp.buf.code_action, opts "Code Action")
+          vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts "Previous Diagnostic")
+          vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts "Next Diagnostic")
+          vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts "Signature Help")
           vim.keymap.set("n", "<leader>ws", function()
             require("fzf-lua").lsp_workspace_symbols {}
-          end, opts)
+          end, opts "Workspace Symbols")
         end,
       })
 

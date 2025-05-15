@@ -31,9 +31,9 @@ return {
 
       vim.keymap.set("n", "<leader>a", function()
         harpoon:list():add()
-      end, { remap = false, desc = "Harpoon: Add File" })
+      end, { remap = false, desc = "Harpoon: Add Current File" })
 
-      vim.keymap.set("n", "<leader>k", function()
+      vim.keymap.set("n", "<C-e>", function()
         harpoon.ui:toggle_quick_menu(harpoon:list())
       end, { remap = false, desc = "Harpoon: Toggle Quick Menu" })
 

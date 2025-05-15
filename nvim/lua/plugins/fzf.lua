@@ -51,7 +51,7 @@ return {
         return {
           silent = false,
           remap = false,
-          desc = desc,
+          desc = "Fzf: " .. desc,
         }
       end
 

@@ -1,11 +1,5 @@
 return {
-  {
-    "folke/which-key.nvim",
-    lazy = true,
-    config = function()
-      require("which-key").setup()
-    end,
-  },
+  { "nvim-lua/plenary.nvim" },
   {
     "norcalli/nvim-colorizer.lua",
     event = "VeryLazy",
@@ -49,7 +43,6 @@ return {
   },
   {
     "RRethy/vim-illuminate",
-    enabled = false, -- disabled until https://github.com/RRethy/vim-illuminate/issues/232 is fixed
     event = { "BufReadPost", "BufNewFile" },
     config = function(_)
       require("illuminate").configure {

@@ -27,7 +27,7 @@ return {
       vim.api.nvim_create_autocmd("FileType", {
         pattern = "norg",
         callback = function()
-          vim.keymap.set("n", "gd", "<Plug>(neorg.esupports.hop.hop-link)", { buffer = true })
+          vim.keymap.set("n", "gd", "<Plug>(neorg.esupports.hop.hop-link)", { buffer = true, desc = "Neorg: Hop Link" })
         end,
       })
     end,

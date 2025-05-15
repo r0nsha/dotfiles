@@ -51,7 +51,7 @@ return {
 
       vim.keymap.set({ "n", "v" }, "<leader>f", function()
         conform.format {}
-      end)
+      end, { remap = false, desc = "Conform: Format" })
     end,
   },
 }
