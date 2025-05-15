@@ -104,12 +104,3 @@ if utils.is_wsl() then
 end
 
 vim.filetype.add { extension = { ll = "llvm" } }
-
-local gitconfig_group = vim.api.nvim_create_augroup("GitConfig", { clear = true })
-vim.api.nvim_create_autocmd("BufEnter", {
-  callback = function()
-    vim.cmd "set ft=gitconfig"
-  end,
-  group = gitconfig_group,
-  pattern = "*/git/config",
-})
