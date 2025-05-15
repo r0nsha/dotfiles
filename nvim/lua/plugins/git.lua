@@ -66,32 +66,34 @@ return {
     event = "VeryLazy",
     config = function()
       require("diffview").setup {}
-      vim.keymap.set("n", "<leader>gdd", function()
+
+      local function toggle_diff(cmd)
         if next(require("diffview.lib").views) == nil then
-          vim.cmd "DiffviewOpen"
+          vim.cmd(cmd)
         else
           vim.cmd "DiffviewClose"
         end
-      end, { desc = "Git: Toggle Diff" })
-      vim.keymap.set("n", "<leader>ghh", "<cmd>DiffviewFileHistory<cr>", { desc = "Git: File History" })
-      vim.keymap.set(
-        "v",
-        "<leader>gdh",
-        "<esc><cmd>'<,'>DiffviewFileHistory --follow<cr>",
-        { desc = "Git: File History (Follow visual selection)" }
-      )
-      vim.keymap.set(
-        "n",
-        "<leader>gdf",
-        "<cmd>DiffviewFileHistory --follow %<cr>",
-        { desc = "Git: File History (Follow current file)" }
-      )
-      vim.keymap.set(
-        "n",
-        "<leader>gdl",
-        "<esc><cmd>.DiffviewFileHistory --follow<cr>",
-        { desc = "Git: File History (Follow line)" }
-      )
+      end
+
+      vim.keymap.set("n", "<leader>gdd", function()
+        toggle_diff "DiffviewOpen"
+      end, { desc = "Git: Diffview" })
+
+      vim.keymap.set("n", "<leader>gdh", function()
+        toggle_diff "DiffviewFileHistory"
+      end, { desc = "Git: File History" })
+
+      vim.keymap.set("v", "<leader>gdh", function()
+        toggle_diff "'<,'>DiffviewFileHistory --follow"
+      end, { desc = "Git: File History (Follow visual selection)" })
+
+      vim.keymap.set("n", "<leader>gdf", function()
+        toggle_diff "DiffviewFileHistory --follow %"
+      end, { desc = "Git: File History (Follow current file)" })
+
+      vim.keymap.set("n", "<leader>gdl", function()
+        toggle_diff ".DiffviewFileHistory --follow"
+      end, { desc = "Git: File History (Follow line)" })
     end,
   },
   {
