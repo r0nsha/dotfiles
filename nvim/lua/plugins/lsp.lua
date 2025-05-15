@@ -55,7 +55,7 @@ return {
           vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts "Previous Diagnostic")
           vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts "Next Diagnostic")
           vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts "Signature Help")
-          vim.keymap.set("n", "<leader>ws", function()
+          vim.keymap.set("n", "gws", function()
             require("fzf-lua").lsp_workspace_symbols {}
           end, opts "Workspace Symbols")
         end,

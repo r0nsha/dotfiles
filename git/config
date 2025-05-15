@@ -83,11 +83,13 @@
 
 	features = decorations
 	whitespace-error-style = 22 reverse
+	tabs = 2
 	line-numbers = true
 	navigate = true    # use n and N to move between diff sections
+	hyperlinks = true
+	light = false
 	dark = true
 
-	light = false
 	file-style                    = blue
 	minus-style                   = syntax "#43242B"
 	minus-non-emph-style          = syntax "#43242B"

@@ -1,27 +1,5 @@
 return {
   {
-    "dinhhuy258/git.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("git").setup {
-        keymaps = {
-          default_mappings = false,
-          keymaps = {
-            blame = "<leader>gb",
-            quit_blame = "q",
-            blame_commit = "<cr>",
-            browse = "<leader>go",
-            open_pull_request = "<leader>gp",
-            create_pull_request = "<leader>gn",
-            revert = "<leader>gr",
-            revert_file = "<leader>gR",
-          },
-          target_branch = "master",
-        },
-      }
-    end,
-  },
-  {
     "lewis6991/gitsigns.nvim",
     event = { "BufRead", "BufNewFile" },
     config = function()
@@ -35,22 +13,24 @@ return {
           topdelete = { text = "‾" },
           changedelete = { text = "~" },
         },
-        current_line_blame = false,
+        current_line_blame = true,
         on_attach = function(bufnr)
+          vim.keymap.set("n", "[h", function()
+            require("gitsigns").nav_hunk("prev", { preview = true })
+          end, { buffer = bufnr, desc = "Git: Previous Hunk" })
+
+          vim.keymap.set("n", "]h", function()
+            require("gitsigns").nav_hunk("next", { preview = true })
+          end, { buffer = bufnr, desc = "Git: Next Hunk" })
+
           vim.keymap.set(
             "n",
-            "[c",
-            require("gitsigns").prev_hunk,
-            { buffer = bufnr, desc = "Git: Go to Previous Hunk" }
-          )
-          vim.keymap.set("n", "]c", require("gitsigns").next_hunk, { buffer = bufnr, desc = "Git: Go to Next Hunk" })
-          vim.keymap.set(
-            "n",
-            "<leader>gh",
+            "<leader>gp",
             require("gitsigns").preview_hunk,
             { buffer = bufnr, desc = "Git: Preview Hunk" }
           )
-          vim.keymap.set("n", "<leader>gB", function()
+
+          vim.keymap.set("n", "<leader>gb", function()
             gitsigns.blame_line { full = true }
           end, { buffer = bufnr, desc = "Git: Blame Line (Full)" })
         end,
@@ -68,7 +48,7 @@ return {
   {
     "NeogitOrg/neogit",
     keys = {
-      { "<leader>gs", "<cmd>Neogit kind=auto<cr>" },
+      { "<leader>gg", "<cmd>Neogit kind=auto<cr>", desc = "Git: Open Neogit" },
     },
     config = function()
       require("neogit").setup {
@@ -78,16 +58,40 @@ return {
         disable_builtin_notifications = true,
       }
     end,
-    dependencies = {
-      {
-        "sindrets/diffview.nvim",
-        keys = {
-          { "<leader>gd", "<cmd>DiffviewOpen<cr>" },
-          { "<leader>gD", "<cmd>DiffviewClose<cr>" },
-          { "<leader>gH", "<cmd>DiffviewFileHistory %<cr>" },
-        },
-      },
-    },
+    dependencies = { "sindrets/diffview.nvim" },
+  },
+  {
+    "sindrets/diffview.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("diffview").setup {}
+      vim.keymap.set("n", "<leader>gdd", function()
+        if next(require("diffview.lib").views) == nil then
+          vim.cmd "DiffviewOpen"
+        else
+          vim.cmd "DiffviewClose"
+        end
+      end, { desc = "Git: Toggle Diff" })
+      vim.keymap.set("n", "<leader>ghh", "<cmd>DiffviewFileHistory<cr>", { desc = "Git: File History" })
+      vim.keymap.set(
+        "v",
+        "<leader>gdh",
+        "<esc><cmd>'<,'>DiffviewFileHistory --follow<cr>",
+        { desc = "Git: File History (Follow visual selection)" }
+      )
+      vim.keymap.set(
+        "n",
+        "<leader>gdf",
+        "<cmd>DiffviewFileHistory --follow %<cr>",
+        { desc = "Git: File History (Follow current file)" }
+      )
+      vim.keymap.set(
+        "n",
+        "<leader>gdl",
+        "<esc><cmd>.DiffviewFileHistory --follow<cr>",
+        { desc = "Git: File History (Follow line)" }
+      )
+    end,
   },
   {
     "moyiz/git-dev.nvim",
