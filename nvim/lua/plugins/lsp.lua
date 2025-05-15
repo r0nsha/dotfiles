@@ -8,6 +8,7 @@ return {
       "yioneko/nvim-cmp",
       "hrsh7th/cmp-nvim-lsp",
       "j-hui/fidget.nvim",
+      "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
       {
         "folke/neodev.nvim",
         opts = {
@@ -52,8 +53,12 @@ return {
             require("fzf-lua").lsp_references {}
           end, opts "References")
           vim.keymap.set({ "n", "v" }, "ga", vim.lsp.buf.code_action, opts "Code Action")
-          vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts "Previous Diagnostic")
-          vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts "Next Diagnostic")
+          vim.keymap.set("n", "[d", function()
+            vim.diagnostic.goto_prev { float = false }
+          end, opts "Previous Diagnostic")
+          vim.keymap.set("n", "]d", function()
+            vim.diagnostic.goto_next { float = false }
+          end, opts "Next Diagnostic")
           vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts "Signature Help")
           vim.keymap.set("n", "gws", function()
             require("fzf-lua").lsp_workspace_symbols {}
@@ -165,8 +170,15 @@ return {
         },
       }
 
+      require("lsp_lines").setup {}
+
       vim.diagnostic.config {
-        virtual_text = true,
+        float = false, -- i use lsp_lines instead
+        virtual_text = false,
+        virtual_lines = {
+          only_current_line = true,
+          highlight_whole_line = true,
+        },
         underline = true,
         update_in_insert = false,
         signs = {
@@ -263,13 +275,6 @@ return {
           },
         }
       end
-    end,
-  },
-  {
-    "dgagn/diagflow.nvim",
-    event = "LspAttach",
-    config = function()
-      require("diagflow").setup {}
     end,
   },
 }
