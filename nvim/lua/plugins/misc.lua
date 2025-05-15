@@ -86,29 +86,12 @@ return {
     end,
   },
   {
-    "MagicDuck/grug-far.nvim",
-    tag = "1.6.3",
-    keys = {
-      {
-        "<leader>sr",
-        function()
-          require("grug-far").open()
-        end,
-        desc = "Replace in files (Spectre)",
-      },
-    },
-    cmd = "GrugFar",
-    config = function()
-      require("grug-far").setup {}
-    end,
-  },
-  "derektata/lorem.nvim",
-  {
     "lambdalisue/suda.vim",
-    config = function()
-      vim.keymap.set("n", "<leader>w", "<cmd>w<cr>", { remap = false, desc = "Write current file" })
-      vim.keymap.set("n", "<leader>W", "<cmd>SudaWrite<cr>", { remap = false, desc = "Write current file with sudo" })
-    end,
+    keys = {
+      { "<leader>w", "<cmd>w<cr>", desc = "Write the current file" },
+      { "<leader>W", "<cmd>SudaWrite<cr>", desc = "Write the current file with sudo" },
+    },
+    cmd = { "SudaWrite", "SudaRead" },
   },
   {
     "b0o/incline.nvim",
