@@ -53,5 +53,5 @@ vim.api.nvim_create_autocmd("Filetype", {
 vim.keymap.set("v", "p", '"_dP', { remap = false })
 
 -- Quickfix list remaps
-vim.keymap.set("n", "<A-l>", "<cmd>cprev<cr>", { desc = "Quickfix: Prev" })
-vim.keymap.set("n", "<A-h>", "<cmd>cnext<cr>", { desc = "Quickfix: Next" })
+vim.keymap.set("n", "<M-P>", "<cmd>cprev<cr>", { desc = "Quickfix: Prev" })
+vim.keymap.set("n", "<M-N>", "<cmd>cnext<cr>", { desc = "Quickfix: Next" })
