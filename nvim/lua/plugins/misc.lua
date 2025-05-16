@@ -1,5 +1,4 @@
 return {
-  { "nvim-lua/plenary.nvim" },
   {
     "norcalli/nvim-colorizer.lua",
     event = "VeryLazy",

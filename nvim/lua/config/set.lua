@@ -87,20 +87,4 @@ if utils.is_windows() then
   vim.o.shellxquote = ""
 end
 
--- WSL specific options
-if utils.is_wsl() then
-  vim.g.clipboard = {
-    name = "wslclipboard",
-    copy = {
-      ["+"] = "win32yank.exe -i --crlf",
-      ["*"] = "win32yank.exe -i --crlf",
-    },
-    paste = {
-      ["+"] = "win32yank.exe -o --lf",
-      ["*"] = "win32yank.exe -o --lf",
-    },
-    cache_enabled = 1,
-  }
-end
-
 vim.filetype.add { extension = { ll = "llvm" } }
