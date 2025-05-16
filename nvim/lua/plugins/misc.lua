@@ -86,10 +86,4 @@ return {
     },
     cmd = { "SudaWrite", "SudaRead" },
   },
-  {
-    "b0o/incline.nvim",
-    config = function()
-      require("incline").setup {}
-    end,
-  },
 }

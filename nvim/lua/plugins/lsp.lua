@@ -33,9 +33,11 @@ return {
           local buf = event.buf
           local id = vim.tbl_get(event, "data", "client_id")
           local client = id and vim.lsp.get_client_by_id(id)
+
           if client == nil then
             return
           end
+
           local opts = function(desc)
             return {
               buffer = buf,
