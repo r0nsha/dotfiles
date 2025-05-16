@@ -38,6 +38,10 @@ return {
             return
           end
 
+          if client.server_capabilities.inlayHintProvider then
+            vim.lsp.inlay_hint.enable(true, { bufnr = buf })
+          end
+
           local opts = function(desc)
             return {
               buffer = buf,
@@ -55,16 +59,20 @@ return {
             require("fzf-lua").lsp_references {}
           end, opts "References")
           vim.keymap.set({ "n", "v" }, "ga", vim.lsp.buf.code_action, opts "Code Action")
+          vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts "Signature Help")
+          vim.keymap.set("n", "gws", function()
+            require("fzf-lua").lsp_workspace_symbols {}
+          end, opts "Workspace Symbols")
+          vim.keymap.set("n", "gh", function()
+            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = buf }, { bufnr = buf })
+          end, opts "Toggle Inlay Hints")
+
           vim.keymap.set("n", "[d", function()
             vim.diagnostic.goto_prev { float = false }
           end, opts "Previous Diagnostic")
           vim.keymap.set("n", "]d", function()
             vim.diagnostic.goto_next { float = false }
           end, opts "Next Diagnostic")
-          vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts "Signature Help")
-          vim.keymap.set("n", "gws", function()
-            require("fzf-lua").lsp_workspace_symbols {}
-          end, opts "Workspace Symbols")
         end,
       })
 

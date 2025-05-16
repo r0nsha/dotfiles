@@ -4,7 +4,13 @@ vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
 
-vim.o.shadafile = ""
+vim.opt.number = true
+vim.opt.relativenumber = true
+
+vim.opt.shada = { "'10", "<0", "s10", "h" }
+vim.opt.swapfile = true
+vim.opt.undofile = true
+-- vim.opt.backup = false
 
 vim.o.mouse = "a"
 vim.o.mousemodel = "popup_setpos"
@@ -14,23 +20,26 @@ vim.opt.background = "dark"
 vim.opt.shortmess:append { I = true }
 vim.o.completeopt = "menu,menuone,noselect"
 vim.o.backspace = "indent,start,eol"
-vim.o.swapfile = false
-vim.o.backup = false
 
 vim.o.autoread = true
 vim.o.autoindent = true
 vim.o.colorcolumn = "80"
 vim.o.fixeol = false
 
-vim.wo.number = true
-vim.wo.relativenumber = true
+-- Don't have `o` add a comment
+vim.opt.formatoptions:remove "o"
+
+vim.opt.more = false
+vim.opt.foldmethod = "manual"
+vim.opt.title = true
+vim.opt.titlestring = '%t%( %M%)%( (%{expand("%:~:h")})%)%a (nvim)'
 
 vim.o.incsearch = true
 vim.o.hlsearch = true
+vim.opt.inccommand = "split"
 
 vim.o.termguicolors = true
 
-vim.o.smartcase = true
 vim.o.smartindent = true
 vim.o.tabstop = 4
 vim.o.softtabstop = 4
@@ -58,8 +67,9 @@ vim.o.updatetime = 250
 vim.o.timeout = true
 vim.o.timeoutlen = 1000
 
-vim.o.hidden = true
+vim.o.smartcase = true
 vim.o.ignorecase = true
+vim.o.hidden = true
 vim.o.joinspaces = true
 
 vim.o.cursorline = true

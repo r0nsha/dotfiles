@@ -23,8 +23,20 @@ if vim.fn.executable "tmux" ~= 1 then
 end
 
 -- Deal with word wrap
-vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+vim.keymap.set("n", "j", function()
+  if vim.v.count == 0 then
+    return "gj"
+  else
+    return "j"
+  end
+end, { expr = true })
+vim.keymap.set("n", "k", function()
+  if vim.v.count == 0 then
+    return "gk"
+  else
+    return "k"
+  end
+end, { expr = true })
 
 vim.keymap.set("v", "J", ":m '>+1<cr>gv=gv", { desc = "Move Selection: Down" })
 vim.keymap.set("v", "K", ":m '<-2<cr>gv=gv", { desc = "Move Selection: Up" })

@@ -22,6 +22,8 @@ return {
           ["<C-r>"] = "actions.refresh",
           ["<C-t>"] = false,
           ["<C-h>"] = false,
+          ["<C-j>"] = false,
+          ["<C-k>"] = false,
           ["<C-l>"] = false,
 
           ["-"] = "actions.parent",
