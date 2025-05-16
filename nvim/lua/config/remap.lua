@@ -5,10 +5,14 @@ vim.g.maplocalleader = ","
 -- Unmap leader key
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { remap = false })
 
-vim.keymap.set("n", "<bar>", "<cmd>vsplit<cr>", { remap = false, desc = "Split window vertically" })
+vim.keymap.set("n", "<bar>", "<cmd>vsplit<cr>", { desc = "Split window vertically" })
 
 vim.keymap.set({ "n", "v" }, "<leader>y", '"+y', { remap = false, desc = "Yank to clipboard" })
+vim.keymap.set("n", "<leader>Y", '"+Y', { remap = false, desc = "Yank line to clipboard" })
 vim.keymap.set("n", "<leader>p", '"+p', { remap = false, desc = "Paste from clipboard" })
+
+-- Don't yank when using 'p' in visual mode
+vim.keymap.set("v", "p", '"_dP', { remap = false })
 
 -- Window mappings when tmux is not available
 if vim.fn.executable "tmux" ~= 1 then
@@ -22,19 +26,19 @@ end
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
-vim.keymap.set("v", "J", ":m '>+1<cr>gv=gv", { remap = false, desc = "Move Selection: Down" })
-vim.keymap.set("v", "K", ":m '<-2<cr>gv=gv", { remap = false, desc = "Move Selection: Up" })
+vim.keymap.set("v", "J", ":m '>+1<cr>gv=gv", { desc = "Move Selection: Down" })
+vim.keymap.set("v", "K", ":m '<-2<cr>gv=gv", { desc = "Move Selection: Up" })
 
 -- Splitjoin the line below the cursor
-vim.keymap.set("n", "J", "mzJ`z", { remap = false, desc = "Splitjoin" })
+vim.keymap.set("n", "J", "mzJ`z", { desc = "Splitjoin" })
 
 -- Justify center page up/down
-vim.keymap.set("n", "<C-d>", "<C-d>zz", { remap = false })
-vim.keymap.set("n", "<C-u>", "<C-u>zz", { remap = false })
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
 -- Justify center search next/prev
-vim.keymap.set("n", "n", "nzzzv", { remap = false })
-vim.keymap.set("n", "N", "Nzzzv", { remap = false })
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
 
 -- Stay in visual mode when indenting
 vim.api.nvim_create_autocmd("Filetype", {
@@ -49,9 +53,9 @@ vim.api.nvim_create_autocmd("Filetype", {
   end,
 })
 
--- Don't yank when using 'p' in visual mode
-vim.keymap.set("v", "p", '"_dP', { remap = false })
-
 -- Quickfix list remaps
-vim.keymap.set("n", "<M-P>", "<cmd>cprev<cr>", { desc = "Quickfix: Prev" })
-vim.keymap.set("n", "<M-N>", "<cmd>cnext<cr>", { desc = "Quickfix: Next" })
+vim.keymap.set("n", "<M-P>", "<cmd>cprev<cr>zz", { desc = "Quickfix: Prev" })
+vim.keymap.set("n", "<M-N>", "<cmd>cnext<cr>zz", { desc = "Quickfix: Next" })
+
+-- Replace word under cursor (when LSP is not available)
+vim.keymap.set("n", "grn", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Sed: Replace Word" })
