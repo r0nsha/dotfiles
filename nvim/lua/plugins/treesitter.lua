@@ -150,7 +150,10 @@ return {
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     ft = { "html", "svelte", "astro", "vue", "javascriptreact", "typescriptreact", "php", "blade" },
     config = function()
-      require("tailwind-fold").setup { symbol = "" }
+      require("tailwind-fold").setup {
+        min_chars = 30,
+        symbol = "",
+      }
       vim.keymap.set("n", "<leader>c", "<cmd>TailwindFoldToggle<cr>", { desc = "Tailwind Fold: Toggle" })
     end,
   },
