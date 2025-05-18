@@ -70,4 +70,13 @@ vim.keymap.set("n", "<M-P>", "<cmd>cprev<cr>zz", { desc = "Quickfix: Prev" })
 vim.keymap.set("n", "<M-N>", "<cmd>cnext<cr>zz", { desc = "Quickfix: Next" })
 
 -- Replace word under cursor (when LSP is not available)
-vim.keymap.set("n", "grn", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Sed: Replace Word" })
+vim.keymap.set("n", "grn", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Rename word" })
+
+-- Toggle conceal
+vim.keymap.set("n", "<leader>c", function()
+  if vim.wo.conceallevel == 0 then
+    vim.wo.conceallevel = 2
+  else
+    vim.wo.conceallevel = 0
+  end
+end, { desc = "Toggle conceal" })

@@ -33,6 +33,7 @@ return {
 
       require("nvim-treesitter.configs").setup {
         ensure_installed = {
+          "query",
           "lua",
           "vim",
           "vimdoc",
@@ -142,6 +143,15 @@ return {
         install.prefer_git = false
         install.compilers = { "clang" }
       end
+    end,
+  },
+  {
+    "razak17/tailwind-fold.nvim",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    ft = { "html", "svelte", "astro", "vue", "javascriptreact", "typescriptreact", "php", "blade" },
+    config = function()
+      require("tailwind-fold").setup { symbol = "" }
+      vim.keymap.set("n", "<leader>c", "<cmd>TailwindFoldToggle<cr>", { desc = "Tailwind Fold: Toggle" })
     end,
   },
 }
