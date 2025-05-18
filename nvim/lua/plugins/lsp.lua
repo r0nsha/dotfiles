@@ -28,6 +28,9 @@ return {
       lspconfig_defaults.capabilities =
         vim.tbl_deep_extend("force", lspconfig_defaults.capabilities, require("cmp_nvim_lsp").default_capabilities())
 
+      -- Enable snippet support, needed for schemastore
+      lspconfig_defaults.capabilities.textDocument.completion.completionItem.snippetSupport = true
+
       vim.api.nvim_create_autocmd("LspAttach", {
         desc = "LSP actions",
         callback = function(event)
