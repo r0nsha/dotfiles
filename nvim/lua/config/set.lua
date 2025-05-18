@@ -1,54 +1,23 @@
 local utils = require "config.utils"
 
+-- netrw options
 vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
 
+-- line numbers, cols, signs, etc.
 vim.opt.number = true
 vim.opt.relativenumber = true
-
-vim.opt.shada = { "'10", "<0", "s10", "h" }
-vim.opt.swapfile = true
-vim.opt.undofile = true
-
-vim.o.mouse = "a"
-vim.o.mousemodel = "popup_setpos"
-vim.o.guicursor = ""
-vim.opt.background = "dark"
-
-vim.opt.shortmess:append { I = true }
-vim.o.completeopt = "menu,menuone,noselect"
-vim.o.backspace = "indent,start,eol"
-
-vim.o.autoread = true
-vim.o.autoindent = true
-vim.o.colorcolumn = "80"
-vim.o.fixeol = false
-
-vim.opt.more = false
-vim.opt.foldmethod = "manual"
-vim.opt.title = true
-vim.opt.titlestring = '%t%( %M%)%( (%{expand("%:~:h")})%)%a (nvim)'
-
-vim.o.incsearch = true
-vim.o.hlsearch = true
-vim.opt.inccommand = "split"
-
-vim.o.termguicolors = true
-
-vim.o.smartindent = true
-vim.o.tabstop = 4
-vim.o.softtabstop = 4
-vim.o.shiftwidth = 4
-vim.o.expandtab = false
-vim.o.shiftround = true
-
-vim.o.scrolloff = 8
-vim.o.sidescrolloff = 8
-
-vim.o.signcolumn = "yes"
+vim.opt.signcolumn = "yes"
 vim.opt.isfname:append "@-@"
 
+-- display and appearance
+vim.opt.termguicolors = true
+vim.opt.background = "dark"
+vim.opt.guicursor = ""
+vim.opt.cursorline = true
+vim.opt.colorcolumn = "80"
+vim.opt.conceallevel = 2
 vim.opt.list = true
 vim.opt.listchars = {
   eol = "↲",
@@ -59,38 +28,82 @@ vim.opt.listchars = {
   nbsp = " ",
 }
 
-vim.o.updatetime = 250
-vim.o.timeout = true
-vim.o.timeoutlen = 1000
-
-vim.o.smartcase = true
-vim.o.ignorecase = true
-vim.o.hidden = true
-vim.o.joinspaces = true
-
-vim.o.cursorline = true
-
-vim.o.wrap = true
-if vim.o.wrap then
-  vim.o.showbreak = ""
-  vim.o.breakindent = true
-  vim.o.linebreak = true
+vim.opt.wrap = true
+if vim.opt.wrap then
+  vim.opt.showbreak = ""
+  vim.opt.breakindent = true
+  vim.opt.linebreak = true
 end
 
-vim.o.splitbelow = true
-vim.o.splitright = true
+-- title
+vim.opt.title = true
+vim.opt.titlestring = '%t%( %M%)%( (%{expand("%:~:h")})%)%a (nvim)'
 
-vim.o.conceallevel = 2
+-- mouse
+vim.opt.mouse = "a"
+vim.opt.mousemodel = "popup_setpos"
 
+-- search
+vim.opt.incsearch = true
+vim.opt.hlsearch = true
+vim.opt.inccommand = "split"
+vim.opt.smartcase = true
+vim.opt.ignorecase = true
+
+-- indent, tabs and typing
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.smartindent = true
+vim.opt.autoindent = true
+vim.opt.expandtab = false
+vim.opt.shiftround = true
+vim.opt.joinspaces = true
+vim.opt.backspace = { "indent", "start", "eol" }
+
+-- scroll
+vim.opt.scrolloff = 8
+vim.opt.sidescrolloff = 8
+
+-- buffer and backups
+vim.opt.autoread = true
+vim.opt.shada = { "'10", "<0", "s10", "h" }
+vim.opt.swapfile = true
+vim.opt.undofile = true
+vim.opt.fixeol = false
+vim.opt.hidden = true
+
+-- completion
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
+
+-- disable startup message
+vim.opt.shortmess:append { I = true }
+
+-- updatetime and timeout
+vim.opt.updatetime = 250
+vim.opt.timeout = true
+vim.opt.timeoutlen = 1000
+
+-- splits
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+
+-- fold
+vim.opt.foldmethod = "manual"
+
+-- don't pause when listings get too long
+vim.opt.more = false
+
+-- filetypes
 vim.filetype.add { extension = { ll = "llvm" } }
 
--- Windows specific options
+-- windows specific options
 if utils.is_windows() then
-  vim.o.shell = vim.fn.executable "powershell" and "powershell" or "pwsh"
-  vim.o.shellcmdflag =
+  vim.opt.shell = vim.fn.executable "powershell" and "powershell" or "pwsh"
+  vim.opt.shellcmdflag =
     "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
-  vim.o.shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait"
-  vim.o.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
-  vim.o.shellquote = ""
-  vim.o.shellxquote = ""
+  vim.opt.shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait"
+  vim.opt.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
+  vim.opt.shellquote = ""
+  vim.opt.shellxquote = ""
 end
