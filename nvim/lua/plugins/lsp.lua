@@ -18,6 +18,8 @@ return {
       local lspconfig = require "lspconfig"
       local utils = require "config.utils"
 
+      -- local codelldb_path, liblldb_path = require("config.utils").get_codelldb_paths()
+
       local servers = {
         lua_ls = {
           manual_install = true,
@@ -105,6 +107,69 @@ return {
         unocss = { manual_install = true },
         biome = {},
         clangd = {},
+        rust_analyzer = {
+          manual_install = true,
+          settings = {
+            ["rust-analyzer"] = {
+              imports = {
+                granularity = {
+                  group = "module",
+                },
+                prefix = "self",
+              },
+              assist = {
+                importEnforceGranularity = true,
+                importPrefix = "crate",
+                emitMustUse = true,
+              },
+              cargo = {
+                features = "all",
+                allFeatures = true,
+                buildScripts = {
+                  enable = true,
+                },
+              },
+              check = {
+                command = "clippy",
+              },
+              checkOnSave = true,
+              inlayHints = {
+                enable = false,
+                locationLinks = false,
+              },
+              diagnostics = {
+                enable = true,
+                experimental = {
+                  enable = true,
+                },
+                disabled = { "inactive-code" },
+              },
+              procMacro = {
+                enable = true,
+              },
+              semanticHighlighting = {
+                operator = { specialization = { enable = true } },
+                punctuation = {
+                  enable = true,
+                  specialization = { enable = true },
+                  separate = { macro = { bang = true } },
+                },
+              },
+            },
+          },
+          -- TODO: get Rust debugging to work
+          -- dap = {
+          --   adapter = {
+          --     type = "server",
+          --     port = "${port}",
+          --     host = "127.0.0.1",
+          --     executable = {
+          --       command = codelldb_path,
+          --       args = { "--liblldb", liblldb_path, "--port", "${port}" },
+          --     },
+          --   },
+          -- },
+        },
         gopls = {
           filetypes = { "go", "gomod", "gowork", "gotmpl" },
           settings = {
@@ -182,6 +247,7 @@ return {
 
         -- dap
         "delve",
+        -- "codelldb",
 
         -- spell
         "codespell",
@@ -204,7 +270,8 @@ return {
           config = {}
         end
 
-        config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities, capabilities)
+        config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
+        config.capabilities = vim.tbl_deep_extend("force", config.capabilities, capabilities)
 
         lspconfig[server].setup(config)
       end
@@ -296,73 +363,6 @@ return {
           require("lint").try_lint()
         end,
       })
-    end,
-  },
-  {
-    "mrcjkb/rustaceanvim",
-    version = "^4",
-    ft = { "rust" },
-    config = function()
-      vim.g.rustaceanvim = function()
-        local cfg = require "rustaceanvim.config"
-        local codelldb_path, liblldb_path = require("config.utils").get_codelldb_paths()
-
-        return {
-          server = {
-            settings = {
-              ["rust-analyzer"] = {
-                imports = {
-                  granularity = {
-                    group = "module",
-                  },
-                  prefix = "self",
-                },
-                assist = {
-                  importEnforceGranularity = true,
-                  importPrefix = "crate",
-                  emitMustUse = true,
-                },
-                cargo = {
-                  features = "all",
-                  allFeatures = true,
-                  buildScripts = {
-                    enable = true,
-                  },
-                },
-                check = {
-                  command = "clippy",
-                },
-                checkOnSave = true,
-                inlayHints = {
-                  enable = false,
-                  locationLinks = false,
-                },
-                diagnostics = {
-                  enable = true,
-                  experimental = {
-                    enable = true,
-                  },
-                  disabled = { "inactive-code" },
-                },
-                procMacro = {
-                  enable = true,
-                },
-                semanticHighlighting = {
-                  operator = { specialization = { enable = true } },
-                  punctuation = {
-                    enable = true,
-                    specialization = { enable = true },
-                    separate = { macro = { bang = true } },
-                  },
-                },
-              },
-            },
-          },
-          dap = {
-            adapter = cfg.get_codelldb_adapter(codelldb_path, liblldb_path),
-          },
-        }
-      end
     end,
   },
 }

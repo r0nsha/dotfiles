@@ -4,8 +4,14 @@ return {
     build = "cargo build --release",
     version = "*",
     dependencies = {
+      -- snippets
       "rafamadriz/friendly-snippets",
+
+      -- sources
       "Kaiser-Yang/blink-cmp-git",
+
+      -- misc
+      "xzbdmw/colorful-menu.nvim",
     },
     config = function()
       local cmp = require "blink.cmp"
@@ -45,15 +51,36 @@ return {
               auto_insert = false,
             },
           },
+          menu = {
+            auto_show = function(ctx)
+              return ctx.mode ~= "cmdline" or not vim.tbl_contains({ "/", "?" }, vim.fn.getcmdtype())
+            end,
+            draw = {
+              -- We don't need label_description now because label and label_description are already
+              -- combined together in label by colorful-menu.nvim.
+              columns = { { "kind_icon" }, { "label", gap = 1 } },
+              components = {
+                label = {
+                  text = function(ctx)
+                    return require("colorful-menu").blink_components_text(ctx)
+                  end,
+                  highlight = function(ctx)
+                    return require("colorful-menu").blink_components_highlight(ctx)
+                  end,
+                },
+              },
+            },
+          },
         },
         fuzzy = {
           implementation = "prefer_rust_with_warning",
           prebuilt_binaries = {
             download = false,
           },
+          sorts = { "exact", "score", "sort_text", "kind", "label" },
         },
         keymap = {
-          -- preset = "default",
+          preset = "none",
           ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
           ["<C-e>"] = { "hide", "fallback" },
           ["<C-y>"] = { "select_and_accept" },
@@ -74,11 +101,31 @@ return {
           ["<C-k>"] = keymaps.toggle_signature,
         },
         sources = {
-          default = { "git", "lazydev", "lsp", "path", "snippets", "buffer" },
+          default = { "lazydev", "lsp", "snippets", "git", "path", "buffer" },
           providers = {
             git = {
               module = "blink-cmp-git",
               name = "Git",
+              enabled = function()
+                -- Allow git completions in specific filetypes
+                if vim.tbl_contains({ "octo", "gitcommit", "markdown" }, vim.bo.filetype) then
+                  return true
+                end
+
+                -- Otherwise, only allow git completions in comments/strings
+                local row, column = unpack(vim.api.nvim_win_get_cursor(0))
+                local success, node = pcall(vim.treesitter.get_node, {
+                  pos = { row - 1, math.max(0, column - 1) },
+                  ignore_injections = false,
+                })
+                local accepted_nodes =
+                  { "comment", "line_comment", "block_comment", "string_start", "string_content", "string_end" }
+                if success and node and vim.tbl_contains(accepted_nodes, node:type()) then
+                  return true
+                end
+
+                return false
+              end,
               opts = {},
             },
             lazydev = {
@@ -90,7 +137,6 @@ return {
           },
         },
         cmdline = {
-          keymap = { preset = "inherit" },
           completion = {
             ghost_text = { enabled = true },
             list = {
