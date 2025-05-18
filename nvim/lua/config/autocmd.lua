@@ -48,3 +48,13 @@ vim.api.nvim_create_autocmd("BufWritePost", {
     -- vim.cmd [[silent !kill -SIGUSR1 (pgrep kitty)]]
   end,
 })
+
+local bufenter_group = vim.api.nvim_create_augroup("CustomBufEnter", { clear = true })
+vim.api.nvim_create_autocmd("BufWinEnter", {
+  group = bufenter_group,
+  pattern = "*",
+  callback = function()
+    -- Don't have `o` add a comment
+    vim.opt.formatoptions:remove "o"
+  end,
+})

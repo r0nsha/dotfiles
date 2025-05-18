@@ -10,7 +10,6 @@ vim.opt.relativenumber = true
 vim.opt.shada = { "'10", "<0", "s10", "h" }
 vim.opt.swapfile = true
 vim.opt.undofile = true
--- vim.opt.backup = false
 
 vim.o.mouse = "a"
 vim.o.mousemodel = "popup_setpos"
@@ -25,9 +24,6 @@ vim.o.autoread = true
 vim.o.autoindent = true
 vim.o.colorcolumn = "80"
 vim.o.fixeol = false
-
--- Don't have `o` add a comment
-vim.opt.formatoptions:remove "o"
 
 vim.opt.more = false
 vim.opt.foldmethod = "manual"
@@ -86,6 +82,8 @@ vim.o.splitright = true
 
 vim.o.conceallevel = 2
 
+vim.filetype.add { extension = { ll = "llvm" } }
+
 -- Windows specific options
 if utils.is_windows() then
   vim.o.shell = vim.fn.executable "powershell" and "powershell" or "pwsh"
@@ -96,5 +94,3 @@ if utils.is_windows() then
   vim.o.shellquote = ""
   vim.o.shellxquote = ""
 end
-
-vim.filetype.add { extension = { ll = "llvm" } }

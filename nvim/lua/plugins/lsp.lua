@@ -5,8 +5,7 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       "stevearc/conform.nvim",
-      "yioneko/nvim-cmp",
-      "hrsh7th/cmp-nvim-lsp",
+      "saghen/blink.cmp",
       "j-hui/fidget.nvim",
       "b0o/schemastore.nvim",
       "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
@@ -23,10 +22,17 @@ return {
       local lspconfig = require "lspconfig"
       local utils = require "config.utils"
 
+      -- TODO: move server configs to `opts`, and use the following to set capabilities
+      -- for server, config in pairs(opts.servers) do
+      --   -- passing config.capabilities to blink.cmp merges with the capabilities in your
+      --   -- `opts[server].capabilities, if you've defined it
+      --   config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
+      --   lspconfig[server].setup(config)
+      -- end
+
       -- Add cmp_nvim_lsp capabilities settings to lspconfig
       local lspconfig_defaults = require("lspconfig").util.default_config
-      lspconfig_defaults.capabilities =
-        vim.tbl_deep_extend("force", lspconfig_defaults.capabilities, require("cmp_nvim_lsp").default_capabilities())
+      lspconfig_defaults.capabilities = require("blink.cmp").get_lsp_capabilities(lspconfig_defaults.capabilities)
 
       -- Enable snippet support, needed for schemastore
       lspconfig_defaults.capabilities.textDocument.completion.completionItem.snippetSupport = true
