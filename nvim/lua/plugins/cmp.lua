@@ -33,12 +33,16 @@ return {
         },
         keymap = {
           preset = "default",
-          -- ["<C-d>"] = function()
-          --   cmp.scroll_documentation_down(4)
-          -- end,
-          -- ["<C-u>"] = function()
-          --   cmp.scroll_documentation_up(4)
-          -- end,
+          ["<C-d>"] = {
+            function()
+              cmp.scroll_documentation_down(4)
+            end,
+          },
+          ["<C-u>"] = {
+            function()
+              cmp.scroll_documentation_up(4)
+            end,
+          },
         },
         sources = {
           default = { "git", "lazydev", "lsp", "path", "snippets", "buffer" },
