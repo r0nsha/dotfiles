@@ -209,6 +209,7 @@ return {
             },
           },
         },
+        emmet_language_server = { manual_install = true },
       }
 
       local servers_to_install = vim.tbl_filter(function(key)
@@ -231,6 +232,7 @@ return {
         "gopls",
         "json-lsp",
         "yaml-language-server",
+        "emmet-language-server",
 
         -- formatters
         "prettierd",
