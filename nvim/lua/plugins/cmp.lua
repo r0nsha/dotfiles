@@ -1,25 +1,67 @@
 return {
   {
     "saghen/blink.cmp",
+    build = "cargo build --release",
+    version = "*",
     dependencies = {
       "rafamadriz/friendly-snippets",
+      "Kaiser-Yang/blink-cmp-git",
     },
-    version = "1.*",
-    opts = {
-      keymap = { preset = "default" },
-      appearance = {
-        nerd_font_variant = "mono",
-      },
-      completion = {
-        documentation = {
-          auto_show = false,
+    config = function()
+      local cmp = require "blink.cmp"
+
+      cmp.setup {
+        appearance = {
+          nerd_font_variant = "mono",
         },
-      },
-      sources = {
-        default = { "lsp", "path", "snippets", "buffer" },
-      },
-      fuzzy = { implementation = "prefer_rust_with_warning" },
-    },
+        completion = {
+          documentation = {
+            auto_show = true,
+          },
+          list = {
+            selection = {
+              preselect = false,
+              auto_insert = true,
+            },
+          },
+        },
+        fuzzy = {
+          implementation = "prefer_rust_with_warning",
+          prebuilt_binaries = {
+            download = false,
+          },
+        },
+        keymap = {
+          preset = "default",
+          -- ["<C-d>"] = function()
+          --   cmp.scroll_documentation_down(4)
+          -- end,
+          -- ["<C-u>"] = function()
+          --   cmp.scroll_documentation_up(4)
+          -- end,
+        },
+        sources = {
+          default = { "git", "lazydev", "lsp", "path", "snippets", "buffer" },
+          providers = {
+            git = {
+              module = "blink-cmp-git",
+              name = "Git",
+              opts = {},
+            },
+            lazydev = {
+              name = "LazyDev",
+              module = "lazydev.integrations.blink",
+              -- make lazydev completions top priority (see `:h blink.cmp`)
+              score_offset = 100,
+            },
+          },
+        },
+        cmdline = {
+          -- keymap = { preset = "inherit" },
+          completion = { menu = { auto_show = true } },
+        },
+      }
+    end,
   },
   -- {
   --   "yioneko/nvim-cmp",
@@ -34,9 +76,9 @@ return {
   --       dependencies = {
   --         {
   --           "rafamadriz/friendly-snippets",
-  --           config = function()
+  --           config = function
   --             local loader = require "luasnip.loaders.from_vscode"
-  --             loader.lazy_load()
+  --             loader.lazy_load
   --             loader.lazy_load {
   --               paths = {
   --                 "../../snippets/typescript",
@@ -54,7 +96,7 @@ return {
   --     "petertriho/cmp-git",
   --     "onsails/lspkind-nvim",
   --   },
-  --   config = function()
+  --   config = function
   --     local luasnip = require "luasnip"
   --
   --     luasnip.filetype_extend("all", { "_" })

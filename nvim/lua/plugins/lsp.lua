@@ -1,41 +1,213 @@
 return {
   {
     "neovim/nvim-lspconfig",
-    cmd = "LspInfo",
-    event = { "BufReadPre", "BufNewFile" },
     dependencies = {
+      "williamboman/mason.nvim",
+      {
+        "WhoIsSethDaniel/mason-tool-installer.nvim",
+        build = function()
+          pcall(vim.cmd, "MasonToolsUpdate")
+        end,
+      },
       "stevearc/conform.nvim",
       "saghen/blink.cmp",
-      "j-hui/fidget.nvim",
       "b0o/schemastore.nvim",
       "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-      {
-        "folke/neodev.nvim",
-        opts = {
-          experimental = {
-            pathStrict = true,
-          },
-        },
-      },
     },
     config = function()
       local lspconfig = require "lspconfig"
       local utils = require "config.utils"
 
-      -- TODO: move server configs to `opts`, and use the following to set capabilities
-      -- for server, config in pairs(opts.servers) do
-      --   -- passing config.capabilities to blink.cmp merges with the capabilities in your
-      --   -- `opts[server].capabilities, if you've defined it
-      --   config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
-      --   lspconfig[server].setup(config)
-      -- end
+      local servers = {
+        lua_ls = {
+          manual_install = true,
+          settings = {
+            Lua = {
+              telemetry = {
+                enable = false,
+              },
+            },
+          },
+          on_init = function(client)
+            local join = vim.fs.joinpath
+            local path = client.workspace_folders[1].name
 
-      -- Add cmp_nvim_lsp capabilities settings to lspconfig
-      local lspconfig_defaults = require("lspconfig").util.default_config
-      lspconfig_defaults.capabilities = require("blink.cmp").get_lsp_capabilities(lspconfig_defaults.capabilities)
+            -- Don't do anything if there is project local config
+            if vim.uv.fs_stat(join(path, ".luarc.json")) or vim.uv.fs_stat(join(path, ".luarc.jsonc")) then
+              return
+            end
 
-      -- Enable snippet support, needed for schemastore
-      lspconfig_defaults.capabilities.textDocument.completion.completionItem.snippetSupport = true
+            local nvim_settings = {
+              runtime = {
+                -- Tell the language server which version of Lua you're using
+                version = "LuaJIT",
+              },
+              diagnostics = {
+                -- Get the language server to recognize the `vim` global
+                globals = { "vim" },
+              },
+              workspace = {
+                checkThirdParty = false,
+                library = {
+                  -- Make the server aware of Neovim runtime files
+                  vim.env.VIMRUNTIME,
+                  vim.fn.stdpath "config",
+                },
+              },
+            }
+
+            client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, nvim_settings)
+          end,
+        },
+        ts_ls = {
+          manual_install = true,
+          init_options = {
+            preferences = {
+              importModuleSpecifierPreference = "relative",
+            },
+          },
+          commands = {
+            OrganizeImports = {
+              function()
+                local params = {
+                  command = "_typescript.organizeImports",
+                  arguments = { vim.api.nvim_buf_get_name(0) },
+                  title = "",
+                }
+                vim.lsp.buf.execute_command(params)
+              end,
+              description = "Organize Imports",
+            },
+          },
+        },
+        cssls = {
+          manual_install = true,
+          settings = {
+            css = {
+              lint = {
+                unknownAtRules = "ignore",
+              },
+            },
+            scss = {
+              validate = true,
+              lint = {
+                unknownAtRules = "ignore",
+              },
+            },
+            less = {
+              validate = true,
+              lint = {
+                unknownAtRules = "ignore",
+              },
+            },
+          },
+        },
+        unocss = { manual_install = true },
+        biome = {},
+        clangd = {},
+        gopls = {
+          filetypes = { "go", "gomod", "gowork", "gotmpl" },
+          settings = {
+            gopls = {
+              env = {
+                GOEXPERIMENT = "rangefunc",
+              },
+              analyses = {
+                unusedparams = true,
+              },
+              staticcheck = true,
+              gofumpt = true,
+            },
+          },
+        },
+        jsonls = {
+          manual_install = true,
+          settings = {
+            json = {
+              schemas = require("schemastore").json.schemas(),
+              validate = { enable = true },
+            },
+          },
+        },
+        yamlls = {
+          manual_install = true,
+          settings = {
+            yaml = {
+              schemaStore = {
+                -- You must disable built-in schemaStore support if you want to use
+                -- this plugin and its advanced options like `ignore`.
+                enable = false,
+                -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+                url = "",
+              },
+              schemas = require("schemastore").yaml.schemas(),
+            },
+          },
+        },
+      }
+
+      local servers_to_install = vim.tbl_filter(function(key)
+        local t = servers[key]
+        if type(t) == "table" then
+          return not t.manual_install
+        else
+          return t
+        end
+      end, vim.tbl_keys(servers))
+
+      require("mason").setup()
+
+      local ensure_installed = {
+        "typescript-language-server",
+        "lua-language-server",
+        "css-lsp",
+        "unocss-language-server",
+        "rust-analyzer",
+        "gopls",
+        "json-lsp",
+        "yaml-language-server",
+
+        -- formatters
+        "prettierd",
+        "taplo",
+        "stylua",
+        "shfmt",
+        "xmlformatter",
+        "clang-format",
+        "yamlfmt",
+        "gofumpt",
+        "goimports",
+        "goimports-reviser",
+        "golines",
+
+        -- dap
+        "delve",
+
+        -- spell
+        "codespell",
+      }
+      vim.list_extend(ensure_installed, servers_to_install)
+      require("mason-tool-installer").setup { ensure_installed = ensure_installed }
+
+      local capabilities = {
+        textDocument = {
+          completion = {
+            completionItem = {
+              snippetSupport = true,
+            },
+          },
+        },
+      }
+
+      for server, config in pairs(servers) do
+        if config == true then
+          config = {}
+        end
+
+        config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities, capabilities)
+
+        lspconfig[server].setup(config)
+      end
 
       vim.api.nvim_create_autocmd("LspAttach", {
         desc = "LSP actions",
@@ -85,134 +257,6 @@ return {
           end, opts "Next Diagnostic")
         end,
       })
-
-      lspconfig.lua_ls.setup {
-        settings = {
-          Lua = {
-            telemetry = {
-              enable = false,
-            },
-          },
-        },
-        on_init = function(client)
-          local join = vim.fs.joinpath
-          local path = client.workspace_folders[1].name
-
-          -- Don't do anything if there is project local config
-          if vim.uv.fs_stat(join(path, ".luarc.json")) or vim.uv.fs_stat(join(path, ".luarc.jsonc")) then
-            return
-          end
-
-          local nvim_settings = {
-            runtime = {
-              -- Tell the language server which version of Lua you're using
-              version = "LuaJIT",
-            },
-            diagnostics = {
-              -- Get the language server to recognize the `vim` global
-              globals = { "vim" },
-            },
-            workspace = {
-              checkThirdParty = false,
-              library = {
-                -- Make the server aware of Neovim runtime files
-                vim.env.VIMRUNTIME,
-                vim.fn.stdpath "config",
-              },
-            },
-          }
-
-          client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, nvim_settings)
-        end,
-      }
-
-      lspconfig.ts_ls.setup {
-        init_options = {
-          preferences = {
-            importModuleSpecifierPreference = "relative",
-          },
-        },
-        commands = {
-          OrganizeImports = {
-            function()
-              local params = {
-                command = "_typescript.organizeImports",
-                arguments = { vim.api.nvim_buf_get_name(0) },
-                title = "",
-              }
-              vim.lsp.buf.execute_command(params)
-            end,
-            description = "Organize Imports",
-          },
-        },
-      }
-
-      lspconfig.cssls.setup {
-        settings = {
-          css = {
-            lint = {
-              unknownAtRules = "ignore",
-            },
-          },
-          scss = {
-            validate = true,
-            lint = {
-              unknownAtRules = "ignore",
-            },
-          },
-          less = {
-            validate = true,
-            lint = {
-              unknownAtRules = "ignore",
-            },
-          },
-        },
-      }
-
-      lspconfig.unocss.setup {}
-      lspconfig.biome.setup {}
-
-      lspconfig.clangd.setup {}
-
-      lspconfig.gopls.setup {
-        filetypes = { "go", "gomod", "gowork", "gotmpl" },
-        settings = {
-          gopls = {
-            env = {
-              GOEXPERIMENT = "rangefunc",
-            },
-            analyses = {
-              unusedparams = true,
-            },
-            staticcheck = true,
-            gofumpt = true,
-          },
-        },
-      }
-
-      lspconfig.jsonls.setup {
-        settings = {
-          json = {
-            schemas = require("schemastore").json.schemas(),
-            validate = { enable = true },
-          },
-        },
-      }
-
-      lspconfig.yamlls.setup {
-        settings = {
-          yaml = {
-            schemaStore = {
-              -- You must disable built-in schemaStore support if you want to use
-              -- this plugin and its advanced options like `ignore`.
-              enable = false,
-              -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
-              url = "",
-            },
-            schemas = require("schemastore").yaml.schemas(),
-          },
-        },
-      }
 
       require("lsp_lines").setup {}
 

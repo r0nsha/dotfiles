@@ -4,16 +4,17 @@ return {
     lazy = false,
     version = "*",
     config = function()
+      -- add blink.cmp integration when https://github.com/nvim-neorg/neorg/issues/1603 is fixed
       require("neorg").setup {
         load = {
           ["core.defaults"] = {},
-          ["core.completion"] = {
-            config = {
-              engine = "nvim-cmp",
-            },
-          },
+          -- ["core.completion"] = {
+          --   config = {
+          --     engine = "blink.cmp",
+          --   },
+          -- },
           ["core.concealer"] = {},
-          ["core.integrations.nvim-cmp"] = {},
+          -- ["core.integrations.nvim-cmp"] = {},
           ["core.dirman"] = {
             config = {
               workspaces = {
