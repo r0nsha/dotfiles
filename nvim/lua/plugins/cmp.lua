@@ -10,6 +10,27 @@ return {
     config = function()
       local cmp = require "blink.cmp"
 
+      local keymaps = {
+        prev = {
+          "snippet_backward",
+          "select_prev",
+          "show",
+          "fallback_to_mappings",
+        },
+
+        next = {
+          "snippet_forward",
+          "select_next",
+          "show",
+          "fallback_to_mappings",
+        },
+
+        scroll_documentation_up = { "scroll_documentation_up", "fallback" },
+        scroll_documentation_down = { "scroll_documentation_down", "fallback" },
+
+        toggle_signature = { "show_signature", "hide_signature", "fallback" },
+      }
+
       cmp.setup {
         appearance = {
           nerd_font_variant = "mono",
@@ -20,8 +41,8 @@ return {
           },
           list = {
             selection = {
-              preselect = false,
-              auto_insert = true,
+              preselect = true,
+              auto_insert = false,
             },
           },
         },
@@ -32,17 +53,25 @@ return {
           },
         },
         keymap = {
-          preset = "default",
-          ["<C-d>"] = {
-            function()
-              cmp.scroll_documentation_down(4)
-            end,
-          },
-          ["<C-u>"] = {
-            function()
-              cmp.scroll_documentation_up(4)
-            end,
-          },
+          -- preset = "default",
+          ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+          ["<C-e>"] = { "hide", "fallback" },
+          ["<C-y>"] = { "select_and_accept" },
+
+          ["<C-p>"] = keymaps.prev,
+          ["<C-n>"] = keymaps.next,
+          ["<Up>"] = keymaps.prev,
+          ["<Down>"] = keymaps.next,
+          ["S-Tab"] = keymaps.prev,
+          ["Tab"] = keymaps.next,
+
+          ["<C-b>"] = keymaps.scroll_documentation_up,
+          ["<C-f>"] = keymaps.scroll_documentation_down,
+          ["<C-u>"] = keymaps.scroll_documentation_up,
+          ["<C-d>"] = keymaps.scroll_documentation_down,
+
+          ["<C-h>"] = keymaps.toggle_signature,
+          ["<C-k>"] = keymaps.toggle_signature,
         },
         sources = {
           default = { "git", "lazydev", "lsp", "path", "snippets", "buffer" },
@@ -61,9 +90,21 @@ return {
           },
         },
         cmdline = {
-          -- keymap = { preset = "inherit" },
-          completion = { menu = { auto_show = true } },
+          keymap = { preset = "inherit" },
+          completion = {
+            ghost_text = { enabled = true },
+            list = {
+              selection = {
+                preselect = true,
+                auto_insert = false,
+              },
+            },
+            menu = {
+              auto_show = true,
+            },
+          },
         },
+        signature = { enabled = true },
       }
     end,
   },
