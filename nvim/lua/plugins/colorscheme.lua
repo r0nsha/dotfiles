@@ -35,12 +35,15 @@ return {
         overrides = function(colors)
           local theme = colors.theme
 
-          local makeDiagnosticColor = function(color)
+          local make_diagnostic_color = function(color)
             local c = require "kanagawa.lib.color"
             return { fg = color, bg = c(color):blend(theme.ui.bg, 0.975):to_hex() }
           end
 
           return {
+            -- base
+            Statusline = { bg = theme.ui.bg, fg = theme.ui.fg_dim },
+
             -- show ~ at end of buffer
             EndOfBuffer = { fg = theme.ui.special },
             NonText = { fg = theme.ui.special },
@@ -60,10 +63,10 @@ return {
             MasonNormal = { bg = theme.ui.bg_m1, fg = theme.ui.fg_dim },
 
             -- diagnostic color tints
-            DiagnosticVirtualTextHint = makeDiagnosticColor(theme.diag.hint),
-            DiagnosticVirtualTextInfo = makeDiagnosticColor(theme.diag.info),
-            DiagnosticVirtualTextWarn = makeDiagnosticColor(theme.diag.warning),
-            DiagnosticVirtualTextError = makeDiagnosticColor(theme.diag.error),
+            DiagnosticVirtualTextHint = make_diagnostic_color(theme.diag.hint),
+            DiagnosticVirtualTextInfo = make_diagnostic_color(theme.diag.info),
+            DiagnosticVirtualTextWarn = make_diagnostic_color(theme.diag.warning),
+            DiagnosticVirtualTextError = make_diagnostic_color(theme.diag.error),
           }
         end,
         theme = "dragon",

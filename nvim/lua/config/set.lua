@@ -91,6 +91,10 @@ vim.opt.splitright = true
 -- fold
 vim.opt.foldmethod = "manual"
 
+-- statusline
+vim.opt.laststatus = 3
+vim.opt.showcmdloc = "statusline"
+
 -- don't pause when listings get too long
 vim.opt.more = false
 

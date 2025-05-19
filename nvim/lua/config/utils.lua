@@ -36,7 +36,7 @@ M.icons = {
   error = "",
   warning = "",
   info = "",
-  bulb = "",
+  hint = "",
   bug = "",
   clock = "",
 }

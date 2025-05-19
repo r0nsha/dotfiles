@@ -340,7 +340,7 @@ return {
         update_in_insert = false,
         signs = {
           text = {
-            [vim.diagnostic.severity.HINT] = utils.icons.bulb,
+            [vim.diagnostic.severity.HINT] = utils.icons.hint,
             [vim.diagnostic.severity.INFO] = utils.icons.info,
             [vim.diagnostic.severity.WARN] = utils.icons.warning,
             [vim.diagnostic.severity.ERROR] = utils.icons.error,
