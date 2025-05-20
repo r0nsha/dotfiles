@@ -20,6 +20,7 @@ install_deps() {
 		gh
 		fzf
 		bat
+		just
 		gnome-tweaks
 		gtk2-engines-murrine
 	)
