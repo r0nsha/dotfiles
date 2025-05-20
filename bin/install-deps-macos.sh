@@ -37,7 +37,6 @@ install_deps() {
 		gh
 		fzf
 		bat
-		just
 		koekeishiya/formulae/yabai
 		koekeishiya/formulae/skhd
 	)
