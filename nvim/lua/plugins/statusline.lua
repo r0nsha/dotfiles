@@ -5,6 +5,7 @@ return {
     config = function()
       local conditions = require "heirline.conditions"
       local utils = require "heirline.utils"
+      local icons = require("config.utils").icons
 
       local function setup_colors()
         local colors = require("kanagawa.colors").setup()
@@ -38,6 +39,17 @@ return {
 
       local Pad = function(child, n)
         return { Space(n), child, Space(n) }
+      end
+
+      ---@param pad? number
+      local Separator = function(pad)
+        local sep = { provider = "│", hl = utils.get_highlight "Whitespace" }
+
+        if pad then
+          sep = Pad(sep, pad)
+        end
+
+        return sep
       end
 
       local Mode = {
@@ -113,9 +125,10 @@ return {
         -- },
       }
 
-      local FileNameBlock = {
+      local FileBlock = {
         init = function(self)
           self.filename = vim.api.nvim_buf_get_name(0)
+          self.is_scratch_buffer = self.filename == ""
         end,
         hl = function()
           local color = vim.bo.modified and "blue" or "fg"
@@ -156,6 +169,14 @@ return {
         end,
       }
 
+      local FileNameModifer = {
+        hl = function()
+          if vim.bo.modified then
+            return { fg = "fg", bold = true, force = true }
+          end
+        end,
+      }
+
       local FileFlags = {
         {
           condition = function()
@@ -173,72 +194,84 @@ return {
         },
       }
 
-      local FileNameModifer = {
-        hl = function()
-          if vim.bo.modified then
-            return { fg = "fg", bold = true, force = true }
+      local FileType = {
+        provider = function(self)
+          local ext = self.filename:match "%.([^.]+)$"
+          local type = vim.bo.filetype
+
+          if ext == type or self.is_scratch_buffer then
+            return ""
           end
+
+          return string.format(" (%s)", vim.bo.filetype)
         end,
+        hl = { fg = utils.get_highlight("NonText").fg, bold = false },
       }
 
-      FileNameBlock =
-        utils.insert(FileNameBlock, FileIcon, utils.insert(FileNameModifer, FileName), FileFlags, { provider = "%<" })
+      FileBlock = utils.insert(
+        FileBlock,
+        FileIcon,
+        utils.insert(FileNameModifer, FileName),
+        FileFlags,
+        FileType,
+        { provider = "%<" }
+      )
+
+      local function nonzero(n)
+        return n ~= nil and n ~= 0
+      end
 
       local Git = {
         condition = conditions.is_git_repo,
 
         init = function(self)
           self.status_dict = vim.b.gitsigns_status_dict
-          self.has_changes = self.status_dict.added ~= 0
-            or self.status_dict.removed ~= 0
-            or self.status_dict.changed ~= 0
+          self.has_changes = nonzero(self.status_dict.added)
+            or nonzero(self.status_dict.removed)
+            or nonzero(self.status_dict.changed)
         end,
 
         hl = { fg = "special" },
+
+        Separator(1),
 
         {
           provider = function(self)
             return " " .. self.status_dict.head
           end,
-          hl = { bold = true },
         },
 
         {
           condition = function(self)
             return self.has_changes
           end,
-          provider = "(",
-        },
-        {
-          provider = function(self)
-            local count = self.status_dict.added or 0
-            return count > 0 and ("+" .. count)
-          end,
-          hl = { fg = "git_add" },
-        },
-        {
-          provider = function(self)
-            local count = self.status_dict.removed or 0
-            return count > 0 and ("-" .. count)
-          end,
-          hl = { fg = "git_del" },
-        },
-        {
-          provider = function(self)
-            local count = self.status_dict.changed or 0
-            return count > 0 and ("~" .. count)
-          end,
-          hl = { fg = "git_change" },
-        },
-        {
-          condition = function(self)
-            return self.has_changes
-          end,
-          provider = ")",
+
+          { provider = "(" },
+          {
+            provider = function(self)
+              local count = self.status_dict.added or 0
+              return count > 0 and ("+" .. count)
+            end,
+            hl = { fg = "git_add" },
+          },
+          {
+            provider = function(self)
+              local count = self.status_dict.removed or 0
+              return count > 0 and ("-" .. count)
+            end,
+            hl = { fg = "git_del" },
+          },
+          {
+            provider = function(self)
+              local count = self.status_dict.changed or 0
+              return count > 0 and ("~" .. count)
+            end,
+            hl = { fg = "git_change" },
+          },
+          { provider = ")" },
         },
       }
 
-      local icons = require("config.utils").icons
       local Diagnostics = {
         condition = conditions.has_diagnostics,
 
@@ -318,8 +351,8 @@ return {
 
       local Left = {
         Mode,
-        FileNameBlock,
-        Pad(Git, 2),
+        FileBlock,
+        Git,
       }
 
       local Right = {
