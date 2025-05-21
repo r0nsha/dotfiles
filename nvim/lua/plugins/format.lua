@@ -24,7 +24,7 @@ return {
           graphql = prettier,
           handlebars = prettier,
           markdown = prettier,
-          c = { "clang-format" },
+          c = { "qmkfmt", "clang-format", stop_after_first = true },
           cpp = { "clang-format" },
           rust = { "rustfmt" },
           sh = { "shfmt" },
@@ -46,6 +46,24 @@ return {
         format_on_save = {
           lsp_format = "fallback",
           timeout_ms = 500,
+        },
+        formatters = {
+          qmkfmt = {
+            command = "qmkfmt",
+            args = { "$FILENAME" },
+            stdin = false,
+            condition = function(_, ctx)
+              if ctx.filename:find "[qmk_firmware|qmk_userspace]" == nil then
+                return false
+              end
+
+              if ctx.filename:find "[keymap.c]" == nil then
+                return false
+              end
+
+              return true
+            end,
+          },
         },
       }
 
