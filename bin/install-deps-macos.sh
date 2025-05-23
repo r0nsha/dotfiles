@@ -47,31 +47,12 @@ install_deps() {
 }
 
 install_nvim() {
-	curl -sL https://github.com/neovim/neovim/releases/download/stable/nvim-macos.tar.gz --output $DOWNLOADS/nvim-macos.tar.gz
+	curl -L# https://github.com/neovim/neovim/releases/download/stable/nvim-macos.tar.gz --output $DOWNLOADS/nvim-macos.tar.gz
 	cd $DOWNLOADS
 	xattr -c ./nvim-macos.tar.gz
 	tar xzf nvim-macos.tar.gz
 	cd $HOME
-	ln -sf $DOWNLOADS/nvim-macos/bin/nvim $HOME/.local/bin/nvim
-}
-
-install_starship() {
-	curl -sS https://starship.rs/install.sh | sh
-}
-
-install_rustup() {
-	curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable
-}
-
-install_tmux() {
-	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-}
-
-install_n() {
-	export N_PREFIX=$HOME/.n
-	export PATH=$N_PREFIX/bin:$PATH
-	curl -fsSL https://raw.githubusercontent.com/tj/n/master/bin/n | bash -s lts
-	npm install -g n
+	cp $DOWNLOADS/nvim-macos/bin/nvim $HOME/.local/bin/nvim
 }
 
 install_wrapper brew install_brew

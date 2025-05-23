@@ -12,7 +12,6 @@ install_deps() {
 	sudo apt -y -qq update
 
 	deps=(
-		tmux
 		stow
 		zoxide
 		fd-find
@@ -30,27 +29,24 @@ install_deps() {
 }
 
 install_nvim() {
-	curl -sL https://github.com/neovim/neovim/releases/download/stable/nvim-linux-x86_64.tar.gz | tar -xz -C $DOWNLOADS
+	curl -L# https://github.com/neovim/neovim/releases/download/stable/nvim-linux-x86_64.tar.gz | tar -xz -C $DOWNLOADS
 	cp $DOWNLOADS/nvim-linux-x86_64/bin/nvim $HOME/.local/bin/nvim
 }
 
-install_starship() {
-	curl -sS https://starship.rs/install.sh | sh
-}
-
-install_rustup() {
-	curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable
-}
-
 install_tmux() {
-	git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
-}
+	# libevent
+	sudo apt install -y libevent-dev libncurses-dev bison
 
-install_n() {
-	export N_PREFIX=$HOME/.n
-	export PATH=$N_PREFIX/bin:$PATH
-	curl -fsSL https://raw.githubusercontent.com/tj/n/master/bin/n | bash -s lts
-	npm install -g n
+	# tmux
+	curl -L# https://github.com/tmux/tmux/releases/download/3.4/tmux-3.4.tar.gz | tar -xz -C $DOWNLOADS
+	cd $DOWNLOADS/tmux-3.4
+	./configure && make
+	sudo make install
+	cp $DOWNLOADS/nvim-linux-x86_64/bin/nvim $HOME/.local/bin/nvim
+	cd $DOTFILES
+
+	# tmp
+	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 }
 
 install_fd() {
@@ -94,6 +90,7 @@ install_luarocks() {
 install_deps
 echo ""
 install_wrapper nvim install_nvim
+install_wrapper tmux install_tmux
 install_wrapper fdfind install_fd
 install_wrapper eza install_eza
 install_wrapper luarocks install_luarocks

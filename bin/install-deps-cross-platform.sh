@@ -8,10 +8,6 @@ install_rustup() {
 	curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable
 }
 
-install_tmux() {
-	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-}
-
 install_n() {
 	export N_PREFIX=$HOME/.n
 	export PATH=$N_PREFIX/bin:$PATH
@@ -29,7 +25,6 @@ install_just() {
 
 install_wrapper starship install_starship
 install_wrapper rustup install_rustup
-install_wrapper tmux install_tmux
 install_wrapper n install_n
 install_wrapper yazi install_yazi
 install_wrapper just install_just

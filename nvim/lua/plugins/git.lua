@@ -55,8 +55,8 @@ return {
       require("neogit").setup {
         integrations = { diffview = true },
         disable_insert_on_commit = false,
-        disable_commit_confirmation = true,
-        disable_builtin_notifications = true,
+        disable_commit_confirmation = false,
+        disable_builtin_notifications = false,
       }
     end,
     dependencies = { "sindrets/diffview.nvim" },
@@ -65,11 +65,15 @@ return {
     "sindrets/diffview.nvim",
     event = "VeryLazy",
     config = function()
+      local actions = require "diffview.actions"
       local close_diff = { "n", "q", "<cmd>DiffviewClose<cr>", { desc = "Close diff view" } }
+      local next_entry = { "n", "<C-n>", actions.select_next_entry, { desc = "Open the diff for the next file" } }
+      local prev_entry = { "n", "<C-p>", actions.select_prev_entry, { desc = "Open the diff for the previous file" } }
+
       require("diffview").setup {
         keymaps = {
-          view = { close_diff },
-          file_panel = { close_diff },
+          view = { close_diff, next_entry, prev_entry },
+          file_panel = { close_diff, next_entry, prev_entry },
         },
       }
 

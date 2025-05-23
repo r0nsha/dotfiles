@@ -6,47 +6,18 @@ return {
     config = function()
       local fzf = require "fzf-lua"
 
-      -- Taken from the "borderless" profile. The only difference is that `file_icons` is set to `true`
-      local hls = {
-        bg = "PmenuSbar",
-        sel = "PmenuSel",
-      }
-
       fzf.setup {
-        desc = "borderless and minimalistic",
-        fzf_opts = {},
-        winopts = {
-          border = { " ", " ", " ", " ", " ", " ", " ", " " },
-          preview = {
-            scrollbar = "float",
-            scrolloff = "-2",
-            title_pos = "center",
-          },
-        },
-        hls = {
-          border = hls.bg,
-          preview_border = hls.bg,
-          preview_title = hls.sel,
-          scrollfloat_e = "",
-          scrollfloat_f = hls.sel,
-        },
-        fzf_colors = {
-          ["gutter"] = { "bg", hls.bg },
-          ["bg"] = { "bg", hls.bg },
-          ["bg+"] = { "bg", hls.sel },
-          ["fg+"] = { "fg", hls.sel },
-        },
-        defaults = {
-          git_icons = false,
-          file_icons = true,
-        },
+        "border-fused",
         keymap = {
           fzf = {
+            ["ctrl-u"] = "preview-page-up",
+            ["ctrl-d"] = "preview-page-down",
             ["ctrl-q"] = "select-all+accept",
           },
         },
       }
 
+      ---@param desc string
       local function opts(desc)
         return {
           silent = false,
@@ -55,61 +26,79 @@ return {
         }
       end
 
+      ---@param mode "n" | "v"
+      ---@param key string
+      ---@param fn function
+      ---@param desc string
+      local function keymap(mode, key, fn, desc)
+        vim.keymap.set(mode, "<leader>s" .. key, fn, opts(desc))
+      end
+
       vim.keymap.set("n", "<leader><leader>", function()
         fzf.resume()
       end, opts "Resume")
 
-      local default_fzf_args = {}
+      keymap("n", "f", function()
+        local in_git_repo = os.execute "git rev-parse --is-inside-work-tree" == 0
 
-      vim.keymap.set("n", "<leader>sf", function()
-        local exit = os.execute "git rev-parse --is-inside-work-tree"
+        -- don't show file icons in very (VERY) large repos, for performance
+        local repo_too_large = vim.fn.getcwd():find "core%-public/core"
+        local local_opts = repo_too_large and { git_icons = false, file_icons = false } or {}
 
-        if exit == 0 then
-          fzf.git_files(default_fzf_args)
+        if in_git_repo then
+          fzf.git_files(local_opts)
         else
-          fzf.files(default_fzf_args)
+          fzf.files(local_opts)
         end
-      end, opts "Git Files")
+      end, "Git Files")
 
-      vim.keymap.set("n", "<leader>sF", function()
-        fzf.files(default_fzf_args)
-      end, opts "All files")
+      keymap("n", "F", function()
+        fzf.files()
+      end, "All files")
 
-      vim.keymap.set("n", "<leader>sc", function()
+      keymap("n", "c", function()
         fzf.colorschemes {}
-      end, opts "Colorschemes")
+      end, "Colorschemes")
 
-      vim.keymap.set("n", "<leader>se", function()
+      keymap("n", "h", function()
+        fzf.helptags {}
+      end, "Helptags")
+
+      keymap("n", "p", function()
+        fzf.profiles {}
+      end, "Profiles")
+
+      keymap("n", "e", function()
         fzf.diagnostics_workspace {}
-      end, opts "Diagnostics")
+      end, "Diagnostics")
 
-      vim.keymap.set("n", "<leader>so", function()
-        fzf.oldfiles(default_fzf_args)
-      end, opts "Oldfiles")
+      keymap("n", "o", function()
+        fzf.oldfiles()
+      end, "Oldfiles")
 
-      vim.keymap.set("n", "<leader>sw", function()
+      keymap("n", "w", function()
         fzf.grep_cword {}
-      end, opts "Grep word")
+      end, "Grep word")
 
-      vim.keymap.set("n", "<leader>sW", function()
+      keymap("n", "W", function()
         fzf.grep_cWORD {}
-      end, opts "Grep WORD")
+      end, "Grep WORD")
 
-      vim.keymap.set("n", "<leader>sb", function()
+      keymap("n", "b", function()
         fzf.buffers {}
-      end, opts "Buffers")
+      end, "Buffers")
 
-      vim.keymap.set("n", "<leader>ss", function()
+      keymap("n", "s", function()
         fzf.live_grep_native()
-      end, opts "Live grep")
+      end, "Live grep")
 
-      vim.keymap.set("v", "<leader>ss", function()
+      keymap("v", "s", function()
         fzf.grep_visual()
-      end, opts "Grep visual selection")
+      end, "Grep visual selection")
 
-      vim.keymap.set("n", "<leader>sS", function()
+      keymap("n", "S", function()
         fzf.live_grep_glob()
-      end, opts "Live grep (Glob)")
+      end, "Live grep (Glob)")
     end,
   },
 }
