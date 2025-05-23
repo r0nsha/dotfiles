@@ -8,10 +8,10 @@ install_deps() {
 		sudo apt -y -qq install $1
 	}
 
+	sudo add-apt-repository -y ppa:fish-shell/release-4
 	sudo apt -y -qq update
 
 	deps=(
-		fish
 		tmux
 		stow
 		zoxide
@@ -31,7 +31,7 @@ install_deps() {
 
 install_nvim() {
 	curl -sL https://github.com/neovim/neovim/releases/download/stable/nvim-linux-x86_64.tar.gz | tar -xz -C $DOWNLOADS
-	ln -sf $DOWNLOADS/nvim-linux-x86_64/bin/nvim $HOME/.local/bin/nvim
+	cp $DOWNLOADS/nvim-linux-x86_64/bin/nvim $HOME/.local/bin/nvim
 }
 
 install_starship() {
