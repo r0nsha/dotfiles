@@ -65,7 +65,13 @@ return {
     "sindrets/diffview.nvim",
     event = "VeryLazy",
     config = function()
-      require("diffview").setup {}
+      local close_diff = { "n", "q", "<cmd>DiffviewClose<cr>", { desc = "Close diff view" } }
+      require("diffview").setup {
+        keymaps = {
+          view = { close_diff },
+          file_panel = { close_diff },
+        },
+      }
 
       local function toggle_diff(cmd)
         if next(require("diffview.lib").views) == nil then

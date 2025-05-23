@@ -40,7 +40,8 @@ echo ""
 
 # setup wallpapers
 running "setting up wallpapers..."
-ln -siT $DOTFILES/wallpapers $HOME/Pictures/Wallpapers
+ln -si $DOTFILES/wallpapers $HOME/Pictures/Wallpapers
+
 success "wallpapers set up"
 
 # Install GTK user theme
