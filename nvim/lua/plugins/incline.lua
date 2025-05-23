@@ -26,8 +26,7 @@ return {
           local ft_icon, ft_color = devicons.get_icon_color(filename)
           local modified = vim.bo[props.buf].modified
 
-          local res_icon = ft_icon and { " ", ft_icon, " ", guibg = ft_color, guifg = helpers.contrast_color(ft_color) }
-            or ""
+          local res_icon = ft_icon and { ft_icon, guibg = helpers.contrast_color(ft_color), guifg = ft_color } or ""
           local res_filename = { filename, gui = modified and "bold" or "regular" }
           local res_modified = modified and { " [+]", gui = "bold" } or ""
 
