@@ -10,6 +10,12 @@ vim.keymap.set("n", "<bar>", "<cmd>vsplit<cr>", { desc = "Split window verticall
 vim.keymap.set({ "n", "v" }, "<leader>y", '"+y', { remap = false, desc = "Yank to clipboard" })
 vim.keymap.set("n", "<leader>Y", '"+Y', { remap = false, desc = "Yank line to clipboard" })
 vim.keymap.set("n", "<leader>p", '"+p', { remap = false, desc = "Paste from clipboard" })
+vim.keymap.set("n", "<leader>L", function()
+  local file = vim.fn.expand "%"
+  local line = vim.fn.line "."
+  vim.fn.setreg("+", string.format("%s:%d", file, line))
+  vim.notify "Copied line reference to clipboard"
+end, { desc = "Copy line reference to clipboard" })
 
 -- Don't yank when using 'p' in visual mode
 vim.keymap.set("v", "p", '"_dP', { remap = false })

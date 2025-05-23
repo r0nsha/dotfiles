@@ -33,12 +33,12 @@ function M.get_codelldb_paths()
 end
 
 M.icons = {
-  error = "",
+  error = "",
   warning = "",
-  info = "",
+  info = "",
   hint = "",
   bug = "",
-  clock = "",
+  clock = "",
 }
 
 function M.vsplit()
