@@ -98,11 +98,16 @@ return {
           ["<C-d>"] = keymaps.scroll_documentation_down,
 
           ["<C-h>"] = keymaps.toggle_signature,
-          ["<C-k>"] = keymaps.toggle_signature,
+          ["<C-k>"] = { "show_documentation", "hide_documentation" },
         },
         sources = {
           default = { "lazydev", "lsp", "snippets", "git", "path", "buffer" },
           providers = {
+            lazydev = {
+              name = "LazyDev",
+              module = "lazydev.integrations.blink",
+              score_offset = 100,
+            },
             git = {
               module = "blink-cmp-git",
               name = "Git",
@@ -128,12 +133,6 @@ return {
               end,
               opts = {},
             },
-            lazydev = {
-              name = "LazyDev",
-              module = "lazydev.integrations.blink",
-              -- make lazydev completions top priority (see `:h blink.cmp`)
-              score_offset = 100,
-            },
           },
         },
         cmdline = {
@@ -145,24 +144,7 @@ return {
                 auto_insert = false,
               },
             },
-            menu = {
-              auto_show = true,
-              draw = {
-                -- We don't need label_description now because label and label_description are already
-                -- combined together in label by colorful-menu.nvim.
-                columns = { { "label", gap = 1 } },
-                components = {
-                  label = {
-                    text = function(ctx)
-                      return require("colorful-menu").blink_components_text(ctx)
-                    end,
-                    highlight = function(ctx)
-                      return require("colorful-menu").blink_components_highlight(ctx)
-                    end,
-                  },
-                },
-              },
-            },
+            menu = { auto_show = true },
           },
         },
         signature = { enabled = true },
