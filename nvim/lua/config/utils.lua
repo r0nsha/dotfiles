@@ -34,10 +34,10 @@ end
 
 M.icons = {
   error = "",
-  warning = "",
-  info = "",
+  warning = "",
+  info = "",
   hint = "",
-  bug = "",
+  bug = "",
   clock = "",
 }
 
