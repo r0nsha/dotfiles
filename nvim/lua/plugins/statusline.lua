@@ -10,11 +10,9 @@ return {
       local function setup_colors()
         local colors = require("kanagawa.colors").setup()
 
-        vim.api.nvim_set_hl(0, "Statusline", { bg = colors.theme.ui.bg, fg = colors.theme.ui.fg_dim })
-
         return {
-          bg = colors.theme.ui.bg,
-          fg = colors.theme.ui.fg_dim,
+          black = colors.theme.ui.bg_m3,
+          white = colors.theme.ui.fg_dim,
           green = colors.theme.syn.string,
           blue = colors.theme.syn.fun,
           gray = colors.theme.ui.nontext,
@@ -94,7 +92,7 @@ return {
             t = "TERM",
           },
           mode_colors = {
-            n = "fg",
+            n = "white",
             i = "green",
             v = "blue",
             V = "blue",
@@ -114,7 +112,7 @@ return {
         end,
         hl = function(self)
           local mode = self.mode:sub(1, 1) -- get only the first mode character
-          return { bg = "bg", fg = self.mode_colors[mode], bold = false }
+          return { fg = self.mode_colors[mode], bold = false }
         end,
         update = { "ModeChanged" },
       }
@@ -125,13 +123,13 @@ return {
           self.is_scratch_buffer = self.filename == ""
         end,
         hl = function()
-          local color = vim.bo.modified and "blue" or "fg"
+          local color = vim.bo.modified and "blue" or "white"
 
           if not vim.bo.modifiable or vim.bo.readonly then
             color = "gray"
           end
 
-          return { bg = "bg", fg = color }
+          return { fg = color }
         end,
       }
 
@@ -166,7 +164,7 @@ return {
       local FileNameModifer = {
         hl = function()
           if vim.bo.modified then
-            return { fg = "fg", bold = true, force = true }
+            return { fg = "white", bold = true, force = true }
           end
         end,
       }
@@ -177,7 +175,7 @@ return {
             return vim.bo.modified
           end,
           provider = " [+]",
-          hl = { fg = "fg", bold = true },
+          hl = { fg = "white", bold = true },
         },
         {
           condition = function()
@@ -291,8 +289,6 @@ return {
 
         update = { "DiagnosticChanged", "BufEnter" },
 
-        hl = { bg = "bg" },
-
         diagnostic_provider "error",
         diagnostic_provider "warning",
         diagnostic_provider "info",
@@ -324,7 +320,7 @@ return {
 
           return "[" .. table.concat(display_names, ", ") .. "]"
         end,
-        hl = { bg = "bg", fg = "special" },
+        hl = { fg = "special" },
       }
 
       local function in_visual_mode()
@@ -344,10 +340,10 @@ return {
             local vcount = math.abs(end_line - start_line) + 1
             return string.format(" [sel %2d]", vcount)
           end,
-          hl = function(_)
-            return { fg = in_visual_mode() and "blue" or "fg" }
-          end,
         },
+        hl = function(_)
+          return { fg = in_visual_mode() and "blue" or "white" }
+        end,
       }
 
       local Left = {
@@ -363,7 +359,12 @@ return {
         Ruler,
       }
 
-      local statusline = { Left, Align, Right }
+      local statusline = {
+        Left,
+        Align,
+        Right,
+        hl = { bg = "black", fg = "white" },
+      }
 
       require("heirline").setup {
         statusline = statusline,

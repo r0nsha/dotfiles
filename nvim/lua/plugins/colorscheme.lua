@@ -41,9 +41,6 @@ return {
           end
 
           return {
-            -- base
-            Statusline = { bg = theme.ui.bg, fg = theme.ui.fg_dim },
-
             -- show ~ at end of buffer
             EndOfBuffer = { fg = theme.ui.special },
             NonText = { fg = theme.ui.special },
