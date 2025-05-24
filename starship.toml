@@ -42,7 +42,7 @@ modified = "​"
 staged = "​"
 renamed = "​"
 deleted = "​"
-stashed = "≡"
+stashed = "≡ "
 
 [git_state]
 format = '\([$state( $progress_current/$progress_total)]($style)\) '
@@ -248,10 +248,10 @@ symbol = " "
 symbol = " "
 
 [git_metrics]
-format = '[\(](bright-black)([▴$added]($added_style))([▾$deleted]($deleted_style))[\)](bright-black) '
+format = '([▴$added]($added_style))([▾$deleted]($deleted_style)) '
 added_style = "green"
 deleted_style = "red"
-disabled = false
+disabled = true
 
 [time]
 style = "white"
