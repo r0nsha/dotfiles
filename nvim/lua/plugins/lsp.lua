@@ -12,7 +12,11 @@ return {
       "stevearc/conform.nvim",
       "saghen/blink.cmp",
       "b0o/schemastore.nvim",
-      "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+      {
+        "rachartier/tiny-inline-diagnostic.nvim",
+        event = "VeryLazy",
+        priority = 1000,
+      },
     },
     config = function()
       local lspconfig = require "lspconfig"
@@ -327,20 +331,39 @@ return {
         end,
       })
 
-      require("lsp_lines").setup {}
+      require("tiny-inline-diagnostic").setup {
+        signs = {
+          left = " ",
+          right = " ",
+          diag = "*",
+          arrow = "",
+          up_arrow = "",
+          vertical = " │",
+          vertical_end = " └",
+        },
+        blend = { factor = 0.12 },
+        options = {
+          show_source = {
+            enabled = true,
+            if_many = true,
+          },
+          hl = {
+            arrow = "None",
+          },
+          throttle = 10,
+          softwrap = 30,
+        },
+      }
 
       vim.diagnostic.config {
-        float = false, -- i use lsp_lines instead
+        float = false,
         virtual_text = false,
-        virtual_lines = {
-          only_current_line = true,
-          highlight_whole_line = true,
-        },
+        virtual_lines = false,
         underline = true,
         update_in_insert = false,
         signs = {
           text = {
-            [vim.diagnostic.severity.HINT] = utils.icons.hint,
+            [vim.diagnostic.severity.HINT] = utils.icons.bulb,
             [vim.diagnostic.severity.INFO] = utils.icons.info,
             [vim.diagnostic.severity.WARN] = utils.icons.warning,
             [vim.diagnostic.severity.ERROR] = utils.icons.error,

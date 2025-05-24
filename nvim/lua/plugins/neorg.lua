@@ -4,7 +4,7 @@ return {
     lazy = false,
     version = "*",
     config = function()
-      -- add blink.cmp integration when https://github.com/nvim-neorg/neorg/issues/1603 is fixed
+      -- TODO: add blink.cmp integration when https://github.com/nvim-neorg/neorg/issues/1603 is fixed
       require("neorg").setup {
         load = {
           ["core.defaults"] = {},

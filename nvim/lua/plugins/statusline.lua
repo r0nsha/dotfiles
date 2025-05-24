@@ -23,7 +23,7 @@ return {
           purple = colors.theme.syn.keyword,
           diag_hint = colors.theme.diag.hint,
           diag_info = colors.theme.diag.info,
-          diag_warn = colors.theme.diag.warning,
+          diag_warning = colors.theme.diag.warning,
           diag_error = colors.theme.diag.error,
           git_del = colors.theme.vcs.removed,
           git_add = colors.theme.vcs.added,
@@ -63,28 +63,28 @@ return {
             nov = "NOR?",
             noV = "NOR?",
             ["no\22"] = "NOR?",
-            niI = "NOR/i",
-            niR = "NOR/r",
-            niV = "NOR/v",
-            nt = "NOR/t",
+            niI = "NORi",
+            niR = "NORr",
+            niV = "NORv",
+            nt = "NORt",
             v = "VIS",
             vs = "VIS",
-            V = "VIS/l",
+            V = "VIL",
             Vs = "VIS",
-            ["\22"] = "VIS/b",
-            ["\22s"] = "VIS/b",
+            ["\22"] = "VIB",
+            ["\22s"] = "VIB",
             s = "SEL",
             S = "SEL",
-            ["\19"] = "SEL/b",
+            ["\19"] = "SEB",
             i = "INS",
-            ic = "INS/c",
-            ix = "INS/x",
+            ic = "INSc",
+            ix = "INSx",
             R = "REP",
-            Rc = "REP/c",
-            Rx = "REP/x",
-            Rv = "REP/v",
-            Rvc = "REP/vc",
-            Rvx = "REP/vx",
+            Rc = "REPc",
+            Rx = "REPx",
+            Rv = "REPv",
+            Rvc = "REPvc",
+            Rvx = "REPvx",
             c = "CMD",
             cv = "EX",
             r = "...",
@@ -110,19 +110,13 @@ return {
           },
         },
         provider = function(self)
-          return " %4(" .. self.mode_names[self.mode] .. "%)  "
+          return " %-3(" .. self.mode_names[self.mode] .. "%) "
         end,
         hl = function(self)
           local mode = self.mode:sub(1, 1) -- get only the first mode character
           return { bg = "bg", fg = self.mode_colors[mode], bold = false }
         end,
-        -- update = {
-        --   "ModeChanged",
-        --   pattern = "*:*",
-        --   callback = vim.schedule_wrap(function()
-        --     vim.cmd "redrawstatus"
-        --   end),
-        -- },
+        update = { "ModeChanged" },
       }
 
       local FileBlock = {
@@ -162,7 +156,7 @@ return {
           if filename == "" then
             return "[No Name]"
           end
-          if not conditions.width_percent_below(#filename, 0.25) then
+          if not conditions.width_percent_below(#filename, 0.75) then
             filename = vim.fn.pathshorten(filename)
           end
           return filename
@@ -272,6 +266,19 @@ return {
         },
       }
 
+      ---@param type "error" | "warning" | "info" | "hint"
+      ---@return table
+      local function diagnostic_provider(type)
+        return {
+          provider = function(self)
+            local count = self[type .. "s"]
+            local icon = icons[type]
+            return count > 0 and (icon .. " " .. count .. " ")
+          end,
+          hl = { fg = "diag_" .. type },
+        }
+      end
+
       local Diagnostics = {
         condition = conditions.has_diagnostics,
 
@@ -279,38 +286,17 @@ return {
           self.errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
           self.warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
           self.hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
-          self.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
+          self.infos = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
         end,
 
         update = { "DiagnosticChanged", "BufEnter" },
 
         hl = { bg = "bg" },
 
-        {
-          provider = function(self)
-            -- 0 is just another output, we can decide to print it or not!
-            return self.errors > 0 and (icons.error .. self.errors .. " ")
-          end,
-          hl = { fg = "diag_error" },
-        },
-        {
-          provider = function(self)
-            return self.warnings > 0 and (icons.warning .. self.warnings .. " ")
-          end,
-          hl = { fg = "diag_warn" },
-        },
-        {
-          provider = function(self)
-            return self.info > 0 and (icons.info .. self.info .. " ")
-          end,
-          hl = { fg = "diag_info" },
-        },
-        {
-          provider = function(self)
-            return self.hints > 0 and (icons.hint .. self.hints)
-          end,
-          hl = { fg = "diag_hint" },
-        },
+        diagnostic_provider "error",
+        diagnostic_provider "warning",
+        diagnostic_provider "info",
+        diagnostic_provider "hint",
       }
 
       local Lsp = {
@@ -341,7 +327,28 @@ return {
         hl = { bg = "bg", fg = "special" },
       }
 
-      local Ruler = { provider = "%l:%c %P" }
+      local function in_visual_mode()
+        return vim.api.nvim_get_mode().mode:lower() == "v"
+      end
+
+      local Ruler = {
+        { provider = "%7(%l/%-3L%)" },
+        {
+          provider = function()
+            if not in_visual_mode() then
+              return " [col %2c]"
+            end
+
+            local start_line = vim.fn.line "v"
+            local end_line = vim.fn.line "."
+            local vcount = math.abs(end_line - start_line) + 1
+            return string.format(" [sel %2d]", vcount)
+          end,
+          hl = function(_)
+            return { fg = in_visual_mode() and "blue" or "fg" }
+          end,
+        },
+      }
 
       local Time = {
         provider = function()
@@ -358,7 +365,7 @@ return {
       local Right = {
         Pad(Diagnostics, 1),
         Lsp,
-        Space(2),
+        Space(1),
         Ruler,
         Pad(Time, 2),
       }
