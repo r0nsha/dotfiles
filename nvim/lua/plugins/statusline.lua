@@ -39,17 +39,6 @@ return {
         return { Space(n), child, Space(n) }
       end
 
-      ---@param pad? number
-      local Separator = function(pad)
-        local sep = { provider = "│", hl = utils.get_highlight "Whitespace" }
-
-        if pad then
-          sep = Pad(sep, pad)
-        end
-
-        return sep
-      end
-
       local Mode = {
         init = function(self)
           self.mode = vim.fn.mode(1)
@@ -108,7 +97,7 @@ return {
           },
         },
         provider = function(self)
-          return " %-3(" .. self.mode_names[self.mode] .. "%) "
+          return "%5(" .. self.mode_names[self.mode] .. "%) "
         end,
         hl = function(self)
           local mode = self.mode:sub(1, 1) -- get only the first mode character
@@ -224,8 +213,6 @@ return {
         end,
 
         hl = { fg = "special" },
-
-        Separator(1),
 
         {
           provider = function(self)
@@ -348,7 +335,9 @@ return {
 
       local Left = {
         Mode,
+        Space(1),
         FileBlock,
+        Space(1),
         Git,
       }
 
