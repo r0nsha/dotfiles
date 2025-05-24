@@ -152,7 +152,7 @@ return {
     config = function()
       require("tailwind-fold").setup {
         min_chars = 30,
-        symbol = "",
+        symbol = "…",
       }
       vim.keymap.set("n", "<leader>c", "<cmd>TailwindFoldToggle<cr>", { desc = "Tailwind Fold: Toggle" })
     end,
