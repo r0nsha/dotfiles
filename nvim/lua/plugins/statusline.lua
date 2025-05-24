@@ -335,7 +335,6 @@ return {
 
       local Left = {
         Mode,
-        Space(1),
         FileBlock,
         Space(1),
         Git,
