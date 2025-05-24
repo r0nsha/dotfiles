@@ -350,12 +350,6 @@ return {
         },
       }
 
-      local Time = {
-        provider = function()
-          return " " .. os.date "%H:%M"
-        end,
-      }
-
       local Left = {
         Mode,
         FileBlock,
@@ -367,7 +361,6 @@ return {
         Lsp,
         Space(1),
         Ruler,
-        Pad(Time, 2),
       }
 
       local statusline = { Left, Align, Right }
