@@ -42,7 +42,6 @@ install_tmux() {
 	cd $DOWNLOADS/tmux-3.4
 	./configure && make
 	sudo make install
-	cp $DOWNLOADS/nvim-linux-x86_64/bin/nvim $HOME/.local/bin/nvim
 	cd $DOTFILES
 
 	# tmp
