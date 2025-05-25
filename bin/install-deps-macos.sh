@@ -52,7 +52,7 @@ install_nvim() {
 	xattr -c ./nvim-macos.tar.gz
 	tar xzf nvim-macos.tar.gz
 	cd $HOME
-	cp $DOWNLOADS/nvim-macos/bin/nvim $HOME/.local/bin/nvim
+	ln -sf $DOWNLOADS/nvim-macos/bin/nvim $HOME/.local/bin/nvim
 }
 
 install_wrapper brew install_brew

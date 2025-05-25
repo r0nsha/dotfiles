@@ -30,7 +30,7 @@ install_deps() {
 
 install_nvim() {
 	curl -L# https://github.com/neovim/neovim/releases/download/stable/nvim-linux-x86_64.tar.gz | tar -xz -C $DOWNLOADS
-	cp $DOWNLOADS/nvim-linux-x86_64/bin/nvim $HOME/.local/bin/nvim
+	ln -sf $DOWNLOADS/nvim-linux-x86_64/bin/nvim $HOME/.local/bin/nvim
 }
 
 install_tmux() {

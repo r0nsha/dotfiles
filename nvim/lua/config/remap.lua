@@ -10,12 +10,13 @@ vim.keymap.set("n", "<bar>", "<cmd>vsplit<cr>", { desc = "Split window verticall
 vim.keymap.set({ "n", "v" }, "<leader>y", '"+y', { remap = false, desc = "Yank to clipboard" })
 vim.keymap.set("n", "<leader>Y", '"+Y', { remap = false, desc = "Yank line to clipboard" })
 vim.keymap.set("n", "<leader>p", '"+p', { remap = false, desc = "Paste from clipboard" })
-vim.keymap.set("n", "<leader>L", function()
+vim.keymap.set("n", "<c-g>", function()
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-g>", true, true, true), "n", true)
   local file = vim.fn.expand "%"
   local line = vim.fn.line "."
   vim.fn.setreg("+", string.format("%s:%d", file, line))
   vim.notify "Copied line reference to clipboard"
-end, { desc = "Copy line reference to clipboard" })
+end, { remap = false, desc = "Copy line reference to clipboard" })
 
 -- Don't yank when using 'p' in visual mode
 vim.keymap.set("v", "p", '"_dP', { remap = false })
@@ -72,8 +73,8 @@ vim.api.nvim_create_autocmd("Filetype", {
 })
 
 -- Quickfix list remaps
-vim.keymap.set("n", "<M-P>", "<cmd>cprev<cr>zz", { desc = "Quickfix: Prev" })
-vim.keymap.set("n", "<M-N>", "<cmd>cnext<cr>zz", { desc = "Quickfix: Next" })
+vim.keymap.set("n", "<m-P>", "<cmd>cprev<cr>zz", { desc = "Quickfix: Prev" })
+vim.keymap.set("n", "<m-N>", "<cmd>cnext<cr>zz", { desc = "Quickfix: Next" })
 
 -- Replace word under cursor (when LSP is not available)
 vim.keymap.set("n", "grn", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Rename" })
