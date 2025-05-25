@@ -20,7 +20,7 @@ return {
       end, { desc = "Harpoon: Toggle Quick Menu" })
 
       for i = 1, 9 do
-        vim.keymap.set("n", "<c-" .. i .. ">", function()
+        vim.keymap.set("n", "<c-t>" .. i, function()
           harpoon:list():select(i)
         end, { desc = "Harpoon: Go to " .. i })
       end
