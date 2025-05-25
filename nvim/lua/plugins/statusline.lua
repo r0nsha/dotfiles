@@ -177,14 +177,17 @@ return {
 
       local FileType = {
         provider = function(self)
-          local ext = self.filename:match "%.([^.]+)$"
-          local type = vim.bo.filetype
-
-          if ext == type or self.is_scratch_buffer then
+          local ft = vim.bo.filetype
+          if ft == "" then
             return ""
           end
 
-          return string.format(" (%s)", vim.bo.filetype)
+          local ext = self.filename:match "%.([^.]+)$"
+          if ext == ft or self.is_scratch_buffer then
+            return ""
+          end
+
+          return string.format(" (%s)", ft)
         end,
         hl = { fg = utils.get_highlight("NonText").fg, bold = false },
       }
