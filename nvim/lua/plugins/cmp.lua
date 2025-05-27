@@ -15,6 +15,7 @@ return {
     },
     config = function()
       local cmp = require "blink.cmp"
+      local utils = require "config.utils"
 
       local keymaps = {
         prev = {
@@ -107,6 +108,11 @@ return {
               name = "LazyDev",
               module = "lazydev.integrations.blink",
               score_offset = 100,
+            },
+            snippets = {
+              enabled = function()
+                return not utils.repo_too_large()
+              end,
             },
             git = {
               module = "blink-cmp-git",

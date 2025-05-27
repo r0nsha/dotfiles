@@ -1,25 +1,27 @@
+local utils = require "config.utils"
+
 return {
   {
     "lewis6991/gitsigns.nvim",
-    event = { "BufRead", "BufNewFile" },
+    lazy = true,
     config = function()
       local gitsigns = require "gitsigns"
 
       gitsigns.setup {
-        current_line_blame = true,
+        current_line_blame = not utils.repo_too_large(),
         on_attach = function(bufnr)
           vim.keymap.set("n", "[h", function()
-            require("gitsigns").nav_hunk("prev", { preview = true })
+            gitsigns.nav_hunk("prev", { preview = true })
           end, { buffer = bufnr, desc = "Git: Previous Hunk" })
 
           vim.keymap.set("n", "]h", function()
-            require("gitsigns").nav_hunk("next", { preview = true })
+            gitsigns.nav_hunk("next", { preview = true })
           end, { buffer = bufnr, desc = "Git: Next Hunk" })
 
           vim.keymap.set(
             "n",
             "<leader>gp",
-            require("gitsigns").preview_hunk_inline,
+            gitsigns.preview_hunk_inline,
             { buffer = bufnr, desc = "Git: Preview Hunk" }
           )
 
@@ -34,12 +36,19 @@ return {
           vim.keymap.set("n", "<leader>gw", function()
             gitsigns.toggle_word_diff()
           end, { buffer = bufnr, desc = "Git: Blame Line (Full)" })
+
+          if utils.repo_too_large() then
+            gitsigns.detach(bufnr)
+          end
         end,
       }
     end,
   },
   {
     "akinsho/git-conflict.nvim",
+    cond = function()
+      return not utils.repo_too_large()
+    end,
     event = { "BufReadPre", "BufNewFile" },
     config = function()
       require("git-conflict").setup {}
@@ -66,14 +75,15 @@ return {
     event = "VeryLazy",
     config = function()
       local actions = require "diffview.actions"
-      local close_diff = { "n", "q", "<cmd>DiffviewClose<cr>", { desc = "Close diff view" } }
+      local close = { "n", "q", "<cmd>DiffviewClose<cr>", { desc = "Close diff view" } }
       local next_entry = { "n", "<C-n>", actions.select_next_entry, { desc = "Open the diff for the next file" } }
       local prev_entry = { "n", "<C-p>", actions.select_prev_entry, { desc = "Open the diff for the previous file" } }
 
       require("diffview").setup {
         keymaps = {
-          view = { close_diff, next_entry, prev_entry },
-          file_panel = { close_diff, next_entry, prev_entry },
+          view = { close, next_entry, prev_entry },
+          file_panel = { close, next_entry, prev_entry },
+          file_history_panel = { close, next_entry, prev_entry },
         },
       }
 

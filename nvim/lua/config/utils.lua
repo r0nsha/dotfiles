@@ -48,4 +48,8 @@ function M.vsplit()
   vim.api.nvim_win_set_buf(win, buf)
 end
 
+function M.repo_too_large()
+  return vim.fn.getcwd():find "core%-public/core"
+end
+
 return M

@@ -39,11 +39,11 @@ return {
       end, opts "Resume")
 
       keymap("n", "f", function()
+        local utils = require "config.utils"
         local in_git_repo = os.execute "git rev-parse --is-inside-work-tree" == 0
 
         -- don't show file icons in very (VERY) large repos, for performance
-        local repo_too_large = vim.fn.getcwd():find "core%-public/core"
-        local local_opts = repo_too_large and { git_icons = false, file_icons = false } or {}
+        local local_opts = utils.repo_too_large() and { git_icons = false, file_icons = false } or {}
 
         if in_git_repo then
           fzf.git_files(local_opts)
@@ -89,7 +89,7 @@ return {
       end, "Buffers")
 
       keymap("n", "s", function()
-        fzf.live_grep_native()
+        fzf.live_grep()
       end, "Live grep")
 
       keymap("v", "s", function()
