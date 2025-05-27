@@ -49,8 +49,8 @@ style = "bright-black"
 
 [cmd_duration]
 min_time = 2_000
-format = "[$duration]($style)"
-style = "yellow"
+format = " [$duration]($style)"
+style = "red"
 
 [aws]
 symbol = "  "
