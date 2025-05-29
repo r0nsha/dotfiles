@@ -18,7 +18,6 @@ install_deps() {
 		ripgrep
 		gh
 		fzf
-		bat
 		gnome-tweaks
 		gtk2-engines-murrine
 	)

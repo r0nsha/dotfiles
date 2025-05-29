@@ -36,7 +36,6 @@ install_deps() {
 		ripgrep
 		gh
 		fzf
-		bat
 		koekeishiya/formulae/yabai
 		koekeishiya/formulae/skhd
 	)

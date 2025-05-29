@@ -6,11 +6,21 @@ install_starship() {
 
 install_rustup() {
 	curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable
+
+	# Needed for cargo-update on Ubuntu
+	if [ "$MACHINE" = "linux" ]; then
+		sudo apt install -y -qq libssl-dev
+	fi
+
 	cargo install cargo-update
 }
 
 install_sk() {
 	cargo install skim --locked
+}
+
+install_bat() {
+	cargo install bat --locked
 }
 
 install_n() {
@@ -31,6 +41,7 @@ install_just() {
 install_wrapper starship install_starship
 install_wrapper rustup install_rustup
 install_wrapper sk install_sk
+install_wrapper bat install_bat
 install_wrapper n install_n
 install_wrapper yazi install_yazi
 install_wrapper just install_just

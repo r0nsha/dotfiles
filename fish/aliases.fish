@@ -23,6 +23,8 @@ if binary_exists bat
     alias cat bat
 else if binary_exists batcat
     alias cat batcat
+else if binary_exists bat
+    alias cat bat
 end
 
 alias yabais 'yabai --start-service'
