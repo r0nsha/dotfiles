@@ -7,7 +7,7 @@ return {
       local fzf = require "fzf-lua"
 
       fzf.setup {
-        "border-fused",
+        { "border-fused", "skim" },
         keymap = {
           fzf = {
             ["ctrl-u"] = "preview-page-up",

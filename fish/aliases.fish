@@ -47,12 +47,12 @@ alias gbb git-switchbranch
 alias gbf 'git branch | head -1 | xargs' # top branch
 alias gla "git log --all --graph --format=format:'%C(bold blue)%h%C(reset) - %C(white)%s%C(reset) %C(bold magenta)%d%C(reset)'"
 alias glv "git log --graph --format=format:'%C(bold blue)%h%C(reset) - %C(white)%s%C(reset) %C(green)%an %ar %C(reset) %C(bold magenta)%d%C(reset)'"
-alias glc 'git branch | fzf | xargs -I % git log %..HEAD --oneline --decorate --color --graph'
-alias glco 'git branch | fzf | xargs -I % git log %..origin/HEAD --oneline --decorate --color --graph'
+alias glc 'git branch | sk | xargs -I % git log %..HEAD --oneline --decorate --color --graph'
+alias glco 'git branch | sk | xargs -I % git log %..origin/HEAD --oneline --decorate --color --graph'
 
 alias gp "git push -u 2>&1 | tee >(cat) | grep \"pull/new\" | awk '{print \$2}' | xargs open"
 
-alias gg 'git branch | fzf | xargs git checkout'
+alias gg 'git branch | sk | xargs git checkout'
 alias gup 'git branch --set-upstream-to=origin/(git-current-branch) (git-current-branch)'
 
 # PYTHON ALIASES --------------------------------------------------------------

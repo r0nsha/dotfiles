@@ -22,34 +22,61 @@ function dashboard
     tmux switch-client -t $name
 end
 
+function filter_dirs
+    for path in $argv
+        if test -d $path
+            echo $path
+        end
+    end
+end
+
 function t
-    set -l search_dirs $HOME/dev $HOME/dotfiles $HOME/repos $HOME/neorg
+    if test (count $argv) -eq 1
+        set selected $argv[1]
+    else
+        set -l search_dirs (
+	    filter_dirs \
+		$HOME/dev \
+		$HOME/repos \
+		$HOME/dev/core-public/core
+	)
 
-    set -l all_repos (begin
-	for path in $search_dirs
-	    if test -d $path
-		fd -uu --type d --full-path --max-depth 2 '\.git$' $path
+        set -l perm_dirs (
+	    filter_dirs \
+		$HOME/dotfiles \
+		$HOME/neorg
+	)
+
+        set selected (begin
+	    for dir in $perm_dirs
+		echo $dir
 	    end
-	end
-    end | xargs dirname)
 
-    set -l repo (echo $all_repos | tr ' ' '\n' | fzf)
+	    fd . $search_dirs --full-path --type d --min-depth 1 --max-depth 1
+	end | sed "s|^$HOME/||" | sk)
 
-    if test -z $repo
+        # add $HOME back
+        set selected $HOME/$selected
+    end
+
+    if test -z $selected
         return
     end
 
-    set -l name (basename $repo)
+    set -l selected_name (basename $selected | tr . _)
+    set -l tmux_running (pgrep tmux)
 
-    if ! tmux has-session -t $name 2>/dev/null
-        tmux new-session -d -s $name -c $repo
+    if test -z $TMUX && test -z $tmux_running
+        tmux new-session -s $selected_name -c $selected
+        return
     end
 
-    if test -z $TMUX
-        tmux attach -t $name
-    else
-        tmux switch-client -t $name
+    if ! tmux has-session -t $selected_name 2>/dev/null
+        tmux new-session -ds $selected_name -c $selected
+        tmux select-window -t $selected_name:1
     end
+
+    tmux switch-client -t $selected_name
 end
 
 function cht

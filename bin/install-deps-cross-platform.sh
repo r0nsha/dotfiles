@@ -6,6 +6,11 @@ install_starship() {
 
 install_rustup() {
 	curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable
+	cargo install cargo-update
+}
+
+install_sk() {
+	cargo install skim --locked
 }
 
 install_n() {
@@ -25,6 +30,7 @@ install_just() {
 
 install_wrapper starship install_starship
 install_wrapper rustup install_rustup
+install_wrapper sk install_sk
 install_wrapper n install_n
 install_wrapper yazi install_yazi
 install_wrapper just install_just
