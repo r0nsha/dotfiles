@@ -1,4 +1,5 @@
 #!/bin/bash
 
-dconf dump / >"$HOME/dotfiles/dconf/settings.ini"
-git add -u
+DCONF_SETTINGS="$HOME/dotfiles/dconf/settings.ini"
+dconf dump / >"$DCONF_SETTINGS"
+git add "$DCONF_SETTINGS"
