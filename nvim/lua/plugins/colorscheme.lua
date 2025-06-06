@@ -34,11 +34,6 @@ return {
         },
         overrides = function(colors)
           local theme = colors.theme
-          local c = require "kanagawa.lib.color"
-
-          local make_diagnostic_color = function(color)
-            return { fg = color, bg = c(color):blend(theme.ui.bg, 0.975):to_hex() }
-          end
 
           return {
             -- show ~ at end of buffer
@@ -58,18 +53,6 @@ return {
             NormalDark = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m3 },
             LazyNormal = { bg = theme.ui.bg_m1, fg = theme.ui.fg_dim },
             MasonNormal = { bg = theme.ui.bg_m1, fg = theme.ui.fg_dim },
-
-            -- diagnostic color tints
-            DiagnosticVirtualTextHint = make_diagnostic_color(theme.diag.hint),
-            DiagnosticVirtualTextInfo = make_diagnostic_color(theme.diag.info),
-            DiagnosticVirtualTextWarn = make_diagnostic_color(theme.diag.warning),
-            DiagnosticVirtualTextError = make_diagnostic_color(theme.diag.error),
-
-            -- debugprint.nvim
-            DebugPrintLine = {
-              fg = theme.ui.fg,
-              bg = c(theme.diag.error):blend(theme.ui.bg, 0.675):to_hex(),
-            },
           }
         end,
         theme = "dragon",
