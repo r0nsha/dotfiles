@@ -37,7 +37,6 @@ return {
             "goimports-reviser",
             "golines",
           },
-          ["*"] = { "codespell" },
           ["_"] = { "trim_whitespace" },
         },
         default_format_opts = {

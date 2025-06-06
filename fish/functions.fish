@@ -63,20 +63,19 @@ function t
         return
     end
 
-    set -l selected_name (basename $selected | tr . _)
-    set -l tmux_running (pgrep tmux)
+    set -l name (basename $selected | tr . _)
+    # set -l tmux_running (pgrep tmux)
 
-    if test -z $TMUX && test -z $tmux_running
-        tmux new-session -s $selected_name -c $selected
-        return
+    if ! tmux has-session -t $name 2>/dev/null
+        tmux new-session -ds $name -c $selected
+        tmux select-window -t $name:1
     end
 
-    if ! tmux has-session -t $selected_name 2>/dev/null
-        tmux new-session -ds $selected_name -c $selected
-        tmux select-window -t $selected_name:1
+    if test -z $TMUX
+        tmux attach -t $name
+    else
+        tmux switch-client -t $name
     end
-
-    tmux switch-client -t $selected_name
 end
 
 function y
