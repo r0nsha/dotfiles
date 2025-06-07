@@ -301,13 +301,21 @@ return {
             }
           end
 
-          vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts "Go to Definition")
+          local trouble = require "trouble"
+          vim.keymap.set("n", "gd", function()
+            trouble.toggle "lsp_definitions"
+          end, opts "Go to Definition")
+          vim.keymap.set("n", "gv", "<C-w>v<C-]>", opts "Go to Definition")
           vim.keymap.set("n", "grr", function()
-            require("fzf-lua").lsp_references {}
+            trouble.toggle "lsp_references"
           end, opts "References")
           vim.keymap.set("n", "grn", vim.lsp.buf.rename, opts "Rename")
-          vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts "Go to Implementation")
-          vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, opts "Go to Type Definition")
+          vim.keymap.set("n", "gi", function()
+            trouble.toggle "lsp_implementations"
+          end, opts "Go to Implementation")
+          vim.keymap.set("n", "gt", function()
+            trouble.toggle "lsp_type_definitions"
+          end, opts "Go to Type Definition")
           vim.keymap.set({ "n", "v" }, "ga", vim.lsp.buf.code_action, opts "Code Action")
           vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts "Signature Help")
           vim.keymap.set("n", "K", vim.lsp.buf.hover, opts "Hover")
