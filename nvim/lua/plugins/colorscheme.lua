@@ -40,13 +40,11 @@ return {
             EndOfBuffer = { fg = theme.ui.special },
             NonText = { fg = theme.ui.special },
 
-            -- cmp-nvim
-            Pmenu = { fg = theme.ui.shade0, bg = theme.ui.bg_p1 },
+            -- transparent floats
+            Pmenu = { fg = theme.ui.shade0, bg = theme.ui.bg },
             PmenuSel = { fg = "none", bg = theme.ui.bg_p2 },
             PmenuSbar = { bg = theme.ui.bg_m1 },
             PmenuThumb = { bg = theme.ui.bg_p2 },
-
-            -- transparent floats
             NormalFloat = { bg = "none" },
             FloatBorder = { bg = "none" },
             FloatTitle = { bg = "none" },

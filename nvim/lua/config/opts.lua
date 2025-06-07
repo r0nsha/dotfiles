@@ -101,6 +101,9 @@ vim.opt.more = false
 -- filetypes
 vim.filetype.add { extension = { ll = "llvm" } }
 
+-- win
+vim.opt.winborder = "single"
+
 -- windows specific options
 if utils.is_windows() then
   vim.opt.shell = vim.fn.executable "powershell" and "powershell" or "pwsh"

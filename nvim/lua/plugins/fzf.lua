@@ -8,6 +8,12 @@ return {
 
       fzf.setup {
         { "border-fused", "skim" },
+        winopts = {
+          border = "single",
+          preview = {
+            border = "single",
+          },
+        },
         keymap = {
           fzf = {
             ["ctrl-u"] = "preview-page-up",
