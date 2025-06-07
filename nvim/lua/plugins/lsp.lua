@@ -321,9 +321,6 @@ return {
           vim.keymap.set("n", "]d", function()
             vim.diagnostic.goto_next { float = false }
           end, opts "Next Diagnostic")
-
-          vim.keymap.del("n", "gra", { buffer = buf })
-          vim.keymap.del("n", "gri", { buffer = buf })
         end,
       })
 
