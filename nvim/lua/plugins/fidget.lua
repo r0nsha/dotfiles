@@ -17,7 +17,7 @@ return {
             winblend = 0,
             x_padding = 1,
             y_padding = 0,
-            border = "rounded",
+            border = "single",
             align = "bottom",
             relative = "editor",
           },
