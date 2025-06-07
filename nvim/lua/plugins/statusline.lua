@@ -336,11 +336,11 @@ return {
         end,
       }
 
-      local Time = {
-        provider = function()
-          return icons.clock .. " " .. os.date "%H:%M"
-        end,
-      }
+      -- local Time = {
+      --   provider = function()
+      --     return icons.clock .. " " .. os.date "%H:%M"
+      --   end,
+      -- }
 
       local Left = {
         Mode,
@@ -354,8 +354,8 @@ return {
         Lsp,
         Space(1),
         Ruler,
-        Space(1),
-        Time,
+        -- Space(1),
+        -- Time,
       }
 
       local statusline = {
