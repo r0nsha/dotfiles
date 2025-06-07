@@ -7,6 +7,7 @@ return {
         input = {
           prompt_align = "left",
           start_mode = "normal",
+          border = "single",
         },
       }
     end,

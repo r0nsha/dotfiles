@@ -7,12 +7,12 @@ return {
       local fzf = require "fzf-lua"
 
       fzf.setup {
-        { "border-fused", "skim" },
+        { "skim" },
         winopts = {
           border = "single",
-          preview = {
-            border = "single",
-          },
+          -- preview = {
+          --   border = "single",
+          -- },
         },
         keymap = {
           fzf = {

@@ -18,7 +18,12 @@ require("lazy").setup {
   spec = {
     { import = "plugins" },
   },
-  install = { colorscheme = { "kanagawa" } },
+  install = {
+    colorscheme = { "kanagawa" },
+  },
+  ui = {
+    border = "single",
+  },
   checker = {
     enabled = true,
     notify = false,
