@@ -1,5 +1,5 @@
 require "config.utils"
-require "config.set"
+require "config.opts"
 require "config.clipboard"
 require "config.remap"
 require "config.autocmd"
