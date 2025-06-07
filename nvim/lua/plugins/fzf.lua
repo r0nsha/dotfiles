@@ -39,10 +39,6 @@ return {
       end, opts "Resume")
 
       keymap("n", "f", function()
-        fzf.files()
-      end, "Files")
-
-      keymap("n", "F", function()
         local utils = require "config.utils"
         local in_git_repo = os.execute "git rev-parse --is-inside-work-tree" == 0
 
@@ -54,6 +50,10 @@ return {
         else
           fzf.files(local_opts)
         end
+      end, "Files")
+
+      keymap("n", "F", function()
+        fzf.files()
       end, "Git files")
 
       keymap("n", "c", function()
