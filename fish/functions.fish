@@ -44,7 +44,7 @@ function t
         set -l perm_dirs (
 	    filter_dirs \
 		$HOME/dotfiles \
-		$HOME/neorg
+		$HOME/notes
 	)
 
         set selected (begin
