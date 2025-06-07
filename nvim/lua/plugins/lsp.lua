@@ -20,9 +20,9 @@ return {
     },
     config = function()
       local lspconfig = require "lspconfig"
-      local utils = require "config.utils"
+      local utils = require "utils"
 
-      -- local codelldb_path, liblldb_path = require("config.utils").get_codelldb_paths()
+      -- local codelldb_path, liblldb_path = require("utils").get_codelldb_paths()
 
       local servers = {
         lua_ls = {

@@ -29,7 +29,7 @@ return {
       { "nvim-treesitter/playground", cmd = { "TSPlaygroundToggle" } },
     },
     config = function()
-      local utils = require "config.utils"
+      local utils = require "utils"
 
       require("nvim-treesitter.configs").setup {
         ensure_installed = {

@@ -45,7 +45,7 @@ return {
       end, opts "Resume")
 
       keymap("n", "f", function()
-        local utils = require "config.utils"
+        local utils = require "utils"
         local in_git_repo = os.execute "git rev-parse --is-inside-work-tree" == 0
 
         -- don't show file icons in very (VERY) large repos, for performance

@@ -1,4 +1,4 @@
-local utils = require "config.utils"
+local utils = require "utils"
 
 -- netrw options
 vim.g.netrw_browse_split = 0

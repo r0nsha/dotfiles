@@ -28,7 +28,7 @@ vim.api.nvim_create_autocmd("BufWritePost", {
   pattern = "*/kitty/kitty.conf",
   callback = function()
     local Job = require "plenary.job"
-    local utils = require "config.utils"
+    local utils = require "utils"
 
     local pgrep = utils.is_macos() and "pgrep -a kitty" or "pgrep kitty"
 

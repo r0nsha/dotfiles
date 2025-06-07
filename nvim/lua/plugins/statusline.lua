@@ -5,7 +5,7 @@ return {
     config = function()
       local conditions = require "heirline.conditions"
       local utils = require "heirline.utils"
-      local icons = require("config.utils").icons
+      local icons = require("utils").icons
 
       local function setup_colors()
         local colors = require("kanagawa.colors").setup()

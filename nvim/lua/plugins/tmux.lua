@@ -2,7 +2,7 @@ return {
   {
     "aserowy/tmux.nvim",
     config = function()
-      local utils = require "config.utils"
+      local utils = require "utils"
 
       return require("tmux").setup {
         copy_sync = {
