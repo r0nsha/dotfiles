@@ -97,8 +97,8 @@ return {
               -- You can use the capture groups defined in textobjects.scm
               ["aa"] = "@statement.outer",
               ["ia"] = "@statement.inner",
-              ["ap"] = "@parameter.outer",
-              ["ip"] = "@parameter.inner",
+              ["av"] = "@parameter.outer",
+              ["iv"] = "@parameter.inner",
               ["af"] = "@function.outer",
               ["if"] = "@function.inner",
               ["ac"] = "@class.outer",

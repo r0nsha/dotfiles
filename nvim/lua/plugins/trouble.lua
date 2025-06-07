@@ -14,8 +14,12 @@ return {
       }
 
       vim.keymap.set("n", "<leader>xx", function()
-        trouble.toggle() -- "diagnostics"
+        trouble.toggle "diagnostics"
       end, { desc = "Trouble: Diagnostics" })
+
+      vim.keymap.set("n", "<leader>q", function()
+        trouble.toggle "quickfix"
+      end, { desc = "Trouble: Quickfix" })
 
       vim.keymap.set("n", "[[", function()
         trouble.prev { skip_groups = true, jump = true }

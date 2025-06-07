@@ -14,7 +14,7 @@ return {
           --   border = "single",
           -- },
         },
-        keymap = {
+        keymaps = {
           fzf = {
             ["ctrl-u"] = "preview-page-up",
             ["ctrl-d"] = "preview-page-down",
