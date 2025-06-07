@@ -14,14 +14,14 @@ return {
       }
 
       vim.keymap.set("n", "<leader>xx", function()
-        trouble.toggle "diagnostics"
+        trouble.toggle() -- "diagnostics"
       end, { desc = "Trouble: Diagnostics" })
 
-      vim.keymap.set("n", "<leader>xb", function()
-        trouble.toggle { mode = "diagnostics", filter = { buf = 0 } }
-      end, { desc = "Trouble: Buffer Diagnostics" })
-
       vim.keymap.set("n", "[[", function()
+        trouble.prev { skip_groups = true, jump = true }
+      end, { desc = "Trouble: Previous" })
+
+      vim.keymap.set("n", "[t", function()
         trouble.prev { skip_groups = true, jump = true }
       end, { desc = "Trouble: Previous" })
 

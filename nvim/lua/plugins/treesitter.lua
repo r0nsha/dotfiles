@@ -95,8 +95,10 @@ return {
             lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
             keymaps = {
               -- You can use the capture groups defined in textobjects.scm
-              ["aa"] = "@parameter.outer",
-              ["ia"] = "@parameter.inner",
+              ["aa"] = "@statement.outer",
+              ["ia"] = "@statement.inner",
+              ["ap"] = "@parameter.outer",
+              ["ip"] = "@parameter.inner",
               ["af"] = "@function.outer",
               ["if"] = "@function.inner",
               ["ac"] = "@class.outer",
