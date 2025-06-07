@@ -302,9 +302,9 @@ return {
           end
 
           vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts "Go to Definition")
-          -- vim.keymap.set("n", "grr", function()
-          --   require("fzf-lua").lsp_references {}
-          -- end, opts "References")
+          vim.keymap.set("n", "grr", function()
+            require("fzf-lua").lsp_references {}
+          end, opts "References")
           vim.keymap.set("n", "grn", vim.lsp.buf.rename, opts "Rename")
           vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts "Go to Implementation")
           vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, opts "Go to Type Definition")
@@ -381,47 +381,6 @@ return {
           require("lint").try_lint()
         end,
       })
-    end,
-  },
-  {
-    "DNLHC/glance.nvim",
-    config = function()
-      local glance = require "glance"
-      local actions = glance.actions
-
-      glance.setup {
-        border = {
-          enable = true,
-        },
-        mappings = {
-          list = {
-            ["C-n"] = actions.next_location,
-            ["C-p"] = actions.previous_location,
-            ["C-y"] = actions.jump,
-          },
-          preview = {
-            ["C-n"] = actions.next_location,
-            ["C-p"] = actions.previous_location,
-            ["C-y"] = actions.jump,
-          },
-        },
-      }
-
-      vim.keymap.set("n", "gD", function()
-        glance.open "definitions"
-      end, { desc = "Glance: Definitions" })
-
-      vim.keymap.set("n", "grr", function()
-        glance.open "references"
-      end, { desc = "Glance: References" })
-
-      vim.keymap.set("n", "gT", function()
-        glance.open "type_definitions"
-      end, { desc = "Glance: Type definitions" })
-
-      vim.keymap.set("n", "gI", function()
-        glance.open "implementations"
-      end, { desc = "Glance: implementations" })
     end,
   },
 }
