@@ -301,20 +301,16 @@ return {
             }
           end
 
-          vim.keymap.set("n", "K", vim.lsp.buf.hover, opts "Hover")
           vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts "Go to Definition")
-          vim.keymap.set("n", "gv", "<cmd>vs<cr>gd", opts "Go to Definition (Vertical Split)")
+          -- vim.keymap.set("n", "grr", function()
+          --   require("fzf-lua").lsp_references {}
+          -- end, opts "References")
+          vim.keymap.set("n", "grn", vim.lsp.buf.rename, opts "Rename")
           vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts "Go to Implementation")
           vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, opts "Go to Type Definition")
-          vim.keymap.set("n", "grn", vim.lsp.buf.rename, opts "Rename")
-          vim.keymap.set("n", "grr", function()
-            require("fzf-lua").lsp_references {}
-          end, opts "References")
           vim.keymap.set({ "n", "v" }, "ga", vim.lsp.buf.code_action, opts "Code Action")
           vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts "Signature Help")
-          vim.keymap.set("n", "gws", function()
-            require("fzf-lua").lsp_workspace_symbols {}
-          end, opts "Workspace Symbols")
+          vim.keymap.set("n", "K", vim.lsp.buf.hover, opts "Hover")
           vim.keymap.set("n", "gh", function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = buf }, { bufnr = buf })
           end, opts "Toggle Inlay Hints")
@@ -325,6 +321,9 @@ return {
           vim.keymap.set("n", "]d", function()
             vim.diagnostic.goto_next { float = false }
           end, opts "Next Diagnostic")
+
+          vim.keymap.del("n", "gra")
+          vim.keymap.del("n", "gri")
         end,
       })
 
@@ -385,6 +384,47 @@ return {
           require("lint").try_lint()
         end,
       })
+    end,
+  },
+  {
+    "DNLHC/glance.nvim",
+    config = function()
+      local glance = require "glance"
+      local actions = glance.actions
+
+      glance.setup {
+        border = {
+          enable = true,
+        },
+        mappings = {
+          list = {
+            ["C-n"] = actions.next_location,
+            ["C-p"] = actions.previous_location,
+            ["C-y"] = actions.jump,
+          },
+          preview = {
+            ["C-n"] = actions.next_location,
+            ["C-p"] = actions.previous_location,
+            ["C-y"] = actions.jump,
+          },
+        },
+      }
+
+      vim.keymap.set("n", "gD", function()
+        glance.open "definitions"
+      end, { desc = "Glance: Definitions" })
+
+      vim.keymap.set("n", "grr", function()
+        glance.open "references"
+      end, { desc = "Glance: References" })
+
+      vim.keymap.set("n", "gT", function()
+        glance.open "type_definitions"
+      end, { desc = "Glance: Type definitions" })
+
+      vim.keymap.set("n", "gI", function()
+        glance.open "implementations"
+      end, { desc = "Glance: implementations" })
     end,
   },
 }

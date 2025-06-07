@@ -9,7 +9,7 @@ return {
       end, { desc = "Trouble: Diagnostics" })
 
       vim.keymap.set("n", "<leader>xb", function()
-        require("trouble").toggle { filter = { buf = 0 } }
+        require("trouble").toggle("diagnostics", { filter = { buf = 0 } })
       end, { desc = "Trouble: Buffer Diagnostics" })
 
       vim.keymap.set("n", "<leader>xp", function()

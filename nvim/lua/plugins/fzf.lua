@@ -39,6 +39,10 @@ return {
       end, opts "Resume")
 
       keymap("n", "f", function()
+        fzf.files()
+      end, "Files")
+
+      keymap("n", "F", function()
         local utils = require "config.utils"
         local in_git_repo = os.execute "git rev-parse --is-inside-work-tree" == 0
 
@@ -50,11 +54,7 @@ return {
         else
           fzf.files(local_opts)
         end
-      end, "Git Files")
-
-      keymap("n", "F", function()
-        fzf.files()
-      end, "All files")
+      end, "Git files")
 
       keymap("n", "c", function()
         fzf.colorschemes {}
@@ -63,14 +63,6 @@ return {
       keymap("n", "h", function()
         fzf.helptags {}
       end, "Helptags")
-
-      keymap("n", "p", function()
-        fzf.profiles {}
-      end, "Profiles")
-
-      keymap("n", "e", function()
-        fzf.diagnostics_workspace {}
-      end, "Diagnostics")
 
       keymap("n", "o", function()
         fzf.oldfiles()
