@@ -326,8 +326,10 @@ return {
 
           local start_line = vim.fn.line "v"
           local end_line = vim.fn.line "."
-          local vcount = math.abs(end_line - start_line) + 1
-          return string.format(" [sel %2d]", vcount)
+          local lines = math.abs(end_line - start_line) + 1
+          local cols = vim.fn.wordcount().visual_chars
+
+          return string.format(" [sel %2d,%2d]", lines, cols)
         end,
       },
       hl = function(_)

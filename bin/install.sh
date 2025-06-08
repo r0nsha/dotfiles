@@ -2,6 +2,9 @@
 #
 # install.sh installs my things.
 
+cat $DOTFILES/bin/pepe.txt
+exit
+
 set -e
 
 cd "$(dirname "$0")/.."
@@ -46,4 +49,4 @@ echo ""
 source $DOTFILES/bin/install/shell.sh
 echo ""
 
-success 'all installed!'
+success 'the things all installed!'
