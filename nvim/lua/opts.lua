@@ -90,6 +90,7 @@ vim.opt.splitright = true
 
 -- fold
 vim.opt.foldmethod = "manual"
+vim.opt.foldlevel = 999
 
 -- statusline
 vim.opt.laststatus = 3

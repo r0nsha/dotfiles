@@ -52,4 +52,9 @@ function M.repo_too_large()
   return vim.fn.getcwd():find "core%-public/core"
 end
 
+---@param v boolean
+function M.bool_to_enabled(v)
+  return v and "enabled" or "disabled"
+end
+
 return M

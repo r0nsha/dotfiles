@@ -1,12 +1,12 @@
 source $HOME/.env.fish
 
-source $DOTFILES/fish/fisher.fish
-
 source $DOTFILES/fish/functions.fish
 source $DOTFILES/fish/aliases.fish
 source $DOTFILES/fish/vars.fish
 source $DOTFILES/fish/kanagawa-dragon-theme.fish
 source $DOTFILES/fish/macos.fish
+
+source $DOTFILES/fish/fisher.fish
 
 # Vi mode
 fish_vi_key_bindings
@@ -33,9 +33,6 @@ fish_add_path ./node_modules/.bin
 
 # Node stuff
 set -Ux NVM_DIR "$HOME/.nvm"
-
-# Optional local config
-source_if_exists $HOME/local.config.fish
 
 # pnpm
 set -Ux PNPM_HOME "$HOME/.local/share/pnpm"

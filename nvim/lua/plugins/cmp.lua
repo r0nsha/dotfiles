@@ -115,8 +115,8 @@ return {
               end,
             },
             git = {
-              module = "blink-cmp-git",
               name = "Git",
+              module = "blink-cmp-git",
               enabled = function()
                 -- Allow git completions in specific filetypes
                 if vim.tbl_contains({ "octo", "gitcommit", "markdown" }, vim.bo.filetype) then

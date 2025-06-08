@@ -8,7 +8,7 @@ return {
   },
   {
     "altermo/ultimate-autopair.nvim",
-    event = { "InsertEnter", "CmdlineEnter" },
+    enabled = false,
     branch = "v0.6",
     opts = {
       cmap = false,
