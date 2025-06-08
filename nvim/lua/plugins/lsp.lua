@@ -11,11 +11,6 @@ return {
     "stevearc/conform.nvim",
     "saghen/blink.cmp",
     "b0o/schemastore.nvim",
-    {
-      "rachartier/tiny-inline-diagnostic.nvim",
-      event = "VeryLazy",
-      priority = 1000,
-    },
   },
   config = function()
     local lspconfig = require "lspconfig"
@@ -331,34 +326,10 @@ return {
       end,
     })
 
-    require("tiny-inline-diagnostic").setup {
-      signs = {
-        left = " ",
-        right = " ",
-        diag = "*",
-        arrow = "",
-        up_arrow = "",
-        vertical = " │",
-        vertical_end = " └",
-      },
-      blend = { factor = 0.12 },
-      options = {
-        show_source = {
-          enabled = true,
-          if_many = true,
-        },
-        hl = {
-          arrow = "None",
-        },
-        throttle = 10,
-        softwrap = 30,
-      },
-    }
-
     vim.diagnostic.config {
-      float = false,
-      virtual_text = false,
+      virtual_text = { current_line = true },
       virtual_lines = false,
+      float = true,
       underline = true,
       update_in_insert = false,
       signs = {
@@ -370,5 +341,16 @@ return {
         },
       },
     }
+
+    vim.keymap.set("n", "<leader>l", function()
+      local config = vim.diagnostic.config() or {}
+      if config.virtual_lines then
+        vim.notify "Virtual lines disabled"
+        vim.diagnostic.config { virtual_text = { current_line = true }, virtual_lines = false }
+      else
+        vim.notify "Virtual lines enabled"
+        vim.diagnostic.config { virtual_text = false, virtual_lines = true }
+      end
+    end, { desc = "LSP: Toggle line diagnostics" })
   end,
 }
