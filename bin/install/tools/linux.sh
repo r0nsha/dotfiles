@@ -1,4 +1,4 @@
-source $DOTFILES/bin/shared.sh
+source $DOTFILES/bin/utils.sh
 
 install_deps() {
 	info "root access is needed to install tools"

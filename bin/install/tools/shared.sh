@@ -1,4 +1,4 @@
-source $DOTFILES/bin/shared.sh
+source $DOTFILES/bin/utils.sh
 
 install_starship() {
 	curl -sS https://starship.rs/install.sh | sh
