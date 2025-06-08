@@ -329,9 +329,6 @@ return {
     vim.diagnostic.config {
       virtual_text = { current_line = true },
       virtual_lines = false,
-      float = true,
-      underline = true,
-      update_in_insert = false,
       signs = {
         text = {
           [vim.diagnostic.severity.HINT] = utils.icons.hint,
