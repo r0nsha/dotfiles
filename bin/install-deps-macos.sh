@@ -19,8 +19,6 @@ install_brew() {
 }
 
 install_deps() {
-	info "root access is needed to install dependencies"
-
 	install() {
 		info "installing $1"
 		brew install -q $1

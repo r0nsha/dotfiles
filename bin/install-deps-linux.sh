@@ -1,7 +1,7 @@
 source $DOTFILES/bin/shared.sh
 
 install_deps() {
-	info "root access is needed to install dependencies"
+	info "root access is needed to install tools"
 
 	install() {
 		info "installing $1"

@@ -16,7 +16,7 @@ and put it all in there. It will be loaded at the top of `fish/config.fish`.
 
 ## MacOS Defaults
 
-If you're on MacOS and want some sensible defaults, you can run `./bin/macos-defaults.sh`.
+If you're on MacOS and want some sensible defaults, you can run `./bin/macos_defaults.sh`.
 
 ## References
 
