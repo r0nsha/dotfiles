@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# bootstrap.sh installs my things.
+# install.sh installs my things.
 
 set -e
 
@@ -17,10 +17,10 @@ mkdir -p $DOWNLOADS
 mkdir -p $HOME/.local/bin
 mkdir -p $HOME/.local/share
 
-source $DOTFILES/bin/bootstrap/git_submodules.sh
+source $DOTFILES/bin/install/git_submodules.sh
 echo ""
 
-source $DOTFILES/bin/bootstrap/env.sh
+source $DOTFILES/bin/install/env.sh
 echo ""
 
 # setup wallpapers
@@ -28,13 +28,13 @@ running "setting up wallpapers..."
 ln -si $DOTFILES/wallpapers $HOME/Pictures/Wallpapers
 success "wallpapers set up"
 
-source $DOTFILES/bin/bootstrap/gtk.sh
+source $DOTFILES/bin/install/gtk.sh
 echo ""
 
-source $DOTFILES/bin/bootstrap/fonts.sh
+source $DOTFILES/bin/install/fonts.sh
 echo ""
 
-source $DOTFILES/bin/bootstrap/dconf.sh
+source $DOTFILES/bin/install/dconf.sh
 echo ""
 
 # install tools

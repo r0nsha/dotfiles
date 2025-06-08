@@ -5,13 +5,13 @@
 ```
 git clone <this-repo>
 cd <this-repo>
-./bin/bootstrap.sh
+./bin/install.sh
 ```
 
 ## Local Fish Config
 
 If there's customization you want Fish to load on startup that is specific to
-this machine (stuff you don't want to commit into the repo), after running `./bin/bootstrap.sh`, open `~/.env.fish`
+this machine (stuff you don't want to commit into the repo), after running `./bin/install.sh`, open `~/.env.fish`
 and put it all in there. It will be loaded at the top of `fish/config.fish`.
 
 ## MacOS Defaults
