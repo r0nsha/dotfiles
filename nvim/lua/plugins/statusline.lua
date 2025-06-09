@@ -7,24 +7,29 @@ return {
     local icons = require("utils").icons
 
     local function setup_colors()
-      local colors = require("kanagawa.colors").setup()
+      ---@param name string
+      ---@param field? string
+      local function hl_color(name, field)
+        local hl = vim.api.nvim_get_hl(0, { name = name, link = false })
+        return field and hl[field] or hl.fg
+      end
 
       return {
-        black = colors.theme.ui.bg_m3,
-        white = colors.theme.ui.fg_dim,
-        green = colors.theme.syn.string,
-        blue = colors.theme.syn.fun,
-        gray = colors.theme.ui.nontext,
-        orange = colors.theme.syn.constant,
-        special = colors.theme.ui.special,
-        purple = colors.theme.syn.keyword,
-        diag_hint = colors.theme.diag.hint,
-        diag_info = colors.theme.diag.info,
-        diag_warning = colors.theme.diag.warning,
-        diag_error = colors.theme.diag.error,
-        git_del = colors.theme.vcs.removed,
-        git_add = colors.theme.vcs.added,
-        git_change = colors.theme.vcs.changed,
+        black = hl_color("NormalDark", "bg"),
+        white = hl_color("NormalDark", "fg"),
+        green = hl_color "String",
+        blue = hl_color "Function",
+        gray = hl_color "NonText",
+        orange = hl_color "Constant",
+        special = hl_color "Special",
+        purple = hl_color "Keyword",
+        diag_hint = hl_color "DiagnosticHint",
+        diag_info = hl_color "DiagnosticInfo",
+        diag_warning = hl_color "DiagnosticWarn",
+        diag_error = hl_color "DiagnosticError",
+        git_del = hl_color "GitSignsDelete",
+        git_add = hl_color "GitSignsAdd",
+        git_change = hl_color "GitSignsChange",
       }
     end
 
@@ -214,7 +219,7 @@ return {
           or nonzero(self.status_dict.changed)
       end,
 
-      hl = { fg = "special" },
+      hl = { fg = "gray" },
 
       {
         provider = function(self)
@@ -309,7 +314,7 @@ return {
 
         return "[" .. table.concat(display_names, ", ") .. "]"
       end,
-      hl = { fg = "special" },
+      hl = { fg = "gray" },
     }
 
     local function in_visual_mode()
