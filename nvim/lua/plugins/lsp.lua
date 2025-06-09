@@ -11,6 +11,30 @@ return {
     "stevearc/conform.nvim",
     "saghen/blink.cmp",
     "b0o/schemastore.nvim",
+    {
+      "DNLHC/glance.nvim",
+      config = function()
+        local glance = require "glance"
+        local actions = glance.actions
+        glance.setup {
+          border = { enable = true },
+          list = { position = "left" },
+          mappings = {
+            list = {
+              ["C-n"] = actions.next_location,
+              ["C-p"] = actions.previous_location,
+              ["C-y"] = actions.jump,
+              ["C-s"] = actions.jump_split,
+              ["C-v"] = actions.jump_vsplit,
+            },
+            preview = {
+              ["C-n"] = actions.next_location,
+              ["C-p"] = actions.previous_location,
+            },
+          },
+        }
+      end,
+    },
   },
   config = function()
     local lspconfig = require "lspconfig"
@@ -295,23 +319,13 @@ return {
           }
         end
 
-        local trouble = require "trouble"
-
-        vim.keymap.set("n", "gd", function()
-          trouble.toggle { mode = "lsp_definitions", focus = true }
-        end, opts "Go to Definition")
-        vim.keymap.set("n", "gv", "<C-w>v<C-]>", opts "Go to Definition")
-        vim.keymap.set("n", "grr", function()
-          require("fzf-lua").lsp_references()
-          -- trouble.toggle { mode = "lsp_references", focus = true }
-        end, opts "References")
+        vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts "Go to Definition")
+        vim.keymap.set("n", "grd", "<cmd>Glance definitions<cr>", opts "Definitions")
+        vim.keymap.set("n", "gv", "<C-w>v<C-]>", opts "Go to Definition (VSplit)")
+        vim.keymap.set("n", "grr", "<cmd>Glance references<cr>", opts "References")
         vim.keymap.set("n", "grn", vim.lsp.buf.rename, opts "Rename")
-        vim.keymap.set("n", "gi", function()
-          trouble.toggle { mode = "lsp_implementations", focus = true }
-        end, opts "Go to Implementation")
-        vim.keymap.set("n", "gt", function()
-          trouble.toggle { mode = "lsp_type_definitions", focus = true }
-        end, opts "Go to Type Definition")
+        vim.keymap.set("n", "grt", "<cmd>Glance type_definitions<cr>", opts "Type Definition")
+        vim.keymap.set("n", "gri", "<cmd>Glance implementations<cr>", opts "Implementations")
         vim.keymap.set({ "n", "v" }, "ga", vim.lsp.buf.code_action, opts "Code Action")
         vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts "Signature Help")
         vim.keymap.set("n", "K", vim.lsp.buf.hover, opts "Hover")
