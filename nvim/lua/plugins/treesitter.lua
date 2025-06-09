@@ -150,4 +150,26 @@ return {
       vim.keymap.set("n", "<leader>c", "<cmd>TailwindFoldToggle<cr>", { desc = "Tailwind Fold: Toggle" })
     end,
   },
+  {
+    "windwp/nvim-ts-autotag",
+    event = "InsertEnter",
+    config = function()
+      require("nvim-ts-autotag").setup {
+        opts = {
+          enable_close = true,
+          enable_rename = true,
+          enable_close_on_slash = true,
+        },
+      }
+    end,
+  },
+  {
+    "altermo/ultimate-autopair.nvim",
+    enabled = false,
+    branch = "v0.6",
+    opts = {
+      cmap = false,
+    },
+  },
+  { "RRethy/nvim-treesitter-endwise" },
 }
