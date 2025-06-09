@@ -46,6 +46,26 @@ return {
             end,
           },
         }
+
+        vim.api.nvim_create_autocmd("FileType", {
+          pattern = "Glance",
+          callback = function(args)
+            local function map(mode, key, action)
+              vim.keymap.set(mode, key, action, {
+                buffer = args.buf,
+                noremap = true,
+                nowait = true,
+                silent = true,
+              })
+            end
+
+            map("n", "<C-n>", actions.next_location)
+            map("n", "<C-p>", actions.previous_location)
+            map("n", "<C-y>", actions.jump)
+            map("n", "<C-s>", actions.jump_split)
+            map("n", "<C-v>", actions.jump_vsplit)
+          end,
+        })
       end,
     },
   },

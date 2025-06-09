@@ -9,9 +9,9 @@ return {
     vim.api.nvim_create_autocmd("FileType", {
       pattern = "*",
       callback = function(args)
-        local ft = vim.bo[args.buf].filetype
+        local bo = vim.bo[args.buf]
 
-        if vim.tbl_contains(disabled_filetypes, ft) then
+        if not bo.modifiable or bo.readonly or vim.tbl_contains(disabled_filetypes, bo.filetype) then
           return
         end
 
