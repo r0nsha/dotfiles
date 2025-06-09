@@ -30,7 +30,7 @@ function filter_dirs
     end
 end
 
-function t
+function tmux_select_dir
     if test (count $argv) -eq 1
         set selected $argv[1]
     else
@@ -64,7 +64,6 @@ function t
     end
 
     set -l name (basename $selected | tr . _)
-    # set -l tmux_running (pgrep tmux)
 
     if ! tmux has-session -t $name 2>/dev/null
         tmux new-session -ds $name -c $selected
@@ -77,6 +76,22 @@ function t
         tmux switch-client -t $name
     end
 end
+
+function tmux_select_session
+    if test (count $argv) -eq 1
+        set selected $argv[1]
+    else
+        set selected (tmux list-sessions -F "#{session_name}" | sk)
+    end
+
+    if test -n $selected
+        tmux switch-client -t $selected
+    end
+end
+
+alias t tmux_select_dir
+alias td tmux_select_dir
+alias ts tmux_select_session
 
 function y
     set tmp (mktemp -t "yazi-cwd.XXXXXX")

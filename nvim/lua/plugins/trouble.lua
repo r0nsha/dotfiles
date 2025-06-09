@@ -5,11 +5,7 @@ return {
 
     trouble.setup {
       auto_jump = true,
-      keys = {
-        ["c-n"] = "next",
-        ["c-p"] = "prev",
-        ["c-y"] = "jump",
-      },
+      follow = false,
     }
 
     vim.keymap.set("n", "<leader>xx", function()
