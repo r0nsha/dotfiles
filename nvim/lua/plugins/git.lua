@@ -3,42 +3,75 @@ local utils = require "utils"
 return {
   {
     "lewis6991/gitsigns.nvim",
-    lazy = true,
     config = function()
-      local gitsigns = require "gitsigns"
+      local gs = require "gitsigns"
+      vim.notify "gitsigns.nvim"
 
-      gitsigns.setup {
+      gs.setup {
+        signs = {
+          add = { text = "▎" },
+          change = { text = "▎" },
+          delete = { text = "▁" },
+          topdelete = { text = "▁" },
+          changedelete = { text = "▎" },
+          untracked = { text = "▎" },
+        },
+        signs_staged = {
+          add = { text = "▎" },
+          change = { text = "▎" },
+          delete = { text = "▁" },
+          topdelete = { text = "▁" },
+          changedelete = { text = "▎" },
+        },
         current_line_blame = not utils.repo_too_large(),
         on_attach = function(bufnr)
-          vim.keymap.set("n", "[h", function()
-            gitsigns.nav_hunk("prev", { preview = true })
-          end, { buffer = bufnr, desc = "Git: Previous Hunk" })
+          ---@param mode string
+          ---@param l string
+          ---@param r string|function
+          ---@param desc string
+          local function map(mode, l, r, desc)
+            vim.keymap.set(mode, l, r, { buffer = bufnr, desc = desc })
+          end
 
-          vim.keymap.set("n", "]h", function()
-            gitsigns.nav_hunk("next", { preview = true })
-          end, { buffer = bufnr, desc = "Git: Next Hunk" })
+          map("n", "[h", function()
+            if vim.wo.diff then
+              vim.cmd.normal { "[c", bang = true }
+            else
+              gs.nav_hunk("prev", { preview = true })
+            end
+          end, "Git: Previous Hunk")
 
-          vim.keymap.set(
-            "n",
-            "<leader>gp",
-            gitsigns.preview_hunk_inline,
-            { buffer = bufnr, desc = "Git: Preview Hunk" }
-          )
+          map("n", "]h", function()
+            if vim.wo.diff then
+              vim.cmd.normal { "]c", bang = true }
+            else
+              gs.nav_hunk("next", { preview = true })
+            end
+          end, "Git: Next Hunk")
 
-          vim.keymap.set("n", "<leader>gb", function()
-            gitsigns.blame()
-          end, { buffer = bufnr, desc = "Git: Blame Line (Full)" })
+          map("n", "[H", function()
+            gs.nav_hunk "first"
+          end, "First Hunk")
+          map("n", "]H", function()
+            gs.nav_hunk "last"
+          end, "Last Hunk")
 
-          vim.keymap.set("n", "<leader>gl", function()
-            gitsigns.blame_line { full = true }
-          end, { buffer = bufnr, desc = "Git: Blame Line (Full)" })
+          map("n", "<leader>gp", gs.preview_hunk_inline, "Git: Preview Hunk")
 
-          vim.keymap.set("n", "<leader>gw", function()
-            gitsigns.toggle_word_diff()
-          end, { buffer = bufnr, desc = "Git: Blame Line (Full)" })
+          map("n", "<leader>gb", function()
+            gs.blame()
+          end, "Git: Blame Line (Full)")
+
+          map("n", "<leader>gl", function()
+            gs.blame_line { full = true }
+          end, "Git: Blame Line (Full)")
+
+          map("n", "<leader>gw", function()
+            gs.toggle_word_diff()
+          end, "Git: Blame Line (Full)")
 
           if utils.repo_too_large() then
-            gitsigns.detach(bufnr)
+            gs.detach(bufnr)
           end
         end,
       }

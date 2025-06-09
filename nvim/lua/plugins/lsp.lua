@@ -296,32 +296,36 @@ return {
         end
 
         local trouble = require "trouble"
+
         vim.keymap.set("n", "gd", function()
-          trouble.toggle "lsp_definitions"
+          trouble.toggle { mode = "lsp_definitions", focus = true }
         end, opts "Go to Definition")
         vim.keymap.set("n", "gv", "<C-w>v<C-]>", opts "Go to Definition")
         vim.keymap.set("n", "grr", function()
-          trouble.toggle "lsp_references"
+          require("fzf-lua").lsp_references()
+          -- trouble.toggle { mode = "lsp_references", focus = true }
         end, opts "References")
         vim.keymap.set("n", "grn", vim.lsp.buf.rename, opts "Rename")
         vim.keymap.set("n", "gi", function()
-          trouble.toggle "lsp_implementations"
+          trouble.toggle { mode = "lsp_implementations", focus = true }
         end, opts "Go to Implementation")
         vim.keymap.set("n", "gt", function()
-          trouble.toggle "lsp_type_definitions"
+          trouble.toggle { mode = "lsp_type_definitions", focus = true }
         end, opts "Go to Type Definition")
         vim.keymap.set({ "n", "v" }, "ga", vim.lsp.buf.code_action, opts "Code Action")
         vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts "Signature Help")
         vim.keymap.set("n", "K", vim.lsp.buf.hover, opts "Hover")
         vim.keymap.set("n", "gh", function()
-          vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = buf }, { bufnr = buf })
+          local enable = not vim.lsp.inlay_hint.is_enabled { bufnr = buf }
+          vim.lsp.inlay_hint.enable(enable, { bufnr = buf })
+          vim.notify("Inlay hints " .. utils.bool_to_enabled(enable))
         end, opts "Toggle Inlay Hints")
 
         vim.keymap.set("n", "[d", function()
-          vim.diagnostic.goto_prev { float = false }
+          vim.diagnostic.jump { count = -1, float = false }
         end, opts "Previous Diagnostic")
         vim.keymap.set("n", "]d", function()
-          vim.diagnostic.goto_next { float = false }
+          vim.diagnostic.jump { count = 1, float = false }
         end, opts "Next Diagnostic")
       end,
     })
