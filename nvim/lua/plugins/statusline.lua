@@ -17,7 +17,8 @@ return {
       return {
         bg_inactive = hl_color("Normal", "bg"),
         bg_active = hl_color("StatusLine", "bg"),
-        fg = hl_color("Normal", "fg"),
+        fg_active = hl_color "Normal",
+        fg_inactive = hl_color "NonText",
         green = hl_color "String",
         blue = hl_color "Function",
         gray = hl_color "NonText",
@@ -32,6 +33,14 @@ return {
         git_add = hl_color "GitSignsAdd",
         git_change = hl_color "GitSignsChange",
       }
+    end
+
+    local function active_bg()
+      return conditions.is_active() and "bg_active" or "bg_inactive"
+    end
+
+    local function active_fg()
+      return conditions.is_active() and "fg_active" or "fg_inactive"
     end
 
     local Align = { provider = "%=" }
@@ -108,7 +117,6 @@ return {
         local mode = self.mode:sub(1, 1) -- get only the first mode character
         return { fg = self.mode_colors[mode], bold = false }
       end,
-      update = { "ModeChanged" },
     }
 
     local FileBlock = {
@@ -117,7 +125,7 @@ return {
         self.is_scratch_buffer = self.filename == ""
       end,
       hl = function()
-        local color = vim.bo.modified and "blue" or "fg"
+        local color = vim.bo.modified and "blue" or active_fg()
 
         if not vim.bo.modifiable or vim.bo.readonly then
           color = "gray"
@@ -158,7 +166,7 @@ return {
     local FileNameModifer = {
       hl = function()
         if vim.bo.modified then
-          return { fg = "fg", bold = true, force = true }
+          return { fg = active_fg(), bold = true, force = true }
         end
       end,
     }
@@ -169,7 +177,7 @@ return {
           return vim.bo.modified
         end,
         provider = " [+]",
-        hl = { fg = "fg", bold = true },
+        hl = { fg = active_fg(), bold = true },
       },
       {
         condition = function()
@@ -316,7 +324,7 @@ return {
         end,
       },
       hl = function(_)
-        return { fg = in_visual_mode() and "blue" or "fg" }
+        return { fg = in_visual_mode() and "blue" or active_fg() }
       end,
     }
 
@@ -347,8 +355,7 @@ return {
       Align,
       Right,
       hl = function()
-        local bg = conditions.is_active() and "bg_active" or "bg_inactive"
-        return { bg = bg, fg = "fg" }
+        return { bg = active_bg(), fg = active_fg() }
       end,
     }
 
