@@ -93,7 +93,7 @@ vim.opt.foldmethod = "manual"
 vim.opt.foldlevel = 999
 
 -- statusline
-vim.opt.laststatus = 3
+vim.opt.laststatus = 2
 vim.opt.showcmdloc = "statusline"
 
 -- don't pause when listings get too long

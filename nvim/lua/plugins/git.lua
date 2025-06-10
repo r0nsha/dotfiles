@@ -5,7 +5,6 @@ return {
     "lewis6991/gitsigns.nvim",
     config = function()
       local gs = require "gitsigns"
-      vim.notify "gitsigns.nvim"
 
       gs.setup {
         signs = {
