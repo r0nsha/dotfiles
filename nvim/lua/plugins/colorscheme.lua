@@ -1,62 +1,76 @@
-return {
-  "rebelot/kanagawa.nvim",
-  priority = 1000,
-  config = function()
-    local kanagawa = require "kanagawa"
+vim.api.nvim_create_autocmd("User", {
+  pattern = "LazyDone",
+  callback = function()
+    vim.cmd("colorscheme " .. require("utils").colorscheme)
+  end,
+})
 
-    kanagawa.setup {
-      compile = false,
-      undercurl = true,
-      commentStyle = { italic = false },
-      functionStyle = { italic = false },
-      keywordStyle = { italic = false },
-      statementStyle = { italic = false, bold = true },
-      typeStyle = { italic = false },
-      variablebuiltinStyle = { italic = false },
-      specialReturn = true,
-      specialException = true,
-      transparent = true,
-      dimInactive = false,
-      globalStatus = true,
-      terminalColors = true,
-      colors = {
-        theme = {
-          all = {
-            ui = {
-              bg_gutter = "none",
-              float = {
-                bg = "none",
+return {
+  {
+    "ficcdaf/ashen.nvim",
+    priority = 1000,
+    config = function()
+      require("ashen").setup {}
+    end,
+  },
+  {
+    "rebelot/kanagawa.nvim",
+    priority = 1000,
+    config = function()
+      local kanagawa = require "kanagawa"
+
+      kanagawa.setup {
+        compile = false,
+        undercurl = true,
+        commentStyle = { italic = false },
+        functionStyle = { italic = false },
+        keywordStyle = { italic = false },
+        statementStyle = { italic = false, bold = true },
+        typeStyle = { italic = false },
+        variablebuiltinStyle = { italic = false },
+        specialReturn = true,
+        specialException = true,
+        transparent = true,
+        dimInactive = false,
+        globalStatus = true,
+        terminalColors = true,
+        colors = {
+          theme = {
+            all = {
+              ui = {
+                bg_gutter = "none",
+                float = {
+                  bg = "none",
+                },
               },
             },
           },
         },
-      },
-      overrides = function(colors)
-        local theme = colors.theme
+        overrides = function(colors)
+          local theme = colors.theme
 
-        return {
-          -- show ~ at end of buffer
-          EndOfBuffer = { fg = theme.ui.special },
-          NonText = { fg = theme.ui.special },
+          return {
+            -- show ~ at end of buffer
+            EndOfBuffer = { fg = theme.ui.special },
+            NonText = { fg = theme.ui.special },
 
-          -- transparent floats
-          Pmenu = { fg = theme.ui.shade0, bg = theme.ui.bg },
-          PmenuSel = { fg = "none", bg = theme.ui.bg_p2 },
-          PmenuSbar = { bg = theme.ui.bg_m1 },
-          PmenuThumb = { bg = theme.ui.bg_p2 },
-          NormalFloat = { bg = "none" },
-          FloatBorder = { bg = "none" },
-          FloatTitle = { bg = "none" },
-          NormalDark = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m3 },
-        }
-      end,
-      theme = "dragon",
-      background = {
-        dark = "dragon",
-        light = "lotus",
-      },
-    }
-
-    kanagawa.load()
-  end,
+            -- transparent floats
+            Pmenu = { fg = theme.ui.shade0, bg = theme.ui.bg },
+            PmenuSel = { fg = "none", bg = theme.ui.bg_p2 },
+            PmenuSbar = { bg = theme.ui.bg_m1 },
+            PmenuThumb = { bg = theme.ui.bg_p2 },
+            NormalFloat = { bg = "none" },
+            FloatBorder = { bg = "none" },
+            FloatTitle = { bg = "none" },
+            NormalDark = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m3 },
+          }
+        end,
+        theme = "dragon",
+        background = {
+          dark = "dragon",
+          light = "lotus",
+        },
+      }
+    end,
+  },
 }
