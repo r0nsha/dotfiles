@@ -15,8 +15,9 @@ return {
       end
 
       return {
-        black = hl_color("NormalDark", "bg"),
-        white = hl_color("NormalDark", "fg"),
+        bg_inactive = hl_color("Normal", "bg"),
+        bg_active = hl_color("StatusLine", "bg"),
+        fg = hl_color("Normal", "fg"),
         green = hl_color "String",
         blue = hl_color "Function",
         gray = hl_color "NonText",
@@ -85,7 +86,7 @@ return {
           t = "TERM",
         },
         mode_colors = {
-          n = "white",
+          n = "fg",
           i = "green",
           v = "blue",
           V = "blue",
@@ -116,7 +117,7 @@ return {
         self.is_scratch_buffer = self.filename == ""
       end,
       hl = function()
-        local color = vim.bo.modified and "blue" or "white"
+        local color = vim.bo.modified and "blue" or "fg"
 
         if not vim.bo.modifiable or vim.bo.readonly then
           color = "gray"
@@ -157,7 +158,7 @@ return {
     local FileNameModifer = {
       hl = function()
         if vim.bo.modified then
-          return { fg = "white", bold = true, force = true }
+          return { fg = "fg", bold = true, force = true }
         end
       end,
     }
@@ -168,7 +169,7 @@ return {
           return vim.bo.modified
         end,
         provider = " [+]",
-        hl = { fg = "white", bold = true },
+        hl = { fg = "fg", bold = true },
       },
       {
         condition = function()
@@ -315,7 +316,7 @@ return {
         end,
       },
       hl = function(_)
-        return { fg = in_visual_mode() and "blue" or "white" }
+        return { fg = in_visual_mode() and "blue" or "fg" }
       end,
     }
 
@@ -345,7 +346,10 @@ return {
       Left,
       Align,
       Right,
-      hl = { bg = "black", fg = "white" },
+      hl = function()
+        local bg = conditions.is_active() and "bg_active" or "bg_inactive"
+        return { bg = bg, fg = "fg" }
+      end,
     }
 
     require("heirline").setup {
