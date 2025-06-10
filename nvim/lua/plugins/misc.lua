@@ -6,7 +6,6 @@ return {
       require("colorizer").setup()
     end,
   },
-  { "tpope/vim-sleuth", event = "VeryLazy" },
   {
     "RRethy/vim-illuminate",
     event = { "BufReadPost", "BufNewFile" },
