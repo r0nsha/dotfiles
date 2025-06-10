@@ -63,6 +63,7 @@ return {
             FloatBorder = { bg = "none" },
             FloatTitle = { bg = "none" },
             NormalDark = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m3 },
+            BlinkCmpMenuBorder = { link = "FloatBorder" },
           }
         end,
         theme = "dragon",
