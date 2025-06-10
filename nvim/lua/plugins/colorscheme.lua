@@ -19,7 +19,7 @@ return {
     lazy = false,
     priority = 1000,
     config = function()
-      local bg = "#000000"
+      local bg = "#0a0a0a"
 
       require("rose-pine").setup {
         highlight_groups = {
