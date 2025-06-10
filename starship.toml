@@ -23,7 +23,7 @@ read_only = " 󰌾"
 read_only_style = "yellow"
 
 [character]
-success_symbol = "[>](218)"
+success_symbol = "[>](green)"
 error_symbol = "[x](bold red)"
 vimcmd_symbol = "[:](yellow)"
 
@@ -33,7 +33,7 @@ format = "[$branch]($style)"
 style = "bright-black"
 
 [git_status]
-format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style)"
+format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](green) ($ahead_behind$stashed)]($style)"
 style = "cyan"
 conflicted = "​"
 untracked = "​"
