@@ -13,28 +13,46 @@
 [init]
 	defaultBranch = master
 
+[help]
+	autocorrect = prompt
+
 [commit]
+	verbose = true
 	; gpgSign = true # don't sign commits by default, it's annoying
 
-[push]
-	default = tracking
-	autoSetupRemote = true
+[fetch]
+	prune = true
+	pruneTags = true
+	all = true
 
 [pull]
 	; rebase = true
 
+[push]
+	default = simple
+	autoSetupRemote = true
+	followTags = true
+
 [rebase]
+	autoSquash = true
 	autoStash = true
+	updateRefs = true
+
+[rerere]
+	enabled = true
+	autoupdate = true
 
 [merge]
 	conflictstyle = zdiff3
 
 [diff]
-	colorMoved = default
+	colorMoved = true
+	algorithm = histogram
 	context = 3
-	renames = copies
 	interHunkContext = 10
 	ignoreSubmodules = dirty
+	mnemonicPrefix = true
+	renames = true
 
 [maintenance]
 	repo = /home/ron/dev/jin
@@ -43,7 +61,7 @@
 	compression = 9 # trade cpu for disk space & network speed
 	preloadindex = true
 	fsmonitor = true
-	untrackedcache = true
+	untrackedCache = true
 	editor = nvim
 	pager = delta
 	autocrlf = input
@@ -52,6 +70,15 @@
 
 [color]
 	ui = true
+
+[column]
+	ui = auto
+
+[branch]
+	sort = -committerdate
+
+[tag]
+	sort = version:refname
 
 [advice]
 	addEmptyPathspec = false
