@@ -370,10 +370,11 @@ return {
     local Right = {
       Pad(Diagnostics, 1),
       Lsp,
-      Space(1),
+      Space(3),
       Ruler,
       -- Space(1),
       -- Time,
+      Space(2),
     }
 
     local disable_for = {
