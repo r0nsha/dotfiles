@@ -6,7 +6,6 @@ return {
       require("colorizer").setup()
     end,
   },
-  { "romainl/vim-cool", event = "VeryLazy" },
   { "tpope/vim-sleuth", event = "VeryLazy" },
   {
     "RRethy/vim-illuminate",
