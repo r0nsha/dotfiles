@@ -101,6 +101,11 @@ return {
       }
 
       vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Neogit" })
+
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "Neogit*",
+        command = "set colorcolumn=",
+      })
     end,
     dependencies = { "sindrets/diffview.nvim" },
   },

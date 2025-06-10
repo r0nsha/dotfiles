@@ -20,10 +20,19 @@ return {
     priority = 1000,
     config = function()
       require("rose-pine").setup {
-        -- highlight_groups = {
-        --   Normal = { bg = "#0a0a0a" },
-        --   NormalNC = { bg = "#0a0a0a" },
-        -- },
+        highlight_groups = {
+          Normal = { bg = "#000000" },
+          NormalNC = { bg = "#000000" },
+          NormalFloat = { bg = "none" },
+          FloatBorder = { bg = "none" },
+          FloatTitle = { bg = "none" },
+          Pmenu = { bg = "none" },
+          BlinkCmpMenu = { link = "NormalFloat" },
+          BlinkCmpMenuBorder = { link = "FloatBorder" },
+          BlinkCmpMenuSelection = { link = "CursorLine" },
+          TroubleNormal = { link = "Normal" },
+          TroubleNormalNC = { link = "NormalNC" },
+        },
       }
     end,
   },
