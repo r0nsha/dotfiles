@@ -5,14 +5,14 @@ if [ "$MACHINE" = "linux" ]; then
 	gtk_themes=$HOME/.local/share/themes
 	gtk_icons=$HOME/.local/share/icons
 
+	mkdir -p $gtk_themes $gtk_icons
+
 	running "installing GTK theme..."
-	mkdir -p $gtk_themes
 	# sudo bash -c "$DOTFILES/gtk/Kanagawa-GTK-Theme/themes/install.sh --dest $gtk_themes --name Kanagawa --theme yellow --size compact --tweaks dragon black float"
 	sudo bash -c "$DOTFILES/gtk/Rose-Pine-GTK-Theme/themes/install.sh --dest $gtk_themes --name Rose-Pine --theme default --size standard --tweaks black"
 	success "installed GTK theme"
 
 	running "installing GTK icons..."
-	mkdir -p $gtk_icons
 	cp -r $DOTFILES/gtk/Rose-Pine-GTK-Theme/icons/* $gtk_icons/.
 	success "installed GTK icons"
 
