@@ -1,12 +1,12 @@
 source $HOME/.env.fish
 
+source $DOTFILES/fish/fisher.fish
+
 source $DOTFILES/fish/functions.fish
 source $DOTFILES/fish/aliases.fish
 source $DOTFILES/fish/vars.fish
-source $DOTFILES/fish/kanagawa-dragon-theme.fish
 source $DOTFILES/fish/macos.fish
-
-source $DOTFILES/fish/fisher.fish
+fish_config theme choose "Rosé Pine"
 
 # Vi mode
 fish_vi_key_bindings
