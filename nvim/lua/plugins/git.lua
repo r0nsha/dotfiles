@@ -94,9 +94,6 @@ return {
       require("neogit").setup {
         graph_style = "kitty",
         kind = "auto",
-        commit_editor = {
-          kind = "floating",
-        },
         integrations = { diffview = true, fzf_lua = true },
         disable_insert_on_commit = false,
         disable_commit_confirmation = false,
