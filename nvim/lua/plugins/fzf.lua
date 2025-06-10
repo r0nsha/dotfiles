@@ -4,6 +4,7 @@ return {
   dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()
     local fzf = require "fzf-lua"
+    local actions = require("fzf-lua").actions
 
     fzf.setup {
       winopts = {
@@ -12,13 +13,35 @@ return {
           border = "single",
         },
       },
-      keymaps = {
-        fzf = {
-          ["ctrl-y"] = "accept",
-          ["ctrl-u"] = "preview-page-up",
-          ["ctrl-d"] = "preview-page-down",
-          ["ctrl-q"] = "select-all+accept(enter)",
+      keymap = {
+        builtin = {
+          true,
+          ["C-y"] = "accept",
+          ["<C-d>"] = "preview-page-down",
+          ["<C-u>"] = "preview-page-up",
         },
+        fzf = {
+          true,
+          ["ctrl-y"] = "accept",
+          ["ctrl-d"] = "preview-page-down",
+          ["ctrl-u"] = "preview-page-up",
+          ["ctrl-q"] = "select-all+accept",
+          -- ["ctrl-q"] = require("trouble.sources.fzf").actions.open_all,
+        },
+      },
+      actions = {
+        files = {
+          ["enter"] = actions.file_edit_or_qf,
+          ["ctrl-y"] = actions.file_edit_or_qf,
+          ["ctrl-x"] = actions.file_split,
+          ["ctrl-v"] = actions.file_vsplit,
+          ["ctrl-t"] = actions.file_tabedit,
+          -- ["ctrl-q"] = actions.file_sel_to_qf,
+        },
+      },
+      buffers = {
+        keymap = { builtin = { ["<C-d>"] = false } },
+        actions = { ["ctrl-x"] = false, ["ctrl-d"] = { actions.buf_del, actions.resume } },
       },
       oldfiles = {
         include_current_session = true,

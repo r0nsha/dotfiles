@@ -17,6 +17,7 @@ return {
     end, { desc = "Trouble: Diagnostics" })
 
     vim.keymap.set("n", "<leader>q", function()
+      vim.cmd [[cclose]]
       trouble.toggle "qflist"
     end, { desc = "Trouble: Quickfix" })
 
@@ -46,5 +47,17 @@ return {
     vim.keymap.set("n", "]]", next, { desc = "Trouble/Quickfix: Next" })
     vim.keymap.set("n", "[q", prev, { desc = "Trouble/Quickfix: Previous" })
     vim.keymap.set("n", "]q", next, { desc = "Trouble/Quickfix: Next" })
+
+    -- Open trouble automatically when opening quickfix
+    vim.api.nvim_create_autocmd("BufRead", {
+      callback = function(ev)
+        if vim.bo[ev.buf].buftype == "quickfix" then
+          vim.schedule(function()
+            vim.cmd [[cclose]]
+            vim.cmd [[Trouble qflist open]]
+          end)
+        end
+      end,
+    })
   end,
 }
