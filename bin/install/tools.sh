@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 running "installing tools..."
 source $DOTFILES/bin/install/tools/shared.sh
 case "$MACHINE" in

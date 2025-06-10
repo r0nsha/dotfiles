@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 install_fonts() {
 	case "$MACHINE" in
 	linux) local fonts=$HOME/.local/share/fonts ;;

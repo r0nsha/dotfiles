@@ -3,7 +3,6 @@
 # install.sh installs my things.
 
 cat $DOTFILES/bin/pepe.txt
-exit
 
 set -e
 

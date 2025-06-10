@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 running "doing git things..."
 chmod ug+x $DOTFILES/hooks/*
 git submodule init

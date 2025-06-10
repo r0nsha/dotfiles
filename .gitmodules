@@ -4,3 +4,6 @@
 [submodule "wallpapers"]
 	path = wallpapers
 	url = https://github.com/r0nsha/wallpapers.git
+[submodule "gtk/Rose-Pine-GTK-Theme"]
+	path = gtk/Rose-Pine-GTK-Theme
+	url = https://github.com/Fausto-Korpsvart/Rose-Pine-GTK-Theme

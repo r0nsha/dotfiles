@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 running "stowing dotfiles..."
 cd $DOTFILES
 stow .

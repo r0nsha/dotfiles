@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 running "creating env file..."
 env_file="$HOME/.env.fish"
 if test -f "$env_file"; then

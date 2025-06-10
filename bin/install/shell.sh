@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 running "setting default shell to fish..."
 fish_bin=$(command -v fish)
 
