@@ -43,6 +43,14 @@ return {
       return conditions.is_active() and "fg_active" or "fg_inactive"
     end
 
+    local function update_on(events)
+      return vim.tbl_extend(
+        "force",
+        events,
+        { "WinEnter", "BufWinEnter", "WinLeave", "BufWinLeave", "FocusGained", "FocusLost" }
+      )
+    end
+
     local Align = { provider = "%=" }
 
     local Space = function(n)
@@ -115,8 +123,10 @@ return {
       end,
       hl = function(self)
         local mode = self.mode:sub(1, 1) -- get only the first mode character
-        return { fg = self.mode_colors[mode], bold = false }
+        local fg = conditions.is_active() and self.mode_colors[mode] or "fg_inactive"
+        return { fg = fg, bold = false }
       end,
+      update = update_on { "ModeChanged" },
     }
 
     local FileBlock = {
@@ -177,14 +187,18 @@ return {
           return vim.bo.modified
         end,
         provider = " [+]",
-        hl = { fg = active_fg(), bold = true },
+        hl = function()
+          return { fg = active_fg(), bold = true }
+        end,
       },
       {
         condition = function()
           return not vim.bo.modifiable or vim.bo.readonly
         end,
         provider = " ",
-        hl = { fg = "gray" },
+        hl = function()
+          return { fg = "gray" }
+        end,
       },
     }
 
@@ -205,7 +219,9 @@ return {
           or nonzero(self.status_dict.changed)
       end,
 
-      hl = { fg = "gray" },
+      hl = function()
+        return { fg = "gray" }
+      end,
 
       {
         provider = function(self)
@@ -224,21 +240,27 @@ return {
             local count = self.status_dict.added or 0
             return count > 0 and ("+" .. count)
           end,
-          hl = { fg = "git_add" },
+          hl = function()
+            return { fg = "git_add" }
+          end,
         },
         {
           provider = function(self)
             local count = self.status_dict.removed or 0
             return count > 0 and ("-" .. count)
           end,
-          hl = { fg = "git_del" },
+          hl = function()
+            return { fg = "git_del" }
+          end,
         },
         {
           provider = function(self)
             local count = self.status_dict.changed or 0
             return count > 0 and ("~" .. count)
           end,
-          hl = { fg = "git_change" },
+          hl = function()
+            return { fg = "git_change" }
+          end,
         },
         { provider = ")" },
       },
@@ -253,7 +275,9 @@ return {
           local icon = icons[type]
           return count > 0 and (icon .. " " .. count .. " ")
         end,
-        hl = { fg = "diag_" .. type },
+        hl = function()
+          return { fg = "diag_" .. type }
+        end,
       }
     end
 
@@ -267,7 +291,7 @@ return {
         self.infos = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
       end,
 
-      update = { "DiagnosticChanged", "BufEnter" },
+      update = update_on { "DiagnosticChanged", "BufEnter" },
 
       diagnostic_provider "error",
       diagnostic_provider "warning",
@@ -277,7 +301,7 @@ return {
 
     local Lsp = {
       condition = conditions.lsp_attached,
-      update = { "LspAttach", "LspDetach" },
+      update = update_on { "LspAttach", "LspDetach" },
 
       provider = function()
         local names = {}
@@ -300,7 +324,9 @@ return {
 
         return "[" .. table.concat(display_names, ", ") .. "]"
       end,
-      hl = { fg = "gray" },
+      hl = function()
+        return { fg = "gray" }
+      end,
     }
 
     local function in_visual_mode()
