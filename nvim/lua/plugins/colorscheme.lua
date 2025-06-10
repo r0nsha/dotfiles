@@ -35,6 +35,7 @@ return {
           BlinkCmpMenuSelection = { link = "CursorLine" },
           TroubleNormal = { link = "Normal" },
           TroubleNormalNC = { link = "NormalNC" },
+          FzfLuaBorder = { bg = "none" },
         },
       }
     end,
