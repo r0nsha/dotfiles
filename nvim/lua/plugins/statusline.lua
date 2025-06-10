@@ -179,31 +179,8 @@ return {
       },
     }
 
-    local FileType = {
-      provider = function(self)
-        local ft = vim.bo.filetype
-        if ft == "" then
-          return ""
-        end
-
-        local ext = self.filename:match "%.([^.]+)$"
-        if ext == ft or self.is_scratch_buffer then
-          return ""
-        end
-
-        return string.format(" (%s)", ft)
-      end,
-      hl = { fg = utils.get_highlight("NonText").fg, bold = false },
-    }
-
-    FileBlock = utils.insert(
-      FileBlock,
-      FileIcon,
-      utils.insert(FileNameModifer, FileName),
-      FileFlags,
-      FileType,
-      { provider = "%<" }
-    )
+    FileBlock =
+      utils.insert(FileBlock, FileIcon, utils.insert(FileNameModifer, FileName), FileFlags, { provider = "%<" })
 
     local function nonzero(n)
       return n ~= nil and n ~= 0

@@ -8,6 +8,7 @@ vim.api.nvim_create_autocmd("User", {
 return {
   {
     "ficcdaf/ashen.nvim",
+    lazy = false,
     priority = 1000,
     config = function()
       require("ashen").setup {}
@@ -15,6 +16,7 @@ return {
   },
   {
     "rebelot/kanagawa.nvim",
+    lazy = false,
     priority = 1000,
     config = function()
       local kanagawa = require "kanagawa"
