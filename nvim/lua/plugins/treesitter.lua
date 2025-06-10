@@ -161,13 +161,12 @@ return {
       }
     end,
   },
-  {
-    "altermo/ultimate-autopair.nvim",
-    enabled = false,
-    branch = "v0.6",
-    opts = {
-      cmap = false,
-    },
-  },
   { "RRethy/nvim-treesitter-endwise" },
+  -- {
+  --   "altermo/ultimate-autopair.nvim",
+  --   branch = "v0.6",
+  --   opts = {
+  --     cmap = false,
+  --   },
+  -- },
 }

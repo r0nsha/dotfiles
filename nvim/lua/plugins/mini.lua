@@ -6,6 +6,7 @@ return {
     require "plugins/mini/basics"
     require "plugins/mini/bufremove"
     require "plugins/mini/cursorword"
+    require "plugins/mini/jump"
     require "plugins/mini/pairs"
   end,
 }
