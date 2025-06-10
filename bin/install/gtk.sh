@@ -9,7 +9,7 @@ if [ "$MACHINE" = "linux" ]; then
 
 	running "installing GTK theme..."
 	# sudo bash -c "$DOTFILES/gtk/Kanagawa-GTK-Theme/themes/install.sh --dest $gtk_themes --name Kanagawa --theme yellow --size compact --tweaks dragon black float"
-	sudo bash -c "$DOTFILES/gtk/Rose-Pine-GTK-Theme/themes/install.sh --dest $gtk_themes --name Rose-Pine --theme default --size compact --tweaks black float"
+	sudo bash -c "$DOTFILES/gtk/Rose-Pine-GTK-Theme/themes/install.sh --dest $gtk_themes --name Rose-Pine --theme default --size compact --tweaks black"
 	success "installed GTK theme"
 
 	running "installing GTK icons..."
