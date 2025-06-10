@@ -9,9 +9,9 @@ return {
       { "skim" },
       winopts = {
         border = "single",
-        -- preview = {
-        --   border = "single",
-        -- },
+        preview = {
+          border = "single",
+        },
       },
       keymaps = {
         fzf = {
