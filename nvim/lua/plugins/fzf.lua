@@ -6,7 +6,6 @@ return {
     local fzf = require "fzf-lua"
 
     fzf.setup {
-      { "skim" },
       winopts = {
         border = "single",
         preview = {
@@ -15,12 +14,26 @@ return {
       },
       keymaps = {
         fzf = {
+          ["ctrl-y"] = "accept",
           ["ctrl-u"] = "preview-page-up",
           ["ctrl-d"] = "preview-page-down",
-          ["ctrl-q"] = "select-all+accept",
+          ["ctrl-q"] = "select-all+accept(enter)",
         },
       },
+      oldfiles = {
+        include_current_session = true,
+      },
+      previewers = {
+        syntax_limit_b = 1024 * 100, -- 100kb
+      },
+      grep = {
+        rg_glob = true,
+        glob_flag = "--iglob",
+        glob_separator = "%s%-%-",
+      },
     }
+
+    fzf.register_ui_select()
 
     ---@param desc string
     local function opts(desc)
@@ -86,7 +99,7 @@ return {
     end, "Buffers")
 
     keymap("n", "s", function()
-      fzf.live_grep()
+      fzf.live_grep_resume()
     end, "Live grep")
 
     keymap("v", "s", function()
