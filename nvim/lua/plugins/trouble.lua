@@ -17,7 +17,7 @@ return {
     end, { desc = "Trouble: Diagnostics" })
 
     vim.keymap.set("n", "<leader>q", function()
-      trouble.toggle "quickfix"
+      trouble.toggle "qflist"
     end, { desc = "Trouble: Quickfix" })
 
     local function prev()
