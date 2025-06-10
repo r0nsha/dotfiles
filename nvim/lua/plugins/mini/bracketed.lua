@@ -1,4 +1,4 @@
-local br = require "mini.bufremove"
+local br = require "mini.bracketed"
 
 br.setup()
 
