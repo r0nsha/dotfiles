@@ -22,6 +22,7 @@ return {
       local bg = "#0a0a0a"
 
       require("rose-pine").setup {
+        transparent = true,
         highlight_groups = {
           Normal = { bg = bg },
           NormalNC = { bg = bg },
