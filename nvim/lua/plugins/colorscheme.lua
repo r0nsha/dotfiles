@@ -19,10 +19,12 @@ return {
     lazy = false,
     priority = 1000,
     config = function()
+      local bg = "#000000"
+
       require("rose-pine").setup {
         highlight_groups = {
-          Normal = { bg = "#000000" },
-          NormalNC = { bg = "#000000" },
+          Normal = { bg = bg },
+          NormalNC = { bg = bg },
           NormalFloat = { bg = "none" },
           FloatBorder = { bg = "none" },
           FloatTitle = { bg = "none" },

@@ -22,6 +22,6 @@ if [ "$MACHINE" = "linux" ]; then
 	running "downloading GTK cursor from $cursor_url..."
 	wget -nv -O $cursor_tar $cursor_url
 	running "installing $cursor_tar in $gtk_icons..."
-	tar -xvf $cursor_tar -C $gtk_icons
+	tar -xf $cursor_tar -C $gtk_icons
 	success "installed GTK cursor"
 fi
