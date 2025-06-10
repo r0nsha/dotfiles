@@ -145,7 +145,7 @@ return {
         min_chars = 30,
         symbol = "…",
       }
-      vim.keymap.set("n", "<leader>c", "<cmd>TailwindFoldToggle<cr>", { desc = "Tailwind Fold: Toggle" })
+      vim.keymap.set("n", "<leader>cn", "<cmd>TailwindFoldToggle<cr>", { desc = "Tailwind Fold: Toggle" })
     end,
   },
   {

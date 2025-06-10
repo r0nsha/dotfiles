@@ -81,7 +81,7 @@ vim.keymap.set("n", "grn", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]
 vim.keymap.set("v", "grn", [["vy:%s/<C-r>v/<C-r>v/gI<Left><Left><Left>]], { desc = "Rename" })
 
 -- Toggle conceal
-vim.keymap.set("n", "<leader>c", function()
+vim.keymap.set("n", "<leader>cl", function()
   if vim.wo.conceallevel == 0 then
     vim.wo.conceallevel = 2
   else
