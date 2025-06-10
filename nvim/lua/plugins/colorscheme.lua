@@ -15,6 +15,38 @@ return {
     end,
   },
   {
+    "rose-pine/neovim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require("rose-pine").setup {
+        -- highlight_groups = {
+        --   Normal = { bg = "#0a0a0a" },
+        --   NormalNC = { bg = "#0a0a0a" },
+        -- },
+      }
+    end,
+  },
+  {
+    "miikanissi/modus-themes.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require("modus-themes").setup {
+        sign_column_background = false,
+        on_highlights = function(highlights, colors)
+          highlights.NormalFloat = { bg = "none" }
+          highlights.FloatBorder = { bg = "none" }
+          highlights.FloatTitle = { bg = "none" }
+          highlights.Pmenu = { bg = "none" }
+          highlights.BlinkCmpMenu = { link = "NormalFloat" }
+          highlights.BlinkCmpMenuBorder = { link = "FloatBorder" }
+          highlights.BlinkCmpMenuSelection = { link = "CursorLine" }
+        end,
+      }
+    end,
+  },
+  {
     "rebelot/kanagawa.nvim",
     lazy = false,
     priority = 1000,

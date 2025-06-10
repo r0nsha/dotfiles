@@ -376,7 +376,16 @@ return {
       -- Time,
     }
 
+    local disable_for = {
+      filetype = { "dashboard", "Neogit*", "trouble", "Glance" },
+    }
+
+    local function is_statusline_disabled()
+      return not conditions.buffer_matches(disable_for)
+    end
+
     local statusline = {
+      condition = is_statusline_disabled,
       Left,
       Align,
       Right,

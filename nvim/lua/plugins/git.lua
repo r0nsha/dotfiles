@@ -89,16 +89,21 @@ return {
   },
   {
     "NeogitOrg/neogit",
-    keys = {
-      { "<leader>gg", "<cmd>Neogit kind=auto<cr>", desc = "Git: Open Neogit" },
-    },
+    event = "VeryLazy",
     config = function()
       require("neogit").setup {
-        integrations = { diffview = true },
+        graph_style = "kitty",
+        kind = "auto",
+        commit_editor = {
+          kind = "floating",
+        },
+        integrations = { diffview = true, fzf_lua = true },
         disable_insert_on_commit = false,
         disable_commit_confirmation = false,
         disable_builtin_notifications = false,
       }
+
+      vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Neogit" })
     end,
     dependencies = { "sindrets/diffview.nvim" },
   },
