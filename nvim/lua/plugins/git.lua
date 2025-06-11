@@ -57,17 +57,17 @@ return {
 
           map("n", "<leader>gp", gs.preview_hunk_inline, "Git: Preview Hunk")
 
-          map("n", "<leader>gb", function()
+          map("n", "<leader>gbl", function()
             gs.blame()
-          end, "Git: Blame Line (Full)")
+          end, "Git: Blame Line")
 
-          map("n", "<leader>gl", function()
+          map("n", "<leader>gbf", function()
             gs.blame_line { full = true }
           end, "Git: Blame Line (Full)")
 
-          map("n", "<leader>gw", function()
+          map("n", "<leader>gdw", function()
             gs.toggle_word_diff()
-          end, "Git: Blame Line (Full)")
+          end, "Git: Toggle Word Diff")
 
           if utils.repo_too_large() then
             gs.detach(bufnr)
