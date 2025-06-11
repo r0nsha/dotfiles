@@ -45,7 +45,7 @@ return {
 
     local function update_on(events)
       return vim.tbl_extend(
-        "force",
+        "keep",
         events,
         { "WinEnter", "BufWinEnter", "WinLeave", "BufWinLeave", "FocusGained", "FocusLost" }
       )
