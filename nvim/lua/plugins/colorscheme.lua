@@ -73,6 +73,8 @@ return {
           highlights.BlinkCmpMenu = { link = "NormalFloat" }
           highlights.BlinkCmpMenuBorder = { link = "FloatBorder" }
           highlights.BlinkCmpMenuSelection = { link = "CursorLine" }
+          highlights.MiniCursorword = { bg = "none", underline = true }
+          highlights.MiniCursorwordCurrent = { bg = "none", underline = true }
         end,
       }
     end,
