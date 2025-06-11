@@ -59,27 +59,6 @@ return {
     end,
   },
   {
-    "miikanissi/modus-themes.nvim",
-    lazy = false,
-    priority = 1000,
-    config = function()
-      require("modus-themes").setup {
-        sign_column_background = false,
-        on_highlights = function(highlights, colors)
-          highlights.NormalFloat = { bg = "none" }
-          highlights.FloatBorder = { bg = "none" }
-          highlights.FloatTitle = { bg = "none" }
-          highlights.Pmenu = { bg = "none" }
-          highlights.BlinkCmpMenu = { link = "NormalFloat" }
-          highlights.BlinkCmpMenuBorder = { link = "FloatBorder" }
-          highlights.BlinkCmpMenuSelection = { link = "CursorLine" }
-          highlights.MiniCursorword = { bg = "none", underline = true }
-          highlights.MiniCursorwordCurrent = { bg = "none", underline = true }
-        end,
-      }
-    end,
-  },
-  {
     "rebelot/kanagawa.nvim",
     lazy = false,
     priority = 1000,
