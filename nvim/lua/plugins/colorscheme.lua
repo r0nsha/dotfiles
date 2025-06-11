@@ -23,6 +23,11 @@ return {
 
       require("rose-pine").setup {
         transparent = false,
+        styles = {
+          bold = true,
+          italic = false,
+          transparency = false,
+        },
         highlight_groups = {
           Normal = { bg = bg },
           NormalNC = { bg = bg },
