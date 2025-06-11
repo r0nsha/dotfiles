@@ -33,10 +33,24 @@ return {
           vim.ui.open(url)
         end,
       },
+      scratch = {
+        win = {
+          border = "single",
+          relative = "editor",
+        },
+      },
     }
 
     vim.keymap.set("n", "<leader>gu", function()
       snacks.gitbrowse()
     end, { desc = "Git: Browse" })
+
+    vim.keymap.set("n", "<leader>.", function()
+      snacks.scratch()
+    end, { desc = "Toggle Scratch Buffer" })
+
+    vim.keymap.set("n", "<leader>,", function()
+      snacks.scratch.select()
+    end, { desc = "Select Scratch Buffer" })
   end,
 }
