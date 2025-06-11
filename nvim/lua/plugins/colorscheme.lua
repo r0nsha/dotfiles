@@ -15,6 +15,36 @@ return {
     end,
   },
   {
+    "aktersnurra/no-clown-fiesta.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require("no-clown-fiesta").setup {
+        styles = {
+          lsp = { undercurl = true },
+          match_paren = { bold = true },
+        },
+      }
+    end,
+  },
+  {
+    "craftzdog/solarized-osaka.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require("solarized-osaka").setup {
+        transparent = false,
+        styles = {
+          comments = { italic = false },
+          keywords = { italic = false },
+          sidebars = "dark",
+          floats = "dark",
+        },
+        dim_inactive = true,
+      }
+    end,
+  },
+  {
     "rose-pine/neovim",
     lazy = false,
     priority = 1000,
