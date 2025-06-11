@@ -28,23 +28,6 @@ return {
     end,
   },
   {
-    "craftzdog/solarized-osaka.nvim",
-    lazy = false,
-    priority = 1000,
-    config = function()
-      require("solarized-osaka").setup {
-        transparent = false,
-        styles = {
-          comments = { italic = false },
-          keywords = { italic = false },
-          sidebars = "dark",
-          floats = "dark",
-        },
-        dim_inactive = true,
-      }
-    end,
-  },
-  {
     "rose-pine/neovim",
     lazy = false,
     priority = 1000,
