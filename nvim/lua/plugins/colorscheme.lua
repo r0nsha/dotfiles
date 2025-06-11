@@ -7,14 +7,6 @@ vim.api.nvim_create_autocmd("User", {
 
 return {
   {
-    "ficcdaf/ashen.nvim",
-    lazy = false,
-    priority = 1000,
-    config = function()
-      require("ashen").setup {}
-    end,
-  },
-  {
     "aktersnurra/no-clown-fiesta.nvim",
     lazy = false,
     priority = 1000,
