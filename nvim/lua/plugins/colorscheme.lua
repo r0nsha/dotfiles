@@ -46,6 +46,7 @@ return {
           TroubleNormal = { link = "Normal" },
           TroubleNormalNC = { link = "NormalNC" },
           FzfLuaBorder = { bg = "none" },
+          WhichKeyBorder = { link = "FloatBorder" },
         },
       }
     end,
