@@ -4,6 +4,11 @@ return {
     local snacks = require "snacks"
 
     snacks.setup {
+      -- indent = {
+      --   animate = {
+      --     enabled = false,
+      --   },
+      -- },
       gitbrowse = {
         what = "commit",
         -- override the default open function to copy the url to the clipboard
