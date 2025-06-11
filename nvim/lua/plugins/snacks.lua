@@ -9,6 +9,16 @@ return {
       --     enabled = false,
       --   },
       -- },
+      input = {
+        icon = ">",
+        win = {
+          border = "single",
+          relative = "cursor",
+          row = -3,
+          col = -4,
+          title_pos = "left",
+        },
+      },
       gitbrowse = {
         what = "commit",
         -- override the default open function to copy the url to the clipboard
