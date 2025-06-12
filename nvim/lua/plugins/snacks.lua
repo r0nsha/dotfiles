@@ -8,6 +8,29 @@ return {
       commit = "/commit/{commit}",
     }
 
+    ---@type snacks.layout.Box
+    local lsp_ivy = {
+      layout = {
+        box = "vertical",
+        backdrop = false,
+        row = 1,
+        width = 0,
+        height = 0.4,
+        border = "top",
+        title = " {title} {live} {flags}",
+        title_pos = "left",
+        position = "float",
+        relative = "cursor",
+        { win = "input", height = 1, border = "bottom" },
+        {
+          box = "horizontal",
+          { win = "list", border = "none" },
+          { win = "preview", title = "{preview}", width = 0.6, border = "left" },
+          border = "bottom",
+        },
+      },
+    }
+
     require("snacks").setup {
       gitbrowse = {
         -- override the default open function to copy the url to the clipboard
@@ -97,7 +120,8 @@ return {
             ["<C-f>"] = { "list_scroll_down", mode = { "i", "n" } },
             ["<C-u>"] = { "preview_scroll_up", mode = { "i", "n" } },
             ["<C-d>"] = { "preview_scroll_down", mode = { "i", "n" } },
-            ["<C-l>"] = { "toggle_live", mode = { "n", "i" } },
+            -- ["<C-g>"] = false,
+            -- ["<C-l>"] = { "toggle_live", mode = { "n", "i" } },
           },
         },
       },
@@ -112,11 +136,11 @@ return {
     end
 
     map("n", "<leader><leader>", function()
-      Snacks.picker.resume()
-    end, "Resume Last Picker")
+      Snacks.picker.smart(picker_opts)
+    end, "Find Files (Smart)")
 
     map("n", "<leader>sf", function()
-      Snacks.picker.smart(picker_opts)
+      Snacks.picker.files(picker_opts)
     end, "Find Files")
 
     map("n", "<leader>sF", function()
@@ -152,8 +176,8 @@ return {
     end, "Highlights")
 
     map("n", "<leader>sr", function()
-      Snacks.picker.recent(picker_opts)
-    end, "Recent Files")
+      Snacks.picker.resume()
+    end, "Resume Last Picker")
 
     map("n", "<leader>so", function()
       Snacks.picker.recent(picker_opts)
@@ -178,5 +202,12 @@ return {
     map("n", "<leader>si", function()
       Snacks.picker.icons(picker_opts)
     end, "Search Icons")
+
+    vim.keymap.set("n", "<leader>z", function()
+      vim.api.nvim_feedkeys("zz", "n", true)
+      Snacks.picker.lsp_references {
+        layout = lsp_ivy,
+      }
+    end, { desc = "Toggle Scratch Buffer" })
   end,
 }

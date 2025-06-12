@@ -88,10 +88,6 @@ vim.opt.timeoutlen = 1000
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 
--- fold
-vim.opt.foldmethod = "manual"
-vim.opt.foldlevel = 999
-
 -- statusline
 vim.opt.laststatus = 2
 vim.opt.showcmdloc = "statusline"
