@@ -111,9 +111,9 @@ return {
       })
     end
 
-    -- map("n", "<leader><leader>", function()
-    --   Snacks.picker.resume()
-    -- end, "Resume Last Picker")
+    map("n", "<leader><leader>", function()
+      Snacks.picker.resume()
+    end, "Resume Last Picker")
 
     map("n", "<leader>sf", function()
       Snacks.picker.smart(picker_opts)
