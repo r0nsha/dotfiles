@@ -115,12 +115,11 @@ return {
         input = {
           keys = {
             ["<C-y>"] = { "confirm", mode = { "n", "i" } },
-            ["<C-g>"] = { "yank", mode = { "n", "i" } },
             ["<C-b>"] = { "list_scroll_up", mode = { "i", "n" } },
             ["<C-f>"] = { "list_scroll_down", mode = { "i", "n" } },
             ["<C-u>"] = { "preview_scroll_up", mode = { "i", "n" } },
             ["<C-d>"] = { "preview_scroll_down", mode = { "i", "n" } },
-            -- ["<C-g>"] = false,
+            ["<C-g>"] = { "yank", mode = { "n", "i" } },
             -- ["<C-l>"] = { "toggle_live", mode = { "n", "i" } },
           },
         },

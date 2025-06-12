@@ -353,8 +353,8 @@ return {
         end
 
         vim.keymap.set("n", "gd", "<cmd>Glance definitions<cr>", opts "Go to Definition")
-        vim.keymap.set("n", "grd", "<cmd>Glance definitions<cr>", opts "Definitions")
         vim.keymap.set("n", "gv", "<C-w>v<C-]>", opts "Go to Definition (VSplit)")
+        vim.keymap.set("n", "grd", vim.lsp.buf.declaration, opts "Declaration")
         vim.keymap.set("n", "grr", "<cmd>Glance references<cr>", opts "References")
         vim.keymap.set("n", "grn", vim.lsp.buf.rename, opts "Rename")
         vim.keymap.set("n", "gt", "<cmd>Glance type_definitions<cr>", opts "Type Definition")
