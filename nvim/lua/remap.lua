@@ -14,7 +14,9 @@ vim.keymap.set("n", "<c-g>", function()
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-g>", true, true, true), "n", true)
   local file = vim.fn.expand "%"
   local line = vim.fn.line "."
-  vim.fn.setreg("+", string.format("%s:%d", file, line))
+  local ref = string.format("%s:%d", file, line)
+  vim.fn.setreg("+", ref)
+  vim.fn.setreg('"', ref)
   vim.notify "Copied line reference to clipboard"
 end, { remap = false, desc = "Copy line reference to clipboard" })
 

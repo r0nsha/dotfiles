@@ -94,7 +94,7 @@ return {
       require("neogit").setup {
         graph_style = "kitty",
         kind = "auto",
-        integrations = { diffview = true, fzf_lua = true },
+        integrations = { diffview = true, snacks = true },
         disable_insert_on_commit = false,
         disable_commit_confirmation = false,
         disable_builtin_notifications = false,
@@ -166,7 +166,7 @@ return {
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
       require("octo").setup {
-        picker = "fzf-lua",
+        picker = "snacks",
         mappings = {
           review_diff = {
             select_next_entry = { lhs = "<C-n>", desc = "move to next changed file" },

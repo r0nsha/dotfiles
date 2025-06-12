@@ -14,7 +14,11 @@ return {
 
     vim.keymap.set("n", "<leader>xX", function()
       trouble.toggle { mode = "diagnostics", filter = { buf = 0 } }
-    end, { desc = "Trouble: Diagnostics" })
+    end, { desc = "Trouble: Diagnostics (Current Buffer)" })
+
+    vim.keymap.set("n", "<leader>xt", function()
+      trouble.toggle "todo"
+    end, { desc = "Trouble: Todos" })
 
     vim.keymap.set("n", "<leader>q", function()
       vim.cmd [[cclose]]

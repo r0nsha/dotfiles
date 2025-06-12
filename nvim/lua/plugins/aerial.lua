@@ -3,6 +3,12 @@ return {
   config = function()
     local aerial = require "aerial"
     aerial.setup {
+      layout = {
+        min_width = 30,
+        default_direction = "left",
+        -- placement = "edge",
+      },
+      -- attach_mode = "global",
       disable_max_lines = 30000,
     }
 
@@ -11,7 +17,7 @@ return {
       if aerial.is_open() then
         aerial.prev()
       else
-        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("{", true, true, true), "n", true)
+        vim.api.nvim_feedkeys("{", "n", true)
       end
     end, { remap = false })
 
@@ -19,7 +25,7 @@ return {
       if aerial.is_open() then
         aerial.next()
       else
-        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("}", true, true, true), "n", true)
+        vim.api.nvim_feedkeys("}", "n", true)
       end
     end, { remap = false })
   end,
