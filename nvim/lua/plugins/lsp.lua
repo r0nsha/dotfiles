@@ -11,63 +11,6 @@ return {
     "stevearc/conform.nvim",
     "saghen/blink.cmp",
     "b0o/schemastore.nvim",
-    {
-      "DNLHC/glance.nvim",
-      config = function()
-        local glance = require "glance"
-        local actions = glance.actions
-
-        glance.setup {
-          border = { enable = true },
-          list = {
-            position = "left",
-            width = 0.33,
-          },
-          mappings = {
-            list = {
-              ["C-n"] = actions.next_location,
-              ["C-p"] = actions.previous_location,
-              ["C-y"] = actions.jump,
-              ["C-s"] = actions.jump_split,
-              ["C-v"] = actions.jump_vsplit,
-            },
-            preview = {
-              ["C-n"] = actions.next_location,
-              ["C-p"] = actions.previous_location,
-            },
-          },
-          hooks = {
-            before_open = function(results, open, jump, method)
-              if #results == 1 then
-                jump(results[1])
-              else
-                open(results)
-              end
-            end,
-          },
-        }
-
-        vim.api.nvim_create_autocmd("FileType", {
-          pattern = "Glance",
-          callback = function(args)
-            local function map(mode, key, action)
-              vim.keymap.set(mode, key, action, {
-                buffer = args.buf,
-                noremap = true,
-                nowait = true,
-                silent = true,
-              })
-            end
-
-            map("n", "<C-n>", actions.next_location)
-            map("n", "<C-p>", actions.previous_location)
-            map("n", "<C-y>", actions.jump)
-            map("n", "<C-s>", actions.jump_split)
-            map("n", "<C-v>", actions.jump_vsplit)
-          end,
-        })
-      end,
-    },
   },
   config = function()
     local lspconfig = require "lspconfig"
@@ -352,15 +295,64 @@ return {
           }
         end
 
-        vim.keymap.set("n", "gd", "<cmd>Glance definitions<cr>", opts "Go to Definition")
+        -- keymaps
+
+        ---@type snacks.layout.Box
+        local picker_layout = {
+          layout = {
+            box = "vertical",
+            backdrop = false,
+            row = 1,
+            width = 0,
+            height = 0.4,
+            border = "top",
+            title = " {title} {live} {flags}",
+            title_pos = "left",
+            position = "float",
+            relative = "cursor",
+            { win = "input", height = 1, border = "bottom" },
+            {
+              box = "horizontal",
+              { win = "list", border = "none" },
+              { win = "preview", title = "{preview}", width = 0.6, border = "left" },
+              border = "bottom",
+            },
+          },
+        }
+
+        ---@type snacks.picker.Config
+        local picker_opts = vim.tbl_deep_extend("force", require("plugins.snacks").picker_opts, {
+          layout = picker_layout,
+        })
+
+        vim.keymap.set("n", "gd", function()
+          vim.api.nvim_feedkeys("zz", "n", true)
+          Snacks.picker.lsp_definitions(picker_opts)
+        end, opts "Go to Definition")
+
         vim.keymap.set("n", "gv", "<C-w>v<C-]>", opts "Go to Definition (VSplit)")
-        vim.keymap.set("n", "grd", vim.lsp.buf.declaration, opts "Declaration")
-        vim.keymap.set("n", "grr", "<cmd>Glance references<cr>", opts "References")
+
+        vim.keymap.set("n", "grd", function()
+          vim.api.nvim_feedkeys("zz", "n", true)
+          Snacks.picker.lsp_declarations(picker_opts)
+        end, opts "Declarations")
+
+        vim.keymap.set("n", "grr", function()
+          vim.api.nvim_feedkeys("zz", "n", true)
+          Snacks.picker.lsp_references(picker_opts)
+        end, opts "References")
+
+        vim.keymap.set("n", "grt", function()
+          vim.api.nvim_feedkeys("zz", "n", true)
+          Snacks.picker.lsp_type_definitions(picker_opts)
+        end, opts "Type Definitions")
+
+        vim.keymap.set("n", "gri", function()
+          vim.api.nvim_feedkeys("zz", "n", true)
+          Snacks.picker.lsp_implementations(picker_opts)
+        end, opts "Implementations")
+
         vim.keymap.set("n", "grn", vim.lsp.buf.rename, opts "Rename")
-        vim.keymap.set("n", "gt", "<cmd>Glance type_definitions<cr>", opts "Type Definition")
-        vim.keymap.set("n", "grt", "<cmd>Glance type_definitions<cr>", opts "Type Definition")
-        vim.keymap.set("n", "gi", "<cmd>Glance implementations<cr>", opts "Implementations")
-        vim.keymap.set("n", "gri", "<cmd>Glance implementations<cr>", opts "Implementations")
         vim.keymap.set({ "n", "v" }, "gra", vim.lsp.buf.code_action, opts "Code Action")
         vim.keymap.set({ "n", "v" }, "ga", vim.lsp.buf.code_action, opts "Code Action")
         vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts "Signature Help")

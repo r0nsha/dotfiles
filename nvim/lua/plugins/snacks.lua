@@ -1,4 +1,23 @@
-return {
+---@type snacks.picker.Config
+local picker_opts = {
+  pattern = "",
+  search = "",
+  win = {
+    input = {
+      keys = {
+        ["<C-y>"] = { "confirm", mode = { "n", "i" } },
+        ["<C-b>"] = { "list_scroll_up", mode = { "i", "n" } },
+        ["<C-f>"] = { "list_scroll_down", mode = { "i", "n" } },
+        ["<C-u>"] = { "preview_scroll_up", mode = { "i", "n" } },
+        ["<C-d>"] = { "preview_scroll_down", mode = { "i", "n" } },
+        ["<C-g>"] = { "yank", mode = { "n", "i" } },
+        -- ["<C-l>"] = { "toggle_live", mode = { "n", "i" } },
+      },
+    },
+  },
+}
+
+local M = {
   "folke/snacks.nvim",
   config = function()
     local github_url_patterns = {
@@ -107,25 +126,6 @@ return {
 
     -- picker
 
-    ---@type snacks.picker.Config
-    local picker_opts = {
-      pattern = "",
-      search = "",
-      win = {
-        input = {
-          keys = {
-            ["<C-y>"] = { "confirm", mode = { "n", "i" } },
-            ["<C-b>"] = { "list_scroll_up", mode = { "i", "n" } },
-            ["<C-f>"] = { "list_scroll_down", mode = { "i", "n" } },
-            ["<C-u>"] = { "preview_scroll_up", mode = { "i", "n" } },
-            ["<C-d>"] = { "preview_scroll_down", mode = { "i", "n" } },
-            ["<C-g>"] = { "yank", mode = { "n", "i" } },
-            -- ["<C-l>"] = { "toggle_live", mode = { "n", "i" } },
-          },
-        },
-      },
-    }
-
     local function map(mode, lhs, rhs, desc)
       vim.keymap.set(mode, lhs, rhs, {
         silent = false,
@@ -201,12 +201,9 @@ return {
     map("n", "<leader>si", function()
       Snacks.picker.icons(picker_opts)
     end, "Search Icons")
-
-    vim.keymap.set("n", "<leader>z", function()
-      vim.api.nvim_feedkeys("zz", "n", true)
-      Snacks.picker.lsp_references {
-        layout = lsp_ivy,
-      }
-    end, { desc = "Toggle Scratch Buffer" })
   end,
 }
+
+M.picker_opts = picker_opts
+
+return M
