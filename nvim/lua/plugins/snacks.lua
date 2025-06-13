@@ -141,6 +141,13 @@ local M = {
     {
       "<leader>sf",
       function()
+        Snacks.picker.files()
+      end,
+      desc = "Find Files",
+    },
+    {
+      "<leader>sm",
+      function()
         Snacks.picker.smart()
       end,
       desc = "Find Files (Smart)",
