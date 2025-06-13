@@ -1,7 +1,10 @@
 return {
   "rebelot/heirline.nvim",
-  dependencies = { "rebelot/kanagawa.nvim" },
+  dependencies = { "Zeioth/heirline-components.nvim" },
   config = function()
+    local heirline_components = require "heirline-components.all"
+    heirline_components.init.subscribe_to_events()
+
     local conditions = require "heirline.conditions"
     local utils = require "heirline.utils"
     local icons = require("utils").icons
@@ -385,7 +388,11 @@ return {
       return not conditions.buffer_matches(disable_for)
     end
 
-    local statusline = {
+    local opts = {
+      opts = { colors = setup_colors },
+    }
+
+    opts.statusline = {
       condition = is_statusline_disabled,
       Left,
       Align,
@@ -395,10 +402,13 @@ return {
       end,
     }
 
-    require("heirline").setup {
-      statusline = statusline,
-      opts = { colors = setup_colors },
+    opts.statuscolumn = {
+      heirline_components.component.signcolumn(),
+      heirline_components.component.foldcolumn(),
+      heirline_components.component.numbercolumn(),
     }
+
+    require("heirline").setup(opts)
 
     vim.api.nvim_create_augroup("Heirline", { clear = true })
     vim.api.nvim_create_autocmd({ "ColorScheme", "BufWinEnter" }, {

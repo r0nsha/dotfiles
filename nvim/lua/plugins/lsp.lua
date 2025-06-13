@@ -259,6 +259,10 @@ return {
             snippetSupport = true,
           },
         },
+        foldingRange = {
+          dynamicRegistration = false,
+          lineFoldingOnly = true,
+        },
       },
     }
 

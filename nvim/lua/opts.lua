@@ -101,6 +101,12 @@ vim.filetype.add { extension = { ll = "llvm" } }
 -- win
 vim.opt.winborder = "single"
 
+-- folds
+vim.opt.foldcolumn = "1"
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+vim.opt.foldenable = true
+
 -- windows specific options
 if utils.is_windows() then
   vim.opt.shell = vim.fn.executable "powershell" and "powershell" or "pwsh"
