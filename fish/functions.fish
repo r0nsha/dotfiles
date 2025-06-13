@@ -101,3 +101,10 @@ function y
     end
     rm -f -- "$tmp"
 end
+
+function show_colors
+    for COLOR in (seq 0 255)
+        printf "\e[38;5;%sm%s \e[0m" $COLOR $COLOR
+    end
+    echo
+end
