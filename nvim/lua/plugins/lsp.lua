@@ -321,9 +321,9 @@ return {
         }
 
         ---@type snacks.picker.Config
-        local picker_opts = vim.tbl_deep_extend("force", require("plugins.snacks").picker_opts, {
+        local picker_opts = {
           layout = picker_layout,
-        })
+        }
 
         vim.keymap.set("n", "gd", function()
           vim.api.nvim_feedkeys("zz", "n", true)
