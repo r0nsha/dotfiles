@@ -134,16 +134,16 @@ local M = {
     {
       "<leader><leader>",
       function()
-        Snacks.picker.smart()
+        Snacks.picker.resume()
       end,
-      desc = "Find Files (Smart)",
+      desc = "Resume Last Picker",
     },
     {
       "<leader>sf",
       function()
-        Snacks.picker.files()
+        Snacks.picker.smart()
       end,
-      desc = "Find Files",
+      desc = "Find Files (Smart)",
     },
     {
       "<leader>sF",
@@ -202,13 +202,6 @@ local M = {
         Snacks.picker.highlights()
       end,
       desc = "Highlights",
-    },
-    {
-      "<leader>sr",
-      function()
-        Snacks.picker.resume()
-      end,
-      desc = "Resume Last Picker",
     },
     {
       "<leader>so",
