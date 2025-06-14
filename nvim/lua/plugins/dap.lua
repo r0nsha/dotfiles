@@ -258,8 +258,6 @@ return {
         group = vim.api.nvim_create_augroup("DapHydra", { clear = true }),
         pattern = "LazyDone",
         callback = function()
-          local cursor_hl = vim.api.nvim_get_hl(0, { name = "Cursor" })
-
           Hydra {
             name = "DBG",
             mode = { "n", "x", "v" },
@@ -274,11 +272,11 @@ return {
               },
               on_enter = function()
                 local hydra_pink = vim.api.nvim_get_hl(0, { name = "HydraPink" }).fg
-                vim.api.nvim_set_hl(0, "Cursor", { bg = hydra_pink, fg = cursor_hl.fg })
+                vim.api.nvim_set_hl(0, "Cursor", { bg = hydra_pink })
                 vim.api.nvim_exec_autocmds("User", { pattern = "HydraEnter" })
               end,
               on_exit = function()
-                vim.api.nvim_set_hl(0, "Cursor", cursor_hl)
+                vim.api.nvim_set_hl(0, "Cursor", { bg = "none" })
                 vim.api.nvim_exec_autocmds("User", { pattern = "HydraExit" })
               end,
             },

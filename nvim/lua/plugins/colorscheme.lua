@@ -39,6 +39,7 @@ return {
           transparency = false,
         },
         highlight_groups = {
+          Cursor = { bg = "none" },
           Normal = { bg = bg },
           NormalNC = { bg = bg },
           NormalFloat = { bg = "none" },
