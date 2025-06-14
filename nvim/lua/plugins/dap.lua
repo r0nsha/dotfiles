@@ -3,11 +3,13 @@ return {
     "mfussenegger/nvim-dap",
     event = "VeryLazy",
     dependencies = {
-      "nvim-neotest/nvim-nio",
-      "jbyuki/one-small-step-for-vimkind",
       "Weissle/persistent-breakpoints.nvim",
-      "leoluz/nvim-dap-go",
       "igorlfs/nvim-dap-view",
+      "nvim-neotest/nvim-nio",
+
+      -- Adapters
+      "jbyuki/one-small-step-for-vimkind",
+      "leoluz/nvim-dap-go",
     },
     config = function()
       local utils = require "utils"
