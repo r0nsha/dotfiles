@@ -20,6 +20,7 @@ return {
       dapui.setup {}
 
       local persistent_breakpoints = require "persistent-breakpoints"
+      local persistent_breakpoints_api = require "persistent-breakpoints.api"
       persistent_breakpoints.setup {
         load_breakpoints_event = { "BufReadPost" },
       }
@@ -162,12 +163,14 @@ return {
       vim.keymap.set("n", key "h", dap.step_out, opts "Step out")
       vim.keymap.set("n", key "l", dap.step_into, opts "Step into")
 
-      vim.keymap.set("n", key "p", dap.pause.toggle, opts "Pause")
+      vim.keymap.set("n", key "p", function()
+        dap.pause.toggle()
+      end, opts "Pause")
 
-      vim.keymap.set("n", key "t", persistent_breakpoints.toggle_breakpoint, opts "Toggle breakpoint")
-      vim.keymap.set("n", key "T", persistent_breakpoints.set_conditional_breakpoint, opts "Conditional breakpoint")
-      vim.keymap.set("n", key "C", persistent_breakpoints.clear_all_breakpoints, opts "Clear all breakpoints")
-      vim.keymap.set("n", key "L", persistent_breakpoints.set_log_point, opts "Set log point")
+      vim.keymap.set("n", key "t", persistent_breakpoints_api.toggle_breakpoint, opts "Toggle breakpoint")
+      vim.keymap.set("n", key "T", persistent_breakpoints_api.set_conditional_breakpoint, opts "Conditional breakpoint")
+      vim.keymap.set("n", key "C", persistent_breakpoints_api.clear_all_breakpoints, opts "Clear all breakpoints")
+      vim.keymap.set("n", key "L", persistent_breakpoints_api.set_log_point, opts "Set log point")
       -- vim.keymap.set("n", key "t", dap.toggle_breakpoint, opts "Toggle breakpoint")
       -- vim.keymap.set("n", key "T", function()
       --   dap.set_breakpoint(vim.fn.input "[Condition] > ")
