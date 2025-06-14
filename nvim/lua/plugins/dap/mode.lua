@@ -19,23 +19,19 @@ local hint = [[
  _K_   Step back       ^_dx_ Set exception breakpoints
  _L_   Step in         ^_dX_ Clear exception breakpoints
  _H_   Step out        ^
- _r_   Run to cursor ^UI
- ^
- ^UI
- ^_gu_ Toggle UI
- ^_gw_ Watches
- ^_gs_ Scopes
- ^_gx_ Exceptions
- ^_gb_ Breakpoints
- ^_gT_ Threads
- ^_gR_ REPL
- ^_gC_ Console
- ^
- ^
-
-_<leader>w_ Watch
-_<leader>W_ Add
- _?_/_g?_ Help           ^_<Esc>_ Close this window      ^
+ _r_   Run to cursor   ^
+                      ^
+ UI                   ^
+ _gu_ Toggle UI       ^_<leader>w_ Watch expression
+ _gw_ Watches         ^_<leader>W_ Add watch
+ _gs_ Scopes          ^
+ _gx_ Exceptions      ^
+ _gb_ Breakpoints     ^
+ _gT_ Threads         ^
+ _gR_ REPL            ^
+ _gC_ Console         ^
+                      ^
+ _?_/_g?_ Help           ^_<Esc>_ Close this window
  ^
  _q_/_<C-c>_ Terminate   ^_d_ Disconnect
 ]]
@@ -62,7 +58,7 @@ hydra = Hydra {
     hint = {
       position = "middle-right",
       float_opts = { border = "single" },
-      -- hide_on_load = true,
+      hide_on_load = true,
     },
     on_enter = function()
       local hydra_pink = vim.api.nvim_get_hl(0, { name = "HydraPink" }).fg
