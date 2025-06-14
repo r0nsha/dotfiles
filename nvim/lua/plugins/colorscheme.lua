@@ -1,4 +1,5 @@
 vim.api.nvim_create_autocmd("User", {
+  group = vim.api.nvim_create_augroup("CustomColorscheme", { clear = true }),
   pattern = "LazyDone",
   callback = function()
     vim.cmd("colorscheme " .. require("utils").colorscheme)

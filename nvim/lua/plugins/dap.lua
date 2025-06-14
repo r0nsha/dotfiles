@@ -4,7 +4,26 @@ return {
     event = "VeryLazy",
     dependencies = {
       "Weissle/persistent-breakpoints.nvim",
-      "igorlfs/nvim-dap-view",
+      {
+        "igorlfs/nvim-dap-view",
+        opts = {
+          winbar = {
+            controls = {
+              enabled = true,
+              position = "right",
+            },
+          },
+          windows = {
+            height = 12,
+            position = "below",
+            terminal = {
+              position = "right",
+              width = 0.5,
+              start_hidden = true,
+            },
+          },
+        },
+      },
       "nvim-neotest/nvim-nio",
 
       -- Adapters
@@ -14,11 +33,8 @@ return {
     config = function()
       local utils = require "utils"
 
-      local dap = require "dap"
+      local dap, dv = require "dap", require "dap-view"
       dap.set_log_level "INFO"
-
-      local dv = require "dap-view"
-      dv.setup {}
 
       dap.listeners.before.attach["dap-view-config"] = dv.open
       dap.listeners.before.launch["dap-view-config"] = dv.open
@@ -137,7 +153,6 @@ return {
       }
 
       -- Keymaps
-
       local function key(k)
         return "<leader>d" .. k
       end
@@ -155,16 +170,14 @@ return {
         dap.close()
       end, opts "Disconnect")
 
-      vim.keymap.set("n", key "u", dv.toggle, opts "Toggle UI")
       vim.keymap.set("n", key "g", dap.session, opts "Get session")
-
-      vim.keymap.set("n", key "R", dap.run_to_cursor, opts "Run to cursor")
 
       vim.keymap.set("n", key "c", dap.continue, opts "Continue")
       vim.keymap.set("n", key "k", dap.step_back, opts "Step back")
       vim.keymap.set("n", key "j", dap.step_over, opts "Step over")
       vim.keymap.set("n", key "h", dap.step_out, opts "Step out")
       vim.keymap.set("n", key "l", dap.step_into, opts "Step into")
+      vim.keymap.set("n", key "r", dap.run_to_cursor, opts "Run to cursor")
 
       vim.keymap.set("n", key "p", function()
         dap.pause.toggle()
@@ -188,7 +201,7 @@ return {
         persistent_breakpoints_api.breakpoints_changed_in_current_buffer()
       end, opts "Clear exception breakpoints")
 
-      vim.keymap.set("n", key "r", dap.repl.toggle, opts "Toggle Repl")
+      -- vim.keymap.set("n", key "R", dap.repl.toggle, opts "Toggle Repl")
 
       vim.keymap.set("n", key "K", function()
         require("dap.ui.widgets").hover()
@@ -199,11 +212,28 @@ return {
       end, opts "Scopes")
 
       vim.keymap.set({ "n", "v" }, key "w", dv.add_expr, opts "Watch Expression")
-      vim.keymap.set({ "n", "v" }, key "W", function()
+      vim.keymap.set("n", key "e", function()
         dv.add_expr(vim.fn.input "[Expression] > ")
       end, opts "Watch Expression (Input)")
 
       vim.keymap.set("n", key "q", dap.terminate, opts "Terminate")
+
+      ---@param view dapview.SectionType
+      local function jump_to_view(view)
+        return function()
+          dv.open()
+          dv.jump_to_view(view)
+        end
+      end
+
+      vim.keymap.set("n", key "U", dv.toggle, opts "Toggle UI")
+      vim.keymap.set("n", key "W", jump_to_view "watches", opts "Jump to Watches")
+      vim.keymap.set("n", key "S", jump_to_view "scopes", opts "Jump to Scopes")
+      vim.keymap.set("n", key "E", jump_to_view "exceptions", opts "Jump to Exceptions")
+      vim.keymap.set("n", key "B", jump_to_view "breakpoints", opts "Jump to Breakpoints")
+      vim.keymap.set("n", key "T", jump_to_view "threads", opts "Jump to Threads")
+      vim.keymap.set("n", key "R", jump_to_view "repl", opts "Jump to REPL")
+      vim.keymap.set("n", key "C", jump_to_view "console", opts "Jump to Console")
 
       vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticError" })
       vim.fn.sign_define("DapBreakpointCondition", { text = "", texthl = "DiagnosticWarn" })
@@ -214,7 +244,9 @@ return {
   },
   {
     "theHamsta/nvim-dap-virtual-text",
-    opts = {},
+    opts = {
+      virt_text_pos = "eol",
+    },
     config = true,
   },
 }

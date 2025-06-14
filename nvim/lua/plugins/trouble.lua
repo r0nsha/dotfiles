@@ -54,6 +54,7 @@ return {
 
     -- Open trouble automatically when opening quickfix
     vim.api.nvim_create_autocmd("BufRead", {
+      group = vim.api.nvim_create_augroup("CustomTroubleOverrideQuickfix", { clear = true }),
       callback = function(ev)
         if vim.bo[ev.buf].buftype == "quickfix" then
           vim.schedule(function()

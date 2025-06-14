@@ -410,12 +410,11 @@ return {
 
     require("heirline").setup(opts)
 
-    vim.api.nvim_create_augroup("Heirline", { clear = true })
     vim.api.nvim_create_autocmd({ "ColorScheme", "BufWinEnter" }, {
+      group = vim.api.nvim_create_augroup("Heirline", { clear = true }),
       callback = function()
         utils.on_colorscheme(setup_colors)
       end,
-      group = "Heirline",
     })
   end,
 }

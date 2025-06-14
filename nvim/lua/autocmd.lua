@@ -2,19 +2,18 @@
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost", {
+  group = vim.api.nvim_create_augroup("YankHighlight", { clear = true }),
+  pattern = "*",
   callback = function()
     vim.highlight.on_yank {
       higroup = "IncSearch",
       timeout = 40,
     }
   end,
-  group = highlight_group,
-  pattern = "*",
 })
 
-local gitconfig_group = vim.api.nvim_create_augroup("GitConfig", { clear = true })
 vim.api.nvim_create_autocmd("BufEnter", {
-  group = gitconfig_group,
+  group = vim.api.nvim_create_augroup("CustomGitConfig", { clear = true }),
   pattern = "*/git/config",
   callback = function()
     vim.cmd "set ft=gitconfig"
@@ -22,9 +21,8 @@ vim.api.nvim_create_autocmd("BufEnter", {
 })
 
 -- Reload kitty.conf when it's modified
-local kitty_group = vim.api.nvim_create_augroup("KittyConfig", { clear = true })
 vim.api.nvim_create_autocmd("BufWritePost", {
-  group = kitty_group,
+  group = vim.api.nvim_create_augroup("CustomKittyConfig", { clear = true }),
   pattern = "*/kitty/kitty.conf",
   callback = function()
     local Job = require "plenary.job"
@@ -51,9 +49,8 @@ vim.api.nvim_create_autocmd("BufWritePost", {
   end,
 })
 
-local bufenter_group = vim.api.nvim_create_augroup("CustomBufEnter", { clear = true })
 vim.api.nvim_create_autocmd("BufWinEnter", {
-  group = bufenter_group,
+  group = vim.api.nvim_create_augroup("CustomBufEnter", { clear = true }),
   pattern = "*",
   callback = function()
     -- Don't have `o` add a comment
@@ -62,7 +59,7 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 })
 
 vim.api.nvim_create_autocmd("CursorMoved", {
-  group = vim.api.nvim_create_augroup("auto-hlsearch", { clear = true }),
+  group = vim.api.nvim_create_augroup("CustomNoHlsearch", { clear = true }),
   callback = function()
     if vim.v.hlsearch == 1 and vim.fn.searchcount().exact_match == 0 then
       vim.schedule(function()

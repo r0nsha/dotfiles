@@ -7,6 +7,7 @@ return {
     local disabled_filetypes = { "Glance", "trouble" }
 
     vim.api.nvim_create_autocmd("FileType", {
+      group = vim.api.nvim_create_augroup("CustomMulticursor", { clear = true }),
       pattern = "*",
       callback = function(args)
         local bo = vim.bo[args.buf]

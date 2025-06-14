@@ -63,6 +63,7 @@ vim.keymap.set("n", "N", "Nzzzv")
 
 -- Stay in visual mode when indenting
 vim.api.nvim_create_autocmd("Filetype", {
+  group = vim.api.nvim_create_augroup("CustomFiletype", { clear = true }),
   pattern = "*",
   callback = function()
     if vim.bo.filetype == "norg" then
