@@ -167,14 +167,23 @@ return {
         dap.pause.toggle()
       end, opts "Pause")
 
-      vim.keymap.set("n", key "t", persistent_breakpoints_api.toggle_breakpoint, opts "Toggle breakpoint")
-      vim.keymap.set("n", key "T", persistent_breakpoints_api.set_conditional_breakpoint, opts "Conditional breakpoint")
-      vim.keymap.set("n", key "C", persistent_breakpoints_api.clear_all_breakpoints, opts "Clear all breakpoints")
-      vim.keymap.set("n", key "L", persistent_breakpoints_api.set_log_point, opts "Set log point")
-      -- vim.keymap.set("n", key "t", dap.toggle_breakpoint, opts "Toggle breakpoint")
-      -- vim.keymap.set("n", key "T", function()
-      --   dap.set_breakpoint(vim.fn.input "[Condition] > ")
-      -- end, opts "Conditional breakpoint")
+      vim.keymap.set("n", key "bb", persistent_breakpoints_api.toggle_breakpoint, opts "Toggle breakpoint")
+      vim.keymap.set(
+        "n",
+        key "bc",
+        persistent_breakpoints_api.set_conditional_breakpoint,
+        opts "Set conditional breakpoint"
+      )
+      vim.keymap.set("n", key "bD", persistent_breakpoints_api.clear_all_breakpoints, opts "Clear all breakpoints")
+      vim.keymap.set("n", key "bl", persistent_breakpoints_api.set_log_point, opts "Log point")
+      vim.keymap.set("n", key "bx", function()
+        dap.set_exception_breakpoints()
+        persistent_breakpoints_api.breakpoints_changed_in_current_buffer()
+      end, opts "Set exception breakpoints")
+      vim.keymap.set("n", key "bX", function()
+        dap.set_exception_breakpoints {}
+        persistent_breakpoints_api.breakpoints_changed_in_current_buffer()
+      end, opts "Clear exception breakpoints")
 
       vim.keymap.set("n", key "r", dap.repl.toggle, opts "Toggle Repl")
 
