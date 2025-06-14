@@ -10,6 +10,7 @@ return {
       "rcarriga/nvim-dap-ui",
       "jbyuki/one-small-step-for-vimkind",
       "Weissle/persistent-breakpoints.nvim",
+      "leoluz/nvim-dap-go",
     },
     config = function()
       local dap = require "dap"
@@ -138,6 +139,10 @@ return {
         },
       }
 
+      require("dap-go").setup {}
+
+      -- Keymaps
+
       local function key(k)
         return "<leader>d" .. k
       end
@@ -203,28 +208,16 @@ return {
       vim.keymap.set("n", key "x", dap.terminate, opts "Terminate")
       vim.keymap.set("n", key "q", dap.close, opts "Quit")
 
-      ---@param name string
-      ---@return vim.api.keyset.get_hl_info
-      local function hl_color(name)
-        return vim.api.nvim_get_hl(0, { name = name, link = false })
-      end
+      vim.api.nvim_set_hl(0, "DapStoppedLine", {
+        fg = vim.api.nvim_get_hl(0, { name = "Normal" }).bg,
+        bg = vim.api.nvim_get_hl(0, { name = "Error" }).fg,
+      })
 
       vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticError" })
       vim.fn.sign_define("DapBreakpointCondition", { text = "", texthl = "DiagnosticWarn" })
       vim.fn.sign_define("DapBreakpointRejected", { text = "", texthl = "DiagnosticWarn" })
       vim.fn.sign_define("DapLogPoint", { text = "", texthl = "DiagnosticInfo" })
-      vim.fn.sign_define("DapStopped", {
-        text = "",
-        texthl = "DiagnosticError",
-        linehl = "DiagnosticVirtualTextError",
-      })
-    end,
-  },
-  {
-    "leoluz/nvim-dap-go",
-    ft = "go",
-    config = function()
-      require("dap-go").setup {}
+      vim.fn.sign_define("DapStopped", { text = "", texthl = "DiagnosticError", linehl = "DapStoppedLine" })
     end,
   },
 }
