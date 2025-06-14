@@ -30,15 +30,15 @@ return {
         },
       }
 
+      dap.listeners.after.event_initialized["dapui_config"] = dapui.open
+      dap.listeners.before.event_terminated["dapui_config"] = dapui.close
+      dap.listeners.before.event_exited["dapui_config"] = dapui.close
+
       local persistent_breakpoints = require "persistent-breakpoints"
       local persistent_breakpoints_api = require "persistent-breakpoints.api"
       persistent_breakpoints.setup {
         load_breakpoints_event = { "BufReadPost" },
       }
-
-      dap.listeners.after.event_initialized["dapui_config"] = dapui.open
-      dap.listeners.before.event_terminated["dapui_config"] = dapui.close
-      dap.listeners.before.event_exited["dapui_config"] = dapui.close
 
       -- Adapters
 
@@ -159,7 +159,10 @@ return {
       end
 
       vim.keymap.set("n", key "s", dap.continue, opts "Start")
-      vim.keymap.set("n", key "d", dap.disconnect, opts "Disconnect")
+      vim.keymap.set("n", key "d", function()
+        dap.disconnect()
+        dap.close()
+      end, opts "Disconnect")
 
       vim.keymap.set("n", key "U", dapui.toggle, opts "Toggle UI")
       vim.keymap.set("n", key "g", dap.session, opts "Get session")
@@ -209,8 +212,7 @@ return {
         dapui.eval(vim.fn.input "[Expression] > ")
       end, opts "Evaluate input")
 
-      vim.keymap.set("n", key "x", dap.terminate, opts "Terminate")
-      vim.keymap.set("n", key "q", dap.close, opts "Quit")
+      vim.keymap.set("n", key "q", dap.terminate, opts "Terminate")
 
       vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticError" })
       vim.fn.sign_define("DapBreakpointCondition", { text = "", texthl = "DiagnosticWarn" })
