@@ -42,6 +42,7 @@ return {
           FloatBorder = { bg = "none" },
           FloatTitle = { bg = "none" },
           Pmenu = { bg = "none" },
+          DapUIFloatBorder = { bg = "none" },
           BlinkCmpMenu = { link = "NormalFloat" },
           BlinkCmpMenuBorder = { link = "FloatBorder" },
           BlinkCmpMenuSelection = { link = "CursorLine" },

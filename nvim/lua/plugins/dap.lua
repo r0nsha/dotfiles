@@ -4,10 +4,10 @@ return {
     event = "VeryLazy",
     dependencies = {
       "nvim-neotest/nvim-nio",
-      "rcarriga/nvim-dap-ui",
       "jbyuki/one-small-step-for-vimkind",
       "Weissle/persistent-breakpoints.nvim",
       "leoluz/nvim-dap-go",
+      "igorlfs/nvim-dap-view",
     },
     config = function()
       local utils = require "utils"
@@ -15,24 +15,13 @@ return {
       local dap = require "dap"
       dap.set_log_level "INFO"
 
-      local dapui = require "dapui"
-      dapui.setup {
-        layouts = {
-          {
-            elements = {
-              { id = "watches", size = 0.33 },
-              { id = "repl", size = 0.33 },
-              { id = "console", size = 0.33 },
-            },
-            size = 10,
-            position = "bottom",
-          },
-        },
-      }
+      local dv = require "dap-view"
+      dv.setup {}
 
-      dap.listeners.after.event_initialized["dapui_config"] = dapui.open
-      dap.listeners.before.event_terminated["dapui_config"] = dapui.close
-      dap.listeners.before.event_exited["dapui_config"] = dapui.close
+      dap.listeners.before.attach["dap-view-config"] = dv.open
+      dap.listeners.before.launch["dap-view-config"] = dv.open
+      dap.listeners.after.event_terminated["dap-view-config"] = dv.close
+      dap.listeners.after.event_exited["dap-view-config"] = dv.close
 
       local persistent_breakpoints = require "persistent-breakpoints"
       local persistent_breakpoints_api = require "persistent-breakpoints.api"
@@ -164,7 +153,7 @@ return {
         dap.close()
       end, opts "Disconnect")
 
-      vim.keymap.set("n", key "U", dapui.toggle, opts "Toggle UI")
+      vim.keymap.set("n", key "u", dv.toggle, opts "Toggle UI")
       vim.keymap.set("n", key "g", dap.session, opts "Get session")
 
       vim.keymap.set("n", key "R", dap.run_to_cursor, opts "Run to cursor")
@@ -207,10 +196,10 @@ return {
         require("dap.ui.widgets").scopes()
       end, opts "Scopes")
 
-      vim.keymap.set({ "n", "v" }, key "e", dapui.eval, opts "Evaluate")
-      vim.keymap.set("n", key "E", function()
-        dapui.eval(vim.fn.input "[Expression] > ")
-      end, opts "Evaluate input")
+      vim.keymap.set({ "n", "v" }, key "w", dv.add_expr, opts "Watch Expression")
+      vim.keymap.set({ "n", "v" }, key "W", function()
+        dv.add_expr(vim.fn.input "[Expression] > ")
+      end, opts "Watch Expression (Input)")
 
       vim.keymap.set("n", key "q", dap.terminate, opts "Terminate")
 

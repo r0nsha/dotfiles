@@ -12,7 +12,7 @@ return {
     opts = {
       library = {
         { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-        "nvim-dap-ui",
+        "nvim-dap-view",
       },
     },
   },
