@@ -158,8 +158,8 @@ return {
       vim.keymap.set("n", key "R", dap.run_to_cursor, opts "Run to cursor")
 
       vim.keymap.set("n", key "c", dap.continue, opts "Continue")
-      vim.keymap.set("n", key "j", dap.step_back, opts "Step back")
-      vim.keymap.set("n", key "k", dap.step_over, opts "Step over")
+      vim.keymap.set("n", key "k", dap.step_back, opts "Step back")
+      vim.keymap.set("n", key "j", dap.step_over, opts "Step over")
       vim.keymap.set("n", key "h", dap.step_out, opts "Step out")
       vim.keymap.set("n", key "l", dap.step_into, opts "Step into")
 
@@ -193,6 +193,22 @@ return {
 
       vim.keymap.set("n", key "x", dap.terminate, opts "Terminate")
       vim.keymap.set("n", key "q", dap.close, opts "Quit")
+
+      ---@param name string
+      ---@return vim.api.keyset.get_hl_info
+      local function hl_color(name)
+        return vim.api.nvim_get_hl(0, { name = name, link = false })
+      end
+
+      vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticError" })
+      vim.fn.sign_define("DapBreakpointCondition", { text = "", texthl = "DiagnosticWarn" })
+      vim.fn.sign_define("DapBreakpointRejected", { text = "", texthl = "DiagnosticWarn" })
+      vim.fn.sign_define("DapLogPoint", { text = "", texthl = "DiagnosticInfo" })
+      vim.fn.sign_define("DapStopped", {
+        text = "",
+        texthl = "DiagnosticError",
+        linehl = "DiagnosticVirtualTextError",
+      })
     end,
   },
   {

@@ -356,6 +356,11 @@ return {
           Snacks.picker.lsp_references(picker_opts)
         end, opts "References")
 
+        vim.keymap.set("n", "gt", function()
+          vim.api.nvim_feedkeys("zz", "n", true)
+          Snacks.picker.lsp_type_definitions(picker_opts)
+        end, opts "Type Definitions")
+
         vim.keymap.set("n", "grt", function()
           vim.api.nvim_feedkeys("zz", "n", true)
           Snacks.picker.lsp_type_definitions(picker_opts)
