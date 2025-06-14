@@ -24,10 +24,13 @@ return {
         fg_inactive = hl_color "NonText",
         green = hl_color "String",
         blue = hl_color "Function",
+        teal = hl_color "Conditional",
         gray = hl_color "NonText",
         orange = hl_color "Constant",
         special = hl_color "Special",
         purple = hl_color "Keyword",
+        red = hl_color "Error",
+        pink = hl_color "Error",
         diag_hint = hl_color "DiagnosticHint",
         diag_info = hl_color "DiagnosticInfo",
         diag_warning = hl_color "DiagnosticWarn",
@@ -64,8 +67,11 @@ return {
       return { Space(n), child, Space(n) }
     end
 
+    local _, hydra = pcall(require, "hydra.statusline")
+
     local Mode = {
       init = function(self)
+        self.hydra_mode = hydra and hydra.get_name() or nil
         self.mode = vim.fn.mode(1)
       end,
       static = {
@@ -122,14 +128,20 @@ return {
         },
       },
       provider = function(self)
-        return "%5(" .. self.mode_names[self.mode] .. "%) "
+        local name = self.hydra_mode or self.mode_names[self.mode]
+        return "%5(" .. name .. "%) "
       end,
       hl = function(self)
+        local hydra_color = hydra and hydra.get_color() or nil
+        if hydra_color then
+          return { fg = hydra_color, bold = false }
+        end
+
         local mode = self.mode:sub(1, 1) -- get only the first mode character
         local fg = conditions.is_active() and self.mode_colors[mode] or "fg_inactive"
         return { fg = fg, bold = false }
       end,
-      update = update_on { "ModeChanged" },
+      update = update_on { "ModeChanged", "User" },
     }
 
     local FileBlock = {
