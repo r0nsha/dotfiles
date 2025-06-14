@@ -11,6 +11,16 @@ return {
     "stevearc/conform.nvim",
     "saghen/blink.cmp",
     "b0o/schemastore.nvim",
+    {
+      "aznhe21/actions-preview.nvim",
+      opts = {
+        backend = { "snacks" },
+        snacks = {
+          layout = require("plugins.snacks").ivy_cursor,
+        },
+      },
+      config = true,
+    },
   },
   config = function()
     local lspconfig = require "lspconfig"
@@ -301,32 +311,32 @@ return {
 
         -- keymaps
 
-        ---@type snacks.layout.Box
-        local picker_layout = {
-          layout = {
-            box = "vertical",
-            backdrop = false,
-            row = 1,
-            width = 0,
-            height = 0.4,
-            border = "top",
-            title = " {title} {live} {flags}",
-            title_pos = "left",
-            position = "float",
-            relative = "cursor",
-            { win = "input", height = 1, border = "bottom" },
-            {
-              box = "horizontal",
-              { win = "list", border = "none" },
-              { win = "preview", title = "{preview}", width = 0.6, border = "left" },
-              border = "bottom",
-            },
-          },
-        }
+        -- ---@type snacks.layout.Box
+        -- local picker_layout = {
+        --   layout = {
+        --     box = "vertical",
+        --     backdrop = false,
+        --     row = 1,
+        --     width = 0,
+        --     height = 0.4,
+        --     border = "top",
+        --     title = " {title} {live} {flags}",
+        --     title_pos = "left",
+        --     position = "float",
+        --     relative = "cursor",
+        --     { win = "input", height = 1, border = "bottom" },
+        --     {
+        --       box = "horizontal",
+        --       { win = "list", border = "none" },
+        --       { win = "preview", title = "{preview}", width = 0.6, border = "left" },
+        --       border = "bottom",
+        --     },
+        --   },
+        -- }
 
         ---@type snacks.picker.Config
         local picker_opts = {
-          layout = picker_layout,
+          layout = require("plugins.snacks").ivy_cursor,
         }
 
         vim.keymap.set("n", "gd", function()
@@ -357,8 +367,8 @@ return {
         end, opts "Implementations")
 
         vim.keymap.set("n", "grn", vim.lsp.buf.rename, opts "Rename")
-        vim.keymap.set({ "n", "v" }, "gra", vim.lsp.buf.code_action, opts "Code Action")
-        vim.keymap.set({ "n", "v" }, "ga", vim.lsp.buf.code_action, opts "Code Action")
+        vim.keymap.set({ "n", "v" }, "gra", require("actions-preview").code_actions, opts "Code Action")
+        vim.keymap.set({ "n", "v" }, "ga", require("actions-preview").code_actions, opts "Code Action")
         vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts "Signature Help")
         vim.keymap.set("n", "K", vim.lsp.buf.hover, opts "Hover")
         vim.keymap.set("n", "gh", function()

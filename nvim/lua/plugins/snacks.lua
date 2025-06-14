@@ -1,20 +1,3 @@
----@type snacks.picker.Config
-local picker_opts = {
-  win = {
-    input = {
-      keys = {
-        ["<C-y>"] = { "confirm", mode = { "n", "i" } },
-        ["<C-b>"] = { "list_scroll_up", mode = { "i", "n" } },
-        ["<C-f>"] = { "list_scroll_down", mode = { "i", "n" } },
-        ["<C-u>"] = { "preview_scroll_up", mode = { "i", "n" } },
-        ["<C-d>"] = { "preview_scroll_down", mode = { "i", "n" } },
-        ["<C-g>"] = { "yank", mode = { "n", "i" } },
-        -- ["<C-l>"] = { "toggle_live", mode = { "n", "i" } },
-      },
-    },
-  },
-}
-
 local github_url_patterns = {
   branch = "/tree/{branch}",
   file = "/blob/{branch}/{file}#L{line_start}-L{line_end}",
@@ -76,6 +59,25 @@ local M = {
             ["<C-d>"] = { "preview_scroll_down", mode = { "i", "n" } },
             ["<C-g>"] = { "yank", mode = { "n", "i" } },
             ["<C-l>"] = { "toggle_live", mode = { "n", "i" } },
+          },
+        },
+      },
+      layouts = {
+        select = {
+          preview = false,
+          layout = {
+            backdrop = false,
+            width = 0.5,
+            min_width = 80,
+            height = 0.4,
+            min_height = 3,
+            box = "vertical",
+            border = "single",
+            title = "{title}",
+            title_pos = "center",
+            { win = "input", height = 1, border = "bottom" },
+            { win = "list", border = "none" },
+            { win = "preview", title = "{preview}", height = 0.4, border = "top" },
           },
         },
       },
@@ -255,6 +257,27 @@ local M = {
   },
 }
 
-M.picker_opts = picker_opts
+---@type snacks.layout.Box
+M.ivy_cursor = {
+  layout = {
+    box = "vertical",
+    backdrop = false,
+    row = 1,
+    width = 0,
+    height = 0.4,
+    border = "top",
+    title = " {title} {live} {flags}",
+    title_pos = "left",
+    position = "float",
+    relative = "cursor",
+    { win = "input", height = 1, border = "bottom" },
+    {
+      box = "horizontal",
+      { win = "list", border = "none" },
+      { win = "preview", title = "{preview}", width = 0.6, border = "left" },
+      border = "bottom",
+    },
+  },
+}
 
 return M
