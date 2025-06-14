@@ -9,27 +9,34 @@ return {
       "nvim-neotest/nvim-nio",
       "rcarriga/nvim-dap-ui",
       "jbyuki/one-small-step-for-vimkind",
+      "Weissle/persistent-breakpoints.nvim",
     },
     config = function()
+      local dap = require "dap"
+      dap.set_log_level "INFO"
+
+      local dapui = require "dapui"
+
+      dapui.setup {}
+
+      local persistent_breakpoints = require "persistent-breakpoints"
+      persistent_breakpoints.setup {
+        load_breakpoints_event = { "BufReadPost" },
+      }
+
+      local function on_exit()
+        dapui.close()
+      end
+
+      -- dap.listeners.after.event_initialized["dapui_config"] = function()
+      --   dapui.open()
+      -- end
+      dap.listeners.before.event_terminated["dapui_config"] = on_exit
+      dap.listeners.before.event_exited["dapui_config"] = on_exit
+
       require("nvim-dap-virtual-text").setup {
         commented = true,
       }
-
-      local dap = require "dap"
-      local dapui = require "dapui"
-
-      dap.set_log_level "INFO"
-      dapui.setup {}
-
-      dap.listeners.after.event_initialized["dapui_config"] = function()
-        dapui.open()
-      end
-      dap.listeners.before.event_terminated["dapui_config"] = function()
-        dapui.close()
-      end
-      dap.listeners.before.event_exited["dapui_config"] = function()
-        dapui.close()
-      end
 
       -- Adapters
 
@@ -155,14 +162,16 @@ return {
       vim.keymap.set("n", key "h", dap.step_out, opts "Step out")
       vim.keymap.set("n", key "l", dap.step_into, opts "Step into")
 
-      vim.keymap.set("n", key "p", function()
-        dap.pause.toggle()
-      end, opts "Pause")
+      vim.keymap.set("n", key "p", dap.pause.toggle, opts "Pause")
 
-      vim.keymap.set("n", key "t", dap.toggle_breakpoint, opts "Toggle breakpoint")
-      vim.keymap.set("n", key "T", function()
-        dap.set_breakpoint(vim.fn.input "[Condition] > ")
-      end, opts "Conditional breakpoint")
+      vim.keymap.set("n", key "t", persistent_breakpoints.toggle_breakpoint, opts "Toggle breakpoint")
+      vim.keymap.set("n", key "T", persistent_breakpoints.set_conditional_breakpoint, opts "Conditional breakpoint")
+      vim.keymap.set("n", key "C", persistent_breakpoints.clear_all_breakpoints, opts "Clear all breakpoints")
+      vim.keymap.set("n", key "L", persistent_breakpoints.set_log_point, opts "Set log point")
+      -- vim.keymap.set("n", key "t", dap.toggle_breakpoint, opts "Toggle breakpoint")
+      -- vim.keymap.set("n", key "T", function()
+      --   dap.set_breakpoint(vim.fn.input "[Condition] > ")
+      -- end, opts "Conditional breakpoint")
 
       vim.keymap.set("n", key "r", dap.repl.toggle, opts "Toggle Repl")
 
