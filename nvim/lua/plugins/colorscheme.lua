@@ -26,6 +26,8 @@ return {
     config = function()
       local bg = "#0a0a0a"
 
+      local config = require "rose-pine.config"
+
       require("rose-pine").setup {
         transparent = false,
         styles = {
@@ -47,6 +49,7 @@ return {
           TroubleNormalNC = { link = "NormalNC" },
           FzfLuaBorder = { bg = "none" },
           WhichKeyBorder = { link = "FloatBorder" },
+          DapStoppedLine = { bg = config.options.groups["error"], fg = bg },
         },
       }
     end,

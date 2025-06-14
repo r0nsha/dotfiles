@@ -3,9 +3,6 @@ return {
     "mfussenegger/nvim-dap",
     event = "VeryLazy",
     dependencies = {
-      "nvim-dap-virtual-text",
-      "nvim-dap-ui",
-      "theHamsta/nvim-dap-virtual-text",
       "nvim-neotest/nvim-nio",
       "rcarriga/nvim-dap-ui",
       "jbyuki/one-small-step-for-vimkind",
@@ -13,12 +10,25 @@ return {
       "leoluz/nvim-dap-go",
     },
     config = function()
+      local utils = require "utils"
+
       local dap = require "dap"
       dap.set_log_level "INFO"
 
       local dapui = require "dapui"
-
-      dapui.setup {}
+      dapui.setup {
+        layouts = {
+          {
+            elements = {
+              { id = "watches", size = 0.33 },
+              { id = "repl", size = 0.33 },
+              { id = "console", size = 0.33 },
+            },
+            size = 10,
+            position = "bottom",
+          },
+        },
+      }
 
       local persistent_breakpoints = require "persistent-breakpoints"
       local persistent_breakpoints_api = require "persistent-breakpoints.api"
@@ -26,19 +36,9 @@ return {
         load_breakpoints_event = { "BufReadPost" },
       }
 
-      local function on_exit()
-        dapui.close()
-      end
-
-      -- dap.listeners.after.event_initialized["dapui_config"] = function()
-      --   dapui.open()
-      -- end
-      dap.listeners.before.event_terminated["dapui_config"] = on_exit
-      dap.listeners.before.event_exited["dapui_config"] = on_exit
-
-      require("nvim-dap-virtual-text").setup {
-        commented = true,
-      }
+      dap.listeners.after.event_initialized["dapui_config"] = dapui.open
+      dap.listeners.before.event_terminated["dapui_config"] = dapui.close
+      dap.listeners.before.event_exited["dapui_config"] = dapui.close
 
       -- Adapters
 
@@ -139,7 +139,11 @@ return {
         },
       }
 
-      require("dap-go").setup {}
+      require("dap-go").setup {
+        delve = {
+          detached = not utils.is_windows(),
+        },
+      }
 
       -- Keymaps
 
@@ -208,16 +212,16 @@ return {
       vim.keymap.set("n", key "x", dap.terminate, opts "Terminate")
       vim.keymap.set("n", key "q", dap.close, opts "Quit")
 
-      vim.api.nvim_set_hl(0, "DapStoppedLine", {
-        fg = vim.api.nvim_get_hl(0, { name = "Normal" }).bg,
-        bg = vim.api.nvim_get_hl(0, { name = "Error" }).fg,
-      })
-
       vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticError" })
       vim.fn.sign_define("DapBreakpointCondition", { text = "", texthl = "DiagnosticWarn" })
       vim.fn.sign_define("DapBreakpointRejected", { text = "", texthl = "DiagnosticWarn" })
       vim.fn.sign_define("DapLogPoint", { text = "", texthl = "DiagnosticInfo" })
       vim.fn.sign_define("DapStopped", { text = "", texthl = "DiagnosticError", linehl = "DapStoppedLine" })
     end,
+  },
+  {
+    "theHamsta/nvim-dap-virtual-text",
+    opts = {},
+    config = true,
   },
 }
