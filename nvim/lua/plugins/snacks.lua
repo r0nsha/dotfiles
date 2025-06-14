@@ -146,7 +146,7 @@ local M = {
       desc = "Find Files",
     },
     {
-      "<leader>sm",
+      "<leader>sr",
       function()
         Snacks.picker.smart()
       end,
