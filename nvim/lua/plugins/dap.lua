@@ -18,7 +18,7 @@ return {
             position = "below",
             terminal = {
               position = "right",
-              width = 0.5,
+              width = 0.25,
               start_hidden = true,
             },
           },
@@ -200,8 +200,6 @@ return {
         dap.set_exception_breakpoints {}
         persistent_breakpoints_api.breakpoints_changed_in_current_buffer()
       end, opts "Clear exception breakpoints")
-
-      -- vim.keymap.set("n", key "R", dap.repl.toggle, opts "Toggle Repl")
 
       vim.keymap.set("n", key "K", function()
         require("dap.ui.widgets").hover()
