@@ -249,35 +249,50 @@ return {
   },
   {
     "nvimtools/hydra.nvim",
+    event = "VeryLazy",
     config = function()
       local Hydra = require "hydra"
-      Hydra.setup {
-        on_enter = function()
-          vim.api.nvim_exec_autocmds("User", { pattern = "HydraEnter" })
-        end,
-        on_exit = function()
-          vim.api.nvim_exec_autocmds("User", { pattern = "HydraExit" })
-        end,
-      }
+      Hydra.setup {}
 
-      Hydra {
-        name = "DBG",
-        mode = "n",
-        body = "<leader>d",
-        config = {
-          color = "pink",
-          invoke_on_body = true,
-          desc = "Debug Mode",
-        },
-        heads = {
-          {
-            "d",
-            function()
-              vim.notify "d"
-            end,
-          },
-        },
-      }
+      vim.api.nvim_create_autocmd("User", {
+        group = vim.api.nvim_create_augroup("DapHydra", { clear = true }),
+        pattern = "LazyDone",
+        callback = function()
+          local cursor_hl = vim.api.nvim_get_hl(0, { name = "Cursor" })
+
+          Hydra {
+            name = "DBG",
+            mode = { "n", "x", "v" },
+            body = "<leader>d",
+            config = {
+              color = "pink",
+              invoke_on_body = true,
+              desc = "Debug Mode",
+              hint = {
+                position = "bottom",
+                float_opts = { border = "single" },
+              },
+              on_enter = function()
+                local hydra_pink = vim.api.nvim_get_hl(0, { name = "HydraPink" }).fg
+                vim.api.nvim_set_hl(0, "Cursor", { bg = hydra_pink, fg = cursor_hl.fg })
+                vim.api.nvim_exec_autocmds("User", { pattern = "HydraEnter" })
+              end,
+              on_exit = function()
+                vim.api.nvim_set_hl(0, "Cursor", cursor_hl)
+                vim.api.nvim_exec_autocmds("User", { pattern = "HydraExit" })
+              end,
+            },
+            heads = {
+              {
+                "d",
+                function()
+                  vim.notify "d"
+                end,
+              },
+            },
+          }
+        end,
+      })
     end,
   },
 }

@@ -14,7 +14,7 @@ vim.opt.isfname:append "@-@"
 -- display and appearance
 vim.opt.termguicolors = true
 vim.opt.background = "dark"
-vim.opt.guicursor = ""
+vim.opt.guicursor = "a:block-Cursor/lCursor"
 vim.opt.cursorline = true
 vim.opt.colorcolumn = "80"
 vim.opt.conceallevel = 2

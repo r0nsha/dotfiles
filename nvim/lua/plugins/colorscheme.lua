@@ -29,6 +29,8 @@ return {
 
       local config = require "rose-pine.config"
 
+      local group_error = config.options.groups["error"]
+
       require("rose-pine").setup {
         transparent = false,
         styles = {
@@ -51,7 +53,8 @@ return {
           TroubleNormalNC = { link = "NormalNC" },
           FzfLuaBorder = { bg = "none" },
           WhichKeyBorder = { link = "FloatBorder" },
-          DapStoppedLine = { bg = config.options.groups["error"], fg = bg },
+          DapStoppedLine = { bg = group_error, fg = bg },
+          HydraPink = { fg = group_error },
         },
       }
     end,

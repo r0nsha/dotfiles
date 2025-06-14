@@ -13,7 +13,7 @@ return {
       ---@param name string
       ---@param field? string
       local function hl_color(name, field)
-        local hl = vim.api.nvim_get_hl(0, { name = name, link = false })
+        local hl = vim.api.nvim_get_hl(0, { name = name })
         return field and hl[field] or hl.fg
       end
 
