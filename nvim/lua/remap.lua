@@ -100,3 +100,8 @@ vim.keymap.set("n", "<leader>cl", function()
 
   vim.notify("Conceal " .. conceal_enabled .. ", Cloak " .. cloak_enabled)
 end, { desc = "Toggle conceal" })
+
+-- Trim whitespace
+vim.keymap.set("n", "<leader>T", function()
+  vim.cmd [[%s/\s\+$//e]]
+end, { desc = "Trim all whitespace" })

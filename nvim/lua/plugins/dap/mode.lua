@@ -11,17 +11,58 @@ local function jump_to_view(view)
   end
 end
 
-Hydra {
+local hint = [[
+ Navigation          ^Breakpoints
+ _s_/_c_ Continue        ^_db_ Toggle breakpoint
+ _P_   Pause           ^_dl_ Log point
+ _J_   Step over       ^_dD_ Clear all breakpoints
+ _K_   Step back       ^_dx_ Set exception breakpoints
+ _L_   Step in         ^_dX_ Clear exception breakpoints
+ _H_   Step out        ^
+ _r_   Run to cursor ^UI
+ ^
+ ^UI
+ ^_gu_ Toggle UI
+ ^_gw_ Watches
+ ^_gs_ Scopes
+ ^_gx_ Exceptions
+ ^_gb_ Breakpoints
+ ^_gT_ Threads
+ ^_gR_ REPL
+ ^_gC_ Console
+ ^
+ ^
+
+_<leader>w_ Watch
+_<leader>W_ Add
+ _?_/_g?_ Help           ^_<Esc>_ Close this window      ^
+ ^
+ _q_/_<C-c>_ Terminate   ^_d_ Disconnect
+]]
+
+local hydra
+
+local function toggle_help()
+  if hydra.hint.win then
+    hydra.hint:close()
+  else
+    hydra.hint:show()
+  end
+end
+
+hydra = Hydra {
   name = "DBG",
   mode = { "n", "x", "v" },
   body = "<leader>d",
+  hint = hint,
   config = {
     color = "pink",
     invoke_on_body = true,
     desc = "Debug Mode",
     hint = {
-      position = "bottom",
+      position = "middle-right",
       float_opts = { border = "single" },
+      -- hide_on_load = true,
     },
     on_enter = function()
       local hydra_pink = vim.api.nvim_get_hl(0, { name = "HydraPink" }).fg
@@ -35,7 +76,6 @@ Hydra {
   },
   heads = {
     { "s", dap.continue, { desc = "Continue", private = true } },
-    { "S", dap.session, { desc = "Session", private = true } },
 
     -- Stepping
     { "c", dap.continue, { desc = "Continue", private = true } },
@@ -53,31 +93,41 @@ Hydra {
     },
 
     -- Breakpoints
-    { "<leader>bb", persistent_breakpoints_api.toggle_breakpoint, { desc = "Toggle breakpoint", private = true } },
+    { "db", persistent_breakpoints_api.toggle_breakpoint, { desc = "Toggle breakpoint", private = true } },
+    { "dl", persistent_breakpoints_api.set_log_point, { desc = "Log point", private = true } },
     {
-      "<leader>bd",
+      "dD",
       persistent_breakpoints_api.clear_all_breakpoints,
       { desc = "Clear all breakpoints", private = true },
     },
-    { "<leader>bl", persistent_breakpoints_api.set_log_point, { desc = "Log point", private = true } },
     {
-      "<leader>bx",
+      "dx",
       dap.set_exception_breakpoints,
       { desc = "Set exception breakpoints", private = true },
     },
     {
-      "<leader>bX",
+      "dX",
       function()
         dap.set_exception_breakpoints {}
       end,
       { desc = "Clear exception breakpoints", private = true },
     },
 
+    -- Watch
+    { "<leader>w", dv.add_expr, { desc = "Watch expression", private = true, mode = { "n", "v" } } },
+    {
+      "<leader>W",
+      function()
+        dv.add_expr(vim.fn.input "[Expression] > ")
+      end,
+      { desc = "Add watch", private = true },
+    },
+
     -- UI
     { "gu", dv.toggle, { desc = "Toggle UI", private = true } },
     { "gw", jump_to_view "watches", { desc = "Jump to Watches", private = true } },
     { "gs", jump_to_view "scopes", { desc = "Jump to Scopes", private = true } },
-    { "ge", jump_to_view "exceptions", { desc = "Jump to Exceptions", private = true } },
+    { "gx", jump_to_view "exceptions", { desc = "Jump to Exceptions", private = true } },
     { "gb", jump_to_view "breakpoints", { desc = "Jump to Breakpoints", private = true } },
     { "gT", jump_to_view "threads", { desc = "Jump to Threads", private = true } },
     { "gR", jump_to_view "repl", { desc = "Jump to REPL", private = true } },
@@ -93,5 +143,19 @@ Hydra {
       { desc = "Continue", exit = true },
     },
     { "q", dap.terminate, { desc = "Terminate", exit = true } },
+    { "<C-c>", dap.terminate, { desc = "Terminate", exit = true } },
+
+    -- Hint
+    { "g?", toggle_help, { desc = "Toggle Help", private = true } },
+    { "?", toggle_help, { desc = "Toggle Help", private = true } },
+    {
+      "<Esc>",
+      function()
+        if hydra.hint.win then
+          hydra.hint:close()
+        end
+      end,
+      { desc = "Hide Help", private = true },
+    },
   },
 }
