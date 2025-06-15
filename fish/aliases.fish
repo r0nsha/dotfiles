@@ -1,6 +1,5 @@
 # ALIASES ---------------------------------------------------------------------
 alias s 'source $DOTFILES/fish/config.fish'
-alias tmuxs 'tmux source $DOTFILES/tmux/tmux.conf'
 
 alias v nvim
 alias vi nvim
@@ -32,11 +31,15 @@ if binary_exists zellij
     alias zrf zellij run floating
 end
 
-alias yabais 'yabai --start-service'
-alias yabair 'yabai --stop-service && yabai --start-service'
+if binary_exists yabai
+    alias yabais 'yabai --start-service'
+    alias yabair 'yabai --stop-service && yabai --start-service'
+end
 
-alias skhds 'skhd --start-service'
-alias skhdr 'skhd --stop-service && skhd --start-service'
+if binary_exists skhd
+    alias skhds 'skhd --start-service'
+    alias skhdr 'skhd --stop-service && skhd --start-service'
+end
 
 # GIT ALIASES -----------------------------------------------------------------
 alias gc 'git commit'
