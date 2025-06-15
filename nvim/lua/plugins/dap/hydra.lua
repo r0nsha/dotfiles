@@ -60,7 +60,7 @@ M = Hydra {
     hint = {
       position = "middle-right",
       float_opts = { border = "single" },
-      -- hide_on_load = true,
+      hide_on_load = true,
     },
     on_enter = function()
       local hydra_pink = vim.api.nvim_get_hl(0, { name = "HydraPink" }).fg
