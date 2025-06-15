@@ -3,10 +3,27 @@ layout {
         children
         pane size=1 borderless=true {
             plugin location="file:~/.config/zellij/zjstatus.wasm" {
-                format_left   "{mode} #[fg=colour2,bold]{session}"
+                format_left   "#[fg=colour2,bold]{session} #[fg=colour0]| {mode} "
                 format_center "{tabs}"
-                format_right  "{command_git_branch} {datetime}"
+                format_right  "{datetime}"
                 format_space  ""
+
+                mode_normal        "#[fg=colour8]{name}"
+                mode_locked        "#[fg=colour9]{name}"
+                mode_resize        "#[fg=colour9]{name}"
+                mode_pane          "#[fg=colour2]{name}"
+                mode_rename_pane   "#[fg=colour2]{name}"
+                mode_tab           "#[fg=colour4]{name}"
+                mode_rename_tab    "#[fg=colour4]{name}"
+                mode_scroll        "#[fg=colour7]{name}"
+                mode_enter_search  "#[fg=colour7]{name}"
+                mode_search        "#[fg=colour7]{name}"
+                mode_session       "#[fg=colour5]{name}"
+                mode_move          "#[fg=colour9]{name}"
+                mode_prompt        "#[fg=colour2]{name}"
+                mode_tmux          "#[fg=colour3]{name}"
+
+                mode_default_to_mode "tmux"
 
                 border_enabled  "false"
                 border_char     "─"
@@ -18,20 +35,12 @@ layout {
                 hide_frame_except_for_fullscreen "true"
                 hide_frame_except_for_scroll "true"
 
-                mode_normal  "#[bg=blue] "
-                mode_tmux    "#[bg=#ffc387] "
+                tab_normal   "#[fg=colour8] {name} "
+                tab_active   "#[fg=colour7,bold,italic] {name} "
 
-                tab_normal   "#[fg=#6C7086] {name} "
-                tab_active   "#[fg=#9399B2,bold,italic] {name} "
-
-                command_git_branch_command     "git rev-parse --abbrev-ref HEAD"
-                command_git_branch_format      "#[fg=blue] {stdout} "
-                command_git_branch_interval    "10"
-                command_git_branch_rendermode  "static"
-
-                datetime        "#[fg=#6C7086,bold] {format} "
+                datetime        "#[fg=colour8,bold] {format} "
                 datetime_format "%A, %d %b %Y %H:%M"
-                datetime_timezone "Europe/Berlin"
+                datetime_timezone "Asia/Jerusalem"
             }
         }
     }

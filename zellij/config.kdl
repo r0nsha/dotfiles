@@ -1,7 +1,7 @@
 theme "rose-pine"
 simplified_ui true
 default_mode "normal"
-default_layout "default"
+default_layout "compact"
 mouse_mode true
 pane_frames false
 copy_on_select true
