@@ -93,7 +93,6 @@ vim.opt.backspace = { "indent", "start", "eol" }
 vim.opt.autochdir = false
 vim.opt.iskeyword:append "-"
 vim.opt.path:append "**"
-vim.opt.selection = "exclusive"
 vim.opt.modifiable = true
 vim.opt.encoding = "utf-8"
 vim.opt.more = false
