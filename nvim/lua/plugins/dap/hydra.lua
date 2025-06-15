@@ -1,3 +1,6 @@
+---@type Hydra
+local M
+
 local Hydra = require "hydra"
 local dap = require "dap"
 local dv = require "dap-view"
@@ -36,17 +39,19 @@ local hint = [[
  _q_/_<C-c>_ Terminate   ^_d_ Disconnect
 ]]
 
-local hydra
-
 local function toggle_help()
-  if hydra.hint.win then
-    hydra.hint:close()
+  ---@diagnostic disable-next-line: undefined-field
+  if M.hint.win then
+    M.hint:close()
   else
-    hydra.hint:show()
+    M.hint:show()
   end
 end
 
-hydra = Hydra {
+vim.keymap.set("n", "<leader>z", dap.continue)
+vim.keymap.set("n", "<leader>Z", dap.terminate)
+
+M = Hydra {
   name = "DBG",
   mode = { "n", "x", "v" },
   body = "<leader>d",
@@ -83,6 +88,7 @@ hydra = Hydra {
     {
       "P",
       function()
+        ---@diagnostic disable-next-line: undefined-field
         dap.pause.toggle()
       end,
       { desc = "Pause", private = true },
@@ -147,11 +153,14 @@ hydra = Hydra {
     {
       "<Esc>",
       function()
-        if hydra.hint.win then
-          hydra.hint:close()
+        ---@diagnostic disable-next-line: undefined-field
+        if M.hint.win then
+          M.hint:close()
         end
       end,
       { desc = "Hide Help", private = true },
     },
   },
 }
+
+return M
