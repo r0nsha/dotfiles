@@ -89,8 +89,6 @@ return {
         ["<C-n>"] = keymaps.next,
         ["<Up>"] = keymaps.prev,
         ["<Down>"] = keymaps.next,
-        ["S-Tab"] = keymaps.prev,
-        ["Tab"] = keymaps.next,
 
         ["<C-b>"] = keymaps.scroll_documentation_up,
         ["<C-f>"] = keymaps.scroll_documentation_down,

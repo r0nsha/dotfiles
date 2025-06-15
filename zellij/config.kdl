@@ -68,7 +68,7 @@ keybinds clear-defaults=true {
     }
 
     tmux {
-        bind "a" "Ctrl a" { SwitchFocus; SwitchToMode "normal"; }
+        bind "a" "Ctrl a" { ToggleTab; SwitchToMode "normal"; }
         bind "h" "Ctrl h" { GoToNextTab; SwitchToMode "normal"; }
         bind "l" "Ctrl l" { GoToPreviousTab; SwitchToMode "normal"; }
         bind "p" "Ctrl p" { SwitchToMode "pane"; }
@@ -80,7 +80,7 @@ keybinds clear-defaults=true {
         bind "p" "Ctrl p" { NewPane; SwitchToMode "normal"; }
         bind "n" "Ctrl n" { NewPane; SwitchToMode "normal"; }
 
-        bind "a" { SwitchFocus; SwitchToMode "normal"; }
+        bind "a" "Ctrl a" { SwitchFocus; SwitchToMode "normal"; }
         bind "h" "Ctrl h" "left" "Ctrl left" { NewPane "left"; SwitchToMode "normal"; }
         bind "j" "Ctrl j" "down" "Ctrl down" { NewPane "down"; SwitchToMode "normal"; }
         bind "k" "Ctrl k" "up" "Ctrl up" { NewPane "up"; SwitchToMode "normal"; }
