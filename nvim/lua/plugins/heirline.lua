@@ -5,7 +5,7 @@ return {
     local heirline_components = require "heirline-components.all"
     heirline_components.init.subscribe_to_events()
 
-    local conditions = require "heirline.conditions"
+    local cond = require "heirline.conditions"
     local utils = require "heirline.utils"
     local icons = require("utils").icons
 
@@ -42,11 +42,11 @@ return {
     end
 
     local function active_bg()
-      return conditions.is_active() and "bg_active" or "bg_inactive"
+      return cond.is_active() and "bg_active" or "bg_inactive"
     end
 
     local function active_fg()
-      return conditions.is_active() and "fg_active" or "fg_inactive"
+      return cond.is_active() and "fg_active" or "fg_inactive"
     end
 
     local function update_on(events)
@@ -63,13 +63,10 @@ return {
       return { provider = string.rep(" ", n) }
     end
 
-    local Pad = function(child, n)
-      return { Space(n), child, Space(n) }
-    end
-
     local _, hydra = pcall(require, "hydra.statusline")
 
     local Mode = {
+      condition = cond.is_active,
       init = function(self)
         self.hydra_mode = hydra and hydra.get_name() or nil
         self.mode = vim.fn.mode(1)
@@ -129,7 +126,7 @@ return {
       },
       provider = function(self)
         local name = self.hydra_mode or self.mode_names[self.mode]
-        return "%5(" .. name .. "%) "
+        return "%5(" .. name .. "%)"
       end,
       hl = function(self)
         local hydra_color = hydra and hydra.get_color() or nil
@@ -138,7 +135,7 @@ return {
         end
 
         local mode = self.mode:sub(1, 1) -- get only the first mode character
-        local fg = conditions.is_active() and self.mode_colors[mode] or "fg_inactive"
+        local fg = cond.is_active() and self.mode_colors[mode] or "fg_inactive"
         return { fg = fg, bold = false }
       end,
       update = update_on { "ModeChanged", "User" },
@@ -181,7 +178,7 @@ return {
         if filename == "" then
           return "[No Name]"
         end
-        if not conditions.width_percent_below(#filename, 0.5) then
+        if not cond.width_percent_below(#filename, 0.5) then
           filename = vim.fn.pathshorten(filename)
         end
         return filename
@@ -225,7 +222,9 @@ return {
     end
 
     local Git = {
-      condition = conditions.is_git_repo,
+      condition = function()
+        return cond.is_active() and cond.is_git_repo()
+      end,
 
       init = function(self)
         self.status_dict = vim.b.gitsigns_status_dict
@@ -297,8 +296,7 @@ return {
     end
 
     local Diagnostics = {
-      condition = conditions.has_diagnostics,
-
+      condition = cond.has_diagnostics,
       init = function(self)
         self.errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
         self.warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
@@ -306,42 +304,46 @@ return {
         self.infos = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
       end,
 
-      update = update_on { "DiagnosticChanged", "BufEnter" },
-
       diagnostic_provider "error",
       diagnostic_provider "warning",
       diagnostic_provider "info",
       diagnostic_provider "hint",
+
+      update = update_on { "DiagnosticChanged", "BufEnter" },
     }
 
     local Lsp = {
-      condition = conditions.lsp_attached,
-      update = update_on { "LspAttach", "LspDetach" },
-
-      provider = function()
-        local names = {}
-
-        for _, server in pairs(vim.lsp.get_clients { bufnr = 0 }) do
-          table.insert(names, server.name)
-        end
-
-        local max_servers = 1
-        local display_names = {}
-        local extra_count = #names - max_servers
-
-        for i = 1, math.min(max_servers, #names) do
-          table.insert(display_names, names[i])
-        end
-
-        if extra_count > 0 then
-          table.insert(display_names, string.format("+%d", extra_count))
-        end
-
-        return "[" .. table.concat(display_names, ", ") .. "]"
+      condition = function()
+        return cond.is_active() and cond.lsp_attached()
       end,
-      hl = function()
-        return { fg = "gray" }
-      end,
+      {
+        provider = function()
+          local names = {}
+
+          for _, server in pairs(vim.lsp.get_clients { bufnr = 0 }) do
+            table.insert(names, server.name)
+          end
+
+          local max_servers = 1
+          local display_names = {}
+          local extra_count = #names - max_servers
+
+          for i = 1, math.min(max_servers, #names) do
+            table.insert(display_names, names[i])
+          end
+
+          if extra_count > 0 then
+            table.insert(display_names, string.format("+%d", extra_count))
+          end
+
+          return "[" .. table.concat(display_names, ", ") .. "]"
+        end,
+        hl = function()
+          return { fg = "gray" }
+        end,
+        update = update_on { "LspAttach", "LspDetach" },
+      },
+      Space(3),
     }
 
     local function in_visual_mode()
@@ -349,6 +351,7 @@ return {
     end
 
     local Ruler = {
+      condition = cond.is_active,
       { provider = "%7(%l/%-3L%)" },
       {
         provider = function()
@@ -364,6 +367,7 @@ return {
           return string.format(" [sel %2d,%2d]", lines, cols)
         end,
       },
+      Space(2),
       hl = function(_)
         return { fg = in_visual_mode() and "blue" or active_fg() }
       end,
@@ -377,19 +381,20 @@ return {
 
     local Left = {
       Mode,
+      Space(2),
       FileBlock,
       Space(1),
       Git,
     }
 
     local Right = {
-      Pad(Diagnostics, 1),
+      Space(1),
+      Diagnostics,
+      Space(1),
       Lsp,
-      Space(3),
       Ruler,
       -- Space(1),
       -- Time,
-      Space(2),
     }
 
     local disable_for = {
@@ -397,7 +402,7 @@ return {
     }
 
     local function is_statusline_disabled()
-      return not conditions.buffer_matches(disable_for)
+      return not cond.buffer_matches(disable_for)
     end
 
     local opts = {
