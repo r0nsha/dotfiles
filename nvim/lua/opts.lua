@@ -1,4 +1,5 @@
 local utils = require "utils"
+local undodir = vim.fn.expand "~/.vim/undodir"
 
 -- basic
 vim.opt.number = true
@@ -14,8 +15,8 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.smartindent = true
 vim.opt.autoindent = true
--- vim.opt.shiftround = true
--- vim.opt.joinspaces = true
+vim.opt.shiftround = true
+vim.opt.joinspaces = true
 
 -- search
 vim.opt.ignorecase = true
@@ -41,8 +42,8 @@ vim.opt.pumblend = 10
 vim.opt.winblend = 0
 vim.opt.conceallevel = 0
 vim.opt.concealcursor = ""
-vim.opt.lazyredraw = true
-vim.opt.synmaxcol = 400
+-- vim.opt.lazyredraw = true
+-- vim.opt.synmaxcol = 400
 vim.opt.list = true
 vim.opt.listchars = {
   eol = "↲",
@@ -72,7 +73,7 @@ vim.opt.backup = false
 vim.opt.writebackup = false
 vim.opt.swapfile = false
 vim.opt.undofile = true
-vim.opt.undodir = vim.fn.expand "~/.vim/undodir"
+vim.opt.undodir = undodir
 vim.opt.shada = { "'10", "<0", "s10", "h" }
 vim.opt.updatetime = 300
 vim.opt.timeout = true
@@ -114,15 +115,11 @@ vim.opt.shortmess:append { I = true }
 vim.opt.mouse = "a"
 vim.opt.mousemodel = "popup_setpos"
 
--- diff
-vim.opt.diffopt:append "linematch:60"
-
 -- perf
 vim.opt.redrawtime = 10000
 vim.opt.maxmempattern = 20000
 
 -- Create undo directory if it doesn't exist
-local undodir = vim.fn.expand "~/.vim/undodir"
 if vim.fn.isdirectory(undodir) == 0 then
   vim.fn.mkdir(undodir, "p")
 end

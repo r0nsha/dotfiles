@@ -28,28 +28,27 @@ local function terminate()
 end
 
 local hint = [[
- Navigation          ^Breakpoints
- _s_/_c_ Continue        ^_db_ Toggle breakpoint
- _S_   Run last        ^_dl_ Log point
- _J_   Step over       ^_dD_ Clear all breakpoints
- _K_   Step back       ^_dx_ Set exception breakpoints
- _L_   Step in         ^_dX_ Clear exception breakpoints
- _H_   Step out        ^_dp_ Pause
- _r_   Run to cursor   ^
+ Navigation        ^Breakpoints
+ _J_ Step over       ^_db_ Toggle breakpoint
+ _K_ Step back       ^_dl_ Log point
+ _L_ Step in         ^_dD_ Clear all breakpoints
+ _H_ Step out        ^_dx_ Set exception breakpoints
+ _r_ Run to cursor   ^_dX_ Clear exception breakpoints
+                   ^_dp_ Pause
                       ^
  UI                   ^
- _gu_ Toggle UI       ^_<leader>w_ Watch expression
- _gw_ Watches         ^_<leader>W_ Add watch
- _gs_ Scopes          ^
- _gx_ Exceptions      ^
- _gb_ Breakpoints     ^
- _gT_ Threads         ^
- _gR_ REPL            ^
- _gC_ Console         ^
-                      ^
- _?_/_g?_ Help           ^_<Esc>_ Close this window
+ _gu_ Toggle UI      ^_<leader>w_ Watch expression
+ _gw_ Watches        ^_<leader>W_ Add watch
+ _gS_ Scopes         ^
+ _gx_ Exceptions     ^
+ _gb_ Breakpoints    ^
+ _gT_ Threads        ^
+ _gR_ REPL           ^
+ _gC_ Console        ^
+                     ^
+ _?_/_g?_ Help         ^_<Esc>_ Close this window
  ^
- _q_/_<C-c>_ Terminate   ^_d_ Disconnect
+ _q_ Terminate ^_d_ Disconnect _<C-c>_ Exit mode
 ]]
 
 local function toggle_help()
@@ -60,6 +59,9 @@ local function toggle_help()
     M.hint:show()
   end
 end
+
+vim.keymap.set("n", "<leader>ds", dap.continue, { desc = "Debug: Start" })
+vim.keymap.set("n", "<leader>dl", dap.run_last, { desc = "Debug: Run last" })
 
 M = Hydra {
   name = "DBG",
@@ -86,9 +88,6 @@ M = Hydra {
     end,
   },
   heads = {
-    { "s", dap.continue, { desc = "Continue", private = true } },
-    { "S", dap.run_last, { desc = "Run last", private = true } },
-
     -- Stepping
     { "c", dap.continue, { desc = "Continue", private = true } },
     { "K", dap.step_back, { desc = "Step back", private = true } },
@@ -126,16 +125,6 @@ M = Hydra {
       { desc = "Pause", private = true },
     },
 
-    -- Watch
-    { "<leader>w", dv.add_expr, { desc = "Watch expression", private = true, mode = { "n", "v" } } },
-    {
-      "<leader>W",
-      function()
-        dv.add_expr(vim.fn.input "[Expression] > ")
-      end,
-      { desc = "Add watch", private = true },
-    },
-
     -- UI
     {
       "gu",
@@ -145,17 +134,31 @@ M = Hydra {
       { desc = "Toggle UI", private = true },
     },
     { "gw", jump_to_view "watches", { desc = "Jump to Watches", private = true } },
-    { "gs", jump_to_view "scopes", { desc = "Jump to Scopes", private = true } },
+    { "gS", jump_to_view "scopes", { desc = "Jump to Scopes", private = true } },
     { "gx", jump_to_view "exceptions", { desc = "Jump to Exceptions", private = true } },
     { "gb", jump_to_view "breakpoints", { desc = "Jump to Breakpoints", private = true } },
     { "gT", jump_to_view "threads", { desc = "Jump to Threads", private = true } },
     { "gR", jump_to_view "repl", { desc = "Jump to REPL", private = true } },
     { "gC", jump_to_view "console", { desc = "Jump to Console", private = true } },
+    { "<leader>w", dv.add_expr, { desc = "Watch expression", private = true, mode = { "n", "v" } } },
+    {
+      "<leader>W",
+      function()
+        dv.add_expr(vim.fn.input "[Expression] > ")
+      end,
+      { desc = "Add watch", private = true },
+    },
 
     -- Quitting
     { "d", disconnect, { desc = "Continue", exit = true } },
     { "q", terminate, { desc = "Terminate", exit = true } },
-    { "<C-c>", terminate, { desc = "Terminate", exit = true } },
+    {
+      "<C-c>",
+      function()
+        M:exit()
+      end,
+      { desc = "Terminate", exit = true },
+    },
 
     -- Hint
     { "g?", toggle_help, { desc = "Toggle Help", private = true } },

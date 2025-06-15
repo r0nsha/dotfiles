@@ -17,7 +17,7 @@ end
 
 ---@type dap.RequestListener
 local function disable()
-  hydra:exit()
+  exit_hydra()
   dv.close(true)
 end
 
@@ -32,6 +32,10 @@ vim.api.nvim_create_autocmd("BufEnter", {
   group = vim.api.nvim_create_augroup("CustomHydraFT", { clear = true }),
   pattern = "*",
   callback = function()
+    if not dap.session() then
+      return
+    end
+
     if vim.bo.filetype:startswith "dap-" then
       exit_hydra()
     else
