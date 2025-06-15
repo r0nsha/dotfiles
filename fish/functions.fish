@@ -108,3 +108,12 @@ function show_colors
     end
     echo
 end
+
+function _search_history
+    printf '\e7'
+    set -l selected_command (history | sk --reverse --tac --no-sort)
+    printf '\e8'
+    if test -n "$selected_command"
+        commandline -- $selected_command
+    end
+end

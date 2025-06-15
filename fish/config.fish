@@ -58,3 +58,5 @@ if status is-interactive
         enable_transience
     end
 end
+
+bind ctrl-r _search_history --mode insert
