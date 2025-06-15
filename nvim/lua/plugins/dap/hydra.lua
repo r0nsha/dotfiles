@@ -137,7 +137,13 @@ M = Hydra {
     },
 
     -- UI
-    { "gu", dv.toggle, { desc = "Toggle UI", private = true } },
+    {
+      "gu",
+      function()
+        dv.toggle(true)
+      end,
+      { desc = "Toggle UI", private = true },
+    },
     { "gw", jump_to_view "watches", { desc = "Jump to Watches", private = true } },
     { "gs", jump_to_view "scopes", { desc = "Jump to Scopes", private = true } },
     { "gx", jump_to_view "exceptions", { desc = "Jump to Exceptions", private = true } },

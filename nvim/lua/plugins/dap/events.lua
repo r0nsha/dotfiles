@@ -18,16 +18,7 @@ end
 ---@type dap.RequestListener
 local function disable()
   hydra:exit()
-
-  dv.close()
-  local bufs = vim.api.nvim_list_bufs()
-
-  for _, buf in ipairs(bufs) do
-    local ft = vim.api.nvim_get_option_value("filetype", { buf = buf })
-    if ft:startswith "dap" then
-      vim.api.nvim_buf_delete(buf, { force = true })
-    end
-  end
+  dv.close(true)
 end
 
 local name = "dap-view-config"
