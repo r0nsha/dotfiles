@@ -47,8 +47,8 @@ vim.keymap.set("n", "k", function()
   end
 end, { expr = true })
 
-vim.keymap.set("v", "J", ":m '>+1<cr>gv=gv", { desc = "Move Selection: Down" })
-vim.keymap.set("v", "K", ":m '<-2<cr>gv=gv", { desc = "Move Selection: Up" })
+-- vim.keymap.set("v", "J", ":m '>+1<cr>gv=gv", { desc = "Move Selection: Down" })
+-- vim.keymap.set("v", "K", ":m '<-2<cr>gv=gv", { desc = "Move Selection: Up" })
 
 -- Splitjoin the line below the cursor
 vim.keymap.set("n", "J", "mzJ`z", { desc = "Splitjoin" })

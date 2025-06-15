@@ -29,12 +29,12 @@ end
 
 local hint = [[
  Navigation        ^Breakpoints
- _J_ Step over       ^_db_ Toggle breakpoint
- _K_ Step back       ^_dl_ Log point
- _L_ Step in         ^_dD_ Clear all breakpoints
- _H_ Step out        ^_dx_ Set exception breakpoints
- _r_ Run to cursor   ^_dX_ Clear exception breakpoints
-                   ^_dp_ Pause
+ _c_ Continue        ^_db_ Toggle breakpoint
+ _J_ Step over       ^_dl_ Log point
+ _K_ Step back       ^_dD_ Clear all breakpoints
+ _L_ Step in         ^_dx_ Set exception breakpoints
+ _H_ Step out        ^_dX_ Clear exception breakpoints
+ _r_ Run to cursor   ^_dp_ Pause
                       ^
  UI                   ^
  _gu_ Toggle UI      ^_<leader>w_ Watch expression
