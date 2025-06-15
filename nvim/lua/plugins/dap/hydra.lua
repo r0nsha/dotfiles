@@ -48,9 +48,6 @@ local function toggle_help()
   end
 end
 
-vim.keymap.set("n", "<leader>z", dap.continue)
-vim.keymap.set("n", "<leader>Z", dap.terminate)
-
 M = Hydra {
   name = "DBG",
   mode = { "n", "x", "v" },

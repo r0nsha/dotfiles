@@ -11,7 +11,9 @@ local function disable()
   hydra:exit()
 end
 
-dap.listeners.before.attach["dap-view-config"] = enable
-dap.listeners.before.launch["dap-view-config"] = enable
-dap.listeners.after.event_terminated["dap-view-config"] = disable
-dap.listeners.after.event_exited["dap-view-config"] = disable
+local name = "dap-view-config"
+
+dap.listeners.before.attach[name] = enable
+dap.listeners.before.launch[name] = enable
+dap.listeners.after.event_terminated[name] = disable
+dap.listeners.after.event_exited[name] = disable
