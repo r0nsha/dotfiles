@@ -1,23 +1,27 @@
 keybinds clear-defaults=true {
+    normal {
+        bind "Ctrl h" "Ctrl left" { MoveFocus "left"; }
+        bind "Ctrl j" "Ctrl down" { MoveFocus "down"; }
+        bind "Ctrl k" "Ctrl up" { MoveFocus "up"; }
+        bind "Ctrl l" "Ctrl right" { MoveFocus "right"; }
+    }
     locked {
         bind "Ctrl g" { SwitchToMode "normal"; }
     }
     pane {
-        bind "left" { MoveFocus "left"; }
-        bind "down" { MoveFocus "down"; }
-        bind "up" { MoveFocus "up"; }
-        bind "right" { MoveFocus "right"; }
-        bind "c" { SwitchToMode "renamepane"; PaneNameInput 0; }
+        bind "p" { SwitchFocus; }
+
+        bind "h" "left" { MoveFocus "left"; }
+        bind "j" "down" { MoveFocus "down"; }
+        bind "k" "up" { MoveFocus "up"; }
+        bind "l" "right" { MoveFocus "right"; }
+
+        bind "P" { NewPane; SwitchToMode "normal"; }
+        bind "n" { SwitchToMode "renamepane"; PaneNameInput 0; }
         bind "d" { NewPane "down"; SwitchToMode "normal"; }
         bind "e" { TogglePaneEmbedOrFloating; SwitchToMode "normal"; }
         bind "f" { ToggleFocusFullscreen; SwitchToMode "normal"; }
-        bind "h" { MoveFocus "left"; }
         bind "i" { TogglePanePinned; SwitchToMode "normal"; }
-        bind "j" { MoveFocus "down"; }
-        bind "k" { MoveFocus "up"; }
-        bind "l" { MoveFocus "right"; }
-        bind "n" { NewPane; SwitchToMode "normal"; }
-        bind "p" { SwitchFocus; }
         bind "Ctrl p" { SwitchToMode "normal"; }
         bind "r" { NewPane "right"; SwitchToMode "normal"; }
         bind "w" { ToggleFloatingPanes; SwitchToMode "normal"; }
