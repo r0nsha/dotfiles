@@ -69,11 +69,13 @@ keybinds clear-defaults=true {
 
     tmux {
         bind "a" "Ctrl a" { ToggleTab; SwitchToMode "normal"; }
-        bind "h" "Ctrl h" { GoToNextTab; SwitchToMode "normal"; }
-        bind "l" "Ctrl l" { GoToPreviousTab; SwitchToMode "normal"; }
-        bind "n" "Ctrl n" { NewTab; SwitchToMode "normal"; }
+        bind "h" "Ctrl h" { GoToPreviousTab; SwitchToMode "normal"; }
+        bind "l" "Ctrl l" { GoToNextTab; SwitchToMode "normal"; }
+        bind "c" "Ctrl n" { NewTab; SwitchToMode "normal"; }
+        bind "x" "Ctrl x" { CloseTab; SwitchToMode "normal"; }
         bind "p" "Ctrl p" { SwitchToMode "pane"; }
         bind "t" "Ctrl t" { SwitchToMode "tab"; }
+        // bind "f" "Ctrl q" { Quit; }
         bind "q" "Ctrl q" { Quit; }
     }
 
