@@ -1,49 +1,49 @@
 keybinds clear-defaults=true {
     shared_except "locked" {
-        bind "Ctrl h" "Ctrl left" {
+        bind "Ctrl h" {
             MessagePlugin "vim-zellij-navigator" {
                 name "move_focus";
                 payload "left";
             };
         }
-        bind "Ctrl j" "Ctrl down" {
+        bind "Ctrl j" {
             MessagePlugin "vim-zellij-navigator" {
                 name "move_focus";
                 payload "down";
             };
         }
-        bind "Ctrl k" "Ctrl up" {
+        bind "Ctrl k" {
             MessagePlugin "vim-zellij-navigator" {
                 name "move_focus";
                 payload "up";
             };
         }
-        bind "Ctrl l" "Ctrl right" {
+        bind "Ctrl l" {
             MessagePlugin "vim-zellij-navigator" {
                 name "move_focus";
                 payload "right";
             };
         }
 
-        bind "Alt h" "Alt left" {
+        bind "Alt h" {
             MessagePlugin "vim-zellij-navigator" {
                 name "resize";
                 payload "left";
             };
         }
-        bind "Alt j" "Alt down" {
+        bind "Alt j" {
             MessagePlugin "vim-zellij-navigator" {
                 name "resize";
                 payload "down";
             };
         }
-        bind "Alt k" "Alt up" {
+        bind "Alt k" {
             MessagePlugin "vim-zellij-navigator" {
                 name "resize";
                 payload "up";
             };
         }
-        bind "Alt l" "Alt right" {
+        bind "Alt l" {
             MessagePlugin "vim-zellij-navigator" {
                 name "resize";
                 payload "right";
@@ -86,6 +86,11 @@ keybinds clear-defaults=true {
         bind "k" "Ctrl k" "up" "Ctrl up" { NewPane "up"; SwitchToMode "normal"; }
         bind "l" "Ctrl l" "right" "Ctrl right" { NewPane "right"; SwitchToMode "normal"; }
 
+        bind "H" "Ctrl H" { MovePane "left"; SwitchToMode "normal"; }
+        bind "J" "Ctrl J" { MovePane "down"; SwitchToMode "normal"; }
+        bind "K" "Ctrl K" { MovePane "up"; SwitchToMode "normal"; }
+        bind "L" "Ctrl L" { MovePane "right"; SwitchToMode "normal"; }
+
         bind "r" "Ctrl r" { SwitchToMode "renamepane"; PaneNameInput 0; SwitchToMode "normal"; }
         bind "f" "Ctrl f" { ToggleFocusFullscreen; SwitchToMode "normal"; }
         bind "e" "Ctrl e" { TogglePaneEmbedOrFloating; SwitchToMode "normal"; }
@@ -102,11 +107,16 @@ keybinds clear-defaults=true {
         bind "t" "Ctrl t" { NewTab; SwitchToMode "normal"; }
         bind "n" "Ctrl n" { NewTab; SwitchToMode "normal"; }
 
-        bind "a" "Ctrl a" { ToggleTab; SwitchToMode "normal"; }
+        bind "a" "Ctrl a" { ToggleTab; }
         bind "h" "Ctrl h" "left" "Ctrl left" { GoToPreviousTab; }
         bind "j" "Ctrl j" "down" "Ctrl down" { GoToNextTab; }
         bind "k" "Ctrl k" "up" "Ctrl up" { GoToPreviousTab; }
         bind "l" "Ctrl l" "right" "Ctrl right" { GoToNextTab; }
+
+        bind "H" "Ctrl H" { MoveTab "left"; }
+        bind "J" "Ctrl J" { MoveTab "right"; }
+        bind "K" "Ctrl K" { MoveTab "left"; }
+        bind "L" "Ctrl L" { MoveTab "right"; }
 
         bind "1" { GoToTab 1; SwitchToMode "normal"; }
         bind "2" { GoToTab 2; SwitchToMode "normal"; }
@@ -132,24 +142,6 @@ keybinds clear-defaults=true {
         bind "esc" { UndoRenameTab; SwitchToMode "tab"; }
     }
 
-    // resize {
-    //     bind "left" { Resize "Increase left"; }
-    //     bind "down" { Resize "Increase down"; }
-    //     bind "up" { Resize "Increase up"; }
-    //     bind "right" { Resize "Increase right"; }
-    //     bind "+" { Resize "Increase"; }
-    //     bind "-" { Resize "Decrease"; }
-    //     bind "=" { Resize "Increase"; }
-    //     bind "H" { Resize "Decrease left"; }
-    //     bind "J" { Resize "Decrease down"; }
-    //     bind "K" { Resize "Decrease up"; }
-    //     bind "L" { Resize "Decrease right"; }
-    //     bind "h" { Resize "Increase left"; }
-    //     bind "j" { Resize "Increase down"; }
-    //     bind "k" { Resize "Increase up"; }
-    //     bind "l" { Resize "Increase right"; }
-    //     bind "Ctrl n" { SwitchToMode "normal"; }
-    // }
     // move {
     //     bind "left" { MovePane "left"; }
     //     bind "down" { MovePane "down"; }
@@ -231,9 +223,6 @@ keybinds clear-defaults=true {
     // }
     // shared_except "locked" "pane" {
     //     bind "Ctrl p" { SwitchToMode "pane"; }
-    // }
-    // shared_except "locked" "resize" {
-    //     bind "Ctrl n" { SwitchToMode "resize"; }
     // }
     // shared_except "normal" "locked" "entersearch" {
     //     bind "enter" { SwitchToMode "normal"; }
