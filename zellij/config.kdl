@@ -86,6 +86,8 @@ keybinds clear-defaults=true {
         bind "b" "Ctrl b" { SwitchToMode "scroll"; }
         bind "s" "Ctrl s" { SwitchToMode "entersearch"; }
         bind "S" "Ctrl S" { SwitchToMode "session"; }
+        bind "x" "Ctrl x" { CloseFocus; SwitchToMode "normal"; }
+        bind "X" { Run "kill-session"; SwitchToMode "normal"; }
         bind "d" "Ctrl d" { Detach; }
         bind "q" "Ctrl q" { Quit; }
     }
