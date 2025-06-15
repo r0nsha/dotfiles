@@ -64,7 +64,7 @@ end
 M = Hydra {
   name = "DBG",
   mode = { "n", "x", "v" },
-  body = "<leader>d",
+  body = "<leader>D",
   hint = hint,
   config = {
     color = "pink",
