@@ -117,3 +117,42 @@ function _search_history
         commandline -- $selected_command
     end
 end
+
+function zellij_select_dir
+    if test (count $argv) -eq 1
+        set selected $argv[1]
+    else
+        set -l search_dirs (
+            filter_dirs \
+            $HOME/dev \
+            $HOME/repos \
+            $HOME/dev/core-public/core
+        )
+
+        set -l perm_dirs (
+            filter_dirs \
+            $HOME/dotfiles \
+            $HOME/notes
+        )
+
+        set selected (begin
+            for dir in $perm_dirs
+                echo $dir
+            end
+
+            fd . $search_dirs --full-path --type d --min-depth 1 --max-depth 1
+        end | sed "s|^$HOME/||" | sk)
+
+        # add $HOME back
+        set selected $HOME/$selected
+    end
+
+    if test -z $selected
+        return
+    end
+
+    set -l name (basename $selected | tr . _)
+    zj attach --create --force-run-commands $name
+end
+
+alias zs zellij_select_dir
