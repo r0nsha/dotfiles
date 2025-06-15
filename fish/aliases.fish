@@ -28,7 +28,7 @@ end
 
 if binary_exists zellij
     alias zj zellij
-    alias zrf zellij run floating
+    alias zrf 'zellij run floating'
 end
 
 if binary_exists yabai
@@ -68,6 +68,3 @@ alias gup 'git branch --set-upstream-to=origin/(git-current-branch) (git-current
 # PYTHON ALIASES --------------------------------------------------------------
 alias python python3
 alias pip pip3
-
-# MISC ALIASES ----------------------------------------------------------------
-alias codelldb $HOME/codelldb/extension/adapter/codelldb
