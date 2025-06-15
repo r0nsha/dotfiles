@@ -155,27 +155,7 @@ keybinds clear-defaults=true {
     }
 
     scroll {
-        bind "j" "Ctrl j" "down" "Ctrl down" { ScrollDown; }
-        bind "k" "Ctrl k" "up" "Ctrl up" { ScrollUp; }
-        bind "d" "Ctrl d" { HalfPageScrollDown; }
-        bind "u" "Ctrl u" { HalfPageScrollUp; }
-        bind "f" "Ctrl f" { PageScrollDown; }
-        bind "b" "Ctrl b" { PageScrollUp; }
-        bind "g" { ScrollToTop; }
-        bind "G" { ScrollToBottom; }
         bind "e" { EditScrollback; SwitchToMode "normal"; }
-        bind "s" { SwitchToMode "entersearch"; SearchInput 0; }
-    }
-    scroll {
-        bind "Alt h" "Alt left" { MoveFocusOrTab "left"; SwitchToMode "normal"; }
-        bind "Alt down" { MoveFocus "down"; SwitchToMode "normal"; }
-        bind "Alt up" { MoveFocus "up"; SwitchToMode "normal"; }
-        bind "Alt right" { MoveFocusOrTab "right"; SwitchToMode "normal"; }
-        bind "e" { EditScrollback; SwitchToMode "normal"; }
-        bind "Alt h" { MoveFocusOrTab "left"; SwitchToMode "normal"; }
-        bind "Alt j" { MoveFocus "down"; SwitchToMode "normal"; }
-        bind "Alt k" { MoveFocus "up"; SwitchToMode "normal"; }
-        bind "Alt l" { MoveFocusOrTab "right"; SwitchToMode "normal"; }
         bind "s" { SwitchToMode "entersearch"; SearchInput 0; }
     }
 
@@ -191,6 +171,18 @@ keybinds clear-defaults=true {
         bind "Ctrl c" { SwitchToMode "scroll"; }
         bind "esc" { SwitchToMode "scroll"; }
         bind "enter" { SwitchToMode "search"; }
+    }
+
+    shared_among "scroll" "search" {
+        bind "j" "Ctrl j" "down" "Ctrl down" { ScrollDown; }
+        bind "k" "Ctrl k" "up" "Ctrl up" { ScrollUp; }
+        bind "d" "Ctrl d" { HalfPageScrollDown; }
+        bind "u" "Ctrl u" { HalfPageScrollUp; }
+        bind "f" "Ctrl f" { PageScrollDown; }
+        bind "b" "Ctrl b" { PageScrollUp; }
+        bind "g" { ScrollToTop; }
+        bind "G" { ScrollToBottom; }
+        bind "Ctrl c" { ScrollToBottom; SwitchToMode "normal"; }
     }
 
     // session {
@@ -223,24 +215,6 @@ keybinds clear-defaults=true {
     //         }
     //         SwitchToMode "normal"
     //     }
-    // }
-    // shared_among "scroll" "search" {
-    //     bind "PageDown" { PageScrollDown; }
-    //     bind "PageUp" { PageScrollUp; }
-    //     bind "left" { PageScrollUp; }
-    //     bind "down" { ScrollDown; }
-    //     bind "up" { ScrollUp; }
-    //     bind "right" { PageScrollDown; }
-    //     bind "Ctrl b" { PageScrollUp; }
-    //     bind "Ctrl c" { ScrollToBottom; SwitchToMode "normal"; }
-    //     bind "d" { HalfPageScrollDown; }
-    //     bind "Ctrl f" { PageScrollDown; }
-    //     bind "h" { PageScrollUp; }
-    //     bind "j" { ScrollDown; }
-    //     bind "k" { ScrollUp; }
-    //     bind "l" { PageScrollDown; }
-    //     bind "Ctrl s" { SwitchToMode "normal"; }
-    //     bind "u" { HalfPageScrollUp; }
     // }
 }
 
