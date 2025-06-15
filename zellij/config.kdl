@@ -21,7 +21,6 @@ keybinds clear-defaults=true {
         bind "Ctrl p" { SwitchToMode "normal"; }
         bind "r" { NewPane "right"; SwitchToMode "normal"; }
         bind "w" { ToggleFloatingPanes; SwitchToMode "normal"; }
-        bind "z" { TogglePaneFrames; SwitchToMode "normal"; }
     }
     tab {
         bind "left" { GoToPreviousTab; }
@@ -274,7 +273,7 @@ load_plugins {
 //   - true
 //   - false (Default)
 //
-// simplified_ui true
+simplified_ui true
 
 // Choose the theme that is specified in the themes section.
 // Default: default
@@ -298,7 +297,7 @@ default_mode "normal"
 // The name of the default layout to load on startup
 // Default: "default"
 //
-// default_layout "compact"
+default_layout "compact"
 
 // The folder in which Zellij will look for layouts
 // (Requires restart)
@@ -317,14 +316,14 @@ default_mode "normal"
 //   - true (default)
 //   - false
 //
-// mouse_mode false
+mouse_mode true
 
 // Toggle having pane frames around the panes
 // Options:
 //   - true (default, enabled)
 //   - false
 //
-// pane_frames false
+pane_frames false
 
 // When attaching to an existing session with other users,
 // should the session be mirrored (true)
@@ -376,7 +375,7 @@ default_mode "normal"
 // Enable automatic copying (and clearing) of selection when releasing mouse
 // Default: true
 //
-// copy_on_select true
+copy_on_select true
 
 // Path to the default editor to use to edit pane scrollbuffer
 // Default: $EDITOR or $VISUAL
@@ -393,7 +392,7 @@ default_mode "normal"
 // if it is already running or creates it otherwise.
 // Default: false
 //
-// attach_to_session true
+attach_to_session true
 
 // Toggle between having Zellij lay out panes according to a predefined set of layouts whenever possible
 // Options:
@@ -427,7 +426,7 @@ default_mode "normal"
 // (Requires restart)
 // Default: true
 //
-// styled_underlines false
+styled_underlines true
 
 // How often in seconds sessions are serialized
 //
@@ -444,7 +443,7 @@ default_mode "normal"
 // (Requires restart)
 // Default: true (if the host terminal supports it)
 //
-// support_kitty_keyboard_protocol false
+support_kitty_keyboard_protocol true
 
 // Whether to stack panes when resizing beyond a certain size
 // Default: true
