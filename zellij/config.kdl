@@ -77,8 +77,8 @@ keybinds clear-defaults=true {
     }
 
     pane {
-        bind "p" { NewPane; SwitchToMode "normal"; }
-        bind "n" { NewPane; SwitchToMode "normal"; }
+        bind "p" "Ctrl p" { NewPane; SwitchToMode "normal"; }
+        bind "n" "Ctrl n" { NewPane; SwitchToMode "normal"; }
 
         bind "a" { SwitchFocus; SwitchToMode "normal"; }
         bind "h" "Ctrl h" "left" "Ctrl left" { NewPane "left"; SwitchToMode "normal"; }
@@ -86,7 +86,7 @@ keybinds clear-defaults=true {
         bind "k" "Ctrl k" "up" "Ctrl up" { NewPane "up"; SwitchToMode "normal"; }
         bind "l" "Ctrl l" "right" "Ctrl right" { NewPane "right"; SwitchToMode "normal"; }
 
-        bind "r" "Ctrl n" { SwitchToMode "renamepane"; PaneNameInput 0; SwitchToMode "normal"; }
+        bind "r" "Ctrl r" { SwitchToMode "renamepane"; PaneNameInput 0; SwitchToMode "normal"; }
         bind "f" "Ctrl f" { ToggleFocusFullscreen; SwitchToMode "normal"; }
         bind "e" "Ctrl e" { TogglePaneEmbedOrFloating; SwitchToMode "normal"; }
         bind "t" "Ctrl t" { ToggleFloatingPanes; SwitchToMode "normal"; }
@@ -99,14 +99,14 @@ keybinds clear-defaults=true {
     }
 
     tab {
-        bind "t" { NewTab; SwitchToMode "normal"; }
-        bind "n" { NewTab; SwitchToMode "normal"; }
+        bind "t" "Ctrl t" { NewTab; SwitchToMode "normal"; }
+        bind "n" "Ctrl n" { NewTab; SwitchToMode "normal"; }
 
-        bind "a" { ToggleTab; SwitchToMode "normal"; }
-        bind "h" "left" { GoToPreviousTab; }
-        bind "j" "down" { GoToNextTab; }
-        bind "k" "up" { GoToPreviousTab; }
-        bind "l" "right" { GoToNextTab; }
+        bind "a" "Ctrl a" { ToggleTab; SwitchToMode "normal"; }
+        bind "h" "Ctrl h" "left" "Ctrl left" { GoToPreviousTab; }
+        bind "j" "Ctrl j" "down" "Ctrl down" { GoToNextTab; }
+        bind "k" "Ctrl k" "up" "Ctrl up" { GoToPreviousTab; }
+        bind "l" "Ctrl l" "right" "Ctrl right" { GoToNextTab; }
 
         bind "1" { GoToTab 1; SwitchToMode "normal"; }
         bind "2" { GoToTab 2; SwitchToMode "normal"; }
@@ -123,9 +123,9 @@ keybinds clear-defaults=true {
         bind "]" { BreakPaneRight; SwitchToMode "normal"; }
         bind "b" { BreakPane; SwitchToMode "normal"; }
 
-        bind "r" { SwitchToMode "renametab"; TabNameInput 0; }
+        bind "r" "Ctrl r" { SwitchToMode "renametab"; TabNameInput 0; }
         bind "s" { ToggleActiveSyncTab; SwitchToMode "normal"; }
-        bind "x" { CloseTab; SwitchToMode "normal"; }
+        bind "x" "Ctrl x" { CloseTab; SwitchToMode "normal"; }
     }
 
     renametab {
@@ -319,7 +319,7 @@ default_mode "normal"
 // The name of the default layout to load on startup
 // Default: "default"
 //
-// default_layout "compact"
+default_layout "compact"
 
 // The folder in which Zellij will look for layouts
 // (Requires restart)
