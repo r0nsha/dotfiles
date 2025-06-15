@@ -39,7 +39,7 @@ local hint = [[
  UI                   ^
  _gu_ Toggle UI      ^_<leader>w_ Watch expression
  _gw_ Watches        ^_<leader>W_ Add watch
- _gS_ Scopes         ^
+ _gs_ Scopes         ^
  _gx_ Exceptions     ^
  _gb_ Breakpoints    ^
  _gT_ Threads        ^
@@ -134,7 +134,7 @@ M = Hydra {
       { desc = "Toggle UI", private = true },
     },
     { "gw", jump_to_view "watches", { desc = "Jump to Watches", private = true } },
-    { "gS", jump_to_view "scopes", { desc = "Jump to Scopes", private = true } },
+    { "gs", jump_to_view "scopes", { desc = "Jump to Scopes", private = true } },
     { "gx", jump_to_view "exceptions", { desc = "Jump to Exceptions", private = true } },
     { "gb", jump_to_view "breakpoints", { desc = "Jump to Breakpoints", private = true } },
     { "gT", jump_to_view "threads", { desc = "Jump to Threads", private = true } },
