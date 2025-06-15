@@ -1,11 +1,11 @@
 require("mini.surround").setup {
   mappings = {
-    add = "gsa",
-    delete = "gsd",
-    find = "gsf",
-    find_left = "gsF",
-    highlight = "gsh",
-    replace = "gsc",
-    update_n_lines = "gsn",
+    add = "sa",
+    delete = "sd",
+    find = "sf",
+    find_left = "sF",
+    highlight = "sh",
+    replace = "sc",
+    update_n_lines = "sn",
   },
 }
