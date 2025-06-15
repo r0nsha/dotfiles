@@ -3,6 +3,7 @@ require "clipboard"
 require "remap"
 require "autocmd"
 require "inspect"
+require "utils/string"
 
 -- load .env, if it exists
 require("dotenv").eval(vim.fs.joinpath(vim.fn.stdpath "config", ".env"))

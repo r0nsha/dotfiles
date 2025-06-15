@@ -17,11 +17,11 @@ end
 local hint = [[
  Navigation          ^Breakpoints
  _s_/_c_ Continue        ^_db_ Toggle breakpoint
- _P_   Pause           ^_dl_ Log point
+ _S_   Run last        ^_dl_ Log point
  _J_   Step over       ^_dD_ Clear all breakpoints
  _K_   Step back       ^_dx_ Set exception breakpoints
  _L_   Step in         ^_dX_ Clear exception breakpoints
- _H_   Step out        ^
+ _H_   Step out        ^_dp_ Pause
  _r_   Run to cursor   ^
                       ^
  UI                   ^
@@ -60,7 +60,7 @@ M = Hydra {
     hint = {
       position = "middle-right",
       float_opts = { border = "single" },
-      hide_on_load = true,
+      -- hide_on_load = true,
     },
     on_enter = function()
       local hydra_pink = vim.api.nvim_get_hl(0, { name = "HydraPink" }).fg
@@ -74,6 +74,7 @@ M = Hydra {
   },
   heads = {
     { "s", dap.continue, { desc = "Continue", private = true } },
+    { "S", dap.run_last, { desc = "Run last", private = true } },
 
     -- Stepping
     { "c", dap.continue, { desc = "Continue", private = true } },
@@ -82,14 +83,6 @@ M = Hydra {
     { "H", dap.step_out, { desc = "Step out", private = true } },
     { "L", dap.step_into, { desc = "Step into", private = true } },
     { "r", dap.run_to_cursor, { desc = "Run to cursor", private = true } },
-    {
-      "P",
-      function()
-        ---@diagnostic disable-next-line: undefined-field
-        dap.pause.toggle()
-      end,
-      { desc = "Pause", private = true },
-    },
 
     -- Breakpoints
     { "db", persistent_breakpoints_api.toggle_breakpoint, { desc = "Toggle breakpoint", private = true } },
@@ -110,6 +103,14 @@ M = Hydra {
         dap.set_exception_breakpoints {}
       end,
       { desc = "Clear exception breakpoints", private = true },
+    },
+    {
+      "dp",
+      function()
+        ---@diagnostic disable-next-line: undefined-field
+        dap.pause.toggle()
+      end,
+      { desc = "Pause", private = true },
     },
 
     -- Watch
