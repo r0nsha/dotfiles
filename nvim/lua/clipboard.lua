@@ -1,6 +1,6 @@
 local utils = require "utils"
 
-vim.opt.clipboard = "unnamedplus"
+vim.opt.clipboard:append "unnamedplus"
 
 if vim.env.SSH_CONNECTION then
   local function vim_paste()

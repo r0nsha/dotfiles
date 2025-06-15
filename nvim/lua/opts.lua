@@ -1,23 +1,48 @@
 local utils = require "utils"
 
--- netrw options
-vim.g.netrw_browse_split = 0
-vim.g.netrw_banner = 0
-vim.g.netrw_winsize = 25
-
--- line numbers, cols, signs, etc.
+-- basic
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.signcolumn = "yes"
-vim.opt.isfname:append "@-@"
+vim.opt.cursorline = true
+vim.opt.scrolloff = 10
+vim.opt.sidescrolloff = 8
 
--- display and appearance
+-- indentation
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
+vim.opt.smartindent = true
+vim.opt.autoindent = true
+-- vim.opt.shiftround = true
+-- vim.opt.joinspaces = true
+
+-- search
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.hlsearch = true
+vim.opt.incsearch = true
+
+-- visual
 vim.opt.termguicolors = true
 vim.opt.background = "dark"
 vim.opt.guicursor = "a:block-Cursor/lCursor"
-vim.opt.cursorline = true
+vim.opt.signcolumn = "yes"
 vim.opt.colorcolumn = "80"
-vim.opt.conceallevel = 2
+vim.opt.showmatch = true
+vim.opt.matchtime = 2
+vim.opt.laststatus = 2
+vim.opt.showmode = true
+vim.opt.cmdheight = 1
+vim.opt.showcmdloc = "statusline"
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
+vim.opt.pumheight = 10
+vim.opt.pumblend = 10
+vim.opt.winblend = 0
+vim.opt.conceallevel = 0
+vim.opt.concealcursor = ""
+vim.opt.lazyredraw = true
+vim.opt.synmaxcol = 400
 vim.opt.list = true
 vim.opt.listchars = {
   eol = "↲",
@@ -27,7 +52,9 @@ vim.opt.listchars = {
   trail = " ",
   nbsp = " ",
 }
+vim.opt.winborder = "single"
 
+-- wrap
 vim.opt.wrap = true
 if vim.opt.wrap then
   vim.opt.showbreak = ""
@@ -39,73 +66,66 @@ end
 vim.opt.title = true
 vim.opt.titlestring = '%t%( %M%)%( (%{expand("%:~:h")})%)%a (nvim)'
 
--- mouse
-vim.opt.mouse = "a"
-vim.opt.mousemodel = "popup_setpos"
-
--- search
-vim.opt.incsearch = true
-vim.opt.hlsearch = true
-vim.opt.inccommand = "split"
-vim.opt.smartcase = true
-vim.opt.ignorecase = true
-
--- indent, tabs and typing
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.smartindent = true
-vim.opt.autoindent = true
-vim.opt.expandtab = false
-vim.opt.shiftround = true
-vim.opt.joinspaces = true
-vim.opt.backspace = { "indent", "start", "eol" }
-
--- scroll
-vim.opt.scrolloff = 8
-vim.opt.sidescrolloff = 8
-
--- buffer and backups
-vim.opt.autoread = true
-vim.opt.shada = { "'10", "<0", "s10", "h" }
-vim.opt.swapfile = true
+-- files
+vim.opt.isfname:append "@-@"
+vim.opt.backup = false
+vim.opt.writebackup = false
+vim.opt.swapfile = false
 vim.opt.undofile = true
-vim.opt.fixeol = false
-vim.opt.hidden = true
-
--- completion
-vim.opt.completeopt = { "menu", "menuone", "noselect" }
-
--- disable startup message
-vim.opt.shortmess:append { I = true }
-
--- updatetime and timeout
-vim.opt.updatetime = 250
+vim.opt.undodir = vim.fn.expand "~/.vim/undodir"
+vim.opt.shada = { "'10", "<0", "s10", "h" }
+vim.opt.updatetime = 300
 vim.opt.timeout = true
 vim.opt.timeoutlen = 1000
-
--- splits
-vim.opt.splitbelow = true
-vim.opt.splitright = true
-
--- statusline
-vim.opt.laststatus = 2
-vim.opt.showcmdloc = "statusline"
-
--- don't pause when listings get too long
-vim.opt.more = false
+vim.opt.ttimeoutlen = 0
+vim.opt.autoread = true
+vim.opt.autowrite = false
+-- vim.opt.fixeol = false
 
 -- filetypes
 vim.filetype.add { extension = { ll = "llvm" } }
 
--- win
-vim.opt.winborder = "single"
+-- behavior
+vim.opt.hidden = true
+vim.opt.errorbells = false
+vim.opt.backspace = { "indent", "start", "eol" }
+vim.opt.autochdir = false
+vim.opt.iskeyword:append "-"
+vim.opt.path:append "**"
+vim.opt.selection = "exclusive"
+vim.opt.modifiable = true
+vim.opt.encoding = "utf-8"
+vim.opt.more = false
 
 -- folds
 vim.opt.foldcolumn = "1"
 vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99
 vim.opt.foldenable = true
+
+-- splits
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+
+-- disable startup message
+vim.opt.shortmess:append { I = true }
+
+-- mouse
+vim.opt.mouse = "a"
+vim.opt.mousemodel = "popup_setpos"
+
+-- diff
+vim.opt.diffopt:append "linematch:60"
+
+-- perf
+vim.opt.redrawtime = 10000
+vim.opt.maxmempattern = 20000
+
+-- Create undo directory if it doesn't exist
+local undodir = vim.fn.expand "~/.vim/undodir"
+if vim.fn.isdirectory(undodir) == 0 then
+  vim.fn.mkdir(undodir, "p")
+end
 
 -- windows specific options
 if utils.is_windows() then

@@ -1,8 +1,8 @@
--- [[ Highlight on yank ]]
--- See `:help vim.highlight.on_yank()`
-local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+local augroup = vim.api.nvim_create_augroup("UserConfig", { clear = true })
+
+-- Highlight yanked text
 vim.api.nvim_create_autocmd("TextYankPost", {
-  group = vim.api.nvim_create_augroup("YankHighlight", { clear = true }),
+  group = augroup,
   pattern = "*",
   callback = function()
     vim.highlight.on_yank {
@@ -12,8 +12,21 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
+-- Return to last edit position when opening files
+vim.api.nvim_create_autocmd("BufReadPost", {
+  group = augroup,
+  callback = function()
+    local mark = vim.api.nvim_buf_get_mark(0, '"')
+    local lcount = vim.api.nvim_buf_line_count(0)
+    if mark[1] > 0 and mark[1] <= lcount then
+      pcall(vim.api.nvim_win_set_cursor, 0, mark)
+    end
+  end,
+})
+
+-- Set filetype for git/config files
 vim.api.nvim_create_autocmd("BufEnter", {
-  group = vim.api.nvim_create_augroup("CustomGitConfig", { clear = true }),
+  group = augroup,
   pattern = "*/git/config",
   callback = function()
     vim.cmd "set ft=gitconfig"
@@ -22,7 +35,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 
 -- Reload kitty.conf when it's modified
 vim.api.nvim_create_autocmd("BufWritePost", {
-  group = vim.api.nvim_create_augroup("CustomKittyConfig", { clear = true }),
+  group = augroup,
   pattern = "*/kitty/kitty.conf",
   callback = function()
     local Job = require "plenary.job"
@@ -49,8 +62,9 @@ vim.api.nvim_create_autocmd("BufWritePost", {
   end,
 })
 
+-- Remove `o` from formatoptions when entering a buffer
 vim.api.nvim_create_autocmd("BufWinEnter", {
-  group = vim.api.nvim_create_augroup("CustomBufEnter", { clear = true }),
+  group = augroup,
   pattern = "*",
   callback = function()
     -- Don't have `o` add a comment
@@ -58,13 +72,33 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
   end,
 })
 
+-- Automatically remove hlsearch when moving the cursor
 vim.api.nvim_create_autocmd("CursorMoved", {
-  group = vim.api.nvim_create_augroup("CustomNoHlsearch", { clear = true }),
+  group = augroup,
   callback = function()
     if vim.v.hlsearch == 1 and vim.fn.searchcount().exact_match == 0 then
       vim.schedule(function()
         vim.cmd.nohlsearch()
       end)
+    end
+  end,
+})
+
+-- Auto-resize splits when window is resized
+vim.api.nvim_create_autocmd("VimResized", {
+  group = augroup,
+  callback = function()
+    vim.cmd "tabdo wincmd ="
+  end,
+})
+
+-- Create directories when saving files
+vim.api.nvim_create_autocmd("BufWritePre", {
+  group = augroup,
+  callback = function()
+    local dir = vim.fn.expand "<afile>:p:h"
+    if vim.fn.isdirectory(dir) == 0 then
+      vim.fn.mkdir(dir, "p")
     end
   end,
 })

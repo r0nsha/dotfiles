@@ -62,18 +62,8 @@ vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
 -- Stay in visual mode when indenting
-vim.api.nvim_create_autocmd("Filetype", {
-  group = vim.api.nvim_create_augroup("CustomFiletype", { clear = true }),
-  pattern = "*",
-  callback = function()
-    if vim.bo.filetype == "norg" then
-      return
-    end
-
-    vim.keymap.set("v", "<", "<gv", { buffer = true })
-    vim.keymap.set("v", ">", ">gv", { buffer = true })
-  end,
-})
+vim.keymap.set("v", "<", "<gv")
+vim.keymap.set("v", ">", ">gv")
 
 -- Quickfix list remaps
 vim.keymap.set("n", "<m-P>", "<cmd>cprev<cr>zz", { desc = "Quickfix: Prev" })
