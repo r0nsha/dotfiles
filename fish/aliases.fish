@@ -27,6 +27,11 @@ else if binary_exists bat
     alias cat bat
 end
 
+if binary_exists zellij
+    alias zj zellij
+    alias zrf zellij run floating
+end
+
 alias yabais 'yabai --start-service'
 alias yabair 'yabai --stop-service && yabai --start-service'
 
