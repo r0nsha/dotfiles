@@ -71,6 +71,7 @@ keybinds clear-defaults=true {
         bind "a" "Ctrl a" { ToggleTab; SwitchToMode "normal"; }
         bind "h" "Ctrl h" { GoToNextTab; SwitchToMode "normal"; }
         bind "l" "Ctrl l" { GoToPreviousTab; SwitchToMode "normal"; }
+        bind "n" "Ctrl n" { NewTab; SwitchToMode "normal"; }
         bind "p" "Ctrl p" { SwitchToMode "pane"; }
         bind "t" "Ctrl t" { SwitchToMode "tab"; }
         bind "q" "Ctrl q" { Quit; }
