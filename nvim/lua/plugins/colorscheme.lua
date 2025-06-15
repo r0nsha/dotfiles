@@ -54,7 +54,8 @@ return {
           TroubleNormalNC = { link = "NormalNC" },
           FzfLuaBorder = { bg = "none" },
           WhichKeyBorder = { link = "FloatBorder" },
-          DapStoppedLine = { bg = group_error, fg = bg },
+          -- DapStoppedLine = { bg = group_error, fg = bg },
+          DapStoppedLine = { link = "DiagnosticVirtualTextError" },
           HydraPink = { fg = group_error },
         },
       }

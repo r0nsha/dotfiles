@@ -14,6 +14,19 @@ local function jump_to_view(view)
   end
 end
 
+local function disconnect()
+  if dap.session() then
+    dap.disconnect()
+    dap.close()
+  end
+end
+
+local function terminate()
+  if dap.session() then
+    dap.terminate()
+  end
+end
+
 local hint = [[
  Navigation          ^Breakpoints
  _s_/_c_ Continue        ^_db_ Toggle breakpoint
@@ -134,16 +147,9 @@ M = Hydra {
     { "gC", jump_to_view "console", { desc = "Jump to Console", private = true } },
 
     -- Quitting
-    {
-      "d",
-      function()
-        dap.disconnect()
-        dap.close()
-      end,
-      { desc = "Continue", exit = true },
-    },
-    { "q", dap.terminate, { desc = "Terminate", exit = true } },
-    { "<C-c>", dap.terminate, { desc = "Terminate", exit = true } },
+    { "d", disconnect, { desc = "Continue", exit = true } },
+    { "q", terminate, { desc = "Terminate", exit = true } },
+    { "<C-c>", terminate, { desc = "Terminate", exit = true } },
 
     -- Hint
     { "g?", toggle_help, { desc = "Toggle Help", private = true } },
