@@ -2,18 +2,21 @@ layout {
     default_tab_template {
         children
         pane size=1 borderless=true {
-            plugin location="https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm" {
-                format_left   "{mode} #[fg=#89B4FA,bold]{session}"
+            plugin location="file:~/.config/zellij/zjstatus.wasm" {
+                format_left   "{mode} #[fg=colour2,bold]{session}"
                 format_center "{tabs}"
                 format_right  "{command_git_branch} {datetime}"
                 format_space  ""
 
                 border_enabled  "false"
                 border_char     "─"
-                border_format   "#[fg=#6C7086]{char}"
+                border_format   "#[fg=colour8]{char}"
                 border_position "top"
 
                 hide_frame_for_single_pane "true"
+                hide_frame_except_for_search "true"
+                hide_frame_except_for_fullscreen "true"
+                hide_frame_except_for_scroll "true"
 
                 mode_normal  "#[bg=blue] "
                 mode_tmux    "#[bg=#ffc387] "
