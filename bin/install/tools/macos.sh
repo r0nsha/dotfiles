@@ -36,6 +36,7 @@ install_deps() {
 		fzf
 		koekeishiya/formulae/yabai
 		koekeishiya/formulae/skhd
+		pass
 	)
 
 	for dep in ${deps[@]}; do

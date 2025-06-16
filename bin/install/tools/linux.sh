@@ -12,6 +12,7 @@ install_deps() {
 	sudo apt -y -qq update
 
 	deps=(
+		fish
 		stow
 		zoxide
 		fd-find
@@ -20,6 +21,7 @@ install_deps() {
 		fzf
 		gnome-tweaks
 		gtk2-engines-murrine
+		pass
 	)
 
 	for dep in ${deps[@]}; do
