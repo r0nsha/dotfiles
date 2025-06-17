@@ -19,47 +19,63 @@ local line_with_checkbox = function(line)
     or line:find("^%s*%d%. " .. unchecked_checkbox)
 end
 
-local checkbox = {
-  check = function(line)
-    return line:gsub(unchecked_checkbox, checked_checkbox, 1)
-  end,
+---@param line string
+local function check(line)
+  return line:gsub(unchecked_checkbox, checked_checkbox, 1)
+end
 
-  uncheck = function(line)
-    return line:gsub(checked_checkbox, unchecked_checkbox, 1)
-  end,
+---@param line string
+local function uncheck(line)
+  return line:gsub(checked_checkbox, unchecked_checkbox, 1)
+end
 
-  make_checkbox = function(line)
-    if not line:match "^%s*-%s.*$" and not line:match "^%s*%d%s.*$" then
-      -- "xxx" -> "- [ ] xxx"
-      return line:gsub("(%S+)", "- [ ] %1", 1)
-    else
-      -- "- xxx" -> "- [ ] xxx", "3. xxx" -> "3. [ ] xxx"
-      return line:gsub("(%s*- )(.*)", "%1[ ] %2", 1):gsub("(%s*%d%. )(.*)", "%1[ ] %2", 1)
-    end
-  end,
-}
+---@param line string
+local function make_checkbox(line)
+  if not line:match "^%s*-%s.*$" and not line:match "^%s*%d%s.*$" then
+    -- "xxx" -> "- [ ] xxx"
+    return line:gsub("(%S+)", "- [ ] %1", 1)
+  else
+    -- "- xxx" -> "- [ ] xxx", "3. xxx" -> "3. [ ] xxx"
+    return line:gsub("(%s*- )(.*)", "%1[ ] %2", 1):gsub("(%s*%d%. )(.*)", "%1[ ] %2", 1)
+  end
+end
+
+local function get_toggled_line(line)
+  if line == "" then
+    return ""
+  end
+
+  if not line_with_checkbox(line) then
+    return make_checkbox(line)
+  elseif line_contains_unchecked(line) then
+    return check(line)
+  elseif line_contains_checked(line) then
+    return uncheck(line)
+  else
+    return ""
+  end
+end
 
 local M = {}
 
 M.toggle = function()
   local bufnr = vim.api.nvim_get_current_buf()
   local cursor = vim.api.nvim_win_get_cursor(0)
-  local start_line = cursor[1] - 1
-  local current_line = vim.api.nvim_buf_get_lines(bufnr, start_line, start_line + 1, false)[1] or ""
 
-  -- If the line contains a checked checkbox then uncheck it.
-  -- Otherwise, if it contains an unchecked checkbox, check it.
-  local new_line = ""
+  local start_line = vim.fn.line "v"
+  local end_line = vim.fn.line "."
 
-  if not line_with_checkbox(current_line) then
-    new_line = checkbox.make_checkbox(current_line)
-  elseif line_contains_unchecked(current_line) then
-    new_line = checkbox.check(current_line)
-  elseif line_contains_checked(current_line) then
-    new_line = checkbox.uncheck(current_line)
+  if start_line > end_line then
+    start_line, end_line = end_line, start_line
   end
 
-  vim.api.nvim_buf_set_lines(bufnr, start_line, start_line + 1, false, { new_line })
+  for linenr = start_line, end_line do
+    local start, _end = linenr - 1, linenr
+    local line = vim.api.nvim_buf_get_lines(bufnr, start, _end, false)[1] or ""
+    local new_line = get_toggled_line(line)
+    vim.api.nvim_buf_set_lines(bufnr, start, _end, false, { new_line })
+  end
+
   vim.api.nvim_win_set_cursor(0, cursor)
 end
 
