@@ -148,3 +148,6 @@
     remote   = yellow
     upstream = green
     plain    = blue
+
+[alias]
+	current-branch = rev-parse --abbrev-ref HEAD
