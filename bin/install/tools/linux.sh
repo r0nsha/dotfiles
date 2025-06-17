@@ -87,13 +87,6 @@ install_luarocks() {
 	sudo make install
 }
 
-install_sesh() {
-	cd $DOWNLOADS
-	curl -L -R -O https://github.com/joshmedeski/sesh/releases/download/v2.16.0/sesh_Linux_x86_64.tar.gz
-	tar zxf sesh_Linux_x86_64.tar.gz
-	mv $DOWNLOADS/sesh $HOME/.local/bin/sesh
-}
-
 install_deps
 echo ""
 install_wrapper nvim install_nvim
@@ -101,4 +94,3 @@ install_wrapper tmux install_tmux
 install_wrapper fdfind install_fd
 install_wrapper eza install_eza
 install_wrapper luarocks install_luarocks
-install_wrapper sesh install_sesh
