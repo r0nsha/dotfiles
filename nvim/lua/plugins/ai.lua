@@ -73,7 +73,7 @@ return {
             provider = "snacks",
           },
           chat = {
-            intro_message = "Welcome  ! Press ? for options",
+            intro_message = "  Press ? for options",
           },
           diff = {
             provider = "mini_diff",
