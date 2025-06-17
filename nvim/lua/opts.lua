@@ -96,10 +96,9 @@ vim.opt.encoding = "utf-8"
 vim.opt.more = false
 
 -- folds
-vim.opt.foldcolumn = "1"
+-- vim.opt.foldcolumn = "1"
 vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99
-vim.opt.foldenable = true
 
 -- splits
 vim.opt.splitbelow = true

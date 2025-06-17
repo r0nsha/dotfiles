@@ -1,5 +1,9 @@
 return {
   {
+    "MeanderingProgrammer/render-markdown.nvim",
+    ft = { "markdown", "codecompanion" },
+  },
+  {
     "toppair/peek.nvim",
     event = { "VeryLazy" },
     build = "deno task --quiet build:fast",
@@ -15,29 +19,6 @@ return {
       vim.keymap.set("n", "gpp", peek.open, { desc = "Peek: Open" })
       vim.keymap.set("n", "gpc", peek.close, { desc = "Peek: Close" })
     end,
-  },
-  {
-    "bngarren/checkmate.nvim",
-    ft = "markdown",
-    opts = {
-      files = {
-        "todo",
-        "TODO",
-        "todo.md",
-        "TODO.md",
-        "*.todo",
-        "*.todo.md",
-      },
-      keys = {
-        ["<c-space>"] = "toggle",
-        ["<leader>Tt"] = "toggle",
-        ["<leader>Tc"] = "check",
-        ["<leader>Tu"] = "uncheck",
-        ["<leader>Tn"] = "create",
-        ["<leader>TR"] = "remove_all_metadata",
-        ["<leader>Ta"] = "archive",
-      },
-    },
   },
   { "jghauser/follow-md-links.nvim", ft = "markdown" },
 }

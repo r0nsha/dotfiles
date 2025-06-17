@@ -4,6 +4,7 @@ require "remap"
 require "autocmd"
 require "inspect"
 require "pass"
+require "toggle-checkbox"
 require "utils/string"
 
 -- load .env, if it exists
