@@ -45,7 +45,6 @@ local M = {
     },
     notifier = {
       margin = { top = 0, right = 0, bottom = 1 },
-      padding = false,
       icons = {
         error = icons.error,
         warn = icons.warning,
@@ -57,7 +56,10 @@ local M = {
         ctx.opts.border = "none"
         local whl = ctx.opts.wo.winhighlight
         ctx.opts.wo.winhighlight = whl:gsub(ctx.hl.msg, "SnacksNotifierMinimal")
-        vim.api.nvim_buf_set_lines(buf, 0, -1, false, vim.split(notif.msg, "\n"))
+        local lines = vim.tbl_map(function(l)
+          return l .. "  "
+        end, vim.split(notif.msg, "\n"))
+        vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
         vim.api.nvim_buf_set_extmark(buf, ctx.ns, 0, 0, {
           virt_text = { { " " .. notif.icon .. " ", ctx.hl.icon } },
           virt_text_pos = "right_align",

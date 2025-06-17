@@ -1,3 +1,3 @@
 function _G.p(v)
-  print(vim.inspect(v))
+  vim.notify(vim.inspect(v))
 end
