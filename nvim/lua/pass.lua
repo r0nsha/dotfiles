@@ -35,7 +35,8 @@ end
 
 M.load = function()
   M.read_all {
-    CODESTRAL_API_KEY = "mistral/api",
+    CODESTRAL_API_KEY = "mistral/codestral",
+    GEMINI_API_KEY = "google/gemini",
   }
 end
 
