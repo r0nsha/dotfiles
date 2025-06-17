@@ -3,6 +3,7 @@ return {
   event = { "BufReadPre", "BufNewFile" },
   config = function()
     require("lint").linters_by_ft = {
+      fish = { "fish" },
       -- javascript = { "eslint_d" },
       -- javascriptreact = { "eslint_d" },
       -- typescript = { "eslint_d" },
