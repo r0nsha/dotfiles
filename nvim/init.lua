@@ -3,6 +3,7 @@ require "clipboard"
 require "remap"
 require "autocmd"
 require "inspect"
+require "pass"
 require "utils/string"
 
 -- load .env, if it exists

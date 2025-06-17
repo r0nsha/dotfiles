@@ -44,6 +44,8 @@ local M = {
       },
     },
     notifier = {
+      width = { min = 40, max = 0.3 },
+      height = { min = 1, max = 0.6 },
       margin = { top = 0, right = 0, bottom = 1 },
       icons = {
         error = icons.error,
@@ -56,6 +58,7 @@ local M = {
         ctx.opts.border = "none"
         local whl = ctx.opts.wo.winhighlight
         ctx.opts.wo.winhighlight = whl:gsub(ctx.hl.msg, "SnacksNotifierMinimal")
+        ctx.opts.wo.wrap = true
         local lines = vim.tbl_map(function(l)
           return l .. "  "
         end, vim.split(notif.msg, "\n"))
