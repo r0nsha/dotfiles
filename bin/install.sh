@@ -2,12 +2,12 @@
 #
 # install.sh installs my things.
 
-cat $DOTFILES/bin/pepe.txt
-
 set -e
 
 cd "$(dirname "$0")/.."
 DOTFILES=$(pwd -P)
+
+cat $DOTFILES/bin/pepe.txt
 
 # chmod scripts
 chmod ug+x $DOTFILES/**/*.sh

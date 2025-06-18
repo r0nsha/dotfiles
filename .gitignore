@@ -1,2 +1,4 @@
 nvim/lua/local.lua
 wget-log*
+.venv
+__pycache__
