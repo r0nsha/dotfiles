@@ -29,6 +29,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup {
   spec = {
     { import = "plugins" },
+    { import = "plugins.codecompanion" },
   },
   install = {
     colorscheme = { require("utils").colorscheme },
