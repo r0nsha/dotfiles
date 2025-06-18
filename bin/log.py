@@ -1,10 +1,9 @@
-import datetime
 import sys
 from enum import Enum
 from typing import TextIO
 
 
-class Color(Enum):
+class Color(str, Enum):
     Blue = "\033[0;34m"
     Yellow = "\033[0;33m"
     Green = "\033[0;32m"
@@ -17,29 +16,22 @@ def _log_message(
     prefix: str,
     message: str,
     stream: TextIO = sys.stdout,
-    exit_on_fail: bool = False,
 ):
-    timestamp = datetime.datetime.now().strftime("%H:%M:%S")
-    formatted_message = f"[{timestamp} {color_code}{prefix}{Color.Reset}] {message}"
+    formatted_message = f"{color_code}{prefix} {message}{Color.Reset}"
     print(formatted_message, file=stream)
-
-    if exit_on_fail:
-        sys.exit(1)
 
 
 def info(msg: str):
-    _log_message(Color.Blue, "i", msg)
+    _log_message(Color.Blue, "[ℹ]", msg)
 
 
 def running(msg: str):
-    _log_message(Color.Yellow, "~", msg)
+    _log_message(Color.Yellow, ">", msg)
 
 
 def success(msg: str):
-    _log_message(Color.Green, "+", msg)
+    _log_message(Color.Green, "✓", msg)
 
 
-def fail(msg: str, exit_script: bool = True):
-    _log_message(
-        Color.Red, "!", f"\n{msg}", stream=sys.stderr, exit_on_fail=exit_script
-    )
+def fail(msg: str):
+    _log_message(Color.Red, "!", f"\n{msg}", stream=sys.stderr)

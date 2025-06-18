@@ -1,6 +1,6 @@
 import os
 
-from bin import log
+from bin.run import Run, commands
 from bin.types import Env
 
 
@@ -15,7 +15,14 @@ def main():
     os.makedirs(env.dirs.local_bin, exist_ok=True)
     os.makedirs(env.dirs.local_share, exist_ok=True)
 
-    log.running("doing git things...")
+    with Run("git submodules"):
+        commands(
+            [
+                f"chmod ug+x {env.dirs.dotfiles}/hooks/*",
+                "git submodule init",
+                "git submodule update --init --recursive",
+            ]
+        )
 
 
 if __name__ == "__main__":
