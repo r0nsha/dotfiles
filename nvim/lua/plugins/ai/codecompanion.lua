@@ -50,4 +50,4 @@ vim.keymap.set("v", "<a-p>", ":'<,'>CodeCompanion<cr>", { desc = "CodeCompanion:
 vim.keymap.set("n", "<a-P>", "<cmd>CodeCompanionActions<cr>", { desc = "CodeCompanion: Actions" })
 vim.keymap.set("n", "<a-C>", ":CodeCompanionCmd ", { desc = "CodeCompanion: Cmd" })
 
-require "plugins.ai.codecompanion.notifier"
+require "plugins.ai.codecompanion.progress"

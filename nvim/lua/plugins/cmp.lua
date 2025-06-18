@@ -71,6 +71,13 @@ return {
             },
           },
         },
+        accept = {
+          auto_brackets = {
+            kind_resolution = {
+              blocked_filetypes = { "typescriptreact", "javascriptreact", "vue", "codecompanion" },
+            },
+          },
+        },
       },
       fuzzy = {
         implementation = "prefer_rust_with_warning",
