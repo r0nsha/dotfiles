@@ -4,6 +4,7 @@ return {
   config = function()
     require("lint").linters_by_ft = {
       fish = { "fish" },
+      python = { "ruff" },
       -- javascript = { "eslint_d" },
       -- javascriptreact = { "eslint_d" },
       -- typescript = { "eslint_d" },

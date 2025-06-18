@@ -215,6 +215,7 @@ local ensure_installed = {
   "json-lsp",
   "yaml-language-server",
   "emmet-language-server",
+  "basedpyright",
 
   -- formatters
   "prettierd",
@@ -228,6 +229,7 @@ local ensure_installed = {
   "goimports",
   "goimports-reviser",
   "golines",
+  "ruff",
 
   -- dap
   "delve",
