@@ -30,6 +30,7 @@ require("lazy").setup {
   spec = {
     { import = "plugins" },
     { import = "plugins.codecompanion" },
+    { import = "plugins.git" },
     { import = "plugins.snacks" },
   },
   install = {
