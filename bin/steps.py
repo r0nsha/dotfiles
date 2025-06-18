@@ -1,6 +1,7 @@
 import os
+import shutil
 
-from bin.run import Run, commands
+from bin.run import Run, command, commands
 from bin.types import Env
 
 
@@ -34,4 +35,10 @@ def git(env: Env):
 
 def wallpapers(env: Env):
     with Run("setup wallpapers"):
-        commands([f"ln -sf {env.dirs.dotfiles}/wallpapers ~/Pictures/Wallpapers"])
+        command(f"ln -sf {env.dirs.dotfiles}/wallpapers ~/Pictures/Wallpapers")
+
+
+def dconf(env: Env):
+    with Run("load dconf"):
+        if shutil.which("dconf"):
+            command(f"dconf load / <{env.dirs.dotfiles}/dconf/settings.ini")

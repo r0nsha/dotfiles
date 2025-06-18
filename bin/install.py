@@ -15,6 +15,12 @@ def main():
     steps.mkdirs(env)
     steps.git(env)
     steps.wallpapers(env)
+    steps.dconf(env)
+    # TODO: steps.gtk_theme(env)
+    # TODO: steps.fonts(env)
+    # TODO: steps.tools(env)
+    # TODO: steps.stow(env)
+    # TODO: steps.shell(env)
 
 
 if __name__ == "__main__":
