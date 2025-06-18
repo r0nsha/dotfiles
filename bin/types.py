@@ -1,5 +1,4 @@
 import platform
-from dataclasses import dataclass
 from enum import Enum
 from pathlib import Path
 
@@ -20,7 +19,25 @@ class Os(Enum):
         return Os.from_string(platform.system())
 
 
-@dataclass
-class Env:
+class Dirs:
     dotfiles: Path
+    downloads: Path
+    local_bin: Path
+    local_share: Path
+
+    def __init__(self):
+        bindir = Path(__file__).parent
+        self.dotfiles = (bindir / "..").resolve()
+        home = Path.home()
+        self.downloads = home / "Downloads"
+        self.local_bin = home / ".local/bin"
+        self.local_share = home / ".local/share"
+
+
+class Env:
+    dirs: Dirs
     os: Os
+
+    def __init__(self):
+        self.dirs = Dirs()
+        self.os = Os.from_system()
