@@ -156,3 +156,17 @@ function zellij_select_dir
 end
 
 alias zs zellij_select_dir
+
+function ssh_server_start
+    sudo systemctl enable ssh
+    sudo systemctl start ssh
+    sudo ufw allow ssh
+    sudo ufw enable
+    echo ssh server started. run `ssh (whoami)@(hostname -I | awk '{print $1}')` to connect
+end
+
+function ssh_server_stop
+    sudo systemctl stop ssh
+    sudo systemctl disable ssh
+    echo ssh server stopped.
+end
