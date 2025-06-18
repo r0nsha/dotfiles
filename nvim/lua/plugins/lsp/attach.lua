@@ -49,7 +49,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
     ---@type snacks.picker.Config
     local picker_opts = {
-      layout = require("plugins.snacks").ivy_cursor,
+      layout = require("plugins.snacks.picker").ivy_cursor,
     }
 
     vim.keymap.set("n", "gd", function()

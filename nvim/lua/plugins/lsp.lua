@@ -16,7 +16,7 @@ return {
       opts = {
         backend = { "snacks" },
         snacks = {
-          layout = require("plugins.snacks").ivy_cursor,
+          layout = require("plugins.snacks.picker").ivy_cursor,
         },
       },
       config = true,

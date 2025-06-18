@@ -1,78 +1,6 @@
-local icons = require("utils").icons
-
-local github_url_patterns = {
-  branch = "/tree/{branch}",
-  file = "/blob/{branch}/{file}#L{line_start}-L{line_end}",
-  permalink = "/blob/{commit}/{file}#L{line_start}-L{line_end}",
-  commit = "/commit/{commit}",
-}
-
 local M = {
   "folke/snacks.nvim",
   opts = {
-    gitbrowse = {
-      -- override the default open function to copy the url to the clipboard
-      open = function(url)
-        vim.fn.setreg("+", url)
-        vim.fn.setreg('"', url)
-
-        if vim.fn.has "nvim-0.10" == 0 then
-          require("lazy.util").open(url, { system = true })
-          return
-        end
-
-        vim.ui.open(url)
-      end,
-      url_patterns = {
-        ["git.soma.salesforce.com"] = github_url_patterns,
-        ["gitcore.soma.salesforce.com"] = github_url_patterns,
-      },
-    },
-    -- indent = {
-    --   animate = {
-    --     enabled = false,
-    --   },
-    -- },
-    input = {
-      icon = "",
-      win = {
-        border = "single",
-        relative = "cursor",
-        row = -3,
-        col = -4,
-        title_pos = "left",
-        b = {
-          completion = true,
-        },
-      },
-    },
-    notifier = {
-      width = { min = 40, max = 0.3 },
-      height = { min = 1, max = 0.6 },
-      margin = { top = 0, right = 0, bottom = 1 },
-      icons = {
-        error = icons.error,
-        warn = icons.warning,
-        info = icons.info,
-        debug = icons.bug,
-        trace = icons.trace,
-      },
-      style = function(buf, notif, ctx)
-        ctx.opts.border = "none"
-        local whl = ctx.opts.wo.winhighlight
-        ctx.opts.wo.winhighlight = whl:gsub(ctx.hl.msg, "SnacksNotifierMinimal")
-        ctx.opts.wo.wrap = true
-        local lines = vim.tbl_map(function(l)
-          return l .. "  "
-        end, vim.split(notif.msg, "\n"))
-        vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
-        vim.api.nvim_buf_set_extmark(buf, ctx.ns, 0, 0, {
-          virt_text = { { " " .. notif.icon .. " ", ctx.hl.icon } },
-          virt_text_pos = "right_align",
-        })
-      end,
-      top_down = false,
-    },
     picker = {
       prompt = " ",
       layout = {
@@ -114,57 +42,8 @@ local M = {
         },
       },
     },
-    scratch = {
-      win = {
-        border = "single",
-        relative = "editor",
-      },
-    },
   },
   keys = {
-    -- Gitbrowse
-    {
-      "<leader>go",
-      function()
-        Snacks.gitbrowse()
-      end,
-      desc = "Git: Browse",
-      mode = { "n", "v" },
-    },
-
-    -- Scratch
-    {
-      "<leader>.",
-      function()
-        Snacks.scratch()
-      end,
-      desc = "Toggle Scratch Buffer",
-    },
-    {
-      "<leader>,",
-      function()
-        Snacks.scratch.select()
-      end,
-      desc = "Select Scratch Buffer",
-    },
-
-    -- Bufdelete
-    {
-      "<leader>bd",
-      function()
-        Snacks.bufdelete()
-      end,
-      desc = "Buffer: Delete",
-    },
-    {
-      "<leader>bD",
-      function()
-        Snacks.bufdelete.other()
-      end,
-      desc = "Buffer: Delete Other",
-    },
-
-    -- Picker
     {
       "<leader><leader>",
       function()
