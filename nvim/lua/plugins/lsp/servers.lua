@@ -253,15 +253,7 @@ require("mason-tool-installer").setup { ensure_installed = ensure_installed }
 vim.lsp.enable(vim.tbl_keys(servers))
 
 vim.lsp.config("*", {
-  capabilities = {
-    textDocument = {
-      completion = {
-        completionItem = {
-          snippetSupport = true,
-        },
-      },
-    },
-  },
+  capabilities = {},
 })
 
 for server, config in pairs(servers) do

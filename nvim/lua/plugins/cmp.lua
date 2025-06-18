@@ -5,6 +5,7 @@ return {
   dependencies = {
     -- snippets
     "rafamadriz/friendly-snippets",
+    { "echasnovski/mini.snippets" },
 
     -- sources
     "Kaiser-Yang/blink-cmp-git",
@@ -105,6 +106,9 @@ return {
         ["<C-h>"] = keymaps.toggle_signature,
         ["<C-k>"] = { "show_documentation", "hide_documentation" },
       },
+      snippets = {
+        preset = "mini_snippets",
+      },
       sources = {
         default = { "lazydev", "lsp", "snippets", "git", "path", "buffer" },
         per_filetype = {
@@ -120,6 +124,7 @@ return {
             enabled = function()
               return not utils.repo_too_large()
             end,
+            -- enabled = true,
           },
           git = {
             name = "Git",

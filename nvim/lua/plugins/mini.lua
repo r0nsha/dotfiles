@@ -41,6 +41,11 @@ return {
     },
   },
   {
+    "echasnovski/mini.snippets",
+    version = version,
+    opts = {},
+  },
+  {
     "echasnovski/mini.surround",
     version = version,
     opts = {
