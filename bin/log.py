@@ -1,28 +1,26 @@
 import datetime
 import sys
+from enum import Enum
 from typing import TextIO
 
-COLOR_BLUE = "\033[0;34m"
-COLOR_YELLOW = "\033[0;33m"
-COLOR_GREEN = "\033[0;32m"
-COLOR_RED = "\033[0;31m"
-COLOR_RESET = "\033[0m"
 
-PREFIX_INFO = "i"
-PREFIX_RUNNING = "~"
-PREFIX_SUCCESS = "+"
-PREFIX_FAIL = "!"
+class Color(Enum):
+    Blue = "\033[0;34m"
+    Yellow = "\033[0;33m"
+    Green = "\033[0;32m"
+    Red = "\033[0;31m"
+    Reset = "\033[0m"
 
 
 def _log_message(
-    color_code: str,
+    color_code: Color,
     prefix: str,
     message: str,
     stream: TextIO = sys.stdout,
     exit_on_fail: bool = False,
 ):
     timestamp = datetime.datetime.now().strftime("%H:%M:%S")
-    formatted_message = f"[{timestamp} {color_code}{prefix}{COLOR_RESET}] {message}"
+    formatted_message = f"[{timestamp} {color_code}{prefix}{Color.Reset}] {message}"
     print(formatted_message, file=stream)
 
     if exit_on_fail:
@@ -30,18 +28,18 @@ def _log_message(
 
 
 def info(msg: str):
-    _log_message(COLOR_BLUE, PREFIX_INFO, msg)
+    _log_message(Color.Blue, "i", msg)
 
 
 def running(msg: str):
-    _log_message(COLOR_YELLOW, PREFIX_RUNNING, msg)
+    _log_message(Color.Yellow, "~", msg)
 
 
 def success(msg: str):
-    _log_message(COLOR_GREEN, PREFIX_SUCCESS, msg)
+    _log_message(Color.Green, "+", msg)
 
 
 def fail(msg: str, exit_script: bool = True):
     _log_message(
-        COLOR_RED, PREFIX_FAIL, f"\n{msg}", stream=sys.stderr, exit_on_fail=exit_script
+        Color.Red, "!", f"\n{msg}", stream=sys.stderr, exit_on_fail=exit_script
     )
