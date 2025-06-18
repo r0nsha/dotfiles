@@ -14,16 +14,6 @@ return {
   },
   { "echasnovski/mini.cursorword", version = version },
   {
-    "echasnovski/mini.diff",
-    version = version,
-    config = function()
-      local diff = require "mini.diff"
-      diff.setup {
-        source = diff.gen_source.none(),
-      }
-    end,
-  },
-  {
     "echasnovski/mini.jump",
     version = version,
     opts = {

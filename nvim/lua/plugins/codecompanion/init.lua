@@ -25,13 +25,16 @@ return {
       chat = {
         intro_message = "  Press ? for options",
       },
-      diff = {
-        provider = "mini_diff",
-      },
       inline = {
         layout = "vertical",
       },
     },
+  },
+  cmd = {
+    "CodeCompanion",
+    "CodeCompanionChat",
+    "CodeCompanionActions",
+    "CodeCompanionAdd",
   },
   keys = {
     { "<leader>aa", ":CodeCompanionChat<cr>", mode = { "n", "v" }, desc = "CodeCompanion: Chat" },
@@ -40,7 +43,13 @@ return {
     { "<leader>ar", ":CodeCompanion /refactor<cr>", mode = { "v" }, desc = "CodeCompanion: Refactor" },
     { "<leader>ao", ":CodeCompanion /optimize<cr>", mode = { "v" }, desc = "CodeCompanion: Optimize" },
     { "<leader>af", ":CodeCompanion /fix<cr>", mode = { "v" }, desc = "CodeCompanion: Fix" },
-    { "<leader>ac", ":CodeCompanion /scommit<cr>", mode = { "v" }, desc = "CodeCompanion: Commit" },
+    {
+      "<leader>ac",
+      ":CodeCompanion /commit_staged<cr>",
+      mode = { "n", "v" },
+      desc = "CodeCompanion: Commit",
+      ft = { "gitcommit" },
+    },
     { "<leader>as", ":CodeCompanion /spell<cr>", mode = { "n", "v" }, desc = "CodeCompanion: Spell" },
     { "<leader>at", ":CodeCompanion /tests<cr>", mode = { "n", "v" }, desc = "CodeCompanion: Generate Tests" },
     { "<leader>al", ":CodeCompanion /lsp<cr>", mode = { "n", "v" }, desc = "CodeCompanion: LSP" },
