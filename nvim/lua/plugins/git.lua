@@ -57,11 +57,11 @@ return {
 
           map("n", "<leader>gp", gs.preview_hunk_inline, "Git: Preview Hunk")
 
-          map("n", "<leader>gbl", function()
+          map("n", "<leader>gb", function()
             gs.blame()
           end, "Git: Blame Line")
 
-          map("n", "<leader>gbf", function()
+          map("n", "<leader>gB", function()
             gs.blame_line { full = true }
           end, "Git: Blame Line (Full)")
 
