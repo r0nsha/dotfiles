@@ -48,6 +48,7 @@ return {
           },
         },
       },
+      rememberBuffers = false,
     }
 
     vim.keymap.set("n", "go", "<cmd>Other<cr>", { desc = "Other" })
