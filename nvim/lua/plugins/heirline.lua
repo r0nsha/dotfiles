@@ -392,6 +392,7 @@ return {
       Diagnostics,
       Space(1),
       Lsp,
+      SearchCount,
       Ruler,
       -- Space(1),
       -- Time,

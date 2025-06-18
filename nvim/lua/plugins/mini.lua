@@ -1,6 +1,7 @@
+local version = "*"
 return {
   "echasnovski/mini.nvim",
-  version = "*",
+  version = version,
   config = function()
     require "plugins.mini.ai"
     require "plugins.mini.basics"
