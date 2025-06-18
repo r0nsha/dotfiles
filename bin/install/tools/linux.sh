@@ -22,6 +22,7 @@ install_deps() {
 		gnome-tweaks
 		gtk2-engines-murrine
 		pass
+		tldr
 	)
 
 	for dep in ${deps[@]}; do
