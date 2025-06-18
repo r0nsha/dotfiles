@@ -8,7 +8,7 @@ return {
     conform.setup {
       formatters_by_ft = {
         lua = { "stylua" },
-        python = { "black", "isort" },
+        python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
         javascript = biome_or_prettier,
         javascriptreact = biome_or_prettier,
         typescript = biome_or_prettier,

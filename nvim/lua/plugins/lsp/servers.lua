@@ -1,5 +1,3 @@
-local lspconfig = require "lspconfig"
-
 -- local codelldb_path, liblldb_path = require("utils").get_codelldb_paths()
 
 local servers = {
@@ -192,6 +190,20 @@ local servers = {
     },
   },
   emmet_language_server = { manual_install = true },
+  basedpyright = {
+    settings = {
+      pyright = {
+        -- Using Ruff's import organizer
+        disableOrganizeImports = true,
+      },
+      python = {
+        analysis = {
+          -- Ignore all files for analysis to exclusively use Ruff for linting
+          ignore = { "*" },
+        },
+      },
+    },
+  },
 }
 
 local servers_to_install = vim.tbl_filter(function(key)
@@ -238,27 +250,22 @@ local ensure_installed = {
 vim.list_extend(ensure_installed, servers_to_install)
 require("mason-tool-installer").setup { ensure_installed = ensure_installed }
 
-local capabilities = {
-  textDocument = {
-    completion = {
-      completionItem = {
-        snippetSupport = true,
+vim.lsp.config("*", {
+  capabilities = {
+    textDocument = {
+      completion = {
+        completionItem = {
+          snippetSupport = true,
+        },
       },
     },
-    foldingRange = {
-      dynamicRegistration = false,
-      lineFoldingOnly = true,
-    },
   },
-}
+})
+
+vim.lsp.enable(vim.tbl_keys(servers))
 
 for server, config in pairs(servers) do
-  if config == true then
-    config = {}
+  if type(config) == "table" then
+    vim.lsp.config(server, config)
   end
-
-  config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
-  config.capabilities = vim.tbl_deep_extend("force", config.capabilities, capabilities)
-
-  lspconfig[server].setup(config)
 end
