@@ -1,4 +1,5 @@
 local version = "*"
+
 return {
   { "echasnovski/mini.ai", version = version },
   {

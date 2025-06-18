@@ -50,10 +50,10 @@ return {
 
           map("n", "[H", function()
             gs.nav_hunk "first"
-          end, "First Hunk")
+          end, "Git: First Hunk")
           map("n", "]H", function()
             gs.nav_hunk "last"
-          end, "Last Hunk")
+          end, "Git: Last Hunk")
 
           map("n", "<leader>gp", gs.preview_hunk_inline, "Git: Preview Hunk")
 

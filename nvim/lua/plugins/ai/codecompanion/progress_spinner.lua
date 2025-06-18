@@ -125,18 +125,20 @@ function M.stop_spinner()
   spinner_state.frame = 1
 end
 
-vim.api.nvim_create_autocmd("User", {
-  pattern = {
-    "CodeCompanionRequestStarted",
-    "CodeCompanionRequestFinished",
-  },
-  callback = function(args)
-    if args.match == "CodeCompanionRequestStarted" then
-      M.start_spinner()
-    elseif args.match == "CodeCompanionRequestFinished" then
-      M.stop_spinner()
-    end
-  end,
-})
+function M.setup()
+  vim.api.nvim_create_autocmd("User", {
+    pattern = {
+      "CodeCompanionRequestStarted",
+      "CodeCompanionRequestFinished",
+    },
+    callback = function(args)
+      if args.match == "CodeCompanionRequestStarted" then
+        M.start_spinner()
+      elseif args.match == "CodeCompanionRequestFinished" then
+        M.stop_spinner()
+      end
+    end,
+  })
+end
 
 return M

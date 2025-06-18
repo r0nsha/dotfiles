@@ -58,7 +58,7 @@ end
 
 local M = {}
 
-M.toggle = function()
+function M.toggle()
   local bufnr = vim.api.nvim_get_current_buf()
   local cursor = vim.api.nvim_win_get_cursor(0)
 

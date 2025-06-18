@@ -1,3 +1,5 @@
+local M = {}
+
 local uv = vim.uv
 
 -- active requests
@@ -97,16 +99,10 @@ local function finished(ev)
   end
 end
 
-local group = vim.api.nvim_create_augroup("CodeCompanionSnacks", { clear = true })
+function M.setup()
+  local group = vim.api.nvim_create_augroup("CodeCompanionSnacks", { clear = true })
+  vim.api.nvim_create_autocmd("User", { pattern = "CodeCompanionRequestStarted", group = group, callback = start })
+  vim.api.nvim_create_autocmd("User", { pattern = "CodeCompanionRequestFinished", group = group, callback = finished })
+end
 
-vim.api.nvim_create_autocmd("User", {
-  pattern = "CodeCompanionRequestStarted",
-  group = group,
-  callback = start,
-})
-
-vim.api.nvim_create_autocmd("User", {
-  pattern = "CodeCompanionRequestFinished",
-  group = group,
-  callback = finished,
-})
+return M

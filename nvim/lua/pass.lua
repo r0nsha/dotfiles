@@ -1,7 +1,7 @@
 local M = {}
 
 ---@param pass_name string
-M.read = function(var, pass_name)
+function M.read(var, pass_name)
   local Job = require "plenary.job"
   local notify = vim.schedule_wrap(vim.notify)
 
@@ -27,13 +27,13 @@ M.read = function(var, pass_name)
 end
 
 ---@param tbl table<string, string>
-M.read_all = function(tbl)
+function M.read_all(tbl)
   for var, pass_name in pairs(tbl) do
     M.read(var, pass_name)
   end
 end
 
-M.load = function()
+function M.load()
   M.read_all {
     CODESTRAL_API_KEY = "mistral/codestral",
     GEMINI_API_KEY = "google/gemini",
