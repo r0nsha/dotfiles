@@ -8,7 +8,6 @@ def main():
     env = Env()
     os.chdir(env.dirs.dotfiles)
     steps.all(env)
-    print("your things are installed, bye!")
 
 
 if __name__ == "__main__":

@@ -1,6 +1,8 @@
+import concurrent.futures
 import os
 import shutil
 import sys
+import zipfile
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable
@@ -94,8 +96,8 @@ def all(env: Env):
             # Step("setup wallpapers", do_wallpapers),
             # Step("load dconf", do_dconf),
             # Step("setup gtk theme", do_gtk_theme),
-            # Step("install fonts", do_fonts),
-            Step("install tools", do_tools),
+            Step("install fonts", do_fonts),
+            # Step("install tools", do_tools),
             # Step("stow dotfiles", do_stow),
             # Step("setup default shell", do_shell),
         ],
@@ -181,14 +183,29 @@ def do_fonts(env: Env):
 
     fonts = not_installed_fonts(["Iosevka", "IosevkaTerm"])
 
-    download_all(
-        [
-            (f"{fonts_base_url}/{font}.zip", env.dirs.downloads / f"{font}.zip")
-            for font in fonts
-        ]
-    )
+    to_download = [
+        (f"{fonts_base_url}/{font}.zip", env.dirs.downloads / f"{font}.zip")
+        for font in fonts
+    ]
+    download_all(to_download)
 
-    # TODO: unzip!
+    def unzip_font(src: Path, dest: Path):
+        with zipfile.ZipFile(src, "r") as zipref:
+            ttf_members = [
+                member for member in zipref.namelist() if member.endswith(".ttf")
+            ]
+            if ttf_members:
+                print(f"unzipping {src} to {dest}")
+                zipref.extractall(dest, members=ttf_members)
+
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        futures = [
+            executor.submit(unzip_font, file_item, fonts_dir)
+            for _, file_item in to_download
+        ]
+
+        for future in concurrent.futures.as_completed(futures):
+            future.result()
 
 
 def do_tools(env: Env):
