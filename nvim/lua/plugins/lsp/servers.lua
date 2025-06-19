@@ -189,7 +189,6 @@ local servers = {
       },
     },
   },
-  emmet_language_server = { manual_install = true },
   basedpyright = {
     settings = {
       pyright = {
@@ -226,7 +225,6 @@ local ensure_installed = {
   "gopls",
   "json-lsp",
   "yaml-language-server",
-  "emmet-language-server",
   "basedpyright",
 
   -- formatters
