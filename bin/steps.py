@@ -1,120 +1,207 @@
 import os
 import shutil
+import sys
+from dataclasses import dataclass
 from pathlib import Path
+from typing import Callable
 
+from bin import log
 from bin.download import download_all
-from bin.run import Run, command, commands
-from bin.types import Env, Os
+from bin.env import Env, Os
+from bin.run import command, commands
+from bin.tools import install_tools
+from bin.utils import clear_screen
 
 
-def mkdirs(env: Env):
+class Status:
+    pass
+
+
+class Pending(Status):
+    pass
+
+
+class Running(Status):
+    pass
+
+
+class Done(Status):
+    pass
+
+
+@dataclass
+class Error(Status):
+    exception: Exception
+
+
+@dataclass
+class Step:
+    name: str
+    fn: Callable[[Env], None]
+    status: Status = Pending()
+
+    def print(self):
+        match self.status:
+            case Pending():
+                log.pending(self.name)
+            case Running():
+                log.running(self.name)
+            case Done():
+                log.success(self.name)
+            case Error(exc):
+                log.error(f"{self.name}: {exc}")
+            case _:
+                log.error(f"invalid status: {repr(self.status)}")
+                sys.exit(1)
+
+
+class Steps:
+    env: Env
+    steps: list[Step]
+    pepe: str
+
+    def __init__(self, env: Env, steps: list[Step]):
+        self.env = env
+        self.steps = steps
+        with open(env.dirs.dotfiles / "bin/pepe.txt", "r") as f:
+            self.pepe = f.read()
+
+    def _print_steps(self):
+        clear_screen()
+        for step in self.steps:
+            # if step.status != StepStatus.pending:
+            step.print()
+
+    def run_all(self):
+        for step in self.steps:
+            try:
+                step.status = Running()
+                self._print_steps()
+                step.fn(self.env)
+                step.status = Done()
+            except Exception as e:
+                step.status = Error(e)
+            self._print_steps()
+
+
+def all(env: Env):
+    Steps(
+        env,
+        steps=[
+            Step("create env", do_env),
+            Step("create use dirs", do_mkdirs),
+            Step("setup git", do_git),
+            Step("setup wallpapers", do_wallpapers),
+            Step("load dconf", do_dconf),
+            Step("setup gtk theme", do_gtk_theme),
+            Step("install fonts", do_fonts),
+            Step("install tools", do_tools),
+            Step("stow dotfiles", do_stow),
+            Step("setup default shell", do_shell),
+        ],
+    ).run_all()
+
+
+def do_env(env: Env):
+    path = os.path.expanduser("~/.env.fish")
+    try:
+        with open(path, "w") as f:
+            _ = f.write(f"set -Ux DOTFILES {env.dirs.dotfiles}")
+            print(f"File '{path}' created and content written.")
+    except FileExistsError:
+        pass  # ignore if already exists
+
+
+def do_mkdirs(env: Env):
     os.makedirs(env.dirs.downloads, exist_ok=True)
     os.makedirs(env.dirs.local_bin, exist_ok=True)
     os.makedirs(env.dirs.local_share, exist_ok=True)
 
 
-def env(env: Env):
-    path = os.path.expanduser("~/.env.fish")
-    with Run(f"create {path}"):
-        try:
-            with open(path, "x") as f:
-                _ = f.write(f"set -Ux DOTFILES {env.dirs.dotfiles}")
-                print(f"File '{path}' created and content written.")
-        except FileExistsError:
-            pass  # ignore if already exists
+def do_git(env: Env):
+    commands(
+        [
+            f"chmod ug+x {env.dirs.dotfiles}/hooks/*",
+            "git submodule init",
+            "git submodule update --init --recursive",
+        ]
+    )
 
 
-def git(env: Env):
-    with Run("setup git"):
-        commands(
-            [
-                f"chmod ug+x {env.dirs.dotfiles}/hooks/*",
-                "git submodule init",
-                "git submodule update --init --recursive",
-            ]
-        )
+def do_wallpapers(env: Env):
+    _ = command(
+        f"ln -sf {env.dirs.dotfiles}/wallpapers {env.dirs.home}/Pictures/Wallpapers"
+    )
 
 
-def wallpapers(env: Env):
-    with Run("setup wallpapers"):
-        _ = command(
-            f"ln -sf {env.dirs.dotfiles}/wallpapers {env.dirs.home}/Pictures/Wallpapers"
-        )
+def do_dconf(env: Env):
+    if shutil.which("dconf"):
+        _ = command(f"dconf load / <{env.dirs.dotfiles}/dconf/settings.ini")
 
 
-def dconf(env: Env):
-    with Run("load dconf"):
-        if shutil.which("dconf"):
-            _ = command(f"dconf load / <{env.dirs.dotfiles}/dconf/settings.ini")
-
-
-def gtk_theme(env: Env):
+def do_gtk_theme(env: Env):
     if env.os != Os.Linux:
         return
 
-    with Run("setup gtk theme"):
-        gtk_themes = env.dirs.local_share / "themes"
-        gtk_icons = env.dirs.local_share / "icons"
+    gtk_themes = env.dirs.local_share / "themes"
+    gtk_icons = env.dirs.local_share / "icons"
 
-        os.makedirs(gtk_themes, exist_ok=True)
-        os.makedirs(gtk_icons, exist_ok=True)
+    os.makedirs(gtk_themes, exist_ok=True)
+    os.makedirs(gtk_icons, exist_ok=True)
 
-        commands(
-            [
-                f'sudo bash -c "{env.dirs.dotfiles}/gtk/Rose-Pine-GTK-Theme/themes/install.sh --dest {gtk_themes} --name Rose-Pine --theme default --size compact --tweaks black"',
-                f"cp -r {env.dirs.dotfiles}/gtk/Rose-Pine-GTK-Theme/icons {gtk_icons}",
-            ]
-        )
-
-
-def fonts(env: Env):
-    with Run("install fonts"):
-        fonts_dir: Path
-        match env.os:
-            case Os.Linux:
-                fonts_dir = env.dirs.local_share / "fonts"
-            case Os.MacOS:
-                fonts_dir = Path("/Library/Fonts")
-
-        os.makedirs(fonts_dir, exist_ok=True)
-
-        fonts_base_url = (
-            "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0"
-        )
-
-        def not_installed_fonts(fonts: list[str]) -> list[str]:
-            font_files = os.listdir(fonts_dir)
-            not_installed: list[str] = []
-            for font in fonts:
-                pattern = font.replace(" ", "") + "NerdFont"
-                if not any(pattern in f for f in font_files):
-                    not_installed.append(font)
-            return not_installed
-
-        fonts = not_installed_fonts(["Iosevka", "IosevkaTerm"])
-
-        download_all(
-            [
-                (f"{fonts_base_url}/{font}.zip", env.dirs.downloads / f"{font}.zip")
-                for font in fonts
-            ]
-        )
+    commands(
+        [
+            f'sudo bash -c "{env.dirs.dotfiles}/gtk/Rose-Pine-GTK-Theme/themes/install.sh --dest {gtk_themes} --name Rose-Pine --theme default --size compact --tweaks black"',
+            f"cp -r {env.dirs.dotfiles}/gtk/Rose-Pine-GTK-Theme/icons {gtk_icons}",
+        ]
+    )
 
 
-def stow(env: Env):
-    with Run("stow dotfiles"):
-        os.chdir(env.dirs.dotfiles)
-        _ = command("stow .")
+def do_fonts(env: Env):
+    fonts_dir: Path
+    match env.os:
+        case Os.Linux:
+            fonts_dir = env.dirs.local_share / "fonts"
+        case Os.MacOS:
+            fonts_dir = Path("/Library/Fonts")
+
+    os.makedirs(fonts_dir, exist_ok=True)
+
+    fonts_base_url = "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0"
+
+    def not_installed_fonts(fonts: list[str]) -> list[str]:
+        font_files = os.listdir(fonts_dir)
+        not_installed: list[str] = []
+        for font in fonts:
+            pattern = font.replace(" ", "") + "NerdFont"
+            if not any(pattern in f for f in font_files):
+                not_installed.append(font)
+        return not_installed
+
+    fonts = not_installed_fonts(["Iosevka", "IosevkaTerm"])
+
+    download_all(
+        [
+            (f"{fonts_base_url}/{font}.zip", env.dirs.downloads / f"{font}.zip")
+            for font in fonts
+        ]
+    )
 
 
-def shell():
-    with Run("setup default shell"):
-        fish_bin = shutil.which("fish")
+def do_tools(env: Env):
+    install_tools(env)
 
-        if fish_bin is None:
-            raise ValueError(
-                "fish is not installed, this is a bug in the install script"
-            )
 
-        _ = command("sudo tee -a /etc/shells", input=f"{fish_bin}\n")
-        _ = command(f"sudo chsh -s {fish_bin}")
+def do_stow(env: Env):
+    os.chdir(env.dirs.dotfiles)
+    _ = command("stow .")
+
+
+def do_shell(_env: Env):
+    fish_bin = shutil.which("fish")
+
+    if fish_bin is None:
+        raise ValueError("fish is not installed, this is a bug in the install script")
+
+    _ = command("sudo tee -a /etc/shells", input=f"{fish_bin}\n")
+    _ = command(f"sudo chsh -s {fish_bin}")

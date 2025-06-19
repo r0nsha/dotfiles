@@ -1,7 +1,7 @@
 import os
 
 from bin import steps
-from bin.types import Env
+from bin.env import Env
 
 
 def main():
@@ -11,18 +11,9 @@ def main():
     with open(env.dirs.dotfiles / "bin/pepe.txt", "r") as f:
         print(f.read())
 
-    steps.env(env)
-    steps.mkdirs(env)
-    steps.git(env)
-    steps.wallpapers(env)
-    steps.dconf(env)
-    steps.gtk_theme(env)
-    steps.fonts(env)
-    # TODO: steps.tools(env)
-    steps.stow(env)
-    steps.shell()
+    steps.all(env)
 
-    print("\nall done, bye!")
+    print("\nyour things are installed, bye!")
 
 
 if __name__ == "__main__":

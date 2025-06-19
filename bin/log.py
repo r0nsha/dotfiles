@@ -4,7 +4,7 @@ from typing import TextIO
 
 
 class Color(str, Enum):
-    Blue = "\033[0;34m"
+    White = "\033[0;37m"
     Yellow = "\033[0;33m"
     Green = "\033[0;32m"
     Red = "\033[0;31m"
@@ -21,8 +21,8 @@ def _log_message(
     print(formatted_message, file=stream)
 
 
-def info(msg: str):
-    _log_message(Color.Blue, "[ℹ]", msg)
+def pending(msg: str):
+    _log_message(Color.White, " ", msg)
 
 
 def running(msg: str):
@@ -33,5 +33,5 @@ def success(msg: str):
     _log_message(Color.Green, "✓", msg)
 
 
-def fail(msg: str):
-    _log_message(Color.Red, "!", f"{msg}", stream=sys.stderr)
+def error(msg: str):
+    _log_message(Color.Red, "✗", f"{msg}", stream=sys.stderr)

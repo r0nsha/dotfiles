@@ -1,31 +1,49 @@
+import sys
 import threading
 import urllib.request
 from collections.abc import Iterable
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
+from bin.utils import clear_above
+
+
+def progress_bar(progress: float) -> str:
+    len = 10
+    rounded = int(progress * len)
+    return f"{'█' * rounded}{'░' * (len - rounded)} {int(progress * 100)}%"
+
 
 class Progress:
-    lines: dict[Path, float]
+    tasks: dict[Path, float]
     lock: threading.Lock
+    last_printed: int = 0
 
     def __init__(self):
-        self.lines = {}
+        self.tasks = {}
         self.lock = threading.Lock()
 
     def update(self, filename: Path, progress: float):
         with self.lock:
-            self.lines[filename] = progress
+            self.tasks[filename] = progress
             self.print()
 
     def print(self):
-        to_print = "\t".join(
-            [
-                f"{filename} : {progress * 100:.2f}%"
-                for filename, progress in self.lines.items()
-            ]
-        )
-        print(f"Downloading\t{to_print}", end="\r")
+        incomplete = [
+            f"{filename} {progress_bar(progress)}\n"
+            for filename, progress in self.tasks.items()
+            if progress < 100
+        ]
+
+        if self.last_printed > 0:
+            clear_above(self.last_printed)
+
+        if incomplete:
+            _ = sys.stdout.writelines(incomplete)
+            _ = sys.stdout.flush()
+            self.last_printed = len(incomplete)
+        else:
+            self.last_printed = 0
 
 
 def download(url: str, filename: Path, progress: Progress):

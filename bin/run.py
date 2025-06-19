@@ -4,13 +4,7 @@ from collections.abc import Iterable
 from types import TracebackType
 
 from bin import log
-
-
-def _clear_above(count: int = 1):
-    for _ in range(count):
-        _ = sys.stdout.write("\033[F")
-        _ = sys.stdout.write("\033[K")
-    _ = sys.stdout.flush()
+from bin.utils import clear_above
 
 
 class Run:
@@ -23,8 +17,8 @@ class Run:
         try:
             log.running(self.name)
         except Exception as e:
-            _clear_above()
-            log.fail(f"`{self.name}` failed: {e}")
+            clear_above()
+            log.error(f"`{self.name}` failed: {e}")
 
     def __exit__(
         self,
@@ -32,11 +26,11 @@ class Run:
         exc_val: BaseException | None,
         exc_tb: TracebackType | None,
     ) -> bool:
-        _clear_above()
+        clear_above()
         if exc_val is None:
             log.success(self.name)
         else:
-            log.fail(self.name)
+            log.error(self.name)
         return False
 
 
@@ -56,7 +50,7 @@ def command(cmd: str, input: str | None = None, clear: bool = True) -> int:
             _ = sys.stdout.flush()
 
             if clear:
-                _clear_above(clear_count)
+                clear_above(clear_count)
 
             return clear_count
 
@@ -74,4 +68,4 @@ def commands(cmds: Iterable[str]):
     clear_count = 0
     for cmd in cmds:
         clear_count += command(cmd, clear=False)
-    _clear_above(clear_count)
+    clear_above(clear_count)
