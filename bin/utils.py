@@ -25,6 +25,10 @@ def command(cmd: str, clear: bool = True, **kwargs: Any) -> int:  # pyright: ign
             check=True,
             **kwargs,  # pyright: ignore[reportAny]
         )
+
+        if not result.stdout:
+            return 0
+
         output_lines = result.stdout.strip().split("\n")
 
         if output_lines:

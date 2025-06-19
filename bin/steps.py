@@ -90,16 +90,16 @@ def all(env: Env):
     Steps(
         env,
         steps=[
-            # Step("create env", do_env),
-            # Step("create use dirs", do_mkdirs),
-            # Step("setup git", do_git),
-            # Step("setup wallpapers", do_wallpapers),
-            # Step("load dconf", do_dconf),
-            # Step("setup gtk theme", do_gtk_theme),
+            Step("create env", do_env),
+            Step("create use dirs", do_mkdirs),
+            Step("setup git", do_git),
+            Step("setup wallpapers", do_wallpapers),
+            Step("load dconf", do_dconf),
+            Step("setup gtk theme", do_gtk_theme),
             Step("install fonts", do_fonts),
-            # Step("install tools", do_tools),
-            # Step("stow dotfiles", do_stow),
-            # Step("setup default shell", do_shell),
+            Step("install tools", do_tools),
+            Step("stow dotfiles", do_stow),
+            Step("setup default shell", do_shell),
         ],
     ).run_all()
 
