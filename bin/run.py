@@ -37,11 +37,11 @@ class Run:
         return False
 
 
-def command(cmd: str):
+def command(cmd: str, input: str | None = None):
     try:
         print(f"{cmd}")
         result = subprocess.run(
-            cmd, shell=True, capture_output=True, text=True, check=True
+            cmd, shell=True, capture_output=True, text=True, check=True, input=input
         )
         output_lines = result.stdout.strip().split("\n")
 

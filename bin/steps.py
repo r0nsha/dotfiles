@@ -42,3 +42,22 @@ def dconf(env: Env):
     with Run("load dconf"):
         if shutil.which("dconf"):
             command(f"dconf load / <{env.dirs.dotfiles}/dconf/settings.ini")
+
+
+def stow(env: Env):
+    with Run("stow dotfiles"):
+        os.chdir(env.dirs.dotfiles)
+        command("stow .")
+
+
+def shell():
+    with Run("setup default shell"):
+        fish_bin = shutil.which("fish")
+
+        if fish_bin is None:
+            raise ValueError(
+                "fish is not installed, this is a bug in the install script"
+            )
+
+        command("sudo tee -a /etc/shells", input=f"{fish_bin}\n")
+        command(f"sudo chsh -s {fish_bin}")

@@ -19,8 +19,10 @@ def main():
     # TODO: steps.gtk_theme(env)
     # TODO: steps.fonts(env)
     # TODO: steps.tools(env)
-    # TODO: steps.stow(env)
-    # TODO: steps.shell(env)
+    steps.stow(env)
+    steps.shell()
+
+    print("\nall done, bye!")
 
 
 if __name__ == "__main__":
