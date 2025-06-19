@@ -103,3 +103,11 @@ vim.keymap.set("n", "<leader>T", [[%s/\s\+$//e]], { desc = "Trim all whitespace"
 -- Remap inc/dec
 vim.keymap.set("n", "+", "<c-a>", { desc = "Increment" })
 vim.keymap.set("n", "-", "<c-x>", { desc = "Decrement" })
+
+-- Show highlight under cursor
+vim.keymap.set(
+  "n",
+  "<leader>i",
+  "<cmd>TSHighlightCapturesUnderCursor<cr>",
+  { desc = "Show highlight captures under cursor" }
+)

@@ -37,7 +37,8 @@ return {
     "CodeCompanionAdd",
   },
   keys = {
-    { "<leader>aa", ":CodeCompanionChat<cr>", mode = { "n", "v" }, desc = "CodeCompanion: Chat" },
+    { "<leader>aa", ":CodeCompanionChat Toggle<cr>", mode = { "n", "v" }, desc = "CodeCompanion: Toggle Chat" },
+    { "<leader>an", ":CodeCompanionChat<cr>", mode = { "n", "v" }, desc = "CodeCompanion: New Chat" },
     { "<leader>ai", ":CodeCompanion<cr>", mode = { "n", "v" }, desc = "CodeCompanion: Prompt" },
     { "<leader>ad", ":CodeCompanion /doc<cr>", mode = { "n", "v" }, desc = "CodeCompanion: Docs" },
     { "<leader>ar", ":CodeCompanion /refactor<cr>", mode = { "v" }, desc = "CodeCompanion: Refactor" },
