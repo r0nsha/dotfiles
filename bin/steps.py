@@ -8,9 +8,8 @@ from typing import Callable
 from bin import log
 from bin.download import download_all
 from bin.env import Env, Os
-from bin.run import command, commands
 from bin.tools import install_tools
-from bin.utils import clear_screen
+from bin.utils import clear_screen, command, commands
 
 
 class Status:
@@ -31,7 +30,7 @@ class Done(Status):
 
 @dataclass
 class Error(Status):
-    exception: Exception
+    msg: str
 
 
 @dataclass
@@ -48,8 +47,8 @@ class Step:
                 log.running(self.name)
             case Done():
                 log.success(self.name)
-            case Error(exc):
-                log.error(f"{self.name}: {exc}")
+            case Error(msg):
+                log.error(f"{self.name}: {msg}")
             case _:
                 log.error(f"invalid status: {repr(self.status)}")
                 sys.exit(1)
@@ -68,9 +67,10 @@ class Steps:
 
     def _print_steps(self):
         clear_screen()
+        print(self.pepe)
         for step in self.steps:
-            # if step.status != StepStatus.pending:
             step.print()
+        print()
 
     def run_all(self):
         for step in self.steps:
@@ -80,7 +80,7 @@ class Steps:
                 step.fn(self.env)
                 step.status = Done()
             except Exception as e:
-                step.status = Error(e)
+                step.status = Error(str(e))
             self._print_steps()
 
 
@@ -88,16 +88,16 @@ def all(env: Env):
     Steps(
         env,
         steps=[
-            Step("create env", do_env),
-            Step("create use dirs", do_mkdirs),
-            Step("setup git", do_git),
-            Step("setup wallpapers", do_wallpapers),
-            Step("load dconf", do_dconf),
-            Step("setup gtk theme", do_gtk_theme),
-            Step("install fonts", do_fonts),
+            # Step("create env", do_env),
+            # Step("create use dirs", do_mkdirs),
+            # Step("setup git", do_git),
+            # Step("setup wallpapers", do_wallpapers),
+            # Step("load dconf", do_dconf),
+            # Step("setup gtk theme", do_gtk_theme),
+            # Step("install fonts", do_fonts),
             Step("install tools", do_tools),
-            Step("stow dotfiles", do_stow),
-            Step("setup default shell", do_shell),
+            # Step("stow dotfiles", do_stow),
+            # Step("setup default shell", do_shell),
         ],
     ).run_all()
 
@@ -113,9 +113,10 @@ def do_env(env: Env):
 
 
 def do_mkdirs(env: Env):
-    os.makedirs(env.dirs.downloads, exist_ok=True)
-    os.makedirs(env.dirs.local_bin, exist_ok=True)
-    os.makedirs(env.dirs.local_share, exist_ok=True)
+    env.dirs.downloads.mkdir(parents=True, exist_ok=True)
+    env.dirs.local_bin.mkdir(parents=True, exist_ok=True)
+    env.dirs.local_share.mkdir(parents=True, exist_ok=True)
+    env.dirs.root_bin.mkdir(parents=True, exist_ok=True)
 
 
 def do_git(env: Env):
@@ -186,6 +187,8 @@ def do_fonts(env: Env):
             for font in fonts
         ]
     )
+
+    # TODO: unzip!
 
 
 def do_tools(env: Env):

@@ -46,7 +46,7 @@ class Progress:
             self.last_printed = 0
 
 
-def download(url: str, filename: Path, progress: Progress):
+def _download(url: str, filename: Path, progress: Progress):
     def reporthook(count: int, block_size: int, totalsize: int):
         nonlocal progress
         if totalsize > -1:
@@ -55,12 +55,16 @@ def download(url: str, filename: Path, progress: Progress):
     _ = urllib.request.urlretrieve(url, filename, reporthook=reporthook)
 
 
+def download(url: str, filename: Path):
+    _download(url, filename, Progress())
+
+
 def download_all(urls_filenames: Iterable[tuple[str, Path]]):
     progress = Progress()
 
     with ThreadPoolExecutor() as executor:
         futures = [
-            executor.submit(download, url, filename, progress)
+            executor.submit(_download, url, filename, progress)
             for url, filename in urls_filenames
         ]
         for future in futures:

@@ -38,6 +38,8 @@ install_deps() {
 		koekeishiya/formulae/skhd
 		pass
 		tldr
+		starship
+		rustup
 	)
 
 	for dep in ${deps[@]}; do

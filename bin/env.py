@@ -25,6 +25,7 @@ class Dirs:
     downloads: Path
     local_bin: Path
     local_share: Path
+    root_bin: Path
 
     def __init__(self):
         bindir = Path(__file__).parent
@@ -33,6 +34,7 @@ class Dirs:
         self.downloads = self.home / "Downloads"
         self.local_bin = self.home / ".local/bin"
         self.local_share = self.home / ".local/share"
+        self.root_bin = Path("/usr/local/bin")
 
 
 class Env:
