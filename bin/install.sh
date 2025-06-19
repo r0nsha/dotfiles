@@ -2,50 +2,14 @@
 #
 # install.sh installs my things.
 
-set -e
+script_dir=$(dirname "$0")
+venv_dir=$script_dir/.venv
 
-cd "$(dirname "$0")/.."
-DOTFILES=$(pwd -P)
+if [ ! -d "$venv_dir" ]; then
+    echo settings up venv...
+    python3 -m venv $script_dir/.venv
+fi
 
-cat $DOTFILES/bin/pepe.txt
-
-# chmod scripts
-chmod ug+x $DOTFILES/**/*.sh
-
-source $DOTFILES/bin/utils.sh
-source $DOTFILES/bin/detect.sh
-
-mkdir -p $DOWNLOADS
-mkdir -p $HOME/.local/bin
-mkdir -p $HOME/.local/share
-
-source $DOTFILES/bin/install/git_submodules.sh
-echo ""
-
-source $DOTFILES/bin/install/env.sh
-echo ""
-
-# setup wallpapers
-running "setting up wallpapers..."
-ln -sf $DOTFILES/wallpapers $HOME/Pictures/Wallpapers
-success "wallpapers set up"
-
-source $DOTFILES/bin/install/gtk.sh
-echo ""
-
-source $DOTFILES/bin/install/fonts.sh
-echo ""
-
-source $DOTFILES/bin/install/dconf.sh
-echo ""
-
-source $DOTFILES/bin/install/tools.sh
-echo ""
-
-source $DOTFILES/bin/install/stow.sh
-echo ""
-
-source $DOTFILES/bin/install/shell.sh
-echo ""
-
-success 'the things all installed!'
+source $script_dir/.venv/bin/activate
+python -m bin.install
+# sudo $(printenv VIRTUAL_ENV)/bin/python3 -m bin.install

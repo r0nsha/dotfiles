@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 running "installing tools..."
 source $DOTFILES/bin/tools/shared.sh
 case "$MACHINE" in

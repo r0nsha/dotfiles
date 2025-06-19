@@ -1,3 +1,4 @@
+import os
 import platform
 from enum import Enum
 from pathlib import Path
@@ -35,6 +36,9 @@ class Dirs:
         self.local_bin = self.home / ".local/bin"
         self.local_share = self.home / ".local/share"
         self.root_bin = Path("/usr/local/bin")
+
+        os.environ["DOTFILES"] = str(self.dotfiles)
+        os.environ["DOWNLOADS"] = str(self.downloads)
 
 
 class Env:
