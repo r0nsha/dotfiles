@@ -24,15 +24,6 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   end,
 })
 
--- Set filetype for git/config files
-vim.api.nvim_create_autocmd("BufEnter", {
-  group = augroup,
-  pattern = "*/git/config",
-  callback = function()
-    vim.cmd "set ft=gitconfig"
-  end,
-})
-
 -- Reload kitty.conf when it's modified
 vim.api.nvim_create_autocmd("BufWritePost", {
   group = augroup,
