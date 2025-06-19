@@ -1,15 +1,16 @@
 import subprocess
 import sys
-import traceback
 from collections.abc import Iterable
 from types import TracebackType
 
 from bin import log
 
 
-def _clear_line_above():
-    _ = sys.stdout.write("\033[F")
-    _ = sys.stdout.write("\033[K")
+def _clear_above(count: int = 1):
+    for _ in range(count):
+        _ = sys.stdout.write("\033[F")
+        _ = sys.stdout.write("\033[K")
+    _ = sys.stdout.flush()
 
 
 class Run:
@@ -22,9 +23,8 @@ class Run:
         try:
             log.running(self.name)
         except Exception as e:
-            _clear_line_above()
+            _clear_above()
             log.fail(f"`{self.name}` failed: {e}")
-            traceback.print_exc()
 
     def __exit__(
         self,
@@ -32,12 +32,15 @@ class Run:
         exc_val: BaseException | None,
         exc_tb: TracebackType | None,
     ) -> bool:
-        _clear_line_above()
-        log.success(self.name)
+        _clear_above()
+        if exc_val is None:
+            log.success(self.name)
+        else:
+            log.fail(self.name)
         return False
 
 
-def command(cmd: str, input: str | None = None):
+def command(cmd: str, input: str | None = None, clear: bool = True) -> int:
     try:
         print(f"{cmd}")
         result = subprocess.run(
@@ -46,23 +49,29 @@ def command(cmd: str, input: str | None = None):
         output_lines = result.stdout.strip().split("\n")
 
         if output_lines:
+            clear_count = len(output_lines) + 1
+
             for line in output_lines:
                 _ = sys.stdout.write(f"{line}\n")
             _ = sys.stdout.flush()
 
-            for i in range(len(output_lines) + 1):
-                _clear_line_above()
-            _ = sys.stdout.flush()
+            if clear:
+                _clear_above(clear_count)
 
+            return clear_count
+
+        return 0
     except subprocess.CalledProcessError as e:
         msg = f"Command failed with error: {e}"
-        print(msg)
-        print(e.stderr)  # pyright: ignore[reportAny]
+        print(msg, file=sys.stderr)
+        print(e.stderr, file=sys.stderr)  # pyright: ignore[reportAny]
         raise ValueError(msg)
     except FileNotFoundError:
         raise ValueError(f"Error: Command '{cmd}' not found.")
 
 
 def commands(cmds: Iterable[str]):
+    clear_count = 0
     for cmd in cmds:
-        command(cmd)
+        clear_count += command(cmd, clear=False)
+    _clear_above(clear_count)

@@ -34,4 +34,4 @@ def success(msg: str):
 
 
 def fail(msg: str):
-    _log_message(Color.Red, "!", f"\n{msg}", stream=sys.stderr)
+    _log_message(Color.Red, "!", f"{msg}", stream=sys.stderr)

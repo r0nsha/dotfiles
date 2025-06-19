@@ -2,7 +2,7 @@ import os
 import shutil
 
 from bin.run import Run, command, commands
-from bin.types import Env
+from bin.types import Env, Os
 
 
 def mkdirs(env: Env):
@@ -35,19 +35,40 @@ def git(env: Env):
 
 def wallpapers(env: Env):
     with Run("setup wallpapers"):
-        command(f"ln -sf {env.dirs.dotfiles}/wallpapers ~/Pictures/Wallpapers")
+        _ = command(
+            f"ln -sf {env.dirs.dotfiles}/wallpapers {env.dirs.home}/Pictures/Wallpapers"
+        )
 
 
 def dconf(env: Env):
     with Run("load dconf"):
         if shutil.which("dconf"):
-            command(f"dconf load / <{env.dirs.dotfiles}/dconf/settings.ini")
+            _ = command(f"dconf load / <{env.dirs.dotfiles}/dconf/settings.ini")
+
+
+def gtk_theme(env: Env):
+    if env.os != Os.Linux:
+        return
+
+    with Run("setup gtk theme"):
+        gtk_themes = env.dirs.local_share / "themes"
+        gtk_icons = env.dirs.local_share / "icons"
+
+        os.makedirs(gtk_themes, exist_ok=True)
+        os.makedirs(gtk_icons, exist_ok=True)
+
+        commands(
+            [
+                f'sudo bash -c "{env.dirs.dotfiles}/gtk/Rose-Pine-GTK-Theme/themes/install.sh --dest {gtk_themes} --name Rose-Pine --theme default --size compact --tweaks black"',
+                f"cp -r {env.dirs.dotfiles}/gtk/Rose-Pine-GTK-Theme/icons {gtk_icons}",
+            ]
+        )
 
 
 def stow(env: Env):
     with Run("stow dotfiles"):
         os.chdir(env.dirs.dotfiles)
-        command("stow .")
+        _ = command("stow .")
 
 
 def shell():
@@ -59,5 +80,6 @@ def shell():
                 "fish is not installed, this is a bug in the install script"
             )
 
-        command("sudo tee -a /etc/shells", input=f"{fish_bin}\n")
-        command(f"sudo chsh -s {fish_bin}")
+        # with open()
+        _ = command("sudo tee -a /etc/shells", input=f"{fish_bin}\n")
+        _ = command(f"sudo chsh -s {fish_bin}")
