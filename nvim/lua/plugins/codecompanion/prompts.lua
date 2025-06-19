@@ -61,7 +61,7 @@ return {
             content = function()
               local flags = "@insert_edit_into_file #buffer"
               local instructions =
-                "You are an expert at following the Conventional Commit specification. Important: You write concise commit messages that are to the point and don't have capitalization for sentences."
+                "You are an expert at following the Conventional Commit specification. Important: You write concise commit messages that are to the point and don't have capitalization for sentences. Important: you do use capitalizations in code blocks and code snippets!"
 
               return flags
                 .. " "

@@ -80,6 +80,5 @@ def shell():
                 "fish is not installed, this is a bug in the install script"
             )
 
-        # with open()
         _ = command("sudo tee -a /etc/shells", input=f"{fish_bin}\n")
         _ = command(f"sudo chsh -s {fish_bin}")
