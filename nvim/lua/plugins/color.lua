@@ -31,11 +31,13 @@ return {
         highlight_mode = "bg",
       }
 
-      vim.keymap.set("n", "<leader>cp", "<cmd>CccPick<cr>", { desc = "Convert Color" })
+      vim.keymap.set("n", "<leader>cp", "<cmd>CccPick<cr>", { desc = "Pick Color" })
 
-      vim.keymap.set({ "n", "v" }, "<leader>cc", function()
-        require("color-converter").cycle()
-      end, { desc = "Convert Color" })
+      vim.keymap.set({ "n", "v" }, "<leader>cc", "<cmd>CccConvert<cr>", { desc = "Convert Color" })
     end,
+  },
+  {
+    "rktjmp/lush.nvim",
+    event = "VeryLazy",
   },
 }
