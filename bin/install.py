@@ -17,7 +17,7 @@ def main():
     steps.wallpapers(env)
     steps.dconf(env)
     steps.gtk_theme(env)
-    # TODO: steps.fonts(env)
+    steps.fonts(env)
     # TODO: steps.tools(env)
     steps.stow(env)
     steps.shell()

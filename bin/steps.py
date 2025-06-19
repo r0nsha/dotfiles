@@ -1,6 +1,8 @@
 import os
 import shutil
+from pathlib import Path
 
+from bin.download import download_all
 from bin.run import Run, command, commands
 from bin.types import Env, Os
 
@@ -61,6 +63,40 @@ def gtk_theme(env: Env):
             [
                 f'sudo bash -c "{env.dirs.dotfiles}/gtk/Rose-Pine-GTK-Theme/themes/install.sh --dest {gtk_themes} --name Rose-Pine --theme default --size compact --tweaks black"',
                 f"cp -r {env.dirs.dotfiles}/gtk/Rose-Pine-GTK-Theme/icons {gtk_icons}",
+            ]
+        )
+
+
+def fonts(env: Env):
+    with Run("install fonts"):
+        fonts_dir: Path
+        match env.os:
+            case Os.Linux:
+                fonts_dir = env.dirs.local_share / "fonts"
+            case Os.MacOS:
+                fonts_dir = Path("/Library/Fonts")
+
+        os.makedirs(fonts_dir, exist_ok=True)
+
+        fonts_base_url = (
+            "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0"
+        )
+
+        def not_installed_fonts(fonts: list[str]) -> list[str]:
+            font_files = os.listdir(fonts_dir)
+            not_installed: list[str] = []
+            for font in fonts:
+                pattern = font.replace(" ", "") + "NerdFont"
+                if not any(pattern in f for f in font_files):
+                    not_installed.append(font)
+            return not_installed
+
+        fonts = not_installed_fonts(["Iosevka", "IosevkaTerm"])
+
+        download_all(
+            [
+                (f"{fonts_base_url}/{font}.zip", env.dirs.downloads / f"{font}.zip")
+                for font in fonts
             ]
         )
 
