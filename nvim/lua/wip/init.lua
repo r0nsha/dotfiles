@@ -15,22 +15,6 @@ local hsl = lush.hsl
 -- local bg_1 = bg0.da(50).mix(cherry0, 8).de(5)
 -- local fg0 = hsl(350, 30, 90)
 
--- local base = hsl(249, 22, 12)
--- local surface = hsl(247, 23, 15)
--- local overlay = hsl(248, 25, 18)
--- local muted = hsl(249, 12, 47)
--- local subtle = hsl(248, 15, 61)
--- local text = hsl(245, 50, 91)
--- local love = hsl(343, 76, 68)
--- local gold = hsl(35, 88, 72)
--- local rose = hsl(2, 55, 83)
--- local pine = hsl(197, 49, 38)
--- local river = hsl(189, 43, 73)
--- local iris = hsl(267, 57, 78)
--- local highlight_low = hsl(244, 18, 15)
--- local highlight_med = hsl(249, 15, 28)
--- local highlight_high = hsl(248, 13, 36)
-
 local base = hsl(198, 32, 18)
 local surface = base.li(4).de(4)
 local overlay = surface.li(8).de(4)
@@ -450,7 +434,7 @@ return lush(function(injected_functions)
     -- ["@punctuation.special"] { fg = p.subtle },
 
     -- --- Comments
-    -- sym "@comment" { "Comment" },
+    sym "@comment" { Comment },
 
     -- ["@comment.error"] { fg = g.error },
     -- ["@comment.warning"] { fg = g.warn },
