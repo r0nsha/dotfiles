@@ -116,17 +116,29 @@ return lush(function(injected_functions)
   local sym = injected_functions.sym
 
   return {
-    -- base
     Normal { fg = p.text, bg = p.base },
     NormalFloat { bg = g.panel },
     NormalNC { fg = p.text, bg = p.base },
-    Conceal { bg = "NONE" },
-    -- CurSearch { fg = p.base, bg = p.gold },
-    -- Cursor { fg = p.text, bg = p.highlight_high },
-    -- CursorColumn { bg = p.overlay },
-    -- CursorLine { bg = p.overlay },
-    -- CursorLineNr { fg = p.text, bold = styles.bold },
     ColorColumn { bg = p.surface },
+
+    -- conceal
+    Conceal { bg = p.overlay, fg = p.subtle },
+
+    -- search
+    -- Search { fg = p.text, bg = p.gold, blend = 20 },
+    -- IncSearch { link = "CurSearch" },
+    -- CurSearch { fg = p.base, bg = p.gold },
+
+    -- cursor
+    -- Cursor { fg = p.text, bg = p.highlight_high },
+    -- CursorLine { bg = p.overlay },
+    -- CursorColumn { bg = p.overlay },
+    -- NonText { fg = p.muted },
+
+    -- statuscolumn
+    -- LineNr { fg = p.muted },
+    -- CursorLineNr { fg = p.text, bold = styles.bold },
+
     -- diff
     -- DiffAdd { bg = groups.git_add, blend = 20 },
     -- DiffChange { bg = groups.git_change, blend = 20 },
@@ -138,17 +150,17 @@ return lush(function(injected_functions)
     -- Directory { fg = p.foam, bold = styles.bold },
     -- EndOfBuffer { fg = p.highlight_low },
     -- ErrorMsg { fg = groups.error, bold = styles.bold },
-    -- FloatBorder make_border(),
-    -- FloatTitle { fg = p.foam, bg = groups.panel, bold = styles.bold },
+
+    -- folds
     -- FoldColumn { fg = p.muted },
     -- Folded { fg = p.text, bg = groups.panel },
-    -- IncSearch { link = "CurSearch" },
-    -- LineNr { fg = p.muted },
+
     -- MatchParen { fg = p.pine, bg = p.pine, blend = 25 },
+    -- NvimInternalError { link = "ErrorMsg" },
     -- ModeMsg { fg = p.subtle },
     -- MoreMsg { fg = p.iris },
-    -- NonText { fg = p.muted },
-    -- NvimInternalError { link = "ErrorMsg" },
+
+    -- menu
     -- Pmenu { fg = p.subtle, bg = groups.panel },
     -- PmenuExtra { fg = p.muted, bg = groups.panel },
     -- PmenuExtraSel { fg = p.subtle, bg = p.overlay },
@@ -157,13 +169,18 @@ return lush(function(injected_functions)
     -- PmenuSbar { bg = groups.panel },
     -- PmenuSel { fg = p.text, bg = p.overlay },
     -- PmenuThumb { bg = p.muted },
+
+    -- floats
+    -- Float { fg = p.gold },
+    -- FloatBorder make_border(),
+    -- FloatTitle { fg = p.foam, bg = groups.panel, bold = styles.bold },
+
     -- Question { fg = p.gold },
     -- QuickFixLine { fg = p.foam },
     -- -- RedrawDebugNormal {},
     -- RedrawDebugClear { fg = p.base, bg = p.gold },
     -- RedrawDebugComposed { fg = p.base, bg = p.pine },
     -- RedrawDebugRecompose { fg = p.base, bg = p.love },
-    -- Search { fg = p.text, bg = p.gold, blend = 20 },
     -- SignColumn { fg = p.text, bg = "NONE" },
     -- SpecialKey { fg = p.foam },
     -- SpellBad { sp = p.subtle, undercurl = true },
@@ -189,6 +206,7 @@ return lush(function(injected_functions)
     -- WinBarNC { fg = p.muted, bg = groups.panel, blend = 60 },
     -- WinSeparator { fg = groups.border },
 
+    -- diagnostics
     -- DiagnosticError { fg = groups.error },
     -- DiagnosticHint { fg = groups.hint },
     -- DiagnosticInfo { fg = groups.info },
@@ -220,6 +238,7 @@ return lush(function(injected_functions)
     -- DiagnosticVirtualTextOk { fg = groups.ok, bg = groups.ok, blend = 10 },
     -- DiagnosticVirtualTextWarn { fg = groups.warn, bg = groups.warn, blend = 10 },
 
+    -- syntax
     -- Boolean { fg = p.rose },
     -- Character { fg = p.gold },
     -- Comment { fg = p.subtle, italic = styles.italic },
@@ -230,7 +249,6 @@ return lush(function(injected_functions)
     -- Delimiter { fg = p.subtle },
     -- Error { fg = p.love },
     -- Exception { fg = p.pine },
-    -- Float { fg = p.gold },
     -- Function { fg = p.rose },
     -- Identifier { fg = p.text },
     -- Include { fg = p.pine },
@@ -261,10 +279,12 @@ return lush(function(injected_functions)
     -- TypeDef { link = "Type" },
     -- Underlined { fg = p.iris, underline = true },
 
+    -- health
     -- healthError { fg = groups.error },
     -- healthSuccess { fg = groups.info },
     -- healthWarning { fg = groups.warn },
 
+    -- html
     -- htmlArg { fg = p.iris },
     -- htmlBold { bold = styles.bold },
     -- htmlEndTag { fg = p.subtle },
