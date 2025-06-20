@@ -1,15 +1,16 @@
 local lush = require "lush"
 local hsl = lush.hsl
 
+local cherry0 = hsl(346, 70, 60)
+local leaf0 = hsl(160, 40, 50)
+local branch0 = hsl(35, 82, 70)
+local water0 = hsl(190, 40, 55)
+local petal0 = hsl(325, 35, 70)
 local bg0 = hsl(200, 37, 18)
-local bg1 = bg0.lighten(10).desaturate(10)
-local bg2 = bg1.lighten(15).desaturate(15)
-local bg3 = bg2.lighten(30).desaturate(30)
+local bg1 = bg0.li(5).mix(cherry0, 8).de(10)
+local bg2 = bg1.li(15)
+local bg3 = bg2.li(30).de(20)
 local fg0 = hsl(350, 30, 90)
-local cherry0 = hsl(345, 70, 70)
-local leaf0 = hsl(170, 35, 50)
-local branch0 = hsl(28, 50, 60)
-local water0 = hsl(190, 50, 50)
 
 local colors = {
   bg0 = bg0,
@@ -21,17 +22,23 @@ local colors = {
   branch0 = branch0,
   leaf0 = leaf0,
   water0 = water0,
+  petal0 = petal0,
+  error = cherry0.da(10).sa(10).ro(15),
+  warn = branch0.da(10).sa(10).ro(-15),
+  info = water0.sa(10).ro(10).ro(15),
+  hint = petal0.da(10).sa(10).ro(-15),
 }
 
-local theme = lush(function()
+local theme = lush(function(injected_functions)
+  local sym = injected_functions.sym
   ---@diagnostic disable: undefined-global
   return {
     -- base
     Normal { bg = colors.bg0, fg = colors.fg0 },
     CursorLine { bg = colors.bg1 },
-    Visual { bg = colors.bg2 },
-    LineNr { bg = colors.bg1, fg = colors.bg3 },
-    CursorLineNr { LineNr, fg = colors.cherry0 },
+    Visual { bg = colors.bg1.mix(colors.cherry0, 15) },
+    LineNr { bg = colors.bg0, fg = colors.bg3 },
+    CursorLineNr { bg = colors.bg1, fg = colors.fg0 },
     NonText { fg = colors.bg3 },
     ColorColumn { bg = colors.bg1 },
 
@@ -45,27 +52,54 @@ local theme = lush(function()
     String { fg = colors.branch0 },
     Number { fg = colors.branch0 },
     -- Statement { fg = colors.cherry0 },
-    Operator { fg = colors.water0 },
+    Operator { NonText },
+    sym "@punctuation" { NonText },
+    sym "@constructor" { NonText },
+    sym "@variable" { fg = Normal.fg },
+    sym "@function.call" { fg = Normal.fg },
+    sym "@function.builtin" { fg = Normal.fg },
 
-    -- -- ui
-    -- StatusLine { bg = colors.bg0, fg = colors.fg0 },
-    -- StatusLineNC { bg = colors.bg0, fg = colors.leaf0 },
-    -- VertSplit { fg = colors.bg0.lighten(20) },
-    -- Pmenu { bg = colors.bg0, fg = colors.fg0 },
-    -- PmenuSel { bg = colors.cherry0.darken(20), fg = colors.fg0 },
+    -- statusline
+    StatusLine { bg = colors.bg1, fg = colors.fg0 },
+    StatusLineNC { bg = colors.bg1, fg = colors.leaf0 },
     -- TabLine { bg = colors.bg0, fg = colors.leaf0 },
     -- TabLineSel { fg = colors.cherry0 },
     -- TabLineFill { bg = colors.bg0 },
 
-    -- -- diff
-    -- DiffAdd { fg = colors.leaf0, bg = colors.bg0 },
-    -- DiffChange { fg = colors.branch0, bg = colors.bg0 },
-    -- DiffDelete { fg = colors.cherry0, bg = colors.bg0 },
-    -- DiffText { fg = colors.cherry0, bg = colors.bg0 },
+    -- split
+    VertSplit { fg = colors.cherry0 },
 
-    -- -- search
-    -- Search { bg = colors.cherry0.darken(30), fg = colors.fg0 },
-    -- IncSearch { bg = colors.cherry0, fg = colors.bg0 },
+    -- floats
+    FloatBorder { fg = colors.bg3 },
+    FloatTitle { fg = colors.fg0 },
+    NormalFloat { fg = colors.fg0 },
+    -- Pmenu { bg = colors.bg0, fg = colors.fg0 },
+    -- PmenuSel { bg = colors.cherry0.darken(20), fg = colors.fg0 },
+
+    -- search
+    Search { bg = colors.bg1.mix(colors.cherry0, 20), fg = colors.fg0 },
+    IncSearch { bg = colors.bg3.mix(colors.cherry0, 60), fg = colors.bg0 },
+    CurSearch { bg = colors.bg3.mix(colors.cherry0, 60), fg = colors.bg0 },
+
+    -- diagnostics
+    DiagnosticError { fg = colors.error },
+    DiagnosticWarn { fg = colors.warn },
+    DiagnosticInfo { fg = colors.info },
+    DiagnosticHint { fg = colors.hint },
+
+    -- diff
+    DiffAdd { bg = colors.bg0.mix(colors.leaf0, 30), fg = colors.leaf0 },
+    DiffChange { bg = colors.bg0.mix(colors.branch0, 30), fg = colors.branch0 },
+    DiffDelete { bg = colors.bg0.mix(colors.cherry0, 30), fg = colors.cherry0 },
+    DiffText { bg = colors.bg0.mix(colors.petal0, 30) },
+    Added { bg = colors.leaf0 },
+    Changed { bg = colors.branch0 },
+    Removed { bg = colors.cherry0 },
+
+    -- gitsigns
+    GitSignsAdd { bg = colors.bg0.mix(colors.leaf0, 20), fg = colors.leaf0 },
+    GitSignsChange { bg = colors.bg0.mix(colors.branch0, 20), fg = colors.branch0 },
+    GitSignsDelete { bg = colors.bg0.mix(colors.cherry0, 20), fg = colors.cherry0 },
   }
 end)
 
