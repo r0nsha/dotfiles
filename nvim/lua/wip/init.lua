@@ -32,7 +32,7 @@ local hsl = lush.hsl
 -- local highlight_high = hsl(248, 13, 36)
 
 local base = hsl(200, 37, 18)
-local surface = base.li(4).ro(2)
+local surface = base.li(6).ro(2)
 local overlay = hsl(248, 25, 18)
 local muted = hsl(249, 12, 47)
 local subtle = hsl(248, 15, 61)
@@ -119,17 +119,14 @@ return lush(function(injected_functions)
     -- base
     Normal { fg = p.text, bg = p.base },
     NormalFloat { bg = g.panel },
-    -- NormalNC { fg = p.text, bg = config.options.dim_inactive_windows and p._nc or p.base },
-    -- ColorColumn { bg = p.surface },
-    -- Conceal { bg = "NONE" },
+    NormalNC { fg = p.text, bg = p.base },
+    Conceal { bg = "NONE" },
     -- CurSearch { fg = p.base, bg = p.gold },
     -- Cursor { fg = p.text, bg = p.highlight_high },
     -- CursorColumn { bg = p.overlay },
-    -- -- CursorIM {},
     -- CursorLine { bg = p.overlay },
     -- CursorLineNr { fg = p.text, bold = styles.bold },
-    -- -- DarkenedPanel { },
-    -- -- DarkenedStatusline {},
+    ColorColumn { bg = p.surface },
     -- diff
     -- DiffAdd { bg = groups.git_add, blend = 20 },
     -- DiffChange { bg = groups.git_change, blend = 20 },
@@ -139,7 +136,7 @@ return lush(function(injected_functions)
     -- diffChanged { link = "DiffChange" },
     -- diffRemoved { link = "DiffDelete" },
     -- Directory { fg = p.foam, bold = styles.bold },
-    -- -- EndOfBuffer {},
+    -- EndOfBuffer { fg = p.highlight_low },
     -- ErrorMsg { fg = groups.error, bold = styles.bold },
     -- FloatBorder make_border(),
     -- FloatTitle { fg = p.foam, bg = groups.panel, bold = styles.bold },
