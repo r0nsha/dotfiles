@@ -2,16 +2,6 @@ local version = "*"
 
 return {
   { "echasnovski/mini.ai", version = version },
-  {
-    "echasnovski/mini.basics",
-    version = version,
-    opts = {
-      options = {
-        win_borders = "single",
-        extra_ui = true,
-      },
-    },
-  },
   { "echasnovski/mini.cursorword", version = version },
   {
     "echasnovski/mini.jump",
