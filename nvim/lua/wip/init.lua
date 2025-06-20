@@ -25,32 +25,35 @@ local hsl = lush.hsl
 -- local gold = hsl(35, 88, 72)
 -- local rose = hsl(2, 55, 83)
 -- local pine = hsl(197, 49, 38)
--- local foam = hsl(189, 43, 73)
+-- local river = hsl(189, 43, 73)
 -- local iris = hsl(267, 57, 78)
 -- local highlight_low = hsl(244, 18, 15)
 -- local highlight_med = hsl(249, 15, 28)
 -- local highlight_high = hsl(248, 13, 36)
 
-local base = hsl(200, 37, 18)
-local surface = base.li(6).ro(2)
-local overlay = hsl(248, 25, 18)
-local muted = hsl(249, 12, 47)
-local subtle = hsl(248, 15, 61)
-local text = hsl(350, 30, 90)
-local cherry = hsl(343, 76, 68)
-local blossom = hsl(267, 57, 78)
-local petal = hsl(2, 55, 83)
-local branch = hsl(35, 88, 72)
-local leaf = hsl(197, 49, 38)
-local river = hsl(189, 43, 73)
-local highlight_low = hsl(244, 18, 15)
-local highlight_med = hsl(249, 15, 28)
-local highlight_high = hsl(248, 13, 36)
+local base = hsl(198, 32, 18)
+local surface = base.li(4).de(4)
+local overlay = surface.li(8).de(4)
+local highlight_low = overlay.li(8).de(4)
+local highlight_med = highlight_low.li(10).de(4)
+local highlight_high = highlight_med.li(12).de(4)
+local text = hsl(195, 30, 90)
+local subtle = text.da(20).de(15).ro(10)
+local muted = subtle.da(30).de(30).ro(10)
+local cherry = hsl(346, 74, 68)
+local blossom = hsl(262, 34, 66)
+local petal = hsl(358, 55, 80)
+local branch = hsl(35, 74, 73)
+local leaf = hsl(165, 30, 42)
+local river = hsl(189, 38, 63)
 
 local palette = {
   base = base,
   surface = surface,
   overlay = overlay,
+  highlight_low = highlight_low,
+  highlight_med = highlight_med,
+  highlight_high = highlight_high,
   muted = muted,
   subtle = subtle,
   text = text,
@@ -60,190 +63,249 @@ local palette = {
   branch = branch,
   leaf = leaf,
   river = river,
-  highlight_low = highlight_low,
-  highlight_med = highlight_med,
-  highlight_high = highlight_high,
 }
 
-local groups = {
-  border = muted,
-  link = blossom,
-  panel = surface,
+---@class wip.Config
+---@field styles wip.Styles
+---@field groups wip.Groups
+---@field highlights table<string, vim.api.keyset.set_hl_info>
 
-  error = cherry,
-  hint = blossom,
-  info = river,
-  ok = leaf,
-  warn = branch,
-  note = leaf,
-  todo = blossom,
+---@class wip.Styles
+---@field bold boolean
+---@field italic boolean
+---@field transparency boolean
 
-  git_add = river,
-  git_change = blossom,
-  git_delete = cherry,
-  git_dirty = blossom,
-  git_ignore = muted,
-  git_merge = blossom,
-  git_rename = leaf,
-  git_stage = blossom,
-  git_text = blossom,
-  git_untracked = subtle,
+---@class wip.Groups
+---@field ui {
+--- border: table,
+--- link: table,
+--- panel: table,
+--- error: table,
+--- hint: table,
+--- info: table,
+--- ok: table,
+--- warn: table,
+--- note: table,
+--- todo: table,
+---}
+---@field git {
+--- add: table,
+--- change: table,
+--- delete: table,
+--- dirty: table,
+--- ignore: table,
+--- merge: table,
+--- rename: table,
+--- stage: table,
+--- text: table,
+--- untracked: table,
+---}
+---@field heading {
+--- h1: table,
+--- h2: table,
+--- h3: table,
+--- h4: table,
+--- h5: table,
+--- h6: table,
+---}
 
-  h1 = blossom,
-  h2 = river,
-  h3 = blossom,
-  h4 = branch,
-  h5 = leaf,
-  h6 = leaf,
-}
-
-local p = palette
-local g = groups
-
+---@type wip.Config
 local defaults = {
-  -- diagnostics = { blend = 20 },
-  -- diff = { blend = 20 },
-  -- gitsigns = { bg = false, blend = 40 },
+  styles = {
+    bold = true,
+    italic = true,
+    transparency = false,
+  },
+  groups = {
+    ui = {
+      border = highlight_med,
+      link = blossom,
+      panel = surface,
+      error = cherry,
+      hint = blossom,
+      info = river,
+      ok = leaf,
+      warn = branch,
+      note = leaf,
+      todo = blossom,
+    },
+
+    git = {
+      add = leaf,
+      change = branch,
+      delete = cherry,
+      dirty = branch,
+      ignore = muted,
+      merge = branch,
+      rename = blossom,
+      stage = branch,
+      text = branch,
+      untracked = subtle,
+    },
+
+    heading = {
+      h1 = blossom,
+      h2 = river,
+      h3 = blossom,
+      h4 = branch,
+      h5 = leaf,
+      h6 = leaf,
+    },
+  },
+
+  highlights = {},
 }
 
 -- ---@param opts wip.Config?
 -- function M.setup(opts)
 -- opts = vim.tbl_deep_extend("force", M.defaults, opts)
-local opts = defaults
+---@as(wip.Config)
+-- local useropts = {
+--   styles = { bold = true, italic = false },
+--   highlights = { Cursor = { bg = "none" } },
+-- }
+
+---@type wip.Config
+local opts = vim.tbl_deep_extend("force", defaults, {
+  styles = { italic = false },
+  highlights = { Cursor = { bg = "none" } },
+})
 
 return lush(function(injected_functions)
   ---@diagnostic disable: undefined-global
   local sym = injected_functions.sym
 
-  return {
+  local p = palette
+  local s = opts.styles
+  local g = opts.groups
+
+  local default_highlights = {
     Normal { fg = p.text, bg = p.base },
-    NormalFloat { bg = g.panel },
+    NormalFloat { bg = g.ui.panel },
     NormalNC { fg = p.text, bg = p.base },
     ColorColumn { bg = p.surface },
+    LineNr { fg = p.muted, bg = p.surface },
+    CursorLineNr { fg = p.text, bg = p.surface, bold = s.bold },
+    SignColumn { fg = p.text, bg = p.surface },
+    Visual { bg = p.highlight_low },
 
     -- conceal
     Conceal { bg = p.overlay, fg = p.subtle },
 
     -- search
-    -- Search { fg = p.text, bg = p.gold, blend = 20 },
-    -- IncSearch { link = "CurSearch" },
-    -- CurSearch { fg = p.base, bg = p.gold },
+    Search { fg = p.base, bg = p.cherry },
+    CurSearch { Search },
+    IncSearch { CurSearch },
 
     -- cursor
-    -- Cursor { fg = p.text, bg = p.highlight_high },
-    -- CursorLine { bg = p.overlay },
-    -- CursorColumn { bg = p.overlay },
-    -- NonText { fg = p.muted },
-
-    -- statuscolumn
-    -- LineNr { fg = p.muted },
-    -- CursorLineNr { fg = p.text, bold = styles.bold },
+    Cursor { fg = p.text, bg = p.highlight_high },
+    CursorLine { bg = p.overlay },
+    CursorColumn { CursorLine },
+    NonText { fg = p.subtle },
 
     -- diff
-    -- DiffAdd { bg = groups.git_add, blend = 20 },
-    -- DiffChange { bg = groups.git_change, blend = 20 },
-    -- DiffDelete { bg = groups.git_delete, blend = 20 },
-    -- DiffText { bg = groups.git_text, blend = 40 },
-    -- diffAdded { link = "DiffAdd" },
-    -- diffChanged { link = "DiffChange" },
-    -- diffRemoved { link = "DiffDelete" },
-    -- Directory { fg = p.foam, bold = styles.bold },
-    -- EndOfBuffer { fg = p.highlight_low },
-    -- ErrorMsg { fg = groups.error, bold = styles.bold },
+    DiffAdd { bg = g.git.add.mix(p.base, 70) },
+    DiffChange { bg = g.git.change.mix(p.base, 70) },
+    DiffDelete { bg = g.git.delete.mix(p.base, 70) },
+    DiffText { bg = g.git.text.mix(p.base, 70) },
+    diffAdded { DiffAdd },
+    diffChanged { DiffChange },
+    diffRemoved { DiffDelete },
+    Added { DiffAdd },
+    Changed { DiffChange },
+    Removed { DiffDelete },
+    Directory { fg = p.river, bold = s.bold },
+    EndOfBuffer { NonText },
+    ErrorMsg { fg = g.ui.error, bold = s.bold },
 
     -- folds
-    -- FoldColumn { fg = p.muted },
-    -- Folded { fg = p.text, bg = groups.panel },
+    FoldColumn { fg = p.muted },
+    Folded { fg = p.text, bg = g.ui.panel },
 
-    -- MatchParen { fg = p.pine, bg = p.pine, blend = 25 },
-    -- NvimInternalError { link = "ErrorMsg" },
-    -- ModeMsg { fg = p.subtle },
-    -- MoreMsg { fg = p.iris },
+    MatchParen { bg = p.highlight_med },
+    NvimInternalError { ErrorMsg },
+    ModeMsg { fg = p.subtle },
+    MoreMsg { fg = p.blossom },
 
     -- menu
-    -- Pmenu { fg = p.subtle, bg = groups.panel },
-    -- PmenuExtra { fg = p.muted, bg = groups.panel },
-    -- PmenuExtraSel { fg = p.subtle, bg = p.overlay },
-    -- PmenuKind { fg = p.foam, bg = groups.panel },
-    -- PmenuKindSel { fg = p.subtle, bg = p.overlay },
-    -- PmenuSbar { bg = groups.panel },
-    -- PmenuSel { fg = p.text, bg = p.overlay },
-    -- PmenuThumb { bg = p.muted },
+    Pmenu { fg = p.subtle, bg = g.ui.panel },
+    PmenuExtra { fg = p.muted, bg = g.ui.panel },
+    PmenuExtraSel { fg = p.subtle, bg = p.overlay },
+    PmenuKind { fg = p.river, bg = g.ui.panel },
+    PmenuKindSel { fg = p.subtle, bg = p.overlay },
+    PmenuSbar { bg = g.ui.panel },
+    PmenuSel { fg = p.text, bg = p.overlay },
+    PmenuThumb { bg = p.muted },
 
     -- floats
-    -- Float { fg = p.gold },
-    -- FloatBorder make_border(),
-    -- FloatTitle { fg = p.foam, bg = groups.panel, bold = styles.bold },
+    Float { fg = p.river },
+    FloatBorder { fg = g.ui.border, bg = g.ui.panel },
+    FloatTitle { fg = p.river, bg = g.ui.panel, bold = s.bold },
 
-    -- Question { fg = p.gold },
-    -- QuickFixLine { fg = p.foam },
-    -- -- RedrawDebugNormal {},
-    -- RedrawDebugClear { fg = p.base, bg = p.gold },
-    -- RedrawDebugComposed { fg = p.base, bg = p.pine },
-    -- RedrawDebugRecompose { fg = p.base, bg = p.love },
-    -- SignColumn { fg = p.text, bg = "NONE" },
-    -- SpecialKey { fg = p.foam },
-    -- SpellBad { sp = p.subtle, undercurl = true },
-    -- SpellCap { sp = p.subtle, undercurl = true },
-    -- SpellLocal { sp = p.subtle, undercurl = true },
-    -- SpellRare { sp = p.subtle, undercurl = true },
-    -- StatusLine { fg = p.subtle, bg = groups.panel },
-    -- StatusLineNC { fg = p.muted, bg = groups.panel, blend = 60 },
-    -- StatusLineTerm { fg = p.base, bg = p.pine },
-    -- StatusLineTermNC { fg = p.base, bg = p.pine, blend = 60 },
-    -- Substitute { link = "IncSearch" },
-    -- TabLine { fg = p.subtle, bg = groups.panel },
-    -- TabLineFill { bg = groups.panel },
-    -- TabLineSel { fg = p.text, bg = p.overlay, bold = styles.bold },
-    -- Title { fg = p.foam, bold = styles.bold },
-    -- VertSplit { fg = groups.border },
-    -- Visual { bg = p.iris, blend = 15 },
-    -- -- VisualNOS {},
-    -- WarningMsg { fg = groups.warn, bold = styles.bold },
-    -- -- Whitespace {},
-    -- WildMenu { link = "IncSearch" },
-    -- WinBar { fg = p.subtle, bg = groups.panel },
-    -- WinBarNC { fg = p.muted, bg = groups.panel, blend = 60 },
-    -- WinSeparator { fg = groups.border },
+    Question { fg = p.branch },
+    QuickFixLine { fg = p.river },
+    RedrawDebugClear { fg = p.base, bg = p.leaf },
+    RedrawDebugComposed { fg = p.base, bg = p.blossom },
+    RedrawDebugRecompose { fg = p.base, bg = p.petal },
+    SpecialKey { fg = p.river },
+    SpellBad { sp = p.subtle, undercurl = true },
+    SpellCap { sp = p.subtle, undercurl = true },
+    SpellLocal { sp = p.subtle, undercurl = true },
+    SpellRare { sp = p.subtle, undercurl = true },
+    StatusLine { fg = p.subtle, bg = g.ui.panel },
+    StatusLineNC { fg = p.muted, bg = g.ui.panel },
+    StatusLineTerm { fg = p.base, bg = p.pine },
+    StatusLineTermNC { fg = p.base, bg = p.pine },
+    Substitute { IncSearch },
+    TabLine { fg = p.subtle, bg = g.ui.panel },
+    TabLineFill { bg = g.ui.panel },
+    TabLineSel { fg = p.text, bg = p.overlay, bold = s.bold },
+    Title { fg = p.river, bold = s.bold },
+    VertSplit { fg = g.ui.border },
+    WarningMsg { fg = g.ui.warn, bold = s.bold },
+    WildMenu { IncSearch },
+    WinBar { fg = p.subtle, bg = g.ui.panel },
+    WinBarNC { fg = p.muted, bg = g.ui.panel },
+    WinSeparator { fg = g.ui.border },
 
     -- diagnostics
-    -- DiagnosticError { fg = groups.error },
-    -- DiagnosticHint { fg = groups.hint },
-    -- DiagnosticInfo { fg = groups.info },
-    -- DiagnosticOk { fg = groups.ok },
-    -- DiagnosticWarn { fg = groups.warn },
-    -- DiagnosticDefaultError { link = "DiagnosticError" },
-    -- DiagnosticDefaultHint { link = "DiagnosticHint" },
-    -- DiagnosticDefaultInfo { link = "DiagnosticInfo" },
-    -- DiagnosticDefaultOk { link = "DiagnosticOk" },
-    -- DiagnosticDefaultWarn { link = "DiagnosticWarn" },
-    -- DiagnosticFloatingError { link = "DiagnosticError" },
-    -- DiagnosticFloatingHint { link = "DiagnosticHint" },
-    -- DiagnosticFloatingInfo { link = "DiagnosticInfo" },
-    -- DiagnosticFloatingOk { link = "DiagnosticOk" },
-    -- DiagnosticFloatingWarn { link = "DiagnosticWarn" },
-    -- DiagnosticSignError { link = "DiagnosticError" },
-    -- DiagnosticSignHint { link = "DiagnosticHint" },
-    -- DiagnosticSignInfo { link = "DiagnosticInfo" },
-    -- DiagnosticSignOk { link = "DiagnosticOk" },
-    -- DiagnosticSignWarn { link = "DiagnosticWarn" },
-    -- DiagnosticUnderlineError { sp = groups.error, undercurl = true },
-    -- DiagnosticUnderlineHint { sp = groups.hint, undercurl = true },
-    -- DiagnosticUnderlineInfo { sp = groups.info, undercurl = true },
-    -- DiagnosticUnderlineOk { sp = groups.ok, undercurl = true },
-    -- DiagnosticUnderlineWarn { sp = groups.warn, undercurl = true },
-    -- DiagnosticVirtualTextError { fg = groups.error, bg = groups.error, blend = 10 },
-    -- DiagnosticVirtualTextHint { fg = groups.hint, bg = groups.hint, blend = 10 },
-    -- DiagnosticVirtualTextInfo { fg = groups.info, bg = groups.info, blend = 10 },
-    -- DiagnosticVirtualTextOk { fg = groups.ok, bg = groups.ok, blend = 10 },
-    -- DiagnosticVirtualTextWarn { fg = groups.warn, bg = groups.warn, blend = 10 },
+    -- DiagnosticError { fg = g.error },
+    -- DiagnosticHint { fg = g.hint },
+    -- DiagnosticInfo { fg = g.info },
+    -- DiagnosticOk { fg = g.ok },
+    -- DiagnosticWarn { fg = g.warn },
+    -- DiagnosticDefaultError { DiagnosticError },
+    -- DiagnosticDefaultHint { DiagnosticHint },
+    -- DiagnosticDefaultInfo { DiagnosticInfo },
+    -- DiagnosticDefaultOk { DiagnosticOk },
+    -- DiagnosticDefaultWarn { DiagnosticWarn },
+    -- DiagnosticFloatingError { DiagnosticError },
+    -- DiagnosticFloatingHint { DiagnosticHint },
+    -- DiagnosticFloatingInfo { DiagnosticInfo },
+    -- DiagnosticFloatingOk { DiagnosticOk },
+    -- DiagnosticFloatingWarn { DiagnosticWarn },
+    -- DiagnosticSignError { DiagnosticError },
+    -- DiagnosticSignHint { DiagnosticHint },
+    -- DiagnosticSignInfo { DiagnosticInfo },
+    -- DiagnosticSignOk { DiagnosticOk },
+    -- DiagnosticSignWarn { DiagnosticWarn },
+    -- DiagnosticUnderlineError { sp = g.error, undercurl = true },
+    -- DiagnosticUnderlineHint { sp = g.hint, undercurl = true },
+    -- DiagnosticUnderlineInfo { sp = g.info, undercurl = true },
+    -- DiagnosticUnderlineOk { sp = g.ok, undercurl = true },
+    -- DiagnosticUnderlineWarn { sp = g.warn, undercurl = true },
+    -- DiagnosticVirtualTextError { fg = g.error, bg = groups.error,  },
+    -- DiagnosticVirtualTextHint { fg = g.hint, bg = groups.hint,  },
+    -- DiagnosticVirtualTextInfo { fg = g.info, bg = groups.info,  },
+    -- DiagnosticVirtualTextOk { fg = g.ok, bg = groups.ok,  },
+    -- DiagnosticVirtualTextWarn { fg = g.warn, bg = groups.warn,  },
 
     -- syntax
     -- Boolean { fg = p.rose },
-    -- Character { fg = p.gold },
-    -- Comment { fg = p.subtle, italic = styles.italic },
+    -- Character { fg = p.branch },
+    Comment { fg = p.subtle, italic = s.italic },
     -- Conditional { fg = p.pine },
-    -- Constant { fg = p.gold },
+    -- Constant { fg = p.branch },
     -- Debug { fg = p.rose },
     -- Define { fg = p.iris },
     -- Delimiter { fg = p.subtle },
@@ -253,139 +315,124 @@ return lush(function(injected_functions)
     -- Identifier { fg = p.text },
     -- Include { fg = p.pine },
     -- Keyword { fg = p.pine },
-    -- Label { fg = p.foam },
+    -- Label { fg = p.river },
     -- LspCodeLens { fg = p.subtle },
     -- LspCodeLensSeparator { fg = p.muted },
-    -- LspInlayHint { fg = p.muted, bg = p.muted, blend = 10 },
+    -- LspInlayHint { fg = p.muted, bg = p.muted,  },
     -- LspReferenceRead { bg = p.highlight_med },
     -- LspReferenceText { bg = p.highlight_med },
     -- LspReferenceWrite { bg = p.highlight_med },
     -- Macro { fg = p.iris },
-    -- Number { fg = p.gold },
+    -- Number { fg = p.branch },
     -- Operator { fg = p.subtle },
     -- PreCondit { fg = p.iris },
-    -- PreProc { link = "PreCondit" },
+    -- PreProc { PreCondit },
     -- Repeat { fg = p.pine },
-    -- Special { fg = p.foam },
-    -- SpecialChar { link = "Special" },
+    -- Special { fg = p.river },
+    -- SpecialChar { Special },
     -- SpecialComment { fg = p.iris },
-    -- Statement { fg = p.pine, bold = styles.bold },
-    -- StorageClass { fg = p.foam },
-    -- String { fg = p.gold },
-    -- Structure { fg = p.foam },
-    -- Tag { fg = p.foam },
-    -- Todo { fg = p.rose, bg = p.rose, blend = 20 },
-    -- Type { fg = p.foam },
-    -- TypeDef { link = "Type" },
+    -- Statement { fg = p.pine, bold = s.bold },
+    -- StorageClass { fg = p.river },
+    -- String { fg = p.branch },
+    -- Structure { fg = p.river },
+    -- Tag { fg = p.river },
+    -- Todo { fg = p.rose, bg = p.rose,  },
+    -- Type { fg = p.river },
+    -- TypeDef { Type },
     -- Underlined { fg = p.iris, underline = true },
 
     -- health
-    -- healthError { fg = groups.error },
-    -- healthSuccess { fg = groups.info },
-    -- healthWarning { fg = groups.warn },
+    -- healthError { fg = g.error },
+    -- healthSuccess { fg = g.info },
+    -- healthWarning { fg = g.warn },
 
     -- html
     -- htmlArg { fg = p.iris },
-    -- htmlBold { bold = styles.bold },
+    -- htmlBold { bold = s.bold },
     -- htmlEndTag { fg = p.subtle },
-    -- htmlH1 { link = "markdownH1" },
-    -- htmlH2 { link = "markdownH2" },
-    -- htmlH3 { link = "markdownH3" },
-    -- htmlH4 { link = "markdownH4" },
-    -- htmlH5 { link = "markdownH5" },
-    -- htmlItalic { italic = styles.italic },
+    -- htmlH1 { markdownH1 },
+    -- htmlH2 { markdownH2 },
+    -- htmlH3 { markdownH3 },
+    -- htmlH4 { markdownH4 },
+    -- htmlH5 { markdownH5 },
+    -- htmlItalic { italic = s.italic },
     -- htmlLink { link = "markdownUrl" },
     -- htmlTag { fg = p.subtle },
     -- htmlTagN { fg = p.text },
-    -- htmlTagName { fg = p.foam },
+    -- htmlTagName { fg = p.river },
 
     -- markdownDelimiter { fg = p.subtle },
-    -- markdownH1 { fg = groups.h1, bold = styles.bold },
-    -- markdownH1Delimiter { link = "markdownH1" },
-    -- markdownH2 { fg = groups.h2, bold = styles.bold },
-    -- markdownH2Delimiter { link = "markdownH2" },
-    -- markdownH3 { fg = groups.h3, bold = styles.bold },
-    -- markdownH3Delimiter { link = "markdownH3" },
-    -- markdownH4 { fg = groups.h4, bold = styles.bold },
-    -- markdownH4Delimiter { link = "markdownH4" },
-    -- markdownH5 { fg = groups.h5, bold = styles.bold },
-    -- markdownH5Delimiter { link = "markdownH5" },
-    -- markdownH6 { fg = groups.h6, bold = styles.bold },
-    -- markdownH6Delimiter { link = "markdownH6" },
+    -- markdownH1 { fg = g.h1, bold = s.bold },
+    -- markdownH1Delimiter { markdownH1 },
+    -- markdownH2 { fg = g.h2, bold = s.bold },
+    -- markdownH2Delimiter { markdownH2 },
+    -- markdownH3 { fg = g.h3, bold = s.bold },
+    -- markdownH3Delimiter { markdownH3 },
+    -- markdownH4 { fg = g.h4, bold = s.bold },
+    -- markdownH4Delimiter { markdownH4 },
+    -- markdownH5 { fg = g.h5, bold = s.bold },
+    -- markdownH5Delimiter { markdownH5 },
+    -- markdownH6 { fg = g.h6, bold = s.bold },
+    -- markdownH6Delimiter { markdownH6 },
     -- markdownLinkText { link = "markdownUrl" },
-    -- markdownUrl { fg = groups.link, sp = groups.link, underline = true },
-
-    -- mkdCode { fg = p.foam, italic = styles.italic },
-    -- mkdCodeDelimiter { fg = p.rose },
-    -- mkdCodeEnd { fg = p.foam },
-    -- mkdCodeStart { fg = p.foam },
-    -- mkdFootnotes { fg = p.foam },
-    -- mkdID { fg = p.foam, underline = true },
-    -- mkdInlineURL { link = "markdownUrl" },
+    -- markdownUrl { fg = g.markdownUrl },
     -- mkdLink { link = "markdownUrl" },
     -- mkdLinkDef { link = "markdownUrl" },
     -- mkdListItemLine { fg = p.text },
     -- mkdRule { fg = p.subtle },
-    -- mkdURL { link = "markdownUrl" },
+    -- mkdURL { markdownUrl },
 
     -- --- Treesitter
-    -- --- |:help treesitter-highlight-groups|
-    -- ["@variable"] { fg = p.text, italic = styles.italic },
-    -- ["@variable.builtin"] { fg = p.love, italic = styles.italic, bold = styles.bold },
-    -- ["@variable.parameter"] { fg = p.iris, italic = styles.italic },
-    -- ["@variable.parameter.builtin"] { fg = p.iris, italic = styles.italic, bold = styles.bold },
-    -- ["@variable.member"] { fg = p.foam },
+    -- --- |:help treesitter-highlight-g|
+    -- ["@variable"] { fg = p.text, italic = s.italic },
+    -- ["@variable.builtin"] { fg = p.love, italic = s.italic, bold = s.bold },
+    -- ["@variable.parameter"] { fg = p.iris, italic = s.italic },
+    -- ["@variable.parameter.builtin"] { fg = p.iris, italic = s.italic, bold = s.bold },
+    -- ["@variable.member"] { fg = p.river },
 
-    -- ["@constant"] { fg = p.gold },
-    -- ["@constant.builtin"] { fg = p.gold, bold = styles.bold },
-    -- ["@constant.macro"] { fg = p.gold },
+    -- ["@constant"] { fg = p.branch },
+    -- ["@constant.builtin"] { fg = p.branch, bold = s.bold },
+    -- ["@constant.macro"] { fg = p.branch },
 
     -- ["@module"] { fg = p.text },
-    -- ["@module.builtin"] { fg = p.text, bold = styles.bold },
-    -- ["@label"] { link = "Label" },
+    -- ["@module.builtin"] { fg = p.text, bold = s.bold },
+    -- ["@label"] { Label },
 
-    -- ["@string"] { link = "String" },
-    -- -- ["@string.documentation"] {},
+    -- ["@string"] { String },
     -- ["@string.regexp"] { fg = p.iris },
     -- ["@string.escape"] { fg = p.pine },
-    -- ["@string.special"] { link = "String" },
-    -- ["@string.special.symbol"] { link = "Identifier" },
-    -- ["@string.special.url"] { fg = groups.link },
-    -- -- ["@string.special.path"] {},
+    -- ["@string.special"] { String },
+    -- ["@string.special.symbol"] { Identifier },
+    -- ["@string.special.url"] { fg = g.@character] { Character },
+    -- ["@character.special"] { Character },
 
-    -- ["@character"] { link = "Character" },
-    -- ["@character.special"] { link = "Character" },
+    -- ["@boolean"] { Boolean },
+    -- ["@number"] { Number },
+    -- ["@number.float"] { Number },
+    -- ["@float"] { Number },
 
-    -- ["@boolean"] { link = "Boolean" },
-    -- ["@number"] { link = "Number" },
-    -- ["@number.float"] { link = "Number" },
-    -- ["@float"] { link = "Number" },
-
-    -- ["@type"] { fg = p.foam },
-    -- ["@type.builtin"] { fg = p.foam, bold = styles.bold },
-    -- -- ["@type.definition"] {},
+    -- ["@type"] { fg = p.river },
+    -- ["@type.builtin"] { fg = p.river, bold = s.bold },
 
     -- ["@attribute"] { fg = p.iris },
-    -- ["@attribute.builtin"] { fg = p.iris, bold = styles.bold },
-    -- ["@property"] { fg = p.foam, italic = styles.italic },
+    -- ["@attribute.builtin"] { fg = p.iris, bold = s.bold },
+    -- ["@property"] { fg = p.river, italic = s.italic },
 
     -- ["@function"] { fg = p.rose },
-    -- ["@function.builtin"] { fg = p.rose, bold = styles.bold },
+    -- ["@function.builtin"] { fg = p.rose, bold = s.bold },
     -- -- ["@function.call"] {},
-    -- ["@function.macro"] { link = "Function" },
+    -- ["@function.macro"] { Function },
 
     -- ["@function.method"] { fg = p.rose },
     -- ["@function.method.call"] { fg = p.iris },
 
-    -- ["@constructor"] { fg = p.foam },
-    -- ["@operator"] { link = "Operator" },
+    -- ["@constructor"] { fg = p.river },
+    -- ["@operator"] { Operator },
 
-    -- ["@keyword"] { link = "Keyword" },
-    -- -- ["@keyword.coroutine"] {},
-    -- -- ["@keyword.function"] {},
+    -- ["@keyword"] { Keyword },
     -- ["@keyword.operator"] { fg = p.subtle },
     -- ["@keyword.import"] { fg = p.pine },
-    -- ["@keyword.storage"] { fg = p.foam },
+    -- ["@keyword.storage"] { fg = p.river },
     -- ["@keyword.repeat"] { fg = p.pine },
     -- ["@keyword.return"] { fg = p.pine },
     -- ["@keyword.debug"] { fg = p.rose },
@@ -403,192 +450,164 @@ return lush(function(injected_functions)
     -- ["@punctuation.special"] { fg = p.subtle },
 
     -- --- Comments
-    -- ["@comment"] { link = "Comment" },
-    -- -- ["@comment.documentation"] {},
+    -- sym "@comment" { "Comment" },
 
-    -- ["@comment.error"] { fg = groups.error },
-    -- ["@comment.warning"] { fg = groups.warn },
-    -- ["@comment.todo"] { fg = groups.todo, bg = groups.todo, blend = 15 },
-    -- ["@comment.hint"] { fg = groups.hint, bg = groups.hint, blend = 15 },
-    -- ["@comment.info"] { fg = groups.info, bg = groups.info, blend = 15 },
-    -- ["@comment.note"] { fg = groups.note, bg = groups.note, blend = 15 },
+    -- ["@comment.error"] { fg = g.error },
+    -- ["@comment.warning"] { fg = g.warn },
+    -- ["@comment.todo"] { fg = g.todo, bg = groups.todo,  },
+    -- ["@comment.hint"] { fg = g.hint, bg = groups.hint,  },
+    -- ["@comment.info"] { fg = g.info, bg = groups.info,  },
+    -- ["@comment.note"] { fg = g.note, bg = groups.note,  },
 
     -- --- Markup
-    -- ["@markup.strong"] { bold = styles.bold },
-    -- ["@markup.italic"] { italic = styles.italic },
+    -- ["@markup.strong"] { bold = s.bold },
+    -- ["@markup.italic"] { italic = s.italic },
     -- ["@markup.strikethrough"] { strikethrough = true },
     -- ["@markup.underline"] { underline = true },
 
-    -- ["@markup.heading"] { fg = p.foam, bold = styles.bold },
+    -- ["@markup.heading"] { fg = p.river, bold = s.bold },
 
     -- ["@markup.quote"] { fg = p.text },
-    -- ["@markup.math"] { link = "Special" },
-    -- ["@markup.environment"] { link = "Macro" },
-    -- ["@markup.environment.name"] { link = "@type" },
+    -- ["@markup.math"] { Special },
+    -- ["@markup.environment"] { Macro },
+    -- ["@markup.environment.name"] { @type },
 
     -- -- ["@markup.link"] {},
     -- ["@markup.link.markdown_inline"] { fg = p.subtle },
-    -- ["@markup.link.label.markdown_inline"] { fg = p.foam },
-    -- ["@markup.link.url"] { fg = groups.link },
+    -- ["@markup.link.label.markdown_inline"] { fg = p.river },
+    -- ["@markup.link.url"] { fg = g.link },
 
     -- -- ["@markup.raw"] { bg = p.surface },
     -- -- ["@markup.raw.block"] { bg = p.surface },
     -- ["@markup.raw.delimiter.markdown"] { fg = p.subtle },
 
     -- ["@markup.list"] { fg = p.pine },
-    -- ["@markup.list.checked"] { fg = p.foam, bg = p.foam, blend = 10 },
+    -- ["@markup.list.checked"] { fg = p.river, bg = p.river,  },
     -- ["@markup.list.unchecked"] { fg = p.text },
 
     -- -- Markdown headings
-    -- ["@markup.heading.1.markdown"] { link = "markdownH1" },
-    -- ["@markup.heading.2.markdown"] { link = "markdownH2" },
-    -- ["@markup.heading.3.markdown"] { link = "markdownH3" },
-    -- ["@markup.heading.4.markdown"] { link = "markdownH4" },
-    -- ["@markup.heading.5.markdown"] { link = "markdownH5" },
-    -- ["@markup.heading.6.markdown"] { link = "markdownH6" },
-    -- ["@markup.heading.1.marker.markdown"] { link = "markdownH1Delimiter" },
-    -- ["@markup.heading.2.marker.markdown"] { link = "markdownH2Delimiter" },
-    -- ["@markup.heading.3.marker.markdown"] { link = "markdownH3Delimiter" },
-    -- ["@markup.heading.4.marker.markdown"] { link = "markdownH4Delimiter" },
-    -- ["@markup.heading.5.marker.markdown"] { link = "markdownH5Delimiter" },
-    -- ["@markup.heading.6.marker.markdown"] { link = "markdownH6Delimiter" },
+    -- ["@markup.heading.1.markdown"] { markdownH1 },
+    -- ["@markup.heading.2.markdown"] { markdownH2 },
+    -- ["@markup.heading.3.markdown"] { markdownH3 },
+    -- ["@markup.heading.4.markdown"] { markdownH4 },
+    -- ["@markup.heading.5.markdown"] { markdownH5 },
+    -- ["@markup.heading.6.markdown"] { markdownH6 },
+    -- ["@markup.heading.1.marker.markdown"] { markdownH1Delimiter },
+    -- ["@markup.heading.2.marker.markdown"] { markdownH2Delimiter },
+    -- ["@markup.heading.3.marker.markdown"] { markdownH3Delimiter },
+    -- ["@markup.heading.4.marker.markdown"] { markdownH4Delimiter },
+    -- ["@markup.heading.5.marker.markdown"] { markdownH5Delimiter },
+    -- ["@markup.heading.6.marker.markdown"] { markdownH6Delimiter },
 
-    -- ["@diff.plus"] { fg = groups.git_add, bg = groups.git_add, blend = 20 },
-    -- ["@diff.minus"] { fg = groups.git_delete, bg = groups.git_delete, blend = 20 },
-    -- ["@diff.delta"] { bg = groups.git_change, blend = 20 },
+    -- ["@diff.plus"] { fg = g.git.add, bg = groups.git.add,  },
+    -- ["@diff.minus"] { fg = g.git.delete, bg = groups.git.delete,  },
+    -- ["@diff.delta"] { bg = g.git.change,  },
 
-    -- ["@tag"] { link = "Tag" },
+    -- ["@tag"] { Tag },
     -- ["@tag.attribute"] { fg = p.iris },
     -- ["@tag.delimiter"] { fg = p.subtle },
 
     -- --- Non-highlighting captures
     -- -- ["@none"] {},
-    -- ["@conceal"] { link = "Conceal" },
+    -- ["@conceal"] { Conceal },
     -- ["@conceal.markdown"] { fg = p.subtle },
 
     -- --- Semantic highlights
     -- ["@lsp.type.comment"] {},
-    -- ["@lsp.type.comment.c"] { link = "@comment" },
-    -- ["@lsp.type.comment.cpp"] { link = "@comment" },
-    -- ["@lsp.type.enum"] { link = "@type" },
-    -- ["@lsp.type.interface"] { link = "@interface" },
-    -- ["@lsp.type.keyword"] { link = "@keyword" },
-    -- ["@lsp.type.namespace"] { link = "@namespace" },
-    -- ["@lsp.type.namespace.python"] { link = "@variable" },
-    -- ["@lsp.type.parameter"] { link = "@parameter" },
-    -- ["@lsp.type.property"] { link = "@property" },
+    -- ["@lsp.type.comment.c"] { @comment },
+    -- ["@lsp.type.comment.cpp"] { @comment },
+    -- ["@lsp.type.enum"] { @type },
+    -- ["@lsp.type.interface"] { @interface },
+    -- ["@lsp.type.keyword"] { @keyword },
+    -- ["@lsp.type.namespace"] { @namespace },
+    -- ["@lsp.type.namespace.python"] { @variable },
+    -- ["@lsp.type.parameter"] { @parameter },
+    -- ["@lsp.type.property"] { @property },
     -- ["@lsp.type.variable"] {}, -- defer to treesitter for regular variables
-    -- ["@lsp.type.variable.svelte"] { link = "@variable" },
-    -- ["@lsp.typemod.function.defaultLibrary"] { link = "@function.builtin" },
-    -- ["@lsp.typemod.operator.injected"] { link = "@operator" },
-    -- ["@lsp.typemod.string.injected"] { link = "@string" },
-    -- ["@lsp.typemod.variable.constant"] { link = "@constant" },
-    -- ["@lsp.typemod.variable.defaultLibrary"] { link = "@variable.builtin" },
-    -- ["@lsp.typemod.variable.injected"] { link = "@variable" },
+    -- ["@lsp.type.variable.svelte"] { @variable },
+    -- ["@lsp.typemod.function.defaultLibrary"] { @function.builtin },
+    -- ["@lsp.typemod.operator.injected"] { @operator },
+    -- ["@lsp.typemod.string.injected"] { @string },
+    -- ["@lsp.typemod.variable.constant"] { @constant },
+    -- ["@lsp.typemod.variable.defaultLibrary"] { @variable.builtin },
+    -- ["@lsp.typemod.variable.injected"] { @variable },
 
-    --- Plugins
-    -- -- lewis6991/gitsigns.nvim
-    -- GitSignsAdd { fg = groups.git_add, bg = "NONE" },
-    -- GitSignsChange { fg = groups.git_change, bg = "NONE" },
-    -- GitSignsDelete { fg = groups.git_delete, bg = "NONE" },
-    -- SignAdd { fg = groups.git_add, bg = "NONE" },
-    -- SignChange { fg = groups.git_change, bg = "NONE" },
-    -- SignDelete { fg = groups.git_delete, bg = "NONE" },
-
-    -- -- mvllow/modes.nvim
-    -- ModesCopy { bg = p.gold },
-    -- ModesDelete { bg = p.love },
-    -- ModesInsert { bg = p.foam },
-    -- ModesReplace { bg = p.pine },
-    -- ModesVisual { bg = p.iris },
-
-    -- -- nvim-neotest/neotest
-    -- NeotestAdapterName { fg = p.iris },
-    -- NeotestBorder { fg = p.highlight_med },
-    -- NeotestDir { fg = p.foam },
-    -- NeotestExpandMarker { fg = p.highlight_med },
-    -- NeotestFailed { fg = p.love },
-    -- NeotestFile { fg = p.text },
-    -- NeotestFocused { fg = p.gold, bg = p.highlight_med },
-    -- NeotestIndent { fg = p.highlight_med },
-    -- NeotestMarked { fg = p.rose, bold = styles.bold },
-    -- NeotestNamespace { fg = p.gold },
-    -- NeotestPassed { fg = p.pine },
-    -- NeotestRunning { fg = p.gold },
-    -- NeotestWinSelect { fg = p.muted },
-    -- NeotestSkipped { fg = p.subtle },
-    -- NeotestTarget { fg = p.love },
-    -- NeotestTest { fg = p.gold },
-    -- NeotestUnknown { fg = p.subtle },
-    -- NeotestWatching { fg = p.iris },
+    -- Plugins
+    -- lewis6991/gitsigns.nvim
+    GitSignsAdd { fg = g.git.add },
+    GitSignsChange { fg = g.git.change },
+    GitSignsDelete { fg = g.git.delete },
+    SignAdd { fg = g.git.add },
+    SignChange { fg = g.git.change },
+    SignDelete { fg = g.git.delete },
 
     -- -- folke/which-key.nvim
     -- WhichKey { fg = p.iris },
     -- WhichKeyBorder make_border(),
-    -- WhichKeyDesc { fg = p.gold },
-    -- WhichKeyFloat { bg = groups.panel },
-    -- WhichKeyGroup { fg = p.foam },
+    -- WhichKeyDesc { fg = p.branch },
+    -- WhichKeyFloat { bg = g.ui.panel },
+    -- WhichKeyGroup { fg = p.river },
     -- WhichKeyIcon { fg = p.pine },
     -- WhichKeyIconAzure { fg = p.pine },
     -- WhichKeyIconBlue { fg = p.pine },
-    -- WhichKeyIconCyan { fg = p.foam },
+    -- WhichKeyIconCyan { fg = p.river },
     -- WhichKeyIconGreen { fg = p.leaf },
     -- WhichKeyIconGrey { fg = p.subtle },
     -- WhichKeyIconOrange { fg = p.rose },
     -- WhichKeyIconPurple { fg = p.iris },
     -- WhichKeyIconRed { fg = p.love },
-    -- WhichKeyIconYellow { fg = p.gold },
-    -- WhichKeyNormal { link = "NormalFloat" },
+    -- WhichKeyIconYellow { fg = p.branch },
+    -- WhichKeyNormal { NormalFloat },
     -- WhichKeySeparator { fg = p.subtle },
-    -- WhichKeyTitle { link = "FloatTitle" },
+    -- WhichKeyTitle { FloatTitle },
     -- WhichKeyValue { fg = p.rose },
 
     -- -- NeogitOrg/neogit
     -- -- https://github.com/NeogitOrg/neogit/blob/master/lua/neogit/lib/hl.lua#L109-L198
-    -- NeogitChangeAdded { fg = groups.git_add, bold = styles.bold, italic = styles.italic },
-    -- NeogitChangeBothModified { fg = groups.git_change, bold = styles.bold, italic = styles.italic },
-    -- NeogitChangeCopied { fg = groups.git_untracked, bold = styles.bold, italic = styles.italic },
-    -- NeogitChangeDeleted { fg = groups.git_delete, bold = styles.bold, italic = styles.italic },
-    -- NeogitChangeModified { fg = groups.git_change, bold = styles.bold, italic = styles.italic },
-    -- NeogitChangeNewFile { fg = groups.git_stage, bold = styles.bold, italic = styles.italic },
-    -- NeogitChangeRenamed { fg = groups.git_rename, bold = styles.bold, italic = styles.italic },
-    -- NeogitChangeUpdated { fg = groups.git_change, bold = styles.bold, italic = styles.italic },
-    -- NeogitDiffAddHighlight { link = "DiffAdd" },
+    -- NeogitChangeAdded { fg = g.git.add, bold = s.bold, italic = s.italic },
+    -- NeogitChangeBothModified { fg = g.git.change, bold = s.bold, italic = s.italic },
+    -- NeogitChangeCopied { fg = g.git.untracked, bold = s.bold, italic = s.italic },
+    -- NeogitChangeDeleted { fg = g.git.delete, bold = s.bold, italic = s.italic },
+    -- NeogitChangeModified { fg = g.git.change, bold = s.bold, italic = s.italic },
+    -- NeogitChangeNewFile { fg = g.git.stage, bold = s.bold, italic = s.italic },
+    -- NeogitChangeRenamed { fg = g.git.rename, bold = s.bold, italic = s.italic },
+    -- NeogitChangeUpdated { fg = g.git.change, bold = s.bold, italic = s.italic },
+    -- NeogitDiffAddHighlight { DiffAdd },
     -- NeogitDiffContextHighlight { bg = p.surface },
-    -- NeogitDiffDeleteHighlight { link = "DiffDelete" },
-    -- NeogitFilePath { fg = p.foam, italic = styles.italic },
-    -- NeogitHunkHeader { bg = groups.panel },
-    -- NeogitHunkHeaderHighlight { bg = groups.panel },
+    -- NeogitDiffDeleteHighlight { DiffDelete },
+    -- NeogitFilePath { fg = p.river, italic = s.italic },
+    -- NeogitHunkHeader { bg = g.ui.panel },
+    -- NeogitHunkHeaderHighlight { bg = g.ui.panel },
 
     -- -- folke/trouble.nvim
     -- TroubleText { fg = p.subtle },
     -- TroubleCount { fg = p.iris, bg = p.surface },
-    -- TroubleNormal { fg = p.text, bg = groups.panel },
+    -- TroubleNormal { fg = p.text, bg = g.ui.panel },
 
     -- -- echasnovski/mini.nvim
     -- MiniCursorword { underline = true },
     -- MiniCursorwordCurrent { underline = true },
 
-    -- MiniJump { sp = p.gold, undercurl = true },
+    -- MiniJump { sp = p.branch, undercurl = true },
 
-    -- -- nvim-treesitter/nvim-treesitter-context
-    -- TreesitterContext { bg = p.overlay },
-    -- TreesitterContextLineNumber { fg = p.rose, bg = p.overlay },
+    -- nvim-treesitter/nvim-treesitter-context
+    TreesitterContext { bg = p.overlay },
+    TreesitterContextLineNumber { fg = p.river, bg = p.overlay },
 
     -- -- MeanderingProgrammer/render-markdown.nvim
     -- RenderMarkdownBullet { fg = p.rose },
-    -- RenderMarkdownChecked { fg = p.foam },
+    -- RenderMarkdownChecked { fg = p.river },
     -- RenderMarkdownCode { bg = p.overlay },
     -- RenderMarkdownCodeInline { fg = p.text, bg = p.overlay },
     -- RenderMarkdownDash { fg = p.muted },
-    -- RenderMarkdownH1Bg { bg = groups.h1, blend = 20 },
-    -- RenderMarkdownH2Bg { bg = groups.h2, blend = 20 },
-    -- RenderMarkdownH3Bg { bg = groups.h3, blend = 20 },
-    -- RenderMarkdownH4Bg { bg = groups.h4, blend = 20 },
-    -- RenderMarkdownH5Bg { bg = groups.h5, blend = 20 },
-    -- RenderMarkdownH6Bg { bg = groups.h6, blend = 20 },
+    -- RenderMarkdownH1Bg { bg = g.h1,  },
+    -- RenderMarkdownH2Bg { bg = g.h2,  },
+    -- RenderMarkdownH3Bg { bg = g.h3,  },
+    -- RenderMarkdownH4Bg { bg = g.h4,  },
+    -- RenderMarkdownH5Bg { bg = g.h5,  },
+    -- RenderMarkdownH6Bg { bg = g.h6,  },
     -- RenderMarkdownQuote { fg = p.subtle },
-    -- RenderMarkdownTableFill { link = "Conceal" },
+    -- RenderMarkdownTableFill { Conceal },
     -- RenderMarkdownTableHead { fg = p.subtle },
     -- RenderMarkdownTableRow { fg = p.subtle },
     -- RenderMarkdownUnchecked { fg = p.subtle },
@@ -601,44 +620,63 @@ return lush(function(injected_functions)
 
     -- BlinkCmpLabel { fg = p.muted },
     -- BlinkCmpLabelDeprecated { fg = p.muted, strikethrough = true },
-    -- BlinkCmpLabelMatch { fg = p.text, bold = styles.bold },
+    -- BlinkCmpLabelMatch { fg = p.text, bold = s.bold },
 
     -- BlinkCmpDefault { fg = p.highlight_med },
     -- BlinkCmpKindText { fg = p.pine },
-    -- BlinkCmpKindMethod { fg = p.foam },
-    -- BlinkCmpKindFunction { fg = p.foam },
-    -- BlinkCmpKindConstructor { fg = p.foam },
+    -- BlinkCmpKindMethod { fg = p.river },
+    -- BlinkCmpKindFunction { fg = p.river },
+    -- BlinkCmpKindConstructor { fg = p.river },
     -- BlinkCmpKindField { fg = p.pine },
     -- BlinkCmpKindVariable { fg = p.rose },
-    -- BlinkCmpKindClass { fg = p.gold },
-    -- BlinkCmpKindInterface { fg = p.gold },
-    -- BlinkCmpKindModule { fg = p.foam },
-    -- BlinkCmpKindProperty { fg = p.foam },
+    -- BlinkCmpKindClass { fg = p.branch },
+    -- BlinkCmpKindInterface { fg = p.branch },
+    -- BlinkCmpKindModule { fg = p.river },
+    -- BlinkCmpKindProperty { fg = p.river },
     -- BlinkCmpKindUnit { fg = p.pine },
     -- BlinkCmpKindValue { fg = p.love },
     -- BlinkCmpKindKeyword { fg = p.iris },
     -- BlinkCmpKindSnippet { fg = p.rose },
     -- BlinkCmpKindColor { fg = p.love },
-    -- BlinkCmpKindFile { fg = p.foam },
+    -- BlinkCmpKindFile { fg = p.river },
     -- BlinkCmpKindReference { fg = p.love },
-    -- BlinkCmpKindFolder { fg = p.foam },
-    -- BlinkCmpKindEnum { fg = p.foam },
-    -- BlinkCmpKindEnumMember { fg = p.foam },
-    -- BlinkCmpKindConstant { fg = p.gold },
-    -- BlinkCmpKindStruct { fg = p.foam },
-    -- BlinkCmpKindEvent { fg = p.foam },
-    -- BlinkCmpKindOperator { fg = p.foam },
+    -- BlinkCmpKindFolder { fg = p.river },
+    -- BlinkCmpKindEnum { fg = p.river },
+    -- BlinkCmpKindEnumMember { fg = p.river },
+    -- BlinkCmpKindConstant { fg = p.branch },
+    -- BlinkCmpKindStruct { fg = p.river },
+    -- BlinkCmpKindEvent { fg = p.river },
+    -- BlinkCmpKindOperator { fg = p.river },
     -- BlinkCmpKindTypeParameter { fg = p.iris },
-    -- BlinkCmpKindCodeium { fg = p.foam },
-    -- BlinkCmpKindCopilot { fg = p.foam },
-    -- BlinkCmpKindSupermaven { fg = p.foam },
-    -- BlinkCmpKindTabNine { fg = p.foam },
+    -- BlinkCmpKindCodeium { fg = p.river },
+    -- BlinkCmpKindCopilot { fg = p.river },
+    -- BlinkCmpKindSupermaven { fg = p.river },
+    -- BlinkCmpKindTabNine { fg = p.river },
 
-    -- -- folke/snacks.nvim
-    -- SnacksIndent { fg = p.overlay },
-    -- SnacksIndentChunk { fg = p.overlay },
-    -- SnacksIndentBlank { fg = p.overlay },
-    -- SnacksIndentScope { fg = p.foam },
-    -- SnacksPickerMatch { fg = p.rose, bold = styles.bold },
+    -- folke/snacks.nvim
+    SnacksPickerMatch { fg = p.cherry, bold = s.bold },
+
+    -- -- nvim-neotest/neotest
+    -- NeotestAdapterName { fg = p.iris },
+    -- NeotestBorder { fg = p.highlight_med },
+    -- NeotestDir { fg = p.river },
+    -- NeotestExpandMarker { fg = p.highlight_med },
+    -- NeotestFailed { fg = p.love },
+    -- NeotestFile { fg = p.text },
+    -- NeotestFocused { fg = p.branch, bg = p.highlight_med },
+    -- NeotestIndent { fg = p.highlight_med },
+    -- NeotestMarked { fg = p.rose, bold = s.bold },
+    -- NeotestNamespace { fg = p.branch },
+    -- NeotestPassed { fg = p.pine },
+    -- NeotestRunning { fg = p.branch },
+    -- NeotestWinSelect { fg = p.muted },
+    -- NeotestSkipped { fg = p.subtle },
+    -- NeotestTarget { fg = p.love },
+    -- NeotestTest { fg = p.branch },
+    -- NeotestUnknown { fg = p.subtle },
+    -- NeotestWatching { fg = p.iris },
   }
+
+  -- return vim.tbl_deep_extend("force", default_highlights, opts.highlights)
+  return default_highlights
 end)

@@ -5,25 +5,25 @@ return {
     local gs = require "gitsigns"
 
     gs.setup {
-      signs = {
-        add = { text = "▎" },
-        change = { text = "▎" },
-        delete = { text = "▎" },
-        topdelete = { text = "▎" },
-        -- delete = { text = "▁" },
-        -- topdelete = { text = "▁" },
-        changedelete = { text = "▎" },
-        untracked = { text = "▎" },
-      },
-      signs_staged = {
-        add = { text = "▎" },
-        change = { text = "▎" },
-        delete = { text = "▎" },
-        topdelete = { text = "▎" },
-        -- delete = { text = "▁" },
-        -- topdelete = { text = "▁" },
-        changedelete = { text = "▎" },
-      },
+      -- signs = {
+      --   add = { text = "▎" },
+      --   change = { text = "▎" },
+      --   delete = { text = "▎" },
+      --   topdelete = { text = "▎" },
+      --   -- delete = { text = "▁" },
+      --   -- topdelete = { text = "▁" },
+      --   changedelete = { text = "▎" },
+      --   untracked = { text = "▎" },
+      -- },
+      -- signs_staged = {
+      --   add = { text = "▎" },
+      --   change = { text = "▎" },
+      --   delete = { text = "▎" },
+      --   topdelete = { text = "▎" },
+      --   -- delete = { text = "▁" },
+      --   -- topdelete = { text = "▁" },
+      --   changedelete = { text = "▎" },
+      -- },
       current_line_blame = not utils.repo_too_large(),
       on_attach = function(bufnr)
         ---@param mode string
