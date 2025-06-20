@@ -7,12 +7,14 @@ local branch0 = hsl(35, 82, 70)
 local water0 = hsl(190, 40, 55)
 local petal0 = hsl(325, 35, 70)
 local bg0 = hsl(200, 37, 18)
-local bg1 = bg0.li(5).mix(cherry0, 8).de(10)
+local bg1 = bg0.li(5).mix(cherry0, 8).de(5)
 local bg2 = bg1.li(15)
 local bg3 = bg2.li(30).de(20)
+local bg01 = bg0.da(50).mix(cherry0, 8).de(5)
 local fg0 = hsl(350, 30, 90)
 
 local colors = {
+  bg01 = bg01,
   bg0 = bg0,
   bg1 = bg1,
   bg2 = bg2,
@@ -23,10 +25,10 @@ local colors = {
   leaf0 = leaf0,
   water0 = water0,
   petal0 = petal0,
-  error = cherry0.da(10).sa(10).ro(15),
-  warn = branch0.da(10).sa(10).ro(-15),
-  info = water0.sa(10).ro(10).ro(15),
-  hint = petal0.da(10).sa(10).ro(-15),
+  error = cherry0.da(5).ro(15),
+  warn = branch0.da(5).ro(-15),
+  info = water0.da(5).ro(15),
+  hint = petal0.da(5).ro(-15),
 }
 
 local theme = lush(function(injected_functions)
@@ -61,7 +63,7 @@ local theme = lush(function(injected_functions)
 
     -- statusline
     StatusLine { bg = colors.bg1, fg = colors.fg0 },
-    StatusLineNC { bg = colors.bg1, fg = colors.leaf0 },
+    StatusLineNC { bg = colors.bg1, fg = colors.fg0 },
     -- TabLine { bg = colors.bg0, fg = colors.leaf0 },
     -- TabLineSel { fg = colors.cherry0 },
     -- TabLineFill { bg = colors.bg0 },
@@ -81,11 +83,18 @@ local theme = lush(function(injected_functions)
     IncSearch { bg = colors.bg3.mix(colors.cherry0, 60), fg = colors.bg0 },
     CurSearch { bg = colors.bg3.mix(colors.cherry0, 60), fg = colors.bg0 },
 
+    -- folds
+    Folded { bg = colors.bg0.mix(colors.leaf0, 20), fg = colors.fg0.mix(colors.leaf0, 20) },
+
     -- diagnostics
     DiagnosticError { fg = colors.error },
     DiagnosticWarn { fg = colors.warn },
     DiagnosticInfo { fg = colors.info },
     DiagnosticHint { fg = colors.hint },
+    DiagnosticUnderlineError { sp = colors.error, undercurl = true },
+    DiagnosticUnderlineWarn { sp = colors.warn, undercurl = true },
+    DiagnosticUnderlineInfo { sp = colors.info, undercurl = true },
+    DiagnosticUnderlineHint { sp = colors.hint, undercurl = true },
 
     -- diff
     DiffAdd { bg = colors.bg0.mix(colors.leaf0, 30), fg = colors.leaf0 },
