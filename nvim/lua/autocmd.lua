@@ -88,7 +88,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   group = augroup,
   callback = function()
     local dir = vim.fn.expand "<afile>:p:h"
-    if vim.fn.isdirectory(dir) == 0 then
+    if vim.fn.isdirectory(dir) == 0 and not dir:startswith "oil:/" then
       vim.fn.mkdir(dir, "p")
     end
   end,
