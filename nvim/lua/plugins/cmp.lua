@@ -90,7 +90,7 @@ return {
       keymap = {
         preset = "none",
         ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
-        ["<C-e>"] = { "hide", "fallback" },
+        ["<C-c>"] = { "hide", "fallback" },
         ["<C-y>"] = { "select_and_accept" },
 
         ["<C-p>"] = keymaps.prev,
