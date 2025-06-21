@@ -33,7 +33,13 @@ return {
   {
     "echasnovski/mini.snippets",
     version = version,
-    opts = {},
+    config = function()
+      local snippets = require "mini.snippets"
+      local gen_loader = snippets.gen_loader
+      snippets.setup {
+        snippets = { gen_loader.from_lang() },
+      }
+    end,
   },
   {
     "echasnovski/mini.surround",
