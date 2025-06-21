@@ -22,6 +22,10 @@ function dashboard
     tmux switch-client -t $name
 end
 
+function mysk
+    sk --color=current_bg:232 $argv
+end
+
 function filter_dirs
     for path in $argv
         if test -d $path
@@ -53,7 +57,7 @@ function tmux_select_dir
 	    end
 
 	    fd . $search_dirs --full-path --type d --min-depth 1 --max-depth 1
-	end | sed "s|^$HOME/||" | sk)
+	end | sed "s|^$HOME/||" | mysk)
 
         # add $HOME back
         set selected $HOME/$selected
@@ -81,7 +85,7 @@ function tmux_select_session
     if test (count $argv) -eq 1
         set selected $argv[1]
     else
-        set selected (tmux list-sessions -F "#{session_name}" | sk)
+        set selected (tmux list-sessions -F "#{session_name}" | mysk)
     end
 
     if test -n $selected
@@ -111,7 +115,7 @@ end
 
 function _search_history
     printf '\e7'
-    set -l selected_command (history | sk --reverse --tac --no-sort)
+    set -l selected_command (history | mysk --reverse --tac --no-sort)
     printf '\e8'
     if test -n "$selected_command"
         commandline -- $selected_command
@@ -141,7 +145,7 @@ function zellij_select_dir
             end
 
             fd . $search_dirs --full-path --type d --min-depth 1 --max-depth 1
-        end | sed "s|^$HOME/||" | sk)
+        end | sed "s|^$HOME/||" | mysk)
 
         # add $HOME back
         set selected $HOME/$selected
