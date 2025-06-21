@@ -165,6 +165,13 @@ local M = {
       end,
       desc = "Search Icons",
     },
+    {
+      "<leader>s.",
+      function()
+        Snacks.picker()
+      end,
+      desc = "Search pickers",
+    },
   },
 }
 

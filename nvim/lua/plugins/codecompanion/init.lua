@@ -57,11 +57,4 @@ return {
     { "<leader>aA", ":CodeCompanionActions<cr>", mode = { "n" }, desc = "CodeCompanion: Actions" },
     { "<a-a>", ":CodeCompanionChat Add<cr>", mode = { "v" }, desc = "CodeCompanion: Add Context" },
   },
-  config = function(_, opts)
-    local cc = require "codecompanion"
-    cc.setup(opts)
-
-    require("plugins.codecompanion.utils.progress_notify").setup()
-    require("plugins.codecompanion.utils.progress_spinner").setup()
-  end,
 }

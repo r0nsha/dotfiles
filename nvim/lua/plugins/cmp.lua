@@ -5,7 +5,7 @@ return {
   dependencies = {
     -- snippets
     "rafamadriz/friendly-snippets",
-    { "echasnovski/mini.snippets" },
+    "echasnovski/mini.snippets",
 
     -- sources
     "Kaiser-Yang/blink-cmp-git",
@@ -19,14 +19,14 @@ return {
 
     local keymaps = {
       prev = {
-        "snippet_backward",
+        -- "snippet_backward",
         "select_prev",
         "show",
         "fallback_to_mappings",
       },
 
       next = {
-        "snippet_forward",
+        -- "snippet_forward",
         "select_next",
         "show",
         "fallback_to_mappings",
@@ -45,6 +45,7 @@ return {
       completion = {
         documentation = {
           auto_show = true,
+          auto_show_delay_ms = 100,
         },
         list = {
           selection = {
@@ -79,6 +80,7 @@ return {
             },
           },
         },
+        ghost_text = { enabled = true },
       },
       fuzzy = {
         implementation = "prefer_rust_with_warning",
@@ -90,7 +92,7 @@ return {
       keymap = {
         preset = "none",
         ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
-        ["<C-c>"] = { "hide", "fallback" },
+        ["<C-c>"] = { "hide", "cancel", "fallback" },
         ["<C-y>"] = { "select_and_accept" },
 
         ["<C-p>"] = keymaps.prev,
@@ -105,6 +107,9 @@ return {
 
         ["<C-h>"] = keymaps.toggle_signature,
         ["<C-k>"] = { "show_documentation", "hide_documentation" },
+
+        ["<Tab>"] = { "snippet_forward", "fallback" },
+        ["<S-Tab>"] = { "snippet_backward", "fallback" },
       },
       snippets = {
         preset = "mini_snippets",

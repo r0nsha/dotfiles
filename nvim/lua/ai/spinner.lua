@@ -126,17 +126,36 @@ function M.stop_spinner()
 end
 
 function M.setup()
+  local state = { requests = 0 }
+
   vim.api.nvim_create_autocmd("User", {
     pattern = {
+      "MinuetRequestStarted",
       "CodeCompanionRequestStarted",
+    },
+    ---@diagnostic disable-next-line: unused-local
+    callback = function(args)
+      state.requests = state.requests + 1
+      M.start_spinner()
+    end,
+  })
+
+  vim.api.nvim_create_autocmd("User", {
+    pattern = {
+      "MinuetRequestFinished",
       "CodeCompanionRequestFinished",
     },
+    ---@diagnostic disable-next-line: unused-local
     callback = function(args)
-      if args.match == "CodeCompanionRequestStarted" then
-        M.start_spinner()
-      elseif args.match == "CodeCompanionRequestFinished" then
+      state.requests = math.max(state.requests - 1, 0)
+      if state.requests == 0 then
         M.stop_spinner()
       end
+      -- if args.match == "CodeCompanionRequestStarted" then
+      --   M.start_spinner()
+      -- elseif args.match == "CodeCompanionRequestFinished" then
+      --   M.stop_spinner()
+      -- end
     end,
   })
 end
