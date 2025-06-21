@@ -4,14 +4,15 @@ local M = {}
 local ns_id = vim.api.nvim_create_namespace "spinner"
 
 M.config = {
-  text = " ",
+  text = icons.ai .. " ",
+  width = 5,
   hl_positions = {
     { 2, 5 }, -- First circle
     { 5, 8 }, -- Second circle
     { 8, 11 }, -- Third circle
   },
   interval = 100,
-  hl_group = "String",
+  hl_group = "DiagnosticWarn",
   hl_dim_group = "NonText",
 }
 
@@ -33,7 +34,7 @@ local function create_spinner_window()
     relative = "cursor",
     row = -1,
     col = 0,
-    width = 5,
+    width = M.config.width,
     height = 1,
     style = "minimal",
     focusable = false,

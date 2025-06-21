@@ -27,7 +27,7 @@ local function refresh_notifications(key)
       return
     end
 
-    vim.notify(req.msg, vim.log.levels.INFO, {
+    vim.notify(req.msg, vim.log.levels.WARN, {
       id = "cc_progress",
       title = req.adapter,
       opts = function(notif)
