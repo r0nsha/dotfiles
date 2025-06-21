@@ -367,7 +367,6 @@ return {
           return string.format(" [sel %2d,%2d]", lines, cols)
         end,
       },
-      Space(2),
       hl = function(_)
         return { fg = in_visual_mode() and "blue" or active_fg() }
       end,
@@ -392,7 +391,6 @@ return {
       Diagnostics,
       Space(1),
       Lsp,
-      SearchCount,
       Ruler,
       -- Space(1),
       -- Time,
