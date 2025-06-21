@@ -19,14 +19,12 @@ return {
 
     local keymaps = {
       prev = {
-        -- "snippet_backward",
         "select_prev",
         "show",
         "fallback_to_mappings",
       },
 
       next = {
-        -- "snippet_forward",
         "select_next",
         "show",
         "fallback_to_mappings",
@@ -92,7 +90,7 @@ return {
       keymap = {
         preset = "none",
         ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
-        ["<C-c>"] = { "hide", "cancel", "fallback" },
+        ["<C-e>"] = { "hide" },
         ["<C-y>"] = { "select_and_accept" },
 
         ["<C-p>"] = keymaps.prev,
@@ -105,11 +103,7 @@ return {
         ["<C-u>"] = keymaps.scroll_documentation_up,
         ["<C-d>"] = keymaps.scroll_documentation_down,
 
-        ["<C-h>"] = keymaps.toggle_signature,
-        ["<C-k>"] = { "show_documentation", "hide_documentation" },
-
-        ["<Tab>"] = { "snippet_forward", "fallback" },
-        ["<S-Tab>"] = { "snippet_backward", "fallback" },
+        ["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
       },
       snippets = {
         preset = "mini_snippets",

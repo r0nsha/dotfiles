@@ -87,7 +87,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "grn", vim.lsp.buf.rename, opts "Rename")
     vim.keymap.set({ "n", "v" }, "gra", require("actions-preview").code_actions, opts "Code Action")
     vim.keymap.set({ "n", "v" }, "ga", require("actions-preview").code_actions, opts "Code Action")
-    vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts "Signature Help")
+    -- vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts "Signature Help")
     vim.keymap.set("n", "K", vim.lsp.buf.hover, opts "Hover")
     vim.keymap.set("n", "gh", function()
       local enable = not vim.lsp.inlay_hint.is_enabled { bufnr = buf }

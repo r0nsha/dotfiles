@@ -38,6 +38,12 @@ return {
       local gen_loader = snippets.gen_loader
       snippets.setup {
         snippets = { gen_loader.from_lang() },
+        mappings = {
+          expand = "<C-j>",
+          jump_prev = "<C-h>",
+          jump_next = "<C-l>",
+          stop = "<C-c>",
+        },
       }
     end,
   },
