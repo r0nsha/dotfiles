@@ -42,6 +42,7 @@ M.icons = {
   bug = "",
   clock = "",
   trace = "",
+  ai = "",
 }
 
 function M.vsplit()

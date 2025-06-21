@@ -1,3 +1,5 @@
+local icons = require("utils").icons
+
 local M = {}
 
 local uv = vim.uv
@@ -5,15 +7,15 @@ local uv = vim.uv
 -- active requests
 local active = {}
 
-local S = {
+M.config = {
   frames = { "", "", "", "", "", "" },
   speed = 80, -- milliseconds per frame
 }
 
 local function spinner_frame()
-  local time = math.floor(uv.hrtime() / (1e6 * S.speed))
-  local idx = time % #S.frames + 1
-  local frame = S.frames[idx]
+  local time = math.floor(uv.hrtime() / (1e6 * M.config.speed))
+  local idx = time % #M.config.frames + 1
+  local frame = M.config.frames[idx]
 
   return frame
 end
@@ -29,12 +31,8 @@ local function refresh_notifications(key)
       id = "cc_progress",
       title = req.adapter,
       opts = function(notif)
-        local icon = " "
-        if not req.done then
-          icon = spinner_frame()
-        end
-
-        notif.icon = icon
+        notif.icon = req.done and " " or spinner_frame()
+        notif.msg = req.msg
       end,
     })
   end
@@ -46,8 +44,9 @@ local function request_key(data)
   return string.format("%s:%s", name, data.id or "???")
 end
 
-local function start(ev)
-  local data = ev.data or {}
+---@param args vim.api.keyset.create_autocmd.callback_args
+function M.start(args)
+  local data = args.data or {}
   local key = request_key(data)
   local adapter = data.adapter and data.adapter.name or "CodeCompanion"
   local refresh = refresh_notifications(key)
@@ -70,8 +69,9 @@ local function start(ev)
   refresh()
 end
 
-local function finished(ev)
-  local data = ev.data or {}
+---@param args vim.api.keyset.create_autocmd.callback_args
+function M.stop(args)
+  local data = args.data or {}
   local key = request_key(data)
   local req = active[key]
 
@@ -81,13 +81,16 @@ local function finished(ev)
 
   req.done = true
 
+  local msg = ""
   if data.status == "success" then
-    req.msg = "  Done"
+    msg = "Done"
   elseif data.status == "error" then
-    req.msg = "  Error :("
+    msg = "Error :("
   else
-    req.msg = "  Cancelled"
+    msg = "Cancelled"
   end
+
+  req.msg = icons.ai .. "  " .. msg
 
   req.refresh()
 
@@ -97,12 +100,6 @@ local function finished(ev)
     req.timer:stop()
     req.timer:close()
   end
-end
-
-function M.setup()
-  local group = vim.api.nvim_create_augroup("CodeCompanionSnacks", { clear = true })
-  vim.api.nvim_create_autocmd("User", { pattern = "CodeCompanionRequestStarted", group = group, callback = start })
-  vim.api.nvim_create_autocmd("User", { pattern = "CodeCompanionRequestFinished", group = group, callback = finished })
 end
 
 return M

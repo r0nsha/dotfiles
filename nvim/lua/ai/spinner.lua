@@ -1,19 +1,22 @@
+local icons = require("utils").icons
 local M = {}
 
 local ns_id = vim.api.nvim_create_namespace "spinner"
 
 M.config = {
-  text = "",
-  -- text = "",
+  text = " ",
   hl_positions = {
-    { 0, 3 }, -- First circle
-    { 3, 6 }, -- Second circle
-    { 6, 9 }, -- Third circle
+    { 2, 5 }, -- First circle
+    { 5, 8 }, -- Second circle
+    { 8, 11 }, -- Third circle
   },
   interval = 100,
-  hl_group = "Title",
+  hl_group = "String",
   hl_dim_group = "NonText",
 }
+
+local first_pos = M.config.hl_positions[1][1]
+local last_pos = M.config.hl_positions[3][2]
 
 local spinner_state = {
   timer = nil,
@@ -30,7 +33,7 @@ local function create_spinner_window()
     relative = "cursor",
     row = -1,
     col = 0,
-    width = 3,
+    width = 5,
     height = 1,
     style = "minimal",
     focusable = false,
@@ -39,9 +42,16 @@ local function create_spinner_window()
 
   vim.api.nvim_buf_set_lines(buf, 0, -1, false, { M.config.text })
 
-  -- Set the dim highlight for the entire text
+  -- Set the icon highlight
   vim.api.nvim_buf_set_extmark(buf, ns_id, 0, 0, {
-    end_col = 9,
+    end_col = 2,
+    hl_group = M.config.hl_group,
+    priority = vim.highlight.priorities.user - 1,
+  })
+
+  -- Set the dim highlight for the entire text
+  vim.api.nvim_buf_set_extmark(buf, ns_id, 0, first_pos, {
+    end_col = last_pos,
     hl_group = M.config.hl_dim_group,
     priority = vim.highlight.priorities.user - 1,
   })
@@ -49,7 +59,7 @@ local function create_spinner_window()
   return buf, win, ns_id
 end
 
-function M.start_spinner()
+function M.start()
   if spinner_state.timer then
     return
   end
@@ -68,7 +78,7 @@ function M.start_spinner()
         or spinner_state.buf == nil
         or not (vim.api.nvim_win_is_valid(spinner_state.win) and vim.api.nvim_buf_is_valid(spinner_state.buf))
       then
-        M.stop_spinner()
+        M.stop()
         return
       end
 
@@ -81,13 +91,20 @@ function M.start_spinner()
 
       -- If window update failed, stop the spinner
       if not ok then
-        M.stop_spinner()
+        M.stop()
         return
       end
       vim.api.nvim_buf_clear_namespace(spinner_state.buf, ns_id, 0, -1)
 
-      vim.api.nvim_buf_set_extmark(spinner_state.buf, ns_id, 0, 0, {
-        end_col = 9,
+      -- Set the icon highlight
+      vim.api.nvim_buf_set_extmark(buf, ns_id, 0, 0, {
+        end_col = 2,
+        hl_group = M.config.hl_group,
+        priority = vim.highlight.priorities.user - 1,
+      })
+
+      vim.api.nvim_buf_set_extmark(spinner_state.buf, ns_id, 0, first_pos, {
+        end_col = last_pos,
         hl_group = M.config.hl_dim_group,
         priority = vim.highlight.priorities.user - 1,
       })
@@ -105,7 +122,7 @@ function M.start_spinner()
   )
 end
 
-function M.stop_spinner()
+function M.stop()
   if spinner_state.timer then
     spinner_state.timer:stop()
     spinner_state.timer:close()
@@ -123,41 +140,6 @@ function M.stop_spinner()
     spinner_state.buf = nil
   end
   spinner_state.frame = 1
-end
-
-function M.setup()
-  local state = { requests = 0 }
-
-  vim.api.nvim_create_autocmd("User", {
-    pattern = {
-      "MinuetRequestStarted",
-      "CodeCompanionRequestStarted",
-    },
-    ---@diagnostic disable-next-line: unused-local
-    callback = function(args)
-      state.requests = state.requests + 1
-      M.start_spinner()
-    end,
-  })
-
-  vim.api.nvim_create_autocmd("User", {
-    pattern = {
-      "MinuetRequestFinished",
-      "CodeCompanionRequestFinished",
-    },
-    ---@diagnostic disable-next-line: unused-local
-    callback = function(args)
-      state.requests = math.max(state.requests - 1, 0)
-      if state.requests == 0 then
-        M.stop_spinner()
-      end
-      -- if args.match == "CodeCompanionRequestStarted" then
-      --   M.start_spinner()
-      -- elseif args.match == "CodeCompanionRequestFinished" then
-      --   M.stop_spinner()
-      -- end
-    end,
-  })
 end
 
 return M
