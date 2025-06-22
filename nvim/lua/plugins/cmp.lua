@@ -123,7 +123,6 @@ return {
             enabled = function()
               return not utils.repo_too_large()
             end,
-            -- enabled = true,
           },
           git = {
             name = "Git",
