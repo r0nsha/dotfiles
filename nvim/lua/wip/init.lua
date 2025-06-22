@@ -89,15 +89,15 @@ local hsluv = lush.hsluv
 
 local M = {}
 
--- TODO: dark0/dark1 variants
 -- TODO: signcolumn & linenr use dark1
+-- TODO: fix notify thing
 -- TODO: floats use dark1
 -- TODO: sidebars (such as trouble) use base
 local cherry = hsluv(5, 64, 52)
 local petal = hsluv(358, 60, 68)
-local blossom = hsluv(318, 38, 62)
-local branch = hsluv(42, 52, 68)
-local leaf = hsluv(156, 50, 56)
+local blossom = hsluv(318, 28, 61)
+local branch = hsluv(42, 62, 69)
+local leaf = hsluv(180, 52, 60)
 local river = hsluv(224, 62, 58)
 local base = hsluv(248, 20, 25)
 local dark1 = base.da(16).de(8)
@@ -106,9 +106,9 @@ local surface0 = base.li(4).mix(cherry, 2)
 local surface1 = surface0.li(4)
 local overlay0 = surface1.li(12).mix(cherry, 2)
 local overlay1 = overlay0.li(16)
-local subtext0 = overlay1.li(24).mix(cherry, 2)
+local subtext0 = overlay1.li(16).mix(cherry, 2)
 local subtext1 = subtext0.li(32)
-local text = subtext1.li(64)
+local text = subtext1.li(48)
 
 ---@return wip.Palette
 local function low()
@@ -232,12 +232,12 @@ function M.setup(config)
       SignColumn { fg = p.overlay1, bg = signcolumn_bg },
       Cursor { fg = p.text, bg = p.overlay1 },
       CursorLine { bg = p.surface0 },
-      CursorLineNr { fg = p.cherry, bg = signcolumn_bg, bold = s.bold },
-      CursorLineSign { SignColumn },
+      CursorLineNr { fg = p.cherry, bg = o.signcolumn.bg and p.dark0, bold = s.bold },
+      CursorLineSign { CursorLineNr },
       CursorColumn { CursorLine },
       ColorColumn { bg = p.surface0.mix(p.cherry, 15) },
       Visual { bg = p.surface1 },
-      NonText { fg = p.subtext1 },
+      NonText { fg = p.subtext0 },
       Conceal { bg = p.surface1, fg = p.subtext1 },
       MatchParen { bg = p.overlay1 },
 
@@ -291,8 +291,8 @@ function M.setup(config)
       -- statusline
       StatusLine { fg = p.subtext1, bg = p.surface1 },
       StatusLineNC { fg = p.subtext0, bg = p.surface1 },
-      StatusLineTerm { fg = p.base, bg = p.leaf },
-      StatusLineTermNC { fg = p.base, bg = p.leaf },
+      StatusLineTerm { fg = p.base, bg = p.blossom },
+      StatusLineTermNC { fg = p.base, bg = p.blossom },
 
       Question { fg = p.cherry },
       QuickFixLine { fg = p.petal },
@@ -643,7 +643,7 @@ function M.setup(config)
 
       -- folke/trouble.nvim
       TroubleText { fg = p.subtext1 },
-      TroubleCount { fg = p.subtext1, bg = p.surface0 },
+      TroubleCount { fg = p.subtext1, bg = p.base },
       TroublePos { TroubleCount },
       TroubleNormal { fg = p.text, bg = g.ui.panel },
       TroubleIndent { fg = g.ui.indent.dim },
@@ -655,8 +655,8 @@ function M.setup(config)
       MiniJump { sp = p.branch, underdotted = true },
 
       -- nvim-treesitter/nvim-treesitter-context
-      TreesitterContext { bg = p.surface1 },
-      TreesitterContextLineNumber { fg = p.river, bg = p.surface1 },
+      TreesitterContext { bg = p.surface0 },
+      TreesitterContextLineNumber { fg = p.subtext0, bg = p.surface0 },
 
       -- MeanderingProgrammer/render-markdown.nvim
       RenderMarkdownBullet { fg = p.blossom },
