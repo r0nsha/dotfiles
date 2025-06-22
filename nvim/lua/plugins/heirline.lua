@@ -19,7 +19,7 @@ return {
 
       return {
         bg_inactive = hl_color("Normal", "bg"),
-        bg_active = hl_color("StatusLineNC", "bg"),
+        bg_active = hl_color("StatusLine", "bg"),
         fg_active = hl_color "Normal",
         fg_inactive = hl_color "NonText",
         green = hl_color "String",

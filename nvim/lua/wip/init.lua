@@ -1,6 +1,8 @@
 ---@alias wip.Color table
 
 --- @class wip.Palette
+--- @field dark0 wip.Color
+--- @field dark1 wip.Color
 --- @field base wip.Color
 --- @field surface0 wip.Color
 --- @field surface1 wip.Color
@@ -91,23 +93,28 @@ local M = {}
 -- TODO: signcolumn & linenr use dark1
 -- TODO: floats use dark1
 -- TODO: sidebars (such as trouble) use base
-local cherry = hsluv(350, 64, 62)
-local blossom = hsluv(318, 38, 70)
-local petal = hsluv(358, 58, 72)
-local branch = hsluv(26, 52, 64)
-local leaf = hsluv(172, 38, 50)
-local river = hsluv(189, 54, 60)
-local base = hsluv(240, 14, 20)
-local surface0 = base.li(8).mix(cherry, 2)
-local surface1 = surface0.li(8)
-local overlay0 = surface1.li(16).mix(cherry, 2)
+local cherry = hsluv(5, 64, 52)
+local petal = hsluv(358, 60, 68)
+local blossom = hsluv(318, 38, 62)
+local branch = hsluv(42, 52, 68)
+local leaf = hsluv(156, 50, 56)
+local river = hsluv(224, 62, 58)
+local base = hsluv(248, 20, 25)
+local dark1 = base.da(16).de(8)
+local dark0 = dark1.da(16)
+local surface0 = base.li(4).mix(cherry, 2)
+local surface1 = surface0.li(4)
+local overlay0 = surface1.li(12).mix(cherry, 2)
 local overlay1 = overlay0.li(16)
-local subtext0 = overlay1.li(32).mix(cherry, 2)
+local subtext0 = overlay1.li(24).mix(cherry, 2)
 local subtext1 = subtext0.li(32)
-local text = subtext1.li(48)
+local text = subtext1.li(64)
 
+---@return wip.Palette
 local function low()
   return {
+    dark0 = dark0,
+    dark1 = dark1,
     base = base,
     surface0 = surface0,
     surface1 = surface1,
@@ -158,8 +165,8 @@ function M.setup(config)
 
     groups = {
       ui = {
-        border = palette.overlay1,
-        panel = palette.surface0,
+        border = palette.surface1,
+        panel = palette.dark0,
         indent = {
           dim = palette.surface1,
           scope = palette.overlay1,
@@ -171,7 +178,7 @@ function M.setup(config)
         ok = palette.leaf,
         warn = palette.branch,
         note = palette.leaf,
-        todo = palette.river,
+        todo = palette.leaf,
         link = palette.blossom,
       },
 
@@ -189,12 +196,12 @@ function M.setup(config)
       },
 
       heading = {
-        h1 = palette.cherry,
-        h2 = palette.petal,
-        h3 = palette.blossom,
-        h4 = palette.branch,
-        h5 = palette.leaf,
-        h6 = palette.river,
+        h1 = palette.river,
+        h2 = palette.leaf,
+        h3 = palette.branch,
+        h4 = palette.blossom,
+        h5 = palette.petal,
+        h6 = palette.cherry,
       },
     },
 
@@ -216,14 +223,16 @@ function M.setup(config)
       g.ui.panel = p.base
     end
 
+    local signcolumn_bg = o.signcolumn.bg and p.dark1
+
     local default_highlights = {
       Normal { fg = p.text, bg = p.base },
       NormalNC { fg = p.text, bg = p.base },
-      LineNr { fg = o.signcolumn.bg and p.subtext1 or p.subtext0, bg = o.signcolumn.bg and p.surface0 },
-      SignColumn { fg = p.text, bg = o.signcolumn.bg and p.surface0 },
+      LineNr { fg = p.overlay1, bg = signcolumn_bg },
+      SignColumn { fg = p.overlay1, bg = signcolumn_bg },
       Cursor { fg = p.text, bg = p.overlay1 },
       CursorLine { bg = p.surface0 },
-      CursorLineNr { fg = p.text, bg = o.signcolumn.bg and p.surface0, bold = s.bold },
+      CursorLineNr { fg = p.cherry, bg = signcolumn_bg, bold = s.bold },
       CursorLineSign { SignColumn },
       CursorColumn { CursorLine },
       ColorColumn { bg = p.surface0.mix(p.cherry, 15) },
@@ -280,8 +289,8 @@ function M.setup(config)
       PmenuThumb { bg = p.subtext0 },
 
       -- statusline
-      StatusLine { fg = p.subtext1, bg = p.surface0 },
-      StatusLineNC { fg = p.subtext0, bg = p.surface0 },
+      StatusLine { fg = p.subtext1, bg = p.surface1 },
+      StatusLineNC { fg = p.subtext0, bg = p.surface1 },
       StatusLineTerm { fg = p.base, bg = p.leaf },
       StatusLineTermNC { fg = p.base, bg = p.leaf },
 
@@ -386,17 +395,17 @@ function M.setup(config)
 
       -- markdown
       markdownDelimiter { fg = p.subtext1 },
-      markdownH1 { fg = g.heading.h1, bg = p.base.mix(g.heading.h1, 25) },
+      markdownH1 { fg = g.heading.h1, bg = p.base.mix(g.heading.h1, 20), bold = s.bold },
       markdownH1Delimiter { markdownH1 },
-      markdownH2 { fg = g.heading.h2, bg = p.base.mix(g.heading.h2, 25) },
+      markdownH2 { fg = g.heading.h2, bg = p.base.mix(g.heading.h2, 20), bold = s.bold },
       markdownH2Delimiter { markdownH2 },
-      markdownH3 { fg = g.heading.h3, bg = p.base.mix(g.heading.h3, 25) },
+      markdownH3 { fg = g.heading.h3, bg = p.base.mix(g.heading.h3, 20), bold = s.bold },
       markdownH3Delimiter { markdownH3 },
-      markdownH4 { fg = g.heading.h4, bg = p.base.mix(g.heading.h4, 25) },
+      markdownH4 { fg = g.heading.h4, bg = p.base.mix(g.heading.h4, 20), bold = s.bold },
       markdownH4Delimiter { markdownH4 },
-      markdownH5 { fg = g.heading.h5, bg = p.base.mix(g.heading.h5, 25) },
+      markdownH5 { fg = g.heading.h5, bg = p.base.mix(g.heading.h5, 20), bold = s.bold },
       markdownH5Delimiter { markdownH5 },
-      markdownH6 { fg = g.heading.h6, bg = p.base.mix(g.heading.h6, 25) },
+      markdownH6 { fg = g.heading.h6, bg = p.base.mix(g.heading.h6, 20), bold = s.bold },
       markdownH6Delimiter { markdownH6 },
       markdownLinkText { fg = g.ui.link },
       markdownUrl { markdownLinkText },
@@ -573,7 +582,7 @@ function M.setup(config)
       -- Plugins
 
       -- jake-stewart/multicursor.nvim
-      MultiCursorCursor = { fg = p.base, bg = p.cherry },
+      MultiCursorCursor = { fg = p.text, bg = p.leaf },
       MultiCursorDisabledCursor = { Cursor, bg = p.subtext0 },
 
       -- milanglacier/minuet-ai.nvim
