@@ -15,19 +15,20 @@ local hsl = lush.hsl
 -- local bg_1 = bg0.da(50).mix(cherry0, 8).de(5)
 -- local fg0 = hsl(350, 30, 90)
 
-local cherry = hsl(352, 54, 54)
-local blossom = hsl(262, 34, 66)
-local petal = hsl(358, 55, 80)
+-- TODO: make accent colors pop more like zenburn
+local cherry = hsl(350, 64, 62)
+local blossom = hsl(318, 38, 70)
+local petal = hsl(358, 58, 72)
 local branch = hsl(26, 52, 64)
-local leaf = hsl(158, 20, 50)
-local river = hsl(189, 49, 64)
-local base = hsl(198, 30, 28)
+local leaf = hsl(172, 38, 50)
+local river = hsl(189, 54, 60)
+local base = hsl(198, 30, 26)
 local surface = base.li(6).mix(cherry, 4)
 local overlay = surface.li(8)
 local highlight_low = overlay.li(6).mix(cherry, 3)
 local highlight_med = highlight_low.li(8)
 local highlight_high = highlight_med.li(12)
-local text = hsl(190, 38, 96)
+local text = hsl(190, 38, 93)
 local subtle = text.da(35).mix(cherry, 8)
 local muted = subtle.da(25).mix(cherry, 8)
 
@@ -49,6 +50,8 @@ local palette = {
   river = river,
 }
 
+---@alias wip.Color table
+
 ---@class wip.Config
 ---@field opts wip.Opts
 ---@field styles wip.Styles
@@ -57,7 +60,12 @@ local palette = {
 
 ---@class wip.Opts
 ---@field signcolumn {
---- bg: boolean,
+---   bg: boolean,
+---}
+---@field lsp {
+---   inlay_hint: {
+---     bg: boolean,
+---   },
 ---}
 
 ---@class wip.Styles
@@ -67,36 +75,41 @@ local palette = {
 
 ---@class wip.Groups
 ---@field ui {
---- border: table,
---- link: table,
---- panel: table,
---- error: table,
---- hint: table,
---- info: table,
---- ok: table,
---- warn: table,
---- note: table,
---- todo: table,
+---   border: wip.Color,
+---   panel: wip.Color,
+---   indent: {
+---     dim: wip.Color,
+---     scope: wip.Color,
+---   },
+---   success: wip.Color,
+---   error: wip.Color,
+---   hint: wip.Color,
+---   info: wip.Color,
+---   ok: wip.Color,
+---   warn: wip.Color,
+---   note: wip.Color,
+---   todo: wip.Color,
+---   link: wip.Color,
 ---}
 ---@field git {
---- add: table,
---- change: table,
---- delete: table,
---- dirty: table,
---- ignore: table,
---- merge: table,
---- rename: table,
---- stage: table,
---- text: table,
---- untracked: table,
+---   add: wip.Color,
+---   change: wip.Color,
+---   delete: wip.Color,
+---   dirty: wip.Color,
+---   ignore: wip.Color,
+---   merge: wip.Color,
+---   rename: wip.Color,
+---   stage: wip.Color,
+---   text: wip.Color,
+---   untracked: wip.Color,
 ---}
 ---@field heading {
---- h1: table,
---- h2: table,
---- h3: table,
---- h4: table,
---- h5: table,
---- h6: table,
+---   h1: wip.Color,
+---   h2: wip.Color,
+---   h3: wip.Color,
+---   h4: wip.Color,
+---   h5: wip.Color,
+---   h6: wip.Color,
 ---}
 
 ---@type wip.Config
@@ -104,6 +117,11 @@ local defaults = {
   opts = {
     signcolumn = {
       bg = true,
+    },
+    lsp = {
+      inlay_hint = {
+        bg = true,
+      },
     },
   },
 
@@ -117,8 +135,12 @@ local defaults = {
   groups = {
     ui = {
       border = highlight_med,
-      link = blossom,
       panel = surface,
+      indent = {
+        dim = overlay,
+        scope = highlight_high,
+      },
+      success = leaf,
       error = cherry,
       hint = blossom,
       info = river,
@@ -126,6 +148,7 @@ local defaults = {
       warn = branch,
       note = leaf,
       todo = blossom,
+      link = blossom,
     },
 
     git = {
@@ -160,9 +183,7 @@ local defaults = {
 
 ---@type wip.Config
 local config = vim.tbl_deep_extend("force", defaults, {
-  opts = {
-    signcolumn = { bg = false },
-  },
+  opts = { signcolumn = { bg = false } },
   styles = { italic = false },
   highlights = { Cursor = { bg = "none" } },
 })
@@ -220,6 +241,7 @@ return lush(function(injected_functions)
     ModeMsg { fg = p.subtle },
     MoreMsg { fg = p.blossom },
     ErrorMsg { bg = g.ui.error, fg = p.base, bold = s.bold },
+    WarningMsg { fg = g.ui.warn, bold = s.bold },
     NvimInternalError { ErrorMsg },
 
     -- menu
@@ -233,11 +255,11 @@ return lush(function(injected_functions)
     PmenuThumb { bg = p.muted },
 
     -- floats
-    Float { fg = p.river },
+    Float { fg = p.text },
     FloatBorder { fg = g.ui.border, bg = g.ui.panel },
-    FloatTitle { fg = p.river, bg = g.ui.panel, bold = s.bold },
+    FloatTitle { fg = p.subtle, bg = g.ui.panel, bold = s.bold },
 
-    Question { fg = p.petal },
+    Question { fg = p.cherry },
     QuickFixLine { fg = p.petal },
     RedrawDebugClear { fg = p.base, bg = p.leaf },
     RedrawDebugComposed { fg = p.base, bg = p.blossom },
@@ -257,280 +279,282 @@ return lush(function(injected_functions)
     TabLineSel { fg = p.text, bg = p.overlay, bold = s.bold },
     Title { fg = p.river, bold = s.bold },
     VertSplit { fg = g.ui.border },
-    WarningMsg { fg = g.ui.warn, bold = s.bold },
     WildMenu { IncSearch },
     WinBar { fg = p.subtle, bg = g.ui.panel },
     WinBarNC { fg = p.muted, bg = g.ui.panel },
     WinSeparator { fg = g.ui.border },
 
     -- diagnostics
-    -- DiagnosticError { fg = g.error },
-    -- DiagnosticHint { fg = g.hint },
-    -- DiagnosticInfo { fg = g.info },
-    -- DiagnosticOk { fg = g.ok },
-    -- DiagnosticWarn { fg = g.warn },
-    -- DiagnosticDefaultError { DiagnosticError },
-    -- DiagnosticDefaultHint { DiagnosticHint },
-    -- DiagnosticDefaultInfo { DiagnosticInfo },
-    -- DiagnosticDefaultOk { DiagnosticOk },
-    -- DiagnosticDefaultWarn { DiagnosticWarn },
-    -- DiagnosticFloatingError { DiagnosticError },
-    -- DiagnosticFloatingHint { DiagnosticHint },
-    -- DiagnosticFloatingInfo { DiagnosticInfo },
-    -- DiagnosticFloatingOk { DiagnosticOk },
-    -- DiagnosticFloatingWarn { DiagnosticWarn },
-    -- DiagnosticSignError { DiagnosticError },
-    -- DiagnosticSignHint { DiagnosticHint },
-    -- DiagnosticSignInfo { DiagnosticInfo },
-    -- DiagnosticSignOk { DiagnosticOk },
-    -- DiagnosticSignWarn { DiagnosticWarn },
-    -- DiagnosticUnderlineError { sp = g.error, undercurl = true },
-    -- DiagnosticUnderlineHint { sp = g.hint, undercurl = true },
-    -- DiagnosticUnderlineInfo { sp = g.info, undercurl = true },
-    -- DiagnosticUnderlineOk { sp = g.ok, undercurl = true },
-    -- DiagnosticUnderlineWarn { sp = g.warn, undercurl = true },
-    -- DiagnosticVirtualTextError { fg = g.error, bg = groups.error,  },
-    -- DiagnosticVirtualTextHint { fg = g.hint, bg = groups.hint,  },
-    -- DiagnosticVirtualTextInfo { fg = g.info, bg = groups.info,  },
-    -- DiagnosticVirtualTextOk { fg = g.ok, bg = groups.ok,  },
-    -- DiagnosticVirtualTextWarn { fg = g.warn, bg = groups.warn,  },
+    DiagnosticError { fg = g.ui.error },
+    DiagnosticHint { fg = g.ui.hint },
+    DiagnosticInfo { fg = g.ui.info },
+    DiagnosticOk { fg = g.ui.ok },
+    DiagnosticWarn { fg = g.ui.warn },
+    DiagnosticDefaultError { DiagnosticError },
+    DiagnosticDefaultHint { DiagnosticHint },
+    DiagnosticDefaultInfo { DiagnosticInfo },
+    DiagnosticDefaultOk { DiagnosticOk },
+    DiagnosticDefaultWarn { DiagnosticWarn },
+    DiagnosticFloatingError { DiagnosticError },
+    DiagnosticFloatingHint { DiagnosticHint },
+    DiagnosticFloatingInfo { DiagnosticInfo },
+    DiagnosticFloatingOk { DiagnosticOk },
+    DiagnosticFloatingWarn { DiagnosticWarn },
+    DiagnosticSignError { DiagnosticError },
+    DiagnosticSignHint { DiagnosticHint },
+    DiagnosticSignInfo { DiagnosticInfo },
+    DiagnosticSignOk { DiagnosticOk },
+    DiagnosticSignWarn { DiagnosticWarn },
+    DiagnosticUnderlineError { sp = g.ui.error, undercurl = true },
+    DiagnosticUnderlineHint { sp = g.ui.hint, undercurl = true },
+    DiagnosticUnderlineInfo { sp = g.ui.info, undercurl = true },
+    DiagnosticUnderlineOk { sp = g.ui.ok, undercurl = true },
+    DiagnosticUnderlineWarn { sp = g.ui.warn, undercurl = true },
+    DiagnosticVirtualTextError { fg = g.ui.error, bg = groups.error },
+    DiagnosticVirtualTextHint { fg = g.ui.hint, bg = groups.hint },
+    DiagnosticVirtualTextInfo { fg = g.ui.info, bg = groups.info },
+    DiagnosticVirtualTextOk { fg = g.ui.ok, bg = groups.ok },
+    DiagnosticVirtualTextWarn { fg = g.ui.warn, bg = groups.warn },
 
     -- syntax
-    -- Boolean { fg = p.rose },
-    -- Character { fg = p.branch },
     Comment { fg = p.subtle, italic = s.italic },
-    -- Conditional { fg = p.pine },
-    -- Constant { fg = p.branch },
-    -- Debug { fg = p.rose },
-    -- Define { fg = p.iris },
-    -- Delimiter { fg = p.subtle },
-    -- Error { fg = p.love },
-    -- Exception { fg = p.pine },
-    -- Function { fg = p.rose },
-    -- Identifier { fg = p.text },
-    -- Include { fg = p.pine },
-    -- Keyword { fg = p.pine },
-    -- Label { fg = p.river },
-    -- LspCodeLens { fg = p.subtle },
-    -- LspCodeLensSeparator { fg = p.muted },
-    -- LspInlayHint { fg = p.muted, bg = p.muted,  },
-    -- LspReferenceRead { bg = p.highlight_med },
-    -- LspReferenceText { bg = p.highlight_med },
-    -- LspReferenceWrite { bg = p.highlight_med },
-    -- Macro { fg = p.iris },
-    -- Number { fg = p.branch },
-    -- Operator { fg = p.subtle },
-    -- PreCondit { fg = p.iris },
-    -- PreProc { PreCondit },
-    -- Repeat { fg = p.pine },
-    -- Special { fg = p.river },
-    -- SpecialChar { Special },
-    -- SpecialComment { fg = p.iris },
-    -- Statement { fg = p.pine, bold = s.bold },
-    -- StorageClass { fg = p.river },
-    -- String { fg = p.branch },
-    -- Structure { fg = p.river },
-    -- Tag { fg = p.river },
-    -- Todo { fg = p.rose, bg = p.rose,  },
-    -- Type { fg = p.river },
-    -- TypeDef { Type },
-    -- Underlined { fg = p.iris, underline = true },
+    Keyword { fg = p.leaf },
+    Conditional { fg = p.leaf },
+    Include { fg = p.leaf },
+    Constant { fg = p.cherry },
+    Boolean { fg = p.cherry },
+    Character { fg = p.cherry },
+    Debug { fg = p.cherry },
+    Number { fg = p.cherry },
+    String { fg = p.cherry },
+    Error { fg = p.cherry },
+    Macro { fg = p.blossom },
+    Define { Macro },
+    PreCondit { Macro },
+    PreProc { PreCondit },
+    Identifier { fg = p.text },
+    Function { fg = p.text },
+    Type { fg = p.text },
+    TypeDef { Type },
+    Delimiter { fg = p.subtle },
+    Operator { fg = p.subtle },
+    Exception { fg = p.petal },
+    Special { fg = p.subtle },
+    SpecialChar { Special },
+    SpecialComment { fg = p.leaf },
+    LspReferenceRead { bg = p.highlight_low },
+    LspReferenceText { bg = p.highlight_low },
+    LspReferenceWrite { bg = p.highlight_low },
+    LspCodeLens { fg = p.subtle },
+    LspCodeLensSeparator { fg = p.muted },
+    LspInlayHint { fg = o.lsp.inlay_hint.bg and p.subtle or p.muted, bg = o.lsp.inlay_hint.bg and p.surface },
+    Todo { fg = p.base, bg = p.leaf, bold = s.bold },
+    Tag { fg = p.leaf, bold = s.bold },
+    Label { fg = p.river },
+    Repeat { fg = p.river },
+    Statement { fg = p.river },
+    StorageClass { fg = p.river },
+    Structure { fg = p.river },
+    Underlined { underline = true },
 
     -- health
-    -- healthError { fg = g.error },
-    -- healthSuccess { fg = g.info },
-    -- healthWarning { fg = g.warn },
+    healthSuccess { fg = g.ui.success },
+    healthError { fg = g.ui.error },
+    healthWarning { fg = g.ui.warn },
+
+    -- markdown
+    markdownDelimiter { fg = p.subtle },
+    markdownH1 { fg = g.heading.h1 },
+    markdownH1Delimiter { markdownH1 },
+    markdownH2 { fg = g.heading.h2 },
+    markdownH2Delimiter { markdownH2 },
+    markdownH3 { fg = g.heading.h3 },
+    markdownH3Delimiter { markdownH3 },
+    markdownH4 { fg = g.heading.h4 },
+    markdownH4Delimiter { markdownH4 },
+    markdownH5 { fg = g.heading.h5 },
+    markdownH5Delimiter { markdownH5 },
+    markdownH6 { fg = g.heading.h6 },
+    markdownH6Delimiter { markdownH6 },
+    markdownLinkText { fg = g.ui.link },
+    markdownUrl { markdownLinkText },
+    mkdLink { markdownUrl },
+    mkdLinkDef { markdownUrl },
+    mkdListItemLine { fg = p.text },
+    mkdRule { fg = p.subtle },
+    mkdURL { markdownUrl },
 
     -- html
-    -- htmlArg { fg = p.iris },
-    -- htmlBold { bold = s.bold },
-    -- htmlEndTag { fg = p.subtle },
-    -- htmlH1 { markdownH1 },
-    -- htmlH2 { markdownH2 },
-    -- htmlH3 { markdownH3 },
-    -- htmlH4 { markdownH4 },
-    -- htmlH5 { markdownH5 },
-    -- htmlItalic { italic = s.italic },
-    -- htmlLink { link = "markdownUrl" },
-    -- htmlTag { fg = p.subtle },
-    -- htmlTagN { fg = p.text },
-    -- htmlTagName { fg = p.river },
+    htmlArg { fg = p.blossom },
+    htmlBold { bold = s.bold },
+    htmlEndTag { fg = p.subtle },
+    htmlH1 { markdownH1 },
+    htmlH2 { markdownH2 },
+    htmlH3 { markdownH3 },
+    htmlH4 { markdownH4 },
+    htmlH5 { markdownH5 },
+    htmlItalic { italic = s.italic },
+    htmlLink { markdownUrl },
+    htmlTag { fg = p.subtle },
+    htmlTagN { fg = p.text },
+    htmlTagName { fg = p.river },
 
-    -- markdownDelimiter { fg = p.subtle },
-    -- markdownH1 { fg = g.h1, bold = s.bold },
-    -- markdownH1Delimiter { markdownH1 },
-    -- markdownH2 { fg = g.h2, bold = s.bold },
-    -- markdownH2Delimiter { markdownH2 },
-    -- markdownH3 { fg = g.h3, bold = s.bold },
-    -- markdownH3Delimiter { markdownH3 },
-    -- markdownH4 { fg = g.h4, bold = s.bold },
-    -- markdownH4Delimiter { markdownH4 },
-    -- markdownH5 { fg = g.h5, bold = s.bold },
-    -- markdownH5Delimiter { markdownH5 },
-    -- markdownH6 { fg = g.h6, bold = s.bold },
-    -- markdownH6Delimiter { markdownH6 },
-    -- markdownLinkText { link = "markdownUrl" },
-    -- markdownUrl { fg = g.markdownUrl },
-    -- mkdLink { link = "markdownUrl" },
-    -- mkdLinkDef { link = "markdownUrl" },
-    -- mkdListItemLine { fg = p.text },
-    -- mkdRule { fg = p.subtle },
-    -- mkdURL { markdownUrl },
+    --- Treesitter
+    --- |:help treesitter-highlight-g|
+    sym "@variable" { Identifier },
+    sym "@variable.builtin" { Identifier, bold = s.bold },
+    sym "@variable.parameter" { fg = p.text },
+    sym "@variable.parameter.builtin" { fg = p.petal, bold = s.bold },
+    sym "@variable.member" { fg = p.text },
 
-    -- --- Treesitter
-    -- --- |:help treesitter-highlight-g|
-    -- ["@variable"] { fg = p.text, italic = s.italic },
-    -- ["@variable.builtin"] { fg = p.love, italic = s.italic, bold = s.bold },
-    -- ["@variable.parameter"] { fg = p.iris, italic = s.italic },
-    -- ["@variable.parameter.builtin"] { fg = p.iris, italic = s.italic, bold = s.bold },
-    -- ["@variable.member"] { fg = p.river },
+    sym "@constant" { Constant },
+    sym "@constant.builtin" { fg = p.branch, bold = s.bold },
+    sym "@constant.macro" { Macro },
 
-    -- ["@constant"] { fg = p.branch },
-    -- ["@constant.builtin"] { fg = p.branch, bold = s.bold },
-    -- ["@constant.macro"] { fg = p.branch },
+    sym "@module" { fg = p.text },
+    sym "@module.builtin" { fg = p.text, bold = s.bold },
+    sym "@label" { Label },
 
-    -- ["@module"] { fg = p.text },
-    -- ["@module.builtin"] { fg = p.text, bold = s.bold },
-    -- ["@label"] { Label },
+    sym "@string" { String },
+    sym "@string.ui.regexp" { fg = p.petal },
+    sym "@string.ui.escape" { fg = p.leaf },
+    sym "@string.ui.special" { String },
+    sym "@string.ui.special.symbol" { Identifier },
+    sym "@string.ui.special.url" { fg = g.ui.link },
+    sym "@character.special" { Special },
 
-    -- ["@string"] { String },
-    -- ["@string.regexp"] { fg = p.iris },
-    -- ["@string.escape"] { fg = p.pine },
-    -- ["@string.special"] { String },
-    -- ["@string.special.symbol"] { Identifier },
-    -- ["@string.special.url"] { fg = g.@character] { Character },
-    -- ["@character.special"] { Character },
+    sym "@boolean" { Boolean },
+    sym "@number" { Number },
+    sym "@number.float" { Number },
+    sym "@float" { Number },
 
-    -- ["@boolean"] { Boolean },
-    -- ["@number"] { Number },
-    -- ["@number.float"] { Number },
-    -- ["@float"] { Number },
+    sym "@type" { Type },
+    sym "@type.builtin" { Type, bold = s.bold },
 
-    -- ["@type"] { fg = p.river },
-    -- ["@type.builtin"] { fg = p.river, bold = s.bold },
+    sym "@attribute" { fg = p.blossom },
+    sym "@attribute.builtin" { fg = p.blossom, bold = s.bold },
+    sym "@property" { fg = p.text, italic = s.italic },
 
-    -- ["@attribute"] { fg = p.iris },
-    -- ["@attribute.builtin"] { fg = p.iris, bold = s.bold },
-    -- ["@property"] { fg = p.river, italic = s.italic },
+    sym "@function" { Function },
+    sym "@function.builtin" { Function, bold = s.bold },
+    sym "@function.macro" { Macro },
 
-    -- ["@function"] { fg = p.rose },
-    -- ["@function.builtin"] { fg = p.rose, bold = s.bold },
-    -- -- ["@function.call"] {},
-    -- ["@function.macro"] { Function },
+    sym "@function.method" { fg = p.leaf },
+    sym "@function.method.call" { fg = p.leaf },
 
-    -- ["@function.method"] { fg = p.rose },
-    -- ["@function.method.call"] { fg = p.iris },
+    sym "@constructor" { fg = p.subtle },
+    sym "@operator" { Operator },
 
-    -- ["@constructor"] { fg = p.river },
-    -- ["@operator"] { Operator },
+    sym "@keyword" { Keyword },
+    sym "@keyword.operator" { Operator },
+    sym "@keyword.import" { Keyword },
+    sym "@keyword.storage" { StorageClass },
+    sym "@keyword.repeat" { Repeat },
+    sym "@keyword.return" { Keyword },
+    sym "@keyword.debug" { Debug },
+    sym "@keyword.exception" { Exception },
 
-    -- ["@keyword"] { Keyword },
-    -- ["@keyword.operator"] { fg = p.subtle },
-    -- ["@keyword.import"] { fg = p.pine },
-    -- ["@keyword.storage"] { fg = p.river },
-    -- ["@keyword.repeat"] { fg = p.pine },
-    -- ["@keyword.return"] { fg = p.pine },
-    -- ["@keyword.debug"] { fg = p.rose },
-    -- ["@keyword.exception"] { fg = p.pine },
+    sym "@keyword.conditional" { Conditional },
+    sym "@keyword.conditional.ternary" { Conditional },
 
-    -- ["@keyword.conditional"] { fg = p.pine },
-    -- ["@keyword.conditional.ternary"] { fg = p.pine },
-
-    -- ["@keyword.directive"] { fg = p.iris },
-    -- ["@keyword.directive.define"] { fg = p.iris },
+    sym "@keyword.directive" { Macro },
+    sym "@keyword.directive.define" { Macro },
 
     -- --- Punctuation
-    -- ["@punctuation.delimiter"] { fg = p.subtle },
-    -- ["@punctuation.bracket"] { fg = p.subtle },
-    -- ["@punctuation.special"] { fg = p.subtle },
+    -- sym("@punctuation.delimiter") { fg = p.subtle },
+    -- sym("@punctuation.bracket") { fg = p.subtle },
+    -- sym("@punctuation.special") { fg = p.subtle },
 
     -- --- Comments
-    sym "@comment" { Comment },
+    -- sym sym("@comment") { Comment },
 
-    -- ["@comment.error"] { fg = g.error },
-    -- ["@comment.warning"] { fg = g.warn },
-    -- ["@comment.todo"] { fg = g.todo, bg = groups.todo,  },
-    -- ["@comment.hint"] { fg = g.hint, bg = groups.hint,  },
-    -- ["@comment.info"] { fg = g.info, bg = groups.info,  },
-    -- ["@comment.note"] { fg = g.note, bg = groups.note,  },
+    -- sym("@comment.error") { fg = g.ui.error },
+    -- sym("@comment.warning") { fg = g.ui.warn },
+    -- sym("@comment.todo") { fg = g.ui.todo, bg = groups.todo,  },
+    -- sym("@comment.hint") { fg = g.ui.hint, bg = groups.hint,  },
+    -- sym("@comment.info") { fg = g.ui.info, bg = groups.info,  },
+    -- sym("@comment.note") { fg = g.ui.note, bg = groups.note,  },
 
     -- --- Markup
-    -- ["@markup.strong"] { bold = s.bold },
-    -- ["@markup.italic"] { italic = s.italic },
-    -- ["@markup.strikethrough"] { strikethrough = true },
-    -- ["@markup.underline"] { underline = true },
+    -- sym("@markup.strong") { bold = s.bold },
+    -- sym("@markup.italic") { italic = s.italic },
+    -- sym("@markup.strikethrough") { strikethrough = true },
+    -- sym("@markup.underline") { underline = true },
 
-    -- ["@markup.heading"] { fg = p.river, bold = s.bold },
+    -- sym("@markup.heading") { fg = p.river, bold = s.bold },
 
-    -- ["@markup.quote"] { fg = p.text },
-    -- ["@markup.math"] { Special },
-    -- ["@markup.environment"] { Macro },
-    -- ["@markup.environment.name"] { @type },
+    -- sym("@markup.quote") { fg = p.text },
+    -- sym("@markup.math") { Special },
+    -- sym("@markup.environment") { Macro },
+    -- sym("@markup.environment.name") { @type },
 
-    -- -- ["@markup.link"] {},
-    -- ["@markup.link.markdown_inline"] { fg = p.subtle },
-    -- ["@markup.link.label.markdown_inline"] { fg = p.river },
-    -- ["@markup.link.url"] { fg = g.link },
+    -- -- sym("@markup.link") {},
+    -- sym("@markup.link.markdown_inline") { fg = p.subtle },
+    -- sym("@markup.link.label.markdown_inline") { fg = p.river },
+    -- sym("@markup.link.url") { fg = g.ui.link },
 
-    -- -- ["@markup.raw"] { bg = p.surface },
-    -- -- ["@markup.raw.block"] { bg = p.surface },
-    -- ["@markup.raw.delimiter.markdown"] { fg = p.subtle },
+    -- -- sym("@markup.raw") { bg = p.surface },
+    -- -- sym("@markup.raw.block") { bg = p.surface },
+    -- sym("@markup.raw.delimiter.markdown") { fg = p.subtle },
 
-    -- ["@markup.list"] { fg = p.pine },
-    -- ["@markup.list.checked"] { fg = p.river, bg = p.river,  },
-    -- ["@markup.list.unchecked"] { fg = p.text },
+    -- sym("@markup.list") { fg = p.pine },
+    -- sym("@markup.list.checked") { fg = p.river, bg = p.river,  },
+    -- sym("@markup.list.unchecked") { fg = p.text },
 
     -- -- Markdown headings
-    -- ["@markup.heading.1.markdown"] { markdownH1 },
-    -- ["@markup.heading.2.markdown"] { markdownH2 },
-    -- ["@markup.heading.3.markdown"] { markdownH3 },
-    -- ["@markup.heading.4.markdown"] { markdownH4 },
-    -- ["@markup.heading.5.markdown"] { markdownH5 },
-    -- ["@markup.heading.6.markdown"] { markdownH6 },
-    -- ["@markup.heading.1.marker.markdown"] { markdownH1Delimiter },
-    -- ["@markup.heading.2.marker.markdown"] { markdownH2Delimiter },
-    -- ["@markup.heading.3.marker.markdown"] { markdownH3Delimiter },
-    -- ["@markup.heading.4.marker.markdown"] { markdownH4Delimiter },
-    -- ["@markup.heading.5.marker.markdown"] { markdownH5Delimiter },
-    -- ["@markup.heading.6.marker.markdown"] { markdownH6Delimiter },
+    -- sym("@markup.heading.ui.1.markdown") { markdownH1 },
+    -- sym("@markup.heading.ui.2.markdown") { markdownH2 },
+    -- sym("@markup.heading.ui.3.markdown") { markdownH3 },
+    -- sym("@markup.heading.ui.4.markdown") { markdownH4 },
+    -- sym("@markup.heading.ui.5.markdown") { markdownH5 },
+    -- sym("@markup.heading.ui.6.markdown") { markdownH6 },
+    -- sym("@markup.heading.ui.1.marker.markdown") { markdownH1Delimiter },
+    -- sym("@markup.heading.ui.2.marker.markdown") { markdownH2Delimiter },
+    -- sym("@markup.heading.ui.3.marker.markdown") { markdownH3Delimiter },
+    -- sym("@markup.heading.ui.4.marker.markdown") { markdownH4Delimiter },
+    -- sym("@markup.heading.ui.5.marker.markdown") { markdownH5Delimiter },
+    -- sym("@markup.heading.ui.6.marker.markdown") { markdownH6Delimiter },
 
-    -- ["@diff.plus"] { fg = g.git.add, bg = groups.git.add,  },
-    -- ["@diff.minus"] { fg = g.git.delete, bg = groups.git.delete,  },
-    -- ["@diff.delta"] { bg = g.git.change,  },
+    -- sym("@diff.plus") { fg = g.ui.git.add, bg = groups.git.add,  },
+    -- sym("@diff.minus") { fg = g.ui.git.delete, bg = groups.git.delete,  },
+    -- sym("@diff.delta") { bg = g.ui.git.change,  },
 
-    -- ["@tag"] { Tag },
-    -- ["@tag.attribute"] { fg = p.iris },
-    -- ["@tag.delimiter"] { fg = p.subtle },
+    -- sym("@tag") { Tag },
+    -- sym("@tag.ui.attribute") { fg = p.iris },
+    -- sym("@tag.ui.delimiter") { fg = p.subtle },
 
     -- --- Non-highlighting captures
-    -- -- ["@none"] {},
-    -- ["@conceal"] { Conceal },
-    -- ["@conceal.markdown"] { fg = p.subtle },
+    -- -- sym("@none") {},
+    -- sym("@conceal") { Conceal },
+    -- sym("@conceal.markdown") { fg = p.subtle },
 
     -- --- Semantic highlights
-    -- ["@lsp.type.comment"] {},
-    -- ["@lsp.type.comment.c"] { @comment },
-    -- ["@lsp.type.comment.cpp"] { @comment },
-    -- ["@lsp.type.enum"] { @type },
-    -- ["@lsp.type.interface"] { @interface },
-    -- ["@lsp.type.keyword"] { @keyword },
-    -- ["@lsp.type.namespace"] { @namespace },
-    -- ["@lsp.type.namespace.python"] { @variable },
-    -- ["@lsp.type.parameter"] { @parameter },
-    -- ["@lsp.type.property"] { @property },
-    -- ["@lsp.type.variable"] {}, -- defer to treesitter for regular variables
-    -- ["@lsp.type.variable.svelte"] { @variable },
-    -- ["@lsp.typemod.function.defaultLibrary"] { @function.builtin },
-    -- ["@lsp.typemod.operator.injected"] { @operator },
-    -- ["@lsp.typemod.string.injected"] { @string },
-    -- ["@lsp.typemod.variable.constant"] { @constant },
-    -- ["@lsp.typemod.variable.defaultLibrary"] { @variable.builtin },
-    -- ["@lsp.typemod.variable.injected"] { @variable },
+    -- sym("@lsp.type.comment") {},
+    -- sym("@lsp.type.comment.c") { @comment },
+    -- sym("@lsp.type.comment.cpp") { @comment },
+    -- sym("@lsp.type.enum") { @type },
+    -- sym("@lsp.type.interface") { @interface },
+    -- sym("@lsp.type.keyword") { @keyword },
+    -- sym("@lsp.type.namespace") { @namespace },
+    -- sym("@lsp.type.namespace.python") { @variable },
+    -- sym("@lsp.type.parameter") { @parameter },
+    -- sym("@lsp.type.property") { @property },
+    -- sym("@lsp.type.variable") {}, -- defer to treesitter for regular variables
+    -- sym("@lsp.type.variable.svelte") { @variable },
+    -- sym("@lsp.typemod.function.defaultLibrary") { @function.builtin },
+    -- sym("@lsp.typemod.operator.injected") { @operator },
+    -- sym("@lsp.typemod.string.ui.injected") { @string },
+    -- sym("@lsp.typemod.variable.constant") { @constant },
+    -- sym("@lsp.typemod.variable.defaultLibrary") { @variable.builtin },
+    -- sym("@lsp.typemod.variable.injected") { @variable },
 
     -- Plugins
     -- jake-stewart/multicursor.nvim
     MultiCursorCursor = { fg = p.base, bg = p.cherry },
     MultiCursorDisabledCursor = { Cursor, bg = p.muted },
+
+    -- milanglacier/minuet-ai.nvim
+    MinuetVirtualText = { Comment },
 
     -- lewis6991/gitsigns.nvim
     GitSignsAdd { fg = g.git.add },
@@ -544,7 +568,7 @@ return lush(function(injected_functions)
     -- WhichKey { fg = p.iris },
     -- WhichKeyBorder make_border(),
     -- WhichKeyDesc { fg = p.branch },
-    -- WhichKeyFloat { bg = g.ui.panel },
+    -- WhichKeyFloat { bg = g.ui.ui.panel },
     -- WhichKeyGroup { fg = p.river },
     -- WhichKeyIcon { fg = p.pine },
     -- WhichKeyIconAzure { fg = p.pine },
@@ -563,25 +587,25 @@ return lush(function(injected_functions)
 
     -- -- NeogitOrg/neogit
     -- -- https://github.com/NeogitOrg/neogit/blob/master/lua/neogit/lib/hl.lua#L109-L198
-    -- NeogitChangeAdded { fg = g.git.add, bold = s.bold, italic = s.italic },
-    -- NeogitChangeBothModified { fg = g.git.change, bold = s.bold, italic = s.italic },
-    -- NeogitChangeCopied { fg = g.git.untracked, bold = s.bold, italic = s.italic },
-    -- NeogitChangeDeleted { fg = g.git.delete, bold = s.bold, italic = s.italic },
-    -- NeogitChangeModified { fg = g.git.change, bold = s.bold, italic = s.italic },
-    -- NeogitChangeNewFile { fg = g.git.stage, bold = s.bold, italic = s.italic },
-    -- NeogitChangeRenamed { fg = g.git.rename, bold = s.bold, italic = s.italic },
-    -- NeogitChangeUpdated { fg = g.git.change, bold = s.bold, italic = s.italic },
+    -- NeogitChangeAdded { fg = g.ui.git.add, bold = s.bold, italic = s.italic },
+    -- NeogitChangeBothModified { fg = g.ui.git.change, bold = s.bold, italic = s.italic },
+    -- NeogitChangeCopied { fg = g.ui.git.untracked, bold = s.bold, italic = s.italic },
+    -- NeogitChangeDeleted { fg = g.ui.git.delete, bold = s.bold, italic = s.italic },
+    -- NeogitChangeModified { fg = g.ui.git.change, bold = s.bold, italic = s.italic },
+    -- NeogitChangeNewFile { fg = g.ui.git.stage, bold = s.bold, italic = s.italic },
+    -- NeogitChangeRenamed { fg = g.ui.git.rename, bold = s.bold, italic = s.italic },
+    -- NeogitChangeUpdated { fg = g.ui.git.change, bold = s.bold, italic = s.italic },
     -- NeogitDiffAddHighlight { DiffAdd },
     -- NeogitDiffContextHighlight { bg = p.surface },
     -- NeogitDiffDeleteHighlight { DiffDelete },
     -- NeogitFilePath { fg = p.river, italic = s.italic },
-    -- NeogitHunkHeader { bg = g.ui.panel },
-    -- NeogitHunkHeaderHighlight { bg = g.ui.panel },
+    -- NeogitHunkHeader { bg = g.ui.ui.panel },
+    -- NeogitHunkHeaderHighlight { bg = g.ui.ui.panel },
 
     -- -- folke/trouble.nvim
     -- TroubleText { fg = p.subtle },
     -- TroubleCount { fg = p.iris, bg = p.surface },
-    -- TroubleNormal { fg = p.text, bg = g.ui.panel },
+    -- TroubleNormal { fg = p.text, bg = g.ui.ui.panel },
 
     -- -- echasnovski/mini.nvim
     -- MiniCursorword { underline = true },
@@ -599,12 +623,12 @@ return lush(function(injected_functions)
     -- RenderMarkdownCode { bg = p.overlay },
     -- RenderMarkdownCodeInline { fg = p.text, bg = p.overlay },
     -- RenderMarkdownDash { fg = p.muted },
-    -- RenderMarkdownH1Bg { bg = g.h1,  },
-    -- RenderMarkdownH2Bg { bg = g.h2,  },
-    -- RenderMarkdownH3Bg { bg = g.h3,  },
-    -- RenderMarkdownH4Bg { bg = g.h4,  },
-    -- RenderMarkdownH5Bg { bg = g.h5,  },
-    -- RenderMarkdownH6Bg { bg = g.h6,  },
+    -- RenderMarkdownH1Bg { bg = g.ui.h1,  },
+    -- RenderMarkdownH2Bg { bg = g.ui.h2,  },
+    -- RenderMarkdownH3Bg { bg = g.ui.h3,  },
+    -- RenderMarkdownH4Bg { bg = g.ui.h4,  },
+    -- RenderMarkdownH5Bg { bg = g.ui.h5,  },
+    -- RenderMarkdownH6Bg { bg = g.ui.h6,  },
     -- RenderMarkdownQuote { fg = p.subtle },
     -- RenderMarkdownTableFill { Conceal },
     -- RenderMarkdownTableHead { fg = p.subtle },
@@ -654,6 +678,8 @@ return lush(function(injected_functions)
 
     -- folke/snacks.nvim
     SnacksPickerMatch { fg = Search.bg, bold = s.bold },
+    SnacksIndent { fg = g.ui.indent.dim },
+    SnacksIndentScope { fg = g.ui.indent.scope },
 
     -- -- nvim-neotest/neotest
     -- NeotestAdapterName { fg = p.iris },
