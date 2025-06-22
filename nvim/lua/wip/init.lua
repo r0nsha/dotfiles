@@ -151,10 +151,10 @@ function M.setup(config)
   local defaults = {
     opts = {
       signcolumn = {
-        bg = false,
+        bg = true,
       },
       float = {
-        bg = false,
+        bg = true,
       },
       lsp = {
         inlay_hint = {
@@ -278,7 +278,7 @@ function M.setup(config)
       NvimInternalError { ErrorMsg },
 
       -- floats
-      NormalFloat { bg = g.ui.panel },
+      NormalFloat { fg = p.text, bg = g.ui.panel },
       Float { fg = p.text, bg = g.ui.panel },
       FloatBorder { fg = g.ui.border, bg = g.ui.panel },
       FloatTitle { fg = p.subtle, bg = g.ui.panel, bold = s.bold },
