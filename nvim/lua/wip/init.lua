@@ -53,6 +53,7 @@
 ---     dim: wip.Color,
 ---     scope: wip.Color,
 ---   },
+---   match: wip.Color,
 ---   success: wip.Color,
 ---   error: wip.Color,
 ---   hint: wip.Color,
@@ -89,24 +90,24 @@ local hsluv = lush.hsluv
 
 local M = {}
 
--- TODO: fix notify thing
 -- TODO: use more `zenburn` like colors
-local cherry = hsluv(5, 64, 52)
-local petal = hsluv(358, 60, 68)
-local blossom = hsluv(318, 28, 61)
-local branch = hsluv(42, 62, 69)
-local leaf = hsluv(180, 52, 60)
+-- TODO: fix notify thing
+local cherry = hsluv(5, 48, 50)
+local petal = hsluv(354, 42, 68)
+local blossom = hsluv(318, 24, 60)
+local branch = hsluv(42, 48, 66)
+local leaf = hsluv(160, 44, 60)
 local river = hsluv(224, 62, 58)
-local base = hsluv(248, 20, 25)
+local base = hsluv(248, 23, 25)
 local dark1 = base.da(16).de(8)
 local dark0 = dark1.da(16)
 local surface0 = base.li(4).mix(cherry, 2)
 local surface1 = surface0.li(4)
 local overlay0 = surface1.li(12).mix(cherry, 2)
 local overlay1 = overlay0.li(16)
-local subtext0 = overlay1.li(8).mix(cherry, 2)
+local subtext0 = overlay1.li(16).mix(cherry, 2)
 local subtext1 = subtext0.li(16)
-local text = subtext1.li(56)
+local text = subtext1.li(32)
 
 ---@return wip.Palette
 local function low()
@@ -149,7 +150,7 @@ function M.setup(config)
       },
       lsp = {
         inlay_hint = {
-          bg = true,
+          bg = false,
         },
       },
     },
@@ -169,6 +170,7 @@ function M.setup(config)
           dim = palette.surface1,
           scope = palette.overlay1,
         },
+        match = palette.river,
         success = palette.leaf,
         error = palette.cherry,
         hint = palette.blossom,
@@ -237,10 +239,10 @@ function M.setup(config)
       Visual { bg = p.surface1 },
       NonText { fg = p.subtext0 },
       Conceal { bg = p.surface1, fg = p.subtext1 },
-      MatchParen { bg = p.overlay1 },
+      MatchParen { fg = p.text, bg = p.surface1 },
 
       -- search
-      Search { fg = p.base, bg = p.branch },
+      Search { fg = p.base, bg = g.ui.match },
       CurSearch { Search },
       IncSearch { CurSearch },
 
@@ -277,7 +279,7 @@ function M.setup(config)
 
       -- menu
       Pmenu { Float },
-      PmenuMatch { fg = Search.bg, bold = s.bold },
+      PmenuMatch { fg = g.ui.match, bold = s.bold },
       PmenuExtra { fg = p.subtext0, bg = Float.bg },
       PmenuExtraSel { fg = p.subtext1, bg = p.surface1 },
       PmenuKind { fg = p.river, bg = Float.bg },
@@ -347,9 +349,9 @@ function M.setup(config)
 
       -- syntax
       Comment { fg = p.subtext1, italic = s.italic },
-      Keyword { fg = p.leaf },
-      Conditional { fg = p.leaf },
-      Include { fg = p.leaf },
+      Keyword { fg = p.petal },
+      Conditional { fg = p.petal },
+      Include { fg = p.petal },
       Constant { fg = p.cherry },
       Boolean { fg = p.cherry },
       Character { fg = p.cherry },
@@ -362,13 +364,13 @@ function M.setup(config)
       PreCondit { Macro },
       PreProc { PreCondit },
       Identifier { fg = p.text },
-      Function { fg = p.text },
+      Function { fg = p.subtext1 },
       Type { fg = p.text },
       TypeDef { Type },
-      Delimiter { fg = p.subtext1 },
-      Operator { fg = p.subtext1 },
+      Delimiter { fg = p.subtext0 },
+      Operator { fg = p.subtext0 },
       Exception { fg = p.petal },
-      Special { fg = p.subtext1 },
+      Special { fg = p.subtext0 },
       SpecialChar { Special },
       SpecialComment { fg = p.leaf },
       LspReferenceRead { bg = p.overlay0 },
@@ -376,7 +378,7 @@ function M.setup(config)
       LspReferenceWrite { bg = p.overlay0 },
       LspCodeLens { fg = p.subtext1 },
       LspCodeLensSeparator { fg = p.subtext0 },
-      LspInlayHint { fg = o.lsp.inlay_hint.bg and p.subtext1 or p.subtext0, bg = o.lsp.inlay_hint.bg and p.surface0 },
+      LspInlayHint { fg = o.lsp.inlay_hint.bg and p.subtext1 or p.overlay1, bg = o.lsp.inlay_hint.bg and p.surface0 },
       Tag { fg = p.text },
       Label { fg = p.river },
       Repeat { fg = p.river },
@@ -468,8 +470,8 @@ function M.setup(config)
       sym "@function.builtin" { Function, bold = s.bold },
       sym "@function.macro" { Macro },
 
-      sym "@function.method" { fg = p.leaf },
-      sym "@function.method.call" { fg = p.leaf },
+      sym "@function.method" { Function },
+      sym "@function.method.call" { sym "@function.method" },
 
       sym "@constructor" { fg = p.subtext1 },
       sym "@operator" { Operator },
@@ -687,7 +689,7 @@ function M.setup(config)
 
       BlinkCmpLabel { fg = p.subtext1 },
       BlinkCmpLabelDeprecated { fg = p.subtext0, strikethrough = true },
-      BlinkCmpLabelMatch { fg = p.text, bold = s.bold },
+      BlinkCmpLabelMatch { fg = p.river, bold = s.bold },
 
       BlinkCmpDefault { fg = p.overlay1 },
       BlinkCmpKindText { fg = p.leaf },
@@ -721,7 +723,7 @@ function M.setup(config)
       BlinkCmpKindTabNine { fg = p.river },
 
       -- folke/snacks.nvim
-      SnacksPickerMatch { fg = Search.bg, bold = s.bold },
+      SnacksPickerMatch { fg = g.ui.match, bold = s.bold },
       SnacksIndent { fg = g.ui.indent.dim },
       SnacksIndentScope { fg = g.ui.indent.scope },
       SnacksBackdrop { fg = p.base },
