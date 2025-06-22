@@ -104,9 +104,9 @@ local surface0 = base.li(4).mix(cherry, 2)
 local surface1 = surface0.li(4)
 local overlay0 = surface1.li(12).mix(cherry, 2)
 local overlay1 = overlay0.li(16)
-local subtext0 = overlay1.li(16).mix(cherry, 2)
-local subtext1 = subtext0.li(24)
-local text = subtext1.li(48)
+local subtext0 = overlay1.li(8).mix(cherry, 2)
+local subtext1 = subtext0.li(16)
+local text = subtext1.li(56)
 
 ---@return wip.Palette
 local function low()
@@ -260,7 +260,7 @@ function M.setup(config)
 
       -- folds
       FoldColumn { fg = p.subtext1 },
-      Folded { fg = p.subtext1, bg = p.surface0 },
+      Folded { fg = p.subtext0, bg = p.dark0 },
 
       -- msg
       ModeMsg { fg = p.subtext1 },
@@ -636,8 +636,9 @@ function M.setup(config)
       NeogitDiffAdditions { NeogitDiffAdd },
       NeogitDiffDeletions { NeogitDiffDelete },
       NeogitFilePath { fg = p.river, italic = s.italic },
-      NeogitHunkHeader { bg = g.ui.panel },
-      NeogitHunkHeaderHighlight { bg = g.ui.panel },
+      NeogitHunkHeader { fg = p.subtext1, bg = p.dark1 },
+      NeogitHunkHeaderHighlight { fg = p.text, bg = p.dark1 },
+      NeogitHunkHeaderCursor { fg = p.text, bg = p.dark0 },
 
       -- folke/trouble.nvim
       TroubleText { fg = p.subtext1 },
