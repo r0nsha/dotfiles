@@ -97,7 +97,7 @@ local petal = hsluv(354, 42, 68)
 local blossom = hsluv(318, 24, 60)
 local branch = hsluv(42, 48, 66)
 local leaf = hsluv(160, 44, 60)
-local river = hsluv(224, 62, 58)
+local river = hsluv(208, 70, 66)
 local base = hsluv(248, 23, 25)
 local dark1 = base.da(16).de(8)
 local dark0 = dark1.da(16)
@@ -257,7 +257,7 @@ function M.setup(config)
       Added { DiffAdd },
       Changed { DiffChange },
       Removed { DiffDelete },
-      Directory { fg = p.subtext1, bold = s.bold },
+      Directory { fg = p.river, bold = s.bold },
       EndOfBuffer { NonText },
 
       -- folds
