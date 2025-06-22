@@ -19,6 +19,7 @@ return {
         local whl = ctx.opts.wo.winhighlight
         ctx.opts.wo.winhighlight = whl:gsub(ctx.hl.msg, "SnacksNotifierMinimal")
         ctx.opts.wo.wrap = true
+        ctx.opts.wo.winblend = 0
         local lines = vim.tbl_map(function(l)
           return l .. "  "
         end, vim.split(notif.msg, "\n"))
