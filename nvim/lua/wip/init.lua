@@ -210,7 +210,6 @@ return lush(function(injected_functions)
   local default_highlights = {
     Normal { fg = p.text, bg = p.base },
     NormalNC { fg = p.text, bg = p.base },
-    ColorColumn { bg = p.surface },
     LineNr { fg = o.signcolumn.bg and p.subtle or p.muted, bg = o.signcolumn.bg and p.surface },
     SignColumn { fg = p.text, bg = o.signcolumn.bg and p.surface },
     Cursor { fg = p.text, bg = p.highlight_high },
@@ -218,6 +217,7 @@ return lush(function(injected_functions)
     CursorLineNr { fg = p.text, bg = o.signcolumn.bg and p.surface, bold = s.bold },
     CursorLineSign { SignColumn },
     CursorColumn { CursorLine },
+    ColorColumn { bg = p.surface.mix(p.cherry, 15) },
     Visual { bg = p.overlay },
     NonText { fg = p.subtle },
     Conceal { bg = p.overlay, fg = p.subtle },
@@ -244,7 +244,7 @@ return lush(function(injected_functions)
 
     -- folds
     FoldColumn { fg = p.subtle },
-    Folded { fg = p.subtle, bg = surface },
+    Folded { fg = p.subtle, bg = p.surface },
 
     -- msg
     ModeMsg { fg = p.subtle },
@@ -700,6 +700,7 @@ return lush(function(injected_functions)
     SnacksPickerMatch { fg = Search.bg, bold = s.bold },
     SnacksIndent { fg = g.ui.indent.dim },
     SnacksIndentScope { fg = g.ui.indent.scope },
+    SnacksBackdrop { fg = p.base },
 
     -- nvim-neotest/neotest
     NeotestAdapterName { fg = p.petal },
