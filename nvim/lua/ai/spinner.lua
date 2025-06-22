@@ -14,7 +14,7 @@ local config = {
     { 5, 8 }, -- Second circle
     { 8, 11 }, -- Third circle
   },
-  interval = 50,
+  interval = 75,
   hl = {
     on = "DiagnosticWarn",
     off = "NonText",

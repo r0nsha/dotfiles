@@ -15,20 +15,22 @@ local hsl = lush.hsl
 -- local bg_1 = bg0.da(50).mix(cherry0, 8).de(5)
 -- local fg0 = hsl(350, 30, 90)
 
-local base = hsl(198, 32, 18)
-local surface = base.li(4).de(4)
-local overlay = surface.li(8).de(4)
-local highlight_low = overlay.li(8).de(4)
-local highlight_med = highlight_low.li(10).de(4)
-local highlight_high = highlight_med.li(12).de(4)
-local text = hsl(195, 30, 90)
-local subtle = text.da(20).de(15).ro(10)
-local muted = subtle.da(30).de(30).ro(10)
+-- local base = hsl(198, 32, 18)
+local base = hsl(198, 20, 26)
+local surface = base.li(8).de(4).ro(2)
+local overlay = surface.li(8)
+local highlight_low = overlay.li(4).de(4).ro(2)
+local highlight_med = highlight_low.li(8)
+local highlight_high = highlight_med.li(12)
+local text = hsl(190, 50, 95)
+local subtle = text.da(25).de(25).ro(10)
+local muted = subtle.da(30).de(25).ro(10)
 local cherry = hsl(346, 74, 68)
 local blossom = hsl(262, 34, 66)
 local petal = hsl(358, 55, 80)
 local branch = hsl(35, 74, 73)
-local leaf = hsl(165, 30, 42)
+-- local leaf = hsl(165, 30, 42)
+local leaf = hsl(165, 18, 50)
 local river = hsl(189, 38, 63)
 
 local palette = {
@@ -50,9 +52,15 @@ local palette = {
 }
 
 ---@class wip.Config
+---@field opts wip.Opts
 ---@field styles wip.Styles
 ---@field groups wip.Groups
 ---@field highlights table<string, vim.api.keyset.set_hl_info>
+
+---@class wip.Opts
+---@field signcolumn {
+--- bg: boolean,
+---}
 
 ---@class wip.Styles
 ---@field bold boolean
@@ -95,11 +103,19 @@ local palette = {
 
 ---@type wip.Config
 local defaults = {
+  opts = {
+    signcolumn = {
+      bg = true,
+    },
+  },
+
   styles = {
     bold = true,
     italic = true,
+    -- TODO: transparency
     transparency = false,
   },
+
   groups = {
     ui = {
       border = highlight_med,
@@ -140,17 +156,15 @@ local defaults = {
   highlights = {},
 }
 
--- ---@param opts wip.Config?
--- function M.setup(opts)
--- opts = vim.tbl_deep_extend("force", M.defaults, opts)
----@as(wip.Config)
--- local useropts = {
---   styles = { bold = true, italic = false },
---   highlights = { Cursor = { bg = "none" } },
--- }
+-- ---@param config wip.Config?
+-- function M.setup(config)
+-- config = vim.tbl_deep_extend("force", M.defaults, config)
 
 ---@type wip.Config
-local opts = vim.tbl_deep_extend("force", defaults, {
+local config = vim.tbl_deep_extend("force", defaults, {
+  opts = {
+    signcolumn = { bg = true },
+  },
   styles = { italic = false },
   highlights = { Cursor = { bg = "none" } },
 })
@@ -160,32 +174,31 @@ return lush(function(injected_functions)
   local sym = injected_functions.sym
 
   local p = palette
-  local s = opts.styles
-  local g = opts.groups
+  local s = config.styles
+  local g = config.groups
+  local o = config.opts
 
   local default_highlights = {
     Normal { fg = p.text, bg = p.base },
     NormalFloat { bg = g.ui.panel },
     NormalNC { fg = p.text, bg = p.base },
     ColorColumn { bg = p.surface },
-    LineNr { fg = p.muted, bg = p.surface },
+    LineNr { fg = p.subtle, bg = o.signcolumn.bg and p.surface },
+    SignColumn { fg = p.text, bg = o.signcolumn.bg and p.surface },
+    Cursor { fg = p.text, bg = p.highlight_high },
+    CursorLine { bg = p.surface },
     CursorLineNr { fg = p.text, bg = p.surface, bold = s.bold },
-    SignColumn { fg = p.text, bg = p.surface },
-    Visual { bg = p.highlight_low },
-
-    -- conceal
+    CursorLineSign { SignColumn },
+    CursorColumn { CursorLine },
+    Visual { bg = p.overlay },
+    NonText { fg = p.subtle },
     Conceal { bg = p.overlay, fg = p.subtle },
+    MatchParen { bg = p.highlight_med },
 
     -- search
     Search { fg = p.base, bg = p.cherry },
     CurSearch { Search },
     IncSearch { CurSearch },
-
-    -- cursor
-    Cursor { fg = p.text, bg = p.highlight_high },
-    CursorLine { bg = p.overlay },
-    CursorColumn { CursorLine },
-    NonText { fg = p.subtle },
 
     -- diff
     DiffAdd { bg = g.git.add.mix(p.base, 70) },
@@ -200,16 +213,16 @@ return lush(function(injected_functions)
     Removed { DiffDelete },
     Directory { fg = p.river, bold = s.bold },
     EndOfBuffer { NonText },
-    ErrorMsg { fg = g.ui.error, bold = s.bold },
 
     -- folds
     FoldColumn { fg = p.muted },
     Folded { fg = p.text, bg = g.ui.panel },
 
-    MatchParen { bg = p.highlight_med },
-    NvimInternalError { ErrorMsg },
+    -- msg
     ModeMsg { fg = p.subtle },
     MoreMsg { fg = p.blossom },
+    ErrorMsg { bg = g.ui.error, fg = p.base, bold = s.bold },
+    NvimInternalError { ErrorMsg },
 
     -- menu
     Pmenu { fg = p.subtle, bg = g.ui.panel },
