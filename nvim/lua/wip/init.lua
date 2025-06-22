@@ -89,10 +89,8 @@ local hsluv = lush.hsluv
 
 local M = {}
 
--- TODO: signcolumn & linenr use dark1
 -- TODO: fix notify thing
--- TODO: floats use dark1
--- TODO: sidebars (such as trouble) use base
+-- TODO: use more `zenburn` like colors
 local cherry = hsluv(5, 64, 52)
 local petal = hsluv(358, 60, 68)
 local blossom = hsluv(318, 28, 61)
@@ -107,7 +105,7 @@ local surface1 = surface0.li(4)
 local overlay0 = surface1.li(12).mix(cherry, 2)
 local overlay1 = overlay0.li(16)
 local subtext0 = overlay1.li(16).mix(cherry, 2)
-local subtext1 = subtext0.li(32)
+local subtext1 = subtext0.li(24)
 local text = subtext1.li(48)
 
 ---@return wip.Palette
