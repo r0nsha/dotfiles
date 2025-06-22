@@ -10,6 +10,7 @@ return {
         default_color = "#ff0000",
         preserve = true,
         inputs = {
+          ccc.input.hsluv,
           ccc.input.hsl,
           ccc.input.rgb,
           ccc.input.cmyk,

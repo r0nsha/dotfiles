@@ -1,7 +1,7 @@
 ---@alias wip.Color table
 
 --- @class wip.Palette
---- @field base0 wip.Color
+--- @field base wip.Color
 --- @field surface0 wip.Color
 --- @field surface1 wip.Color
 --- @field overlay0 wip.Color
@@ -87,39 +87,29 @@ local hsluv = lush.hsluv
 
 local M = {}
 
--- local cherry0 = hsl(346, 67, 62)
--- local cherry1 = cherry0.li(10).de(10)
--- local cherry2 = cherry1.li(20).de(10)
--- local leaf0 = hsl(170, 35, 50)
--- local branch0 = hsl(35, 82, 70)
--- local water0 = hsl(197, 45, 60)
--- local petal0 = hsl(325, 35, 70)
--- local bg0 = hsl(200, 37, 18)
--- local bg1 = bg0.li(5).mix(cherry0, 8).de(5)
--- local bg2 = bg1.li(15)
--- local bg3 = bg2.li(30).de(30)
--- local bg_1 = bg0.da(50).mix(cherry0, 8).de(5)
--- local fg0 = hsl(350, 30, 90)
-
--- TODO: make accent colors pop more like zenburn
+-- TODO: sort out contrasts
+-- TODO: dark0/dark1 variants
+-- TODO: signcolumn & linenr use dark1
+-- TODO: floats use dark1
+-- TODO: sidebars (such as trouble) use base
 local cherry = hsluv(350, 64, 62)
 local blossom = hsluv(318, 38, 70)
 local petal = hsluv(358, 58, 72)
 local branch = hsluv(26, 52, 64)
 local leaf = hsluv(172, 38, 50)
 local river = hsluv(189, 54, 60)
-local base0 = hsluv(198, 18, 15)
-local surface0 = base0.li(8).mix(cherry, 3)
+local base = hsluv(226, 30, 18)
+local surface0 = base.li(6) --.mix(cherry, 2)
 local surface1 = surface0.li(8)
-local overlay0 = surface1.li(8).mix(cherry, 3)
+local overlay0 = surface1.li(8) --.mix(cherry, 2)
 local overlay1 = overlay0.li(8)
-local subtext0 = overlay1.li(8).mix(cherry, 3)
+local subtext0 = overlay1.li(8) --.mix(cherry, 2)
 local subtext1 = subtext0.li(8)
 local text = subtext1.li(8)
 
 local function low()
   return {
-    base0 = base0,
+    base = base,
     surface0 = surface0,
     surface1 = surface1,
     overlay0 = overlay0,
@@ -225,12 +215,12 @@ function M.setup(config)
     local o = c.opts
 
     if not o.float.bg then
-      g.ui.panel = p.base0
+      g.ui.panel = p.base
     end
 
     local default_highlights = {
-      Normal { fg = p.text, bg = p.base0 },
-      NormalNC { fg = p.text, bg = p.base0 },
+      Normal { fg = p.text, bg = p.base },
+      NormalNC { fg = p.text, bg = p.base },
       LineNr { fg = o.signcolumn.bg and p.subtext1 or p.subtext0, bg = o.signcolumn.bg and p.surface0 },
       SignColumn { fg = p.text, bg = o.signcolumn.bg and p.surface0 },
       Cursor { fg = p.text, bg = p.overlay1 },
@@ -245,15 +235,15 @@ function M.setup(config)
       MatchParen { bg = p.overlay1 },
 
       -- search
-      Search { fg = p.base0, bg = p.branch },
+      Search { fg = p.base, bg = p.branch },
       CurSearch { Search },
       IncSearch { CurSearch },
 
       -- diff
-      DiffAdd { bg = g.git.add.mix(p.base0, 60) },
-      DiffChange { bg = g.git.change.mix(p.base0, 60) },
-      DiffDelete { bg = g.git.delete.mix(p.base0, 60) },
-      DiffText { bg = g.git.text.mix(p.base0, 60) },
+      DiffAdd { bg = g.git.add.mix(p.base, 60) },
+      DiffChange { bg = g.git.change.mix(p.base, 60) },
+      DiffDelete { bg = g.git.delete.mix(p.base, 60) },
+      DiffText { bg = g.git.text.mix(p.base, 60) },
       diffAdded { DiffAdd },
       diffChanged { DiffChange },
       diffRemoved { DiffDelete },
@@ -270,7 +260,7 @@ function M.setup(config)
       -- msg
       ModeMsg { fg = p.subtext1 },
       MoreMsg { fg = p.blossom },
-      ErrorMsg { bg = g.ui.error, fg = p.base0, bold = s.bold },
+      ErrorMsg { bg = g.ui.error, fg = p.base, bold = s.bold },
       WarningMsg { fg = g.ui.warn, bold = s.bold },
       NvimInternalError { ErrorMsg },
 
@@ -294,22 +284,22 @@ function M.setup(config)
       -- statusline
       StatusLine { fg = p.subtext1, bg = p.surface0 },
       StatusLineNC { fg = p.subtext0, bg = p.surface0 },
-      StatusLineTerm { fg = p.base0, bg = p.leaf },
-      StatusLineTermNC { fg = p.base0, bg = p.leaf },
+      StatusLineTerm { fg = p.base, bg = p.leaf },
+      StatusLineTermNC { fg = p.base, bg = p.leaf },
 
       Question { fg = p.cherry },
       QuickFixLine { fg = p.petal },
-      RedrawDebugClear { fg = p.base0, bg = p.leaf },
-      RedrawDebugComposed { fg = p.base0, bg = p.blossom },
-      RedrawDebugRecompose { fg = p.base0, bg = p.petal },
+      RedrawDebugClear { fg = p.base, bg = p.leaf },
+      RedrawDebugComposed { fg = p.base, bg = p.blossom },
+      RedrawDebugRecompose { fg = p.base, bg = p.petal },
       SpecialKey { fg = p.leaf },
       SpellBad { sp = p.subtext1, undercurl = true },
       SpellCap { sp = p.subtext1, undercurl = true },
       SpellLocal { sp = p.subtext1, undercurl = true },
       SpellRare { sp = p.subtext1, undercurl = true },
       Substitute { IncSearch },
-      TabLine { fg = p.subtext1, bg = p.base0 },
-      TabLineFill { bg = p.base0 },
+      TabLine { fg = p.subtext1, bg = p.base },
+      TabLineFill { bg = p.base },
       TabLineSel { fg = p.text, bg = p.surface1, bold = s.bold },
       Title { fg = p.river, bold = s.bold },
       VertSplit { fg = g.ui.border },
@@ -389,7 +379,7 @@ function M.setup(config)
       StorageClass { fg = p.river },
       Structure { fg = p.river },
       Underlined { underline = true },
-      Todo { fg = p.base0, bg = g.ui.todo, bold = s.bold },
+      Todo { fg = p.base, bg = g.ui.todo, bold = s.bold },
 
       -- health
       healthSuccess { fg = g.ui.success },
@@ -398,17 +388,17 @@ function M.setup(config)
 
       -- markdown
       markdownDelimiter { fg = p.subtext1 },
-      markdownH1 { fg = g.heading.h1, bg = p.base0.mix(g.heading.h1, 25) },
+      markdownH1 { fg = g.heading.h1, bg = p.base.mix(g.heading.h1, 25) },
       markdownH1Delimiter { markdownH1 },
-      markdownH2 { fg = g.heading.h2, bg = p.base0.mix(g.heading.h2, 25) },
+      markdownH2 { fg = g.heading.h2, bg = p.base.mix(g.heading.h2, 25) },
       markdownH2Delimiter { markdownH2 },
-      markdownH3 { fg = g.heading.h3, bg = p.base0.mix(g.heading.h3, 25) },
+      markdownH3 { fg = g.heading.h3, bg = p.base.mix(g.heading.h3, 25) },
       markdownH3Delimiter { markdownH3 },
-      markdownH4 { fg = g.heading.h4, bg = p.base0.mix(g.heading.h4, 25) },
+      markdownH4 { fg = g.heading.h4, bg = p.base.mix(g.heading.h4, 25) },
       markdownH4Delimiter { markdownH4 },
-      markdownH5 { fg = g.heading.h5, bg = p.base0.mix(g.heading.h5, 25) },
+      markdownH5 { fg = g.heading.h5, bg = p.base.mix(g.heading.h5, 25) },
       markdownH5Delimiter { markdownH5 },
-      markdownH6 { fg = g.heading.h6, bg = p.base0.mix(g.heading.h6, 25) },
+      markdownH6 { fg = g.heading.h6, bg = p.base.mix(g.heading.h6, 25) },
       markdownH6Delimiter { markdownH6 },
       markdownLinkText { fg = g.ui.link },
       markdownUrl { markdownLinkText },
@@ -504,10 +494,10 @@ function M.setup(config)
 
       sym "@comment.error" { fg = g.ui.error },
       sym "@comment.warning" { fg = g.ui.warn },
-      sym "@comment.todo" { fg = p.base0, bg = g.ui.todo },
-      sym "@comment.hint" { fg = p.base0, bg = g.ui.hint },
-      sym "@comment.info" { fg = p.base0, bg = g.ui.info },
-      sym "@comment.note" { fg = p.base0, bg = g.ui.note },
+      sym "@comment.todo" { fg = p.base, bg = g.ui.todo },
+      sym "@comment.hint" { fg = p.base, bg = g.ui.hint },
+      sym "@comment.info" { fg = p.base, bg = g.ui.info },
+      sym "@comment.note" { fg = p.base, bg = g.ui.note },
 
       -- Markup
       sym "@markup.strong" { bold = s.bold },
@@ -528,7 +518,7 @@ function M.setup(config)
       sym "@markup.link.url" { fg = g.ui.link },
 
       sym "@markup.raw" {},
-      sym "@markup.raw.block" { bg = p.base0 },
+      sym "@markup.raw.block" { bg = p.base },
       sym "@markup.raw.delimiter.markdown" { fg = p.subtext1 },
 
       sym "@markup.list" { fg = p.leaf },
@@ -585,7 +575,7 @@ function M.setup(config)
       -- Plugins
 
       -- jake-stewart/multicursor.nvim
-      MultiCursorCursor = { fg = p.base0, bg = p.cherry },
+      MultiCursorCursor = { fg = p.base, bg = p.cherry },
       MultiCursorDisabledCursor = { Cursor, bg = p.subtext0 },
 
       -- milanglacier/minuet-ai.nvim
@@ -633,9 +623,9 @@ function M.setup(config)
       NeogitDiffAdd { fg = g.git.add },
       NeogitDiffContext { bg = p.surface0 },
       NeogitDiffDelete { fg = g.git.delete },
-      NeogitDiffAddHighlight { bg = g.git.add.mix(p.base0, 75) },
+      NeogitDiffAddHighlight { bg = g.git.add.mix(p.base, 75) },
       NeogitDiffContextHighlight { bg = p.surface0 },
-      NeogitDiffDeleteHighlight { bg = g.git.delete.mix(p.base0, 75) },
+      NeogitDiffDeleteHighlight { bg = g.git.delete.mix(p.base, 75) },
       NeogitDiffAddCursor { DiffAdd },
       NeogitDiffDeleteCursor { DiffDelete },
       NeogitDiffAdditions { NeogitDiffAdd },
@@ -728,7 +718,7 @@ function M.setup(config)
       SnacksPickerMatch { fg = Search.bg, bold = s.bold },
       SnacksIndent { fg = g.ui.indent.dim },
       SnacksIndentScope { fg = g.ui.indent.scope },
-      SnacksBackdrop { fg = p.base0 },
+      SnacksBackdrop { fg = p.base },
 
       -- nvim-neotest/neotest
       NeotestAdapterName { fg = p.petal },
