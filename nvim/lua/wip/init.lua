@@ -87,7 +87,6 @@ local hsluv = lush.hsluv
 
 local M = {}
 
--- TODO: sort out contrasts
 -- TODO: dark0/dark1 variants
 -- TODO: signcolumn & linenr use dark1
 -- TODO: floats use dark1
@@ -98,14 +97,14 @@ local petal = hsluv(358, 58, 72)
 local branch = hsluv(26, 52, 64)
 local leaf = hsluv(172, 38, 50)
 local river = hsluv(189, 54, 60)
-local base = hsluv(226, 30, 18)
-local surface0 = base.li(6) --.mix(cherry, 2)
+local base = hsluv(240, 14, 20)
+local surface0 = base.li(8).mix(cherry, 2)
 local surface1 = surface0.li(8)
-local overlay0 = surface1.li(8) --.mix(cherry, 2)
-local overlay1 = overlay0.li(8)
-local subtext0 = overlay1.li(8) --.mix(cherry, 2)
-local subtext1 = subtext0.li(8)
-local text = subtext1.li(8)
+local overlay0 = surface1.li(16).mix(cherry, 2)
+local overlay1 = overlay0.li(16)
+local subtext0 = overlay1.li(32).mix(cherry, 2)
+local subtext1 = subtext0.li(32)
+local text = subtext1.li(48)
 
 local function low()
   return {
@@ -161,7 +160,6 @@ function M.setup(config)
       ui = {
         border = palette.overlay1,
         panel = palette.surface0,
-
         indent = {
           dim = palette.surface1,
           scope = palette.overlay1,
