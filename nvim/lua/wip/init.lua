@@ -18,18 +18,18 @@ local hsl = lush.hsl
 local cherry = hsl(352, 54, 54)
 local blossom = hsl(262, 34, 66)
 local petal = hsl(358, 55, 80)
-local branch = hsl(24, 58, 67)
+local branch = hsl(26, 52, 64)
 local leaf = hsl(158, 20, 50)
-local river = hsl(189, 38, 63)
-local base = hsl(198, 23, 25)
-local surface = base.li(8).mix(cherry, 2)
+local river = hsl(189, 49, 64)
+local base = hsl(198, 30, 28)
+local surface = base.li(6).mix(cherry, 4)
 local overlay = surface.li(8)
-local highlight_low = overlay.li(4).mix(cherry, 4)
+local highlight_low = overlay.li(6).mix(cherry, 3)
 local highlight_med = highlight_low.li(8)
 local highlight_high = highlight_med.li(12)
 local text = hsl(190, 38, 96)
-local subtle = text.da(40).mix(cherry, 16)
-local muted = subtle.da(40)
+local subtle = text.da(35).mix(cherry, 8)
+local muted = subtle.da(25).mix(cherry, 8)
 
 local palette = {
   base = base,
@@ -181,7 +181,7 @@ return lush(function(injected_functions)
     NormalFloat { bg = g.ui.panel },
     NormalNC { fg = p.text, bg = p.base },
     ColorColumn { bg = p.surface },
-    LineNr { fg = p.subtle, bg = o.signcolumn.bg and p.surface },
+    LineNr { fg = o.signcolumn.bg and p.subtle or p.muted, bg = o.signcolumn.bg and p.surface },
     SignColumn { fg = p.text, bg = o.signcolumn.bg and p.surface },
     Cursor { fg = p.text, bg = p.highlight_high },
     CursorLine { bg = p.surface },
@@ -199,10 +199,10 @@ return lush(function(injected_functions)
     IncSearch { CurSearch },
 
     -- diff
-    DiffAdd { bg = g.git.add.mix(p.base, 70) },
-    DiffChange { bg = g.git.change.mix(p.base, 70) },
-    DiffDelete { bg = g.git.delete.mix(p.base, 70) },
-    DiffText { bg = g.git.text.mix(p.base, 70) },
+    DiffAdd { bg = g.git.add.mix(p.base, 55) },
+    DiffChange { bg = g.git.change.mix(p.base, 55) },
+    DiffDelete { bg = g.git.delete.mix(p.base, 55) },
+    DiffText { bg = g.git.text.mix(p.base, 55) },
     diffAdded { DiffAdd },
     diffChanged { DiffChange },
     diffRemoved { DiffDelete },
@@ -213,8 +213,8 @@ return lush(function(injected_functions)
     EndOfBuffer { NonText },
 
     -- folds
-    FoldColumn { fg = p.muted },
-    Folded { fg = p.text, bg = g.ui.panel },
+    FoldColumn { fg = p.subtle },
+    Folded { fg = p.subtle, bg = surface },
 
     -- msg
     ModeMsg { fg = p.subtle },
@@ -237,20 +237,20 @@ return lush(function(injected_functions)
     FloatBorder { fg = g.ui.border, bg = g.ui.panel },
     FloatTitle { fg = p.river, bg = g.ui.panel, bold = s.bold },
 
-    Question { fg = p.branch },
-    QuickFixLine { fg = p.river },
+    Question { fg = p.petal },
+    QuickFixLine { fg = p.petal },
     RedrawDebugClear { fg = p.base, bg = p.leaf },
     RedrawDebugComposed { fg = p.base, bg = p.blossom },
     RedrawDebugRecompose { fg = p.base, bg = p.petal },
-    SpecialKey { fg = p.river },
+    SpecialKey { fg = p.leaf },
     SpellBad { sp = p.subtle, undercurl = true },
     SpellCap { sp = p.subtle, undercurl = true },
     SpellLocal { sp = p.subtle, undercurl = true },
     SpellRare { sp = p.subtle, undercurl = true },
     StatusLine { fg = p.subtle, bg = g.ui.panel },
     StatusLineNC { fg = p.muted, bg = g.ui.panel },
-    StatusLineTerm { fg = p.base, bg = p.pine },
-    StatusLineTermNC { fg = p.base, bg = p.pine },
+    StatusLineTerm { fg = p.base, bg = p.leaf },
+    StatusLineTermNC { fg = p.base, bg = p.leaf },
     Substitute { IncSearch },
     TabLine { fg = p.subtle, bg = g.ui.panel },
     TabLineFill { bg = g.ui.panel },
@@ -298,7 +298,7 @@ return lush(function(injected_functions)
     -- syntax
     -- Boolean { fg = p.rose },
     -- Character { fg = p.branch },
-    Comment { fg = p.leaf, italic = s.italic },
+    Comment { fg = p.subtle, italic = s.italic },
     -- Conditional { fg = p.pine },
     -- Constant { fg = p.branch },
     -- Debug { fg = p.rose },
@@ -528,6 +528,10 @@ return lush(function(injected_functions)
     -- ["@lsp.typemod.variable.injected"] { @variable },
 
     -- Plugins
+    -- jake-stewart/multicursor.nvim
+    MultiCursorCursor = { fg = p.base, bg = p.cherry },
+    MultiCursorDisabledCursor = { Cursor, bg = p.muted },
+
     -- lewis6991/gitsigns.nvim
     GitSignsAdd { fg = g.git.add },
     GitSignsChange { fg = g.git.change },
@@ -649,7 +653,7 @@ return lush(function(injected_functions)
     -- BlinkCmpKindTabNine { fg = p.river },
 
     -- folke/snacks.nvim
-    SnacksPickerMatch { fg = p.cherry, bold = s.bold },
+    SnacksPickerMatch { fg = Search.bg, bold = s.bold },
 
     -- -- nvim-neotest/neotest
     -- NeotestAdapterName { fg = p.iris },
