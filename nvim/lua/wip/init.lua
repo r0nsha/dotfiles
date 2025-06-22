@@ -15,23 +15,21 @@ local hsl = lush.hsl
 -- local bg_1 = bg0.da(50).mix(cherry0, 8).de(5)
 -- local fg0 = hsl(350, 30, 90)
 
--- local base = hsl(198, 32, 18)
-local base = hsl(198, 20, 26)
-local surface = base.li(8).de(4).ro(2)
-local overlay = surface.li(8)
-local highlight_low = overlay.li(4).de(4).ro(2)
-local highlight_med = highlight_low.li(8)
-local highlight_high = highlight_med.li(12)
-local text = hsl(190, 50, 95)
-local subtle = text.da(25).de(25).ro(10)
-local muted = subtle.da(30).de(25).ro(10)
-local cherry = hsl(346, 74, 68)
+local cherry = hsl(352, 54, 54)
 local blossom = hsl(262, 34, 66)
 local petal = hsl(358, 55, 80)
-local branch = hsl(35, 74, 73)
--- local leaf = hsl(165, 30, 42)
-local leaf = hsl(165, 18, 50)
+local branch = hsl(24, 58, 67)
+local leaf = hsl(158, 20, 50)
 local river = hsl(189, 38, 63)
+local base = hsl(198, 23, 25)
+local surface = base.li(8).mix(cherry, 2)
+local overlay = surface.li(8)
+local highlight_low = overlay.li(4).mix(cherry, 4)
+local highlight_med = highlight_low.li(8)
+local highlight_high = highlight_med.li(12)
+local text = hsl(190, 38, 96)
+local subtle = text.da(40).mix(cherry, 16)
+local muted = subtle.da(40)
 
 local palette = {
   base = base,
@@ -163,7 +161,7 @@ local defaults = {
 ---@type wip.Config
 local config = vim.tbl_deep_extend("force", defaults, {
   opts = {
-    signcolumn = { bg = true },
+    signcolumn = { bg = false },
   },
   styles = { italic = false },
   highlights = { Cursor = { bg = "none" } },
@@ -187,7 +185,7 @@ return lush(function(injected_functions)
     SignColumn { fg = p.text, bg = o.signcolumn.bg and p.surface },
     Cursor { fg = p.text, bg = p.highlight_high },
     CursorLine { bg = p.surface },
-    CursorLineNr { fg = p.text, bg = p.surface, bold = s.bold },
+    CursorLineNr { fg = p.text, bg = o.signcolumn.bg and p.surface, bold = s.bold },
     CursorLineSign { SignColumn },
     CursorColumn { CursorLine },
     Visual { bg = p.overlay },
@@ -196,7 +194,7 @@ return lush(function(injected_functions)
     MatchParen { bg = p.highlight_med },
 
     -- search
-    Search { fg = p.base, bg = p.cherry },
+    Search { fg = p.base, bg = p.branch },
     CurSearch { Search },
     IncSearch { CurSearch },
 
@@ -300,7 +298,7 @@ return lush(function(injected_functions)
     -- syntax
     -- Boolean { fg = p.rose },
     -- Character { fg = p.branch },
-    Comment { fg = p.subtle, italic = s.italic },
+    Comment { fg = p.leaf, italic = s.italic },
     -- Conditional { fg = p.pine },
     -- Constant { fg = p.branch },
     -- Debug { fg = p.rose },
