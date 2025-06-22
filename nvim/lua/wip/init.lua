@@ -90,10 +90,9 @@ local hsluv = lush.hsluv
 
 local M = {}
 
--- TODO: use more `zenburn` like colors
 -- TODO: fix notify thing
 local cherry = hsluv(5, 48, 50)
-local petal = hsluv(354, 42, 68)
+local petal = hsluv(348, 36, 74)
 local blossom = hsluv(318, 24, 60)
 local branch = hsluv(42, 48, 66)
 local leaf = hsluv(160, 44, 60)
