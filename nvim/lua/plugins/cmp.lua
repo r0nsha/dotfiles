@@ -119,6 +119,10 @@ return {
             module = "lazydev.integrations.blink",
             score_offset = 100,
           },
+          lsp = {
+            -- always show `buffers` source
+            fallbacks = {},
+          },
           snippets = {
             enabled = function()
               return not utils.repo_too_large()
