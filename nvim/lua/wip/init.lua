@@ -288,7 +288,7 @@ function M.setup(config)
 
       -- statusline
       StatusLine { fg = p.subtext1, bg = p.surface1 },
-      StatusLineNC { fg = p.subtext0, bg = p.surface1 },
+      StatusLineNC { fg = p.subtext0, bg = p.surface0 },
       StatusLineTerm { fg = p.base, bg = p.blossom },
       StatusLineTermNC { fg = p.base, bg = p.blossom },
 
