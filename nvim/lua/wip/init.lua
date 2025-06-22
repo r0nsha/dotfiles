@@ -90,6 +90,7 @@ local hsluv = lush.hsluv
 
 local M = {}
 
+-- TODO: remove winborder?
 -- TODO: fix notify thing
 local cherry = hsluv(5, 48, 50)
 local petal = hsluv(348, 36, 74)
@@ -98,8 +99,8 @@ local branch = hsluv(42, 48, 66)
 local leaf = hsluv(160, 44, 60)
 local river = hsluv(208, 70, 66)
 local base = hsluv(248, 25, 25)
-local dark1 = base.da(16).de(8)
-local dark0 = dark1.da(16)
+local dark1 = base.da(20).de(8)
+local dark0 = dark1.da(20)
 local surface0 = base.li(4).mix(cherry, 2)
 local surface1 = surface0.li(4)
 local overlay0 = surface1.li(12).mix(cherry, 2)
