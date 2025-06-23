@@ -99,7 +99,7 @@ local function low_contrast()
   local stone = hsluv(100, 14, 80)
   local petal = hsluv(324, 34, 64)
   local branch = hsluv(43, 48, 66)
-  local leaf = hsluv(140, 62, 60)
+  local leaf = hsluv(148, 56, 56)
   local river = hsluv(208, 62, 74)
   local base = hsluv(235, 40, 27)
   local dark1 = base.da(24).de(8).ro(4)
@@ -641,6 +641,8 @@ function M.setup(config)
       NeogitHunkHeader { fg = p.subtext1, bg = p.dark1 },
       NeogitHunkHeaderHighlight { fg = p.text, bg = p.dark1 },
       NeogitHunkHeaderCursor { fg = p.text, bg = p.dark0 },
+      NeogitObjectId { fg = p.text },
+      NeogitSubtleText { fg = p.subtext1 },
 
       -- folke/trouble.nvim
       TroubleNormal { NormalFloat },
