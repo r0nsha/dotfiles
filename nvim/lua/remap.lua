@@ -107,9 +107,4 @@ vim.keymap.set("v", "+", "<c-a>gv=gv", { desc = "Increment" })
 vim.keymap.set("v", "-", "<c-x>gv=gv", { desc = "Decrement" })
 
 -- Show highlight under cursor
-vim.keymap.set(
-  "n",
-  "<leader>i",
-  "<cmd>TSHighlightCapturesUnderCursor<cr>",
-  { desc = "Show highlight captures under cursor" }
-)
+vim.keymap.set("n", "<leader>i", "<cmd>Inspect<cr>", { desc = "Inspect" })

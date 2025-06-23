@@ -45,12 +45,13 @@ vim.opt.concealcursor = ""
 vim.opt.list = true
 vim.opt.listchars = {
   eol = "↲",
-  tab = "» ",
+  tab = "󰧟 ",
   multispace = " ",
   lead = " ",
   trail = " ",
   nbsp = " ",
 }
+vim.opt.fillchars:append { diff = "╱" }
 vim.opt.winborder = "single"
 
 -- wrap

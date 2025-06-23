@@ -96,10 +96,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end, opts "Toggle Inlay Hints")
 
     vim.keymap.set("n", "[d", function()
-      vim.diagnostic.jump { count = -1, float = false }
+      vim.diagnostic.jump { count = -1, float = true }
     end, opts "Previous Diagnostic")
     vim.keymap.set("n", "]d", function()
-      vim.diagnostic.jump { count = 1, float = false }
+      vim.diagnostic.jump { count = 1, float = true }
     end, opts "Next Diagnostic")
   end,
 })

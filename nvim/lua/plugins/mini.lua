@@ -1,8 +1,8 @@
 local version = "*"
 
 return {
-  { "echasnovski/mini.ai", version = version },
-  { "echasnovski/mini.cursorword", version = version },
+  { "echasnovski/mini.ai", version = version, opts = {} },
+  { "echasnovski/mini.cursorword", version = version, opts = {} },
   {
     "echasnovski/mini.jump",
     version = version,
@@ -39,7 +39,7 @@ return {
       snippets.setup {
         snippets = { gen_loader.from_lang() },
         mappings = {
-          expand = "<C-j>",
+          expand = "",
           jump_prev = "<C-h>",
           jump_next = "<C-l>",
           stop = "<C-c>",
