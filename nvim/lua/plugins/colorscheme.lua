@@ -42,6 +42,7 @@ return {
           WhichKeyBorder = { link = "FloatBorder" },
           DapStoppedLine = { link = "DiagnosticVirtualTextError" },
           HydraPink = { fg = group_error },
+          StatusLineNC = { bg = bg },
         },
       }
     end,
