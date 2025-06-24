@@ -18,8 +18,6 @@ return {
       end
 
       return {
-        bg_inactive = hl_color("StatusLineNC", "bg"),
-        bg_active = hl_color("StatusLine", "bg"),
         fg_active = hl_color "Normal",
         fg_inactive = hl_color "NonText",
         green = hl_color "String",
@@ -39,10 +37,6 @@ return {
         git_add = hl_color "GitSignsAdd",
         git_change = hl_color "GitSignsChange",
       }
-    end
-
-    local function active_bg()
-      return cond.is_active() and "bg_active" or "bg_inactive"
     end
 
     local function active_fg()
@@ -414,7 +408,7 @@ return {
       Align,
       Right,
       hl = function()
-        return { bg = active_bg(), fg = active_fg() }
+        return { fg = active_fg() }
       end,
     }
 

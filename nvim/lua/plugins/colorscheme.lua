@@ -8,19 +8,6 @@ vim.api.nvim_create_autocmd("User", {
 
 return {
   {
-    "aktersnurra/no-clown-fiesta.nvim",
-    lazy = false,
-    priority = 1000,
-    config = function()
-      require("no-clown-fiesta").setup {
-        styles = {
-          lsp = { undercurl = true },
-          match_paren = { bold = true },
-        },
-      }
-    end,
-  },
-  {
     "rose-pine/neovim",
     lazy = false,
     priority = 1000,
@@ -28,7 +15,6 @@ return {
       local bg = "#0a0a0a"
 
       local config = require "rose-pine.config"
-
       local group_error = config.options.groups["error"]
 
       require("rose-pine").setup {
@@ -54,7 +40,6 @@ return {
           TroubleNormalNC = { link = "NormalNC" },
           FzfLuaBorder = { bg = "none" },
           WhichKeyBorder = { link = "FloatBorder" },
-          -- DapStoppedLine = { bg = group_error, fg = bg },
           DapStoppedLine = { link = "DiagnosticVirtualTextError" },
           HydraPink = { fg = group_error },
         },
