@@ -5,7 +5,7 @@ return {
     -- provider = "gemini",
     provider = "codestral",
     virtualtext = {
-      auto_trigger_ft = {},
+      auto_trigger_ft = { "*" },
       keymap = {
         accept = "<a-y>",
         accept_line = "<a-l>",
@@ -14,6 +14,9 @@ return {
         next = "<a-n>",
         dismiss = "<a-r>",
       },
+      show_on_completion_menu = true,
     },
+    cmp = { enable_auto_complete = false },
+    blink = { enable_auto_complete = false },
   },
 }
