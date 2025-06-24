@@ -52,30 +52,12 @@ return {
     }
 
     vim.keymap.set("n", "<leader>e", function()
-      oil.open(vim.loop.cwd())
-    end, {
-      desc = "Oil: CWD (VSplit)",
-    })
+      oil.open()
+    end, { desc = "Oil (Parent)" })
 
     vim.keymap.set("n", "<leader>E", function()
-      utils.vsplit()
       oil.open(vim.loop.cwd())
-    end, {
-      desc = "Oil: CWD (VSplit)",
-    })
-
-    vim.keymap.set("n", "<leader>o", function()
-      oil.open()
-    end, {
-      desc = "Oil: Parent Directory (VSplit)",
-    })
-
-    vim.keymap.set("n", "<leader>O", function()
-      utils.vsplit()
-      oil.open()
-    end, {
-      desc = "Oil: Parent Directory (VSplit)",
-    })
+    end, { desc = "Oil (CWD)" })
 
     vim.api.nvim_create_autocmd("User", {
       desc = "Close buffers when files are deleted in Oil",
