@@ -3,6 +3,7 @@ local version = "*"
 return {
   { "echasnovski/mini.ai", version = version, opts = {} },
   { "echasnovski/mini.cursorword", version = version, opts = {} },
+  { "echasnovski/mini.icons", version = version, opts = {} },
   {
     "echasnovski/mini.jump",
     version = version,

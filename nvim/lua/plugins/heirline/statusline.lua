@@ -118,7 +118,10 @@ local FileIcon = {
   init = function(self)
     local filename = self.filename
     local extension = vim.fn.fnamemodify(filename, ":e")
-    self.icon, self.icon_color = require("nvim-web-devicons").get_icon_color(filename, extension, { default = true })
+    local icon, hl = require("mini.icons").get("extension", extension)
+    local hl_data = vim.api.nvim_get_hl(0, { name = hl })
+    self.icon = icon
+    self.icon_color = hl_data and hl_data.fg
   end,
   provider = function(self)
     return self.icon and (self.icon .. " ")
