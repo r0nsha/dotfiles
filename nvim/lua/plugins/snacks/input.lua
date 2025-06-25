@@ -12,6 +12,9 @@ return {
         b = {
           completion = true,
         },
+        wo = {
+          winhighlight = "NormalFloat:SnacksInputNormal,FloatBorder:SnacksInputBorder,FloatTitle:SnacksInputTitle,LineNr:SnacksInputNormal",
+        },
       },
     },
   },

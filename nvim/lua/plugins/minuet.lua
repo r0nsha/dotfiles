@@ -7,7 +7,8 @@ return {
     virtualtext = {
       auto_trigger_ft = { "*" },
       auto_trigger_ignore_ft = {
-        "snacks_*",
+        "snacks_input",
+        "snacks_picker_input",
         "mini_*",
         "lazy",
         "mason",
