@@ -5,8 +5,9 @@ return {
   opts = {
     notifier = {
       width = { min = 40, max = 0.3 },
-      height = { min = 1, max = 0.6 },
+      height = { min = 1, max = 0.4 },
       margin = { top = 0, right = 0, bottom = 1 },
+      padding = false,
       icons = {
         error = icons.error,
         warn = icons.warning,
@@ -21,7 +22,7 @@ return {
         ctx.opts.wo.wrap = true
         ctx.opts.wo.winblend = 0
         local lines = vim.tbl_map(function(l)
-          return l .. "  "
+          return string.format(" %s  ", l)
         end, vim.split(notif.msg, "\n"))
         vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
         vim.api.nvim_buf_set_extmark(buf, ctx.ns, 0, 0, {
