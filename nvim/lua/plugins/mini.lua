@@ -1,9 +1,6 @@
-local version = "*"
-
 return {
   {
     "echasnovski/mini.ai",
-    version = version,
     dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
     config = function()
       local ai = require "mini.ai"
@@ -52,11 +49,10 @@ return {
       }
     end,
   },
-  { "echasnovski/mini.cursorword", version = version, opts = {} },
-  { "echasnovski/mini.icons", version = version, opts = {} },
+  { "echasnovski/mini.cursorword", opts = {} },
+  { "echasnovski/mini.icons", opts = {} },
   {
     "echasnovski/mini.jump",
-    version = version,
     opts = {
       delay = {
         highlight = 250,
@@ -66,7 +62,6 @@ return {
   },
   {
     "echasnovski/mini.move",
-    version = version,
     opts = {
       mappings = {
         left = "H",
@@ -83,7 +78,6 @@ return {
   },
   {
     "echasnovski/mini.snippets",
-    version = version,
     config = function()
       local snippets = require "mini.snippets"
       local gen_loader = snippets.gen_loader
@@ -100,7 +94,6 @@ return {
   },
   {
     "echasnovski/mini.surround",
-    version = version,
     opts = {
       mappings = {
         add = "sa",
