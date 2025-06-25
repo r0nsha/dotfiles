@@ -83,7 +83,7 @@ local Mode = {
   },
   provider = function(self)
     local name = self.hydra_mode or self.mode_names[self.mode]
-    return "%5(" .. name .. "%)"
+    return " %-5(" .. name .. "%)"
   end,
   hl = function(self)
     local hydra_color = hydra and hydra.get_color() or nil
@@ -298,44 +298,43 @@ local Lsp = {
     end,
     update = update_on { "LspAttach", "LspDetach" },
   },
-  Space(3),
+  Space(2),
 }
 
 local function in_visual_mode()
   return vim.api.nvim_get_mode().mode:lower() == "v"
 end
 
-local Ruler = {
-  condition = cond.is_active,
-  { provider = "%7(%l/%-3L%)" },
-  {
-    provider = function()
-      if not in_visual_mode() then
-        return " [col %2c]"
-      end
+local Selection = {
+  provider = function()
+    if not in_visual_mode() then
+      return nil
+    end
 
-      local start_line = vim.fn.line "v"
-      local end_line = vim.fn.line "."
-      local lines = math.abs(end_line - start_line) + 1
-      local cols = vim.fn.wordcount().visual_chars
+    local start_line = vim.fn.line "v"
+    local end_line = vim.fn.line "."
+    local lines = math.abs(end_line - start_line) + 1
+    local cols = vim.fn.wordcount().visual_chars
 
-      return string.format(" [sel %2d,%2d]", lines, cols)
-    end,
-  },
-  hl = function(_)
-    return { fg = in_visual_mode() and "blue" or active_fg() }
+    local format = string.format("%2d,%2d sel", lines, cols)
+    return "%8(" .. format .. "%)"
   end,
 }
 
--- local Time = {
---   provider = function()
---     return icons.clock .. " " .. os.date "%H:%M"
---   end,
--- }
+local Position = { provider = "%-8(%l:%c%)" }
+local Percent = { provider = "%3(%P%)" }
+
+local Ruler = {
+  condition = cond.is_active,
+  Selection,
+  Space(2),
+  Position,
+  Percent,
+}
 
 local Left = {
   Mode,
-  Space(2),
+  Space(1),
   FileBlock,
   Space(1),
   Git,
@@ -347,8 +346,7 @@ local Right = {
   Space(1),
   Lsp,
   Ruler,
-  -- Space(1),
-  -- Time,
+  Space(1),
 }
 
 local disable_for = {
