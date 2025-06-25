@@ -131,21 +131,19 @@ local FileIcon = {
   end,
 }
 
-local noname = "[No Name]"
-
 local FileName = {
   provider = function(self)
     local filename = vim.fn.fnamemodify(self.filename, ":.")
     if filename == "" then
-      return noname
+      return "[No Name]"
     end
     if not cond.width_percent_below(#filename, 0.5) then
       filename = vim.fn.pathshorten(filename)
     end
     return filename
   end,
-  hl = function()
-    return { fg = noname and "gray" or active_fg() }
+  hl = function(self)
+    return { fg = self.filename == "" and "gray" or active_fg() }
   end,
 }
 
