@@ -7,6 +7,7 @@ require "pass"
 require "toggle-checkbox"
 require "ai"
 require "utils/string"
+require "input"
 
 -- load .env, if it exists
 require("dotenv").eval(vim.fs.joinpath(vim.fn.stdpath "config", ".env"))
