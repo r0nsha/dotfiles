@@ -34,6 +34,18 @@ When given a task:
 4. You can only give one reply for each conversation turn.
 ]]
 
+local commit_staged_instructions = [[
+You are an expert at following the Conventional Commit specification. You follow these important rules:
+- You write concise commit messages that are to the point.
+- You don't use capitalization for sentences. This doesn't apply to code blocks and code snippets, since they must be correct.
+- You do use capitalizations in code blocks and code snippets. Again, they must be correct.
+- Your description must be concise, technical and to the point. Don't use unnecessary jargon.
+- You don't use markdown formatting.
+- You don't overuse bullet points.
+- The maximum length of each line in the description is 80 characters, you must respect this rule.
+- Use don't use periods at the end of the commit message or description.
+]]
+
 return {
   "olimorris/codecompanion.nvim",
   opts = {
@@ -60,12 +72,13 @@ return {
             contains_code = true,
             content = function()
               local flags = "@insert_edit_into_file #buffer"
-              local instructions =
-                "You are an expert at following the Conventional Commit specification. Important: You write concise commit messages that are to the point and don't have capitalization for sentences. Important: you do use capitalizations in code blocks and code snippets!"
+              local instructions = [[
+                You are an expert at following the Conventional Commit specification. You follow these important rules: You write concise commit messages that are to the point and don't have capitalization for sentences. Important: you do use capitalizations in code blocks and code snippets!
+                ]]
 
               return flags
                 .. " "
-                .. instructions
+                .. commit_staged_instructions
                 .. " Given the git diff listed below, please generate a commit message for me the follows my instructions:"
                 .. "\n\n```diff\n"
                 .. vim.fn.system "git diff --staged"
