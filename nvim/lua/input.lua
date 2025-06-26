@@ -16,7 +16,7 @@ local default_prompt = "Input: "
 local defaults = {
   prompt = default_prompt,
   default = "",
-  padding = 10,
+  padding = 20,
   max_width = 50,
   max_height = 8,
   win = {
@@ -24,7 +24,7 @@ local defaults = {
     style = "minimal",
     focusable = true,
     relative = "cursor",
-    col = 0,
+    col = -1,
     height = 1,
   },
 }
