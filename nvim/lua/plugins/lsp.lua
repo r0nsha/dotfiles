@@ -2,12 +2,7 @@ return {
   "neovim/nvim-lspconfig",
   dependencies = {
     "williamboman/mason.nvim",
-    {
-      "WhoIsSethDaniel/mason-tool-installer.nvim",
-      build = function()
-        pcall(vim.cmd, "MasonToolsUpdate")
-      end,
-    },
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
     "stevearc/conform.nvim",
     "saghen/blink.cmp",
     "b0o/schemastore.nvim",
