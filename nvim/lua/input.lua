@@ -1,4 +1,4 @@
----@class input.Config
+---@class wrapinput.Config
 ---@field prompt string
 ---@field default string
 ---@field padding integer
@@ -12,7 +12,7 @@ local augroup = vim.api.nvim_create_augroup("WrapInput", { clear = true })
 
 local default_prompt = "Input: "
 
----@type input.Config
+---@type wrapinput.Config
 local defaults = {
   prompt = default_prompt,
   default = "",
@@ -94,7 +94,7 @@ end
 
 ---@param winnr integer
 ---@param bufnr integer
----@param config input.Config
+---@param config wrapinput.Config
 local function resize(winnr, bufnr, config)
   local line = vim.api.nvim_buf_get_lines(bufnr, 0, 1, false)[1]
 
@@ -122,7 +122,7 @@ end
 
 ---@param winnr integer
 ---@param bufnr integer
----@param config input.Config
+---@param config wrapinput.Config
 local function setup_autocmds(winnr, bufnr, config)
   vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI" }, {
     group = augroup,
@@ -166,7 +166,7 @@ local function setup_mappings(winnr, bufnr, on_confirm)
   map("n", "q", close)
 end
 
----@param config input.Config
+---@param config wrapinput.Config
 ---@param on_confirm fun(input: string?)
 function M.input(config, on_confirm)
   config = vim.tbl_deep_extend("force", defaults, config, { win = { title = config.prompt } })
