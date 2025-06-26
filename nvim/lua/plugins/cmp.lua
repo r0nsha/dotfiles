@@ -159,6 +159,7 @@ return {
         },
       },
       cmdline = {
+        keymap = { preset = "cmdline" },
         completion = {
           ghost_text = { enabled = true },
           list = {
