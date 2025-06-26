@@ -17,7 +17,7 @@ local defaults = {
   prompt = default_prompt,
   default = "",
   padding = 10,
-  max_width = 20,
+  max_width = 50,
   max_height = 8,
   win = {
     title = default_prompt,
@@ -40,20 +40,15 @@ local function get_relative_win_config()
   end
 end
 
----@param line string
----@param config input.Config
----@return string[], integer[]
-local function split_line_by_max_width(line, config)
-  local lines = {}
-  local lens = {}
-  local i = 1
-  while i <= #line do
-    local sub = line:sub(i, i + config.max_width)
-    table.insert(lines, sub)
-    table.insert(lens, #sub)
-    i = i + config.max_width
+---@param s string
+---@param len integer
+---@return string[]
+local function split_string_by_len(s, len)
+  local subs = {}
+  for i = 1, #s, len do
+    table.insert(subs, s:sub(i, i + len - 1))
   end
-  return lines, lens
+  return subs
 end
 
 ---@param winnr integer
@@ -72,7 +67,10 @@ local function setup_autocmds(winnr, bufnr, config)
         return
       end
 
-      local lines, lens = split_line_by_max_width(line, config)
+      local lines = split_string_by_len(line, config.max_width)
+      local lens = vim.tbl_map(function(l)
+        return vim.fn.strdisplaywidth(l)
+      end, lines)
 
       local width = math.max(unpack(lens)) + config.padding
       width = width > config.max_width and config.max_width or width
@@ -101,10 +99,17 @@ function M.input(config, on_confirm)
 
   on_confirm = on_confirm or function() end
 
-  -- Create floating window.
+  -- Create buffer and floating window.
   local bufnr = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_set_option_value("buftype", "prompt", { buf = bufnr })
+  vim.api.nvim_set_option_value("bufhidden", "wipe", { buf = bufnr })
+  vim.fn.prompt_setprompt(bufnr, "")
+
   local winnr = vim.api.nvim_open_win(bufnr, true, config.win)
-  -- vim.api.nvim_set_option_value("wrap", true, { win = winnr })
+  vim.api.nvim_set_option_value("wrap", true, { win = winnr })
+  vim.api.nvim_set_option_value("linebreak", true, { win = winnr })
+
+  -- Write default value
   vim.api.nvim_buf_set_text(bufnr, 0, 0, 0, 0, { config.default })
 
   -- Put cursor at the end of the default value

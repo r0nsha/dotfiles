@@ -120,8 +120,11 @@ return {
             score_offset = 100,
           },
           lsp = {
-            -- always show `buffers` source
+            -- always show `buffer` source
             fallbacks = {},
+          },
+          buffer = {
+            score_offset = -100,
           },
           snippets = {
             enabled = function()
