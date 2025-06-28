@@ -123,9 +123,6 @@ return {
             -- always show `buffer` source
             fallbacks = {},
           },
-          buffer = {
-            score_offset = -100,
-          },
           snippets = {
             enabled = function()
               return not utils.repo_too_large()
