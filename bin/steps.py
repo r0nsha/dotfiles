@@ -223,5 +223,8 @@ def do_shell(_env: Env):
     if fish_bin is None:
         raise ValueError("fish is not installed, this is a bug in the install script")
 
+    if os.environ.get("SHELL") == fish_bin:
+        return
+
     _ = command("sudo tee -a /etc/shells", input=f"{fish_bin}\n")
     _ = command(f"sudo chsh -s {fish_bin}")
