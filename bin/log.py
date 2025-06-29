@@ -17,7 +17,7 @@ def _log_message(
     message: str,
     stream: TextIO = sys.stdout,
 ):
-    formatted_message = f"{color_code}{prefix} {message}{Color.Reset}"
+    formatted_message = f"{color_code.value}{prefix} {message}{Color.Reset.value}"
     print(formatted_message, file=stream)
 
 
