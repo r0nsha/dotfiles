@@ -55,6 +55,6 @@ return {
     { "<leader>at", ":CodeCompanion /tests<cr>", mode = { "n", "v" }, desc = "CodeCompanion: Generate Tests" },
     { "<leader>al", ":CodeCompanion /lsp<cr>", mode = { "n", "v" }, desc = "CodeCompanion: LSP" },
     { "<leader>aA", ":CodeCompanionActions<cr>", mode = { "n" }, desc = "CodeCompanion: Actions" },
-    { "<a-a>", ":CodeCompanionChat Add<cr>", mode = { "v" }, desc = "CodeCompanion: Add Context" },
+    { "<a-l>", ":CodeCompanionChat Add<cr>", mode = { "v" }, desc = "CodeCompanion: Add Context" },
   },
 }
