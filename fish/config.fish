@@ -57,6 +57,10 @@ if status is-interactive
         starship init fish | source
         enable_transience
     end
+
+    if binary_exists navi
+        navi widget fish | source
+    end
 end
 
 bind ctrl-r _search_history --mode insert

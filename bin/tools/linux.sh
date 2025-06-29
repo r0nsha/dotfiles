@@ -126,6 +126,12 @@ install_deno() {
 	npm install -g deno
 }
 
+install_navi() {
+	curl -sL https://raw.githubusercontent.com/denisidoro/navi/master/scripts/install | bash
+	navi repo add denisidoro/cheats
+	navi repo add denisidoro/navi-tldr-pages
+}
+
 # apt deps
 install_deps
 echo ""
