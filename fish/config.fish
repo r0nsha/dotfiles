@@ -61,6 +61,8 @@ if status is-interactive
     if binary_exists navi
         navi widget fish | source
     end
-end
 
-bind ctrl-r _search_history --mode insert
+    if binary_exists atuin
+        atuin init fish | source
+    end
+end

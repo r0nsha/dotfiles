@@ -46,6 +46,7 @@ install_deps() {
 		n
 		deno
 		navi
+		atuin
 	)
 
 	for dep in ${deps[@]}; do

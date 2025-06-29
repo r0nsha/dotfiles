@@ -69,14 +69,6 @@ install_fd() {
 	ln -s $(which fdfind) $HOME/.local/bin/fd
 }
 
-install_sk() {
-	cargo install skim --locked
-}
-
-install_bat() {
-	cargo install bat --locked
-}
-
 install_n() {
 	export N_PREFIX=$HOME/.n
 	export PATH=$N_PREFIX/bin:$PATH
@@ -118,10 +110,6 @@ install_luarocks() {
 	sudo make install
 }
 
-install_yazi() {
-	cargo install yazi --locked
-}
-
 install_deno() {
 	npm install -g deno
 }
@@ -130,6 +118,10 @@ install_navi() {
 	curl -sL https://raw.githubusercontent.com/denisidoro/navi/master/scripts/install | bash
 	navi repo add denisidoro/cheats
 	navi repo add denisidoro/navi-tldr-pages
+}
+
+install_cargo_deps() {
+	cargo install bat skim yazi-fm yazi-cli atuin --locked
 }
 
 # apt deps
@@ -145,9 +137,12 @@ install_wrapper deno install_deno
 install_wrapper eza install_eza
 install_wrapper fdfind install_fd
 install_wrapper luarocks install_luarocks
+install_wrapper navi install_navi
 
 # things that i currently install through cargo
 install_wrapper rustup install_rustup
 install_wrapper bat install_bat
 install_wrapper sk install_sk
 install_wrapper yazi install_yazi
+install_wrapper atuin install_atuin
+install_cargo_deps

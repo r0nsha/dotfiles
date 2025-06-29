@@ -113,15 +113,6 @@ function show_colors
     echo
 end
 
-function _search_history
-    printf '\e7'
-    set -l selected_command (history | mysk --reverse --tac --no-sort)
-    printf '\e8'
-    if test -n "$selected_command"
-        commandline -- $selected_command
-    end
-end
-
 function zellij_select_dir
     if test (count $argv) -eq 1
         set selected $argv[1]
