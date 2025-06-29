@@ -122,10 +122,6 @@ install_yazi() {
 	cargo install yazi --locked
 }
 
-install_just() {
-	cargo install just --locked
-}
-
 install_deno() {
 	npm install -g deno
 }
@@ -147,6 +143,5 @@ install_wrapper luarocks install_luarocks
 # things that i currently install through cargo
 install_wrapper rustup install_rustup
 install_wrapper bat install_bat
-install_wrapper just install_just
 install_wrapper sk install_sk
 install_wrapper yazi install_yazi

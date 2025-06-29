@@ -43,7 +43,6 @@ install_deps() {
 		rustup
 		yazi
 		bat
-		just
 		n
 		deno
 	)
