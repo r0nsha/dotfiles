@@ -62,7 +62,7 @@ alias glco 'git branch | sk | xargs -I % git log %..origin/HEAD --oneline --deco
 
 alias gp "git push -u 2>&1 | tee >(cat) | grep \"pull/new\" | awk '{print \$2}' | xargs open"
 
-alias gg 'git branch | sk | xargs git checkout'
+alias gg 'git branch | sk | xargs git switch'
 alias gup 'git branch --set-upstream-to=origin/(git-current-branch) (git-current-branch)'
 
 # PYTHON ALIASES --------------------------------------------------------------
