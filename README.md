@@ -5,7 +5,7 @@
 ```
 git clone <this-repo>
 cd <this-repo>
-./bin/install.sh
+make install
 ```
 
 ## Local Fish Config
