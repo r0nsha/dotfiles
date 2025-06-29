@@ -6,7 +6,7 @@ from pathlib import Path
 
 class Os(Enum):
     Linux = "linux"
-    MacOS = "macos"
+    Darwin = "darwin"
 
     @staticmethod
     def from_string(os_str: str):

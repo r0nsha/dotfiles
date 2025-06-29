@@ -10,7 +10,7 @@ def install_tools(env: Env):
                 f"bash {env.dirs.dotfiles}/bin/tools/linux.sh", capture_output=False
             )
             # linux.install(env)
-        case Os.MacOS:
+        case Os.Darwin:
             _ = command(
                 f"bash {env.dirs.dotfiles}/bin/tools/macos.sh", capture_output=False
             )

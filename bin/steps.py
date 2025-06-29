@@ -165,7 +165,7 @@ def do_fonts(env: Env):
     match env.os:
         case Os.Linux:
             fonts_dir = env.dirs.local_share / "fonts"
-        case Os.MacOS:
+        case Os.Darwin:
             fonts_dir = Path("/Library/Fonts")
 
     os.makedirs(fonts_dir, exist_ok=True)
