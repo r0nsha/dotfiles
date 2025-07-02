@@ -45,7 +45,6 @@ install_deps() {
 		bat
 		n
 		deno
-		navi
 		atuin
 	)
 
@@ -63,13 +62,7 @@ install_nvim() {
 	ln -sf $DOWNLOADS/nvim-macos/bin/nvim $HOME/.local/bin/nvim
 }
 
-install_navi() {
-	navi repo add denisidoro/cheats
-	navi repo add denisidoro/navi-tldr-pages
-}
-
 install_wrapper brew install_brew
 install_deps
 echo ""
 install_wrapper nvim install_nvim
-install_wrapper navi install_navi

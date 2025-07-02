@@ -49,10 +49,6 @@ if status is-interactive
         enable_transience
     end
 
-    if binary_exists navi
-        navi widget fish | source
-    end
-
     if binary_exists atuin
         atuin init fish | source
     end

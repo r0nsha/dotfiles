@@ -114,12 +114,6 @@ install_deno() {
 	npm install -g deno
 }
 
-install_navi() {
-	curl -sL https://raw.githubusercontent.com/denisidoro/navi/master/scripts/install | bash
-	navi repo add denisidoro/cheats
-	navi repo add denisidoro/navi-tldr-pages
-}
-
 install_cargo_deps() {
 	cargo install bat skim yazi-fm yazi-cli atuin --locked
 }
@@ -137,7 +131,6 @@ install_wrapper deno install_deno
 install_wrapper eza install_eza
 install_wrapper fdfind install_fd
 install_wrapper luarocks install_luarocks
-install_wrapper navi install_navi
 
 # things that i currently install through cargo
 install_wrapper rustup install_rustup
