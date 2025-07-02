@@ -5,8 +5,6 @@ vim.g.maplocalleader = ","
 -- Unmap leader key
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { remap = false })
 
-vim.keymap.set("n", "<bar>", "<cmd>vsplit<cr>", { desc = "Split window vertically" })
-
 vim.keymap.set({ "n", "v" }, "<leader>y", '"+y', { remap = false, desc = "Yank to clipboard" })
 vim.keymap.set("n", "<leader>Y", '"+Y', { remap = false, desc = "Yank line to clipboard" })
 vim.keymap.set("n", "<leader>p", '"+p', { remap = false, desc = "Paste from clipboard" })
@@ -108,3 +106,6 @@ vim.keymap.set("v", "-", "<c-x>gv=gv", { desc = "Decrement" })
 
 -- Show highlight under cursor
 vim.keymap.set("n", "<leader>i", "<cmd>Inspect<cr>", { desc = "Inspect" })
+
+-- Select entire buffer
+vim.keymap.set("v", "v", "<esc>ggVG", { desc = "Select all" })
