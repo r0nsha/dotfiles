@@ -48,7 +48,7 @@ return {
         list = {
           selection = {
             preselect = true,
-            auto_insert = false,
+            auto_insert = true,
           },
         },
         menu = {
@@ -58,7 +58,10 @@ return {
           draw = {
             -- We don't need label_description now because label and label_description are already
             -- combined together in label by colorful-menu.nvim.
-            columns = { { "kind_icon" }, { "label", gap = 1 } },
+            columns = {
+              { "kind_icon" },
+              { "label", gap = 1 },
+            },
             components = {
               label = {
                 text = function(ctx)
@@ -91,7 +94,7 @@ return {
       keymap = {
         preset = "none",
         ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
-        ["<C-e>"] = { "hide" },
+        ["<C-c>"] = { "cancel", "fallback_to_mappings" },
         ["<C-y>"] = { "select_and_accept" },
 
         ["<C-p>"] = keymaps.prev,
@@ -110,7 +113,7 @@ return {
         preset = "mini_snippets",
       },
       sources = {
-        default = { "lazydev", "lsp", "snippets", "git", "path", "buffer" },
+        default = { "lazydev", "lsp", "snippets", "path", "buffer", "git" },
         per_filetype = {
           codecompanion = { "codecompanion" },
         },
