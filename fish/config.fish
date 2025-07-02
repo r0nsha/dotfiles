@@ -49,7 +49,12 @@ if status is-interactive
         enable_transience
     end
 
-    if binary_exists atuin
-        atuin init fish | source
+    if binary_exists mcfly
+        set -gx MCFLY_KEY_SCHEME vim
+        set -gx MCFLY_FUZZY 2
+        set -gx MCFLY_INTERFACE_VIEW TOP
+        set -gx MCFLY_DISABLE_MENU TRUE
+        set -gx MCFLY_PROMPT ">"
+        mcfly init fish | source
     end
 end

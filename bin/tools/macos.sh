@@ -45,7 +45,6 @@ install_deps() {
 		bat
 		n
 		deno
-		atuin
 	)
 
 	for dep in ${deps[@]}; do

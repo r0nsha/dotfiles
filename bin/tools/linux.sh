@@ -115,7 +115,7 @@ install_deno() {
 }
 
 install_cargo_deps() {
-	cargo install bat skim yazi-fm yazi-cli atuin --locked
+	cargo install bat skim yazi-fm yazi-cli mcfly --locked
 }
 
 # apt deps
@@ -137,5 +137,4 @@ install_wrapper rustup install_rustup
 install_wrapper bat install_bat
 install_wrapper sk install_sk
 install_wrapper yazi install_yazi
-install_wrapper atuin install_atuin
 install_cargo_deps
