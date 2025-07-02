@@ -5,7 +5,7 @@ return {
     -- provider = "gemini",
     provider = "codestral",
     throttle = 1000,
-    debounce = 1000,
+    debounce = 400,
     virtualtext = {
       auto_trigger_ft = { "*" },
       auto_trigger_ignore_ft = {
