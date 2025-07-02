@@ -10,22 +10,22 @@ local function parse_env_file(filepath)
   -- Read file line by line
   for line in file:lines() do
     -- Skip empty lines and comments
-    if line:match "^%s*[^#]" then
+    if line:match("^%s*[^#]") then
       -- Remove leading/trailing whitespace
-      line = line:match "^%s*(.-)%s*$"
+      line = line:match("^%s*(.-)%s*$")
 
       -- Remove optional "export" keyword
       line = line:gsub("^export%s+", "")
 
       -- Find the first equals sign
-      local pos = line:find "="
+      local pos = line:find("=")
 
       if pos then
-        local key = line:sub(1, pos - 1):match "^%s*(.-)%s*$"
-        local value = line:sub(pos + 1):match "^%s*(.-)%s*$"
+        local key = line:sub(1, pos - 1):match("^%s*(.-)%s*$")
+        local value = line:sub(pos + 1):match("^%s*(.-)%s*$")
 
         -- Remove quotes if they exist
-        if value:match '^".*"$' or value:match "^'.*'$" then
+        if value:match('^".*"$') or value:match("^'.*'$") then
           value = value:sub(2, -2)
         end
 

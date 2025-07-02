@@ -22,7 +22,7 @@ local M = {
     picker = {
       prompt = " ",
       layout = function()
-        local layouts = require "snacks.picker.config.layouts"
+        local layouts = require("snacks.picker.config.layouts")
         local ivy = override_layout_wo(layouts.ivy)
         local ivy_split = override_layout_wo(layouts.ivy_split)
 
@@ -195,7 +195,7 @@ local M = {
 }
 
 ---@type snacks.layout.Box
-M.ivy_cursor = override_layout_wo {
+M.ivy_cursor = override_layout_wo({
   layout = {
     box = "vertical",
     backdrop = false,
@@ -215,6 +215,6 @@ M.ivy_cursor = override_layout_wo {
       border = "bottom",
     },
   },
-}
+})
 
 return M

@@ -5,10 +5,10 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   group = augroup,
   pattern = "*",
   callback = function()
-    vim.highlight.on_yank {
+    vim.highlight.on_yank({
       higroup = "IncSearch",
       timeout = 40,
-    }
+    })
   end,
 })
 
@@ -29,24 +29,24 @@ vim.api.nvim_create_autocmd("BufWritePost", {
   group = augroup,
   pattern = "*/kitty/kitty.conf",
   callback = function()
-    local Job = require "plenary.job"
-    local utils = require "utils"
+    local Job = require("plenary.job")
+    local utils = require("utils")
 
     local pgrep = utils.is_macos() and "pgrep -a kitty" or "pgrep kitty"
 
-    local reload_kitty_cfg = Job:new {
+    local reload_kitty_cfg = Job:new({
       command = "fish",
       args = { "-c", "kill -SIGUSR1 (" .. pgrep .. ")" },
-    }
+    })
 
     local notify = vim.schedule_wrap(vim.notify)
 
     reload_kitty_cfg:after_success(function()
-      notify "Reloaded kitty.conf"
+      notify("Reloaded kitty.conf")
     end)
 
     reload_kitty_cfg:after_failure(function()
-      notify "Failed to reload kitty.conf"
+      notify("Failed to reload kitty.conf")
     end)
 
     reload_kitty_cfg:start()
@@ -59,7 +59,7 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
   pattern = "*",
   callback = function()
     -- Don't have `o` add a comment
-    vim.opt.formatoptions:remove "o"
+    vim.opt.formatoptions:remove("o")
   end,
 })
 
@@ -79,7 +79,7 @@ vim.api.nvim_create_autocmd("CursorMoved", {
 vim.api.nvim_create_autocmd("VimResized", {
   group = augroup,
   callback = function()
-    vim.cmd "tabdo wincmd ="
+    vim.cmd("tabdo wincmd =")
   end,
 })
 
@@ -87,8 +87,8 @@ vim.api.nvim_create_autocmd("VimResized", {
 vim.api.nvim_create_autocmd("BufWritePre", {
   group = augroup,
   callback = function()
-    local dir = vim.fn.expand "<afile>:p:h"
-    if vim.fn.isdirectory(dir) == 0 and not dir:startswith "oil:/" then
+    local dir = vim.fn.expand("<afile>:p:h")
+    if vim.fn.isdirectory(dir) == 0 and not dir:startswith("oil:/") then
       vim.fn.mkdir(dir, "p")
     end
   end,

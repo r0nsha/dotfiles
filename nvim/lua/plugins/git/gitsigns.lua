@@ -1,10 +1,10 @@
 return {
   "lewis6991/gitsigns.nvim",
   config = function()
-    local utils = require "utils"
-    local gs = require "gitsigns"
+    local utils = require("utils")
+    local gs = require("gitsigns")
 
-    gs.setup {
+    gs.setup({
       -- signs = {
       --   add = { text = "▎" },
       --   change = { text = "▎" },
@@ -36,7 +36,7 @@ return {
 
         map("n", "[h", function()
           if vim.wo.diff then
-            vim.cmd.normal { "[c", bang = true }
+            vim.cmd.normal({ "[c", bang = true })
           else
             gs.nav_hunk("prev", { preview = true })
           end
@@ -44,17 +44,17 @@ return {
 
         map("n", "]h", function()
           if vim.wo.diff then
-            vim.cmd.normal { "]c", bang = true }
+            vim.cmd.normal({ "]c", bang = true })
           else
             gs.nav_hunk("next", { preview = true })
           end
         end, "Git: Next Hunk")
 
         map("n", "[H", function()
-          gs.nav_hunk "first"
+          gs.nav_hunk("first")
         end, "Git: First Hunk")
         map("n", "]H", function()
-          gs.nav_hunk "last"
+          gs.nav_hunk("last")
         end, "Git: Last Hunk")
 
         map("n", "<leader>gp", gs.preview_hunk_inline, "Git: Preview Hunk")
@@ -64,7 +64,7 @@ return {
         end, "Git: Blame Line")
 
         map("n", "<leader>gB", function()
-          gs.blame_line { full = true }
+          gs.blame_line({ full = true })
         end, "Git: Blame Line (Full)")
 
         map("n", "<leader>gdw", function()
@@ -75,6 +75,6 @@ return {
           gs.detach(bufnr)
         end
       end,
-    }
+    })
   end,
 }

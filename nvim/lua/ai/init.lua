@@ -1,5 +1,5 @@
-local notify = require "ai.notify"
-local spinner = require "ai.spinner"
+local notify = require("ai.notify")
+local spinner = require("ai.spinner")
 
 local state = { autocompletions = 0, prompts = 0 }
 

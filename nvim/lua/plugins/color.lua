@@ -3,10 +3,10 @@ return {
     "uga-rosa/ccc.nvim",
     event = "VeryLazy",
     config = function()
-      local ccc = require "ccc"
+      local ccc = require("ccc")
       local mapping = ccc.mapping
 
-      ccc.setup {
+      ccc.setup({
         default_color = "#ff0000",
         preserve = true,
         inputs = {
@@ -30,7 +30,7 @@ return {
           ["L"] = mapping.increase10,
         },
         highlight_mode = "bg",
-      }
+      })
 
       vim.keymap.set("n", "<leader>cp", "<cmd>CccPick<cr>", { desc = "Pick Color" })
 

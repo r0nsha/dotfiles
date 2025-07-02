@@ -1,5 +1,5 @@
-local utils = require "utils"
-local undodir = vim.fn.expand "~/.vim/undodir"
+local utils = require("utils")
+local undodir = vim.fn.expand("~/.vim/undodir")
 
 -- basic
 vim.opt.number = true
@@ -51,7 +51,7 @@ vim.opt.listchars = {
   trail = " ",
   nbsp = " ",
 }
-vim.opt.fillchars:append { diff = "╱" }
+vim.opt.fillchars:append({ diff = "╱" })
 vim.opt.winborder = "single"
 
 -- wrap
@@ -67,7 +67,7 @@ vim.opt.title = true
 vim.opt.titlestring = '%t%( %M%)%( (%{expand("%:~:h")})%)%a (nvim)'
 
 -- files
-vim.opt.isfname:append "@-@"
+vim.opt.isfname:append("@-@")
 vim.opt.backup = false
 vim.opt.writebackup = false
 vim.opt.swapfile = false
@@ -83,15 +83,15 @@ vim.opt.autowrite = false
 -- vim.opt.fixeol = false
 
 -- filetypes
-vim.filetype.add { extension = { ll = "llvm" } }
+vim.filetype.add({ extension = { ll = "llvm" } })
 
 -- behavior
 vim.opt.hidden = true
 vim.opt.errorbells = false
 vim.opt.backspace = { "indent", "start", "eol" }
 vim.opt.autochdir = false
-vim.opt.iskeyword:append "-"
-vim.opt.path:append "**"
+vim.opt.iskeyword:append("-")
+vim.opt.path:append("**")
 vim.opt.modifiable = true
 vim.opt.encoding = "utf-8"
 vim.opt.more = false
@@ -106,7 +106,7 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 
 -- disable startup message
-vim.opt.shortmess:append { I = true }
+vim.opt.shortmess:append({ I = true })
 
 -- mouse
 vim.opt.mouse = "a"
@@ -123,7 +123,7 @@ end
 
 -- windows specific options
 if utils.is_windows() then
-  vim.opt.shell = vim.fn.executable "powershell" and "powershell" or "pwsh"
+  vim.opt.shell = vim.fn.executable("powershell") and "powershell" or "pwsh"
   vim.opt.shellcmdflag =
     "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
   vim.opt.shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait"

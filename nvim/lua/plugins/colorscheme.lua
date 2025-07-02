@@ -14,10 +14,10 @@ return {
     config = function()
       local bg = "#0a0a0a"
 
-      local config = require "rose-pine.config"
+      local config = require("rose-pine.config")
       local group_error = config.options.groups["error"]
 
-      require("rose-pine").setup {
+      require("rose-pine").setup({
         transparent = false,
         styles = {
           bold = true,
@@ -44,7 +44,7 @@ return {
           HydraPink = { fg = group_error },
           StatusLineNC = { bg = bg },
         },
-      }
+      })
     end,
   },
   {
@@ -52,9 +52,9 @@ return {
     lazy = false,
     priority = 1000,
     config = function()
-      local kanagawa = require "kanagawa"
+      local kanagawa = require("kanagawa")
 
-      kanagawa.setup {
+      kanagawa.setup({
         compile = false,
         undercurl = true,
         commentStyle = { italic = false },
@@ -106,7 +106,7 @@ return {
           dark = "dragon",
           light = "lotus",
         },
-      }
+      })
     end,
   },
 }

@@ -1,8 +1,8 @@
-local dap = require "dap"
-local utils = require "utils"
+local dap = require("dap")
+local utils = require("utils")
 
 dap.adapters.nlua = function(callback, config)
-  callback { type = "server", host = config.host, port = config.port }
+  callback({ type = "server", host = config.host, port = config.port })
 end
 
 dap.adapters.lldb = {
@@ -30,7 +30,7 @@ local lldb_config = {
     cwd = "${workspaceFolder}",
     stopOnEntry = false,
     args = function()
-      local argument_string = vim.fn.input "Program arguments: "
+      local argument_string = vim.fn.input("Program arguments: ")
       return vim.fn.split(argument_string, " ", true)
     end,
   },
@@ -49,7 +49,7 @@ dap.configurations.rust = {
     program = "${workspaceFolder}/target/debug/${workspaceFolderBasename}",
     stopOnEntry = false,
     args = function()
-      local args_str = vim.fn.input "Program arguments: "
+      local args_str = vim.fn.input("Program arguments: ")
       local args = vim.fn.split(args_str, " ", true)
       return { "build", "-o", "build", unpack(args) }
     end,
@@ -57,7 +57,7 @@ dap.configurations.rust = {
     -- Types
     initCommands = function()
       -- Find out where to look for the pretty printer Python module
-      local rustc_sysroot = vim.fn.trim(vim.fn.system "rustc --print sysroot")
+      local rustc_sysroot = vim.fn.trim(vim.fn.system("rustc --print sysroot"))
 
       local script_import = 'command script import "' .. rustc_sysroot .. '/lib/rustlib/etc/lldb_lookup.py"'
       local commands_file = rustc_sysroot .. "/lib/rustlib/etc/lldb_commands"
@@ -83,7 +83,7 @@ dap.configurations.lua = {
     request = "attach",
     name = "Attach to running Neovim instance",
     host = function()
-      local value = vim.fn.input "Host [127.0.0.1]: "
+      local value = vim.fn.input("Host [127.0.0.1]: ")
       if value ~= "" then
         return value
       end
@@ -97,8 +97,8 @@ dap.configurations.lua = {
   },
 }
 
-require("dap-go").setup {
+require("dap-go").setup({
   delve = {
     detached = not utils.is_windows(),
   },
-}
+})

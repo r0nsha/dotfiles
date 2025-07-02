@@ -33,7 +33,7 @@ local servers = {
           library = {
             -- Make the server aware of Neovim runtime files
             vim.env.VIMRUNTIME,
-            vim.fn.stdpath "config",
+            vim.fn.stdpath("config"),
           },
         },
       }
@@ -246,7 +246,7 @@ local ensure_installed = {
   -- "codelldb",
 }
 vim.list_extend(ensure_installed, servers_to_install)
-require("mason-tool-installer").setup { ensure_installed = ensure_installed }
+require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 vim.lsp.enable(vim.tbl_keys(servers))
 

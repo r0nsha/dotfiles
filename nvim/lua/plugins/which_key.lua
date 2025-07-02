@@ -2,7 +2,7 @@ return {
   "folke/which-key.nvim",
   event = "VeryLazy",
   config = function()
-    require("which-key").setup {
+    require("which-key").setup({
       preset = "helix",
       show_help = false,
       win = {
@@ -11,6 +11,6 @@ return {
         height = { min = 4, max = 20 },
         border = "single",
       },
-    }
+    })
   end,
 }

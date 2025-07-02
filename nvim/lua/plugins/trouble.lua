@@ -1,33 +1,33 @@
 return {
   "folke/trouble.nvim",
   config = function()
-    local trouble = require "trouble"
+    local trouble = require("trouble")
 
-    trouble.setup {
+    trouble.setup({
       auto_jump = true,
       follow = false,
-    }
+    })
 
     vim.keymap.set("n", "<leader>xx", function()
-      trouble.toggle "diagnostics"
+      trouble.toggle("diagnostics")
     end, { desc = "Trouble: Diagnostics" })
 
     vim.keymap.set("n", "<leader>xX", function()
-      trouble.toggle { mode = "diagnostics", filter = { buf = 0 } }
+      trouble.toggle({ mode = "diagnostics", filter = { buf = 0 } })
     end, { desc = "Trouble: Diagnostics (Current Buffer)" })
 
     vim.keymap.set("n", "<leader>xt", function()
-      trouble.toggle "todo"
+      trouble.toggle("todo")
     end, { desc = "Trouble: Todos" })
 
     vim.keymap.set("n", "<leader>q", function()
-      vim.cmd [[cclose]]
-      trouble.toggle "qflist"
+      vim.cmd([[cclose]])
+      trouble.toggle("qflist")
     end, { desc = "Trouble: Quickfix" })
 
     local function prev()
       if trouble.is_open() then
-        trouble.prev { skip_groups = true, jump = true }
+        trouble.prev({ skip_groups = true, jump = true })
       else
         local ok, err = pcall(vim.cmd.cprev)
         if not ok then
@@ -38,7 +38,7 @@ return {
 
     local function next()
       if trouble.is_open() then
-        trouble.next { skip_groups = true, jump = true }
+        trouble.next({ skip_groups = true, jump = true })
       else
         local ok, err = pcall(vim.cmd.cnext)
         if not ok then
@@ -58,8 +58,8 @@ return {
       callback = function(ev)
         if vim.bo[ev.buf].buftype == "quickfix" then
           vim.schedule(function()
-            vim.cmd [[cclose]]
-            vim.cmd [[Trouble qflist open]]
+            vim.cmd([[cclose]])
+            vim.cmd([[Trouble qflist open]])
           end)
         end
       end,

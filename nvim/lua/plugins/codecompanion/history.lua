@@ -15,7 +15,7 @@ return {
           delete_on_clearing_chat = false,
           picker = "snacks",
           enable_logging = false,
-          dir_to_save = vim.fn.stdpath "data" .. "/codecompanion-history",
+          dir_to_save = vim.fn.stdpath("data") .. "/codecompanion-history",
           auto_save = true,
         },
       },

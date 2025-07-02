@@ -2,7 +2,7 @@ local icons = require("utils").icons
 
 local M = {}
 
-local ns_id = vim.api.nvim_create_namespace "spinner"
+local ns_id = vim.api.nvim_create_namespace("spinner")
 
 local config = {
   text = icons.ai .. " ",

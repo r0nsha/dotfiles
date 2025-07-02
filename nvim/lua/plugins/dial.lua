@@ -1,8 +1,8 @@
 return {
   "monaqa/dial.nvim",
   config = function()
-    local augend = require "dial.augend"
-    require("dial.config").augends:register_group {
+    local augend = require("dial.augend")
+    require("dial.config").augends:register_group({
       default = {
         augend.integer.alias.decimal,
         augend.integer.alias.hex,
@@ -15,9 +15,9 @@ return {
         augend.constant.alias.alpha,
         augend.constant.alias.Alpha,
       },
-    }
+    })
 
-    local map = require "dial.map"
+    local map = require("dial.map")
     vim.keymap.set("n", "+", function()
       return map.inc_normal()
     end, { expr = true, desc = "Increment" })

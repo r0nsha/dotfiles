@@ -81,7 +81,7 @@ return {
                 .. commit_staged_instructions
                 .. " Given the git diff listed below, please generate a commit message for me the follows my instructions:"
                 .. "\n\n```diff\n"
-                .. vim.fn.system "git diff --staged"
+                .. vim.fn.system("git diff --staged")
                 .. "\n```"
             end,
           },

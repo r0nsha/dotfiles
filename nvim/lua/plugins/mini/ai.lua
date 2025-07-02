@@ -2,19 +2,19 @@ return {
   "echasnovski/mini.ai",
   dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
   config = function()
-    local ai = require "mini.ai"
+    local ai = require("mini.ai")
     local treesitter = ai.gen_spec.treesitter
 
-    ai.setup {
+    ai.setup({
       custom_textobjects = {
-        a = treesitter { a = "@statement.outer", i = "@statement.inner" },
-        f = treesitter { a = "@function.outer", i = "@function.inner" },
-        c = treesitter { a = "@comment.outer", i = "@comment.inner" },
-        v = treesitter { a = "@parameter.outer", i = "@parameter.inner" },
-        o = treesitter {
+        a = treesitter({ a = "@statement.outer", i = "@statement.inner" }),
+        f = treesitter({ a = "@function.outer", i = "@function.inner" }),
+        c = treesitter({ a = "@comment.outer", i = "@comment.inner" }),
+        v = treesitter({ a = "@parameter.outer", i = "@parameter.inner" }),
+        o = treesitter({
           a = { "@conditional.outer", "@loop.outer" },
           i = { "@conditional.inner", "@loop.inner" },
-        },
+        }),
         -- Single words in different cases (camelCase, snake_case, etc.)
         s = {
           {
@@ -30,7 +30,7 @@ return {
         g = function()
           local from = { line = 1, col = 1 }
           local to = {
-            line = vim.fn.line "$",
+            line = vim.fn.line("$"),
             col = math.max(vim.fn.getline("$"):len(), 1),
           }
           return { from = from, to = to }
@@ -45,6 +45,6 @@ return {
         inside_last = "il",
       },
       n_lines = 500,
-    }
+    })
   end,
 }

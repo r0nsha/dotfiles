@@ -1,8 +1,8 @@
 return {
   "stevearc/aerial.nvim",
   config = function()
-    local aerial = require "aerial"
-    aerial.setup {
+    local aerial = require("aerial")
+    aerial.setup({
       layout = {
         min_width = 30,
         default_direction = "left",
@@ -10,7 +10,7 @@ return {
       },
       -- attach_mode = "global",
       disable_max_lines = 30000,
-    }
+    })
 
     vim.keymap.set("n", "gA", aerial.toggle, { desc = "Aerial: Toggle" })
     vim.keymap.set("n", "{", function()

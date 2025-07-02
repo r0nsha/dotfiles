@@ -2,14 +2,14 @@ local M = {}
 
 ---@param pass_name string
 function M.read(var, pass_name)
-  local Job = require "plenary.job"
+  local Job = require("plenary.job")
   local notify = vim.schedule_wrap(vim.notify)
 
   ---@diagnostic disable-next-line: missing-fields
-  local j = Job:new {
+  local j = Job:new({
     command = "pass",
     args = { "show", pass_name },
-  }
+  })
 
   j:after_success(function()
     local result = table.concat(j:result(), "\n")
@@ -34,10 +34,10 @@ function M.read_all(tbl)
 end
 
 function M.load()
-  M.read_all {
+  M.read_all({
     CODESTRAL_API_KEY = "mistral/codestral",
     GEMINI_API_KEY = "google/gemini",
-  }
+  })
 end
 
 vim.api.nvim_create_autocmd("User", {

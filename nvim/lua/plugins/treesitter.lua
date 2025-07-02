@@ -7,7 +7,7 @@ return {
         "nvim-treesitter/nvim-treesitter-context",
         config = function()
           vim.g.skip_ts_context_commentstring_module = true
-          require("treesitter-context").setup {
+          require("treesitter-context").setup({
             enable = true,
             multiwindow = false,
             max_lines = 0,
@@ -16,21 +16,21 @@ return {
             multiline_threshold = 20,
             trim_scope = "outer",
             mode = "cursor",
-          }
+          })
         end,
       },
       {
         "JoosepAlviste/nvim-ts-context-commentstring",
         config = function()
-          require("ts_context_commentstring").setup {}
+          require("ts_context_commentstring").setup({})
         end,
       },
       { "nvim-treesitter/playground", cmd = { "TSPlaygroundToggle" } },
     },
     config = function()
-      local utils = require "utils"
+      local utils = require("utils")
 
-      require("nvim-treesitter.configs").setup {
+      require("nvim-treesitter.configs").setup({
         ensure_installed = {
           "query",
           "lua",
@@ -86,13 +86,13 @@ return {
           additional_vim_regex_highlighting = { "markdown" },
         },
         context_commentstring = { enable = true, enable_autocmd = false },
-      }
+      })
 
       local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
       parser_config.tsx.filetype_to_parsername = { "javascript", "typescript.tsx" }
 
       if utils.is_windows() then
-        local install = require "nvim-treesitter.install"
+        local install = require("nvim-treesitter.install")
         install.prefer_git = false
         install.compilers = { "clang" }
       end
@@ -103,10 +103,10 @@ return {
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     ft = { "html", "svelte", "astro", "vue", "javascriptreact", "typescriptreact", "php", "blade" },
     config = function()
-      require("tailwind-fold").setup {
+      require("tailwind-fold").setup({
         min_chars = 30,
         symbol = "…",
-      }
+      })
       vim.keymap.set("n", "<leader>cn", "<cmd>TailwindFoldToggle<cr>", { desc = "Tailwind Fold: Toggle" })
     end,
   },

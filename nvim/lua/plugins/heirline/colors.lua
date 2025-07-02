@@ -1,4 +1,4 @@
-local utils = require "heirline.utils"
+local utils = require("heirline.utils")
 
 local M = {}
 
@@ -11,23 +11,23 @@ local function setup_colors()
   end
 
   return {
-    fg_active = hl_color "Normal",
-    fg_inactive = hl_color "NonText",
-    green = hl_color "Keyword",
-    blue = hl_color "Keyword",
-    teal = hl_color "@property",
-    gray = hl_color "NonText",
-    orange = hl_color "String",
-    purple = hl_color "@variable.parameter",
-    red = hl_color "Error",
-    pink = hl_color "Error",
-    diag_hint = hl_color "DiagnosticHint",
-    diag_info = hl_color "DiagnosticInfo",
-    diag_warning = hl_color "DiagnosticWarn",
-    diag_error = hl_color "DiagnosticError",
-    git_del = hl_color "GitSignsDelete",
-    git_add = hl_color "GitSignsAdd",
-    git_change = hl_color "GitSignsChange",
+    fg_active = hl_color("Normal"),
+    fg_inactive = hl_color("NonText"),
+    green = hl_color("Keyword"),
+    blue = hl_color("Keyword"),
+    teal = hl_color("@property"),
+    gray = hl_color("NonText"),
+    orange = hl_color("String"),
+    purple = hl_color("@variable.parameter"),
+    red = hl_color("Error"),
+    pink = hl_color("Error"),
+    diag_hint = hl_color("DiagnosticHint"),
+    diag_info = hl_color("DiagnosticInfo"),
+    diag_warning = hl_color("DiagnosticWarn"),
+    diag_error = hl_color("DiagnosticError"),
+    git_del = hl_color("GitSignsDelete"),
+    git_add = hl_color("GitSignsAdd"),
+    git_change = hl_color("GitSignsChange"),
   }
 end
 

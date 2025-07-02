@@ -1,11 +1,11 @@
 return {
   "stevearc/conform.nvim",
   config = function()
-    local conform = require "conform"
+    local conform = require("conform")
     local prettier = { "prettierd", "prettier", stop_after_first = true }
     local biome_or_prettier = { "biome", "prettierd", "prettier", stop_after_first = true }
 
-    conform.setup {
+    conform.setup({
       formatters_by_ft = {
         lua = { "stylua" },
         python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
@@ -51,11 +51,11 @@ return {
           args = { "$FILENAME" },
           stdin = false,
           condition = function(_, ctx)
-            if ctx.filename:find "[qmk_firmware|qmk_userspace]" == nil then
+            if ctx.filename:find("[qmk_firmware|qmk_userspace]") == nil then
               return false
             end
 
-            if ctx.filename:find "[keymap.c]" == nil then
+            if ctx.filename:find("[keymap.c]") == nil then
               return false
             end
 
@@ -63,10 +63,10 @@ return {
           end,
         },
       },
-    }
+    })
 
     vim.keymap.set({ "n", "v" }, "<leader>f", function()
-      conform.format {}
+      conform.format({})
     end, { remap = false, desc = "Conform: Format" })
   end,
 }

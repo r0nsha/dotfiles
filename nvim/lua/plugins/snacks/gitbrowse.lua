@@ -14,7 +14,7 @@ return {
         vim.fn.setreg("+", url)
         vim.fn.setreg('"', url)
 
-        if vim.fn.has "nvim-0.10" == 0 then
+        if vim.fn.has("nvim-0.10") == 0 then
           require("lazy.util").open(url, { system = true })
           return
         end

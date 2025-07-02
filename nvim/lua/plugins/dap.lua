@@ -38,9 +38,9 @@ return {
     "leoluz/nvim-dap-go",
   },
   config = function()
-    require "plugins.dap.config"
-    require "plugins.dap.hydra"
-    require "plugins.dap.adapters"
-    require "plugins.dap.events"
+    require("plugins.dap.config")
+    require("plugins.dap.hydra")
+    require("plugins.dap.adapters")
+    require("plugins.dap.events")
   end,
 }

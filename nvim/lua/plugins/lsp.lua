@@ -18,9 +18,9 @@ return {
     },
   },
   config = function()
-    require "plugins.lsp.servers"
-    require "plugins.lsp.attach"
-    require "plugins.lsp.diagnostic"
-    require "plugins.lsp.progress"
+    require("plugins.lsp.servers")
+    require("plugins.lsp.attach")
+    require("plugins.lsp.diagnostic")
+    require("plugins.lsp.progress")
   end,
 }

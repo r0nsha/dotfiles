@@ -2,11 +2,11 @@ return {
   "kevinhwang91/nvim-hlslens",
   event = { "BufRead", "BufNewFile" },
   config = function()
-    require("hlslens").setup {
+    require("hlslens").setup({
       calm_down = true,
       nearest_only = false,
       float_shadow_blend = 0,
-    }
+    })
 
     local function map(lhs, rhs)
       vim.keymap.set("n", lhs, rhs, { noremap = true, silent = true })

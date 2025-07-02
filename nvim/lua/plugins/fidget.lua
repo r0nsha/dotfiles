@@ -2,7 +2,7 @@ return {
   "j-hui/fidget.nvim",
   enabled = false,
   config = function()
-    require("fidget").setup {
+    require("fidget").setup({
       notification = {
         override_vim_notify = true,
         configs = {
@@ -22,6 +22,6 @@ return {
           relative = "editor",
         },
       },
-    }
+    })
   end,
 }

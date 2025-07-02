@@ -1,8 +1,8 @@
 return {
   "hat0uma/csvview.nvim",
   config = function()
-    local csvview = require "csvview"
-    csvview.setup {
+    local csvview = require("csvview")
+    csvview.setup({
       view = {
         spacing = 2,
         display_mode = "border",
@@ -15,6 +15,6 @@ return {
         jump_next_row = { "<Enter>", mode = { "n", "v" } },
         jump_prev_row = { "<S-Enter>", mode = { "n", "v" } },
       },
-    }
+    })
   end,
 }

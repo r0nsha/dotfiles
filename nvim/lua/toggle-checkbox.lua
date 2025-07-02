@@ -31,7 +31,7 @@ end
 
 ---@param line string
 local function make_checkbox(line)
-  if not line:match "^%s*-%s.*$" and not line:match "^%s*%d%s.*$" then
+  if not line:match("^%s*-%s.*$") and not line:match("^%s*%d%s.*$") then
     -- "xxx" -> "- [ ] xxx"
     return line:gsub("(%S+)", "- [ ] %1", 1)
   else
@@ -62,8 +62,8 @@ function M.toggle()
   local bufnr = vim.api.nvim_get_current_buf()
   local cursor = vim.api.nvim_win_get_cursor(0)
 
-  local start_line = vim.fn.line "v"
-  local end_line = vim.fn.line "."
+  local start_line = vim.fn.line("v")
+  local end_line = vim.fn.line(".")
 
   if start_line > end_line then
     start_line, end_line = end_line, start_line

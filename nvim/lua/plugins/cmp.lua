@@ -14,8 +14,8 @@ return {
     "xzbdmw/colorful-menu.nvim",
   },
   config = function()
-    local blink = require "blink.cmp"
-    local utils = require "utils"
+    local blink = require("blink.cmp")
+    local utils = require("utils")
 
     local keymaps = {
       prev = {
@@ -36,7 +36,7 @@ return {
       toggle_signature = { "show_signature", "hide_signature", "fallback" },
     }
 
-    blink.setup {
+    blink.setup({
       appearance = {
         nerd_font_variant = "mono",
       },
@@ -170,7 +170,7 @@ return {
         },
       },
       signature = { enabled = true },
-    }
+    })
 
     vim.api.nvim_set_hl(0, "BlinkCmpMenuBorder", { link = "FloatBorder" })
   end,
