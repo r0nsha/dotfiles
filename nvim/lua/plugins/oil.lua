@@ -2,14 +2,20 @@ return {
   "stevearc/oil.nvim",
   config = function()
     local oil = require("oil")
-    local utils = require("utils")
 
     oil.setup({
       default_file_explorer = true,
       watch_for_changes = true,
       view_options = {
         show_hidden = false,
+        is_always_hidden = function(name, _)
+          return name == "." or name == ".."
+        end,
       },
+      win_options = {
+        signcolumn = "yes",
+      },
+      skip_confirm_for_simple_edits = true,
       keymaps = {
         ["g?"] = "actions.show_help",
 
@@ -55,7 +61,7 @@ return {
     end, { desc = "Oil (Parent)" })
 
     vim.keymap.set("n", "<leader>E", function()
-      oil.open(vim.loop.cwd())
+      oil.open(vim.uv.cwd())
     end, { desc = "Oil (CWD)" })
 
     vim.api.nvim_create_autocmd("User", {
