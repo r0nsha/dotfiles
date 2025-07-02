@@ -1,11 +1,15 @@
 # ALIASES ---------------------------------------------------------------------
 alias s 'source $DOTFILES/fish/config.fish'
 
+alias c clear
+
+alias e $EDITOR
 alias v nvim
 alias vi nvim
 alias vim nvim
 
-alias c clear
+alias cp "cp -iv"
+alias mv "mv -iv"
 
 alias rmswap 'rm -rf ~/.local/share/nvim/swap'
 
