@@ -27,15 +27,15 @@ return {
       toggle_diff("DiffviewOpen")
     end, { desc = "Git: Diffview" })
 
-    vim.keymap.set("n", "<leader>gdh", function()
+    vim.keymap.set("n", "<leader>gdf", function()
       toggle_diff("DiffviewFileHistory")
     end, { desc = "Git: File History" })
 
-    vim.keymap.set("v", "<leader>gdh", function()
+    vim.keymap.set("v", "<leader>gdf", function()
       toggle_diff("'<,'>DiffviewFileHistory --follow")
     end, { desc = "Git: File History (Follow visual selection)" })
 
-    vim.keymap.set("n", "<leader>gdf", function()
+    vim.keymap.set("n", "<leader>gdF", function()
       toggle_diff("DiffviewFileHistory --follow %")
     end, { desc = "Git: File History (Follow current file)" })
 

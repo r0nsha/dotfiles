@@ -4,7 +4,7 @@ return {
   config = function()
     require("neogit").setup({
       graph_style = "kitty",
-      kind = "auto",
+      -- kind = "auto",
       integrations = { diffview = true, snacks = true },
       disable_insert_on_commit = false,
       disable_commit_confirmation = false,
