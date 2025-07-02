@@ -1,14 +1,14 @@
-local utils = require("utils")
+local icons = require("config.icons")
 
 vim.diagnostic.config({
   virtual_text = { current_line = true },
   virtual_lines = false,
   signs = {
     text = {
-      [vim.diagnostic.severity.HINT] = utils.icons.hint,
-      [vim.diagnostic.severity.INFO] = utils.icons.info,
-      [vim.diagnostic.severity.WARN] = utils.icons.warning,
-      [vim.diagnostic.severity.ERROR] = utils.icons.error,
+      [vim.diagnostic.severity.HINT] = icons.hint,
+      [vim.diagnostic.severity.INFO] = icons.info,
+      [vim.diagnostic.severity.WARN] = icons.warning,
+      [vim.diagnostic.severity.ERROR] = icons.error,
     },
   },
 })

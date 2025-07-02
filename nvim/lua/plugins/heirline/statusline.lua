@@ -1,6 +1,6 @@
 local cond = require("heirline.conditions")
+local icons = require("config.icons")
 local utils = require("heirline.utils")
-local icons = require("utils").icons
 
 local function active_fg()
   return cond.is_active() and "fg_active" or "fg_inactive"

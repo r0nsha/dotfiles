@@ -29,7 +29,7 @@ require("lazy").setup({
     { import = "plugins.snacks" },
   },
   install = {
-    colorscheme = { require("utils").colorscheme },
+    colorscheme = { require("config.colorscheme") },
   },
   ui = {
     border = "single",

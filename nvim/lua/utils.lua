@@ -1,7 +1,5 @@
 local M = {}
 
-M.colorscheme = "rose-pine"
-
 function M.is_windows()
   return (vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1) and vim.fn.has("wsl") == 0
 end
@@ -33,17 +31,6 @@ function M.get_codelldb_paths()
 
   return codelldb_path, liblldb_path
 end
-
-M.icons = {
-  error = "",
-  warning = "",
-  info = "",
-  hint = "",
-  bug = "",
-  clock = "",
-  trace = "",
-  ai = "",
-}
 
 function M.repo_too_large()
   return vim.fn.getcwd():find("core%-public/core")

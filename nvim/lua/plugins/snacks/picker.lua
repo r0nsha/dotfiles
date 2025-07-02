@@ -1,4 +1,4 @@
-local icons = require("utils").icons
+local icons = require("config.icons")
 
 ---@param layout snacks.picker.layout.Config
 local function override_layout_wo(layout)
