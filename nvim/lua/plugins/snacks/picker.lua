@@ -1,3 +1,5 @@
+local icons = require("utils").icons
+
 ---@param layout snacks.picker.layout.Config
 local function override_layout_wo(layout)
   local input = vim.tbl_filter(
@@ -58,6 +60,30 @@ local M = {
             { win = "list", border = "none" },
             { win = "preview", title = "{preview}", height = 0.4, border = "top" },
           },
+        },
+      },
+      formatters = {
+        file = {
+          filename_first = true,
+        },
+      },
+      icons = {
+        Error = icons.error,
+        Warn = icons.warn,
+        Info = icons.info,
+        Hint = icons.hint,
+      },
+      jump = {
+        reuse_win = true,
+      },
+      matcher = {
+        cwd_bonus = true,
+        frecency = true,
+        history_bonus = true,
+      },
+      sources = {
+        files = {
+          hidden = true,
         },
       },
     },
