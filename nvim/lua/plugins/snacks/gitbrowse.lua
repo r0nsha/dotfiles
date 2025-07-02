@@ -1,10 +1,3 @@
-local github_url_patterns = {
-  branch = "/tree/{branch}",
-  file = "/blob/{branch}/{file}#L{line_start}-L{line_end}",
-  permalink = "/blob/{commit}/{file}#L{line_start}-L{line_end}",
-  commit = "/commit/{commit}",
-}
-
 return {
   "folke/snacks.nvim",
   opts = {
@@ -22,8 +15,12 @@ return {
         vim.ui.open(url)
       end,
       url_patterns = {
-        ["git.soma.salesforce.com"] = github_url_patterns,
-        ["gitcore.soma.salesforce.com"] = github_url_patterns,
+        ["git%.soma.salesforce.com"] = {
+          branch = "/tree/{branch}",
+          file = "/blob/{branch}/{file}#L{line_start}-L{line_end}",
+          permalink = "/blob/{commit}/{file}#L{line_start}-L{line_end}",
+          commit = "/commit/{commit}",
+        },
       },
     },
   },
