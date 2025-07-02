@@ -1,15 +1,8 @@
-require("opts")
-require("clipboard")
-require("remap")
-require("autocmd")
-require("inspect")
-require("pass")
+require("config")
 require("toggle-checkbox")
 require("ai")
-require("utils/string")
-
--- load .env, if it exists
-require("dotenv").eval(vim.fs.joinpath(vim.fn.stdpath("config"), ".env"))
+require("utils.globals")
+require("utils.extensions")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
