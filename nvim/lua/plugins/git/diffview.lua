@@ -8,6 +8,12 @@ return {
     local prev_entry = { "n", "<C-p>", actions.select_prev_entry, { desc = "Open the diff for the previous file" } }
 
     require("diffview").setup({
+      enhanced_diff_hl = true,
+      view = {
+        merge_tool = {
+          layout = "diff3_mixed",
+        },
+      },
       keymaps = {
         view = { close, next_entry, prev_entry },
         file_panel = { close, next_entry, prev_entry },
