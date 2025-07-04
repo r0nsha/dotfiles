@@ -203,6 +203,7 @@ local servers = {
       },
     },
   },
+  marksman = {},
 }
 
 local servers_to_install = vim.tbl_filter(function(key)
