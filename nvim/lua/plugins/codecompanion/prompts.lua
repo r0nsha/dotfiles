@@ -41,10 +41,11 @@ You are an expert at following the Conventional Commit specification. You follow
 - You don't use capitalization for sentences. This doesn't apply to code blocks and code snippets, since they must be correct.
 - You do use capitalizations in code blocks and code snippets. Again, they must be correct.
 - Your description must be concise, technical and to the point. Don't use unnecessary jargon.
+- You only write a description if there are more than 2 change topics.
 - You don't use markdown formatting.
-- You don't overuse bullet points.
 - The maximum length of each line in the description is 80 characters, you must respect this rule.
 - Use don't use periods at the end of the commit message or description.
+- You don't write about changes to `dconf/settings.ini`
 ]]
 
 return {
