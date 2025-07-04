@@ -32,24 +32,26 @@ mkdir -p $LOCAL_BIN $LOCAL_SHARE $DOWNLOADS
 LOCAL_ENV=$HOME/.env.fish
 if [ ! -f "$LOCAL_ENV" ]; then
     step "creating local env file"
-    echo "set -Ux DOTFILES $DOTFILES" >$HOME/.env.fish
+    echo "set -Ux DOTFILES $DOTFILES" >$LOCAL_ENV
+    echo "created $LOCAL_ENV"
     success
 fi
 
 step "git"
-chmod ug+x $DOTFILES/hooks/*
+chmod -v ug+x $DOTFILES/hooks/*
 git submodule init
 git submodule update --init --recursive
 success
 
 step "wallpapers"
-ln -sf $DOTFILES/wallpapers $HOME/Pictures/Wallpapers # link wallpapers
+ln -sfv $DOTFILES/wallpapers $HOME/Pictures/Wallpapers # link wallpapers
 success
 
 # load dconf settings
 if exists "dconf"; then
     step "dconf"
     dconf load / <$DOTFILES/dconf/settings.ini
+    echo "loaded dconf settings"
     success
 fi
 
@@ -101,16 +103,19 @@ if [ -n "$FONTS_TO_INSTALL" ]; then
         FONT_URLS+=("$FONTS_BASE_URL/${f}.zip")
     done
 
-    for url in "${FONT_URLS[@]}"; do
-        curl -#L "$url" -o "$DOWNLOADS/$(basename $url)"
+    echo "downloading fonts..."
+    wget -q -nc --show-progress -P $DOWNLOADS ${FONT_URLS[@]}
+
+    FONT_FILES=()
+    for f in "${FONTS_TO_INSTALL[@]}"; do
+        FONT_FILES+=("$DOWNLOADS/${f}.zip")
     done
 
+    echo "extracting fonts..."
+    for f in "${FONT_FILES[@]}"; do
+        unzip -oq -d $FONTS_DIR $f "*.ttf" &
+    done
     wait
-
-    # printf "%s\n" "${FONT_URLS[@]}" | xargs -P $(nproc) -I {} curl -#Lv {} #-o "$DOWNLOADS/$(basename {})"
-    # # printf "%s\n" "${FONT_URLS[@]}" | xargs -P $(nproc) -I {} echo "$DOWNLOADS/$(basename {})"
-
-    # unzip -o "$DOWNLOADS/*.zip" -d $FONTS_DIR >/dev/null
 
     success
 fi
