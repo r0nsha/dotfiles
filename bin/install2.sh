@@ -120,6 +120,26 @@ if [ -n "$FONTS_TO_INSTALL" ]; then
     success
 fi
 
+# TODO: install tools
+
+# stow dotfiles
+step "stow"
+cd $DOTFILES
+stow .
+echo "stowed dotfiles"
+success
+
+# TODO: setup default shell
+if exists "fish"; then
+    if [ "$(basename "$SHELL")" != "fish" ]; then
+        step "default shell"
+        fish_bin=$(which fish)
+        echo $fish_bin | sudo tee -a /etc/shells
+        sudo chsh -s $fish_bin
+        success
+    fi
+fi
+
 # macos defaults
 if [ "$MACHINE" = "darwin" ]; then
     step "setting macos defaults"
