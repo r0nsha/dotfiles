@@ -1,37 +1,26 @@
-log_message() {
-	local color="$1"
-	local prefix="$2"
-	local message="$3"
-	local nc='\033[0m'
-	echo -e "\r[${color}${prefix}${nc}] ${message}"
-}
+BLUE="\033[0;34m"
+GREEN="\033[0;32m"
+YELLOW="\033[0;33m"
+RED="\033[0;31m"
+NC="\033[0m"
 
 info() {
-	log_message '\033[0;34m' 'i' "$*"
-}
-
-running() {
-	log_message '\033[0;33m' '~' "$*"
+	echo "${BLUE}•${NC} $1"
 }
 
 success() {
-	log_message '\033[0;32m' '+' "$*"
+	echo "${GREEN}✔${NC} $1"
 }
 
-fail() {
-	log_message '\033[0;31m' '!' "$*"
-	echo ""
+warn() {
+	echo "${YELLOW}⚠${NC} $1"
+}
+
+error() {
+	echo "${RED}✘${NC} $1" >&2
 	exit 1
 }
 
-DOWNLOADS=$HOME/Downloads
-
-install_wrapper() {
-	if ! command -v $1 &>/dev/null; then
-		running "installing '$1'"
-		$2
-		success "installed '$1'"
-	else
-		info "'$1' is already installed, skipping"
-	fi
+exists() {
+	command -v "$1" >/dev/null 2>&1
 }
