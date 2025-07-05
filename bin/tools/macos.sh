@@ -1,5 +1,3 @@
-source $DOTFILES/bin/utils.sh
-
 install_brew() {
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 	brew update --force
@@ -19,11 +17,6 @@ install_brew() {
 }
 
 install_deps() {
-	install() {
-		info "installing $1"
-		brew install -q $1
-	}
-
 	deps=(
 		fish
 		tmux
@@ -47,9 +40,7 @@ install_deps() {
 		deno
 	)
 
-	for dep in ${deps[@]}; do
-		install $dep
-	done
+	brew install ${deps[@]}
 }
 
 install_nvim() {

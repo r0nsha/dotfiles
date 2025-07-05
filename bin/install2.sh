@@ -33,7 +33,7 @@ LOCAL_ENV=$HOME/.env.fish
 if [ ! -f "$LOCAL_ENV" ]; then
     step "creating local env file"
     echo "set -Ux DOTFILES $DOTFILES" >$LOCAL_ENV
-    echo "created $LOCAL_ENV"
+    info "created $LOCAL_ENV"
     success
 fi
 
@@ -51,7 +51,7 @@ success
 if exists "dconf"; then
     step "dconf"
     dconf load / <$DOTFILES/dconf/settings.ini
-    echo "loaded dconf settings"
+    info "loaded dconf settings"
     success
 fi
 
@@ -86,7 +86,7 @@ not_installed_fonts() {
     local not_installed=()
     for font in "$@"; do
         local pattern=$(echo "$font" | tr -d ' ')"NerdFont"
-        if echo "$files" | grep -q "$pattern"; then
+        if ! echo "$files" | grep -q "$pattern"; then
             not_installed+=("$font")
         fi
     done
@@ -103,7 +103,7 @@ if [ -n "$FONTS_TO_INSTALL" ]; then
         FONT_URLS+=("$FONTS_BASE_URL/${f}.zip")
     done
 
-    echo "downloading fonts..."
+    info "downloading fonts..."
     wget -q -nc --show-progress -P $DOWNLOADS ${FONT_URLS[@]}
 
     FONT_FILES=()
@@ -111,7 +111,7 @@ if [ -n "$FONTS_TO_INSTALL" ]; then
         FONT_FILES+=("$DOWNLOADS/${f}.zip")
     done
 
-    echo "extracting fonts..."
+    info "extracting fonts..."
     for f in "${FONT_FILES[@]}"; do
         unzip -oq -d $FONTS_DIR $f "*.ttf" &
     done
@@ -120,16 +120,19 @@ if [ -n "$FONTS_TO_INSTALL" ]; then
     success
 fi
 
-# TODO: install tools
+# install tools
+step "tools"
+source $DOTFILES/bin/tools.sh
+success
 
 # stow dotfiles
 step "stow"
 cd $DOTFILES
 stow .
-echo "stowed dotfiles"
+info "stowed dotfiles"
 success
 
-# TODO: setup default shell
+# default shell
 if exists "fish"; then
     if [ "$(basename "$SHELL")" != "fish" ]; then
         step "default shell"

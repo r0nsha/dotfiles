@@ -1,15 +1,6 @@
-source $DOTFILES/bin/utils.sh
-
 install_deps() {
-	info "root access is needed to install tools"
-
-	install() {
-		info "installing $1"
-		sudo apt -y -qq install $1
-	}
-
 	sudo add-apt-repository -y ppa:fish-shell/release-4
-	sudo apt -y -qq update
+	sudo apt -y -q update
 
 	deps=(
 		fish
@@ -25,9 +16,7 @@ install_deps() {
 		tldr
 	)
 
-	for dep in ${deps[@]}; do
-		install $dep
-	done
+	sudo apt -y -q install ${deps[@]}
 }
 
 install_starship() {
@@ -61,8 +50,11 @@ install_tmux() {
 	sudo make install
 	cd $DOTFILES
 
-	# tmp
-	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+	# tpm
+	local tpm_dir=$HOME/.tmux/plugins/tpm
+	if [ ! -d "$tpm_dir" ]; then
+		git clone https://github.com/tmux-plugins/tpm $tpm_dir
+	fi
 }
 
 install_fd() {

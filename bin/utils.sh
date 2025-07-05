@@ -1,5 +1,6 @@
-GREEN="\033[0;32m"
 RED="\033[0;31m"
+GREEN="\033[0;32m"
+BLUE="\033[0;34m"
 NC="\033[0m"
 
 CURR_STEP=""
@@ -22,13 +23,17 @@ print_header() {
     echo "${header_text}${dashes}"
 }
 
+info() {
+    echo -e "${BLUE}${1}${NC}"
+}
+
 step() {
     CURR_STEP="$1"
     echo -e "${GREEN}$(print_header "• $CURR_STEP")${NC}"
 }
 
 success() {
-    echo -e "${GREEN}$(print_header "")${NC}\n"
+    echo ""
     CURR_STEP=""
 }
 
@@ -39,4 +44,14 @@ error() {
 
 exists() {
     command -v "$1" >/dev/null 2>&1
+}
+
+install_wrapper() {
+    if exists "$1"; then
+        info "$1: skipped (already installed)"
+    else
+        info "$1: installing..."
+        $2
+        info "$1: installed"
+    fi
 }
