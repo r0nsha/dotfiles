@@ -14,7 +14,7 @@ vim.api.nvim_create_autocmd("User", {
 
 vim.api.nvim_create_autocmd("User", {
   group = group,
-  pattern = { "CodeCompanionRequestFinished", "CodeCompanionChatStopped", "CodeCompanionChatClosed" },
+  pattern = { "CodeCompanionRequestFinished" },
   callback = function(args)
     spinner.stop()
     notify.stop(args)
