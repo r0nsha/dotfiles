@@ -34,8 +34,6 @@ return {
   },
   {
     dir = "~/dev/qfpreview.nvim",
-    opts = {
-      title = false,
-    },
+    opts = {},
   },
 }
