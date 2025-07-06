@@ -10,7 +10,7 @@ return {
         opts = {
           keymap = "gh",
           save_chat_keymap = "gS",
-          auto_generate_title = false,
+          auto_generate_title = true,
           continue_last_chat = false,
           delete_on_clearing_chat = false,
           picker = "snacks",
