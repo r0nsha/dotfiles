@@ -63,9 +63,10 @@ vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
 
--- -- Quickfix list remaps
--- vim.keymap.set("n", "<a-P>", "<cmd>cprev<cr>zz", { desc = "Quickfix: Prev" })
--- vim.keymap.set("n", "<a-N>", "<cmd>cnext<cr>zz", { desc = "Quickfix: Next" })
+-- Quickfix list remaps
+vim.keymap.set("n", "<leader>q", "<cmd>copen<cr>", { desc = "Toggle quickfix" })
+vim.keymap.set("n", "<a-n>", "<cmd>cnext<cr>zz", { desc = "Next quickfix item" })
+vim.keymap.set("n", "<a-p>", "<cmd>cprev<cr>zz", { desc = "Previous quickfix item" })
 
 -- Replace word under cursor (when LSP is not available)
 vim.keymap.set("n", "grn", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Rename" })

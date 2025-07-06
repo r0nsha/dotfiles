@@ -78,5 +78,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "]d", function()
       vim.diagnostic.jump({ count = 1, float = true })
     end, opts("Next Diagnostic"))
+
+    vim.keymap.set("n", "<leader>x", vim.diagnostic.setqflist, opts("Diagnostics"))
   end,
 })
