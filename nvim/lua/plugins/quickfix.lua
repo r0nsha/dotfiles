@@ -33,7 +33,7 @@ return {
     end,
   },
   {
-    dir = "~/dev/qfpreview.nvim",
+    "r0nsha/qfpreview.nvim",
     opts = {},
   },
 }
