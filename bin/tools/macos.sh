@@ -34,7 +34,6 @@ install_deps() {
 		tldr
 		starship
 		rustup
-		yazi
 		bat
 		n
 		deno

@@ -97,15 +97,6 @@ alias t tmux_select_dir
 alias td tmux_select_dir
 alias ts tmux_select_session
 
-function y
-    set tmp (mktemp -t "yazi-cwd.XXXXXX")
-    yazi $argv --cwd-file="$tmp"
-    if set cwd (command cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
-        builtin cd -- "$cwd"
-    end
-    rm -f -- "$tmp"
-end
-
 function show_colors
     for COLOR in (seq 0 255)
         printf "\e[38;5;%sm%s \e[0m" $COLOR $COLOR
