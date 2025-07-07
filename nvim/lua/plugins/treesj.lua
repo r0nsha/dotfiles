@@ -9,6 +9,6 @@ return {
       max_join_length = 9000,
     })
 
-    vim.keymap.set({ "n", "v" }, "gj", treesj.toggle, { desc = "Toggle Split/Join" })
+    vim.keymap.set({ "n", "v" }, "<leader>j", treesj.toggle, { desc = "Toggle Split/Join" })
   end,
 }
