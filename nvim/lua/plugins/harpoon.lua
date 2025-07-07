@@ -6,18 +6,24 @@ return {
     local harpoon = require("harpoon")
     harpoon:setup()
 
-    vim.keymap.set("n", "<leader>ha", function()
-      harpoon:list():add()
-    end, { desc = "Harpoon: Add File" })
-
-    vim.keymap.set("n", "<leader>hh", function()
+    vim.keymap.set("n", "''", function()
       harpoon.ui:toggle_quick_menu(harpoon:list())
     end, { desc = "Harpoon: Toggle Quick Menu" })
 
-    for i = 1, 9 do
-      vim.keymap.set("n", "<c-t>" .. i, function()
-        harpoon:list():select(i)
-      end, { desc = "Harpoon: Go to " .. i })
+    vim.keymap.set("n", "'A", function()
+      harpoon:list():add()
+    end, { desc = "Harpoon: Add" })
+
+    local letters = { "a", "s", "d", "f" }
+
+    for index, letter in ipairs(letters) do
+      vim.keymap.set("n", "'" .. letter, function()
+        harpoon:list():select(index)
+      end, { desc = "Harpoon: Select " .. index })
+
+      vim.keymap.set("n", "<leader>'" .. letter, function()
+        harpoon:list():replace_at(index)
+      end, { desc = "Harpoon: Replace " .. index })
     end
   end,
 }
