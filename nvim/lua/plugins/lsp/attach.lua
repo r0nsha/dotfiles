@@ -64,7 +64,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "grn", vim.lsp.buf.rename, opts("Rename"))
     vim.keymap.set({ "n", "v" }, "gra", require("actions-preview").code_actions, opts("Code Action"))
     vim.keymap.set("n", "K", vim.lsp.buf.hover, opts("Hover"))
-    vim.keymap.set("n", "gh", function()
+    vim.keymap.set("n", "grh", function()
       local enable = not vim.lsp.inlay_hint.is_enabled({ bufnr = buf })
       vim.lsp.inlay_hint.enable(enable, { bufnr = buf })
       vim.notify("Inlay hints " .. utils.bool_to_enabled(enable))
