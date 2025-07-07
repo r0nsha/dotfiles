@@ -13,7 +13,7 @@ return {
 
     vim.keymap.set("n", "''", function()
       harpoon.ui:toggle_quick_menu(harpoon:list())
-    end, { desc = "Harpoon: Toggle Quick Menu" })
+    end, { desc = "Harpoon: Open" })
 
     vim.keymap.set("n", "'A", function()
       harpoon:list():add()
