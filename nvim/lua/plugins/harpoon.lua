@@ -11,23 +11,35 @@ return {
       },
     })
 
-    vim.keymap.set("n", "''", function()
+    ---@param msg string
+    local function notify(msg)
+      vim.notify(msg, vim.log.levels.INFO, { title = "Harpoon" })
+    end
+
+    local letters = { "h", "j", "k", "l" }
+
+    vim.keymap.set("n", "ge", function()
       harpoon.ui:toggle_quick_menu(harpoon:list())
     end, { desc = "Harpoon: Open" })
 
-    vim.keymap.set("n", "'A", function()
+    vim.keymap.set("n", "ga", function()
+      if #harpoon:list().items >= #letters then
+        notify("Harpoon is full")
+        return
+      end
+
       harpoon:list():add()
+      notify(string.format("Harpooned `%s`", vim.fn.expand("%:t")))
     end, { desc = "Harpoon: Add" })
 
-    local letters = { "a", "s", "d", "f" }
-
     for index, letter in ipairs(letters) do
-      vim.keymap.set("n", "'" .. letter, function()
+      vim.keymap.set("n", "g" .. letter, function()
         harpoon:list():select(index)
       end, { desc = "Harpoon: Select " .. index })
 
-      vim.keymap.set("n", "<leader>'" .. letter, function()
+      vim.keymap.set("n", "g" .. letter:upper(), function()
         harpoon:list():replace_at(index)
+        notify(string.format("Harpooned `%s` to key `%s`", vim.fn.expand("%:t"), letter))
       end, { desc = "Harpoon: Replace " .. index })
     end
   end,
