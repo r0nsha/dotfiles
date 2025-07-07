@@ -14,6 +14,7 @@ install_deps() {
 		gtk2-engines-murrine
 		pass
 		tldr
+		just
 	)
 
 	sudo apt -y -q install ${deps[@]}

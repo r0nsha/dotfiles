@@ -37,6 +37,7 @@ install_deps() {
 		bat
 		n
 		deno
+		just
 	)
 
 	brew install ${deps[@]}
