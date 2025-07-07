@@ -11,8 +11,6 @@ alias vim nvim
 alias cp "cp -iv"
 alias mv "mv -iv"
 
-alias rmswap 'rm -rf ~/.local/share/nvim/swap'
-
 # TOOL ALIASES ----------------------------------------------------------------
 
 if binary_exists eza
