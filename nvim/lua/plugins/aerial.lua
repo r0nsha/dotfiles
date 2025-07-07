@@ -12,7 +12,7 @@ return {
       disable_max_lines = 30000,
     })
 
-    vim.keymap.set("n", "gA", aerial.toggle, { desc = "Aerial: Toggle" })
+    vim.keymap.set("n", "<leader>A", aerial.toggle, { desc = "Aerial: Toggle" })
     vim.keymap.set("n", "{", function()
       if aerial.is_open() then
         aerial.prev()
