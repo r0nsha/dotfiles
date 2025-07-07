@@ -47,8 +47,8 @@ end
 
 # GIT ALIASES -----------------------------------------------------------------
 alias gg 'git branch | sk | xargs git switch'
-alias gla "git log --all --graph --format=format:'%C(bold blue)%h%C(reset) - %C(white)%s%C(reset) %C(bold magenta)%d%C(reset)'"
-alias glv "git log --graph --format=format:'%C(bold blue)%h%C(reset) - %C(white)%s%C(reset) %C(green)%an %ar %C(reset) %C(bold magenta)%d%C(reset)'"
+alias gl "git log --all --graph --format=format:'%C(bold blue)%h%C(reset) - %C(white)%s%C(reset) %C(bold magenta)%d%C(reset)'"
+alias gll "git log --graph --format=format:'%C(bold blue)%h%C(reset) - %C(white)%s%C(reset) %C(green)%an %ar %C(reset) %C(bold magenta)%d%C(reset)'"
 alias glc 'git branch | sk | xargs -I % git log %..HEAD --oneline --decorate --color --graph'
 alias glco 'git branch | sk | xargs -I % git log %..origin/HEAD --oneline --decorate --color --graph'
 
