@@ -15,7 +15,6 @@ return {
   },
   config = function()
     local blink = require("blink.cmp")
-    local utils = require("utils")
 
     local keymaps = {
       prev = {
