@@ -74,14 +74,6 @@ return {
             },
           },
         },
-        accept = {
-          auto_brackets = {
-            enabled = false,
-            kind_resolution = {
-              blocked_filetypes = { "typescriptreact", "javascriptreact", "vue", "codecompanion" },
-            },
-          },
-        },
         ghost_text = { enabled = false },
       },
       fuzzy = {
