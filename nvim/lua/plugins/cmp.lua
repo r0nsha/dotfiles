@@ -127,11 +127,11 @@ return {
             -- always show `buffer` source
             fallbacks = {},
           },
-          snippets = {
-            enabled = function()
-              return not utils.repo_too_large()
-            end,
-          },
+          -- snippets = {
+          --   enabled = function()
+          --     return not utils.repo_too_large()
+          --   end,
+          -- },
           git = {
             name = "Git",
             module = "blink-cmp-git",
