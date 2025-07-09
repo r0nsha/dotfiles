@@ -7,7 +7,6 @@ vim.api.nvim_create_autocmd("User", {
   group = group,
   pattern = { "CodeCompanionRequestStarted" },
   callback = function(args)
-    spinner.start()
     notify.start(args)
   end,
 })
@@ -16,7 +15,22 @@ vim.api.nvim_create_autocmd("User", {
   group = group,
   pattern = { "CodeCompanionRequestFinished" },
   callback = function(args)
-    spinner.stop()
     notify.stop(args)
+  end,
+})
+
+vim.api.nvim_create_autocmd("User", {
+  group = group,
+  pattern = { "MinuetRequestStarted" },
+  callback = function()
+    spinner.start()
+  end,
+})
+
+vim.api.nvim_create_autocmd("User", {
+  group = group,
+  pattern = { "MinuetRequestFinished" },
+  callback = function()
+    spinner.stop()
   end,
 })
