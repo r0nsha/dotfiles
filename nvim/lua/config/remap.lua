@@ -10,7 +10,7 @@ vim.keymap.set("n", "<leader>Y", '"+Y', { remap = false, desc = "Yank line to cl
 vim.keymap.set("n", "<leader>p", '"+p', { remap = false, desc = "Paste from clipboard" })
 vim.keymap.set("n", "<c-g>", function()
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-g>", true, true, true), "n", true)
-  local file = vim.fn.expand("%")
+  local file = require("plenary.path"):new(vim.fn.expand("%")):normalize()
   local line = vim.fn.line(".")
   local ref = string.format("%s:%d", file, line)
   vim.fn.setreg("+", ref)
