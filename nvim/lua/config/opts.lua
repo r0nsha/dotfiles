@@ -27,7 +27,8 @@ vim.opt.incsearch = true
 -- visual
 vim.opt.termguicolors = true
 vim.opt.background = "dark"
-vim.opt.guicursor = "a:block-Cursor/lCursor"
+-- vim.opt.guicursor = "a:block-Cursor/lCursor"
+
 vim.opt.signcolumn = "yes"
 -- vim.opt.colorcolumn = "80"
 vim.opt.laststatus = 2
