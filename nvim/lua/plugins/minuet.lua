@@ -1,6 +1,7 @@
 return {
   "milanglacier/minuet-ai.nvim",
   dependencies = { "nvim-lua/plenary.nvim" },
+  enabled = false,
   opts = {
     -- provider = "gemini",
     provider = "codestral",
