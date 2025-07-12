@@ -1,19 +1,21 @@
+add_newline = true
+
 format = """
 $hostname\
 $username\
 $directory\
-$character
-"""
-
-right_format = """
 $git_branch\
 $git_status\
 $git_state\
 $git_metrics\
+$fill\
 $cmd_duration\
-$time\
-$battery
+$line_break\
+$character
 """
+
+[fill]
+symbol = " "
 
 [directory]
 truncation_length = 2
@@ -23,9 +25,9 @@ read_only = " 󰌾"
 read_only_style = "yellow"
 
 [character]
-success_symbol = "[>](green)"
-error_symbol = "[x](bold red)"
-vimcmd_symbol = "[:](yellow)"
+success_symbol = "[󰐊](green)"
+error_symbol = "[](bold red)"
+vimcmd_symbol = "[](yellow)"
 
 [git_branch]
 symbol = " "
@@ -49,7 +51,7 @@ style = "bright-black"
 
 [cmd_duration]
 min_time = 2_000
-format = " [$duration]($style)"
+format = "[$duration]($style)"
 style = "red"
 
 [aws]
