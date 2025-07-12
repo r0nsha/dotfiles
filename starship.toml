@@ -21,7 +21,7 @@ symbol = " "
 truncation_length = 2
 truncate_to_repo = true
 style = "bright white"
-read_only = " 󰌾"
+read_only = " "
 read_only_style = "yellow"
 
 [character]
