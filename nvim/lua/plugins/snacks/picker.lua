@@ -40,6 +40,15 @@ local M = {
             ["<C-d>"] = { "preview_scroll_down", mode = { "i", "n" } },
             ["<C-g>"] = { "yank", mode = { "n", "i" } },
             ["<C-l>"] = { "toggle_live", mode = { "n", "i" } },
+            ["<C-c>"] = { "close", mode = { "i" } },
+            ["<Esc>"] = "close",
+            ["q"] = "close",
+          },
+        },
+        list = {
+          keys = {
+            ["<Esc>"] = "close",
+            ["q"] = "close",
           },
         },
       },
