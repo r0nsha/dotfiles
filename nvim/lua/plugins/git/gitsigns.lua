@@ -24,7 +24,8 @@ return {
       --   -- topdelete = { text = "▁" },
       --   changedelete = { text = "▎" },
       -- },
-      current_line_blame = not utils.repo_too_large(),
+      -- current_line_blame = not utils.repo_too_large(),
+      current_line_blame = false,
       on_attach = function(bufnr)
         ---@param mode string
         ---@param l string
