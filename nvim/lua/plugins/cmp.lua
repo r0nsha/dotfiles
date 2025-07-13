@@ -9,6 +9,7 @@ return {
 
     -- sources
     "Kaiser-Yang/blink-cmp-git",
+    "mgalliou/blink-cmp-tmux",
 
     -- misc
     "xzbdmw/colorful-menu.nvim",
@@ -104,7 +105,7 @@ return {
         preset = "mini_snippets",
       },
       sources = {
-        default = { "lazydev", "lsp", "snippets", "path", "buffer", "git" },
+        default = { "lazydev", "lsp", "snippets", "path", "buffer", "tmux", "git" },
         per_filetype = {
           codecompanion = { "codecompanion" },
         },
@@ -146,6 +147,11 @@ return {
 
               return false
             end,
+            opts = {},
+          },
+          tmux = {
+            module = "blink-cmp-tmux",
+            name = "tmux",
             opts = {},
           },
         },
