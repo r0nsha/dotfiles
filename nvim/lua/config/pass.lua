@@ -1,9 +1,9 @@
 local M = {}
 
+---@param var string
 ---@param pass_name string
 function M.read(var, pass_name)
   local Job = require("plenary.job")
-  local notify = vim.schedule_wrap(vim.notify)
 
   ---@diagnostic disable-next-line: missing-fields
   local j = Job:new({
@@ -18,10 +18,12 @@ function M.read(var, pass_name)
     end)
   end)
 
-  j:after_failure(function()
-    local error = table.concat(j:stderr_result(), "\n")
-    notify(string.format("Failed retrieving `%s` from `pass`. %s", pass_name, error))
-  end)
+  -- j:after_failure(function()
+  --   local error = table.concat(j:stderr_result(), "\n")
+  --   vim.schedule(function()
+  --     vim.notify(string.format("Failed retrieving `%s` from `pass`. %s", pass_name, error))
+  --   end)
+  -- end)
 
   j:start()
 end

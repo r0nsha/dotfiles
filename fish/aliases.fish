@@ -9,7 +9,7 @@ alias vi nvim
 alias vim nvim
 
 # sensible defaults
-alias cp "cp -iv"
+alias cp "cp -ivr"
 alias mv "mv -iv"
 alias df "df -h"
 alias du "du -h"

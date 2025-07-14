@@ -26,8 +26,8 @@ read_only_style = "yellow"
 
 [character]
 success_symbol = "[󰐊](green)"
-error_symbol = "[](bold red)"
-vimcmd_symbol = "[](yellow)"
+error_symbol = "[󰅖](bold red)"
+vimcmd_symbol = "[󰼛](yellow)"
 
 [git_branch]
 symbol = " "

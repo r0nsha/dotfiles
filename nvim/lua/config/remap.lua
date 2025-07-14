@@ -105,8 +105,5 @@ vim.keymap.set("n", "-", "<c-x>", { desc = "Decrement" })
 vim.keymap.set("v", "+", "<c-a>gv=gv", { desc = "Increment" })
 vim.keymap.set("v", "-", "<c-x>gv=gv", { desc = "Decrement" })
 
--- Show highlight under cursor
-vim.keymap.set("n", "<leader>i", "<cmd>Inspect<cr>", { desc = "Inspect" })
-
 -- Select entire buffer
 vim.keymap.set("v", "v", "<esc>ggVG", { desc = "Select all" })

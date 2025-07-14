@@ -3,12 +3,10 @@
 	email = r0nsh4v1t@gmail.com
 
 [credential "https://github.com"]
-	helper =
-	helper = !/usr/bin/gh auth git-credential
+	helper = !gh auth git-credential
 
 [credential "https://gist.github.com"]
-	helper =
-	helper = !/usr/bin/gh auth git-credential
+	helper = !gh auth git-credential
 
 [init]
 	defaultBranch = master

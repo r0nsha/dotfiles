@@ -25,7 +25,11 @@ return {
           require("ts_context_commentstring").setup({})
         end,
       },
-      { "nvim-treesitter/playground", cmd = { "TSPlaygroundToggle" } },
+      {
+        "nvim-treesitter/playground",
+        cmd = { "TSPlaygroundToggle" },
+        keys = { { "<leader>ip", "<cmd>TSPlaygroundToggle<cr>", desc = "TS: Playground" } },
+      },
     },
     config = function()
       local utils = require("utils")
@@ -96,6 +100,9 @@ return {
         install.prefer_git = false
         install.compilers = { "clang" }
       end
+
+      vim.keymap.set("n", "<leader>ih", "<cmd>Inspect<cr>", { desc = "TS: Inspect" })
+      vim.keymap.set("n", "<leader>iq", "<cmd>EditQuery<cr>", { desc = "TS: Edit Query" })
     end,
   },
   {
