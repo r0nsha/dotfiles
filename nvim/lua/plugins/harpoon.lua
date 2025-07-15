@@ -19,7 +19,7 @@ return {
       vim.notify(msg, vim.log.levels.INFO, { title = "Harpoon" })
     end
 
-    local letters = { "h", "j", "k", "l" }
+    local letters = { "j", "k", "m", "i" }
 
     vim.keymap.set("n", "ge", function()
       harpoon.ui:toggle_quick_menu(harpoon:list())
