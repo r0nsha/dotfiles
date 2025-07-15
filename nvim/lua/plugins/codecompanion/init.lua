@@ -3,6 +3,20 @@ return {
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-treesitter/nvim-treesitter",
+
+    -- copy images from the system clipboard into the chat buffer
+    {
+      "HakonHarnes/img-clip.nvim",
+      opts = {
+        filetypes = {
+          codecompanion = {
+            prompt_for_file_name = false,
+            template = "[Image]($FILE_PATH)",
+            use_absolute_path = true,
+          },
+        },
+      },
+    },
   },
   opts = {
     strategies = {
