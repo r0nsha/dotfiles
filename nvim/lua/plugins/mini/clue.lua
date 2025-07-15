@@ -44,7 +44,17 @@ return {
         clue.gen_clues.windows(),
         clue.gen_clues.z(),
 
-        -- TODO: groups
+        { mode = "n", keys = "<Leader>b", desc = "+Buffers" },
+        { mode = "n", keys = "<Leader>g", desc = "+Git" },
+        { mode = "n", keys = "<Leader>a", desc = "+AI" },
+        { mode = "n", keys = "<Leader>c", desc = "+Misc" },
+        { mode = "n", keys = "<Leader>v", desc = "+CSV" },
+        { mode = "n", keys = "<Leader>t", desc = "+Tabs" },
+        { mode = "n", keys = "<Leader>T", desc = "+Todos" },
+        { mode = "n", keys = "<Leader>i", desc = "+Treesitter" },
+        { mode = "n", keys = "<Leader>s", desc = "+Pickers" },
+        { mode = "n", keys = "<Leader>d", desc = "+Debug" },
+        { mode = "n", keys = "gr", desc = "+LSP" },
       },
       window = {
         config = {
