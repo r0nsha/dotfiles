@@ -38,6 +38,7 @@ install_deps() {
 		n
 		deno
 		just
+		sd
 	)
 
 	brew install ${deps[@]}

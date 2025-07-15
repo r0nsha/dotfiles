@@ -31,6 +31,10 @@ else if binary_exists bat
     alias cat bat
 end
 
+if binary_exists sd
+    alias sed sd
+end
+
 if binary_exists zellij
     alias zj zellij
     alias zrf 'zellij run floating'
