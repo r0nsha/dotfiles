@@ -107,3 +107,7 @@ vim.keymap.set("v", "-", "<c-x>gv=gv", { desc = "Decrement" })
 
 -- Select entire buffer
 vim.keymap.set("v", "v", "<esc>ggVG", { desc = "Select all" })
+
+-- Easier to type toggle fold
+vim.keymap.set("n", "zt", "za", { desc = "Toggle fold under cursor" })
+vim.keymap.set("n", "zT", "za", { desc = "Toggle all folds under cursor" })

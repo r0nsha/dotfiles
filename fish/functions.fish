@@ -57,7 +57,7 @@ function tmux_select_dir
 	    end
 
 	    fd . $search_dirs --full-path --type d --min-depth 1 --max-depth 1
-	end | sed "s|^$HOME/||" | mysk)
+	end | sd "^$HOME/" "" | mysk)
 
         # add $HOME back
         set selected $HOME/$selected
@@ -127,7 +127,7 @@ function zellij_select_dir
             end
 
             fd . $search_dirs --full-path --type d --min-depth 1 --max-depth 1
-        end | sed "s|^$HOME/||" | mysk)
+        end | sd "^$HOME/" "" | mysk)
 
         # add $HOME back
         set selected $HOME/$selected
