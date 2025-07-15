@@ -15,6 +15,7 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.smartindent = true
 vim.opt.autoindent = true
+vim.opt.copyindent = true
 vim.opt.shiftround = true
 vim.opt.joinspaces = true
 

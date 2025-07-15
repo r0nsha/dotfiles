@@ -101,3 +101,15 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     vim.bo.filetype = "gitconfig"
   end,
 })
+
+-- Set relativenumber when in normal mode, but not in insert mode
+vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained", "InsertLeave", "WinEnter" }, {
+  group = augroup,
+  pattern = "*",
+  command = "if &nu && mode() != 'i' | set rnu | endif",
+})
+vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
+  group = augroup,
+  pattern = "*",
+  command = "if &nu | set nornu | endif",
+})
