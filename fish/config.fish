@@ -6,15 +6,12 @@ source $DOTFILES/fish/functions.fish
 source $DOTFILES/fish/aliases.fish
 source $DOTFILES/fish/vars.fish
 source $DOTFILES/fish/macos.fish
-source $DOTFILES/fish/themes/modus_operandi.fish
+source $DOTFILES/fish/themes/modus_vivendi.fish
 
 stty -ixon # disable C-s and C-q
 
 set fish_greeting # disable welcome message
 fish_vi_key_bindings
-
-# theme
-fish_config theme choose "Rosé Pine"
 
 # cursor
 set fish_cursor_default block

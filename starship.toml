@@ -25,9 +25,9 @@ read_only = " "
 read_only_style = "yellow"
 
 [character]
-success_symbol = "[󰐊](green)"
+success_symbol = "[󰐊](cyan)"
 error_symbol = "[󰅖](bold red)"
-vimcmd_symbol = "[󰼛](yellow)"
+vimcmd_symbol = "[󰼛](green)"
 
 [git_branch]
 symbol = " "
@@ -35,8 +35,8 @@ format = "[$branch]($style)"
 style = "bright-white"
 
 [git_status]
-format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](green) ($ahead_behind$stashed)]($style)"
-style = "green"
+format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](cyan) ($ahead_behind$stashed)]($style)"
+style = "cyan"
 conflicted = "​"
 untracked = "​"
 modified = "​"
