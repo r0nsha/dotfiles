@@ -6,6 +6,7 @@ source $DOTFILES/fish/functions.fish
 source $DOTFILES/fish/aliases.fish
 source $DOTFILES/fish/vars.fish
 source $DOTFILES/fish/macos.fish
+source $DOTFILES/fish/themes/modus_operandi.fish
 
 stty -ixon # disable C-s and C-q
 

@@ -8,6 +8,11 @@ vim.api.nvim_create_autocmd("User", {
 
 return {
   {
+    "miikanissi/modus-themes.nvim",
+    lazy = false,
+    priority = 1000,
+  },
+  {
     "rose-pine/neovim",
     lazy = false,
     priority = 1000,

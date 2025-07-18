@@ -1,1 +1,1 @@
-return "rose-pine"
+return "modus"
