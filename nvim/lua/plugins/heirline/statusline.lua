@@ -16,8 +16,9 @@ end
 
 local Align = { provider = "%=" }
 
+---@param n? number
 local Space = function(n)
-  return { provider = string.rep(" ", n) }
+  return { provider = string.rep(" ", n or 1) }
 end
 
 local _, hydra = pcall(require, "hydra.statusline")

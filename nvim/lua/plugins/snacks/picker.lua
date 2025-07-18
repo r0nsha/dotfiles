@@ -194,16 +194,28 @@ local M = {
     {
       "<leader>sp",
       function()
-        Snacks.picker.projects()
+        Snacks.picker.files({
+          dirs = { vim.fn.stdpath("data") .. "/lazy" },
+          cmd = "fd",
+          args = { "-td", "--exact-depth", "1" },
+          confirm = function(picker, item, action)
+            picker:close()
+            if item and item.file then
+              vim.schedule(function()
+                local where = action and action.name or "confirm"
+                if where == "edit_vsplit" then
+                  vim.cmd("vsplit | lcd " .. item.file)
+                elseif where == "edit_split" then
+                  vim.cmd("split | lcd " .. item.file)
+                else
+                  vim.cmd("tabnew | tcd " .. item.file)
+                end
+              end)
+            end
+          end,
+        })
       end,
-      desc = "Projects",
-    },
-    {
-      "<leader>sP",
-      function()
-        Snacks.picker.picker_layouts()
-      end,
-      desc = "Picker Layouts",
+      desc = "Plugins",
     },
     {
       "<leader>sm",
