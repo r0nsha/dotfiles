@@ -108,6 +108,11 @@ vim.opt.shortmess:append({ I = true })
 vim.opt.mouse = "a"
 vim.opt.mousemodel = "popup_setpos"
 
+-- spell
+vim.opt.spell = true
+vim.opt.spelloptions = { "camel" }
+vim.opt.spellsuggest = "best"
+
 -- perf
 -- vim.opt.redrawtime = 10000
 -- vim.opt.maxmempattern = 20000
