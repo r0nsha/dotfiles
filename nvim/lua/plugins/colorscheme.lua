@@ -11,6 +11,16 @@ return {
     "miikanissi/modus-themes.nvim",
     lazy = false,
     priority = 1000,
+    config = function()
+      -- TODO: override same colors as rose-pine
+      require("modus-themes").setup({
+        style = "vivendi",
+        on_highlights = function(highlight, color)
+          highlight.MiniCursorword = { underdotted = true }
+          highlight.MiniCursorwordCurrent = highlight.MiniCursorword
+        end,
+      })
+    end,
   },
   {
     "rose-pine/neovim",

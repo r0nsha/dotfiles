@@ -1,13 +1,19 @@
--- vim.o.foldenable = true
--- vim.o.foldlevel = 99
--- vim.o.foldlevelstart = 99
+vim.o.foldenable = true
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
+vim.opt.foldcolumn = "1"
+vim.opt.foldminlines = 1
+vim.opt.foldnestmax = 3
+vim.opt.fillchars:append({
+  fold = "󰧟",
+  foldopen = "-",
+  foldclose = "+",
+  foldsep = "│",
+})
+
 -- vim.o.foldmethod = "expr"
 -- vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
--- vim.opt.foldcolumn = "1"
--- vim.opt.foldminlines = 1
--- vim.opt.foldnestmax = 3
 -- vim.opt.foldtext = "v:lua.custom_foldtext()"
--- vim.opt.fillchars:append({ fold = " " })
 
 -- -- Custom foldtext
 -- local function fold_virt_text(result, s, lnum, coloff)
