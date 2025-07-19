@@ -184,15 +184,27 @@ local function nonzero(n)
 end
 
 local Git = {
-  condition = function()
-    return cond.is_active() and cond.is_git_repo()
+  condition = function(self)
+    return cond.is_active() and (vim.b.gitsigns_head or vim.b.gitsigns_status_dict or vim.b.minidiff_summary)
   end,
 
   init = function(self)
-    self.status_dict = vim.b.gitsigns_status_dict
-    self.has_changes = nonzero(self.status_dict.added)
-      or nonzero(self.status_dict.removed)
-      or nonzero(self.status_dict.changed)
+    if vim.b.gitsigns_status_dict then
+      self.status_dict = vim.b.gitsigns_status_dict
+    elseif vim.b.minidiff_summary then
+      self.status_dict = {
+        head = vim.fn.system("git rev-parse --abbrev-ref HEAD"):gsub("\n", ""),
+        added = vim.b.minidiff_summary.add,
+        removed = vim.b.minidiff_summary.delete,
+        changed = vim.b.minidiff_summary.change,
+      }
+    end
+
+    if self.status_dict then
+      self.has_changes = nonzero(self.status_dict.added)
+        or nonzero(self.status_dict.removed)
+        or nonzero(self.status_dict.changed)
+    end
   end,
 
   hl = function()
@@ -212,27 +224,33 @@ local Git = {
 
     { provider = "(" },
     {
+      condition = function(self)
+        return self.status_dict.added > 0
+      end,
       provider = function(self)
-        local count = self.status_dict.added or 0
-        return count > 0 and ("+" .. count)
+        return "+" .. self.status_dict.added
       end,
       hl = function()
         return { fg = "git_add" }
       end,
     },
     {
+      condition = function(self)
+        return self.status_dict.removed > 0
+      end,
       provider = function(self)
-        local count = self.status_dict.removed or 0
-        return count > 0 and ("-" .. count)
+        return "-" .. self.status_dict.removed
       end,
       hl = function()
         return { fg = "git_del" }
       end,
     },
     {
+      condition = function(self)
+        return self.status_dict.changed > 0
+      end,
       provider = function(self)
-        local count = self.status_dict.changed or 0
-        return count > 0 and ("~" .. count)
+        return "~" .. self.status_dict.changed
       end,
       hl = function()
         return { fg = "git_change" }

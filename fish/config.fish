@@ -8,8 +8,6 @@ source $DOTFILES/fish/vars.fish
 source $DOTFILES/fish/macos.fish
 source $DOTFILES/fish/themes/modus_vivendi.fish
 
-stty -ixon # disable C-s and C-q
-
 set fish_greeting # disable welcome message
 fish_vi_key_bindings
 
@@ -28,6 +26,8 @@ set -Ux PNPM_HOME "$HOME/.local/share/pnpm"
 fish_add_path $PNPM_HOME
 
 if status is-interactive
+    stty -ixon # disable C-s and C-q
+
     # Zoxide
     if binary_exists zoxide
         zoxide init fish | source
