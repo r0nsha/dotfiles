@@ -6,9 +6,8 @@ vim.opt.foldminlines = 1
 vim.opt.foldnestmax = 3
 vim.opt.fillchars:append({
   fold = "󰧟",
-  foldopen = "-",
-  foldclose = "+",
-  foldsep = "│",
+  foldopen = "",
+  foldclose = "",
 })
 
 -- vim.o.foldmethod = "expr"

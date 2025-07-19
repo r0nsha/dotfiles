@@ -33,6 +33,8 @@ return {
           highlight.DapStoppedLine = { link = "DiagnosticVirtualTextError" }
           highlight.HydraPink = { fg = color.error }
           highlight.StatusLineNC = { bg = color.bg_dim }
+          highlight.FoldColumn = { link = "LineNr" }
+          highlight.CursorLineFold = { link = "CursorLineNr" }
         end,
       })
     end,
