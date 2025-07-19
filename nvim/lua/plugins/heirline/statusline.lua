@@ -7,11 +7,17 @@ local function active_fg()
 end
 
 local function update_on(events)
-  return vim.tbl_extend(
-    "keep",
-    events,
-    { "WinEnter", "BufWinEnter", "WinLeave", "BufWinLeave", "FocusGained", "FocusLost" }
-  )
+  return vim.tbl_extend("keep", events, {
+    "WinEnter",
+    "BufWinEnter",
+    "WinLeave",
+    "BufWinLeave",
+    "FocusGained",
+    "FocusLost",
+    callback = vim.schedule_wrap(function()
+      vim.cmd("redrawstatus")
+    end),
+  })
 end
 
 local Align = { provider = "%=" }
@@ -184,7 +190,7 @@ local function nonzero(n)
 end
 
 local Git = {
-  condition = function(self)
+  condition = function()
     return cond.is_active() and (vim.b.gitsigns_head or vim.b.gitsigns_status_dict or vim.b.minidiff_summary)
   end,
 
@@ -258,6 +264,8 @@ local Git = {
     },
     { provider = ")" },
   },
+
+  update = update_on({ "User", pattern = "GitSignsUpdate,MiniDiffUpdated" }),
 }
 
 ---@param type "error" | "warning" | "info" | "hint"
