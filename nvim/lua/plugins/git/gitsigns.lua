@@ -1,31 +1,25 @@
 return {
   "lewis6991/gitsigns.nvim",
-  enabled = false,
   config = function()
     local utils = require("utils")
     local gs = require("gitsigns")
 
     gs.setup({
-      -- signs = {
-      --   add = { text = "▎" },
-      --   change = { text = "▎" },
-      --   delete = { text = "▎" },
-      --   topdelete = { text = "▎" },
-      --   -- delete = { text = "▁" },
-      --   -- topdelete = { text = "▁" },
-      --   changedelete = { text = "▎" },
-      --   untracked = { text = "▎" },
-      -- },
-      -- signs_staged = {
-      --   add = { text = "▎" },
-      --   change = { text = "▎" },
-      --   delete = { text = "▎" },
-      --   topdelete = { text = "▎" },
-      --   -- delete = { text = "▁" },
-      --   -- topdelete = { text = "▁" },
-      --   changedelete = { text = "▎" },
-      -- },
-      -- current_line_blame = not utils.repo_too_large(),
+      signs = {
+        add = { text = "▒" },
+        change = { text = "▒" },
+        delete = { text = "▒" },
+        topdelete = { text = "▒" },
+        changedelete = { text = "▒" },
+        untracked = { text = "▒" },
+      },
+      signs_staged = {
+        add = { text = "▒" },
+        change = { text = "▒" },
+        delete = { text = "▒" },
+        topdelete = { text = "▒" },
+        changedelete = { text = "▒" },
+      },
       current_line_blame = false,
       on_attach = function(bufnr)
         ---@param mode string
@@ -55,6 +49,7 @@ return {
         map("n", "[H", function()
           gs.nav_hunk("first")
         end, "Git: First Hunk")
+
         map("n", "]H", function()
           gs.nav_hunk("last")
         end, "Git: Last Hunk")
@@ -63,11 +58,15 @@ return {
 
         map("n", "<leader>gb", function()
           gs.blame()
-        end, "Git: Blame Line")
+        end, "Git: Blame")
 
         map("n", "<leader>gB", function()
           gs.blame_line({ full = true })
-        end, "Git: Blame Line (Full)")
+        end, "Git: Blame Line")
+
+        map("n", "<leader>gc", function()
+          gs.toggle_current_line_blame()
+        end, "Git: Toggle Current Line Blame")
 
         map("n", "<leader>gdw", function()
           gs.toggle_word_diff()

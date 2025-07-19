@@ -34,8 +34,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
       Snacks.picker.lsp_definitions(picker_opts)
     end, opts("Go to Definition"))
 
-    vim.keymap.set("n", "gv", "<C-w>v<C-]>", opts("Go to Definition (VSplit)"))
-
     vim.keymap.set("n", "grd", function()
       vim.api.nvim_feedkeys("zz", "n", true)
       Snacks.picker.lsp_declarations(picker_opts)
