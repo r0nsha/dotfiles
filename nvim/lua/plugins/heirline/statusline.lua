@@ -189,6 +189,36 @@ local function nonzero(n)
   return n ~= nil and n ~= 0
 end
 
+local function minidiff_init(self)
+  if not self.status_dict then
+    self.status_dict = { head = "" }
+  end
+
+  self.status_dict.added = vim.b.minidiff_summary.add
+  self.status_dict.removed = vim.b.minidiff_summary.delete
+  self.status_dict.changed = vim.b.minidiff_summary.change
+
+  vim.system({ "git", "rev-parse", "--abbrev-ref", "HEAD" }, {
+    text = true,
+    cwd = vim.fn.getcwd(),
+  }, function(result)
+    local head
+    if result.code == 0 then
+      local output = result.stdout:gsub("%s+", "")
+      head = output ~= "HEAD" and output or "(detached)"
+    else
+      head = ""
+    end
+
+    if head ~= self.status_dict.head then
+      self.status_dict.head = head
+      vim.schedule(function()
+        vim.cmd.redrawstatus()
+      end)
+    end
+  end)
+end
+
 local Git = {
   condition = function()
     return cond.is_active() and (cond.is_git_repo() or vim.b.minidiff_summary)
@@ -198,33 +228,7 @@ local Git = {
     if vim.b.gitsigns_status_dict then
       self.status_dict = vim.b.gitsigns_status_dict
     elseif vim.b.minidiff_summary then
-      if not self.status_dict then
-        self.status_dict = { head = "" }
-      end
-
-      self.status_dict.added = vim.b.minidiff_summary.add
-      self.status_dict.removed = vim.b.minidiff_summary.delete
-      self.status_dict.changed = vim.b.minidiff_summary.change
-
-      vim.system({ "git", "rev-parse", "--abbrev-ref", "HEAD" }, {
-        text = true,
-        cwd = vim.fn.getcwd(),
-      }, function(result)
-        local head
-        if result.code == 0 then
-          local output = result.stdout:gsub("%s+", "")
-          head = output ~= "HEAD" and output or "(detached)"
-        else
-          head = ""
-        end
-
-        if head ~= self.status_dict.head then
-          self.status_dict.head = head
-          vim.schedule(function()
-            vim.cmd.redrawstatus()
-          end)
-        end
-      end)
+      minidiff_init(self)
     end
 
     if self.status_dict then
