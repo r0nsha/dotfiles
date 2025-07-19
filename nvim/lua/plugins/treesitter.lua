@@ -111,6 +111,7 @@ return {
     ft = { "html", "svelte", "astro", "vue", "javascriptreact", "typescriptreact", "php", "blade" },
     config = function()
       require("tailwind-fold").setup({
+        enabled = false,
         min_chars = 30,
         symbol = "…",
       })
