@@ -242,17 +242,6 @@ local Git = {
     },
     {
       condition = function(self)
-        return self.status_dict.removed > 0
-      end,
-      provider = function(self)
-        return "-" .. self.status_dict.removed
-      end,
-      hl = function()
-        return { fg = "git_del" }
-      end,
-    },
-    {
-      condition = function(self)
         return self.status_dict.changed > 0
       end,
       provider = function(self)
@@ -260,6 +249,17 @@ local Git = {
       end,
       hl = function()
         return { fg = "git_change" }
+      end,
+    },
+    {
+      condition = function(self)
+        return self.status_dict.removed > 0
+      end,
+      provider = function(self)
+        return "-" .. self.status_dict.removed
+      end,
+      hl = function()
+        return { fg = "git_del" }
       end,
     },
     { provider = ")" },
