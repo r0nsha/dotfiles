@@ -3,6 +3,8 @@
 ---@param v T
 ---@return T
 function _G.dbg(v)
-  vim.notify(vim.inspect(v))
+  vim.schedule(function()
+    vim.notify(vim.inspect(v))
+  end)
   return v
 end

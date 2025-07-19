@@ -191,19 +191,40 @@ end
 
 local Git = {
   condition = function()
-    return cond.is_active() and (vim.b.gitsigns_head or vim.b.gitsigns_status_dict or vim.b.minidiff_summary)
+    return cond.is_active() and (cond.is_git_repo() or vim.b.minidiff_summary)
   end,
 
   init = function(self)
     if vim.b.gitsigns_status_dict then
       self.status_dict = vim.b.gitsigns_status_dict
     elseif vim.b.minidiff_summary then
-      self.status_dict = {
-        head = vim.fn.system("git rev-parse --abbrev-ref HEAD"):gsub("\n", ""),
-        added = vim.b.minidiff_summary.add,
-        removed = vim.b.minidiff_summary.delete,
-        changed = vim.b.minidiff_summary.change,
-      }
+      if not self.status_dict then
+        self.status_dict = { head = "" }
+      end
+
+      self.status_dict.added = vim.b.minidiff_summary.add
+      self.status_dict.removed = vim.b.minidiff_summary.delete
+      self.status_dict.changed = vim.b.minidiff_summary.change
+
+      vim.system({ "git", "rev-parse", "--abbrev-ref", "HEAD" }, {
+        text = true,
+        cwd = vim.fn.getcwd(),
+      }, function(result)
+        local head
+        if result.code == 0 then
+          local output = result.stdout:gsub("%s+", "")
+          head = output ~= "HEAD" and output or "(detached)"
+        else
+          head = ""
+        end
+
+        if head ~= self.status_dict.head then
+          self.status_dict.head = head
+          vim.schedule(function()
+            vim.cmd.redrawstatus()
+          end)
+        end
+      end)
     end
 
     if self.status_dict then
@@ -228,7 +249,7 @@ local Git = {
       return self.has_changes
     end,
 
-    { provider = "(" },
+    Space(),
     {
       condition = function(self)
         return self.status_dict.added > 0
@@ -245,7 +266,8 @@ local Git = {
         return self.status_dict.changed > 0
       end,
       provider = function(self)
-        return "~" .. self.status_dict.changed
+        local space = self.status_dict.added > 0 and " " or ""
+        return space .. "~" .. self.status_dict.changed
       end,
       hl = function()
         return { fg = "git_change" }
@@ -256,16 +278,19 @@ local Git = {
         return self.status_dict.removed > 0
       end,
       provider = function(self)
-        return "-" .. self.status_dict.removed
+        local space = (self.status_dict.added > 0 or self.status_dict.changed > 0) and " " or ""
+        return space .. "-" .. self.status_dict.removed
       end,
       hl = function()
         return { fg = "git_del" }
       end,
     },
-    { provider = ")" },
   },
 
-  update = update_on({ "User", pattern = "GitSignsUpdate,MiniDiffUpdated" }),
+  update = update_on({
+    "User",
+    pattern = { "GitSignsUpdate", "GitSignsChanged", "MiniDiffUpdated" },
+  }),
 }
 
 ---@param type "error" | "warning" | "info" | "hint"
