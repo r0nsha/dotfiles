@@ -138,10 +138,6 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# TODO: remove
-# start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
-
 mode "open" {
         bindsym t exec i3-sensible-terminal
 
