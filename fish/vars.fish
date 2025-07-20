@@ -1,6 +1,9 @@
 # .config
 set -Ux XDG_CONFIG_HOME $HOME/.config
 
+# Set kitty as my default terminal
+set -Ux TERMINAL kitty
+
 # Set nvim as my default editor
 set -Ux VISUAL nvim
 set -Ux EDITOR nvim
