@@ -55,19 +55,6 @@ if exists "dconf"; then
     success
 fi
 
-# load gtk theme
-if [ "$MACHINE" = "linux" ]; then
-    step "gtk theme"
-    GTK_THEMES=$LOCAL_SHARE/themes
-    GTK_ICONS=$LOCAL_SHARE/icons
-
-    mkdir -p $GTK_THEMES $GTK_ICONS
-
-    sudo $DOTFILES/gtk/Rose-Pine-GTK-Theme/themes/install.sh --dest $GTK_THEMES --name Rose-Pine --theme default --size compact --tweaks black
-    cp -r $DOTFILES/gtk/Rose-Pine-GTK-Theme/icons $GTK_ICONS
-    success
-fi
-
 # install fonts
 case "$MACHINE" in
 linux)
