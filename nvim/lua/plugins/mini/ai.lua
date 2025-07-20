@@ -8,6 +8,7 @@ return {
     ai.setup({
       custom_textobjects = {
         a = treesitter({ a = "@statement.outer", i = "@statement.inner" }),
+        b = treesitter({ a = "@block.outer", i = "@block.inner" }),
         f = treesitter({ a = "@function.outer", i = "@function.inner" }),
         c = treesitter({ a = "@comment.outer", i = "@comment.inner" }),
         v = treesitter({ a = "@parameter.outer", i = "@parameter.inner" }),
