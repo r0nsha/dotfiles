@@ -107,6 +107,9 @@ if [ -n "$FONTS_TO_INSTALL" ]; then
     success
 fi
 
+# i3
+chmod -v ug+x $DOTFILES/i3/scripts/*
+
 # install tools
 step "tools"
 source $DOTFILES/bin/tools.sh

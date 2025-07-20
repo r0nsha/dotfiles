@@ -26,9 +26,6 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
-# start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
-
 # kill focused window
 bindsym $mod+q kill
 
@@ -59,15 +56,11 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
+# window layout
 bindsym $mod+v split v
 bindsym $mod+Shift+v split h
-
 bindsym $mod+m fullscreen toggle
-
-# change container layout (stacked, tabbed, toggle split)
-# bindsym $mod+s layout stacking
-# bindsym $mod+w layout tabbed
-# bindsym $mod+e layout toggle split
+bindsym $mod+Shift+o exec --no-startup-id ~/.config/i3/scripts/toggle-orientation.fish
 
 # floats
 bindsym $mod+Shift+space floating toggle
@@ -77,6 +70,7 @@ tiling_drag modifier titlebar
 # change focus between tiling / floating windows
 bindsym $mod+Tab focus mode_toggle
 
+# workspaces
 set $ws1 "1"
 set $ws2 "2"
 set $ws3 "3"
@@ -143,6 +137,20 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
+
+# TODO: remove
+# start a terminal
+bindsym $mod+Return exec i3-sensible-terminal
+
+mode "open" {
+        bindsym t exec i3-sensible-terminal
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+o mode "default"
+}
+
+bindsym $mod+o mode "open"
 
 bar {
         status_command i3status
