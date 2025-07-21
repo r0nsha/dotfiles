@@ -8,13 +8,15 @@ font pango:IosevkaNerdFontPropo 8
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex --autostart --environment i3
 
-# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
-# screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
-exec --no-startup-id autorandr --change
+# lock screen before suspend
+exec --no-startup-id xss-lock --transfer-sleep-lock -- betterlockscreen -l
+
+# set lock screen wallpaper
+exec --no-startup-id betterlockscreen -u ~/Pictures/Wallpapers --fx dim,pixel
 
 # Options
 exec --no-startup-id xset r rate 250 30
+exec --no-startup-id ~/.config/i3/scripts/set_resolution.fish
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -51,7 +53,6 @@ bindsym $mod+Shift+Right move right
 bindsym $mod+v split v
 bindsym $mod+Shift+v split h
 bindsym $mod+m fullscreen toggle
-bindsym $mod+Shift+o exec --no-startup-id ~/.config/i3/scripts/toggle-orientation.fish
 
 # floats
 bindsym $mod+Shift+space floating toggle
@@ -110,7 +111,7 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 bindsym $mod+q kill
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
-bindsym $mod+Escape exec "i3-msg exit"
+bindsym $mod+Escape exec "betterlockscreen -l"
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
