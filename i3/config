@@ -12,11 +12,12 @@ exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id xss-lock --transfer-sleep-lock -- betterlockscreen -l
 
 # set lock screen wallpaper
-exec --no-startup-id betterlockscreen -u ~/Pictures/Wallpapers --fx dim,pixel
+exec --no-startup-id betterlockscreen -u ~/Pictures/Wallpapers --fx dim
 
 # Options
 exec --no-startup-id xset r rate 250 30
-exec --no-startup-id ~/.config/i3/scripts/set_resolution.fish
+exec --no-startup-id xrandr --size 5120x1440
+exec --no-startup-id xrandr --output DP-4 --size 5120x1440 --rate 120.00
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
