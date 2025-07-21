@@ -1,4 +1,5 @@
 set $mod Mod4
+set $terminal kitty
 
 # font pango:monospace 8
 font pango:IosevkaNerdFontPropo 8
@@ -113,21 +114,23 @@ bindsym $mod+Escape exec "i3-msg exit"
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
 mode "resize" {
-        bindsym h resize shrink width 10 px or 10 ppt
-        bindsym j resize shrink height 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize grow width 10 px or 10 ppt
+        set $resize_amount 5
 
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize shrink height 10 px or 10 ppt
-        bindsym Up resize grow height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+        bindsym h resize shrink width $resize_amount px or $resize_amount ppt
+        bindsym j resize shrink height $resize_amount px or $resize_amount ppt
+        bindsym k resize grow height $resize_amount px or $resize_amount ppt
+        bindsym l resize grow width $resize_amount px or $resize_amount ppt
+
+        bindsym Left resize shrink width $resize_amount px or $resize_amount ppt
+        bindsym Down resize shrink height $resize_amount px or $resize_amount ppt
+        bindsym Up resize grow height $resize_amount px or $resize_amount ppt
+        bindsym Right resize grow width $resize_amount px or $resize_amount ppt
 
         bindsym Return mode "default"
         bindsym Escape mode "default"
@@ -136,15 +139,15 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-mode "open" {
-        bindsym t exec i3-sensible-terminal
+mode "app" {
+        bindsym t exec $terminal; mode "default"
 
         bindsym Return mode "default"
         bindsym Escape mode "default"
         bindsym $mod+o mode "default"
 }
 
-bindsym $mod+o mode "open"
+bindsym $mod+o mode "app"
 
 bar {
         status_command i3status

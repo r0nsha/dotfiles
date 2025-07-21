@@ -4,7 +4,7 @@ source $DOTFILES/fish/fisher.fish
 
 source $DOTFILES/fish/functions.fish
 source $DOTFILES/fish/aliases.fish
-source $DOTFILES/fish/vars.fish
+source $DOTFILES/fish/variables.fish
 source $DOTFILES/fish/macos.fish
 source $DOTFILES/fish/themes/modus_vivendi.fish
 
