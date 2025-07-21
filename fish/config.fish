@@ -11,6 +11,11 @@ source $DOTFILES/fish/themes/modus_vivendi.fish
 set fish_greeting # disable welcome message
 fish_vi_key_bindings
 
+# yank/paste with system clipboard
+bind yy fish_clipboard_copy
+bind Y fish_clipboard_copy
+bind p fish_clipboard_paste
+
 # cursor
 set fish_cursor_default block
 set fish_cursor_insert block
