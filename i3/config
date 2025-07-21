@@ -14,7 +14,7 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id autorandr --change
 
 # Options
-exec --no-startup-id xset r rate 350 50
+exec --no-startup-id xset r rate 250 30
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
