@@ -2,7 +2,7 @@ set $mod Mod4
 set $terminal kitty
 
 # font pango:monospace 8
-font pango:IosevkaNerdFontPropo 14
+font pango:IosevkaNerdFontPropo 15
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
