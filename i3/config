@@ -18,8 +18,10 @@ exec --no-startup-id betterlockscreen -u "$HOME/Pictures/Wallpapers"
 exec --no-startup-id feh --randomize --bg-scale --slideshow-delay 300 "$HOME/Pictures/Wallpapers"
 
 # Theme
+default_border pixel 1
+default_floating_border pixel 1
+gaps inner 4
 include "$HOME/.config/i3/themes/modus_vivendi"
-gaps inner 0
 
 # System options
 exec --no-startup-id xset r rate 250 30
@@ -158,7 +160,3 @@ mode "app" {
 }
 
 bindsym $mod+o mode "app"
-
-bar {
-        status_command i3status
-}
