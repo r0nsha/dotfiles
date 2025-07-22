@@ -20,7 +20,7 @@ exec --no-startup-id feh --randomize --bg-scale --slideshow-delay 300 "$HOME/Pic
 # Theme
 default_border pixel 1
 default_floating_border pixel 1
-gaps inner 4
+gaps inner 0
 include "$HOME/.config/i3/themes/modus_vivendi"
 
 # System options
