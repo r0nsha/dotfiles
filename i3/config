@@ -2,7 +2,7 @@ set $mod Mod4
 set $terminal kitty
 
 # font pango:monospace 8
-font pango:IosevkaNerdFontPropo 8
+font pango:IosevkaNerdFontPropo 14
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
@@ -18,7 +18,8 @@ exec --no-startup-id betterlockscreen -u "$HOME/Pictures/Wallpapers"
 exec --no-startup-id feh --randomize --bg-scale --slideshow-delay 300 "$HOME/Pictures/Wallpapers"
 
 # Theme
-gaps inner 10
+include "$HOME/.config/i3/themes/modus_vivendi"
+gaps inner 0
 
 # System options
 exec --no-startup-id xset r rate 250 30

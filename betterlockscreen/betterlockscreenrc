@@ -1,0 +1,58 @@
+# default options
+display_on=0
+span_image=false
+lock_timeout=300
+fx_list=(dim blur dimblur pixel dimpixel color)
+dim_level=40
+blur_level=1
+pixel_scale=10,1000
+solid_color=121212      # dark background (Modus Vivendi base)
+wallpaper_cmd="feh --bg-fill"
+quiet=false
+
+# default theme
+loginbox=00000066
+loginshadow=00000000
+locktext="Type password to unlock..."
+font="sans-serif"
+
+ringcolor=000000ff        # cyan accent ring
+insidecolor=00000000
+separatorcolor=00000000
+
+ringvercolor=00b8d3ff     # cyan accent for verification ring
+insidevercolor=00000000
+
+ringwrongcolor=ff4c4cff   # slightly softer red for error ring (instead of bright red)
+insidewrongcolor=330000cc # translucent dark red for inside wrong ring
+
+timecolor=eeeeeeff        # light gray for time text
+time_format="%H:%M:%S"
+
+greetercolor=eeeeeeff     # light gray for greeter text
+layoutcolor=eeeeeeff
+
+keyhlcolor=00b8d3ff       # cyan accent for key highlight
+bshlcolor=00b8d3ff        # cyan accent for backspace highlight
+
+veriftext="Verifying..."
+verifcolor=00b8d3ff       # cyan accent for verification text
+
+wrongtext="Failure!"
+wrongcolor=ff4c4cff       # soft red for error text
+
+modifcolor=00b8d3ff       # cyan accent for modifiers
+
+bgcolor=121212ff          # dark background
+
+#
+# expert options (change at own risk!)
+#
+
+# i3lockcolor_bin="i3lock-color"      # Manually set command for i3lock-color
+# suspend_command="systemctl suspend" # Manually change action e.g. hibernate/suspend-command
+
+# i3lock-color - custom arguments
+# lockargs=() 						  # overwriting default "(-n)"
+# lockargs+=(--ignore-empty-password) # appending new argument
+

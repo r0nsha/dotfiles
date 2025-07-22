@@ -1,0 +1,32 @@
+set $bg                 #000000
+set $bg-alt             #1e1e1e
+set $fg                 #ffffff
+set $fg-dim             #989898
+set $accent             #00d3d0
+set $border-inactive    #303030
+set $border-active      #282828
+set $border-urgent      #ff5f59
+
+# class                   border            background        text          indicator         child_border
+client.focused            $border-active    $border-active    $fg           $border-active    $border-active
+client.focused_inactive   $border-inactive  $border-inactive  $fg-dim       $border-inactive  $border-inactive
+client.unfocused          $border-inactive  $bg-alt           $fg-dim       $bg-alt           $bg-alt
+client.urgent             $border-urgent    $border-urgent    $fg           $border-urgent    $border-urgent
+client.placeholder        $bg               $bg-alt           $fg           $bg               $bg-alt
+
+client.background       $bg
+
+bar {
+    status_command i3status
+    position top
+    colors {
+        background $bg-alt
+        statusline $fg
+        separator  $fg-dim
+
+        focused_workspace  $accent $accent $bg
+        inactive_workspace $bg-alt $bg-alt $fg-dim
+        urgent_workspace   $border-urgent $border-urgent $fg
+        binding_mode       $yellow $yellow $bg
+    }
+}

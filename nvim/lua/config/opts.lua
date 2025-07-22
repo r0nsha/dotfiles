@@ -109,7 +109,7 @@ vim.opt.mouse = "a"
 vim.opt.mousemodel = "popup_setpos"
 
 -- spell
-vim.opt.spell = true
+vim.opt.spell = false
 vim.opt.spelloptions = { "camel" }
 vim.opt.spellsuggest = "best"
 
