@@ -1,4 +1,191 @@
 configuration {
+    font: "IosevkaNerdFontPropo 14";
     kb-accept-entry: "Control+y,Return,KP_Enter";
     kb-cancel: "Control+c,Escape,Control+g";
 }
+
+* {
+    bg:                #000000; /* Dark background */
+    fg:                #989898; /* Light foreground */
+    selection-bg:      #ffffff; /* Slightly lighter background for selection, good contrast */
+    selection-fg:      #000000; /* White for selected text */
+    red:               #ff5f59; /* Error/Urgent red */
+    green:             #44bc44; /* Success/Active green */
+    cyan:              #00d3d0; /* Info/Highlight cyan */
+    yellow:            #d0bc00; /* Warning/Yellow accent */
+
+    /* Rofi-specific assignments using Modus Vivendi palette */
+    background:                   @bg;
+    foreground:                   @fg;
+    normal-foreground:            @foreground;
+    normal-background:            @background;
+
+    selected-normal-foreground:   @selection-fg;
+    selected-normal-background:   @selection-bg;
+
+    alternate-normal-foreground:  @foreground;
+    alternate-normal-background:  @background; /* Modus themes often keep alternates similar to normal for consistency */
+
+    urgent-foreground:            @red;
+    urgent-background:            @background;
+    selected-urgent-foreground:   @selection-fg;
+    selected-urgent-background:   @red; /* Selected urgent stands out clearly */
+
+    alternate-urgent-foreground:  @urgent-foreground;
+    alternate-urgent-background:  @alternate-normal-background;
+
+    active-foreground:            @green;
+    active-background:            @background;
+    selected-active-foreground:   @selection-fg;
+    selected-active-background:   @green; /* Selected active stands out clearly */
+
+    alternate-active-foreground:  @active-foreground;
+    alternate-active-background:  @alternate-normal-background;
+
+    border-color:                 @fg;
+    separatorcolor:               @fg; /* Separators share the selection background for subtle distinction */
+
+    spacing:                      4; /* Slightly more spacing for readability */
+}
+
+window {
+    background-color: @background;
+    border:           1;
+    border-color:     @border-color;
+    padding:          4;
+    width:            10%;
+    height:           35%;
+}
+
+mainbox {
+    border:           0;
+    padding:          0;
+}
+
+message {
+    border:           1px dash 0px 0px;
+    border-color:     @separatorcolor;
+    padding:          4px; /* A bit more padding for messages */
+    text-color:       @yellow; /* Use yellow for messages/warnings */
+}
+
+textbox {
+    text-color:       @foreground;
+}
+
+listview {
+    fixed-height:     0;
+    border:           2px dash 0px 0px;
+    border-color:     @separatorcolor;
+    spacing:          4px;
+    scrollbar:        true;
+    padding:          4px 0px 0px;
+}
+
+element {
+    border:           0;
+    padding:          4px 8px; /* Consistent padding for elements */
+}
+
+element-text {
+    background-color: inherit;
+    text-color:       inherit;
+}
+
+/* Normal states */
+element.normal.normal {
+    background-color: @normal-background;
+    text-color:       @normal-foreground;
+}
+element.normal.urgent {
+    background-color: @urgent-background;
+    text-color:       @urgent-foreground;
+}
+element.normal.active {
+    background-color: @active-background;
+    text-color:       @active-foreground;
+}
+
+/* Selected states */
+element.selected.normal {
+    background-color: @selected-normal-background;
+    text-color:       @selected-normal-foreground;
+}
+element.selected.urgent {
+    background-color: @selected-urgent-background;
+    text-color:       @selected-urgent-foreground;
+}
+element.selected.active {
+    background-color: @selected-active-background;
+    text-color:       @selected-active-foreground;
+}
+
+/* Alternate states (often subtle in Modus themes for consistency) */
+element.alternate.normal {
+    background-color: @alternate-normal-background;
+    text-color:       @alternate-normal-foreground;
+}
+element.alternate.urgent {
+    background-color: @alternate-urgent-background;
+    text-color:       @alternate-urgent-foreground;
+}
+element.alternate.active {
+    background-color: @alternate-active-background;
+    text-color:       @alternate-active-foreground;
+}
+
+scrollbar {
+    width:            6px; /* Wider scrollbar for easier grabbing */
+    border:           0;
+    handle-width:     10px;
+    padding:          0;
+    handle-color:     @selection-bg; /* Scrollbar handle matches selection background */
+}
+
+mode-switcher {
+    border:           2px dash 0px 0px;
+    border-color:     @separatorcolor;
+    spacing:          2px;
+}
+
+button {
+    text-color:       @foreground;
+    padding:          4px 8px;
+}
+
+button.selected {
+    background-color: @selected-normal-background;
+    text-color:       @selected-normal-foreground;
+}
+
+inputbar {
+    spacing:          0;
+    text-color:       @normal-foreground;
+    padding:          4px; /* More padding for the input bar */
+    children:         [ prompt,textbox-prompt-colon,entry,case-indicator ];
+}
+
+prompt {
+    spacing:          0;
+    text-color:       @cyan; /* Use cyan for the prompt to distinguish it */
+}
+
+textbox-prompt-colon {
+    expand:           false;
+    str:              ":";
+    margin:           0px 0.4em 0em 0em; /* Slightly more margin */
+    text-color:       @cyan;
+}
+
+entry {
+    spacing:          0;
+    text-color:       @normal-foreground;
+    placeholder:      "";
+}
+
+case-indicator {
+    spacing:          0;
+    text-color:       @normal-foreground;
+}
+
+
