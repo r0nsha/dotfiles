@@ -12,9 +12,15 @@ exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id xss-lock --transfer-sleep-lock -- betterlockscreen -l
 
 # set lock screen wallpaper
-exec --no-startup-id betterlockscreen -u "$HOME/Pictures/Wallpapers" --fx dim
+exec --no-startup-id betterlockscreen -u "$HOME/Pictures/Wallpapers"
 
-# Options
+# set wallpapers
+exec --no-startup-id feh --randomize --bg-scale --slideshow-delay 300 "$HOME/Pictures/Wallpapers"
+
+# Theme
+gaps inner 10
+
+# System options
 exec --no-startup-id xset r rate 250 30
 exec --no-startup-id xrandr --size 5120x1440
 exec --no-startup-id xrandr --output DP-4 --size 5120x1440 --rate 120.00
