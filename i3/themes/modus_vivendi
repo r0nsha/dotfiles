@@ -4,11 +4,10 @@ set $fg                 #ffffff
 set $fg-dim             #989898
 set $accent             #00d3d0
 set $border-inactive    #303030
-set $border-active      #282828
 set $border-urgent      #ff5f59
 
 # class                   border            background        text          indicator         child_border
-client.focused            $border-active    $border-active    $fg           $border-active    $border-active
+client.focused            $accent    $accent    $fg           $accent    $accent
 client.focused_inactive   $border-inactive  $border-inactive  $fg-dim       $border-inactive  $border-inactive
 client.unfocused          $border-inactive  $bg-alt           $fg-dim       $bg-alt           $bg-alt
 client.urgent             $border-urgent    $border-urgent    $fg           $border-urgent    $border-urgent
