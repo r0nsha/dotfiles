@@ -16,6 +16,8 @@
     show_indicators = yes
     format = "<b>%s</b>\n%b"
 
+    idle_threshold = 5m
+
 [urgency_low]
     background = "#000000"
     foreground = "#ffffff"
