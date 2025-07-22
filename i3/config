@@ -12,7 +12,7 @@ exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id xss-lock --transfer-sleep-lock -- betterlockscreen -l
 
 # set lock screen wallpaper
-exec --no-startup-id betterlockscreen -u ~/Pictures/Wallpapers --fx dim
+exec --no-startup-id betterlockscreen -u "$HOME/Pictures/Wallpapers" --fx dim
 
 # Options
 exec --no-startup-id xset r rate 250 30
