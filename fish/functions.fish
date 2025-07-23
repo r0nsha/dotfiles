@@ -56,7 +56,7 @@ function tmux_select_dir
             echo $dir
             end
 
-            fd . $search_dirs --full-path --type d --min-depth 1 --max-depth 1
+            fd . $search_dirs --full-path --type d --exact-depth 1
         end | sd "^$HOME/" "" | fzf)
 
         # add $HOME back
@@ -126,7 +126,7 @@ function zellij_select_dir
                 echo $dir
             end
 
-            fd . $search_dirs --full-path --type d --min-depth 1 --max-depth 1
+            fd . $search_dirs --full-path --type d --exact-depth 1
         end | sd "^$HOME/" "" | fzf)
 
         # add $HOME back
