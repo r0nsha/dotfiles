@@ -23,9 +23,10 @@ default_floating_border pixel 1
 gaps inner 0
 include "$HOME/.config/i3/themes/modus_vivendi"
 
-# System options
+# # System options
+# exec --no-startup-id "$HOME/.config/i3/scripts/system_options.fish"
 exec --no-startup-id xset r rate 250 30
-exec --no-startup-id xrandr --size 5120x1440
+exec --no-startup-id xrandr --size 3840x1080
 exec --no-startup-id xrandr --output DP-4 --size 5120x1440 --rate 120.00
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
