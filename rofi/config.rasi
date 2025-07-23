@@ -1,7 +1,10 @@
 configuration {
     font: "IosevkaNerdFontPropo 14";
+
     kb-accept-entry: "Control+y,Return,KP_Enter";
     kb-cancel: "Control+c,Escape,Control+g";
+
+    modi: "power-menu:~/.config/rofi/scripts/rofi-power-menu";
 }
 
 * {
@@ -78,13 +81,13 @@ listview {
     border:           2px dash 0px 0px;
     border-color:     @separatorcolor;
     spacing:          4px;
-    scrollbar:        true;
+    scrollbar:        false;
     padding:          4px 0px 0px;
 }
 
 element {
     border:           0;
-    padding:          4px 8px; /* Consistent padding for elements */
+    padding:          1px 4px;
 }
 
 element-text {
