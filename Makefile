@@ -9,4 +9,4 @@ update-dconf:
 
 wallpapers:
 	betterlockscreen -u ~/Pictures/Wallpapers
-	feh --randomize --bg-scale --slideshow-delay 301 ~/Pictures/Wallpapers
+	feh --randomize --bg-scale --slideshow-delay 300 ~/Pictures/Wallpapers
