@@ -57,7 +57,7 @@ function tmux_select_dir
 	    end
 
 	    fd . $search_dirs --full-path --type d --min-depth 1 --max-depth 1
-	end | sd "^$HOME/" "" | mysk)
+	end | sd "^$HOME/" "" | fzf)
 
         # add $HOME back
         set selected $HOME/$selected
@@ -85,7 +85,7 @@ function tmux_select_session
     if test (count $argv) -eq 1
         set selected $argv[1]
     else
-        set selected (tmux list-sessions -F "#{session_name}" | mysk)
+        set selected (tmux list-sessions -F "#{session_name}" | fzf)
     end
 
     if test -n $selected
@@ -127,7 +127,7 @@ function zellij_select_dir
             end
 
             fd . $search_dirs --full-path --type d --min-depth 1 --max-depth 1
-        end | sd "^$HOME/" "" | mysk)
+        end | sd "^$HOME/" "" | fzf)
 
         # add $HOME back
         set selected $HOME/$selected

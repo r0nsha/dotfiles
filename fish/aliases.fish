@@ -47,11 +47,11 @@ if binary_exists skhd
 end
 
 # GIT ALIASES -----------------------------------------------------------------
-alias gg 'git branch | sk | xargs git switch'
+alias gg 'git branch | fzf | xargs git switch'
 alias gl "git log --all --graph --format=format:'%C(bold blue)%h%C(reset) - %C(white)%s%C(reset) %C(bold magenta)%d%C(reset)'"
 alias gll "git log --graph --format=format:'%C(bold blue)%h%C(reset) - %C(white)%s%C(reset) %C(green)%an %ar %C(reset) %C(bold magenta)%d%C(reset)'"
-alias glc 'git branch | sk | xargs -I % git log %..HEAD --oneline --decorate --color --graph'
-alias glco 'git branch | sk | xargs -I % git log %..origin/HEAD --oneline --decorate --color --graph'
+alias glc 'git branch | fzf | xargs -I % git log %..HEAD --oneline --decorate --color --graph'
+alias glco 'git branch | fzf | xargs -I % git log %..origin/HEAD --oneline --decorate --color --graph'
 
 # PYTHON ALIASES --------------------------------------------------------------
 alias python python3
