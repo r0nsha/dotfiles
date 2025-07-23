@@ -1,0 +1,33 @@
+#!/usr/bin/env fish
+
+# A rofi menu for selecting sound devices using PulseAudio. Supports both outputs and inputs.
+
+# TODO: Output:	$name
+# TODO: Input:	$name
+# TODO: Output picker
+# TODO: Notify
+# TODO: Input picker
+# TODO: Notify
+
+function list_devices
+    set -l default_sink (pactl info | grep 'Default Sink:' | string split ':' --fields 2 | string trim)
+    set -l default_sink_desc (pactl list sinks | grep -A 2 "Name: $default_sink" | grep 'Description:' | string split ':' --fields 2 | string trim)
+    if test -z "$default_sink_desc"
+        set default_sink_display_name "$default_sink"
+    else
+        set default_sink_display_name "$default_sink_desc"
+    end
+
+    set -l default_source (pactl info | grep 'Default Source:' | string split ':' --fields 2 | string trim)
+    set -l default_source_desc (pactl list sources | grep -A 2 "Name: $default_source" | grep 'Description:' | string split ':' --fields 2 | string trim)
+    if test -z "$default_source_desc"
+        set default_source_display_name "$default_source"
+    else
+        set default_source_display_name "$default_source_desc"
+    end
+
+    set -l options "Output:\t$default_sink_display_name\nInput:\t$default_source_display_name"
+    echo -e "$options" | rofi -dmenu -p "Sound Devices"
+end
+
+list_devices
