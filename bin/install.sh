@@ -107,8 +107,9 @@ if [ -n "$FONTS_TO_INSTALL" ]; then
     success
 fi
 
-# i3
+# make scripts executable
 chmod -v ug+x $DOTFILES/i3/scripts/*
+chmod -v ug+x $DOTFILES/rofi/scripts/*
 
 # install tools
 step "tools"
