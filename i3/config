@@ -13,6 +13,9 @@ exec --no-startup-id dex --autostart --environment i3
 # Use betterlockscreen to lock the screen before suspending
 exec --no-startup-id xss-lock --transfer-sleep-lock -- betterlockscreen -l
 
+# Allow switching between US and Hebrew layouts
+exec --no-startup-id setxkbmap -layout us,il -option grp:win_space_toggle
+
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
