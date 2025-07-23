@@ -17,6 +17,8 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- betterlockscreen -l
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
 
+exec --no-startup-id greenclip daemon
+
 # Theme
 default_border pixel 1
 default_floating_border pixel 1
@@ -114,6 +116,7 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 bindsym $mod+Escape exec "betterlockscreen -l"
 bindsym $mod+Shift+Escape exec "rofi -show power-menu -theme-str 'window {width: 5%; height: 20%;}'"
+bindsym $mod+c exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
 
 # Use pactl to adjust volume in PulseAudio.
 set $volumepath ~/.local/lib/i3-volume
