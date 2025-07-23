@@ -1,6 +1,8 @@
 set $alt Mod1
 set $mod Mod4
 set $terminal kitty
+set $statuscmd i3status
+set $statussig SIGUSR1
 
 font pango:IosevkaNerdFontPropo 14
 
@@ -114,11 +116,12 @@ bindsym $mod+Escape exec "betterlockscreen -l"
 bindsym $mod+Shift+Escape exec "rofi -show power-menu -theme-str 'window {width: 5%; height: 20%;}'"
 
 # Use pactl to adjust volume in PulseAudio.
-set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+set $volumepath ~/.local/lib/i3-volume
+set $volumestep 5
+bindsym XF86AudioRaiseVolume exec --no-startup-id $volumepath/volume -n -t $statuscmd -u $statussig up $volumestep
+bindsym XF86AudioLowerVolume exec --no-startup-id $volumepath/volume -n -t $statuscmd -u $statussig down $volumestep
+bindsym XF86AudioMute        exec --no-startup-id $volumepath/volume -n -t $statuscmd -u $statussig mute
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_status
 
 set $resize_amount 5
 bindsym $mod+$alt+h resize shrink width $resize_amount px or $resize_amount ppt
