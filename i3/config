@@ -112,7 +112,7 @@ bindsym $mod+Shift+9 move container to workspace number $ws9; workspace number $
 bindsym $mod+Shift+0 move container to workspace number $ws10; workspace number $ws10
 
 bindsym $mod+q kill
-bindsym $mod+Shift+c reload
+bindsym $mod+r reload
 bindsym $mod+Shift+r restart
 bindsym $mod+Escape exec "betterlockscreen -l"
 bindsym $mod+Shift+Escape exec --no-startup-id "rofi -show power-menu -theme-str 'window {width: 5%; height: 20%;}'"
