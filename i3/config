@@ -25,11 +25,6 @@ default_floating_border pixel 1
 gaps inner 0
 include "$HOME/.config/i3/themes/modus_vivendi"
 
-# start dmenu (a program launcher)
-bindsym $mod+slash exec --no-startup-id dmenu_run
-# A more modern dmenu replacement is rofi:
-# bindcode $mod+slash exec "rofi -modi drun,run -show drun"
-
 # change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
@@ -111,20 +106,9 @@ bindsym $mod+Shift+8 move container to workspace number $ws8; workspace number $
 bindsym $mod+Shift+9 move container to workspace number $ws9; workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10; workspace number $ws10
 
-bindsym $mod+q kill
-bindsym $mod+r reload
-bindsym $mod+Shift+r restart
-bindsym $mod+Escape exec "betterlockscreen -l"
+bindsym $mod+slash exec "rofi -modi drun,run -show drun -show-icons"
 bindsym $mod+Shift+Escape exec --no-startup-id "rofi -show power-menu -theme-str 'window {width: 5%; height: 20%;}'"
 bindsym $mod+c exec --no-startup-id clipmenu
-
-# Use pactl to adjust volume in PulseAudio.
-set $volumepath ~/.local/lib/i3-volume
-set $volumestep 5
-bindsym XF86AudioRaiseVolume exec --no-startup-id $volumepath/volume -n -t $statuscmd -u $statussig up $volumestep
-bindsym XF86AudioLowerVolume exec --no-startup-id $volumepath/volume -n -t $statuscmd -u $statussig down $volumestep
-bindsym XF86AudioMute        exec --no-startup-id $volumepath/volume -n -t $statuscmd -u $statussig mute
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_status
 
 set $resize_amount 5
 bindsym $mod+$alt+h resize shrink width $resize_amount px or $resize_amount ppt
@@ -136,6 +120,19 @@ bindsym $mod+$alt+Left resize shrink width $resize_amount px or $resize_amount p
 bindsym $mod+$alt+Down resize shrink height $resize_amount px or $resize_amount ppt
 bindsym $mod+$alt+Up resize grow height $resize_amount px or $resize_amount ppt
 bindsym $mod+$alt+Right resize grow width $resize_amount px or $resize_amount ppt
+
+# Use pactl to adjust volume in PulseAudio.
+set $volumepath ~/.local/lib/i3-volume
+set $volumestep 5
+bindsym XF86AudioRaiseVolume exec --no-startup-id $volumepath/volume -n -t $statuscmd -u $statussig up $volumestep
+bindsym XF86AudioLowerVolume exec --no-startup-id $volumepath/volume -n -t $statuscmd -u $statussig down $volumestep
+bindsym XF86AudioMute exec --no-startup-id $volumepath/volume -n -t $statuscmd -u $statussig mute
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_status
+
+bindsym $mod+q kill
+bindsym $mod+r reload
+bindsym $mod+Shift+r restart
+bindsym $mod+Escape exec "betterlockscreen -l"
 
 mode "app" {
         bindsym t exec $terminal; mode "default"
