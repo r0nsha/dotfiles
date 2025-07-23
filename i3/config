@@ -152,6 +152,7 @@ mode "settings" {
         bindsym b exec --no-startup-id "$HOME/.config/rofi/scripts/rofi-bluetooth"; mode "default"
         bindsym s exec --no-startup-id "$HOME/.config/rofi/scripts/rofi-sound"; mode "default"
         bindsym w exec --no-startup-id "$HOME/.config/rofi/scripts/rofi-wifi-menu"; mode "default"
+        bindsym d exec --no-startup-id "$HOME/.config/rofi/scripts/rofi-systemd"; mode "default"
 
         bindsym Return mode "default"
         bindsym Escape mode "default"
