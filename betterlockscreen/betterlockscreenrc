@@ -7,7 +7,7 @@ dim_level=40
 blur_level=1
 pixel_scale=10,1000
 solid_color=121212      # dark background (Modus Vivendi base)
-wallpaper_cmd="feh --bg-fill"
+wallpaper_cmd="feh --bg-scale"
 quiet=false
 
 # default theme
