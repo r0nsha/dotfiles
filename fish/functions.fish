@@ -68,10 +68,16 @@ function tmux_select_dir
     end
 
     set -l name (basename $selected | tr . _)
+    set -l tmux_running (pgrep tmux)
+
+    if test -z $TMUX; and test -z $tmux_running
+        tmux new-session -s $name -c "$selected"
+        return
+    end
 
     if ! tmux has-session -t $name 2>/dev/null
         tmux new-session -ds $name -c $selected
-        tmux select-window -t $name:1
+        tmux select-window -t $name:1 # select first window
     end
 
     if test -z $TMUX
