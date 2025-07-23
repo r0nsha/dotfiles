@@ -113,6 +113,7 @@ bindsym $mod+slash exec "rofi -modi drun,run -show drun -show-icons"
 bindsym $mod+Shift+Escape exec --no-startup-id "rofi -show power-menu -theme-str 'window {width: 5%; height: 20%;}'"
 bindsym $mod+c exec --no-startup-id clipmenu
 bindsym $mod+Shift+c exec --no-startup-id "xcolor --format hex --preview-size 255 --selection clipboard"
+bindsym $mod+p exec --no-startup-id rofi-pass
 
 set $resize_amount 5
 bindsym $mod+$alt+h resize shrink width $resize_amount px or $resize_amount ppt
