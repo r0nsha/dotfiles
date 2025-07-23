@@ -2,32 +2,56 @@
 
 # A rofi menu for selecting sound devices using PulseAudio. Supports both outputs and inputs.
 
-# TODO: Output:	$name
-# TODO: Input:	$name
-# TODO: Output picker
-# TODO: Notify
-# TODO: Input picker
-# TODO: Notify
+function get_display_name
+    set -l name $argv[1]
+    set -l list $argv[2]
+
+    set -l desc (pactl list $list | grep -A 2 "Name: $name" | grep 'Description:' | string split ':' --fields 2 | string trim)
+    if test -z "$desc"
+        echo "$name"
+    else
+        echo "$desc"
+    end
+end
+
+function get_sink_display_name
+    get_display_name $argv[1] sinks
+end
+
+function get_source_display_name
+    get_display_name $argv[1] sources
+end
 
 function list_devices
     set -l default_sink (pactl info | grep 'Default Sink:' | string split ':' --fields 2 | string trim)
-    set -l default_sink_desc (pactl list sinks | grep -A 2 "Name: $default_sink" | grep 'Description:' | string split ':' --fields 2 | string trim)
-    if test -z "$default_sink_desc"
-        set default_sink_display_name "$default_sink"
-    else
-        set default_sink_display_name "$default_sink_desc"
-    end
+    set -l default_sink_display_name (get_sink_display_name "$default_sink")
 
     set -l default_source (pactl info | grep 'Default Source:' | string split ':' --fields 2 | string trim)
-    set -l default_source_desc (pactl list sources | grep -A 2 "Name: $default_source" | grep 'Description:' | string split ':' --fields 2 | string trim)
-    if test -z "$default_source_desc"
-        set default_source_display_name "$default_source"
-    else
-        set default_source_display_name "$default_source_desc"
+    set -l default_source_display_name (get_source_display_name "$default_source")
+
+    set -l options "Output:\t$(get_sink_display_name $default_sink)\nInput:\t$(get_source_display_name $default_source)"
+    set picked (echo -e "$options" | rofi -dmenu -p "Sound Devices")
+
+    if string match -q "Output:*" $picked
+        pick_sink
     end
 
-    set -l options "Output:\t$default_sink_display_name\nInput:\t$default_source_display_name"
-    echo -e "$options" | rofi -dmenu -p "Sound Devices"
+    if string match -q "Input:*" $picked
+        pick_source
+    end
+end
+
+# TODO: Output picker
+# TODO: Notify
+function pick_sink
+    set -l sinks (pactl list sinks | rg "Name:" | cut -d' ' -f2- | string join "\n")
+    set -l options $sinks
+    set picked (echo -e "$options" | rofi -dmenu -p "Select Output")
+end
+
+# TODO: Input picker
+# TODO: Notify
+function pick_source
 end
 
 list_devices
