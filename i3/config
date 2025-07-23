@@ -140,3 +140,13 @@ mode "app" {
 }
 
 bindsym $mod+o mode "app"
+
+mode "settings" {
+        bindsym w exec --no-startup-id "$HOME/.config/rofi/scripts/rofi-wifi-menu"; mode "default"
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+comma mode "default"
+}
+
+bindsym $mod+comma mode "settings"
