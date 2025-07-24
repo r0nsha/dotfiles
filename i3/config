@@ -141,7 +141,7 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 bindsym $mod+q kill
 bindsym $mod+r reload
 bindsym $mod+Shift+r restart
-bindsym $mod+Escape exec "betterlockscreen -l"
+bindsym $mod+Escape exec betterlockscreen -l
 
 mode "app" {
         bindsym t exec $terminal; mode "default"
