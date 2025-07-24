@@ -23,8 +23,8 @@ exec --no-startup-id nm-applet
 exec --no-startup-id clipmenud
 
 # Theme
-default_border pixel 1
-default_floating_border pixel 1
+default_border pixel 2
+default_floating_border pixel 2
 gaps inner 0
 
 # change focus
@@ -180,7 +180,7 @@ set $border-inactive    #303030
 set $border-urgent      #ff5f59
 
 # class                   border            background        text          indicator         child_border
-client.focused            $accent    $accent    $fg           $accent    $accent
+client.focused            $accent           $accent           $fg           $accent           $accent
 client.focused_inactive   $border-inactive  $border-inactive  $fg-dim       $border-inactive  $border-inactive
 client.unfocused          $border-inactive  $bg-alt           $fg-dim       $bg-alt           $bg-alt
 client.urgent             $border-urgent    $border-urgent    $fg           $border-urgent    $border-urgent
