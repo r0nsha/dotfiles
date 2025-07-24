@@ -6,7 +6,7 @@ fx_list=(dim blur dimblur pixel dimpixel color)
 dim_level=40
 blur_level=1
 pixel_scale=10,1000
-solid_color=121212      # dark background (Modus Vivendi base)
+solid_color=000000
 wallpaper_cmd="feh --bg-scale"
 quiet=false
 
@@ -14,7 +14,7 @@ quiet=false
 loginbox=00000066
 loginshadow=00000000
 locktext="Type password to unlock..."
-font="sans-serif"
+font="Iosevka Nerd Font Propo"
 
 ringcolor=000000ff
 insidecolor=00000000
@@ -54,5 +54,5 @@ bgcolor=121212ff          # dark background
 
 # i3lock-color - custom arguments
 # lockargs=() 						  # overwriting default "(-n)"
-# lockargs+=(--ignore-empty-password) # appending new argument
+lockargs+=(--ignore-empty-password) # appending new argument
 
