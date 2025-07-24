@@ -128,7 +128,7 @@ return {
       end,
     })
 
-    vim.api.nvim_create_autocmd({ "BufNew", "BufNewFil" }, {
+    vim.api.nvim_create_autocmd({ "BufNew", "BufNewFile" }, {
       group = group,
       callback = function(args)
         attach(args.buf)
