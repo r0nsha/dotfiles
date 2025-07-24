@@ -109,6 +109,7 @@ fi
 
 # make scripts executable
 chmod -v ug+x $DOTFILES/rofi/scripts/*
+chmod -v ug+x $DOTFILES/i3blocks/scripts/*
 
 # install tools
 step "tools"
