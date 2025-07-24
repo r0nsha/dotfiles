@@ -2,7 +2,6 @@
 label=
 command=~/.config/i3blocks/scripts/lang.fish
 interval=persist
-markup=pango
 
 [date]
 command=date '+%H:%M %d %b'
