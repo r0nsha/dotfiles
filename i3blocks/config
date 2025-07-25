@@ -1,7 +1,11 @@
 [language]
-label=
-command=~/.config/i3blocks/scripts/lang.fish
+command=~/.config/i3blocks/scripts/language.fish
 interval=persist
+
+[network]
+command=~/.config/i3blocks/scripts/network.fish
+interval=1
+markup=pango
 
 [date]
 command=date '+ %H:%M %d %b '
