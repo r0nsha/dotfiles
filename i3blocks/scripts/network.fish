@@ -1,9 +1,10 @@
 #!/usr/bin/env fish
 
-set -l active (nmcli -t -f NAME connection show --active | head -n 1)
 set -l color_red "#ff5f59"
 set -l color_yellow "#d0bc00"
 set -l color_green "#44bc44"
+
+set -l active (nmcli -t -f NAME connection show --active | head -n 1)
 
 if test -z "$active"
     set conn "<span color='$color_red'>󰱟 No connection</span>"
@@ -38,7 +39,7 @@ else
         set color $color_red
     end
 
-    set conn "<span color='$color'>$icon $signal $active</span>"
+    set conn "<span color='$color'>$icon $active</span>"
 end
 
 echo " $conn "
