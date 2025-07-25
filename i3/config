@@ -17,6 +17,7 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- betterlockscreen -l
 exec_always --no-startup-id setxkbmap -layout us,il -option grp:win_space_toggle
 
 exec --no-startup-id clipmenud
+exec --no-startup-id playerctld daemon
 
 # Theme
 default_border pixel 2
@@ -126,14 +127,16 @@ set $volumepath ~/.config/i3/scripts/i3-volume
 set $volumestep 5
 bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
 bindsym XF86AudioStop exec --no-startup-id playerctl stop
-bindsym XF86AudioNext exec --no-startup-id playerctl next
 bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+bindsym XF86AudioNext exec --no-startup-id playerctl next
 bindsym XF86AudioRaiseVolume exec --no-startup-id $volumepath/volume -n -t $statuscmd -u $statussig up $volumestep
 bindsym XF86AudioLowerVolume exec --no-startup-id $volumepath/volume -n -t $statuscmd -u $statussig down $volumestep
 bindsym XF86AudioMute exec --no-startup-id $volumepath/volume -n -t $statuscmd -u $statussig mute
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_status
+bindsym Control+XF86AudioPrev exec --no-startup-id playerctld unshift
+bindsym Control+XF86AudioNext exec --no-startup-id playerctld shift
 bindsym Print exec flameshot gui
-bindsym $mod+Print exec flameshot screen --clipboard --path $HOME/Pictures/Screenshots
+bindsym Control+Print exec flameshot screen --clipboard --path $HOME/Pictures/Screenshots
 
 bindsym $mod+q kill
 bindsym $mod+r reload
