@@ -27,10 +27,8 @@ elif [[ "$CHENTRY" == "Disable WiFi"* ]]; then
 	notify-send "WiFi disabled"
 else
 	CHNAME=$(echo "$CHENTRY" | awk '{print $1}')
-	# store selected SSID
 	CHSSID=$(echo "$CHENTRY" | sed 's/\s\{2,\}/\|/g' | awk -F "|" '{print $1}')
 
-	# get list of known connections
 	KNOWNCON=$(nmcli connection show)
 
 	# If the connection is already in use, then this will still be able to get the SSID
