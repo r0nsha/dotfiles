@@ -6,24 +6,30 @@ LIST=$(nmcli --fields SSID,SECURITY,BARS device wifi list | sed '/^--/d' | sed 1
 
 # get current connection status
 CONSTATE=$(nmcli -fields WIFI g)
-if [[ "$CONSTATE" =~ "enabled" ]]; then
-	TOGGLE="Disable WiFi 󰖪"
-elif [[ "$CONSTATE" =~ "disabled" ]]; then
+if [[ "$CONSTATE" =~ "disabled" ]]; then
 	TOGGLE="Enable WiFi 󰖩"
+	CHENTRY=$(echo -e "$TOGGLE" | uniq -u | rofi -dmenu -selected-row 1 -p "WiFi")
+	if [[ "$CHENTRY" == "Enable WiFi"* ]]; then
+		nmcli radio wifi on
+		notify-send "WiFi enabled"
+	fi
+	exit
 fi
 
-# display menu; store user choice
+TOGGLE="Disable WiFi 󰖪"
+
 CHENTRY=$(echo -e "$TOGGLE\n$LIST" | uniq -u | rofi -dmenu -selected-row 1 -p "WiFi")
-# store selected SSID
-CHSSID=$(echo "$CHENTRY" | sed 's/\s\{2,\}/\|/g' | awk -F "|" '{print $1}')
 
 if [ "$CHENTRY" = "" ]; then
 	exit
-elif [ "$CHENTRY" = "Enable WiFi 直" ]; then
-	nmcli radio wifi on
-elif [ "$CHENTRY" = "Disable WiFi 睊" ]; then
+elif [[ "$CHENTRY" == "Disable WiFi"* ]]; then
 	nmcli radio wifi off
+	notify-send "WiFi disabled"
 else
+	CHNAME=$(echo "$CHENTRY" | awk '{print $1}')
+	# store selected SSID
+	CHSSID=$(echo "$CHENTRY" | sed 's/\s\{2,\}/\|/g' | awk -F "|" '{print $1}')
+
 	# get list of known connections
 	KNOWNCON=$(nmcli connection show)
 
@@ -37,12 +43,12 @@ else
 		nmcli con up "$CHSSID"
 	else
 		if [[ "$CHENTRY" =~ "" ]]; then
-			WIFIPASS=$(echo " Press Enter if network is saved" | rofi -dmenu -p "WiFi Password" -lines 1)
+			WIFIPASS=$(echo " Press Enter if network is saved" | rofi -dmenu -password -p "$CHNAME Password" -lines 1)
 		fi
 		if nmcli dev wifi con "$CHSSID" password "$WIFIPASS"; then
-			notify-send 'Connection successful'
+			notify-send "Connected to $CHNAME"
 		else
-			notify-send 'Connection failed'
+			notify-send "Connection to $CHNAME failed"
 		fi
 	fi
 fi
