@@ -2,7 +2,7 @@
 
 # A rofi menu for selecting sound devices using PulseAudio. Supports both outputs and inputs.
 
-set ROFI_OPTIONS -theme-str "window {width: 15%;}"
+set ROFI_THEME -theme-str "window {width: 15%;}"
 
 function get_display_name
     set -l name $argv[1]
@@ -31,14 +31,14 @@ function list_devices
     set -l default_source (pactl get-default-source)
     set -l default_source_display_name (get_source_display_name "$default_source")
 
-    set -l options "Output:\t$(get_sink_display_name $default_sink)\nInput:\t$(get_source_display_name $default_source)"
-    set picked (echo -e "$options" | rofi -dmenu -p "Sound Devices" $ROFI_OPTIONS)
+    set -l options "󰓃 $(get_sink_display_name $default_sink)\n󰍬 $(get_source_display_name $default_source)"
+    set picked (echo -e "$options" | rofi -dmenu $ROFI_THEME -p "Sound Devices")
 
-    if string match -q "Output:*" $picked
+    if string match -q "󰓃 *" $picked
         pick_sink
     end
 
-    if string match -q "Input:*" $picked
+    if string match -q "󰍬 *" $picked
         pick_source
     end
 end
@@ -47,30 +47,26 @@ function pick_sink
     set -l sinks (pactl list sinks | rg "Name:" | cut -d' ' -f2-)
     set -l options (
         for sink in $sinks
-            echo "$(get_sink_display_name $sink) | $sink"
+            echo "$(get_sink_display_name $sink):::$sink"
         end | sort | string join "\n"
     )
-    set picked (echo -e "$options" | rofi -dmenu -p "Select Output" $ROFI_OPTIONS)
-    set -l parts (echo $picked | string split ' | ' | string trim)
-    set -l name $parts[1]
-    set -l sink $parts[2]
-    pactl set-default-sink "$sink"
-    notify-send "Default output set to '$name'"
+    set -l picked (echo -e "$options" | awk -F ':::' '{print $1}' | rofi -dmenu $ROFI_THEME -p "Select Output")
+    set -l sink (echo -e $options | rg -F "$picked" | awk -F ':::' '{print $2}')
+    pactl set-default-sink $sink
+    notify-send "Default output set to '$picked'"
 end
 
 function pick_source
     set -l sources (pactl list sources | rg "Name:" | cut -d' ' -f2-)
     set -l options (
         for source in $sources
-            echo "$(get_source_display_name $source) | $source"
+            echo "$(get_source_display_name $source):::$source"
         end | sort | string join "\n"
     )
-    set picked (echo -e "$options" | rofi -dmenu -p "Select Output" $ROFI_OPTIONS)
-    set -l parts (echo $picked | string split ' | ' | string trim)
-    set -l name $parts[1]
-    set -l source $parts[2]
-    pactl set-default-source "$source"
-    notify-send "Default output set to '$name'"
+    set -l picked (echo -e "$options" | awk -F ':::' '{print $1}' | rofi -dmenu $ROFI_THEME -p "Select Input")
+    set -l source (echo -e $options | rg -F "$picked" | awk -F ':::' '{print $2}')
+    pactl set-default-source $source
+    notify-send "Default input set to '$picked'"
 end
 
 list_devices
