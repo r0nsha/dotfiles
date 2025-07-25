@@ -1,3 +1,7 @@
+[player]
+command=~/.config/i3blocks/scripts/player.fish
+interval=persist
+
 [language]
 command=~/.config/i3blocks/scripts/language.fish
 interval=persist

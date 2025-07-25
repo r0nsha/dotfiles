@@ -14,7 +14,7 @@ exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id xss-lock --transfer-sleep-lock -- betterlockscreen -l
 
 # Allow switching between US and Hebrew layouts
-exec --no-startup-id setxkbmap -layout us,il -option grp:win_space_toggle
+exec_always --no-startup-id setxkbmap -layout us,il -option grp:win_space_toggle
 
 exec --no-startup-id clipmenud
 
