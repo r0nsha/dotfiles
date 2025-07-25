@@ -25,10 +25,10 @@ function get_source_display_name
 end
 
 function list_devices
-    set -l default_sink (pactl info | grep 'Default Sink:' | string split ':' --fields 2 | string trim)
+    set -l default_sink (pactl get-default-sink)
     set -l default_sink_display_name (get_sink_display_name "$default_sink")
 
-    set -l default_source (pactl info | grep 'Default Source:' | string split ':' --fields 2 | string trim)
+    set -l default_source (pactl get-default-source)
     set -l default_source_display_name (get_source_display_name "$default_source")
 
     set -l options "Output:\t$(get_sink_display_name $default_sink)\nInput:\t$(get_source_display_name $default_source)"

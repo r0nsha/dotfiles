@@ -2,6 +2,10 @@
 command=~/.config/i3blocks/scripts/language.fish
 interval=persist
 
+[sound]
+command=~/.config/i3blocks/scripts/sound.fish
+interval=persist
+
 [volume]
 command=~/.config/i3blocks/scripts/volume.fish
 interval=persist
