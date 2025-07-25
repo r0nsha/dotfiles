@@ -2,6 +2,11 @@
 command=~/.config/i3blocks/scripts/language.fish
 interval=persist
 
+[volume]
+command=~/.config/i3blocks/scripts/volume.fish
+interval=persist
+markup=pango
+
 [network]
 command=~/.config/i3blocks/scripts/network.fish
 interval=5

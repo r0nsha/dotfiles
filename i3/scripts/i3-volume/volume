@@ -864,6 +864,10 @@ define_pulseaudio_functions() {
         fi
 
         pactl set-sink-volume "$sink" "$new_vol%"
+
+        if [ "$new_vol" -gt 0 ]; then
+            pactl set-sink-mute "$sink" no
+        fi
     }
 
     # Toggle mute using pulseaudio.
