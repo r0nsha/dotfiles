@@ -122,7 +122,7 @@ bindsym $mod+$alt+Up resize grow height $resize_amount px or $resize_amount ppt
 bindsym $mod+$alt+Right resize grow width $resize_amount px or $resize_amount ppt
 
 # Media keys
-set $volumepath ~/.local/lib/i3-volume
+set $volumepath ~/.config/i3/scripts/i3-volume
 set $volumestep 5
 bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
 bindsym XF86AudioStop exec --no-startup-id playerctl stop

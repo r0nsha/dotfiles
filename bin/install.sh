@@ -38,7 +38,7 @@ if [ ! -f "$LOCAL_ENV" ]; then
 fi
 
 step "git"
-chmod -v ug+x $DOTFILES/hooks/*
+chmod -v ug+x $DOTFILES/hooks/**/*
 git submodule init
 git submodule update --init --recursive
 success
@@ -108,8 +108,9 @@ if [ -n "$FONTS_TO_INSTALL" ]; then
 fi
 
 # make scripts executable
-chmod -v ug+x $DOTFILES/rofi/scripts/*
-chmod -v ug+x $DOTFILES/i3blocks/scripts/*
+chmod -v ug+x $DOTFILES/i3/scripts/**/*
+chmod -v ug+x $DOTFILES/i3blocks/scripts/**/*
+chmod -v ug+x $DOTFILES/rofi/scripts/**/*
 
 # install tools
 step "tools"

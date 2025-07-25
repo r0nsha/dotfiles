@@ -6,3 +6,7 @@ interval=persist
 [date]
 command=date '+ %H:%M %d %b '
 interval=10
+
+[resources]
+command=~/.config/i3blocks/scripts/resources.fish
+interval=10
