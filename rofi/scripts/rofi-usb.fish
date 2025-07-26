@@ -5,7 +5,6 @@
 set -l options (
     for device in (udiskie-info -a)
         set -l label (udiskie-info $device -o "󰕓 {device_file} | {drive_label} {ui_id_uuid}")
-        notify-send (udiskie-info $device -o "{is_mounted}")
         if test (udiskie-info $device -o "{is_mounted}") = True
             set label "$label (Mounted)"
         end
@@ -20,9 +19,7 @@ if test -z "$device"
 end
 
 if mount | rg -q "$device"
-    notify-send "Unmounting $device"
-    udiskie-unmount "$device"
+    udiskie-umount "$device"
 else
-    notify-send "Mounting $device"
     udiskie-mount "$device"
 end
