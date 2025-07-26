@@ -16,8 +16,9 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- betterlockscreen -l
 # Allow switching between US and Hebrew layouts
 exec_always --no-startup-id setxkbmap -layout us,il -option grp:win_space_toggle
 
-exec --no-startup-id clipmenud
-exec --no-startup-id playerctld daemon
+exec_always --no-startup-id picom
+exec_always --no-startup-id clipmenud
+exec_always --no-startup-id playerctld daemon
 
 # Theme
 default_border pixel 2
@@ -57,7 +58,7 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # change focus between tiling / floating windows
-bindsym $mod+Tab focus mode_toggle
+# bindsym $mod+Tab focus mode_toggle
 
 # workspaces
 set $ws1 "1"
@@ -106,6 +107,7 @@ bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
 bindsym $mod+slash exec "rofi -modi drun,run -show drun -show-icons -display-drun 'Apps'"
+bindsym $mod+Tab exec "rofi -modi window -show window -show-icons -display-drun 'Windows'"
 bindsym $mod+Shift+Escape exec --no-startup-id "rofi -show power-menu -theme-str 'window {width: 5%; height: 20%;}'"
 bindsym $mod+c exec --no-startup-id clipmenu
 bindsym $mod+Shift+c exec --no-startup-id "xcolor --format hex --preview-size 255 --selection clipboard"
