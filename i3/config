@@ -23,7 +23,7 @@ exec_always --no-startup-id playerctld daemon
 # Theme
 default_border pixel 2
 default_floating_border pixel 2
-gaps inner 0
+gaps inner 10
 
 # change focus
 bindsym $mod+h focus left
@@ -190,7 +190,6 @@ client.placeholder        $bg               $bg-alt           $fg           $bg 
 client.background       $bg
 
 bar {
-    font pango:IosevkaNerdFontPropo 12
     status_command $statuscmd
     position top
     tray_padding 2

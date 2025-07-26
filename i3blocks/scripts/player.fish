@@ -25,13 +25,6 @@ else
     set player_icon "󰎇"
 end
 
-set -l _status (playerctl status)
-if test "$_status" = Playing
-    set _status "󰐊"
-else
-    set _status "󰏤"
-end
-
 set -l song (playerctl metadata --format '{{trunc(artist, 20)}} - {{trunc(title, 30)}} {{duration(position)}}/{{duration(mpris:length)}}')
 
-echo " $player_icon $_status $song "
+echo " $player_icon $song "
