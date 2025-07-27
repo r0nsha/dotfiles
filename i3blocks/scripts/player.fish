@@ -19,7 +19,7 @@ else if test "$player" = vlc
     set player_icon "󰕼"
 else if test "$player" = firefox
     set player_icon "󰈹"
-else if test "$player" = chrome
+else if test "$player" = chrome; or test "$player" = brave; or test "$player" = chromium
     set player_icon "󰊯"
 else
     set player_icon "󰎇"

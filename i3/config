@@ -26,7 +26,7 @@ exec_always --no-startup-id feh --randomize --bg-scale --slideshow-delay 300 ~/p
 # Theme
 default_border pixel 2
 default_floating_border pixel 2
-gaps inner 10
+gaps inner 0
 
 # change focus
 bindsym $mod+h focus left
