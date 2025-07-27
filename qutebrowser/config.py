@@ -1,3 +1,5 @@
+config.load_autoconfig(False)
+
 # Spoof User-Agent for Google domains
 google_domains = ["https://accounts.google.com/*", "https://*.google.com/*"]
 for domain in google_domains:
