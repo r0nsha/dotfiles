@@ -8,6 +8,7 @@ script_dir=$(dirname "$0")
 DOTFILES=$(realpath -s $script_dir/..)
 ROOT_BIN="/usr/local/bin"
 LOCAL_BIN="$HOME/.local/bin"
+LOCAL_LIB="$HOME/.local/lib"
 LOCAL_SHARE="${XDG_DATA_HOME:-$HOME/.local/share}"
 DOWNLOADS="${XDG_DOWNLOAD_DIR:-$HOME/Downloads}"
 
