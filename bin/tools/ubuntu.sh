@@ -15,6 +15,7 @@ install_deps() {
 		pass
 		tldr
 		just
+		cmake
 	)
 
 	sudo apt -y -q install ${deps[@]}
