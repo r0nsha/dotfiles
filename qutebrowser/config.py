@@ -13,23 +13,25 @@ c.input.insert_mode.auto_load = True
 c.prompt.filebrowser = False
 c.completion.height = "30%"
 c.completion.web_history.max_items = -1
+c.completion.use_best_match = True
 c.hints.mode = "letter"
 c.hints.min_chars = 1
+c.content.pdfjs = True
 
 # Search engines
 c.url.searchengines["DEFAULT"] = "https://duckduckgo.com/?q={}"
-c.url.searchengines["a"] = "https://wiki.archlinux.org/?search={}"
 c.url.searchengines["g"] = (
     "http://www.google.com/search?hl=en&source=hp&ie=ISO-8859-l&q={}"
 )
 c.url.searchengines["y"] = "https://youtube.com/search?q={}"
+c.url.searchengines["yt"] = "https://youtube.com/search?q={}"
 c.url.searchengines["w"] = "https://en.wikipedia.org/w/index.php?search={}"
-c.url.searchengines["gh"] = "https://github.com/search?q={}&type=Code"
+c.url.searchengines["a"] = "https://wiki.archlinux.org/?search={}"
 c.url.searchengines["ap"] = "https://www.archlinux.org/packages/?sort=&q={}"
-c.url.searchengines["ab"] = "https://bugs.archlinux.org/?project=5&string={}"
+c.url.searchengines["gh"] = "https://github.com/search?q={}&type=Code"
 
 # Aliases
-c.aliases["jellyfin"] = "open -t 10.0.0.21:8096"
+c.aliases["jellyfin"] = "open -t http://localhost:8096"
 
 # Theme
 modus_vivendi = {
