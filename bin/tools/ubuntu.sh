@@ -16,6 +16,11 @@ install_deps() {
 		tldr
 		just
 		cmake
+		i3
+		i3blocks
+		picom
+		dunst
+		libnotify-bin
 	)
 
 	sudo apt -y -q install ${deps[@]}

@@ -20,6 +20,8 @@ exec_always --no-startup-id picom
 exec_always --no-startup-id clipmenud
 exec_always --no-startup-id playerctld daemon
 exec_always --no-startup-id udiskie --smart-tray
+exec_always --no-startup-id betterlockscreen -u ~/pictures/backgrounds
+exec_always --no-startup-id feh --randomize --bg-scale --slideshow-delay 300 ~/pictures/backgrounds
 
 # Theme
 default_border pixel 2
@@ -139,7 +141,7 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 bindsym Control+XF86AudioPrev exec --no-startup-id playerctld unshift
 bindsym Control+XF86AudioNext exec --no-startup-id playerctld shift
 bindsym Print exec flameshot gui
-bindsym Control+Print exec flameshot screen --clipboard --path $HOME/Pictures/Screenshots
+bindsym Control+Print exec flameshot screen --clipboard --path $HOME/pictures/screenshots
 
 bindsym $mod+q kill
 bindsym $mod+r reload

@@ -43,8 +43,9 @@ git submodule init
 git submodule update --init --recursive
 success
 
-step "wallpapers"
-ln -sfv $DOTFILES/wallpapers $HOME/Pictures/Wallpapers # link wallpapers
+step "backgrounds"
+mkdir -p $HOME/pictures
+ln -sfv $DOTFILES/backgrounds $HOME/pictures/backgrounds # link backgrounds
 success
 
 # load dconf settings
