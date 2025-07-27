@@ -82,7 +82,7 @@ c.colors.statusbar.command.private.bg = "red"
 c.colors.statusbar.command.private.fg = "white"
 c.colors.hints.bg = "qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgba(255, 247, 133, 0.8), stop:1 rgba(255, 197, 66, 0.8))"
 c.colors.hints.fg = "black"
-c.colors.hints.match.fg = "purple"
+c.colors.hints.match.fg = "green"
 c.hints.border = "1px solid #E3BE23"
 
 # Keybindings
