@@ -47,8 +47,8 @@ install_rustup() {
 }
 
 install_nvim() {
-	curl -L# https://github.com/neovim/neovim/releases/download/stable/nvim-linux-x86_64.tar.gz | tar -xz -C $DOWNLOADS
-	ln -sf $DOWNLOADS/nvim-linux-x86_64/bin/nvim $HOME/.local/bin/nvim
+	curl -L# https://github.com/neovim/neovim/releases/download/stable/nvim-linux-x86_64.tar.gz | tar -xz -C $LOCAL_OPT
+	ln -sf $LOCAL_OPT/nvim-linux-x86_64/bin/nvim $HOME/.local/bin/nvim
 }
 
 install_tmux() {
@@ -56,8 +56,8 @@ install_tmux() {
 	sudo apt install -y libevent-dev libncurses-dev bison
 
 	# tmux
-	curl -L# https://github.com/tmux/tmux/releases/download/3.4/tmux-3.4.tar.gz | tar -xz -C $DOWNLOADS
-	cd $DOWNLOADS/tmux-3.4
+	curl -L# https://github.com/tmux/tmux/releases/download/3.4/tmux-3.4.tar.gz | tar -xz -C $LOCAL_OPT
+	cd $LOCAL_OPT/tmux-3.4
 	./configure && make
 	sudo make install
 	cd $DOTFILES
@@ -97,7 +97,7 @@ install_luarocks() {
 	sudo apt install build-essential libreadline-dev unzip
 
 	# Install Lua 5.4.7
-	cd $DOWNLOADS
+	cd $LOCAL_OPT
 	curl -L -R -O https://www.lua.org/ftp/lua-5.4.7.tar.gz
 	tar zxf lua-5.4.7.tar.gz
 	cd lua-5.4.7
@@ -105,7 +105,7 @@ install_luarocks() {
 	sudo make install
 
 	# Install LuaRocks 3.11.1
-	cd $DOWNLOADS
+	cd $LOCAL_OPT
 	curl -L -R -O http://luarocks.github.io/luarocks/releases/luarocks-3.11.1.tar.gz
 	tar zxf luarocks-3.11.1.tar.gz
 	cd luarocks-3.11.1
@@ -121,7 +121,7 @@ install_nemo() {
 
 install_i3lock_color() {
 	sudo apt install autoconf gcc make pkg-config libpam0g-dev libcairo2-dev libfontconfig1-dev libxcb-composite0-dev libev-dev libx11-xcb-dev libxcb-xkb-dev libxcb-xinerama0-dev libxcb-randr0-dev libxcb-image0-dev libxcb-util-dev libxcb-xrm-dev libxkbcommon-dev libxkbcommon-x11-dev libjpeg-dev libgif-dev
-	cd $LOCAL_LIB
+	cd $LOCAL_OPT
 	git clone https://github.com/Raymo111/i3lock-color.git
 	cd i3lock-color
 	./install-i3lock-color.sh
@@ -132,7 +132,21 @@ install_betterlockscreen() {
 }
 
 install_xkb_switch() {
-	wget https://raw.githubusercontent.com/betterlockscreen/betterlockscreen/main/install.sh -O - -q | sudo bash -s system
+	cd $DOWNLOADS
+	git clone https://github.com/sergei-mironov/xkb-switch.git
+	cd xkb-switch
+	cmake ..
+	make
+	sudo make install
+	sudo ldconfig
+}
+
+install_clipmenu() {
+	cd $DOWNLOADS
+	git clone https://github.com/cdown/clipmenu.git
+	cd clipmenu
+	sudo make install
+	sudo systemctl enable --now clipmenud
 }
 
 install_cargo_deps() {
@@ -150,9 +164,10 @@ install_wrapper starship install_starship
 install_wrapper fdfind install_fd
 install_wrapper n install_n
 install_wrapper nemo install_nemo
-install_wrapper i3lock_color install_i3lock_color
+install_wrapper i3lock install_i3lock_color
 install_wrapper betterlockscreen install_betterlockscreen
-install_wrapper xkb_switch install_xkb_switch
+install_wrapper xkb-switch install_xkb_switch
+install_wrapper clipmenu install_clipmenu
 install_wrapper eza install_eza
 install_wrapper luarocks install_luarocks
 

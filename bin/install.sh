@@ -7,7 +7,7 @@ set -euo pipefail
 script_dir=$(dirname "$0")
 DOTFILES=$(realpath -s $script_dir/..)
 LOCAL_BIN="$HOME/.local/bin"
-LOCAL_LIB="$HOME/.local/lib"
+LOCAL_OPT="$HOME/.local/opt"
 LOCAL_SHARE="${XDG_DATA_HOME:-$HOME/.local/share}"
 DOWNLOADS="${XDG_DOWNLOAD_DIR:-$HOME/downloads}"
 PICTURES="${XDG_PICTURES_DIR:-$HOME/pictures}"
@@ -28,7 +28,7 @@ fi
 
 cd $DOTFILES
 
-mkdir -p $LOCAL_BIN $LOCAL_SHARE $DOWNLOADS
+mkdir -p $LOCAL_BIN $LOCAL_OPT $LOCAL_SHARE $DOWNLOADS $PICTURES
 
 LOCAL_ENV=$HOME/.env.fish
 if [ ! -f "$LOCAL_ENV" ]; then
@@ -45,8 +45,7 @@ git submodule update --init --recursive
 success
 
 step "backgrounds"
-mkdir -p $PICTURES
-ln -sfv $DOTFILES/backgrounds $PICTURES/backgrounds
+ln -sfv $DOTFILES/backgrounds $PICTURES
 success
 
 # load dconf settings
@@ -110,9 +109,11 @@ if [ -n "$FONTS_TO_INSTALL" ]; then
 fi
 
 # make scripts executable
+step "scripts"
 chmod -v ug+x $DOTFILES/i3/scripts/i3-volume/*
 chmod -v ug+x $DOTFILES/i3blocks/scripts/*
-chmod -v ug+x $DOTFILES/rofi/scripts/*
+find $DOTFILES/rofi -type f -name "rofi-*" -exec chmod -v ug+x {} \;
+success
 
 # install tools
 step "tools"
