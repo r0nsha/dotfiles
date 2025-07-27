@@ -1,8 +1,35 @@
-config.load_autoconfig(False)
+config.load_autoconfig(True)
 
 # Options
+c.fonts.default_family = ["Iosevka Nerd Font Propo"]
+c.fonts.default_size = "10pt"
+c.auto_save.interval = 15000
 c.auto_save.session = True
 c.tabs.position = "top"
+c.editor.command = ["kitty", "nvim", "{file}", "+{line}"]
+c.new_instance_open_target = "tab-bg"
+c.new_instance_open_target_window = "last-focused"
+c.input.insert_mode.auto_load = True
+c.prompt.filebrowser = False
+c.completion.height = "30%"
+c.completion.web_history.max_items = -1
+c.hints.mode = "letter"
+c.hints.min_chars = 1
+
+# Search engines
+c.url.searchengines["DEFAULT"] = "https://duckduckgo.com/?q={}"
+c.url.searchengines["a"] = "https://wiki.archlinux.org/?search={}"
+c.url.searchengines["g"] = (
+    "http://www.google.com/search?hl=en&source=hp&ie=ISO-8859-l&q={}"
+)
+c.url.searchengines["y"] = "https://youtube.com/search?q={}"
+c.url.searchengines["w"] = "https://en.wikipedia.org/w/index.php?search={}"
+c.url.searchengines["gh"] = "https://github.com/search?q={}&type=Code"
+c.url.searchengines["ap"] = "https://www.archlinux.org/packages/?sort=&q={}"
+c.url.searchengines["ab"] = "https://bugs.archlinux.org/?project=5&string={}"
+
+# Aliases
+c.aliases["jellyfin"] = "open -t 10.0.0.21:8096"
 
 # Theme
 modus_vivendi = {
@@ -46,9 +73,10 @@ c.colors.webpage.darkmode.policy.images = "smart"
 c.colors.webpage.darkmode.threshold.background = 128
 c.colors.webpage.darkmode.threshold.foreground = 128
 c.colors.webpage.preferred_color_scheme = "dark"
-
-# Adblock
-c.content.blocking.method = "adblock"
+c.content.notifications.enabled = False
+c.content.tls.certificate_errors = "ask-block-thirdparty"
+c.content.blocking.enabled = True
+c.content.blocking.method = "both"
 c.content.blocking.adblock.lists = [
     "https://easylist.to/easylist/easylist.txt",
     "https://easylist.to/easylist/easyprivacy.txt",
@@ -60,6 +88,11 @@ c.content.blocking.adblock.lists = [
 # Keybindings
 config.bind("J", "tab-prev")
 config.bind("K", "tab-next")
+config.bind("gJ", "tab-move -")
+config.bind("gK", "tab-move +")
+config.bind("<Ctrl-n>", "completion-item-focus next", mode="command")
+config.bind("<Ctrl-p>", "completion-item-focus prev", mode="command")
+config.bind("<Ctrl-y>", "command-accept", mode="command")
 config.bind("<Ctrl-r>", "config-source ;; message-info 'Reloaded config'")
 
 # Spoof User-Agent for Google domains
