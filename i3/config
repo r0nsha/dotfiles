@@ -1,6 +1,7 @@
 set $alt Mod1
 set $mod Mod4
 set $terminal kitty
+set $browser qutebrowser
 set $statuscmd i3blocks
 set $statussig SIGUSR1
 
@@ -151,8 +152,10 @@ bindsym $mod+Escape exec betterlockscreen -l
 
 mode "app" {
         bindsym t exec $terminal; mode "default"
-        bindsym b exec qutebrowser; mode "default"
-        bindsym d exec discord; mode "default"
+        bindsym b exec $browser; mode "default"
+        bindsym Shift+b exec $browser --target private-window; mode "default"
+        # bindsym d exec discord; mode "default"
+        bindsym d exec $browser https://discord.com/channels/@me; mode "default"
         bindsym s exec spotify; mode "default"
         bindsym f exec nemo; mode "default"
 
