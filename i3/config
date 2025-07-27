@@ -153,7 +153,7 @@ bindsym $mod+Escape exec betterlockscreen -l
 
 mode "app" {
         bindsym t exec $terminal; mode "default"
-        bindsym b exec firefox; mode "default"
+        bindsym b exec qutebrowser; mode "default"
         bindsym d exec discord; mode "default"
         bindsym s exec spotify; mode "default"
         bindsym f exec nemo; mode "default"
