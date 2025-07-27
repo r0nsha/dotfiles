@@ -6,6 +6,7 @@ c.fonts.default_size = "10pt"
 c.auto_save.interval = 15000
 c.auto_save.session = True
 c.tabs.position = "top"
+c.tabs.show = "multiple"
 c.editor.command = ["kitty", "nvim", "{file}", "+{line}"]
 c.new_instance_open_target = "tab-bg"
 c.new_instance_open_target_window = "last-focused"
