@@ -6,7 +6,6 @@ set -euo pipefail
 
 script_dir=$(dirname "$0")
 DOTFILES=$(realpath -s $script_dir/..)
-ROOT_BIN="/usr/local/bin"
 LOCAL_BIN="$HOME/.local/bin"
 LOCAL_LIB="$HOME/.local/lib"
 LOCAL_SHARE="${XDG_DATA_HOME:-$HOME/.local/share}"
@@ -46,8 +45,8 @@ git submodule update --init --recursive
 success
 
 step "backgrounds"
-mkdir -p $HOME/pictures
-ln -sfv $DOTFILES/backgrounds $HOME/pictures/backgrounds # link backgrounds
+mkdir -p $PICTURES
+ln -sfv $DOTFILES/backgrounds $PICTURES/backgrounds
 success
 
 # load dconf settings
