@@ -131,6 +131,10 @@ install_betterlockscreen() {
 	wget https://raw.githubusercontent.com/betterlockscreen/betterlockscreen/main/install.sh -O - -q | sudo bash -s system
 }
 
+install_xkb_switch() {
+	wget https://raw.githubusercontent.com/betterlockscreen/betterlockscreen/main/install.sh -O - -q | sudo bash -s system
+}
+
 install_cargo_deps() {
 	cargo install bat skim mcfly sd xcolor --locked
 }
@@ -143,11 +147,13 @@ echo ""
 install_wrapper nvim install_nvim
 install_wrapper tmux install_tmux
 install_wrapper starship install_starship
+install_wrapper fdfind install_fd
 install_wrapper n install_n
 install_wrapper nemo install_nemo
+install_wrapper i3lock_color install_i3lock_color
 install_wrapper betterlockscreen install_betterlockscreen
+install_wrapper xkb_switch install_xkb_switch
 install_wrapper eza install_eza
-install_wrapper fdfind install_fd
 install_wrapper luarocks install_luarocks
 
 # things that i currently install through cargo
