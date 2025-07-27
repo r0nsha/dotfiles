@@ -10,7 +10,8 @@ ROOT_BIN="/usr/local/bin"
 LOCAL_BIN="$HOME/.local/bin"
 LOCAL_LIB="$HOME/.local/lib"
 LOCAL_SHARE="${XDG_DATA_HOME:-$HOME/.local/share}"
-DOWNLOADS="${XDG_DOWNLOAD_DIR:-$HOME/Downloads}"
+DOWNLOADS="${XDG_DOWNLOAD_DIR:-$HOME/downloads}"
+PICTURES="${XDG_PICTURES_DIR:-$HOME/pictures}"
 
 cat $DOTFILES/bin/pepe.txt
 
