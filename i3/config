@@ -24,10 +24,11 @@ exec_always --no-startup-id udiskie --smart-tray
 exec_always --no-startup-id betterlockscreen -u ~/pictures/backgrounds
 exec_always --no-startup-id feh --randomize --bg-scale --slideshow-delay 300 ~/pictures/backgrounds
 
-# Theme
+# options
 default_border pixel 2
 default_floating_border pixel 2
 gaps inner 0
+default_orientation auto
 
 # change focus
 bindsym $mod+h focus left
@@ -52,8 +53,8 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # window layout
-bindsym $mod+v split v
-bindsym $mod+Shift+v split h
+bindsym $mod+v split horizontal
+bindsym $mod+Shift+v split vertical
 bindsym $mod+m fullscreen toggle
 
 # floats
