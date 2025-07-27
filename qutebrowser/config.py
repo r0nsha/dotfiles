@@ -96,7 +96,10 @@ config.bind("<Ctrl-y>", "command-accept", mode="command")
 config.bind("<Ctrl-r>", "config-source ;; message-info 'Reloaded config'")
 
 # Spoof User-Agent for Google domains
-google_domains = ["https://accounts.google.com/*", "https://*.google.com/*"]
+google_domains = [
+    "https://accounts.google.com/*",
+    "https://*.google.com/*",
+]
 for domain in google_domains:
     config.set(
         "content.headers.user_agent",
