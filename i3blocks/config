@@ -2,8 +2,8 @@
 command=~/.config/i3blocks/scripts/player.fish
 interval=1
 
-[language]
-command=~/.config/i3blocks/scripts/language.fish
+[keyboard]
+command=~/.config/i3blocks/scripts/keyboard.fish
 interval=persist
 
 [sound]
