@@ -2,3 +2,4 @@ nvim/lua/local.lua
 wget-log*
 .venv
 __pycache__
+qutebrowser/autoconfig.yml
