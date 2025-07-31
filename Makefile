@@ -6,7 +6,3 @@ update-dconf:
 	git add -u
 	git commit -m "update dconf/settings.ini"
 	git push
-
-backgrounds:
-	betterlockscreen -u ~/pictures/backgrounds
-	feh --randomize --bg-scale --slideshow-delay 300 ~/pictures/backgrounds
