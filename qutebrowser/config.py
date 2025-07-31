@@ -94,7 +94,8 @@ config.bind("gK", "tab-move +")
 config.bind("<Ctrl-n>", "completion-item-focus next", mode="command")
 config.bind("<Ctrl-p>", "completion-item-focus prev", mode="command")
 config.bind("<Ctrl-y>", "command-accept", mode="command")
-config.bind("<Ctrl-r>", "config-source ;; message-info 'Reloaded config'")
+config.bind("<Ctrl-r>", "reload")
+config.bind("<Ctrl-Shift-r>", "config-source ;; message-info 'Reloaded config'")
 
 # Spoof User-Agent for Google domains
 google_domains = [
