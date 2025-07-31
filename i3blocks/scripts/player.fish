@@ -25,6 +25,12 @@ else
     set player_icon "󰎇"
 end
 
+if test "$(playerctl status)" = Playing
+    set color "#ffffff"
+else
+    set color "#989898"
+end
+
 set -l song (playerctl metadata --format '{{trunc(artist, 20)}} - {{trunc(title, 30)}} {{duration(position)}}/{{duration(mpris:length)}}')
 
-echo " $player_icon $song "
+echo "<span color='$color'> $player_icon $song </span>"

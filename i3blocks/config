@@ -1,6 +1,7 @@
 [player]
 command=~/.config/i3blocks/scripts/player.fish
 interval=1
+markup=pango
 
 [keyboard]
 command=~/.config/i3blocks/scripts/keyboard.fish

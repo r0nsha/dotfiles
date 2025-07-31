@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 
-set color_mute "#767676"
+set color_muted "#767676"
 set color_low "#989898"
 set color_medium "#c0c0c0"
 set color_high "#ffffff"
@@ -10,14 +10,14 @@ function display_volume
     set -l muted (pactl get-sink-mute @DEFAULT_SINK@ | awk -F': ' '{print $2}')
 
     if test "$muted" = yes
-        echo " <span color='$color_mute'>󰝟 Muted</span> "
+        echo " <span color='$color_muted'>󰝟 Muted</span> "
         return
     end
 
     set -l volume (pactl get-sink-volume @DEFAULT_SINK@ | rg -o "(\d+)%" | head -1 | sed 's/%//')
 
     if test "$volume" -eq 0; or test "$muted" = yes
-        set color $color_mute
+        set color $color_muted
         set icon "󰝟"
         set volume Muted
     else if test "$volume" -lt 33
