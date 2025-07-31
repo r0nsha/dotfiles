@@ -34,7 +34,11 @@ function display_volume
         set icon "󰕾"
     end
 
-    echo " <span color='$color'>$icon $volume%</span> "
+    if test "$volume" != Muted
+        set volume "$volume%"
+    end
+
+    echo " <span color='$color'>$icon $volume</span> "
 end
 
 display_volume

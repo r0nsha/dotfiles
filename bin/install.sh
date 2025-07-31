@@ -110,7 +110,7 @@ fi
 
 # make scripts executable
 step "scripts"
-chmod -v ug+x $DOTFILES/i3/scripts/i3-volume/*
+chmod -v ug+x $DOTFILES/scripts/*
 chmod -v ug+x $DOTFILES/i3blocks/scripts/*
 find $DOTFILES/rofi -type f -name "rofi-*" -exec chmod -v ug+x {} \;
 success
