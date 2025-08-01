@@ -1,9 +1,7 @@
 #!/usr/bin/env fish
 
-# TODO: autotype
-# TODO: email
-# TODO: pass
-# TODO: user
+# TODO: autotype (email/user > tab > pass)
+# TODO: pass...
 # TODO: copy with ctrl-c
 # TODO: show last
 # TODO: insert new pass
