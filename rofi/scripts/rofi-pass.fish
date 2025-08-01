@@ -1,8 +1,5 @@
 #!/usr/bin/env fish
 
-# TODO: show last
-# TODO: insert new pass
-
 set pass_dir ~/.password-store
 set cache_dir ~/.cache/rofi-pass
 set cache_last_used $cache_dir/last_used
