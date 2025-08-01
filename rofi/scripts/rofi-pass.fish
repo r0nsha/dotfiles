@@ -196,25 +196,31 @@ function show_last_used
 end
 
 function insert_new_password
-    # TODO: enter name
-    # TODO: if empty password, generate
     set -l name (rofi -dmenu -p "Enter name for new password")
 
     if test -z $name
         return
     end
 
-    set -l password (echo -e "Generate" | rofi -dmenu -p "Enter password for $name" -password -mesg "Type password or hit enter to generate one")
+    pass show $name
+    if test $status -eq 0
+        set -l answer (echo -e "yes\nno" | rofi -dmenu -p "Overwrite $name?")
+        if ! test "$answer" = yes
+            return
+        end
+    end
+
+    set -l password (echo -e "Generate" | rofi -dmenu -p "Enter password for $name" -mesg "Type password or hit enter to generate one")
 
     if test -z $password
         return
     end
 
     if test "$password" = Generate
-        # TODO: pass generate
+        pass generate -f $name
         notify-send "Generated new password for $name"
     else
-        # TODO: pass insert
+        echo $password | pass insert -f -m $name
         notify-send "Inserted new password for $name"
     end
 
