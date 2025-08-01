@@ -1,7 +1,3 @@
 [submodule "backgrounds"]
 	path = backgrounds
 	url = https://github.com/r0nsha/backgrounds.git
-
-[submodule "rofi/scripts/rofi-pass"]
-	path = rofi/scripts/rofi-pass
-	url = https://github.com/carnager/rofi-pass.git
