@@ -1,9 +1,5 @@
 #!/usr/bin/env fish
 
-# TODO: list all entries
-# TODO: copy pass to clipboard with alt-p
-# TODO: copy email to clipboard with alt-e
-# TODO: copy user to clipboard with alt-u
 # TODO: autotype
 # TODO: email
 # TODO: pass
@@ -39,7 +35,6 @@ function copy_to_clipboard
         case wl-copy
             echo -n $text | wl-copy
     end
-    notify-send "Copied to clipboard"
 end
 
 function list_all
@@ -65,11 +60,11 @@ function list_all
         case 10 # alt-o
             show $picked
         case 11 # alt-p
-            dunstify alt-p
+            copy_target $picked pass
         case 12 # alt-e
-            dunstify alt-e
+            copy_target $picked email
         case 13 # alt-u
-            dunstify alt-u
+            copy_target $picked user
     end
 end
 
@@ -89,6 +84,25 @@ function show
 
     set -l parts (string split ": " $picked)
     copy_to_clipboard $parts[2]
+    notify-send "Copied $parts[1] to clipboard"
+end
+
+function copy_target
+    set -l password $argv[1]
+    set -l target $argv[2]
+    set -l contents (pass show $password | string join "\n")
+
+    # find $target in $contents
+    if test "$target" = pass
+        set target_contents (echo -e $contents | head -n1)
+    else
+        set target_contents (echo -e $contents | rg $target)
+        set -l parts (string split ": " $target_contents)
+        set target_contents $parts[2]
+    end
+
+    copy_to_clipboard $target_contents
+    notify-send "Copied $target to clipboard"
 end
 
 list_all
