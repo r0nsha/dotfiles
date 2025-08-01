@@ -3,3 +3,4 @@ wget-log*
 .venv
 __pycache__
 qutebrowser/autoconfig.yml
+qutebrowser/qsettings
