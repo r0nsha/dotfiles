@@ -116,8 +116,8 @@ bindsym $mod+Shift+Escape exec --no-startup-id "rofi -show power-menu -theme-str
 bindsym $mod+c exec --no-startup-id clipmenu
 bindsym $mod+Shift+c exec --no-startup-id "xcolor --format hex --preview-size 255 --selection clipboard"
 bindsym $mod+p exec --no-startup-id $rofipass
-# bindsym $mod+Shift+p exec --no-startup-id $rofipass --insert
-# bindsym $mod+$alt+p exec --no-startup-id $rofipass --show-last
+bindsym $mod+$alt+p exec --no-startup-id $rofipass show-last
+bindsym $mod+Shift+p exec --no-startup-id $rofipass insert
 
 set $resize_amount 5
 bindsym $mod+$alt+h resize shrink width $resize_amount px or $resize_amount ppt

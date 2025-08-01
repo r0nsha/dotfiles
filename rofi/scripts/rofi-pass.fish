@@ -4,6 +4,8 @@
 # TODO: insert new pass
 
 set pass_dir ~/.password-store
+set cache_dir ~/.cache/rofi-pass
+set cache_last_used $cache_dir/last_used
 set session_type (get_session_type)
 
 if test "$session_type" = wayland
@@ -35,6 +37,11 @@ function type_text
         case wtype
             wtype -d 0 $text
     end
+end
+
+function store_last_used
+    mkdir -p $cache_dir
+    echo $argv[1] >$cache_last_used
 end
 
 function autotype
@@ -86,6 +93,8 @@ function list_all
     if test -z "$picked"
         return
     end
+
+    store_last_used $picked
 
     switch $rofi_exit
         case 0 # enter
@@ -173,4 +182,47 @@ function copy_target
     notify-send "Copied $target to clipboard"
 end
 
-list_all
+function show_last_used
+    if test ! -f $cache_last_used
+        list_all
+        return
+    end
+
+    set -l password (cat $cache_last_used)
+
+    if test -z $password
+        list_all
+        return
+    end
+
+    show_password $password
+end
+
+function insert_new_password
+    # TODO: enter name
+    # TODO: if empty password, generate
+    set -l name (rofi -dmenu -p "Enter name for new password")
+
+    if test -z $name
+        return
+    end
+
+    set -l password (rofi -dmenu -p "Enter password for $name" -password -mesg "Type password or hit Enter to generate one")
+
+    if test -z $password
+        return
+    end
+
+    notify-send "Added new password for $name"
+end
+
+set cmd $argv[1]
+
+switch $cmd
+    case show-last
+        show_last_used
+    case insert
+        insert_new_password
+    case '*'
+        list_all
+end
