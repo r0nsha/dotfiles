@@ -1,6 +1,5 @@
 #!/usr/bin/env fish
 
-# TODO: autotype (email/user > tab > pass)
 # TODO: show last
 # TODO: insert new pass
 
@@ -30,12 +29,44 @@ end
 
 function type_text
     set -l text $argv[1]
-    set -l delay 0
     switch $type_backend
         case xdotool
-            xdotool type --delay $delay --clearmodifiers $text
+            xdotool type --delay 0 --clearmodifiers $text
         case wtype
-            wtype -d $delay $text
+            wtype -d 0 $text
+    end
+end
+
+function autotype
+    set -l contents $argv[1]
+    set -l pass (echo -e $contents | head -n1)
+    set -l email (echo -e $contents | rg "^email:" | awk -F ': ' '{print $2}')
+    set -l user (echo -e $contents | rg "^user.*:" | awk -F ': ' '{print $2}')
+
+    if test -n $email
+        set id $email
+    else if test -n $user
+        set id $user
+    else
+        notify-send "Can't autotype because no email or user is set"
+        return
+    end
+
+    switch $type_backend
+        case xdotool
+            xdotool type --delay 0 --clearmodifiers "$id"
+            sleep 0.1
+            xdotool key --clearmodifiers Tab
+            sleep 0.1
+            xdotool type --delay 0 --clearmodifiers "$pass"
+        case wtype
+            wtype -d 0 "$id"
+            sleep 0.1
+            wtype -P Tab -p Tab
+            sleep 0.1
+            wtype -d 0 "$pass"
+            sleep 0.1
+            wtype -P Return -p Return
     end
 end
 
@@ -73,7 +104,7 @@ end
 function show_autotype_options
     set -l password $argv[1]
     set -l contents (pass show $password | string join "\n")
-    set -l options "󰅁 Return\nautotype\npass\n$(echo -e $contents | tail -n +2 | awk -F ':' '{print $1}')"
+    set -l options "autotype\npass\n$(echo -e $contents | tail -n +2 | awk -F ':' '{print $1}')\n󰅁 Return"
     set -l picked (echo -e $options | rofi -dmenu -p $password -mesg "enter Type | alt-c Copy to clipboard" -kb-custom-1 "alt-c")
     set -l rofi_exit $status
 
@@ -87,7 +118,7 @@ function show_autotype_options
     end
 
     if test "$picked" = autotype
-        notify-send autotype
+        autotype $contents
         return
     end
 
