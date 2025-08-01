@@ -7,12 +7,7 @@
 # TODO: insert new pass
 
 set pass_dir ~/.password-store
-
-set session_type "$XDG_SESSION_TYPE"
-
-if test -z "$XDG_SESSION_TYPE"
-    set session_type (loginctl show-session $(loginctl | grep $(whoami) | awk '{print $1}') -p Type | sed -E "s/Type=(.*)/\1/")
-end
+set session_type (get_session_type)
 
 if test "$session_type" = wayland
     set clip_backend wl-copy

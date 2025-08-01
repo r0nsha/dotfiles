@@ -162,3 +162,13 @@ function ssh_server_stop
     sudo systemctl disable ssh
     echo ssh server stopped.
 end
+
+function get_session_type
+    set session_type "$XDG_SESSION_TYPE"
+
+    if test -z "$XDG_SESSION_TYPE"
+        set session_type (loginctl show-session $(loginctl | grep $(whoami) | awk '{print $1}') -p Type | sed -E "s/Type=(.*)/\1/")
+    end
+
+    echo $session_type
+end
