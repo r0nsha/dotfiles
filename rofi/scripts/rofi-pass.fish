@@ -207,13 +207,20 @@ function insert_new_password
         return
     end
 
-    set -l password (rofi -dmenu -p "Enter password for $name" -password -mesg "Type password or hit Enter to generate one")
+    set -l password (echo -e "Generate" | rofi -dmenu -p "Enter password for $name" -password -mesg "Type password or hit enter to generate one")
 
     if test -z $password
         return
     end
 
-    notify-send "Added new password for $name"
+    if test "$password" = Generate
+        # TODO: pass generate
+        notify-send "Generated new password for $name"
+    else
+        # TODO: pass insert
+        notify-send "Inserted new password for $name"
+    end
+
 end
 
 set cmd $argv[1]
