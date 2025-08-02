@@ -4,9 +4,11 @@
 
 set -l options (
     for device in (udiskie-info -a)
-        set -l label (udiskie-info $device -o "󰕓 {device_file} | {drive_label} {ui_id_uuid}")
+        set -l label (udiskie-info $device -o "{device_file} | {drive_label} {ui_id_uuid}")
         if test (udiskie-info $device -o "{is_mounted}") = True
-            set label "$label (Mounted)"
+            set label "󱊞 $label (Mounted)"
+        else
+            set label "󱊟 $label"
         end
         echo $label
     end | sort | string join "\n"
