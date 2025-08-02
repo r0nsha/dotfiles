@@ -14,13 +14,14 @@ exec --no-startup-id dex --autostart --environment i3
 # Use betterlockscreen to lock the screen before suspending
 exec --no-startup-id xss-lock --transfer-sleep-lock -- betterlockscreen -l
 
+exec --no-startup-id udiskie --smart-tray --automount
+
 # Allow switching between US and Hebrew layouts
 exec_always --no-startup-id setxkbmap -layout us,il -option grp:win_space_toggle
 
 exec_always --no-startup-id picom --experimental-backends -b
 exec_always --no-startup-id clipmenud
 exec_always --no-startup-id playerctld daemon
-exec_always --no-startup-id udiskie --smart-tray --automount
 exec_always --no-startup-id betterlockscreen -u ~/pictures/backgrounds
 exec_always --no-startup-id feh --randomize --bg-scale --slideshow-delay 300 ~/pictures/backgrounds
 exec_always --no-startup-id rqbit server start ~/downloads
