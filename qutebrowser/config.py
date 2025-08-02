@@ -97,6 +97,8 @@ config.bind("<Ctrl-p>", "completion-item-focus prev", mode="command")
 config.bind("<Ctrl-y>", "command-accept", mode="command")
 config.bind("<Ctrl-r>", "reload")
 config.bind("<Ctrl-Shift-r>", "config-source ;; message-info 'Reloaded config'")
+config.unbind("<Ctrl-v>")
+config.bind("<Ctrl-Shift-p>", "mode-enter passthrough")
 
 # Spoof User-Agent for Google domains
 google_domains = [
