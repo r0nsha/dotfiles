@@ -17,7 +17,7 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- betterlockscreen -l
 # Allow switching between US and Hebrew layouts
 exec_always --no-startup-id setxkbmap -layout us,il -option grp:win_space_toggle
 
-exec_always --no-startup-id picom
+exec_always --no-startup-id picom --experimental-backends -b
 exec_always --no-startup-id clipmenud
 exec_always --no-startup-id playerctld daemon
 exec_always --no-startup-id udiskie --smart-tray --automount

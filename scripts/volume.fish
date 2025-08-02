@@ -7,7 +7,7 @@ function _notify
 end
 
 function update_statusbar
-    pkill -s SIGUSR1 i3blocks
+    pkill --signal SIGUSR1 i3blocks
 end
 
 function curr_volume
