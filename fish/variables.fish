@@ -1,5 +1,13 @@
 # .config
-set -Ux XDG_CONFIG_HOME $HOME/.config
+set -Ux XDG_CONFIG_HOME ~/.config
+set -Ux XDG_DESKTOP_DIR ~/desktop
+set -Ux XDG_DOWNLOAD_DIR ~/downloads
+set -Ux XDG_TEMPLATES_DIR ~/templates
+set -Ux XDG_PUBLICSHARE_DIR ~/public
+set -Ux XDG_DOCUMENTS_DIR ~/documents
+set -Ux XDG_MUSIC_DIR ~/music
+set -Ux XDG_PICTURES_DIR ~/pictures
+set -Ux XDG_VIDEOS_DIR ~/videos
 
 # Set kitty as my default terminal
 set -Ux TERMINAL kitty
