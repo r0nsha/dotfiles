@@ -2,7 +2,7 @@ configuration {
     font: "IosevkaNerdFontPropo 14";
 
     kb-accept-entry: "Control+y,Return,KP_Enter";
-    kb-cancel: "Control+c,Escape,Control+g";
+    kb-cancel: "Escape,Control+g";
 
     modi: "power-menu:~/.config/rofi/scripts/rofi-power-menu.sh --choices=shutdown/reboot/lockscreen";
 }

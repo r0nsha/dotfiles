@@ -111,7 +111,7 @@ function show_autotype_options
     set -l password $argv[1]
     set -l contents (pass show $password | string join "\n")
     set -l options "autotype\npass\n$(echo -e $contents | tail -n +2 | awk -F ':' '{print $1}')\n󰅁 Return"
-    set -l picked (echo -e $options | rofi -dmenu -p $password -mesg "enter Type | alt-c Copy to clipboard" -kb-custom-1 "alt-c")
+    set -l picked (echo -e $options | rofi -dmenu -p $password -mesg "enter Type | ctrl-c Copy to clipboard" -kb-custom-1 "ctrl-c")
     set -l rofi_exit $status
 
     if test -z "$picked"
@@ -137,7 +137,7 @@ function show_autotype_options
     switch $rofi_exit
         case 0 # enter
             type_text $picked_contents
-        case 10 # alt-c
+        case 10 # ctrl-c
             copy_to_clipboard $picked_contents
             notify-send "Copied $picked to clipboard"
     end
