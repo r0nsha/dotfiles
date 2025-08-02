@@ -20,6 +20,9 @@ c.hints.min_chars = 1
 c.content.pdfjs = True
 c.content.notifications.enabled = False
 c.content.tls.certificate_errors = "ask-block-thirdparty"
+c.confirm_quit = ["downloads"]
+c.downloads.position = "bottom"
+c.downloads.remove_finished = 5 * 60 * 1000  # 5 minutes
 
 # Adblock
 c.content.blocking.enabled = True
