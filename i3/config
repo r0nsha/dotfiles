@@ -118,6 +118,7 @@ bindsym $mod+Shift+c exec --no-startup-id "xcolor --format hex --preview-size 25
 bindsym $mod+p exec --no-startup-id $rofipass
 bindsym $mod+$alt+p exec --no-startup-id $rofipass show-last
 bindsym $mod+Shift+p exec --no-startup-id $rofipass insert
+bindsym $mod+e exec --no-startup-id rofimoji --keybinding-copy ctrl-c
 
 set $resize_amount 5
 bindsym $mod+$alt+h resize shrink width $resize_amount px or $resize_amount ppt

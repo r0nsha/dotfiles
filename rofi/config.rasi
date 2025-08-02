@@ -1,5 +1,6 @@
 configuration {
     font: "IosevkaNerdFontPropo 14";
+    show-icons: true;
 
     kb-accept-entry: "Control+y,Return,KP_Enter";
     kb-cancel: "Escape,Control+g";

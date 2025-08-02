@@ -149,6 +149,11 @@ install_clipmenu() {
 	sudo systemctl enable --now clipmenud
 }
 
+install_rofimoji() {
+	sudo apt install -y pipx
+	pipx install rofimoji
+}
+
 install_cargo_deps() {
 	cargo install bat skim mcfly sd xcolor --locked
 }
@@ -168,6 +173,7 @@ install_wrapper i3lock install_i3lock_color
 install_wrapper betterlockscreen install_betterlockscreen
 install_wrapper xkb-switch install_xkb_switch
 install_wrapper clipmenu install_clipmenu
+install_wrapper rofimoji install_rofimoji
 install_wrapper eza install_eza
 install_wrapper luarocks install_luarocks
 
