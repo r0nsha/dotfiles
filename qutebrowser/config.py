@@ -47,6 +47,7 @@ c.url.searchengines["gh"] = "https://github.com/search?q={}&type=Code"
 
 # Aliases
 c.aliases["jellyfin"] = "open -t http://localhost:8096"
+c.aliases["rqbit"] = "open -t http://localhost:3030"
 
 # Colors
 c.colors.tabs.selected.odd.bg = "black"
