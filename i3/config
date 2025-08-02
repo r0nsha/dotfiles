@@ -158,8 +158,8 @@ mode "app" {
         bindsym t exec $terminal; mode "default"
         bindsym b exec $browser; mode "default"
         bindsym Shift+b exec $browser --target private-window; mode "default"
-        bindsym d exec discord; mode "default"
-        # bindsym d exec $browser --target window https://discord.com/channels/@me; mode "default"
+        # bindsym d exec discord; mode "default"
+        bindsym d exec $browser --target window https://discord.com/channels/@me; mode "default"
         bindsym s exec spotify; mode "default"
         bindsym f exec nemo; mode "default"
 
