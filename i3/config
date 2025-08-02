@@ -109,7 +109,7 @@ bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
 set $rofipass ~/.config/rofi/scripts/rofi-pass.fish
-bindsym $mod+slash exec "rofi -modi drun,run -show drun -show-icons -display-drun 'Apps'"
+bindsym $mod+slash exec "rofi -combi-modi drun,run -show combi -show-icons -p apps"
 bindsym $mod+Tab exec "rofi -modi window -show window -show-icons -display-drun 'Windows'"
 bindsym $mod+Shift+Tab focus mode_toggle
 bindsym $mod+Shift+Escape exec --no-startup-id "rofi -show power-menu -theme-str 'window {width: 5%; height: 20%;}'"
