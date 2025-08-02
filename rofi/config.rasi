@@ -30,7 +30,7 @@ configuration {
     selected-normal-background: @fg1;
 
     alternate-normal-foreground: @fg0;
-    alternate-normal-background: @bg1;
+    alternate-normal-background: @bg0;
 
     urgent-foreground: @red;
     urgent-background: @bg0;
