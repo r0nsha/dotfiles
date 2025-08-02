@@ -292,7 +292,7 @@ show_menu() {
         for device in $_devices; do
             _mac=$(echo "$all_devices" | rg "$device" | cut -d ' ' -f 2)
             if device_connected "$_mac"; then
-                devices+=("󰂯 $device")
+                devices+=("󰂯 $device (Connected)")
             else
                 devices+=("󰂲 $device")
             fi
