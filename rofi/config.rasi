@@ -6,54 +6,56 @@ configuration {
     kb-cancel: "Escape,Control+g";
 
     modi: "power-menu:~/.config/rofi/scripts/rofi-power-menu.sh --choices=shutdown/reboot/lockscreen";
+
+    combi {
+        display-name: "";
+    }
 }
 
 * {
-    bg:                #000000; /* Dark background */
-    fg:                #989898; /* Light foreground */
-    selection-bg:      #ffffff; /* Slightly lighter background for selection, good contrast */
-    selection-fg:      #000000; /* White for selected text */
-    red:               #ff5f59; /* Error/Urgent red */
-    green:             #44bc44; /* Success/Active green */
-    cyan:              #00d3d0; /* Info/Highlight cyan */
-    yellow:            #d0bc00; /* Warning/Yellow accent */
+    bg0: #000000;
+    bg1: #1e1e1e;
+    bg2: #303030;
+    fg0: #989898;
+    fg1: #ffffff;
+    red: #ff5f59;
+    green: #44bc44;
+    cyan: #00d3d0;
+    yellow: #d0bc00;
 
-    /* Rofi-specific assignments using Modus Vivendi palette */
-    background:                   @bg;
-    foreground:                   @fg;
-    normal-foreground:            @foreground;
-    normal-background:            @background;
+    normal-foreground: @fg0;
+    normal-background: @bg0;
 
-    selected-normal-foreground:   @selection-fg;
-    selected-normal-background:   @selection-bg;
+    selected-normal-foreground: @bg0;
+    selected-normal-background: @fg1;
 
-    alternate-normal-foreground:  @foreground;
-    alternate-normal-background:  @background; /* Modus themes often keep alternates similar to normal for consistency */
+    alternate-normal-foreground: @fg0;
+    alternate-normal-background: @bg1;
 
-    urgent-foreground:            @red;
-    urgent-background:            @background;
-    selected-urgent-foreground:   @selection-fg;
-    selected-urgent-background:   @red; /* Selected urgent stands out clearly */
+    urgent-foreground: @red;
+    urgent-background: @bg0;
+    selected-urgent-foreground: @bg0;
+    selected-urgent-background: @red;
 
-    alternate-urgent-foreground:  @urgent-foreground;
-    alternate-urgent-background:  @alternate-normal-background;
+    alternate-urgent-foreground: @urgent-foreground;
+    alternate-urgent-background: @alternate-normal-background;
 
-    active-foreground:            @green;
-    active-background:            @background;
-    selected-active-foreground:   @selection-fg;
-    selected-active-background:   @green; /* Selected active stands out clearly */
+    active-foreground: @green;
+    active-background: @bg0;
+    selected-active-foreground: @bg0;
+    selected-active-background: @green;
 
-    alternate-active-foreground:  @active-foreground;
-    alternate-active-background:  @alternate-normal-background;
+    alternate-active-foreground: @active-foreground;
+    alternate-active-background: @alternate-normal-background;
 
-    border-color:                 @fg;
-    separatorcolor:               @fg; /* Separators share the selection background for subtle distinction */
+    border-color: @bg2;
+    separatorcolor: @bg2;
 
-    spacing:                      4; /* Slightly more spacing for readability */
+    spacing: 4;
 }
 
 window {
-    background-color: @background;
+    background-color: @bg0;
     border:           1;
     border-color:     @border-color;
     padding:          4;
@@ -67,19 +69,19 @@ mainbox {
 }
 
 message {
-    border:           1px dash 0px 0px;
+    border:           0;
     border-color:     @separatorcolor;
-    padding:          4px; /* A bit more padding for messages */
-    text-color:       @yellow; /* Use yellow for messages/warnings */
+    padding:          4px;
+    text-color:       @yellow;
 }
 
 textbox {
-    text-color:       @foreground;
+    text-color:       @fg0;
 }
 
 listview {
     fixed-height:     0;
-    border:           2px dash 0px 0px;
+    border:           1px 0 0px 0px;
     border-color:     @separatorcolor;
     spacing:          4px;
     scrollbar:        false;
@@ -96,7 +98,7 @@ element-text {
     text-color:       inherit;
 }
 
-/* Normal states */
+
 element.normal.normal {
     background-color: @normal-background;
     text-color:       @normal-foreground;
@@ -110,7 +112,7 @@ element.normal.active {
     text-color:       @active-foreground;
 }
 
-/* Selected states */
+
 element.selected.normal {
     background-color: @selected-normal-background;
     text-color:       @selected-normal-foreground;
@@ -124,7 +126,7 @@ element.selected.active {
     text-color:       @selected-active-foreground;
 }
 
-/* Alternate states (often subtle in Modus themes for consistency) */
+
 element.alternate.normal {
     background-color: @alternate-normal-background;
     text-color:       @alternate-normal-foreground;
@@ -139,21 +141,21 @@ element.alternate.active {
 }
 
 scrollbar {
-    width:            6px; /* Wider scrollbar for easier grabbing */
+    width:            6px;
     border:           0;
     handle-width:     10px;
     padding:          0;
-    handle-color:     @selection-bg; /* Scrollbar handle matches selection background */
+    handle-color:     @fg1;
 }
 
 mode-switcher {
-    border:           2px dash 0px 0px;
+    border:           2px 0 0px 0px;
     border-color:     @separatorcolor;
     spacing:          2px;
 }
 
 button {
-    text-color:       @foreground;
+    text-color:       @fg0;
     padding:          4px 8px;
 }
 
@@ -165,31 +167,29 @@ button.selected {
 inputbar {
     spacing:          0;
     text-color:       @normal-foreground;
-    padding:          4px; /* More padding for the input bar */
+    padding:          4px;
     children:         [ prompt,textbox-prompt-colon,entry,case-indicator ];
 }
 
 prompt {
     spacing:          0;
-    text-color:       @cyan; /* Use cyan for the prompt to distinguish it */
+    text-color:       @cyan;
 }
 
 textbox-prompt-colon {
     expand:           false;
-    str:              ":";
-    margin:           0px 0.4em 0em 0em; /* Slightly more margin */
+    str:              "";
+    margin:           0px 0.4em 0em 0em;
     text-color:       @cyan;
 }
 
 entry {
     spacing:          0;
-    text-color:       @normal-foreground;
+    text-color:       @fg1;
     placeholder:      "";
 }
 
 case-indicator {
     spacing:          0;
-    text-color:       @normal-foreground;
+    text-color:       @fg1;
 }
-
-
