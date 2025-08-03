@@ -27,7 +27,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 -- Reload kitty.conf when it's modified
 vim.api.nvim_create_autocmd("BufWritePost", {
   group = augroup,
-  pattern = "*/kitty/kitty.conf",
+  pattern = "*/kitty/*.conf",
   callback = function()
     local Job = require("plenary.job")
     local utils = require("utils")
