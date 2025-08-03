@@ -39,7 +39,6 @@ if [ ! -f "$LOCAL_ENV" ]; then
 fi
 
 step "git"
-chmod -v ug+x $DOTFILES/hooks/*
 git submodule init
 git submodule update --init --recursive
 success
@@ -47,14 +46,6 @@ success
 step "backgrounds"
 ln -sfv $DOTFILES/backgrounds $PICTURES
 success
-
-# load dconf settings
-if exists "dconf"; then
-    step "dconf"
-    dconf load / <$DOTFILES/dconf/settings.ini
-    info "loaded dconf settings"
-    success
-fi
 
 # install fonts
 case "$MACHINE" in

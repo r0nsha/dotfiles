@@ -45,7 +45,6 @@ You are an expert at following the Conventional Commit specification. You follow
 - You don't use markdown formatting.
 - The maximum length of each line in the description is 80 characters, you must respect this rule.
 - Use don't use periods at the end of the commit message or description.
-- You don't write about changes to `dconf/settings.ini`
 ]]
 
 return {

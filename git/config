@@ -72,7 +72,6 @@
 	pager = delta
 	autocrlf = input
 	whitespace = error
-	hooksPath = hooks
 
 [color]
 	ui = true
