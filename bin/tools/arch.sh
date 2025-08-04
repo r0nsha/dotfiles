@@ -31,6 +31,7 @@ pacman_deps=(
 	pipewire-jack
 	luarocks
 	rustup
+	npm
 	pnpm
 
 	# python
