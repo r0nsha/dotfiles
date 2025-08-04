@@ -9,6 +9,7 @@ DOTFILES=$(realpath -s $script_dir/..)
 LOCAL_BIN="$HOME/.local/bin"
 LOCAL_OPT="$HOME/.local/opt"
 LOCAL_SHARE="${XDG_DATA_HOME:-$HOME/.local/share}"
+DEV="$HOME/dev"
 DOWNLOADS="${XDG_DOWNLOAD_DIR:-$HOME/downloads}"
 PICTURES="${XDG_PICTURES_DIR:-$HOME/pictures}"
 
@@ -28,7 +29,7 @@ fi
 
 cd $DOTFILES
 
-mkdir -p $LOCAL_BIN $LOCAL_OPT $LOCAL_SHARE $DOWNLOADS $PICTURES
+mkdir -p $LOCAL_BIN $LOCAL_OPT $LOCAL_SHARE $DEV $DOWNLOADS $PICTURES
 
 LOCAL_ENV=$HOME/.env.fish
 if [ ! -f "$LOCAL_ENV" ]; then
@@ -72,6 +73,7 @@ if exists "fish"; then
         step "default shell"
         fish_bin=$(which fish)
         echo $fish_bin | sudo tee -a /etc/shells
+        chsh -s $fish_bin
         sudo chsh -s $fish_bin
         success
     fi

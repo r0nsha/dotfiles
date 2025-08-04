@@ -5,7 +5,7 @@
   "blink-cmp-git": { "branch": "master", "commit": "31dad5db284641c94537de29865bb46495c53071" },
   "blink-cmp-spell": { "branch": "master", "commit": "2bd0e0d5e7735c047e72b6918a0458f3e8fadaba" },
   "blink-cmp-tmux": { "branch": "main", "commit": "4586c705b6f80b536c34a61ed0d3cd4d7f08322d" },
-  "blink.cmp": { "branch": "main", "commit": "586ee87534f5bf65f1c8dea2d1da2a57e8cddd36" },
+  "blink.cmp": { "branch": "main", "commit": "bae4bae0eedd1fa55f34b685862e94a222d5c6f8" },
   "ccc.nvim": { "branch": "main", "commit": "9d1a256e006decc574789dfc7d628ca11644d4c2" },
   "checkmate.nvim": { "branch": "main", "commit": "1b7aa6a9db3580cf4bc22be6654e340b05cbc787" },
   "cloak.nvim": { "branch": "main", "commit": "648aca6d33ec011dc3166e7af3b38820d01a71e4" },

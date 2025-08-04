@@ -31,6 +31,7 @@ pacman_deps=(
 	pipewire-jack
 	luarocks
 	rustup
+	pnpm
 
 	# python
 	python
@@ -46,6 +47,7 @@ pacman_deps=(
 
 	# fonts
 	noto-fonts
+	noto-fonts-emoji
 	ttf-iosevka-nerd
 	ttf-iosevkaterm-nerd
 
@@ -82,5 +84,6 @@ install_wrapper yay install_yay
 
 # Install rust stuff
 rustup toolchain install stable
+rustup toolchain install nightly
 rustup default stable
 cargo install cargo-update

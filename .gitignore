@@ -4,3 +4,7 @@ wget-log*
 __pycache__
 qutebrowser/autoconfig.yml
 qutebrowser/qsettings
+tmux/plugins
+fish/completions
+fish/conf.d
+fish/functions
