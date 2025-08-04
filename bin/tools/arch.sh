@@ -1,5 +1,3 @@
-# TODO: rustup
-# TODO: cargo install cargo-update
 pacman_deps=(
 	# core
 	coreutils
@@ -33,6 +31,8 @@ pacman_deps=(
 	pipewire-jack
 	luarocks
 	rustup
+
+	# python
 	python
 	python-pip
 	python-adblock
@@ -80,5 +80,7 @@ install_yay() {
 
 install_wrapper yay install_yay
 
-# Install Python dependencies
-# pip install adblock
+# Install rust stuff
+rustup toolchain install stable
+rustup default stable
+cargo install cargo-update
