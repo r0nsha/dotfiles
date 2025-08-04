@@ -1,0 +1,38 @@
+# This file contains fish universal variable definitions.
+# VERSION: 3.0
+SETUVAR --export BROWSER:qutebrowser
+SETUVAR --export DOTFILES:/home/ron/dotfiles
+SETUVAR --export EDITOR:nvim
+SETUVAR --export LANG:en_US\x2eUTF\x2d8
+SETUVAR --export LANGUAGE:en_US\x2eUTF\x2d8
+SETUVAR --export LC_ALL:en_US\x2eUTF\x2d8
+SETUVAR --export LC_TYPE:en_US\x2eUTF\x2d8
+SETUVAR --export MANPAGER:nvim\x1e\x2bMan\x21
+SETUVAR --export NVM_DIR:/home/ron/\x2envm
+SETUVAR --export N_PREFIX:/home/ron/\x2en
+SETUVAR --export PNPM_HOME:/home/ron/\x2elocal/share/pnpm
+SETUVAR --export TERMINAL:kitty
+SETUVAR --export VISUAL:nvim
+SETUVAR --export XDG_CONFIG_HOME:/home/ron/\x2econfig
+SETUVAR --export XDG_DESKTOP_DIR:/home/ron/desktop
+SETUVAR --export XDG_DOCUMENTS_DIR:/home/ron/documents
+SETUVAR --export XDG_DOWNLOAD_DIR:/home/ron/downloads
+SETUVAR --export XDG_MUSIC_DIR:/home/ron/music
+SETUVAR --export XDG_PICTURES_DIR:/home/ron/pictures
+SETUVAR --export XDG_PUBLICSHARE_DIR:/home/ron/public
+SETUVAR --export XDG_TEMPLATES_DIR:/home/ron/templates
+SETUVAR --export XDG_VIDEOS_DIR:/home/ron/videos
+SETUVAR __fish_initialized:3800
+SETUVAR _fisher_jorgebucaran_2F_fisher_files:\x7e/\x2econfig/fish/functions/fisher\x2efish\x1e\x7e/\x2econfig/fish/completions/fisher\x2efish
+SETUVAR _fisher_plugins:jorgebucaran/fisher
+SETUVAR _fisher_upgraded_to_4_4:\x1d
+SETUVAR fish_color_cancel:\x2dr
+SETUVAR fish_color_cwd:green
+SETUVAR fish_color_cwd_root:red
+SETUVAR fish_color_history_current:\x2d\x2dbold
+SETUVAR fish_color_host:normal
+SETUVAR fish_color_host_remote:yellow
+SETUVAR fish_color_status:red
+SETUVAR fish_color_user:brgreen
+SETUVAR fish_color_valid_path:\x2d\x2dunderline
+SETUVAR fish_user_paths:/home/ron/\x2elocal/bin

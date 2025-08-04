@@ -17,21 +17,14 @@ linux)
     arch)
         distro_type="arch"
         ;;
-    *)
-        if [[ "$ID_LIKE" == *"ubuntu"* || "$ID_LIKE" == *"debian"* ]]; then
-            distro_type="ubuntu"
-        elif [[ "$ID_LIKE" == *"arch"* ]]; then
-            distro_type="arch"
-        fi
-        ;;
     esac
 
     if [ -z "$distro_type" ]; then
-        error "unsupported distro: $ID ($ID_LIKE). add support to dotfiles."
+        error "unsupported distro '$ID'. add support to dotfiles."
     fi
 
     script=$DOTFILES/bin/tools/$distro_type.sh
-    info "detected linux distribution: $distro_type (based on '$ID' which is like: $ID_LIKE)"
+    info "detected linux distribution: $distro_type (based on '$ID')"
     info "installing tools from $script..."
     source "$DOTFILES/bin/tools/${distro_type}.sh"
     ;;

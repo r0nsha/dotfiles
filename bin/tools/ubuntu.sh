@@ -1,3 +1,5 @@
+source $DOTFILES/bin/fonts.sh
+
 install_deps() {
 	sudo add-apt-repository -y ppa:fish-shell/release-4
 	sudo apt -y -q update
