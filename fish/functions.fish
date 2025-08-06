@@ -53,11 +53,11 @@ function tmux_select_dir
 
         set selected (begin
             for dir in $perm_dirs
-            echo $dir
+                echo $dir
             end
 
             fd . $search_dirs --full-path --type d --exact-depth 1
-        end | sd "^$HOME/" "" | fzf)
+        end | sd "^$HOME/" "" | string trim -r -c / | fzf --bind 'ctrl-y:accept')
 
         # add $HOME back
         set selected $HOME/$selected
@@ -133,7 +133,7 @@ function zellij_select_dir
             end
 
             fd . $search_dirs --full-path --type d --exact-depth 1
-        end | sd "^$HOME/" "" | fzf)
+        end | sd "^$HOME/" "" | string trim -r -c / | fzf --bind 'ctrl-y:accept')
 
         # add $HOME back
         set selected $HOME/$selected
