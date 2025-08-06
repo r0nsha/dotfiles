@@ -36,6 +36,7 @@ pacman_deps=(
 	imagemagick
 	ffmpeg
 	xdotool
+	cliphist
 
 	# media
 	pipewire
