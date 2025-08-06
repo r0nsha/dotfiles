@@ -12,15 +12,15 @@ configuration {
 }
 
 * {
-    bg0: #000000ee;
-    bg1: #1e1e1eee;
-    bg2: #303030ee;
-    fg0: #989898ee;
-    fg1: #ffffffee;
-    red: #ff5f59ee;
-    green: #44bc44ee;
-    cyan: #00d3d0ee;
-    yellow: #d0bc00ee;
+    bg0: #000000aa;
+    bg1: #1e1e1eaa;
+    bg2: #303030aa;
+    fg0: #989898;
+    fg1: #ffffff;
+    red: #ff5f59;
+    green: #44bc44;
+    cyan: #00d3d0;
+    yellow: #d0bc00;
 
     normal-foreground: @fg0;
     normal-background: transparent;
