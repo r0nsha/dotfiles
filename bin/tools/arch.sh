@@ -49,6 +49,7 @@ pacman_deps=(
 	brightnessctl
 	bluez
 	bluez-utils
+	pamixer
 
 	# notifications
 	libnotify
@@ -141,6 +142,7 @@ yay_deps=(
 	hyprprop-git
 	vesktop
 	bzmenu
+	avizo
 )
 
 yay -S --noconfirm ${yay_deps[@]}
