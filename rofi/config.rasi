@@ -12,9 +12,9 @@ configuration {
 }
 
 * {
-    bg0: #000000;
-    bg1: #1e1e1e;
-    bg2: #303030;
+    bg0: #000000ea;
+    bg1: #1e1e1eea;
+    bg2: #303030ea;
     fg0: #989898;
     fg1: #ffffff;
     red: #ff5f59;
@@ -23,41 +23,36 @@ configuration {
     yellow: #d0bc00;
 
     normal-foreground: @fg0;
-    normal-background: @bg0;
+    normal-background: transparent;
 
-    selected-normal-foreground: @bg0;
-    selected-normal-background: @fg1;
-
-    alternate-normal-foreground: @fg0;
-    alternate-normal-background: @bg0;
+    selected-normal-foreground: @fg1;
+    selected-normal-background: @bg1;
 
     urgent-foreground: @red;
-    urgent-background: @bg0;
+    urgent-background: transparent;
     selected-urgent-foreground: @bg0;
-    selected-urgent-background: @red;
+    selected-urgent-background: transparent;
 
     alternate-urgent-foreground: @urgent-foreground;
-    alternate-urgent-background: @alternate-normal-background;
+    alternate-urgent-background: transparent;
 
     active-foreground: @green;
-    active-background: @bg0;
+    active-background: transparent;
     selected-active-foreground: @bg0;
-    selected-active-background: @green;
+    selected-active-background: transparent;
 
     alternate-active-foreground: @active-foreground;
-    alternate-active-background: @alternate-normal-background;
+    alternate-active-background: transparent;
 
-    border-color: @bg2;
-    separatorcolor: @bg2;
-
-    spacing: 4;
+    border-color: @bg0;
+    separatorcolor: transparent;
 }
 
 window {
     background-color: @bg0;
     border:           1;
     border-color:     @border-color;
-    padding:          4;
+    padding:          4px;
     width:            15%;
     height:           35%;
 }
@@ -80,9 +75,10 @@ textbox {
 
 listview {
     fixed-height:     0;
-    border:           1px 0 0px 0px;
+    border:           0;
+    // border:           1px 0 0px 0px;
     border-color:     @separatorcolor;
-    spacing:          4px;
+    spacing:          2px;
     scrollbar:        false;
     padding:          4px 0px 0px;
 }
@@ -127,8 +123,8 @@ element.selected.active {
 
 
 element.alternate.normal {
-    background-color: @alternate-normal-background;
-    text-color:       @alternate-normal-foreground;
+    background-color: @normal-background;
+    text-color:       @normal-foreground;
 }
 element.alternate.urgent {
     background-color: @alternate-urgent-background;
@@ -148,7 +144,8 @@ scrollbar {
 }
 
 mode-switcher {
-    border:           2px 0 0px 0px;
+    // border:           2px 0 0px 0px;
+    border:           0;
     border-color:     @separatorcolor;
     spacing:          2px;
 }
