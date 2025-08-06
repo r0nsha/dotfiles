@@ -30,6 +30,6 @@
 
 # Syntax mappings: map a certain filename pattern to a language.
 #   Example 1: use the C++ syntax for .ino files
-#   Example 2: Use ".gitignore"-style highlighting for ".ignore" files
+#Use keybindings from i3/config (mark things that i can't do with TODO)   Example 2: Use ".gitignore"-style highlighting for ".ignore" files
 #--map-syntax "*.ino:C++"
 #--map-syntax ".ignore:Git Ignore"

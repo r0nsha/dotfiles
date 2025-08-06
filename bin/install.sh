@@ -86,4 +86,7 @@ if [ "$MACHINE" = "darwin" ]; then
     success
 fi
 
+# build bat's cache
+bat cache --build
+
 echo "i installed your things :)"
