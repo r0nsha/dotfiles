@@ -68,6 +68,7 @@ pacman_deps=(
 	noto-fonts-emoji
 	ttf-iosevka-nerd
 	ttf-iosevkaterm-nerd
+	ttf-iosevkatermslab-nerd
 
 	# nvidia
 	nvidia
