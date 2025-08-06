@@ -32,6 +32,10 @@ pacman_deps=(
 	npm
 	pnpm
 	bottom
+	jq
+	imagemagick
+	ffmpeg
+	ranger
 
 	# media
 	pipewire
@@ -68,11 +72,16 @@ pacman_deps=(
 
 	# desktop
 	hyprland
-	rofimoji
+	xdg-desktop-portal
+	xdg-desktop-portal-hyprland
+	xdg-desktop-portal-gtk
+	qt5-wayland
+	qt6-wayland
 	qt6-multimedia-ffmpeg
-	dolphin
 
 	# apps
+	dolphin
+	rofimoji
 	qutebrowser
 )
 
@@ -102,3 +111,7 @@ install_rust() {
 
 install_wrapper yay install_yay
 install_wrapper rustup install_rust
+
+# yay_deps=()
+
+# yay -S --noconfirm ${yay_deps[@]}

@@ -11,6 +11,7 @@ set -Ux XDG_VIDEOS_DIR ~/videos
 
 # Set kitty as my default terminal
 set -Ux TERMINAL kitty
+set -Ux TERMCMD kitty
 
 # Set nvim as my default editor
 set -Ux VISUAL nvim
