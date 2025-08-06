@@ -12,9 +12,9 @@ configuration {
 }
 
 * {
-    bg0: #000000aa;
-    bg1: #1e1e1eaa;
-    bg2: #303030aa;
+    bg0: #000000cc;
+    bg1: #1e1e1ecc;
+    bg2: #303030cc;
     fg0: #989898;
     fg1: #ffffff;
     red: #ff5f59;
