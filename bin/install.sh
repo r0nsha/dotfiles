@@ -44,8 +44,7 @@ git submodule init
 git submodule update --init --recursive
 success
 
-# if ~/dev/backgrounds doesn't exist, create it
-if [ ! -d "$DEV/backgrounds" ]; then
+if [ ! -d "$PICTURES/backgrounds" ]; then
     step "backgrounds"
     git clone https://github.com/r0nsha/backgrounds $PICTURES/backgrounds
     success
