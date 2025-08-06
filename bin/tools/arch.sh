@@ -78,6 +78,7 @@ pacman_deps=(
 	# desktop
 	hyprland
 	hyprlock
+	hypridle
 	hyprpolkitagent
 	xdg-desktop-portal
 	xdg-desktop-portal-hyprland
@@ -87,9 +88,12 @@ pacman_deps=(
 	qt6-multimedia-ffmpeg
 	swww
 
-	# apps
+	# rofi
 	rofi-wayland
 	rofimoji
+	rofi-calc
+
+	# apps
 	qutebrowser
 	steam
 	dolphin
