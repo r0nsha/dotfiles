@@ -12,21 +12,21 @@ configuration {
 }
 
 * {
-    bg0: #000000ea;
-    bg1: #1e1e1eea;
-    bg2: #303030ea;
-    fg0: #989898;
-    fg1: #ffffff;
-    red: #ff5f59;
-    green: #44bc44;
-    cyan: #00d3d0;
-    yellow: #d0bc00;
+    bg0: #000000ee;
+    bg1: #1e1e1eee;
+    bg2: #303030ee;
+    fg0: #989898ee;
+    fg1: #ffffffee;
+    red: #ff5f59ee;
+    green: #44bc44ee;
+    cyan: #00d3d0ee;
+    yellow: #d0bc00ee;
 
     normal-foreground: @fg0;
     normal-background: transparent;
 
     selected-normal-foreground: @fg1;
-    selected-normal-background: @bg1;
+    selected-normal-background: @bg2;
 
     urgent-foreground: @red;
     urgent-background: transparent;
@@ -44,7 +44,7 @@ configuration {
     alternate-active-foreground: @active-foreground;
     alternate-active-background: transparent;
 
-    border-color: @bg0;
+    border-color: @bg1;
     separatorcolor: transparent;
 }
 
