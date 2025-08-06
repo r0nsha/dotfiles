@@ -35,4 +35,4 @@ SETUVAR fish_color_host_remote:yellow
 SETUVAR fish_color_status:red
 SETUVAR fish_color_user:brgreen
 SETUVAR fish_color_valid_path:\x2d\x2dunderline
-SETUVAR fish_user_paths:/home/ron/\x2elocal/bin
+SETUVAR fish_user_paths:/home/ron/\x2ecargo/bin\x1e/home/ron/\x2elocal/bin
