@@ -89,6 +89,7 @@ pacman_deps=(
 	qt6-wayland
 	qt6-multimedia-ffmpeg
 	swww
+	ly
 
 	# rofi
 	rofi-wayland
@@ -133,3 +134,5 @@ yay_deps=(
 )
 
 yay -S --noconfirm ${yay_deps[@]}
+
+sudo systemctl enable ly.service
