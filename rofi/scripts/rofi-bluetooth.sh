@@ -24,7 +24,7 @@ divider="---------"
 goback="Back"
 
 _notify() {
-    dunstify -r 42 -t 2000 -u low "$1"
+    notify-send -t 2000 -u low "$1"
 }
 
 # Checks if bluetooth controller is powered on

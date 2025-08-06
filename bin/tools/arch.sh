@@ -47,6 +47,8 @@ pacman_deps=(
 	wireplumber
 	playerctl
 	brightnessctl
+	bluez
+	bluez-utils
 
 	# notifications
 	libnotify
@@ -149,3 +151,6 @@ sudo systemctl disable getty@tty2.service
 # groups
 sudo gpasswd -a $USER gamemode
 sudo gpasswd -a $USER network
+
+# bluetooth
+sudo systemctl enable --now bluetooth.service
