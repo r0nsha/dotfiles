@@ -33,6 +33,7 @@ pacman_deps=(
 	rustup
 	npm
 	pnpm
+	playerctl
 
 	# python
 	python
