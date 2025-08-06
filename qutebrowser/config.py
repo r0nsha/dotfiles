@@ -48,10 +48,6 @@ c.url.searchengines["a"] = "https://wiki.archlinux.org/?search={}"
 c.url.searchengines["ap"] = "https://www.archlinux.org/packages/?sort=&q={}"
 c.url.searchengines["gh"] = "https://github.com/search?q={}&type=Code"
 
-# Aliases
-c.aliases["jellyfin"] = "open -t http://localhost:8096"
-c.aliases["rqbit"] = "open -t http://localhost:3030"
-
 # Colors
 c.colors.tabs.selected.odd.bg = "black"
 c.colors.tabs.selected.even.bg = "black"
@@ -98,10 +94,12 @@ config.bind("gK", "tab-move +")
 config.bind("<Ctrl-n>", "completion-item-focus next", mode="command")
 config.bind("<Ctrl-p>", "completion-item-focus prev", mode="command")
 config.bind("<Ctrl-y>", "command-accept", mode="command")
+config.unbind("r")
 config.bind("<Ctrl-r>", "reload")
 config.bind("<Ctrl-Shift-r>", "config-source ;; message-info 'Reloaded config'")
 config.unbind("<Ctrl-v>")
 config.bind("<Ctrl-Shift-p>", "mode-enter passthrough")
+config.bind("aa", "set-cmd-text -s :quickmark-add {url} {title}")
 
 # Spoof User-Agent for Google domains
 google_domains = [
