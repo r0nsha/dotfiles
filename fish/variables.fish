@@ -17,7 +17,6 @@ set -Ux VISUAL nvim
 set -Ux EDITOR nvim
 set -Ux BROWSER qutebrowser
 set -Ux MANPAGER nvim +Man!
-set -Ux GNUPGHOME ~/.gpg
 
 # Set lang to UTF-8
 set -Ux LANGUAGE en_US.UTF-8
