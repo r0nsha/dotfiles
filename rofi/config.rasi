@@ -1,20 +1,13 @@
 configuration {
     font: "IosevkaNerdFontPropo 14";
-
     kb-accept-entry: "Control+y,Return,KP_Enter";
     kb-cancel: "Escape,Control+g";
-
-    modi: "power-menu:~/.config/rofi/scripts/rofi-power-menu.sh";
-
-    combi {
-        display-name: "";
-    }
 }
 
 * {
-    bg0: #000000cc;
-    bg1: #1e1e1ecc;
-    bg2: #303030cc;
+    bg0: #000000dd;
+    bg1: #1e1e1edd;
+    bg2: #303030dd;
     fg0: #989898;
     fg1: #ffffff;
     red: #ff5f59;

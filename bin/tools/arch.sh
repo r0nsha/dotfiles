@@ -36,6 +36,7 @@ pacman_deps=(
 	imagemagick
 	ffmpeg
 	xdotool
+	wtype
 	cliphist
 
 	# media
