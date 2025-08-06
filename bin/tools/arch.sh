@@ -69,6 +69,12 @@ pacman_deps=(
 	ttf-iosevka-nerd
 	ttf-iosevkaterm-nerd
 
+	# nvidia
+	nvidia
+	nvidia-utils
+	lib32-nvidia-utils
+	egl-wayland
+
 	# desktop
 	hyprland
 	hyprpolkitagent
@@ -80,9 +86,11 @@ pacman_deps=(
 	qt6-multimedia-ffmpeg
 
 	# apps
-	dolphin
+	rofi-wayland
 	rofimoji
 	qutebrowser
+	steam
+	dolphin
 )
 
 sudo pacman -Syu --noconfirm ${pacman_deps[@]}
@@ -112,6 +120,8 @@ install_rust() {
 install_wrapper yay install_yay
 install_wrapper rustup install_rust
 
-# yay_deps=()
+yay_deps=(
+	hyprprop-git
+)
 
-# yay -S --noconfirm ${yay_deps[@]}
+yay -S --noconfirm ${yay_deps[@]}
