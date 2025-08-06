@@ -31,6 +31,7 @@ pacman_deps=(
 	rustup
 	npm
 	pnpm
+	bottom
 
 	# media
 	pipewire
