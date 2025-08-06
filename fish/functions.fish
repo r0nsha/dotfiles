@@ -45,14 +45,15 @@ function tmux_select_dir
             $HOME/dev/core-public/core
         )
 
-        set -l perm_dirs (
+        set -l include_dirs (
             filter_dirs \
             $HOME/dotfiles \
-            $HOME/notes
+            $HOME/notes \
+            $HOME/pictures/backgrounds
         )
 
         set selected (begin
-            for dir in $perm_dirs
+            for dir in $include_dirs
                 echo $dir
             end
 
@@ -121,14 +122,15 @@ function zellij_select_dir
             $HOME/dev/core-public/core
         )
 
-        set -l perm_dirs (
+        set -l include_dirs (
             filter_dirs \
             $HOME/dotfiles \
-            $HOME/notes
+            $HOME/notes \
+            $HOME/pictures/backgrounds
         )
 
         set selected (begin
-            for dir in $perm_dirs
+            for dir in $include_dirs
                 echo $dir
             end
 

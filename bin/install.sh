@@ -44,9 +44,12 @@ git submodule init
 git submodule update --init --recursive
 success
 
-step "backgrounds"
-ln -sfv $DOTFILES/backgrounds $PICTURES
-success
+# if ~/dev/backgrounds doesn't exist, create it
+if [ ! -d "$DEV/backgrounds" ]; then
+    step "backgrounds"
+    git clone https://github.com/r0nsha/backgrounds $PICTURES/backgrounds
+    success
+fi
 
 # make scripts executable
 step "scripts"
