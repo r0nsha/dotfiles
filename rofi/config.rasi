@@ -30,19 +30,13 @@ configuration {
 
     urgent-foreground: @red;
     urgent-background: transparent;
-    selected-urgent-foreground: @bg0;
+    selected-urgent-foreground: @red;
     selected-urgent-background: transparent;
-
-    alternate-urgent-foreground: @urgent-foreground;
-    alternate-urgent-background: transparent;
 
     active-foreground: @green;
     active-background: transparent;
-    selected-active-foreground: @bg0;
-    selected-active-background: transparent;
-
-    alternate-active-foreground: @active-foreground;
-    alternate-active-background: transparent;
+    selected-active-foreground: @green;
+    selected-active-background: @bg2;
 
     border-color: @bg1;
     separatorcolor: transparent;
@@ -127,12 +121,12 @@ element.alternate.normal {
     text-color:       @normal-foreground;
 }
 element.alternate.urgent {
-    background-color: @alternate-urgent-background;
-    text-color:       @alternate-urgent-foreground;
+    background-color: @urgent-background;
+    text-color:       @urgent-foreground;
 }
 element.alternate.active {
-    background-color: @alternate-active-background;
-    text-color:       @alternate-active-foreground;
+    background-color: @active-background;
+    text-color:       @active-foreground;
 }
 
 scrollbar {
