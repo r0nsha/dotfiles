@@ -13,7 +13,7 @@ set -l options (
         echo $label
     end | sort | string join "\n"
 )
-set -l picked (echo -e $options | rofi -dmenu -p "USB Devices" -theme-str "window {width: 20%;}")
+set -l picked (echo -e $options | rofi -dmenu -p "usb devices" -theme-str "window {width: 20%;}")
 set -l device (echo $picked | awk '{print $2}')
 
 if test -z "$device"

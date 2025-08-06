@@ -30,7 +30,7 @@ function list_devices
     set -l default_source_display_name (get_source_display_name "$default_source")
 
     set -l options "󰓃 $(get_sink_display_name $default_sink)\n󰍬 $(get_source_display_name $default_source)"
-    set picked (echo -e "$options" | rofi -dmenu -p "Sound Devices")
+    set picked (echo -e "$options" | rofi -dmenu -p "sound devices")
 
     if string match -q "󰓃 *" $picked
         pick_sink
@@ -48,7 +48,7 @@ function pick_sink
             echo "$(get_sink_display_name $sink):::$sink"
         end | sort | string join "\n"
     )
-    set -l picked (echo -e "$options" | awk -F ':::' '{print $1}' | rofi -dmenu -p "Select Output")
+    set -l picked (echo -e "$options" | awk -F ':::' '{print $1}' | rofi -dmenu -p "select output")
     set -l sink (echo -e $options | rg -F "$picked" | awk -F ':::' '{print $2}')
     pactl set-default-sink $sink
     notify-send "Default output set to '$picked'"
@@ -61,7 +61,7 @@ function pick_source
             echo "$(get_source_display_name $source):::$source"
         end | sort | string join "\n"
     )
-    set -l picked (echo -e "$options" | awk -F ':::' '{print $1}' | rofi -dmenu -p "Select Input")
+    set -l picked (echo -e "$options" | awk -F ':::' '{print $1}' | rofi -dmenu -p "select input")
     set -l source (echo -e $options | rg -F "$picked" | awk -F ':::' '{print $2}')
     pactl set-default-source $source
     notify-send "Default input set to '$picked'"

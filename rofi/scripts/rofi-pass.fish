@@ -78,7 +78,7 @@ function list_all
     set -l passwords (fd .gpg $pass_dir | sed -E "s|$pass_dir\/(.*)\.gpg|\\1|" | sort | string join "\n")
     set -l picked (
         echo -e $passwords \
-        | rofi -dmenu -p Pass \
+        | rofi -dmenu -p pass \
             -mesg "enter Pick | alt-o Show&#x0a;alt-p Copy pass | alt-e Copy email | alt-u Copy user" \
             -kb-custom-1 "alt-o" \
             -kb-custom-2 "alt-p" \
@@ -196,7 +196,7 @@ function show_last_used
 end
 
 function insert_new_password
-    set -l name (rofi -dmenu -p "Enter name for new password")
+    set -l name (rofi -dmenu -p "enter name for new password")
 
     if test -z $name
         return
@@ -204,13 +204,13 @@ function insert_new_password
 
     pass show $name
     if test $status -eq 0
-        set -l answer (echo -e "yes\nno" | rofi -dmenu -p "Overwrite $name?")
+        set -l answer (echo -e "yes\nno" | rofi -dmenu -p "overwrite $name?")
         if ! test "$answer" = yes
             return
         end
     end
 
-    set -l password (echo -e "Generate" | rofi -dmenu -p "Enter password for $name" -mesg "Type password or hit enter to generate one")
+    set -l password (echo -e "Generate" | rofi -dmenu -p "enter password for $name" -mesg "Type password or hit enter to generate one")
 
     if test -z $password
         return

@@ -8,7 +8,7 @@ LIST=$(nmcli --fields SSID,SECURITY,BARS device wifi list | sed '/^--/d' | sed 1
 CONSTATE=$(nmcli -fields WIFI g)
 if [[ "$CONSTATE" =~ "disabled" ]]; then
 	TOGGLE="Enable WiFi 󰖩"
-	CHENTRY=$(echo -e "$TOGGLE" | uniq -u | rofi -dmenu -selected-row 1 -p "WiFi")
+	CHENTRY=$(echo -e "$TOGGLE" | uniq -u | rofi -dmenu -selected-row 1 -p "wifi")
 	if [[ "$CHENTRY" == "Enable WiFi"* ]]; then
 		nmcli radio wifi on
 		notify-send "WiFi enabled"
@@ -18,7 +18,7 @@ fi
 
 TOGGLE="Disable WiFi 󰖪"
 
-CHENTRY=$(echo -e "$TOGGLE\n$LIST" | uniq -u | rofi -dmenu -selected-row 1 -p "WiFi")
+CHENTRY=$(echo -e "$TOGGLE\n$LIST" | uniq -u | rofi -dmenu -selected-row 1 -p "wifi")
 
 if [ "$CHENTRY" = "" ]; then
 	exit
@@ -41,7 +41,7 @@ else
 		nmcli con up "$CHSSID"
 	else
 		if [[ "$CHENTRY" =~ "" ]]; then
-			WIFIPASS=$(echo " Press Enter if network is saved" | rofi -dmenu -password -p "$CHNAME Password" -lines 1)
+			WIFIPASS=$(echo " Press Enter if network is saved" | rofi -dmenu -password -p "$CHNAME password" -lines 1)
 		fi
 		if nmcli dev wifi con "$CHSSID" password "$WIFIPASS"; then
 			notify-send "Connected to $CHNAME"
