@@ -77,6 +77,7 @@ pacman_deps=(
 
 	# desktop
 	hyprland
+	hyprlock
 	hyprpolkitagent
 	xdg-desktop-portal
 	xdg-desktop-portal-hyprland
@@ -84,6 +85,7 @@ pacman_deps=(
 	qt5-wayland
 	qt6-wayland
 	qt6-multimedia-ffmpeg
+	swww
 
 	# apps
 	rofi-wayland
