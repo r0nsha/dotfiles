@@ -71,6 +71,7 @@ pacman_deps=(
 
 	# desktop
 	hyprland
+	hyprpolkitagent
 	xdg-desktop-portal
 	xdg-desktop-portal-hyprland
 	xdg-desktop-portal-gtk
