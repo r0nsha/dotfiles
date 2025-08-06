@@ -146,5 +146,6 @@ yay -S --noconfirm ${yay_deps[@]}
 sudo systemctl enable ly.service
 sudo systemctl disable getty@tty2.service
 
-# gamemode
+# groups
 sudo gpasswd -a $USER gamemode
+sudo gpasswd -a $USER network
