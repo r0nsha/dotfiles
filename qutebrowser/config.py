@@ -1,5 +1,3 @@
-from pathlib import Path
-
 config.load_autoconfig(True)
 
 # Options
@@ -25,14 +23,6 @@ c.content.tls.certificate_errors = "ask-block-thirdparty"
 c.confirm_quit = ["downloads"]
 c.downloads.position = "bottom"
 c.downloads.remove_finished = 5 * 60 * 1000  # 5 minutes
-
-scripts = f"{Path.home()}/.config/scripts"
-
-# File picker
-c.fileselect.handler = "external"
-c.fileselect.single_file.command = ["kitty", "-e", "ranger", "--choosefile={}"]
-c.fileselect.multiple_files.command = ["kitty", "-e", "ranger", "--choosefiles={}"]
-c.fileselect.folder.command = ["kitty", "-e", "ranger", "--choosedir={}"]
 
 # Adblock
 c.content.blocking.enabled = True

@@ -35,7 +35,6 @@ pacman_deps=(
 	jq
 	imagemagick
 	ffmpeg
-	ranger
 
 	# media
 	pipewire
