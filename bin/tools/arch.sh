@@ -8,13 +8,14 @@ pacman_deps=(
 	texinfo
 	sudo
 	base-devel
+	cmake
 
 	# git
 	git
 	github-cli
 	git-delta
 
-	# tools
+	# cli
 	zoxide
 	eza
 	bat
@@ -26,15 +27,21 @@ pacman_deps=(
 	pass
 	tealdeer
 	just
-	cmake
-	libnotify
-	pipewire-jack
 	luarocks
 	rustup
 	npm
 	pnpm
+
+	# media
 	playerctl
 	brightnessctl
+	pipewire-jack
+
+	# notifications
+	libnotify
+
+	# clipboard
+	wl-clipboard
 
 	# python
 	python
@@ -57,13 +64,11 @@ pacman_deps=(
 	# desktop
 	hyprland
 	rofimoji
+	qt6-multimedia-ffmpeg
+	dolphin
 
 	# apps
 	qutebrowser
-
-	#playerctl
-	#rofi
-	#udiskie
 )
 
 sudo pacman -Syu --noconfirm ${pacman_deps[@]}
@@ -83,10 +88,12 @@ install_yay() {
 	yay -Syu --noconfirm --devel --save
 }
 
-install_wrapper yay install_yay
+install_rust() {
+	rustup toolchain install stable
+	rustup toolchain install nightly
+	rustup default stable
+	cargo install cargo-update
+}
 
-# Install rust stuff
-rustup toolchain install stable
-rustup toolchain install nightly
-rustup default stable
-cargo install cargo-update
+install_wrapper yay install_yay
+install_wrapper rustup install_rust
