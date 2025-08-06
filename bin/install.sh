@@ -64,6 +64,14 @@ success
 step "stow"
 cd $DOTFILES
 stow .
+ln -sfv $DOTFILES/gpg/gpg-agent.conf $HOME/.gnupg/gpg-agent.conf
+
+# macos defaults
+if [ "$MACHINE" = "darwin" ]; then
+    rm -rf $HOME/.qutebrowser
+    ln -sv $DOTFILES/qutebrowser $HOME/.qutebrowser
+fi
+
 info "stowed dotfiles"
 success
 

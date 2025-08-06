@@ -22,7 +22,9 @@ _darcs
 ^/LICENSE.*
 ^/COPYING
 
-bin
 .stowrc
 DS_Store
 .DS_Store
+
+bin
+gpg
