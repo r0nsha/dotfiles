@@ -35,6 +35,7 @@ pacman_deps=(
 	jq
 	imagemagick
 	ffmpeg
+	xdotool
 
 	# media
 	pipewire
