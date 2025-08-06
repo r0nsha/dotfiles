@@ -33,9 +33,13 @@ pacman_deps=(
 	pnpm
 
 	# media
+	pipewire
+	pipewire-audio
+	pipewire-pulse
+	pipewire-jack
+	wireplumber
 	playerctl
 	brightnessctl
-	pipewire-jack
 
 	# notifications
 	libnotify
