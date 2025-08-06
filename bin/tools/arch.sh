@@ -135,4 +135,6 @@ yay_deps=(
 
 yay -S --noconfirm ${yay_deps[@]}
 
+# ly
 sudo systemctl enable ly.service
+sudo systemctl disable getty@tty2.service
