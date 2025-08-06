@@ -92,6 +92,8 @@ pacman_deps=(
 	qt6-multimedia-ffmpeg
 	swww
 	ly
+	gamemode
+	lib32-gamemode
 
 	# rofi
 	rofi-wayland
@@ -141,3 +143,6 @@ yay -S --noconfirm ${yay_deps[@]}
 # ly
 sudo systemctl enable ly.service
 sudo systemctl disable getty@tty2.service
+
+# gamemode
+sudo gpasswd -a $USER gamemode
