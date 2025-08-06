@@ -4,7 +4,7 @@ configuration {
     kb-accept-entry: "Control+y,Return,KP_Enter";
     kb-cancel: "Escape,Control+g";
 
-    modi: "power-menu:~/.config/rofi/scripts/rofi-power-menu.sh --choices=shutdown/reboot/lockscreen";
+    modi: "power-menu:~/.config/rofi/scripts/rofi-power-menu.sh";
 
     combi {
         display-name: "";
