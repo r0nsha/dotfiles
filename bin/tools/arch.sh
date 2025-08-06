@@ -95,6 +95,7 @@ pacman_deps=(
 	ly
 	gamemode
 	lib32-gamemode
+	udiskie
 
 	# rofi
 	rofi-wayland
