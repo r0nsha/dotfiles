@@ -133,6 +133,7 @@ install_wrapper rustup install_rust
 
 yay_deps=(
 	hyprprop-git
+	vesktop
 )
 
 yay -S --noconfirm ${yay_deps[@]}
