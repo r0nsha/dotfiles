@@ -34,6 +34,7 @@ pacman_deps=(
 	npm
 	pnpm
 	playerctl
+	brightnessctl
 
 	# python
 	python
