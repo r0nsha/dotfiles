@@ -27,11 +27,6 @@ else
     set interval $default_interval
 end
 
-# See swww-img(1)
-set resize_type fit
-set -x SWWW_TRANSITION_FPS (set -q SWWW_TRANSITION_FPS; and echo $SWWW_TRANSITION_FPS; or echo 60)
-set -x SWWW_TRANSITION_STEP (set -q SWWW_TRANSITION_STEP; and echo $SWWW_TRANSITION_STEP; or echo 2)
-
 while true
     fd . $dir -tf \
         | while read img
@@ -39,7 +34,7 @@ while true
     end \
         | sort -n | cut -d':' -f2- \
         | while read img
-        swww img --resize="$resize_type" "$img"
+        swww img --resize=fit "$img" --transition-fps=120 --transition-step=4 --transition-type=random
         sleep $interval
     end
 end
