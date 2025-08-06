@@ -3,6 +3,7 @@
 SETUVAR --export BROWSER:qutebrowser
 SETUVAR --export DOTFILES:/home/ron/dotfiles
 SETUVAR --export EDITOR:nvim
+SETUVAR --export GNUPGHOME:/home/ron/\x2egpg
 SETUVAR --export LANG:en_US\x2eUTF\x2d8
 SETUVAR --export LANGUAGE:en_US\x2eUTF\x2d8
 SETUVAR --export LC_ALL:en_US\x2eUTF\x2d8
