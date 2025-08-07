@@ -139,10 +139,10 @@ install_wrapper yay install_yay
 install_wrapper rustup install_rust
 
 yay_deps=(
+	wired
 	hyprprop-git
 	vesktop
 	bzmenu
-	avizo
 )
 
 yay -S --noconfirm ${yay_deps[@]}
