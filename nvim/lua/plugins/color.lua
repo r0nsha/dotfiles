@@ -15,6 +15,10 @@ return {
           ccc.input.rgb,
           ccc.input.cmyk,
         },
+        outputs = {
+          ccc.output.hex,
+          ccc.output.css_rgb,
+        },
         highlighter = {
           auto_enable = true,
           lsp = true,
@@ -28,6 +32,8 @@ return {
           ["<c-n>"] = mapping.goto_next,
           ["H"] = mapping.decrease10,
           ["L"] = mapping.increase10,
+          ["i"] = mapping.cycle_input_mode,
+          ["o"] = mapping.cycle_output_mode,
         },
         highlight_mode = "bg",
       })
