@@ -79,6 +79,17 @@ switch $argv[1]
                 pamixer $target --toggle-mute
                 notify_volume $type
         end
+    case brightness
+        set -l action $argv[2]
+        switch $action
+            case up
+                brightnessctl -e4 -n2 set 5%+
+                notify_brightness
+            case down
+                brightnessctl -e4 -n2 set 5%-
+                notify_brightness
+        end
+    case
     case '*'
         usage
 end
