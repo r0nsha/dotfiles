@@ -92,6 +92,9 @@ switch $argv[1]
                 # brightnessctl -e4 -n2 set 5%-
                 hyprctl hyprsunset gamma -5
                 notify_brightness
+            case reset
+                hyprctl hyprsunset gamma 100
+                notify_brightness
         end
     case '*'
         usage
