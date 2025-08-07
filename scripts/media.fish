@@ -93,6 +93,7 @@ switch $argv[1]
                 hyprctl hyprsunset gamma -5
                 notify_brightness
             case reset
+                hyprctl hyprsunset identity true
                 hyprctl hyprsunset gamma 100
                 notify_brightness
         end
