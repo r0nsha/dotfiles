@@ -3,7 +3,7 @@
 set sink (pactl get-default-sink)
 
 function _notify
-    dunstify -r 69 -t 1000 -u low "$argv[1]"
+    notify-send -r 69 -t 1000 -u low "$argv[1]"
 end
 
 function update_statusbar
