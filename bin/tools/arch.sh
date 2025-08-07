@@ -9,6 +9,7 @@ pacman_deps=(
 	sudo
 	base-devel
 	cmake
+	iwd
 
 	# git
 	git
@@ -143,6 +144,7 @@ yay_deps=(
 	hyprprop-git
 	vesktop
 	bzmenu
+	iwmenu
 )
 
 yay -S --noconfirm ${yay_deps[@]}
