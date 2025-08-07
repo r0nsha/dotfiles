@@ -96,7 +96,6 @@ pacman_deps=(
 	qt6-wayland
 	qt6-multimedia-ffmpeg
 	swww
-	waybar
 	ly
 	gamemode
 	lib32-gamemode
