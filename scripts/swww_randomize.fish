@@ -34,8 +34,7 @@ while true
     end \
         | sort -n | cut -d':' -f2- \
         | while read img
-        swww img --resize=fit "$img" --transition-fps=120 --transition-step=4 --transition-type=random
-        ln -sf "$img" ~/.cache/swww/.current_background
         sleep $interval
+        ~/.config/scripts/swww_set.fish "$img"
     end
 end
