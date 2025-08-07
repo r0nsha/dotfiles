@@ -5,15 +5,36 @@ function usage
     exit 1
 end
 
+function type_target
+    set -l type $argv[1]
+    switch $type
+        case sink
+            echo ""
+        case source
+            echo --default-source
+        case '*'
+            echo "unsupported type $type, expected 'sink' or 'source'"
+            exit 1
+    end
+end
+
 function notify_volume
-    set -l title $argv[1]
-    set -l muted (pamixer --get-mute)
-    set -l volume (pamixer --get-volume)
+    set -l type $argv[1]
+    set -l target (type_target $type)
+    set -l title (switch $type
+        case sink
+            echo "󰓃 Output"
+        case source
+            echo "󰍬 Input"
+    end)
+
+    set -l muted (pamixer $target --get-mute)
+    set -l volume (pamixer $target --get-volume)
 
     if "$muted" == true
-        notify-send -a progress -t 1000 -h 'string:wired-tag:volume' -h "int:value:$volume" "$title volume $(pamixer --get-volume-human)" muted
+        notify-send -a progress -t 1000 -h 'string:wired-tag:volume' -h "int:value:$volume" "$title volume muted" muted
     else
-        notify-send -a progress -t 1000 -h 'string:wired-tag:volume' -h "int:value:$volume" "$title volume $(pamixer --get-volume-human)"
+        notify-send -a progress -t 1000 -h 'string:wired-tag:volume' -h "int:value:$volume" "$title volume $volume%"
     end
 end
 
@@ -33,39 +54,30 @@ end
 # }
 
 function update_mute
-    if test (pamixer --get-volume) -gt 0
-        pamixer --unmute
+    set -l target $argv[1]
+    if test (pamixer $target --get-volume) -gt 0
+        pamixer $target --unmute
     end
 end
 
 switch $argv[1]
     case volume
-        switch $argv[2]
-            case sink
-                set target ""
-                set title "󰓃 Output"
-            case source
-                set target --default-source
-                set title "󰍬 Input"
-            case '*'
-                usage
-        end
+        set -l type $argv[2]
+        set -l action $argv[3]
+        set -l target (type_target $type)
 
-        switch $argv[3]
+        switch $action
             case up
-                pamixer -i 5 $target
-                update_mute
-                notify_volume $title
+                pamixer $target -i 5
+                update_mute $target
+                notify_volume $type
             case down
-                pamixer -d 5 $target
-                update_mute
-                notify_volume $title
+                pamixer $target -d 5
+                update_mute $target
+                notify_volume $type
             case mute
-                pamixer --toggle-mute
-                notify_volume $title
-            case mute-mic
-                pamixer --default-source --toggle-mute
-                notify_volume
+                pamixer $target --toggle-mute
+                notify_volume $type
         end
     case '*'
         usage
