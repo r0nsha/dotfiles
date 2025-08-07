@@ -39,7 +39,9 @@ function notify_volume
 end
 
 function notify_brightness
-    notify-send -a progress -t 1000 -h 'string:wired-tag:brightness' -h "int:value:$target" Brightness
+    set -l gamma (hyprctl hyprsunset gamma)
+    set -l gamma (math "round(($gamma / 150) * 100)")
+    notify-send -a progress -t 1000 -h 'string:wired-tag:brightness' -h "int:value:$gamma" Brightness
 end
 
 # notify_track() {
@@ -83,13 +85,14 @@ switch $argv[1]
         set -l action $argv[2]
         switch $action
             case up
-                brightnessctl -e4 -n2 set 5%+
+                # brightnessctl -e4 -n2 set 5%+
+                hyprctl hyprsunset gamma +5
                 notify_brightness
             case down
-                brightnessctl -e4 -n2 set 5%-
+                # brightnessctl -e4 -n2 set 5%-
+                hyprctl hyprsunset gamma -5
                 notify_brightness
         end
-    case
     case '*'
         usage
 end

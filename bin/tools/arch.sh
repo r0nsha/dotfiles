@@ -87,6 +87,7 @@ pacman_deps=(
 	hyprland
 	hyprlock
 	hypridle
+	hyprsunset
 	hyprpicker
 	hyprpolkitagent
 	xdg-desktop-portal
