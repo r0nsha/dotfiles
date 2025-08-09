@@ -165,8 +165,3 @@ sudo gpasswd -a $USER network
 
 # bluetooth
 sudo systemctl enable --now bluetooth.service
-
-# hyprland plugins
-hyprpm update
-hyprpm add https://github.com/daxisunder/hyprfocus
-hyprpm enable hyprfocus
