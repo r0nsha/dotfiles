@@ -19,5 +19,20 @@
 	"tray": {
 		"icon-size": 14,
 		"spacing": 8
+	},
+	"mpris": {
+		"format": "{player_icon} {player} | {status_icon} {status} | {dynamic}",
+		"player-icons": {
+			"default": "󰐊",
+			"chromium": "󰊯",
+			"firefox": "󰈹",
+			"spotify": "󰓇",
+			"vlc": "󰕼"
+		},
+		"status-icons": {
+			"playing": "󰐊",
+			"paused": "󰏤",
+			"stopped": "󰓛"
+		}
 	}
 }

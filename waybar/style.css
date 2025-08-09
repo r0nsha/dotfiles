@@ -1,12 +1,14 @@
-@define-color bg0 alpha(#000000, 0.5);
-@define-color bg1 alpha(#303030, 0.5);
-@define-color border #1e1e1e;
+@define-color bg0_opaque #000000;
+@define-color bg0 alpha(@bg0_opaque, 0.75);
+@define-color bg1 alpha(#303030, 0.75);
 @define-color fg0 #989898;
 @define-color fg1 #ffffff;
 @define-color green #44bc44;
 @define-color red #ff5f59;
 @define-color cyan #00d3d0;
+@define-color cyan_alpha alpha(#00d3d0, 0.75);
 @define-color yellow #d0bc00;
+@define-color border @bg1;
 
 * {
 	font-family: Iosevka Nerd Font Propo;
@@ -23,7 +25,7 @@ tooltip {
 	border: 1px solid @border;
 }
 
-#submap, #workspaces, #tray {
+#submap, #workspaces, #tray, #mpris {
     margin-top: 8px;
     margin-left: 8px;
     padding: 4px 8px;
@@ -32,7 +34,8 @@ tooltip {
 }
 
 #submap {
-    color: @cyan;
+    background: @cyan_alpha;
+    color: @bg0_opaque;
 }
 
 #workspaces button {
@@ -51,7 +54,7 @@ tooltip {
 }
 
 #tray menu {
-    background: #000000;
+    background: @bg0_opaque;
     border: 1px solid @border;
     color: @fg1;
 }
