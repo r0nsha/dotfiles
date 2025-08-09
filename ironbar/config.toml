@@ -1,32 +1,17 @@
+height = 24
 anchor_to_edges = true
+layer = "top"
 position = "top"
-icon_theme = "Papirus"
 
 [[start]]
 type = "workspaces"
+icon_size = 16
 all_monitors = false
 
-[[start]]
-type = "tray"
-direction = "horizontal"
-icon_size = 16
-prefered_icon_theme = "Paper"
-# [start.name_map]
-# 1 = "󰙯"
-# 2 = "icon:firefox"
-# 3 = ""
-# Games = "icon:steam"
-# Code = ""
-
 # [[start]]
-# type = "launcher"
-# favorites = ["firefox", "discord", "steam"]
-# show_names = false
-# show_icons = true
-
-# [[start]]
-# type = "label"
-# label = "random num: {{500:echo FIXME}}"
+# type = "tray"
+# direction = "horizontal"
+# icon_size = 16
 
 # [[end]]
 # type = "music"
