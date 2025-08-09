@@ -1,12 +1,14 @@
-@define-color bg0_opaque #000000;
-@define-color bg0 alpha(@bg0_opaque, 0.75);
-@define-color bg1 alpha(#303030, 0.75);
+@define-color bg0-opaque #000000;
+@define-color bg0 alpha(@bg0-opaque, 0.75);
+@define-color bg1-opaque #303030;
+@define-color bg1 alpha(@bg1-opaque, 0.75);
 @define-color fg0 #989898;
 @define-color fg1 #ffffff;
 @define-color green #44bc44;
 @define-color red #ff5f59;
+@define-color red-alpha alpha(#ff5f59, 0.75);
 @define-color cyan #00d3d0;
-@define-color cyan_alpha alpha(#00d3d0, 0.75);
+@define-color cyan-alpha alpha(#00d3d0, 0.75);
 @define-color yellow #d0bc00;
 @define-color border @bg1;
 
@@ -21,11 +23,12 @@ window#waybar {
 }
 
 tooltip {
-	background: @fg0;
+	background: @bg0-opaque;
 	border: 1px solid @border;
+    border-radius: 0;
 }
 
-#submap, #workspaces, #tray, #mpris {
+#submap, #workspaces, #tray, #mpris, #idle_inhibitor, #gamemode, #privacy, #language {
     margin-top: 8px;
     margin-left: 8px;
     padding: 4px 8px;
@@ -34,8 +37,8 @@ tooltip {
 }
 
 #submap {
-    background: @cyan_alpha;
-    color: @bg0_opaque;
+    background: @cyan-alpha;
+    color: @bg0-opaque;
 }
 
 #workspaces button {
@@ -54,7 +57,25 @@ tooltip {
 }
 
 #tray menu {
-    background: @bg0_opaque;
+    background: @bg0-opaque;
     border: 1px solid @border;
     color: @fg1;
+    border-radius: 0;
+}
+
+#mpris.playing {
+    color: @fg1;
+}
+
+#mpris.paused, #mpris.stopped {
+    color: @fg0;
+}
+
+#gamemode {
+    padding: 4px 4px 4px 8px;
+}
+
+#privacy {
+    background: @red-alpha;
+    color: @bg0-opaque;
 }

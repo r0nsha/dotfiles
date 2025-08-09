@@ -5,6 +5,7 @@
 	"modules-right": [
 		"gamemode",
 		"privacy",
+		"idle_inhibitor",
 		"hyprland/language",
 		// TODO: sound devices
 		"pulseaudio",
@@ -27,12 +28,23 @@
 			"chromium": "󰊯",
 			"firefox": "󰈹",
 			"spotify": "󰓇",
-			"vlc": "󰕼"
+			"vlc": "󰕼",
+			"mpv": "󰝚"
 		},
 		"status-icons": {
 			"playing": "󰐊",
 			"paused": "󰏤",
 			"stopped": "󰓛"
 		}
+	},
+	"gamemode": {
+		// "use-icon": false,
+		"glyph": "󰮂 ",
+		"icon-size": 14,
+		"spacing": 8
+	},
+	"privacy": {
+		"icon-size": 14,
+		"spacing": 8
 	}
 }
