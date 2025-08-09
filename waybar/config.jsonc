@@ -7,9 +7,7 @@
 		"gamemode",
 		"idle_inhibitor",
 		"hyprland/language",
-		// TODO: sound devices
 		"pulseaudio",
-		"bluetooth",
 		"network",
 		"clock",
 		"battery",
@@ -47,12 +45,11 @@
 		"spacing": 8
 	},
 	"idle_inhibitor": {
-		"format": "{icon} {status}",
+		"format": "{icon}",
 		"format-icons": {
 			"activated": "󰅶",
 			"deactivated": "󰾫"
-		},
-		"tooltip": false
+		}
 	},
 	"pulseaudio": {
 		"format": "{icon} {desc} | 󰖀 {volume}%",

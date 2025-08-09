@@ -109,7 +109,8 @@ tooltip {
 }
 
 #idle_inhibitor.activated {
-    color: @yellow;
+    background: @yellow;
+    color: @bg0-opaque;
 }
 
 #pulseaudio.bluetooth {
