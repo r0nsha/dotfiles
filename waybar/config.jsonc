@@ -1,5 +1,4 @@
 {
-	"layer": "top",
 	"position": "top",
 	"modules-left": ["hyprland/submap", "hyprland/workspaces", "tray"],
 	"modules-center": ["mpris"],
@@ -7,6 +6,10 @@
 		"gamemode",
 		"privacy",
 		"hyprland/language",
+		// TODO: sound devices
+		"pulseaudio",
+		"bluetooth",
+		"network",
 		"clock",
 		"battery",
 		"cpu",

@@ -1,0 +1,97 @@
+@define-color bg0 alpha(#000000, 0.8);
+@define-color bg1 alpha(#303030, 0.8);
+@define-color fg0 #989898;
+@define-color fg1 #ffffff;
+@define-color red #ff5f59;
+
+* {
+	font-family: Iosevka Nerd Font Propo;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+window#waybar {
+    all: unset;
+}
+
+tooltip {
+	background: @fg0;
+	border: 1px solid @bg1;
+}
+
+/* #clock, */
+/* #tray, */
+/* #cpu, */
+/* #memory, */
+/* #battery, */
+/* #network, */
+/* #pulseaudio { */
+/* 	margin: 6px 6px 6px 0px; */
+/* 	padding: 2px 8px; */
+/* } */
+
+#workspaces, #tray {
+	margin: 8px 8px 0px 8px;
+    background: @bg0;
+	border: 1px solid @bg1;
+}
+
+#workspaces {
+    padding: 4px 8px;
+}
+
+#tray {
+    padding: 4px 16px;
+}
+
+#workspaces button {
+	all: initial;
+	min-width: 0;
+	padding: 0px 6px;
+	color: @fg0;
+}
+
+#workspaces button.active {
+	color: @fg1;
+}
+
+#workspaces button.urgent {
+	color: @red;
+}
+
+/* #clock { */
+/* 	background: #322d28; */
+/* 	border: 2px solid #625343; */
+/* 	color: #d4be98; */
+/* } */
+
+/* #battery { */
+/* 	background: #a9b665; */
+/* 	border: 2px solid #c7ab7a; */
+/* 	color: #6c782e; */
+/* } */
+
+/* #tray, */
+/* #cpu, */
+/* #memory, */
+/* #network, */
+/* #pulseaudio { */
+/* 	background: #c9af82; */
+/* 	border: 2px solid #917a53; */
+/* 	color: #1d2021; */
+/* } */
+
+/* #cpu.critical, */
+/* #memory.critical { */
+/* 	background: #c9af82; */
+/* 	border: 2px solid #917a53; */
+/* 	color: #c14a4a; */
+/* } */
+
+/* #battery.warning, */
+/* #battery.critical, */
+/* #battery.urgent { */
+/* 	background: #c9af82; */
+/* 	border: 2px solid #917a53; */
+/* 	color: #ae6330; */
+/* } */
