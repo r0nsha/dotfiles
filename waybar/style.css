@@ -1,5 +1,5 @@
-@define-color bg0 alpha(#000000, 0.8);
-@define-color bg1 alpha(#303030, 0.8);
+@define-color bg0 alpha(#000000, 0.5);
+@define-color bg1 alpha(#303030, 0.5);
 @define-color fg0 #989898;
 @define-color fg1 #ffffff;
 @define-color red #ff5f59;
@@ -19,29 +19,15 @@ tooltip {
 	border: 1px solid @bg1;
 }
 
-/* #clock, */
-/* #tray, */
-/* #cpu, */
-/* #memory, */
-/* #battery, */
-/* #network, */
-/* #pulseaudio { */
-/* 	margin: 6px 6px 6px 0px; */
-/* 	padding: 2px 8px; */
-/* } */
-
 #workspaces, #tray {
 	margin: 8px 8px 0px 8px;
+    padding: 4px 8px;
     background: @bg0;
 	border: 1px solid @bg1;
 }
 
-#workspaces {
-    padding: 4px 8px;
-}
-
-#tray {
-    padding: 4px 16px;
+#workspaces, #tray {
+	margin: 8px 0px 0px 8px;
 }
 
 #workspaces button {
