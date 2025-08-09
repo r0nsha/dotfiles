@@ -54,6 +54,7 @@ fi
 step "scripts"
 chmod -v ug+x $DOTFILES/scripts/*
 chmod -v ug+x $DOTFILES/i3blocks/scripts/*
+chmod -v ug+x $DOTFILES/ironbar/scripts/*
 find $DOTFILES/rofi -type f -name "rofi-*" -exec chmod -v ug+x {} \;
 success
 
