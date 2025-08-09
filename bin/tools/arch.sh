@@ -146,6 +146,7 @@ yay_deps=(
 	vesktop
 	bzmenu
 	iwmenu
+	pinentry-rofi
 )
 
 yay -S --noconfirm ${yay_deps[@]}
