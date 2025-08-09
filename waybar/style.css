@@ -28,12 +28,30 @@ tooltip {
     border-radius: 0;
 }
 
-#submap, #workspaces, #tray, #mpris, #idle_inhibitor, #gamemode, #privacy, #language {
+#submap,
+#workspaces,
+#tray,
+#mpris,
+#idle_inhibitor,
+#gamemode,
+#privacy,
+#language,
+#pulseaudio,
+#bluetooth,
+#network,
+#clock,
+#battery,
+#cpu,
+#memory {
     margin-top: 8px;
     margin-left: 8px;
     padding: 4px 8px;
     background: @bg0;
 	border: 1px solid @border;
+}
+
+#memory {
+    margin-right: 8px;
 }
 
 #submap {

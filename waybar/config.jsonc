@@ -14,8 +14,7 @@
 		"clock",
 		"battery",
 		"cpu",
-		"memory",
-		"temperature"
+		"memory"
 	],
 	"tray": {
 		"icon-size": 14,
@@ -54,5 +53,23 @@
 			"deactivated": "󰾫"
 		},
 		"tooltip": false
+	},
+	"pulseaudio": {
+		"format": "{icon} {volume}%",
+		"format-bluetooth": "󰂯 {volume}% {icon}",
+		"format-muted": "",
+		"format-icons": {
+			"headphone": "󰋋",
+			"hands-free": "",
+			"headset": "󰋎",
+			"phone": "󰏲",
+			"phone-muted": "󱆦",
+			"portable": "󰄜",
+			"car": "󰄋",
+			"default": ["󰖀", "󰕾"]
+		},
+		"scroll-step": 1,
+		"on-click": "pavucontrol",
+		"ignored-sinks": ["Easy Effects Sink"]
 	}
 }
