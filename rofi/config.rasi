@@ -5,9 +5,8 @@ configuration {
 }
 
 * {
-    bg0: #000000dd;
-    bg1: #1e1e1edd;
-    bg2: #303030dd;
+    bg0: #000000aa;
+    bg1: #1e1e1eaa;
     fg0: #989898;
     fg1: #ffffff;
     red: #ff5f59;
@@ -19,7 +18,7 @@ configuration {
     normal-background: transparent;
 
     selected-normal-foreground: @fg1;
-    selected-normal-background: @bg2;
+    selected-normal-background: @bg1;
 
     urgent-foreground: @red;
     urgent-background: transparent;
@@ -29,7 +28,7 @@ configuration {
     active-foreground: @green;
     active-background: transparent;
     selected-active-foreground: @green;
-    selected-active-background: @bg2;
+    selected-active-background: @bg1;
 
     border-color: @bg1;
     separatorcolor: transparent;
