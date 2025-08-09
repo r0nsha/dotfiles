@@ -145,7 +145,7 @@ install_wrapper yay install_yay
 install_wrapper rustup install_rust
 
 yay_deps=(
-	wireh
+	wired
 	ironbar-git
 	hyprprop-git
 	vesktop
