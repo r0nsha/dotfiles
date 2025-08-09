@@ -146,7 +146,6 @@ install_wrapper rustup install_rust
 
 yay_deps=(
 	wired
-	ironbar-git
 	hyprprop-git
 	vesktop
 	bzmenu

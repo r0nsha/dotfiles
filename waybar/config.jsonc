@@ -1,0 +1,16 @@
+{
+	"layer": "top",
+	"position": "top",
+	"modules-left": ["hyprland/submap", "hyprland/workspaces", "tray"],
+	"modules-center": ["mpris"],
+	"modules-right": [
+		"gamemode",
+		"privacy",
+		"hyprland/language",
+		"clock",
+		"battery",
+		"cpu",
+		"memory",
+		"temperature"
+	]
+}
