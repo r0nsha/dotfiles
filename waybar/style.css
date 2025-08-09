@@ -1,8 +1,12 @@
 @define-color bg0 alpha(#000000, 0.5);
 @define-color bg1 alpha(#303030, 0.5);
+@define-color border #1e1e1e;
 @define-color fg0 #989898;
 @define-color fg1 #ffffff;
+@define-color green #44bc44;
 @define-color red #ff5f59;
+@define-color cyan #00d3d0;
+@define-color yellow #d0bc00;
 
 * {
 	font-family: Iosevka Nerd Font Propo;
@@ -16,18 +20,19 @@ window#waybar {
 
 tooltip {
 	background: @fg0;
-	border: 1px solid @bg1;
+	border: 1px solid @border;
 }
 
-#workspaces, #tray {
-	margin: 8px 8px 0px 8px;
+#submap, #workspaces, #tray {
+    margin-top: 8px;
+    margin-left: 8px;
     padding: 4px 8px;
     background: @bg0;
-	border: 1px solid @bg1;
+	border: 1px solid @border;
 }
 
-#workspaces, #tray {
-	margin: 8px 0px 0px 8px;
+#submap {
+    color: @cyan;
 }
 
 #workspaces button {
@@ -45,39 +50,8 @@ tooltip {
 	color: @red;
 }
 
-/* #clock { */
-/* 	background: #322d28; */
-/* 	border: 2px solid #625343; */
-/* 	color: #d4be98; */
-/* } */
-
-/* #battery { */
-/* 	background: #a9b665; */
-/* 	border: 2px solid #c7ab7a; */
-/* 	color: #6c782e; */
-/* } */
-
-/* #tray, */
-/* #cpu, */
-/* #memory, */
-/* #network, */
-/* #pulseaudio { */
-/* 	background: #c9af82; */
-/* 	border: 2px solid #917a53; */
-/* 	color: #1d2021; */
-/* } */
-
-/* #cpu.critical, */
-/* #memory.critical { */
-/* 	background: #c9af82; */
-/* 	border: 2px solid #917a53; */
-/* 	color: #c14a4a; */
-/* } */
-
-/* #battery.warning, */
-/* #battery.critical, */
-/* #battery.urgent { */
-/* 	background: #c9af82; */
-/* 	border: 2px solid #917a53; */
-/* 	color: #ae6330; */
-/* } */
+#tray menu {
+    background: #000000;
+    border: 1px solid @border;
+    color: @fg1;
+}
