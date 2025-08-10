@@ -79,9 +79,11 @@
 		"scroll-step": 5
 	},
 	"network": {
+		"interval": 5,
 		"format": "{ifname}",
-		"format-wifi": "󰖩 {essid} ({signalStrength}%)",
-		"format-ethernet": "󰈁",
+		"format-wifi": "{icon} {essid} ({signalStrength}%)",
+		"format-icons": ["󰤫", "󰤠", "󰤢", "󰤥", "󰤨"],
+		"format-ethernet": "󰈁 {ipaddr}/{cidr}",
 		"format-disconnected": " Disconnected",
 		"tooltip-format": "{gwaddr} ({ifname}}",
 		"tooltip-format-wifi": "{essid} ({signalStrength}%) ",
