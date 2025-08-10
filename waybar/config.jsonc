@@ -105,5 +105,13 @@
 			"on-scroll-up": "shift_up",
 			"on-scroll-down": "shift_down"
 		}
+	},
+	"cpu": {
+		"interval": 5,
+		"format": "󰍛 {usage}%"
+	},
+	"memory": {
+		"interval": 5,
+		"format": " {used:0.1f}G/{total:0.1f}G"
 	}
 }
