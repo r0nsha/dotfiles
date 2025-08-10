@@ -9,4 +9,4 @@ swww img --resize=fit "$img" --transition-fps=120 --transition-step=4 --transiti
 ln -sf "$img" ~/.cache/swww/.current_background
 
 # update colors
-hellwal -q -i "$img" --check-contrast --skip-term-colors --script "pkill -SIGUSR2 waybar"
+hellwal -q -i "$img" --check-contrast --skip-term-colors --script "~/.config/scripts/update_colors.fish"
