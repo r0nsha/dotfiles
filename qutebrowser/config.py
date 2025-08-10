@@ -152,8 +152,8 @@ c.colors.statusbar.progress.bg = palette["bg0"]
 # c.colors.statusbar.url.error.fg = palette["error"]
 c.colors.statusbar.url.fg = palette["fg"]
 c.colors.statusbar.url.hover.fg = palette["active"]
-c.colors.statusbar.url.success.http.fg = palette["success"]
-c.colors.statusbar.url.success.https.fg = palette["success"]
+c.colors.statusbar.url.success.http.fg = palette["active"]
+c.colors.statusbar.url.success.https.fg = palette["active"]
 # c.colors.statusbar.url.warn.fg = palette["error"]
 c.colors.tabs.bar.bg = palette["active"]
 # c.colors.tabs.indicator.error = palette["error"]
@@ -193,6 +193,7 @@ config.bind("<Ctrl-Shift-r>", "config-source ;; message-info 'Reloaded config'")
 config.unbind("<Ctrl-v>")
 config.bind("<Ctrl-Shift-p>", "mode-enter passthrough")
 config.bind("aa", "set-cmd-text -s :quickmark-add {url} {title}")
+config.bind("gP", "open --private")
 
 # Spoof User-Agent for Google domains
 google_domains = [
