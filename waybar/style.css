@@ -134,8 +134,8 @@ tooltip {
     color: @red;
 }
 
-#memory, #temperature {
-    margin-left: 8px;
+#battery, #cpu, #memory {
+    margin-right: 8px;
 }
 
 #temperature.critical {
