@@ -66,13 +66,14 @@ tooltip {
 }
 
 #workspaces button {
-	all: initial;
+	all: unset;
 	min-width: 0;
-	padding: 0px 6px;
+	padding: 0px 8px;
 	color: @fg0;
 }
 
 #workspaces button.active {
+    background: @bg1;
 	color: @fg1;
 }
 
