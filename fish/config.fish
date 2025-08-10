@@ -6,7 +6,13 @@ source $DOTFILES/fish/functions.fish
 source $DOTFILES/fish/aliases.fish
 source $DOTFILES/fish/variables.fish
 source $DOTFILES/fish/macos.fish
-source $DOTFILES/fish/themes/modus_vivendi.fish
+
+set hellwal_colors ~/.cache/hellwal/colors.fish
+if test -f $hellwal_colors
+    source $hellwal_colors
+else
+    source $DOTFILES/fish/themes/modus_vivendi.fish
+end
 
 set fish_greeting # disable welcome message
 fish_vi_key_bindings
@@ -59,5 +65,13 @@ if status is-interactive
         set -gx MCFLY_DISABLE_MENU TRUE
         set -gx MCFLY_PROMPT ">"
         mcfly init fish | source
+    end
+
+    if binary_exists hellwal
+        function reload_hellwal --on-variable _hellwal_update
+            if test -f $hellwal_colors
+                source $hellwal_colors
+            end
+        end
     end
 end
