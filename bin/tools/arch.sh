@@ -116,7 +116,6 @@ pacman_deps=(
 	# apps
 	qutebrowser
 	steam
-	dolphin
 )
 
 sudo pacman -Syu --noconfirm ${pacman_deps[@]}
