@@ -36,7 +36,7 @@
             params: TextBlock((
                 text: "%s",
                 padding: (left: 8.0, right: 8.0, top: 8.0, bottom: 0.0),
-                font: "Iosevka Term Slab Nerd Font 10",
+                font: "Iosevka Nerd Font Propo 10",
                 color: Color(hex: "#ffffff"),
                 dimensions: (
                     width: (min: 280, max: 280),
