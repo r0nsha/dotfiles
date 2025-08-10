@@ -10,10 +10,12 @@
 		"pulseaudio",
 		"network",
 		"clock",
-		"battery",
-		"cpu",
-		"memory"
+		"group/hardware"
 	],
+	"group/hardware": {
+		"orientation": "horizontal",
+		"modules": ["battery", "cpu", "memory", "temperature"]
+	},
 	"tray": {
 		"icon-size": 14,
 		"spacing": 8
@@ -51,6 +53,9 @@
 			"deactivated": "󰾫"
 		}
 	},
+	"hyprland/language": {
+		"format": " {}"
+	},
 	"pulseaudio": {
 		"format": "{icon} {volume}%",
 		"format-bluetooth": "󰂯 {volume}%",
@@ -76,11 +81,11 @@
 	"network": {
 		"format": "{ifname}",
 		"format-wifi": "󰖩 {essid} ({signalStrength}%)",
-		"format-ethernet": "󰈁 {ipaddr}/{cidr}",
+		"format-ethernet": "󰈁",
 		"format-disconnected": "󰈂",
-		"tooltip-format": "{ifname} via {gwaddr}",
+		"tooltip-format": "{gwaddr} ({ifname}}",
 		"tooltip-format-wifi": "{essid} ({signalStrength}%) ",
-		"tooltip-format-ethernet": "{ifname}",
+		"tooltip-format-ethernet": "{ipaddr}/{cidr} ({ifname})",
 		"tooltip-format-disconnected": "Disconnected",
 		"max-length": 50
 	},
@@ -112,6 +117,16 @@
 	},
 	"memory": {
 		"interval": 5,
-		"format": " {used:0.1f}G/{total:0.1f}G"
+		"format": " {percentage}%",
+		"tooltip-format": "{used:0.1f}G/{total:0.1f}G used"
+	},
+	"temperature": {
+		"interval": 5,
+		"format": "{icon} {temperatureC}℃",
+		"format-icons": {
+			"default": "",
+			"critical": ""
+		},
+		"tooltip-format": "{used:0.1f}G/{total:0.1f}G used"
 	}
 }

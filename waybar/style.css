@@ -46,9 +46,7 @@ tooltip {
 #bluetooth,
 #network,
 #clock,
-#battery,
-#cpu,
-#memory {
+#hardware {
     margin-top: 8px;
     margin-left: 8px;
     padding: 4px 8px;
@@ -56,7 +54,7 @@ tooltip {
 	border: 1px solid @border;
 }
 
-#memory {
+#hardware {
     margin-right: 8px;
 }
 
@@ -133,5 +131,13 @@ tooltip {
 }
 
 #network.disconnected {
+    color: @red;
+}
+
+#memory, #temperature {
+    margin-left: 8px;
+}
+
+#temperature.critical {
     color: @red;
 }
