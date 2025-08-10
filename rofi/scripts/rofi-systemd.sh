@@ -80,7 +80,7 @@ boot_logs
 list_actions"
 
 select_service_and_act() {
-	result=$($rofi_command "systemd unit: " \
+	result=$($rofi_command "systemd unit" \
 		-kb-custom-1 "${enable}" \
 		-kb-custom-2 "${disable}" \
 		-kb-custom-3 "${stop}" \
@@ -158,7 +158,7 @@ get_command_with_args() {
 		echo "journalctl $user_arg -u '$service_name' --boot"
 		;;
 	"list_actions")
-		action=$(echo "$all_actions" | $rofi_command "Select action: ")
+		action=$(echo "$all_actions" | $rofi_command "Select action")
 		get_command_with_args
 		;;
 	*)

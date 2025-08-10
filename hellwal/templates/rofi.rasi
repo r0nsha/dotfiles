@@ -1,22 +1,12 @@
 * {
-    active-background: #%% color2.hex alpha=0.75 %%;
-    active-foreground: #%% foreground.hex %%;
-    normal-background: #%% background.hex alpha=0.75 %%;
-    normal-foreground: #%% foreground.hex %%;
-    urgent-background: #%% color1.hex alpha=0.75 %%;
-    urgent-foreground: #%% foreground.hex %%;
-
-    alternate-active-background: #%% background.hex alpha=0.75 %%;
-    alternate-active-foreground: #%% foreground.hex %%;
-    alternate-normal-background: #%% background.hex alpha=0.75 %%;
-    alternate-normal-foreground: #%% foreground.hex %%;
-    alternate-urgent-background: #%% background.hex alpha=0.75 %%;
-    alternate-urgent-foreground: #%% foreground.hex %%;
-
-    selected-active-background: #%% color1.hex alpha=0.75 %%;
-    selected-active-foreground: #%% foreground.hex %%;
-    selected-normal-background: #%% color2.hex alpha=0.75 %%;
-    selected-normal-foreground: #%% foreground.hex %%;
-    selected-urgent-background: #%% color3.hex alpha=0.75 %%;
-    selected-urgent-foreground: #%% foreground.hex %%;
+    bg: #%% background.hex alpha=0.75 %%;
+    bg-active: #%% color2.hex alpha=0.75 %%;
+    fg-dim: #%% color6.hex %%;
+    fg: #%% color7.hex %%;
+    fg-active: #%% foreground.hex %%;
+    urgent: #%% color1.hex alpha=0.75 %%;
+    active-selected: #%% color1.hex alpha=0.75 %%;
+    normal-selected: #%% color2.hex alpha=0.75 %%;
+    urgent-selected: #%% color3.hex alpha=0.75 %%;
+    border: @bg-active;
 }
