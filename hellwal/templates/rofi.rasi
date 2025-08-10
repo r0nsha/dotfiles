@@ -1,0 +1,22 @@
+* {
+    active-background: #%% color2.hex alpha=0.85 %%;
+    active-foreground: #%% foreground.hex %%;
+    normal-background: #%% background.hex alpha=0.85 %%;
+    normal-foreground: #%% color7.hex %%;
+    urgent-background: #%% color1.hex alpha=0.85 %%;
+    urgent-foreground: #%% foreground.hex %%;
+
+    alternate-active-background: #%% background.hex alpha=0.85 %%;
+    alternate-active-foreground: #%% foreground.hex %%;
+    alternate-normal-background: #%% background.hex alpha=0.85 %%;
+    alternate-normal-foreground: #%% foreground.hex %%;
+    alternate-urgent-background: #%% background.hex alpha=0.85 %%;
+    alternate-urgent-foreground: #%% foreground.hex %%;
+
+    selected-active-background: #%% color1.hex alpha=0.85 %%;
+    selected-active-foreground: #%% foreground.hex %%;
+    selected-normal-background: #%% color2.hex alpha=0.85 %%;
+    selected-normal-foreground: #%% foreground.hex %%;
+    selected-urgent-background: #%% color3.hex alpha=0.85 %%;
+    selected-urgent-foreground: #%% foreground.hex %%;
+}
