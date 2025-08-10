@@ -72,5 +72,38 @@
 			"default": ["󰖀", "󰕾"]
 		},
 		"scroll-step": 5
+	},
+	"network": {
+		"format": "{ifname}",
+		"format-wifi": "󰖩 {essid} ({signalStrength}%)",
+		"format-ethernet": "󰈁 {ipaddr}/{cidr}",
+		"format-disconnected": "󰈂",
+		"tooltip-format": "{ifname} via {gwaddr}",
+		"tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+		"tooltip-format-ethernet": "{ifname}",
+		"tooltip-format-disconnected": "Disconnected",
+		"max-length": 50
+	},
+	"clock": {
+		"format": "{:%a %d %b %H:%M}",
+		"tooltip-format": "<tt><small>{calendar}</small></tt>",
+		"calendar": {
+			"mode": "year",
+			"mode-mon-col": 3,
+			"weeks-pos": "right",
+			"on-scroll": 1,
+			"format": {
+				"months": "<span color='#ffffff'><b>{}</b></span>",
+				"weekdays": "<span color='#ffffff'><b>{}</b></span>",
+				"days": "<span color='#989898'><b>{}</b></span>",
+				"weeks": "<span color='#303030'><b>W{}</b></span>",
+				"today": "<span color='#ff5f59'><b><u>{}</u></b></span>"
+			}
+		},
+		"actions": {
+			"on-click-right": "mode",
+			"on-scroll-up": "shift_up",
+			"on-scroll-down": "shift_down"
+		}
 	}
 }

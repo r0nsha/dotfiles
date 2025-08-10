@@ -87,11 +87,17 @@ tooltip {
     border-radius: 0;
 }
 
+#mpris {
+    opacity: 0;
+}
+
 #mpris.playing {
+    opacity: 1;
     color: @fg1;
 }
 
 #mpris.paused, #mpris.stopped {
+    opacity: 1;
     color: @fg0;
 }
 
@@ -119,4 +125,12 @@ tooltip {
 
 #pulseaudio.muted {
     color: @fg0;
+}
+
+#network.disabled {
+    color: @fg0;
+}
+
+#network.disconnected {
+    color: @red;
 }
