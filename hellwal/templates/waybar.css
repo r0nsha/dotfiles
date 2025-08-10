@@ -2,7 +2,7 @@
 @define-color background-opaque #%%background%%;
 @define-color foreground #%%foreground%%;
 @define-color cursor #%%cursor%%;
-@define-color border #%%border%%;
+@define-color border alpha(#%%color6.hex%%, 0.5);
 
 @define-color color0 #%%color0.hex%%;
 @define-color color0-alpha alpha(#%%color0.hex%%, 0.75);

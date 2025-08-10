@@ -34,7 +34,8 @@
 			"playing": "󰐊",
 			"paused": "󰏤",
 			"stopped": "󰓛"
-		}
+		},
+		"interval": 1
 	},
 	"gamemode": {
 		// "use-icon": false,

@@ -8,6 +8,7 @@
 
 window#waybar {
     all: unset;
+    color: @color7;
 }
 
 tooltip {
@@ -50,11 +51,10 @@ tooltip {
 	all: unset;
 	min-width: 0;
 	padding: 0px 8px;
-	color: @color1;
+	color: @color5;
 }
 
 #workspaces button.active {
-    background: @color1;
 	color: @color15;
 }
 
@@ -65,7 +65,7 @@ tooltip {
 #tray menu {
     background: @background-opaque;
     border: 1px solid @border;
-    color: @color15;
+    color: @color7;
     border-radius: 0;
 }
 
@@ -80,7 +80,7 @@ tooltip {
 
 #mpris.paused, #mpris.stopped {
     opacity: 1;
-    color: @color1;
+    color: @color6;
 }
 
 #privacy {
@@ -93,7 +93,7 @@ tooltip {
 }
 
 #idle_inhibitor.deactivated {
-    color: @color1;
+    color: @color6;
 }
 
 #idle_inhibitor.activated {
@@ -106,11 +106,11 @@ tooltip {
 }
 
 #pulseaudio.muted {
-    color: @color1;
+    color: @color6;
 }
 
 #network.disabled {
-    color: @color1;
+    color: @color6;
 }
 
 #network.disconnected {
