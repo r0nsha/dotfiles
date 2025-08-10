@@ -1,9 +1,10 @@
 palette = {
     "bg0": "#%% background.hex %%",
     "bg1": "#%% color9.hex %%",
+    "bg-private": "#%% color6.hex %%",
     "fg": "#%% color7.hex %%",
+    "fg-private": "#%% color14.hex %%",
     "active": "#%% foreground.hex %%",
     "success": "#%% color13.hex %%",
-    "error": "#%% color14.hex %%",
-    "private": "#%% color6.hex %%",
+    "border": "#%% color2.hex %%",
 }

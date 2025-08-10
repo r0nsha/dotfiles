@@ -26,6 +26,8 @@ c.content.tls.certificate_errors = "ask-block-thirdparty"
 c.confirm_quit = ["downloads"]
 c.downloads.position = "bottom"
 c.downloads.remove_finished = 5 * 60 * 1000  # 5 minutes
+c.tabs.indicator.width = 2
+c.tabs.favicons.scale = 1
 
 # Adblock
 c.content.blocking.enabled = True
@@ -54,6 +56,7 @@ c.url.searchengines["gh"] = "https://github.com/search?q={}&type=Code"
 c.url.searchengines["pdb"] = "https://www.protondb.com/search?q={}"
 
 cache_path = os.path.expanduser("~/.cache/hellwal/qutebrowser.py")
+palette = None
 
 if os.path.isfile(cache_path):
     spec = importlib.util.spec_from_file_location("my_module", cache_path)
@@ -61,15 +64,17 @@ if os.path.isfile(cache_path):
         module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(module)
         palette = module.palette
-else:
+
+if not palette:
     palette = {
         "bg0": "black",
         "bg1": "darkslategrey",
+        "bg-private": "darkred",
         "fg": "white",
+        "fg-private": "red",
         "active": "cyan",
         "success": "green",
-        "error": "red",
-        "private": "darkred",
+        "border": "darkslategrey",
     }
 
 # Colors
@@ -79,13 +84,13 @@ c.colors.tabs.selected.odd.fg = palette["fg"]
 c.colors.tabs.selected.even.fg = palette["fg"]
 c.colors.tabs.bar.bg = palette["bg0"]
 c.colors.tabs.odd.bg = palette["bg0"]
+c.colors.tabs.odd.fg = palette["fg"]
 c.colors.tabs.even.bg = palette["bg0"]
-c.colors.tabs.indicator.error = palette["error"]
+c.colors.tabs.even.fg = palette["fg"]
+# c.colors.tabs.indicator.error = palette["error"]
 c.colors.tabs.indicator.start = palette["success"]
 c.colors.tabs.indicator.stop = palette["success"]
 c.colors.tabs.indicator.system = "none"
-c.colors.tabs.odd.fg = palette["fg"]
-c.colors.tabs.even.fg = palette["fg"]
 c.colors.tabs.pinned.odd.bg = palette["active"]
 c.colors.tabs.pinned.even.bg = palette["active"]
 c.colors.tabs.pinned.odd.fg = palette["fg"]
@@ -93,15 +98,78 @@ c.colors.tabs.pinned.even.fg = palette["fg"]
 c.colors.tooltip.bg = palette["bg0"]
 c.colors.tooltip.fg = palette["fg"]
 c.colors.webpage.bg = palette["bg0"]
-c.colors.statusbar.private.bg = palette["private"]
+c.colors.statusbar.private.bg = palette["bg-private"]
 c.colors.statusbar.private.fg = palette["fg"]
-c.colors.statusbar.command.private.bg = palette["error"]
+c.colors.statusbar.command.private.bg = palette["bg-private"]
 c.colors.statusbar.command.private.fg = palette["fg"]
-c.colors.hints.fg = palette["bg0"]
+c.colors.completion.category.bg = palette["bg0"]
+c.colors.completion.category.border.bottom = palette["border"]
+c.colors.completion.category.border.top = palette["border"]
+c.colors.completion.category.fg = palette["fg"]
+c.colors.completion.even.bg = palette["bg0"]
+c.colors.completion.odd.bg = palette["bg0"]
+c.colors.completion.fg = palette["fg"]
+c.colors.completion.item.selected.bg = palette["success"]
+c.colors.completion.item.selected.fg = palette["bg0"]
+c.colors.completion.item.selected.border.bottom = palette["success"]
+c.colors.completion.item.selected.border.top = palette["success"]
+c.colors.completion.match.fg = palette["success"]
+c.colors.completion.scrollbar.bg = palette["bg0"]
+c.colors.completion.scrollbar.fg = palette["fg"]
+c.colors.downloads.bar.bg = palette["bg0"]
+# c.colors.downloads.error.bg = palette["bg0"]
+# c.colors.downloads.error.fg = palette["error"]
+c.colors.downloads.stop.bg = palette["bg0"]
+c.colors.downloads.system.bg = "none"
+c.colors.messages.error.bg = palette["fg-private"]
+c.colors.messages.error.border = palette["fg-private"]
+c.colors.messages.error.fg = palette["bg0"]
+c.colors.messages.info.bg = palette["bg0"]
+c.colors.messages.info.border = palette["bg0"]
+c.colors.messages.info.fg = palette["fg"]
+c.colors.messages.warning.bg = palette["bg-private"]
+c.colors.messages.warning.border = palette["bg-private"]
+c.colors.messages.warning.fg = palette["bg0"]
+c.colors.prompts.bg = palette["bg0"]
+c.colors.prompts.border = "1px solid " + palette["bg0"]
+c.colors.prompts.fg = palette["active"]
+c.colors.prompts.selected.bg = palette["active"]
+c.colors.statusbar.caret.bg = palette["bg0"]
+c.colors.statusbar.caret.fg = palette["active"]
+c.colors.statusbar.caret.selection.bg = palette["bg0"]
+c.colors.statusbar.caret.selection.fg = palette["success"]
+c.colors.statusbar.command.bg = palette["bg0"]
+c.colors.statusbar.command.fg = palette["fg"]
+c.colors.statusbar.command.private.bg = palette["bg0"]
+c.colors.statusbar.command.private.fg = palette["fg-private"]
+c.colors.statusbar.insert.bg = palette["bg1"]
+c.colors.statusbar.insert.fg = palette["fg"]
+c.colors.statusbar.normal.bg = palette["bg0"]
+c.colors.statusbar.normal.fg = palette["fg"]
+c.colors.statusbar.passthrough.bg = palette["success"]
+c.colors.statusbar.passthrough.fg = palette["bg0"]
+c.colors.statusbar.progress.bg = palette["bg0"]
+# c.colors.statusbar.url.error.fg = palette["error"]
+c.colors.statusbar.url.fg = palette["fg"]
+c.colors.statusbar.url.hover.fg = palette["active"]
+c.colors.statusbar.url.success.http.fg = palette["success"]
+c.colors.statusbar.url.success.https.fg = palette["success"]
+# c.colors.statusbar.url.warn.fg = palette["error"]
+c.colors.tabs.bar.bg = palette["active"]
+# c.colors.tabs.indicator.error = palette["error"]
+c.colors.tabs.indicator.start = palette["success"]
+c.colors.tabs.indicator.stop = palette["success"]
+c.colors.keyhint.bg = palette["bg0"]
+c.colors.keyhint.fg = palette["success"]
+c.colors.keyhint.suffix.fg = palette["active"]
+c.colors.hints.bg = palette["bg0"]
+c.colors.hints.fg = palette["active"]
+c.hints.border = "1px solid " + palette["active"]
+c.colors.hints.match.fg = palette["active"]
+# c.colors.hints.bg = "qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgba(255, 247, 133, 0.8), stop:1 rgba(255, 197, 66, 0.8))"
+# c.colors.hints.match.fg = palette["success"]
+# c.hints.border = "1px solid #E3BE23"
 
-c.colors.hints.bg = "qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgba(255, 247, 133, 0.8), stop:1 rgba(255, 197, 66, 0.8))"
-c.colors.hints.match.fg = palette["success"]
-c.hints.border = "1px solid #E3BE23"
 c.colors.webpage.darkmode.enabled = True
 c.colors.webpage.darkmode.algorithm = "lightness-cielab"
 c.colors.webpage.darkmode.contrast = 0.0
