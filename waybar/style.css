@@ -32,6 +32,7 @@ tooltip {
 	background: @bg0-opaque;
 	border: 1px solid @border;
     border-radius: 0;
+    padding: 0px;
 }
 
 #submap,
@@ -139,5 +140,17 @@ tooltip {
 }
 
 #temperature.critical {
+    color: @red;
+}
+
+#battery.charging {
+    color: @green;
+}
+
+#battery.warning {
+    color: @yellow;
+}
+
+#battery.critical {
     color: @red;
 }
