@@ -82,11 +82,11 @@
 		"format": "{ifname}",
 		"format-wifi": "󰖩 {essid} ({signalStrength}%)",
 		"format-ethernet": "󰈁",
-		"format-disconnected": "󰈂",
+		"format-disconnected": " Disconnected",
 		"tooltip-format": "{gwaddr} ({ifname}}",
 		"tooltip-format-wifi": "{essid} ({signalStrength}%) ",
 		"tooltip-format-ethernet": "{ipaddr}/{cidr} ({ifname})",
-		"tooltip-format-disconnected": "Disconnected",
+		"tooltip-format-disconnected": " Disconnected",
 		"max-length": 50
 	},
 	"clock": {
