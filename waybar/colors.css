@@ -1,0 +1,19 @@
+@define-color bg0-opaque #000000;
+@define-color bg0 alpha(@bg0-opaque, 0.75);
+@define-color bg1-opaque #303030;
+@define-color bg1 alpha(@bg1-opaque, 0.75);
+@define-color fg0 #989898;
+@define-color fg1 #ffffff;
+
+@define-color green #44bc44;
+@define-color green-alpha alpha(#44bc44, 0.75);
+@define-color red #ff5f59;
+@define-color red-alpha alpha(#ff5f59, 0.75);
+@define-color cyan #00d3d0;
+@define-color cyan-alpha alpha(#00d3d0, 0.75);
+@define-color blue #2fafff;
+@define-color blue-alpha alpha(#2fafff, 0.75);
+@define-color yellow #d0bc00;
+@define-color yellow-alpha alpha(#d0bc00, 0.75);
+
+@define-color border @bg1;
