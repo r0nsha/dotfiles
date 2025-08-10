@@ -2,7 +2,7 @@
     active-background: #%% color2.hex alpha=0.85 %%;
     active-foreground: #%% foreground.hex %%;
     normal-background: #%% background.hex alpha=0.85 %%;
-    normal-foreground: #%% color7.hex %%;
+    normal-foreground: #%% foreground.hex %%;
     urgent-background: #%% color1.hex alpha=0.85 %%;
     urgent-foreground: #%% foreground.hex %%;
 
