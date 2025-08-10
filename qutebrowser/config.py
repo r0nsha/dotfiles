@@ -1,3 +1,6 @@
+import importlib.util
+import os
+
 config.load_autoconfig(True)
 
 # Options
@@ -50,27 +53,55 @@ c.url.searchengines["aur"] = "https://aur.archlinux.org/packages/?K={}"
 c.url.searchengines["gh"] = "https://github.com/search?q={}&type=Code"
 c.url.searchengines["pdb"] = "https://www.protondb.com/search?q={}"
 
+cache_path = os.path.expanduser("~/.cache/hellwal/qutebrowser.py")
+
+if os.path.isfile(cache_path):
+    spec = importlib.util.spec_from_file_location("my_module", cache_path)
+    if spec and spec.loader:
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        palette = module.palette
+else:
+    palette = {
+        "bg0": "black",
+        "bg1": "darkslategrey",
+        "fg": "white",
+        "active": "cyan",
+        "success": "green",
+        "error": "red",
+        "private": "darkred",
+    }
+
 # Colors
-c.colors.tabs.selected.odd.bg = "black"
-c.colors.tabs.selected.even.bg = "black"
-c.colors.tabs.selected.odd.fg = "white"
-c.colors.tabs.selected.even.fg = "white"
-c.colors.tabs.bar.bg = "darkslategrey"
-c.colors.tabs.indicator.error = "red"
-c.colors.tabs.indicator.start = "green"
-c.colors.tabs.indicator.stop = "green"
+c.colors.tabs.selected.odd.bg = palette["bg0"]
+c.colors.tabs.selected.even.bg = palette["bg0"]
+c.colors.tabs.selected.odd.fg = palette["fg"]
+c.colors.tabs.selected.even.fg = palette["fg"]
+c.colors.tabs.bar.bg = palette["bg1"]
+c.colors.tabs.indicator.error = palette["error"]
+c.colors.tabs.indicator.start = palette["success"]
+c.colors.tabs.indicator.stop = palette["success"]
 c.colors.tabs.indicator.system = "none"
-c.colors.tabs.odd.bg = "darkslategrey"
-c.colors.tabs.even.bg = "darkslategrey"
-c.colors.tabs.odd.fg = "white"
-c.colors.tabs.even.fg = "white"
-c.colors.tabs.pinned.odd.bg = "cyan"
-c.colors.tabs.pinned.even.bg = "cyan"
-c.colors.tabs.pinned.odd.fg = "white"
-c.colors.tabs.pinned.even.fg = "white"
-c.colors.tooltip.bg = "black"
-c.colors.tooltip.fg = "white"
-c.colors.webpage.bg = "black"
+c.colors.tabs.odd.bg = palette["bg1"]
+c.colors.tabs.even.bg = palette["bg1"]
+c.colors.tabs.odd.fg = palette["fg"]
+c.colors.tabs.even.fg = palette["fg"]
+c.colors.tabs.pinned.odd.bg = palette["active"]
+c.colors.tabs.pinned.even.bg = palette["active"]
+c.colors.tabs.pinned.odd.fg = palette["fg"]
+c.colors.tabs.pinned.even.fg = palette["fg"]
+c.colors.tooltip.bg = palette["bg0"]
+c.colors.tooltip.fg = palette["fg"]
+c.colors.webpage.bg = palette["bg0"]
+c.colors.statusbar.private.bg = palette["private"]
+c.colors.statusbar.private.fg = palette["fg"]
+c.colors.statusbar.command.private.bg = palette["error"]
+c.colors.statusbar.command.private.fg = palette["fg"]
+c.colors.hints.fg = palette["bg0"]
+
+c.colors.hints.bg = "qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgba(255, 247, 133, 0.8), stop:1 rgba(255, 197, 66, 0.8))"
+c.colors.hints.match.fg = palette["success"]
+c.hints.border = "1px solid #E3BE23"
 c.colors.webpage.darkmode.enabled = True
 c.colors.webpage.darkmode.algorithm = "lightness-cielab"
 c.colors.webpage.darkmode.contrast = 0.0
@@ -79,14 +110,6 @@ c.colors.webpage.darkmode.policy.images = "smart"
 c.colors.webpage.darkmode.threshold.background = 128
 c.colors.webpage.darkmode.threshold.foreground = 128
 c.colors.webpage.preferred_color_scheme = "dark"
-c.colors.statusbar.private.bg = "darkred"
-c.colors.statusbar.private.fg = "white"
-c.colors.statusbar.command.private.bg = "red"
-c.colors.statusbar.command.private.fg = "white"
-c.colors.hints.bg = "qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgba(255, 247, 133, 0.8), stop:1 rgba(255, 197, 66, 0.8))"
-c.colors.hints.fg = "black"
-c.colors.hints.match.fg = "green"
-c.hints.border = "1px solid #E3BE23"
 
 # Keybindings
 config.bind("J", "tab-prev")
