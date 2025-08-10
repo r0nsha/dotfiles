@@ -2,7 +2,7 @@
 # Changes the wallpaper to a randomly chosen image in a given directory
 # at a set interval.
 
-set default_interval 300
+set default_interval 1800 # 30 minutes
 
 set dir $argv[1]
 set interval $argv[2]
