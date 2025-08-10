@@ -73,17 +73,17 @@ else:
     }
 
 # Colors
-c.colors.tabs.selected.odd.bg = palette["bg0"]
-c.colors.tabs.selected.even.bg = palette["bg0"]
+c.colors.tabs.selected.odd.bg = palette["bg1"]
+c.colors.tabs.selected.even.bg = palette["bg1"]
 c.colors.tabs.selected.odd.fg = palette["fg"]
 c.colors.tabs.selected.even.fg = palette["fg"]
-c.colors.tabs.bar.bg = palette["bg1"]
+c.colors.tabs.bar.bg = palette["bg0"]
+c.colors.tabs.odd.bg = palette["bg0"]
+c.colors.tabs.even.bg = palette["bg0"]
 c.colors.tabs.indicator.error = palette["error"]
 c.colors.tabs.indicator.start = palette["success"]
 c.colors.tabs.indicator.stop = palette["success"]
 c.colors.tabs.indicator.system = "none"
-c.colors.tabs.odd.bg = palette["bg1"]
-c.colors.tabs.even.bg = palette["bg1"]
 c.colors.tabs.odd.fg = palette["fg"]
 c.colors.tabs.even.fg = palette["fg"]
 c.colors.tabs.pinned.odd.bg = palette["active"]
