@@ -151,6 +151,7 @@ yay_deps=(
 	bzmenu
 	iwmenu
 	pinentry-rofi
+	hellwal
 )
 
 yay -S --noconfirm ${yay_deps[@]}

@@ -1,4 +1,4 @@
-@import "colors.css";
+@import url('file:///home/ron/.cache/hellwal/waybar.css');
 
 * {
 	font-family: Iosevka Nerd Font Propo;
@@ -11,7 +11,7 @@ window#waybar {
 }
 
 tooltip {
-	background: @bg0-opaque;
+	background: @background-opaque;
 	border: 1px solid @border;
     border-radius: 0;
     padding: 0px;
@@ -33,7 +33,7 @@ tooltip {
     margin-top: 8px;
     margin-left: 8px;
     padding: 4px 8px;
-    background: @bg0;
+    background: @background;
 	border: 1px solid @border;
 }
 
@@ -42,30 +42,30 @@ tooltip {
 }
 
 #submap {
-    background: @cyan-alpha;
-    color: @bg0-opaque;
+    background: @color4-alpha;
+    color: @background-opaque;
 }
 
 #workspaces button {
 	all: unset;
 	min-width: 0;
 	padding: 0px 8px;
-	color: @fg0;
+	color: @color1;
 }
 
 #workspaces button.active {
-    background: @bg1;
-	color: @fg1;
+    background: @color1;
+	color: @color15;
 }
 
 #workspaces button.urgent {
-	color: @red;
+	color: @color14;
 }
 
 #tray menu {
-    background: @bg0-opaque;
+    background: @background-opaque;
     border: 1px solid @border;
-    color: @fg1;
+    color: @color15;
     border-radius: 0;
 }
 
@@ -75,17 +75,17 @@ tooltip {
 
 #mpris.playing {
     opacity: 1;
-    color: @fg1;
+    color: @color15;
 }
 
 #mpris.paused, #mpris.stopped {
     opacity: 1;
-    color: @fg0;
+    color: @color1;
 }
 
 #privacy {
-    background: @red-alpha;
-    color: @bg0-opaque;
+    background: @color14-alpha;
+    color: @background-opaque;
 }
 
 #gamemode {
@@ -93,28 +93,28 @@ tooltip {
 }
 
 #idle_inhibitor.deactivated {
-    color: @fg0;
+    color: @color1;
 }
 
 #idle_inhibitor.activated {
-    background: @yellow;
-    color: @bg0-opaque;
+    background: @color13;
+    color: @background-opaque;
 }
 
 #pulseaudio.bluetooth {
-    color: @blue;
+    color: @color4;
 }
 
 #pulseaudio.muted {
-    color: @fg0;
+    color: @color1;
 }
 
 #network.disabled {
-    color: @fg0;
+    color: @color1;
 }
 
 #network.disconnected {
-    color: @red;
+    color: @color14;
 }
 
 #battery, #cpu, #memory {
@@ -122,17 +122,17 @@ tooltip {
 }
 
 #temperature.critical {
-    color: @red;
+    color: @color14;
 }
 
 #battery.charging {
-    color: @green;
+    color: @color11;
 }
 
 #battery.warning {
-    color: @yellow;
+    color: @color13;
 }
 
 #battery.critical {
-    color: @red;
+    color: @color14;
 }
