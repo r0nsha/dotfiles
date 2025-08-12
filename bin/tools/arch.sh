@@ -47,6 +47,7 @@ pacman_deps=(
 	cliphist
 	grim
 	slurp
+	swappy
 
 	# media
 	pipewire
