@@ -45,47 +45,4 @@ end
 
 wait # wait for rofi to exit
 
-switch $action
-    case shot
-        set dir $XDG_PICTURES_DIR/screenshots
-        mkdir -p $dir
-        set file $dir/$(date +%d-%m-%Y_%Hh%Mm%Ss).png
-
-        set geom (
-            switch $region
-                case region
-                    echo "-g $(select_region)"
-                case window
-                    echo "-g $(select_window)"
-                case screen
-                    echo ""
-            end
-        )
-
-        if test -n $geom
-            set err (grim -t png $geom $file 2>&1 >/dev/null)
-        else
-            set err (grim -t png $file 2>&1 >/dev/null)
-        end
-
-        if test $status -ne 0
-            notify_error "grim failed"
-            exit 1
-        end
-
-        wait # wait for grim to exit
-
-        set copied (switch $to
-            case clipboard
-                wl-copy <$file
-                echo screenshot
-            case ui
-                swappy -f $file -o $file
-                echo screenshot
-            case file
-                wl-copy $file
-                echo path
-        end)
-
-        notify "saved screenshot to $file\ncopied $copied to clipboard"
-end
+~/.config/scripts/screen.fish --action=$action --region=$region --to=$to
