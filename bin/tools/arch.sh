@@ -43,6 +43,8 @@ pacman_deps=(
 	xdotool
 	wtype
 	cliphist
+	grim
+	slurp
 
 	# media
 	pipewire
@@ -116,6 +118,7 @@ pacman_deps=(
 	# apps
 	qutebrowser
 	steam
+	openshot
 )
 
 sudo pacman -Syu --noconfirm ${pacman_deps[@]}
@@ -153,6 +156,7 @@ yay_deps=(
 	iwmenu
 	pinentry-rofi
 	hellwal
+	wl-screenrec
 )
 
 yay -S --noconfirm ${yay_deps[@]}
