@@ -1,5 +1,5 @@
 #!/usr/bin/env fish
-# Changes the wallpaper to a randomly chosen image in a given directory
+# Changes the background to a randomly chosen image in a given directory
 # at a set interval.
 
 set default_interval 1800 # 30 minutes
@@ -9,7 +9,7 @@ set interval $argv[2]
 
 if test -z "$dir"
     printf "Usage:\n\t\e[1m%s\e[0m \e[4mDIRECTORY\e[0m [\e[4mINTERVAL\e[0m]\n" "$argv[1]"
-    printf "\tChanges the wallpaper to a randomly chosen image in DIRECTORY every\n\tINTERVAL seconds (or every %d seconds if unspecified)." "$default_interval"
+    printf "\tChanges the background to a randomly chosen image in DIRECTORY every\n\tINTERVAL seconds (or every %d seconds if unspecified)." "$default_interval"
     exit 1
 end
 
