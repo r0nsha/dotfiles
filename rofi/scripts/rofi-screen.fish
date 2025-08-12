@@ -44,9 +44,9 @@ end
 
 wait # wait for rofi to exit
 
-set action (switch $action
+switch $action
     case 'record (gif)'
         ~/.config/scripts/screen.fish --action=record --region=$region --to=$to --gif
-    case *
+    case '*'
         ~/.config/scripts/screen.fish --action=$action --region=$region --to=$to
-end)
+end

@@ -38,13 +38,20 @@ function select_region
     set background (test -n $color0; and echo "$(echo $color0)aa"; or echo "#d0d0d0aa")
     set border (test -n $color5; and echo "$color5"; or echo "#ffffff")
     set selection (test -n $color7; and echo "$(echo $color7)00"; or echo "#00000022")
-    slurp -b $background -c $border -s $selection -w 2
+    set geom (slurp -b $background -c $border -s $selection -w 2)
+    if test $status -ne 0
+        exit 1
+    end
+    echo $geom
 end
 
 function select_window
     set workspaces "$(hyprctl monitors -j | jq -r 'map(.activeWorkspace.id)')"
     set windows "$(hyprctl clients -j | jq -r --argjson workspaces "$workspaces" 'map(select([.workspace.id] | inside($workspaces)))' )"
     set geom (echo "$windows" | jq -r '.[] | "\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"' | slurp)
+    if test $status -ne 0
+        exit 1
+    end
     echo $geom
 end
 
@@ -65,12 +72,12 @@ switch $action
         mkdir -p $dir
         set file "$dir/$(get_filename).png"
         set geom (get_geometry)
-
+        set shot_args
         if test -n $geom
-            grim -t png -g "$geom" $file
-        else
-            grim -t png $file
+            set shot_args -g "$geom"
         end
+
+        grim $shot_args -t png $file
 
         if test $status -ne 0
             notify_error "grim failed"
@@ -103,20 +110,23 @@ switch $action
 
         set dir $XDG_PICTURES_DIR/screenrecords
         mkdir -p $dir
-        set ext (set -q _flag_gif; and echo gif; or echo mp4)
-        set file "$dir/$(get_filename).$ext"
-        set geom (get_geometry)
 
-        if test -n $geom
-            if set -q _flag_gif
-                wf-recorder --audio --file=$file --overwrite -g "$geom" --codec=gif
-            else
-                wf-recorder --audio --file=$file --overwrite -g "$geom"
-            end
+        set recorder_args
+        if set -q _flag_gif
+            set ext gif
+            set -a recorder_args --codec=gif
         else
-            wf-recorder --audio --file=$file --overwrite
+            set ext mp4
+            set -a recorder_args --audio
         end
 
+        set file "$dir/$(get_filename).$ext"
+        set geom (get_geometry)
+        if test -n $geom
+            set -a recorder_args -g "$geom"
+        end
+
+        wf-recorder $recorder_args --file=$file --overwrite
         if test $status -ne 0
             notify_error "wf-recorder failed"
             exit 1
@@ -124,14 +134,19 @@ switch $action
 
         wait # wait for wf-recorder to exit
 
+        wl-copy $file
         set copied (switch $to
             case clipboard file
                 wl-copy $file
                 echo path
             case ui
-                # swappy -f $file -o $file
-                # wl-copy <$file
-                # echo recording
+                if test "$ext" != gif
+                    wl-copy $file
+                    openshot-qt $file
+                    echo recording
+                else 
+                    echo path
+                end
         end)
 
         notify "saved recording to $file, \ncopied $copied to clipboard"
