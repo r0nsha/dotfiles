@@ -48,6 +48,7 @@ pacman_deps=(
 	grim
 	slurp
 	swappy
+	wf-recorder
 
 	# media
 	pipewire
@@ -91,6 +92,8 @@ pacman_deps=(
 	nvidia-utils
 	lib32-nvidia-utils
 	egl-wayland
+	libva-nvidia-driver
+	libva-utils
 
 	# desktop
 	hyprland
@@ -159,7 +162,6 @@ yay_deps=(
 	iwmenu
 	pinentry-rofi
 	hellwal
-	wl-screenrec
 )
 
 yay -S --noconfirm ${yay_deps[@]}

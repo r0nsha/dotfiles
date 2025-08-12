@@ -24,8 +24,7 @@ function select_window
     echo $geom
 end
 
-set options shot record
-set action (echo -e "shot\nrecord" | rofi -dmenu -p "screen")
+set action (echo -e "shot\nrecord\nrecord (gif)" | rofi -dmenu -p "screen")
 
 if test -z $action
     exit 1
@@ -45,4 +44,9 @@ end
 
 wait # wait for rofi to exit
 
-~/.config/scripts/screen.fish --action=$action --region=$region --to=$to
+set action (switch $action
+    case 'record (gif)'
+        ~/.config/scripts/screen.fish --action=record --region=$region --to=$to --gif
+    case *
+        ~/.config/scripts/screen.fish --action=$action --region=$region --to=$to
+end)
