@@ -36,7 +36,14 @@ if test -z $region
     exit 1
 end
 
-set to (echo -e "clipboard\nui\nfile" | rofi -dmenu -p "to")
+switch $action
+    case shot
+        set to (echo -e "clipboard\nui\nfile" | rofi -dmenu -p "to")
+    case record
+        set to (echo -e "ui\nfile" | rofi -dmenu -p "to")
+    case 'record (gif)'
+        set to file
+end
 
 if test -z $to
     exit 1
