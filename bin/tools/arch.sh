@@ -32,6 +32,8 @@ pacman_deps=(
 	pass
 	tealdeer
 	just
+	lua
+	lua51
 	luarocks
 	rustup
 	npm
