@@ -109,7 +109,7 @@ switch $action
 
         if test -n $geom
             if set -q _flag_gif
-                # grim -t png -g "$geom" $file $gif
+                wf-recorder --audio --file=$file --overwrite -g "$geom" --codec=gif
             else
                 wf-recorder --audio --file=$file --overwrite -g "$geom"
             end
