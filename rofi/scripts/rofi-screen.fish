@@ -43,7 +43,7 @@ if test -z $to
     exit 1
 end
 
-sleep 0.25 # wait for rofi to exit
+wait # wait for rofi to exit
 
 switch $action
     case shot
@@ -51,24 +51,29 @@ switch $action
         mkdir -p $dir
         set file $dir/$(date +%d-%m-%Y_%Hh%Mm%Ss).png
 
-        function run_grim
-            set err (grim $argv -t png $file 2>&1 >/dev/null)
-            if test $status -ne 0
-                notify_error "grim failed, cause: $err"
-                exit 1
+        set geom (
+            switch $region
+                case region
+                    echo "-g $(select_region)"
+                case window
+                    echo "-g $(select_window)"
+                case screen
+                    echo ""
             end
+        )
+
+        if test -n $geom
+            set err (grim -t png $geom $file 2>&1 >/dev/null)
+        else
+            set err (grim -t png $file 2>&1 >/dev/null)
         end
 
-        switch $region
-            case region
-                run_grim -g "$(select_region)"
-            case window
-                run_grim -g "$(select_window)"
-            case screen
-                run_grim
+        if test $status -ne 0
+            notify_error "grim failed"
+            exit 1
         end
 
-        notify-send screen "saved screenshot to $file"
+        wait # wait for grim to exit
 
         set copied (switch $to
             case clipboard
@@ -82,5 +87,5 @@ switch $action
                 echo path
         end)
 
-        notify-send screen "copied $copied to clipboard"
+        notify "saved screenshot to $file\ncopied $copied to clipboard"
 end
