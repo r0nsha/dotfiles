@@ -30,6 +30,10 @@ function notify_error
     notify-send -t 10000 -u critical "screen error" "$argv"
 end
 
+function get_filename
+    echo $argv/$(date +%d-%m-%Y_%Hh%Mm%Ss).png
+end
+
 function select_region
     set background (test -n $color0; and echo "$(echo $color0)aa"; or echo "#d0d0d0aa")
     set border (test -n $color5; and echo "$color5"; or echo "#ffffff")
@@ -48,7 +52,7 @@ switch $action
     case shot
         set dir $XDG_PICTURES_DIR/screenshots
         mkdir -p $dir
-        set file $dir/$(date +%d-%m-%Y_%Hh%Mm%Ss).png
+        set file (get_filename $dir)
 
         set geom (
             switch $region
@@ -80,6 +84,7 @@ switch $action
                 echo screenshot
             case ui
                 swappy -f $file -o $file
+                wl-copy <$file
                 echo screenshot
             case file
                 wl-copy $file
