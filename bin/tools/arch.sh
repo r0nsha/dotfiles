@@ -78,6 +78,7 @@ pacman_deps=(
 	python-adblock
 
 	# terminal
+	kitty
 	fish
 	tmux
 	nvim
