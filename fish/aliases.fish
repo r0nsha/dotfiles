@@ -46,6 +46,10 @@ if binary_exists skhd
     alias skhdr 'skhd --stop-service && skhd --start-service'
 end
 
+if binary_exists yazi
+    alias y yazi
+end
+
 # GIT ALIASES -----------------------------------------------------------------
 alias gg 'git branch | fzf | xargs git switch'
 alias gl "git log --all --graph --format=format:'%C(bold blue)%h%C(reset) - %C(white)%s%C(reset) %C(bold magenta)%d%C(reset)'"

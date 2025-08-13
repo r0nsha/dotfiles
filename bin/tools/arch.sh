@@ -39,7 +39,10 @@ pacman_deps=(
 	npm
 	pnpm
 	bottom
+	7zip
 	jq
+	poppler
+	resvg
 	imagemagick
 	ffmpeg
 	xdotool
@@ -49,6 +52,7 @@ pacman_deps=(
 	slurp
 	swappy
 	wf-recorder
+	yazi
 
 	# media
 	pipewire

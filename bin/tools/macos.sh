@@ -41,6 +41,14 @@ install_deps() {
 		deno
 		just
 		sd
+		ffmpeg
+		sevenzip
+		jq
+		poppler
+		resvg
+		imagemagick
+		font-symbols-only-nerd-font
+		yazi
 	)
 
 	brew install ${deps[@]}
