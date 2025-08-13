@@ -54,7 +54,8 @@ fi
 step "scripts"
 chmod -v ug+x $DOTFILES/scripts/*
 chmod -v ug+x $DOTFILES/i3blocks/scripts/*
-find $DOTFILES/rofi -type f -name "rofi-*" -exec chmod -v ug+x {} \;
+chmod -v ug+x $DOTFILES/rofi/scripts/*
+chmod -v ug+x $DOTFILES/waybar/scripts/*
 success
 
 # install tools

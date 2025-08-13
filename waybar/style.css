@@ -23,6 +23,7 @@ tooltip {
 #tray,
 #mpris,
 #idle_inhibitor,
+#custom-recording,
 #privacy,
 #gamemode,
 #language,
@@ -83,8 +84,10 @@ tooltip {
     color: @color6;
 }
 
+#custom-recording,
 #privacy {
-    background: @color14-alpha;
+    background: @color4-alpha;
+	border: 1px solid @color4;
     color: @background-opaque;
 }
 

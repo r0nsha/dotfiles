@@ -3,6 +3,7 @@
 	"modules-left": ["hyprland/submap", "hyprland/workspaces", "tray"],
 	"modules-center": ["mpris"],
 	"modules-right": [
+		"custom/recording",
 		"privacy",
 		"gamemode",
 		"idle_inhibitor",
@@ -41,6 +42,12 @@
 		"glyph": "󰮂 ",
 		"icon-size": 14,
 		"spacing": 8
+	},
+	"custom/recording": {
+		"exec": "exec ~/.config/waybar/scripts/recording.fish",
+		"hide-empty-text": true,
+		"tooltip-format": "Alt+Print to stop recording",
+		"on-click": "pkill -SIGINT wf-recorder"
 	},
 	"privacy": {
 		"icon-size": 14,
