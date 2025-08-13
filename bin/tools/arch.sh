@@ -107,7 +107,6 @@ pacman_deps=(
 	hyprpicker
 	hyprpolkitagent
 	xdg-desktop-portal
-	xdg-desktop-portal-hyprland
 	xdg-desktop-portal-gtk
 	qt5-wayland
 	qt6-wayland
@@ -166,6 +165,7 @@ yay_deps=(
 	iwmenu
 	pinentry-rofi
 	hellwal
+	xdg-desktop-portal-hyprland-git
 )
 
 yay -S --noconfirm ${yay_deps[@]}
