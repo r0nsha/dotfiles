@@ -30,8 +30,6 @@ install_deps() {
 		gh
 		fzf
 		sk
-		koekeishiya/formulae/yabai
-		koekeishiya/formulae/skhd
 		pass
 		tldr
 		starship

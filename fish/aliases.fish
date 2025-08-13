@@ -36,16 +36,6 @@ if binary_exists zellij
     alias zrf 'zellij run floating'
 end
 
-if binary_exists yabai
-    alias yabais 'yabai --start-service'
-    alias yabair 'yabai --stop-service && yabai --start-service'
-end
-
-if binary_exists skhd
-    alias skhds 'skhd --start-service'
-    alias skhdr 'skhd --stop-service && skhd --start-service'
-end
-
 if binary_exists yazi
     alias y yazi
 end
