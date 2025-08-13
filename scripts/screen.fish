@@ -1,10 +1,10 @@
 #!/usr/bin/env fish
 
 function usage
-    echo "usage: screen.fish -a/--action <shot|record> -r/--region <region|window|screen> -t/--to <clipboard|ui|file> [--gif] [-h/--help]"
+    echo "usage: screen.fish -a/--action <shot|record> -r/--region <region|window|screen> -t/--to <clipboard|ui|file> [--gif] [--audio] [-h/--help]"
 end
 
-argparse h/help "a/action=" "r/region=" "t/to=" gif -- $argv
+argparse h/help "a/action=" "r/region=" "t/to=" gif audio -- $argv
 
 if set -ql _flag_h
     usage
@@ -104,7 +104,6 @@ switch $action
         # if wf-recorder is running, stop it and return
         set -l pcount (pkill -SIGINT -c wf-recorder)
         if test $pcount -gt 0
-            notify "recording stopped"
             exit
         end
 
@@ -117,7 +116,9 @@ switch $action
             set -a recorder_args --codec=gif
         else
             set ext mp4
-            set -a recorder_args --audio
+            if set -q _flag_audio
+                set -a recorder_args --audio
+            end
         end
 
         set file "$dir/$(get_filename).$ext"

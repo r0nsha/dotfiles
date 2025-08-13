@@ -24,7 +24,7 @@ function select_window
     echo $geom
 end
 
-set action (echo -e "shot\nrecord\nrecord (gif)" | rofi -dmenu -p "screen")
+set action (echo -e "shot\nrecord\nrecord (with audio)\nrecord (gif)" | rofi -dmenu -p "screen")
 
 if test -z $action
     exit 1
@@ -39,7 +39,7 @@ end
 switch $action
     case shot
         set to (echo -e "clipboard\nui\nfile" | rofi -dmenu -p "to")
-    case record
+    case record 'record (with audio)'
         set to (echo -e "ui\nfile" | rofi -dmenu -p "to")
     case 'record (gif)'
         set to file
@@ -51,9 +51,14 @@ end
 
 wait # wait for rofi to exit
 
+set screen_args
 switch $action
     case 'record (gif)'
-        ~/.config/scripts/screen.fish --action=record --region=$region --to=$to --gif
-    case '*'
-        ~/.config/scripts/screen.fish --action=$action --region=$region --to=$to
+        set action record
+        set -a screen_args --gif
+    case 'record (with audio)'
+        set action record
+        set -a screen_args --audio
 end
+
+~/.config/scripts/screen.fish --action=$action --region=$region --to=$to $screen_args
