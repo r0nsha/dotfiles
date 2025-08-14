@@ -196,6 +196,7 @@ config.unbind("<Ctrl-v>")
 config.bind("<Ctrl-Shift-p>", "mode-enter passthrough")
 config.bind("aa", "set-cmd-text -s :quickmark-add {url} {title}")
 config.bind("gP", "open --private")
+config.bind(";m", "hint links spawn mpv {hint-url}")
 
 # Spoof User-Agent for Google domains
 google_domains = [
