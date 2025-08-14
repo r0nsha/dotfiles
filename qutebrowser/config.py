@@ -50,7 +50,9 @@ c.url.searchengines["yt"] = "https://youtube.com/search?q={}"
 c.url.searchengines["r"] = "https://reddit.com/search/?q={}"
 c.url.searchengines["w"] = "https://en.wikipedia.org/w/index.php?search={}"
 c.url.searchengines["a"] = "https://wiki.archlinux.org/?search={}"
-c.url.searchengines["ap"] = "https://www.archlinux.org/packages/?sort=&q={}"
+c.url.searchengines["ap"] = (
+    "https://archlinux.org/packages/?sort=&q={}&maintainer=&flagged="
+)
 c.url.searchengines["aur"] = "https://aur.archlinux.org/packages/?K={}"
 c.url.searchengines["gh"] = "https://github.com/search?q={}&type=Code"
 c.url.searchengines["pdb"] = "https://www.protondb.com/search?q={}"

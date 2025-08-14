@@ -53,6 +53,8 @@ pacman_deps=(
 	swappy
 	wf-recorder
 	yazi
+	yt-dlp
+	mpv
 
 	# media
 	pipewire
