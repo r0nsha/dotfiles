@@ -171,6 +171,9 @@ yay_deps=(
 	hellwal
 	xdg-desktop-portal-hyprland-git
 	nyaa
+	mpv-uosc-git
+	mpv-thumbfast-git
+	mpv-sponsorblock-git
 )
 
 yay -S --noconfirm ${yay_deps[@]}
