@@ -1,6 +1,7 @@
 {
   "Comment.nvim": { "branch": "master", "commit": "e30b7f2008e52442154b66f7c519bfd2f1e32acb" },
   "actions-preview.nvim": { "branch": "master", "commit": "36513ad213855d497b7dd3391a24d1d75d58e36f" },
+  "arrow.nvim": { "branch": "master", "commit": "6e0f726f55f99332dd726a53effd6813786b6d49" },
   "blame.nvim": { "branch": "main", "commit": "b87b8c820e4cec06fbbd2f946b7b35c45906ee0c" },
   "blink-cmp-git": { "branch": "master", "commit": "a820245eb0e5cb44ed0c27c63a41d90635b39e0e" },
   "blink-cmp-spell": { "branch": "master", "commit": "2bd0e0d5e7735c047e72b6918a0458f3e8fadaba" },
@@ -72,7 +73,6 @@
   "schemastore.nvim": { "branch": "main", "commit": "ae4039eceaeda147a91b6b26e4fb4a2ca16bb503" },
   "smart-splits.nvim": { "branch": "master", "commit": "52ee119752ee7e98a2a62f0f172926b5fbbc28a5" },
   "snacks.nvim": { "branch": "main", "commit": "bc0630e43be5699bb94dadc302c0d21615421d93" },
-  "snipe.nvim": { "branch": "main", "commit": "c3f4325053ce29aace4829b46d71f64e02707141" },
   "suda.vim": { "branch": "master", "commit": "9adda7d195222d4e2854efb2a88005a120296c47" },
   "supermaven-nvim": { "branch": "main", "commit": "07d20fce48a5629686aefb0a7cd4b25e33947d50" },
   "tailwind-fold.nvim": { "branch": "main", "commit": "d9e7ca11691d252b35795726dff087bf013b2ebf" },
