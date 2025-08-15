@@ -35,7 +35,7 @@ local function set_icon_hl(buf)
   vim.api.nvim_buf_set_extmark(buf, ns_id, 0, 0, {
     end_col = 2,
     hl_group = config.hl.on,
-    priority = vim.highlight.priorities.user - 1,
+    priority = vim.hl.priorities.user - 1,
   })
 end
 
@@ -43,7 +43,7 @@ local function reset_text_hl(buf)
   vim.api.nvim_buf_set_extmark(buf, ns_id, 0, first_pos, {
     end_col = last_pos,
     hl_group = config.hl.off,
-    priority = vim.highlight.priorities.user - 1,
+    priority = vim.hl.priorities.user - 1,
   })
 end
 
@@ -82,7 +82,7 @@ local function tick()
   vim.api.nvim_buf_set_extmark(state.buf, ns_id, 0, hl_pos[1], {
     end_col = hl_pos[2],
     hl_group = config.hl.on,
-    priority = vim.highlight.priorities.user + 1,
+    priority = vim.hl.priorities.user + 1,
   })
 
   state.frame = (state.frame % #config.hl_positions) + 1
