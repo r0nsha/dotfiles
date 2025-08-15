@@ -1,3 +1,16 @@
+function _G.get_oil_winbar()
+  local bufnr = vim.api.nvim_win_get_buf(vim.g.statusline_winid)
+  local dir = require("oil").get_current_dir(bufnr)
+  if dir then
+    dir = vim.fn.fnamemodify(dir, ":~") -- relative to home
+    dir = string.gsub(dir, "/$", "") -- remove trailing slash
+    return dir
+  else
+    -- If there is no current directory (e.g. over ssh), just show the buffer name
+    return vim.api.nvim_buf_get_name(0)
+  end
+end
+
 return {
   "stevearc/oil.nvim",
   config = function()
@@ -14,6 +27,7 @@ return {
       },
       win_options = {
         signcolumn = "yes",
+        winbar = "%!v:lua.get_oil_winbar()",
       },
       skip_confirm_for_simple_edits = true,
       keymaps = {
@@ -71,6 +85,7 @@ return {
         if args.data.err then
           return
         end
+
         for _, action in ipairs(args.data.actions) do
           if action.type == "delete" then
             local _, path = require("oil.util").parse_url(action.url)
