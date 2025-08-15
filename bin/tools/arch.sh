@@ -133,6 +133,14 @@ pacman_deps=(
 	steam
 	openshot
 	rqbit
+
+	# email
+	neomutt
+	isync
+	msmpt
+	lynx
+	notmuch
+	fcron
 )
 
 sudo pacman -Syu --noconfirm ${pacman_deps[@]}
@@ -176,6 +184,8 @@ yay_deps=(
 	mpv-thumbfast-git
 	mpv-sponsorblock-git
 	alass
+	urlview
+	mutt-wizard-git
 )
 
 yay -S --noconfirm ${yay_deps[@]}
