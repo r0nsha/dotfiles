@@ -77,6 +77,7 @@ pacman_deps=(
 	# python
 	python
 	python-pip
+	python-pipx
 	python-adblock
 
 	# terminal
@@ -174,6 +175,7 @@ yay_deps=(
 	mpv-uosc-git
 	mpv-thumbfast-git
 	mpv-sponsorblock-git
+	alass
 )
 
 yay -S --noconfirm ${yay_deps[@]}
@@ -188,3 +190,10 @@ sudo gpasswd -a $USER network
 
 # bluetooth
 sudo systemctl enable --now bluetooth.service
+
+pip_deps=(
+	subliminal
+	ffsubsync
+)
+
+pipx install ${pip_deps[@]}
