@@ -23,3 +23,5 @@ If you're on MacOS and want some sensible defaults, you can run `./bin/macos_def
 - [andrew8088/dotfiles](https://github.com/andrew8088/dotfiles)
 - [theprimeagen/.dotfiles](https://github.com/theprimeagen/.dotfiles)
 - [gilbarbara/dotfiles](https://github.com/gilbarbara/dotfiles)
+
+[![image](~/pictures/screenrecords/14-08-2025_17h06m50s.mp4)]
