@@ -131,6 +131,7 @@ pacman_deps=(
 	qutebrowser
 	steam
 	openshot
+	rqbit
 )
 
 sudo pacman -Syu --noconfirm ${pacman_deps[@]}
@@ -169,6 +170,7 @@ yay_deps=(
 	pinentry-rofi
 	hellwal
 	xdg-desktop-portal-hyprland-git
+	nyaa
 )
 
 yay -S --noconfirm ${yay_deps[@]}
