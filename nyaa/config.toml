@@ -1,11 +1,12 @@
 theme = "Default"
 default_source = "Nyaa"
 download_client = "rqbit"
-timeout = 30
+timeout = 10
 scroll_padding = 3
 cursor_padding = 4
 save_config_on_change = true
 hot_reload_config = true
+yank_full_magnet = true
 
 [client]
 output_folder = "~/downloads"
@@ -14,5 +15,3 @@ output_folder = "~/downloads"
 base_url = "http://localhost:3030"
 use_magnet = true
 overwrite = false
-
-[source]
