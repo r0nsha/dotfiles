@@ -78,6 +78,7 @@ return {
             -- Default <esc> handler.
           end
         end)
+
         -- Align cursor columns.
         layerSet("n", "ma", mc.alignCursors, { desc = "Align Cursors" })
 

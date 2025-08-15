@@ -17,39 +17,25 @@ return {
     "bngarren/checkmate.nvim",
     ft = { "markdown", "codecompanion" },
     opts = {
-      todo_markers = {
-        unchecked = "[ ]",
-        checked = "[x]",
+      todo_states = {
+        unchecked = { marker = "󰄱", order = 1 },
+        checked = { marker = "󰄲", order = 2 },
+        cancelled = { marker = "󱋭", markdown = "/", type = "complete", order = 3 },
       },
       keys = {
         ["<c-x>"] = {
-          rhs = "<cmd>Checkmate toggle<CR>",
+          rhs = "<cmd>Checkmate cycle_next<CR>",
           desc = "Toggle todo item",
           modes = { "n", "v" },
         },
-        ["<leader>Tt"] = {
-          rhs = "<cmd>Checkmate toggle<CR>",
-          desc = "Toggle todo item",
-          modes = { "n", "v" },
-        },
-        ["<leader>Tc"] = {
-          rhs = "<cmd>Checkmate check<CR>",
-          desc = "Set todo item as checked (done)",
-          modes = { "n", "v" },
-        },
-        ["<leader>Tu"] = {
-          rhs = "<cmd>Checkmate uncheck<CR>",
-          desc = "Set todo item as unchecked (not done)",
-          modes = { "n", "v" },
-        },
-        ["<leader>Tn"] = {
+        ["<a-x>"] = {
           rhs = "<cmd>Checkmate create<CR>",
           desc = "Create todo item",
           modes = { "n", "v" },
         },
-        ["<leader>Ta"] = {
+        ["<a-a>"] = {
           rhs = "<cmd>Checkmate archive<CR>",
-          desc = "Archive checked/completed todo items (move to bottom section)",
+          desc = "Archive completed todo items",
           modes = { "n" },
         },
       },
