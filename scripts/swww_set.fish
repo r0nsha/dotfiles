@@ -9,4 +9,4 @@ swww img --resize=crop "$img" --transition-fps=120 --transition-step=4 --transit
 ln -sf "$img" ~/.cache/swww/.current_background
 
 # update colors
-hellwal -q -i "$img" --check-contrast --bright-offset 0.25 --skip-term-colors --script "~/.config/scripts/hellwal_colors.fish"
+hellwal -q -i "$img" --check-contrast --bright-offset 0.25 --skip-term-colors --script "~/.config/scripts/color_my_system.fish"
