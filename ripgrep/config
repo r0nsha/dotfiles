@@ -1,12 +1,35 @@
---max-columns=150
+# options
+--max-columns=450
 --max-columns-preview
-
---type-add
-web:*.{html,css,js}*
-
+--column
+--no-ignore
+--smart-case
 --hidden
 
---glob
-!.git/*
+# colors
+--colors=match:style:bold
+--colors=path:style:underline
 
---smart-case
+# types
+
+## web
+--type-add
+web:*.{html,css,php,phtml,md,js,jsx,ts,tsx,svelte,vue}*
+
+## text
+--type-add
+text:*.{txt,text,md}*
+
+# ignore
+--glob=!.git/*
+# --glob=!.cache/*
+# --glob=!SteamLibrary/*
+# --glob=!.steampath/*
+# --glob=!.steampid/*
+# --glob=!.wine/*
+# --glob=!wineprefixes/*
+# --glob=!Steam/*
+# --glob=!.steam/*
+# --glob=!.cargo/*
+# --glob=!.gradle/*
+# --glob=!.PlayOnLinux/*
