@@ -140,7 +140,7 @@ pacman_deps=(
 	msmpt
 	lynx
 	notmuch
-	fcron
+	cronie
 )
 
 sudo pacman -Syu --noconfirm ${pacman_deps[@]}
