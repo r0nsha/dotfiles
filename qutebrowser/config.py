@@ -199,11 +199,11 @@ config.bind("gP", "open --private")
 config.bind(";m", "hint links spawn mpv {hint-url}")
 
 # Spoof User-Agent for Google domains
-google_domains = [
+spoof_domains = [
     "https://accounts.google.com/*",
     "https://*.google.com/*",
 ]
-for domain in google_domains:
+for domain in spoof_domains:
     config.set(
         "content.headers.user_agent",
         "Mozilla/5.0 ({os_info}; rv:130.0) Gecko/20100101 Firefox/130",
