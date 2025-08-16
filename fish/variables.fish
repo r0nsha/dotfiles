@@ -28,3 +28,6 @@ set -Ux LC_TYPE en_US.UTF-8
 # n node version manager
 set -Ux N_PREFIX $HOME/.n
 fish_add_path $N_PREFIX/bin
+
+# ripgrep
+set -Ux RIPGREP_CONFIG_PATH $XDG_CONFIG_HOME/ripgrep/config
