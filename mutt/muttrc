@@ -1,0 +1,8 @@
+# vim: filetype=neomuttrc
+source /usr/share/mutt-wizard/mutt-wizard.muttrc
+source /home/ron/.config/mutt/accounts/r0nsh4v1t@gmail.com.muttrc
+macro index,pager i1 '<sync-mailbox><enter-command>source /home/ron/.config/mutt/accounts/r0nsh4v1t@gmail.com.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to r0nsh4v1t@gmail.com"
+set header_cache_backend = "lmdb"
+
+set sort = "threads"
+set sort_aux = "reverse-last-date-received"

@@ -186,6 +186,7 @@ yay_deps=(
 	alass
 	urlview
 	mutt-wizard-git
+	abook
 )
 
 yay -S --noconfirm ${yay_deps[@]}
