@@ -1,5 +1,4 @@
 require("config")
-require("toggle-checkbox")
 require("ai")
 require("utils.globals")
 require("utils.extensions")
