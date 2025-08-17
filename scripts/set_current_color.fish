@@ -8,5 +8,10 @@ if test "$color" != dark; and test "$color" != light
 end
 
 echo "$color" >~/.cache/current_color
+if set -q _update_current_color
+    set -Ux _update_current_color (math "$_update_current_color + 1")
+else
+    set -Ux _update_current_color 1
+end
 
 ~/.config/scripts/wal.fish

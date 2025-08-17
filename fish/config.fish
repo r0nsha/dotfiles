@@ -6,7 +6,21 @@ source $DOTFILES/fish/functions.fish
 source $DOTFILES/fish/aliases.fish
 source $DOTFILES/fish/variables.fish
 source $DOTFILES/fish/macos.fish
-source $DOTFILES/fish/themes/modus_vivendi.fish
+
+function update_theme --on-variable _update_current_color
+    if test -f ~/.cache/current_color
+        set current_color (cat ~/.cache/current_color)
+        if test "$current_color" = light
+            source $DOTFILES/fish/themes/modus_operandi.fish
+        else
+            source $DOTFILES/fish/themes/modus_vivendi.fish
+        end
+    else
+        source $DOTFILES/fish/themes/modus_vivendi.fish
+    end
+end
+
+update_theme
 
 set fish_greeting # disable welcome message
 fish_vi_key_bindings
@@ -60,4 +74,5 @@ if status is-interactive
         set -gx MCFLY_PROMPT ">"
         mcfly init fish | source
     end
+
 end
