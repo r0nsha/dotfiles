@@ -1,7 +1,7 @@
 #!/usr/bin/env fish
 
 function usage
-    echo "usage: media.fish <volume sink/source up/down/mute>|<brightness up/down>"
+    echo "usage: media.fish <volume sink/source up/down/mute>|<brightness up/down/reset>|<temperature up/down/reset>"
     exit 1
 end
 
@@ -95,6 +95,19 @@ switch $argv[1]
             case reset
                 hyprctl hyprsunset identity true
                 hyprctl hyprsunset gamma 100
+                notify_brightness
+        end
+    case temperature
+        set -l action $argv[2]
+        switch $action
+            case up
+                hyprctl hyprsunset temperature +50
+                notify_brightness
+            case down
+                hyprctl hyprsunset temperature -50
+                notify_brightness
+            case reset
+                hyprctl hyprsunset identity true
                 notify_brightness
         end
     case '*'
