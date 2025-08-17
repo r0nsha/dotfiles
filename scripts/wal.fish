@@ -15,6 +15,4 @@ else
     set -a hellwal_args --bright-offset 0.25
 end
 
-echo "$hellwal_args"
-
-hellwal -q -i "~/.cache/swww/.current_background" --check-contrast --bright-offset 0.25 --skip-term-colors --script "~/.config/scripts/color_my_system.fish"
+hellwal -q -i "~/.cache/swww/.current_background" $hellwal_args --check-contrast --script "~/.config/scripts/color_my_system.fish"

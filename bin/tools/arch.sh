@@ -32,6 +32,8 @@ pacman_deps=(
 	pass
 	tealdeer
 	just
+	inotify-tools
+	entr
 	lua
 	lua51
 	luarocks

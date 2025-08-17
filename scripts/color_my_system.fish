@@ -11,3 +11,4 @@ ln -sf ~/.cache/hellwal/qt.conf ~/.config/qt6ct/colors/colors.conf
 pkill -SIGUSR1 kitty
 pkill -SIGUSR2 waybar
 qutebrowser :config-source
+tmux source-file ~/.config/tmux/tmux.conf

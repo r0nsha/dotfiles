@@ -1,3 +1,5 @@
+set -g colors_path ~/.cache/hellwal/colors.fish
+
 source $HOME/.env.fish
 
 source $DOTFILES/fish/fisher.fish
@@ -7,6 +9,7 @@ source $DOTFILES/fish/aliases.fish
 source $DOTFILES/fish/variables.fish
 source $DOTFILES/fish/macos.fish
 source $DOTFILES/fish/themes/modus_vivendi.fish
+source $colors_path
 
 set fish_greeting # disable welcome message
 fish_vi_key_bindings
