@@ -2,6 +2,7 @@ require("config")
 require("ai")
 require("utils.globals")
 require("utils.extensions")
+require("colors")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then

@@ -8,5 +8,4 @@ swww img --resize=crop "$img" --transition-fps=120 --transition-step=4 --transit
 # link to cache so that other apps like the lockscreen can reference it
 ln -sf "$img" ~/.cache/swww/.current_background
 
-# update colors
-hellwal -q -i "$img" --check-contrast --bright-offset 0.25 --skip-term-colors --script "~/.config/scripts/color_my_system.fish"
+~/.config/scripts/wal.fish

@@ -13,7 +13,6 @@ return {
     priority = 1000,
     config = function()
       require("modus-themes").setup({
-        style = "vivendi",
         on_highlights = function(highlight, color)
           highlight.MiniCursorword = { underdotted = true }
           highlight.MiniCursorwordCurrent = highlight.MiniCursorword

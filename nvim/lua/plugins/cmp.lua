@@ -125,6 +125,11 @@ return {
           --     return not utils.repo_too_large()
           --   end,
           -- },
+          path = {
+            opts = {
+              show_hidden_files_by_default = true,
+            },
+          },
           git = {
             name = "Git",
             module = "blink-cmp-git",
