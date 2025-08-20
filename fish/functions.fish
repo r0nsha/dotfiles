@@ -26,6 +26,10 @@ function mysk
     sk --color=current_bg:232 $argv
 end
 
+function myfzf
+    fzf --bind 'ctrl-y:accept' --margin=10% --color=bw $argv
+end
+
 function filter_dirs
     for path in $argv
         if test -d $path
@@ -58,7 +62,7 @@ function tmux_select_dir
             end
 
             fd . $search_dirs --full-path --type d --exact-depth 1
-        end | sd "^$HOME/" "" | string trim -r -c / | fzf --bind 'ctrl-y:accept')
+        end | sd "^$HOME/" "" | string trim -r -c / | myfzf)
 
         # add $HOME back
         set selected $HOME/$selected
@@ -92,7 +96,7 @@ function tmux_select_session
     if test (count $argv) -eq 1
         set selected $argv[1]
     else
-        set selected (tmux list-sessions -F "#{session_name}" | fzf)
+        set selected (tmux list-sessions -F "#{session_name}" | myfzf)
     end
 
     if test -n $selected
@@ -135,7 +139,7 @@ function zellij_select_dir
             end
 
             fd . $search_dirs --full-path --type d --exact-depth 1
-        end | sd "^$HOME/" "" | string trim -r -c / | fzf --bind 'ctrl-y:accept')
+        end | sd "^$HOME/" "" | string trim -r -c / | myfzf)
 
         # add $HOME back
         set selected $HOME/$selected
