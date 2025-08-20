@@ -36,35 +36,41 @@ if not validate_path() then
   return
 end
 
--- watch current_color file for changes
+local function update_background()
+  local fd = uv.fs_open(path, "r", 420)
+  if not fd then
+    return
+  end
+
+  local stat = uv.fs_fstat(fd)
+  if not stat then
+    return
+  end
+
+  local data = uv.fs_read(fd, stat.size, 0)
+  if not data then
+    return
+  end
+
+  uv.fs_close(fd)
+
+  data = data:gsub("\n$", "") -- remove trailing newline
+
+  vim.schedule(function()
+    if data == types.dark then
+      vim.cmd("set background=dark")
+    elseif data == types.light then
+      vim.cmd("set background=light")
+    end
+    vim.cmd("redraw!")
+  end)
+end
+
+update_background()
+
 w.watch(path, {
   ---@diagnostic disable-next-line: unused-local
   on_event = function(filename, events, unwatch)
-    local fd = uv.fs_open(path, "r", 420)
-    if not fd then
-      return
-    end
-
-    local stat = uv.fs_fstat(fd)
-    if not stat then
-      return
-    end
-
-    local data = uv.fs_read(fd, stat.size, 0)
-    if not data then
-      return
-    end
-
-    uv.fs_close(fd)
-
-    data = data:gsub("\n$", "") -- remove trailing newline
-
-    vim.schedule(function()
-      if data == types.dark then
-        vim.cmd("set background=dark")
-      elseif data == types.light then
-        vim.cmd("set background=light")
-      end
-    end)
+    update_background()
   end,
 })
