@@ -1,4 +1,3 @@
-local utils = require("utils")
 local undodir = vim.fn.expand("~/.vim/undodir")
 
 -- basic
@@ -28,10 +27,8 @@ vim.opt.incsearch = true
 -- visual
 vim.opt.termguicolors = true
 vim.opt.background = "dark"
--- vim.opt.guicursor = "a:block-Cursor/lCursor"
 
 vim.opt.signcolumn = "yes"
--- vim.opt.colorcolumn = "80"
 vim.opt.laststatus = 2
 vim.opt.showmode = true
 vim.opt.cmdheight = 1
@@ -42,8 +39,6 @@ vim.opt.pumblend = 10
 vim.opt.winblend = 0
 vim.opt.conceallevel = 2
 vim.opt.concealcursor = ""
--- vim.opt.lazyredraw = true
--- vim.opt.synmaxcol = 400
 vim.opt.list = true
 vim.opt.listchars = {
   eol = "↲",
@@ -113,22 +108,20 @@ vim.opt.spell = false
 vim.opt.spelloptions = { "camel" }
 vim.opt.spellsuggest = "best"
 
--- perf
--- vim.opt.redrawtime = 10000
--- vim.opt.maxmempattern = 20000
+-- fold
+vim.o.foldenable = true
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
+vim.opt.foldcolumn = "1"
+vim.opt.foldminlines = 1
+vim.opt.foldnestmax = 3
+vim.opt.fillchars:append({
+  fold = "󰧟",
+  foldopen = "",
+  foldclose = "",
+})
 
 -- Create undo directory if it doesn't exist
 if vim.fn.isdirectory(undodir) == 0 then
   vim.fn.mkdir(undodir, "p")
-end
-
--- windows specific options
-if utils.is_windows() then
-  vim.opt.shell = vim.fn.executable("powershell") and "powershell" or "pwsh"
-  vim.opt.shellcmdflag =
-    "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
-  vim.opt.shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait"
-  vim.opt.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
-  vim.opt.shellquote = ""
-  vim.opt.shellxquote = ""
 end
