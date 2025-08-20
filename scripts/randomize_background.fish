@@ -35,6 +35,14 @@ while true
         | sort -n | cut -d':' -f2- \
         | while read img
         sleep $interval
+
+        if pgrep gamemoded
+            set gamemode_status (gamemoded -s)
+            if string match -q -- 'gamemode is active' -- $gamemode_status
+                continue
+            end
+        end
+
         ~/.config/scripts/set_background.fish "$img"
     end
 end
