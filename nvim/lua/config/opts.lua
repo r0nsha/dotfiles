@@ -103,11 +103,6 @@ vim.opt.shortmess:append({ I = true })
 vim.opt.mouse = "a"
 vim.opt.mousemodel = "popup_setpos"
 
--- spell
-vim.opt.spell = false
-vim.opt.spelloptions = { "camel" }
-vim.opt.spellsuggest = "best"
-
 -- fold
 vim.o.foldenable = true
 vim.o.foldlevel = 99
