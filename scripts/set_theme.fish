@@ -25,7 +25,6 @@ switch $color
 end
 
 echo "$new_theme" >~/.cache/theme
-set -gx THEME "$new_theme"
 set -Ux THEME "$new_theme"
 
 ~/.config/scripts/wal.fish
