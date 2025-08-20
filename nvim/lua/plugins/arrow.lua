@@ -18,10 +18,6 @@ return {
       prev_item = "[",
     },
     window = {
-      relative = "editor",
-      anchor = "SW",
-      row = vim.o.lines - 2,
-      col = vim.o.columns,
       border = "single",
       zindex = 999,
     },
