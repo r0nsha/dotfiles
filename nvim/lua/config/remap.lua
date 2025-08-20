@@ -110,3 +110,6 @@ vim.keymap.set("v", "v", "<esc>ggVG", { desc = "Select all" })
 -- Easier to type toggle fold
 vim.keymap.set("n", "zt", "za", { desc = "Toggle fold under cursor" })
 vim.keymap.set("n", "zT", "za", { desc = "Toggle all folds under cursor" })
+
+-- Spell
+vim.keymap.set("n", "<leader>cc", "1z=", { desc = "Correct spelling" })
