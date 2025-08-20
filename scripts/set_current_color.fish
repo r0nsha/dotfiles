@@ -25,6 +25,6 @@ switch $color
 end
 
 echo "$new_color" >~/.cache/current_color
-set -Ux _update_current_color "$new_color"
+set -Ux CURRENT_COLOR "$new_color"
 
 ~/.config/scripts/wal.fish
