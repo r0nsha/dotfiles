@@ -68,6 +68,7 @@ step "stow"
 cd $DOTFILES
 stow .
 ln -sfv $DOTFILES/gpg/gpg-agent.conf $HOME/.gnupg/gpg-agent.conf
+ln -sfv $DOTFILES/.pam-gnupg $HOME/.pam-gnupg
 sudo ln -sfv $DOTFILES/ly/config.ini /etc/ly/config.ini
 
 # macos defaults
