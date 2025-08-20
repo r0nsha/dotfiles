@@ -113,3 +113,27 @@ vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave"
   pattern = "*",
   command = "if &nu | set nornu | endif",
 })
+
+-- Enable spell when editing prose
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup,
+  pattern = {
+    "text",
+    "plaintext",
+    "tex",
+    "plaintex",
+    "markdown",
+    "typst",
+    "lex",
+    "latex",
+    "gitcommit",
+    "gitrebase",
+    "gitconfig",
+    "mail",
+  },
+  callback = function()
+    vim.opt.spell = true
+    vim.opt.spelloptions = { "camel" }
+    vim.opt.spellsuggest = "best"
+  end,
+})
