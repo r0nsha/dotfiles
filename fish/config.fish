@@ -7,14 +7,9 @@ source $DOTFILES/fish/aliases.fish
 source $DOTFILES/fish/variables.fish
 source $DOTFILES/fish/macos.fish
 
-function update_theme --on-variable CURRENT_COLOR
-    if test -f ~/.cache/current_color
-        set current_color (cat ~/.cache/current_color)
-        if test "$current_color" = light
-            source $DOTFILES/fish/themes/modus_operandi.fish
-        else
-            source $DOTFILES/fish/themes/modus_vivendi.fish
-        end
+function update_theme --on-variable THEME
+    if test "$THEME" = light
+        source $DOTFILES/fish/themes/modus_operandi.fish
     else
         source $DOTFILES/fish/themes/modus_vivendi.fish
     end

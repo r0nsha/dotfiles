@@ -182,7 +182,12 @@ c.colors.webpage.darkmode.policy.page = "smart"
 c.colors.webpage.darkmode.policy.images = "smart"
 c.colors.webpage.darkmode.threshold.background = 128
 c.colors.webpage.darkmode.threshold.foreground = 128
+
 c.colors.webpage.preferred_color_scheme = "dark"
+if "THEME" in os.environ:
+    theme = os.environ["THEME"]
+    if theme == "dark" or theme == "light":
+        c.colors.webpage.preferred_color_scheme = theme
 
 # Keybindings
 config.bind("J", "tab-prev")

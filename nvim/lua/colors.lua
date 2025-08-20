@@ -6,13 +6,13 @@ local types = {
   light = "light",
 }
 
-local path = vim.fn.expand("~/.cache") .. "/current_color"
+local path = vim.fn.expand("~/.cache") .. "/theme"
 
 ---@return boolean
 local function validate_path()
   local stat = uv.fs_stat(path)
 
-  -- create current_color file if it doesn't exist, default to dark
+  -- create theme file if it doesn't exist, default to dark
   if not stat then
     local fd = uv.fs_open(path, "w", 420)
     if not fd then
