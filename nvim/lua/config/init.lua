@@ -1,5 +1,4 @@
 require("config.opts")
-require("config.clipboard")
 require("config.autocmd")
 require("config.remap")
 require("config.pass")

@@ -1,3 +1,4 @@
+local utils = require("utils")
 local undodir = vim.fn.expand("~/.vim/undodir")
 
 -- basic
@@ -77,7 +78,6 @@ vim.opt.timeoutlen = 1000
 vim.opt.ttimeoutlen = 0
 vim.opt.autoread = true
 vim.opt.autowrite = false
--- vim.opt.fixeol = false
 
 -- filetypes
 vim.filetype.add({ extension = { ll = "llvm" } })
@@ -119,4 +119,39 @@ vim.opt.fillchars:append({
 -- Create undo directory if it doesn't exist
 if vim.fn.isdirectory(undodir) == 0 then
   vim.fn.mkdir(undodir, "p")
+end
+
+-- clipboard
+vim.opt.clipboard:append("unnamedplus")
+
+if vim.env.SSH_CONNECTION then
+  local function vim_paste()
+    local content = vim.fn.getreg('"')
+    return vim.split(content, "\n")
+  end
+
+  vim.g.clipboard = {
+    name = "OSC 52",
+    copy = {
+      ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+      ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+    },
+    paste = {
+      ["+"] = vim_paste,
+      ["*"] = vim_paste,
+    },
+  }
+elseif utils.is_wsl() then
+  vim.g.clipboard = {
+    name = "wslclipboard",
+    copy = {
+      ["+"] = "win32yank.exe -i --crlf",
+      ["*"] = "win32yank.exe -i --crlf",
+    },
+    paste = {
+      ["+"] = "win32yank.exe -o --lf",
+      ["*"] = "win32yank.exe -o --lf",
+    },
+    cache_enabled = 1,
+  }
 end
