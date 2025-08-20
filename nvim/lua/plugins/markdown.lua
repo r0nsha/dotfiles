@@ -22,9 +22,15 @@ return {
         checked = { marker = "󰄲", order = 2 },
         cancelled = { marker = "󱋭", markdown = "/", type = "complete", order = 3 },
       },
+      smart_toggle = {
+        check_down = "all_children",
+        uncheck_down = "none",
+        check_up = "all_children",
+        uncheck_up = "all_children",
+      },
       keys = {
         ["<c-x>"] = {
-          rhs = "<cmd>Checkmate cycle_next<CR>",
+          rhs = "<cmd>Checkmate toggle<CR>",
           desc = "Toggle todo item",
           modes = { "n", "v" },
         },
