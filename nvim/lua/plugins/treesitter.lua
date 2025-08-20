@@ -101,37 +101,4 @@ return {
       vim.keymap.set("n", "<leader>iq", "<cmd>EditQuery<cr>", { desc = "TS: Edit Query" })
     end,
   },
-  {
-    "razak17/tailwind-fold.nvim",
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-    ft = { "html", "svelte", "astro", "vue", "javascriptreact", "typescriptreact", "php", "blade" },
-    config = function()
-      require("tailwind-fold").setup({
-        enabled = false,
-        min_chars = 30,
-        symbol = "…",
-      })
-      vim.keymap.set("n", "<leader>cn", "<cmd>TailwindFoldToggle<cr>", { desc = "Tailwind Fold: Toggle" })
-    end,
-  },
-  -- {
-  --   "windwp/nvim-autopairs",
-  --   event = "InsertEnter",
-  --   opts = {},
-  --   config = true,
-  -- },
-  -- {
-  --   "windwp/nvim-ts-autotag",
-  --   event = "InsertEnter",
-  --   config = function()
-  --     require("nvim-ts-autotag").setup({
-  --       opts = {
-  --         enable_close = true,
-  --         enable_rename = true,
-  --         enable_close_on_slash = true,
-  --       },
-  --     })
-  --   end,
-  -- },
-  -- { "RRethy/nvim-treesitter-endwise" },
 }
