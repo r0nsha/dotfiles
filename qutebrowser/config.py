@@ -1,11 +1,14 @@
 import importlib.util
 import os
+import platform
+
+system = platform.system()
 
 config.load_autoconfig(True)
 
 # Options
 c.fonts.default_family = ["Iosevka Nerd Font Propo"]
-c.fonts.default_size = "10pt"
+c.fonts.default_size = "14pt" if system == "Darwin" else "10pt"
 c.auto_save.interval = 15000
 c.auto_save.session = True
 c.tabs.position = "top"
