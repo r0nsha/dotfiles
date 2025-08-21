@@ -133,6 +133,7 @@ pacman_deps=(
 
 	# apps
 	qutebrowser
+	pdfjs # needed for qutebrowser
 	steam
 	openshot
 	rqbit
