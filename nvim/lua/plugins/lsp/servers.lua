@@ -218,6 +218,7 @@ end, vim.tbl_keys(servers))
 require("mason").setup()
 
 local ensure_installed = {
+  -- lsp
   "typescript-language-server",
   "lua-language-server",
   "css-lsp",
@@ -227,6 +228,7 @@ local ensure_installed = {
   "json-lsp",
   "yaml-language-server",
   "basedpyright",
+  "tinymist",
 
   -- formatters
   "prettierd",
