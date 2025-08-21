@@ -24,7 +24,7 @@
                 background_color: (hex: "#%% background.hex %%"),
                 border_color: (hex: "#%% color4.hex %%"),
                 border_color_low: (hex: "#%% color3.hex %%"),
-                border_color_critical: (hex: "#%% color5.hex %%"),
+                border_color_critical: (hex: "#%% color7.hex %%"),
                 notification_hook: (parent_anchor: BR, self_anchor: TR),
             )),
         ),
