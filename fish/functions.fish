@@ -52,7 +52,7 @@ function tmux_select_dir
         set -l include_dirs (
             filter_dirs \
             $HOME/dotfiles \
-            $HOME/notes \
+            $HOME/documents \
             $HOME/pictures/backgrounds
         )
 
@@ -114,46 +114,6 @@ function show_colors
     end
     echo
 end
-
-function zellij_select_dir
-    if test (count $argv) -eq 1
-        set selected $argv[1]
-    else
-        set -l search_dirs (
-            filter_dirs \
-            $HOME/dev \
-            $HOME/repos \
-            $HOME/dev/core-public/core
-        )
-
-        set -l include_dirs (
-            filter_dirs \
-            $HOME/dotfiles \
-            $HOME/notes \
-            $HOME/pictures/backgrounds
-        )
-
-        set selected (begin
-            for dir in $include_dirs
-                echo $dir
-            end
-
-            fd . $search_dirs --full-path --type d --exact-depth 1
-        end | sd "^$HOME/" "" | string trim -r -c / | myfzf)
-
-        # add $HOME back
-        set selected $HOME/$selected
-    end
-
-    if test -z $selected
-        return
-    end
-
-    set -l name (basename $selected | tr . _)
-    zj attach --create --force-run-commands $name
-end
-
-alias zs zellij_select_dir
 
 function ssh_server_start
     sudo systemctl enable ssh

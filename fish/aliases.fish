@@ -31,11 +31,6 @@ else if binary_exists bat
     alias cat bat
 end
 
-if binary_exists zellij
-    alias zj zellij
-    alias zrf 'zellij run floating'
-end
-
 if binary_exists yazi
     alias y yazi
 end
