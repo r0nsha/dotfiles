@@ -57,6 +57,7 @@ pacman_deps=(
 	yazi
 	yt-dlp
 	mpv
+	typst
 
 	# media
 	pipewire
