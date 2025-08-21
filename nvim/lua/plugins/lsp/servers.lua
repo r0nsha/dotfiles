@@ -204,6 +204,7 @@ local servers = {
     },
   },
   marksman = {},
+  tinymist = {},
 }
 
 local servers_to_install = vim.tbl_filter(function(key)
@@ -243,6 +244,7 @@ local ensure_installed = {
   "goimports-reviser",
   "golines",
   "ruff",
+  "typstyle",
 
   -- dap
   "delve",

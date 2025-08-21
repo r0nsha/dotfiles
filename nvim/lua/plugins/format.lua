@@ -36,6 +36,7 @@ return {
           "goimports-reviser",
           "golines",
         },
+        typst = { "typstyle" },
         ["_"] = { "trim_whitespace" },
       },
       default_format_opts = {
