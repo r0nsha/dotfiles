@@ -54,6 +54,11 @@ tooltip {
     border-left: 1px solid @separator;
 }
 
+#privacy,
+#gamemode {
+    margin-right: 16px;
+}
+
 #tray {
     background: rgba(0, 0, 0, 0.5);
     padding-left: 8px;
