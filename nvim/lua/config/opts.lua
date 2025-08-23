@@ -53,8 +53,6 @@ vim.opt.fillchars:append({ diff = "╱" })
 vim.opt.winborder = "single"
 
 -- wrap
-vim.opt.wrapmargin = 10
-vim.opt.textwidth = 80
 vim.opt.wrap = true
 if vim.opt.wrap then
   vim.opt.showbreak = ""
