@@ -71,7 +71,7 @@ tooltip {
 #workspaces button {
 	all: unset;
 	min-width: 0;
-	padding: 0px 8px;
+	margin-right: 8px;
 	color: @color5;
 }
 
