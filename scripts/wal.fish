@@ -22,9 +22,9 @@ set walargs
 
 if test "$theme" = light
     set -a walargs -l
-    set -a walargs --cols16 lighten
+    set -a walargs --saturate 0.15
 else
-    set -a walargs --cols16 darken
+    set -a walargs --saturate 0.3
 end
 
-wal -n -e --saturate 0.3 --backend colorthief $walargs -i ~/.cache/swww/.current_background -o ~/.config/scripts/color_my_system.fish
+wal -n -e --backend colorthief $walargs -i ~/.cache/swww/.current_background -o ~/.config/scripts/color_my_system.fish

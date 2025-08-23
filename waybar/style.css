@@ -101,11 +101,11 @@ tooltip {
 }
 
 #idle_inhibitor.deactivated {
-    color: @color6;
+    color: @color11;
 }
 
 #idle_inhibitor.activated {
-    background: @color13;
+    background: @color11;
     color: @background-opaque;
 }
 

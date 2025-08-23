@@ -1,10 +1,14 @@
-# one page per row by default
+# settings
 set pages-per-row 1
-
-# stop at page boundries
 set scroll-page-aware "true"
 set scroll-full-overlap 0.01
 set scroll-step 0.01
+set zoom-min 10
+set guioptions ""
+set selection-clipboard clipboard
+set render-loading "false"
+set scroll-step 50
+set font "Iosevka Nerd Font Propo 14"
 
 # maps
 map r reload
@@ -14,46 +18,38 @@ map J zoom out
 map K zoom in
 map R rotate
 
+include ~/.cache/wal/colors-zathura
 
-# zoom settings
-set zoom-min 10
-set guioptions ""
+# # zathurarc-dark
+# set default-bg "#000000" #00
+# set default-fg "#F7F7F6" #01
 
-# zathurarc-dark
-set font "Iosevka Nerd Font Propo 14"
-set default-bg "#000000" #00
-set default-fg "#F7F7F6" #01
+# set statusbar-fg "#B0B0B0" #04
+# set statusbar-bg "#202020" #01
 
-set statusbar-fg "#B0B0B0" #04
-set statusbar-bg "#202020" #01
+# set inputbar-bg "#151515" #00 currently not used
+# set inputbar-fg "#FFFFFF" #02
 
-set inputbar-bg "#151515" #00 currently not used
-set inputbar-fg "#FFFFFF" #02
+# set notification-error-bg "#AC4142" #08
+# set notification-error-fg "#151515" #00
 
-set notification-error-bg "#AC4142" #08
-set notification-error-fg "#151515" #00
+# set notification-warning-bg "#AC4142" #08
+# set notification-warning-fg "#151515" #00
 
-set notification-warning-bg "#AC4142" #08
-set notification-warning-fg "#151515" #00
+# set highlight-color "#F4BF75" #0A
+# set highlight-active-color "#6A9FB5" #0D
 
-set highlight-color "#F4BF75" #0A
-set highlight-active-color "#6A9FB5" #0D
+# set completion-highlight-fg "#000000" #02
+# set completion-highlight-bg "#00BCD4B3" #0C
 
-set completion-highlight-fg "#000000" #02
-set completion-highlight-bg "#00BCD4B3" #0C
+# set completion-bg "#30303003" #02
+# set completion-fg "#FFC107C4" #0C
 
-set completion-bg "#30303003" #02
-set completion-fg "#FFC107C4" #0C
+# set notification-bg "#90A959" #0B
+# set notification-fg "#151515" #00
 
-set notification-bg "#90A959" #0B
-set notification-fg "#151515" #00
-
-set recolor "true"
-set recolor-lightcolor "#000000" #00
-set recolor-darkcolor "#E0E0E0" #06
-set recolor-reverse-video "true"
-set recolor-keephue "true"
-
-set selection-clipboard clipboard
-set render-loading "false"
-set scroll-step 50
+# set recolor "true"
+# set recolor-lightcolor "#000000" #00
+# set recolor-darkcolor "#E0E0E0" #06
+# set recolor-reverse-video "true"
+# set recolor-keephue "true"
