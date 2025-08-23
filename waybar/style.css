@@ -116,10 +116,6 @@ tooltip {
     color: @background-opaque;
 }
 
-#gamemode {
-    padding: 4px 4px 4px 8px;
-}
-
 #idle_inhibitor.deactivated {
     color: @color11;
 }
