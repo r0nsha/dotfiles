@@ -18,39 +18,46 @@ tooltip {
     padding: 0px;
 }
 
-#submap,
-#workspaces,
-#mpris,
-#idle_inhibitor,
-#custom-recording,
-#privacy,
-#gamemode,
+.modules-left,
+.modules-center,
+.modules-right {
+    margin-top: 8px;
+    margin-left: 8px;
+    margin-right: 8px;
+    padding: 4px 8px;
+    background: @background;
+	border: 1px solid @border;
+}
+
+#workspaces {
+    margin-right: 16px;
+    padding-right: 8px;
+    border-right: 1px solid @separator;
+}
+
 #language,
 #pulseaudio,
 #bluetooth,
 #network,
 #clock,
 #hardware {
-    margin-top: 8px;
-    margin-left: 8px;
-    padding: 4px 8px;
-    background: @background;
-	border: 1px solid @border;
+    margin-left: 16px;
+    padding-left: 16px;
+    border-left: 1px solid @separator;
 }
 
 #tray {
-    margin-top: 8px;
-    margin-left: 8px;
-    padding: 5px 8px;
-}
-
-#hardware {
-    margin-right: 8px;
+    background: rgba(0, 0, 0, 0.5);
+    padding-left: 8px;
+    padding-right: 8px;
 }
 
 #submap {
-    background: @color4-alpha;
+    background: @color5;
     color: @background-opaque;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-right: 8px;
 }
 
 #workspaces button {
@@ -110,7 +117,7 @@ tooltip {
 }
 
 #pulseaudio.bluetooth {
-    color: @color4;
+    color: @color12;
 }
 
 #pulseaudio.muted {

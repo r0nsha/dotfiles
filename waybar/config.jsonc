@@ -1,5 +1,6 @@
 {
 	"position": "top",
+	"reload_style_on_change": true,
 	"modules-left": ["hyprland/submap", "hyprland/workspaces", "tray"],
 	"modules-center": ["mpris"],
 	"modules-right": [
@@ -23,6 +24,7 @@
 	},
 	"mpris": {
 		"format": "{player_icon} {player} | {status_icon} {status} | {dynamic}",
+		"interval": 1,
 		"player-icons": {
 			"default": "󰐊",
 			"chromium": "󰊯",

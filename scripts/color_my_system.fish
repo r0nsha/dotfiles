@@ -16,3 +16,9 @@ if pgrep qutebrowser
 end
 
 tmux source-file ~/.config/tmux/tmux.conf
+
+if test -z $COLORS_CHANGED; or test $COLORS_CHANGED -eq 0
+    set -Ux COLORS_CHANGED 1
+else
+    set -Ux COLORS_CHANGED 0
+end

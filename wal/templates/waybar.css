@@ -2,7 +2,8 @@
 @define-color background-opaque {background};
 @define-color foreground {foreground};
 @define-color cursor {cursor};
-@define-color border alpha({color6}, 0.5);
+@define-color border alpha({color7}, 0.25);
+@define-color separator alpha({color7}, 0.5);
 
 @define-color color0 {color0};
 @define-color color0-alpha alpha({color0}, 0.75);
