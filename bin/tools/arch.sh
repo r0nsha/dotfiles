@@ -133,10 +133,14 @@ pacman_deps=(
 
 	# apps
 	qutebrowser
-	pdfjs # needed for qutebrowser
 	steam
 	openshot
 	rqbit
+	zathura
+
+	# pdf
+	pdfjs # needed for qutebrowser
+	zathura-pdf-mupdf
 
 	# email
 	neomutt
