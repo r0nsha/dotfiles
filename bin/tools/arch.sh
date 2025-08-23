@@ -182,6 +182,7 @@ yay_deps=(
 	wired
 	hyprprop-git
 	vesktop
+	walcord
 	bzmenu
 	iwmenu
 	pinentry-rofi
