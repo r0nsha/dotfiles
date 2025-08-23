@@ -19,12 +19,20 @@ tooltip {
 }
 
 .modules-left,
-.modules-center,
 .modules-right {
     margin-top: 8px;
     margin-left: 8px;
     margin-right: 8px;
-    padding: 4px 8px;
+    padding: 4px 16px;
+    background: @background;
+	border: 1px solid @border;
+}
+
+#mpris {
+    margin-top: 8px;
+    margin-left: 8px;
+    margin-right: 8px;
+    padding: 4px 16px;
     background: @background;
 	border: 1px solid @border;
 }

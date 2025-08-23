@@ -1,6 +1,6 @@
 {
 	"position": "top",
-	"reload_style_on_change": true,
+	"reload_style_on_change": false,
 	"modules-left": ["hyprland/submap", "hyprland/workspaces", "tray"],
 	"modules-center": ["mpris"],
 	"modules-right": [
