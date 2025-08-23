@@ -4,7 +4,7 @@ configuration {
     kb-cancel: "Escape,Control+g";
 }
 
-@import "~/.cache/hellwal/rofi.rasi"
+@import "~/.cache/wal/rofi.rasi"
 
 window {
     background-color: @bg;

@@ -185,7 +185,8 @@ yay_deps=(
 	bzmenu
 	iwmenu
 	pinentry-rofi
-	hellwal
+	python-pywal16
+	python-colorthief
 	xdg-desktop-portal-hyprland-git
 	nyaa
 	mpv-uosc-git

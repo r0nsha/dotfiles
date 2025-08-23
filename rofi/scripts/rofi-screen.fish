@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 
-source ~/.cache/hellwal/colors.fish
+source ~/.cache/wal/colors.fish
 
 function notify
     notify-send screen "$argv"

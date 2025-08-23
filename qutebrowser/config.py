@@ -60,7 +60,7 @@ c.url.searchengines["aur"] = "https://aur.archlinux.org/packages/?K={}"
 c.url.searchengines["gh"] = "https://github.com/search?q={}&type=Code"
 c.url.searchengines["pdb"] = "https://www.protondb.com/search?q={}"
 
-cache_path = os.path.expanduser("~/.cache/hellwal/qutebrowser.py")
+cache_path = os.path.expanduser("~/.cache/wal/qutebrowser.py")
 palette = None
 
 if os.path.isfile(cache_path):

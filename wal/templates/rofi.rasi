@@ -1,0 +1,12 @@
+* {{
+    bg: rgba({background.rgb}, 0.75);
+    bg-active: rgba({color2.rgb}, 0.75);
+    fg-dim: {color6};
+    fg: {color7};
+    fg-active: {foreground};
+    urgent: rgba({color1.rgb}, 0.75);
+    active-selected: rgba({color1.rgb}, 0.75);
+    normal-selected: rgba({color2.rgb}, 0.75);
+    urgent-selected: rgba({color3.rgb}, 0.75);
+    border: @bg-active;
+}}

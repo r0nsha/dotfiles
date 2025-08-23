@@ -20,7 +20,7 @@ if test -z $action; or test -z $region; or test -z $to
     return 1
 end
 
-source ~/.cache/hellwal/colors.fish
+source ~/.cache/wal/colors.fish
 
 function notify
     notify-send screen "$argv"

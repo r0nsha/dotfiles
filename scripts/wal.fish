@@ -18,12 +18,13 @@ function read_theme
 end
 
 set theme (read_theme)
-set hellwal_args
+set walargs
 
 if test "$theme" = light
-    set -a hellwal_args --light
+    set -a walargs -l
+    set -a walargs --cols16 lighten
 else
-    set -a hellwal_args --dark
+    set -a walargs --cols16 darken
 end
 
-hellwal -q -i ~/.cache/swww/.current_background $hellwal_args --check-contrast --script "~/.config/scripts/color_my_system.fish"
+wal -n -e --saturate 0.3 --backend colorthief $walargs -i ~/.cache/swww/.current_background -o ~/.config/scripts/color_my_system.fish
