@@ -18,7 +18,6 @@ tooltip {
     padding: 0px;
 }
 
-.modules-left,
 .modules-right {
     margin-top: 8px;
     margin-left: 8px;
@@ -28,6 +27,25 @@ tooltip {
 	border: 1px solid @border;
 }
 
+#submap,
+#workspaces,
+#tray {
+    margin-top: 8px;
+    margin-left: 8px;
+    padding: 4px 8px;
+    background: @background;
+	border: 1px solid @border;
+}
+
+#submap {
+    background: @color5;
+    color: @background-opaque;
+}
+
+#tray {
+    background: rgba(0, 0, 0, 0.5);
+}
+
 #mpris {
     margin-top: 8px;
     margin-left: 8px;
@@ -35,12 +53,6 @@ tooltip {
     padding: 4px 16px;
     background: @background;
 	border: 1px solid @border;
-}
-
-#workspaces {
-    margin-right: 16px;
-    padding-right: 8px;
-    border-right: 1px solid @separator;
 }
 
 #language,
@@ -59,24 +71,11 @@ tooltip {
     margin-right: 16px;
 }
 
-#tray {
-    background: rgba(0, 0, 0, 0.5);
-    padding-left: 8px;
-    padding-right: 8px;
-}
-
-#submap {
-    background: @color5;
-    color: @background-opaque;
-    padding-left: 8px;
-    padding-right: 8px;
-    margin-right: 8px;
-}
-
 #workspaces button {
 	all: unset;
 	min-width: 0;
-	margin-right: 8px;
+	margin-left: 4px;
+	margin-right: 4px;
 	color: @color5;
 }
 
