@@ -69,5 +69,7 @@ return {
     vim.keymap.set({ "n", "v" }, "<leader>f", function()
       conform.format({})
     end, { remap = false, desc = "Conform: Format" })
+
+    vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
   end,
 }
