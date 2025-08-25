@@ -49,6 +49,9 @@ function pick_sink
         end | sort | string join "\n"
     )
     set -l picked (echo -e "$options" | awk -F ':::' '{print $1}' | rofi -dmenu -p "select output")
+    if test -z "$picked"
+        return
+    end
     set -l sink (echo -e $options | rg -F "$picked" | awk -F ':::' '{print $2}')
     pactl set-default-sink $sink
     notify-send "Default output set to '$picked'"
@@ -62,6 +65,9 @@ function pick_source
         end | sort | string join "\n"
     )
     set -l picked (echo -e "$options" | awk -F ':::' '{print $1}' | rofi -dmenu -p "select input")
+    if test -z "$picked"
+        return
+    end
     set -l source (echo -e $options | rg -F "$picked" | awk -F ':::' '{print $2}')
     pactl set-default-source $source
     notify-send "Default input set to '$picked'"
