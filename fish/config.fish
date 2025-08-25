@@ -7,6 +7,11 @@ source $DOTFILES/fish/aliases.fish
 source $DOTFILES/fish/variables.fish
 source $DOTFILES/fish/macos.fish
 
+set -l local_config ~/config.fish
+if test -r $local_config
+    source $local_config
+end
+
 function update_theme -v COLORS_CHANGED
     set -l colors_file ~/.cache/wal/colors.fish
     if test -r $colors_file
