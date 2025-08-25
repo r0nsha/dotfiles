@@ -61,6 +61,7 @@ c.url.searchengines["aur"] = "https://aur.archlinux.org/packages/?K={}"
 c.url.searchengines["gh"] = "https://github.com/search?q={}&type=Code"
 c.url.searchengines["pdb"] = "https://www.protondb.com/search?q={}"
 
+# Colors
 cache_path = os.path.expanduser("~/.cache/wal/qutebrowser.py")
 palette = None
 
@@ -83,7 +84,6 @@ if not palette:
         "border": "darkslategrey",
     }
 
-# Colors
 c.colors.tabs.selected.odd.bg = palette["bg1"]
 c.colors.tabs.selected.even.bg = palette["bg1"]
 c.colors.tabs.selected.odd.fg = palette["fg"]
