@@ -70,6 +70,7 @@ pacman_deps=(
 	bluez
 	bluez-utils
 	pamixer
+	pavucontrol
 
 	# notifications
 	libnotify
