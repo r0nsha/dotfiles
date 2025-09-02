@@ -35,7 +35,7 @@ return {
           ["i"] = mapping.cycle_input_mode,
           ["o"] = mapping.cycle_output_mode,
         },
-        highlight_mode = "bg",
+        highlight_mode = "virtual",
       })
 
       vim.keymap.set("n", "<leader>cp", "<cmd>CccPick<cr>", { desc = "Pick Color" })
