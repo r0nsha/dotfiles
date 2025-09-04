@@ -62,6 +62,17 @@ function update_mute
     end
 end
 
+function update_volume
+    set -l target $argv[1]
+    set -l type $argv[2]
+    set -l op $argv[3]
+    set -l current_volume (pamixer --get-volume $target)
+    set -l new_volume (math "round(($current_volume $op 5) / 5.0) * 5")
+    pamixer $target --set-volume $new_volume
+    update_mute $target
+    notify_volume $type
+end
+
 switch $argv[1]
     case volume
         set -l type $argv[2]
@@ -70,13 +81,9 @@ switch $argv[1]
 
         switch $action
             case up
-                pamixer $target -i 5
-                update_mute $target
-                notify_volume $type
+                update_volume $target $type "+"
             case down
-                pamixer $target -d 5
-                update_mute $target
-                notify_volume $type
+                update_volume $target $type -
             case mute
                 pamixer $target --toggle-mute
                 notify_volume $type
