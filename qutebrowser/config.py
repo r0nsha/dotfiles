@@ -33,6 +33,14 @@ c.downloads.remove_finished = 5 * 60 * 1000  # 5 minutes
 c.tabs.indicator.width = 2
 c.tabs.favicons.scale = 1
 
+# Qt
+c.qt.args = [
+    "ignore-gpu-blocklist",
+    "enable-gpu-rasterization",
+    "enable-zero-copy",
+    "enable-features=VaapiVideoDecoder",
+]
+
 # Adblock
 c.content.blocking.enabled = True
 c.content.blocking.method = "both"

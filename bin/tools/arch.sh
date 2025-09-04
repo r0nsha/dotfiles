@@ -108,6 +108,7 @@ pacman_deps=(
 	libva-utils
 
 	# desktop
+	xorg-xwayland
 	hyprland
 	hyprlock
 	hypridle
