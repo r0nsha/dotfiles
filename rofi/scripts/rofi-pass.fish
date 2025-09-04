@@ -32,7 +32,8 @@ function type_text
         case xdotool
             xdotool type --delay 0 --clearmodifiers $text
         case wtype
-            wtype -d 0 $text
+            notify-send wut
+            wtype $text
     end
 end
 
@@ -64,11 +65,11 @@ function autotype
             sleep 0.1
             xdotool type --delay 0 --clearmodifiers "$pass"
         case wtype
-            wtype -d 0 "$id"
+            wtype "$id"
             sleep 0.1
             wtype -P Tab -p Tab
             sleep 0.1
-            wtype -d 0 "$pass"
+            wtype "$pass"
             sleep 0.1
             wtype -P Return -p Return
     end
