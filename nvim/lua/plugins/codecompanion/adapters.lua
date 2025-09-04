@@ -7,11 +7,13 @@ return {
       cmd = { adapter = "gemini" },
     },
     adapters = {
-      tavily = function()
-        return require("codecompanion.adapters").extend("tavily", {
-          raw = { "--http1.1" },
-        })
-      end,
+      http = {
+        tavily = function()
+          return require("codecompanion.adapters").extend("tavily", {
+            raw = { "--http1.1" },
+          })
+        end,
+      },
     },
   },
 }
