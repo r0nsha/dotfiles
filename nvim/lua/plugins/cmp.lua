@@ -5,7 +5,7 @@ return {
   dependencies = {
     -- snippets
     "rafamadriz/friendly-snippets",
-    "echasnovski/mini.snippets",
+    "nvim-mini/mini.snippets",
 
     -- sources
     "Kaiser-Yang/blink-cmp-git",

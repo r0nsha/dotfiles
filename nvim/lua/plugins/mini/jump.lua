@@ -1,4 +1,4 @@
 return {
-  "echasnovski/mini.jump",
+  "nvim-mini/mini.jump",
   opts = {},
 }
