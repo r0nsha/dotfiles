@@ -151,6 +151,13 @@ pacman_deps=(
 	lynx
 	notmuch
 	cronie
+
+	# nyxt
+	enchant
+	hspell
+	aspell
+	libvoikko
+	fuse2
 )
 
 sudo pacman -Syu --noconfirm ${pacman_deps[@]}
