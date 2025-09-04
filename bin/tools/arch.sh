@@ -134,7 +134,6 @@ pacman_deps=(
 	rofi-calc
 
 	# apps
-	qutebrowser
 	steam
 	openshot
 	rqbit
@@ -188,6 +187,7 @@ install_wrapper yay install_yay
 install_wrapper rustup install_rust
 
 yay_deps=(
+	qutebrowser-git
 	wired
 	hyprprop-git
 	vesktop
