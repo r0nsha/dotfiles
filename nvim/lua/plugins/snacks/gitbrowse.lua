@@ -33,5 +33,20 @@ return {
       desc = "Git: Browse",
       mode = { "n", "v" },
     },
+    {
+      "<leader>gy",
+      function()
+        without_notify(function()
+          Snacks.gitbrowse({
+            open = function(url)
+              vim.fn.setreg("+", url)
+              vim.fn.setreg('"', url)
+            end,
+          })
+        end)
+      end,
+      desc = "Git: Browse",
+      mode = { "n", "v" },
+    },
   },
 }
