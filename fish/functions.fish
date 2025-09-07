@@ -132,3 +132,23 @@ function get_session_type
 
     echo $session_type
 end
+
+function scriptlock
+    set -l lockfile $argv[1]
+
+    if test -e "$lockfile"
+        set -l pid (cat "$lockfile")
+
+        if ps -p $pid >/dev/null
+            echo "Another instance of this script is running (PID $pid). Exiting."
+            echo "If you think this is a mistake, remove $lockfile."
+            exit 1
+        else
+            rm -f "$lockfile"
+        end
+    end
+
+    echo $fish_pid >"$lockfile"
+
+    trap "rm -f \"$lockfile\"; exit 0" INT TERM EXIT
+end

@@ -27,6 +27,8 @@ else
     set interval $default_interval
 end
 
+scriptlock "/tmp/randomize_background.lock"
+
 while true
     fd . $dir -tf \
         | while read img
