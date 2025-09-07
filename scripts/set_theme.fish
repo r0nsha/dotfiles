@@ -27,4 +27,12 @@ end
 echo "$new_theme" >~/.cache/theme
 set -Ux THEME "$new_theme"
 
+if "$new_theme" == light
+    set -Ux BAT_THEME_LIGHT $new_theme
+    set -Ue BAT_THEME_DARK
+else
+    set -Ux BAT_THEME_DARK $new_theme
+    set -Ue BAT_THEME_LIGHT
+end
+
 ~/.config/scripts/wal.fish
