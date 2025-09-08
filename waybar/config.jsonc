@@ -18,6 +18,9 @@
 		"orientation": "horizontal",
 		"modules": ["battery", "cpu", "memory", "temperature"]
 	},
+	"hyprland/workspaces": {
+		"format": "{id}:{name}"
+	},
 	"tray": {
 		"icon-size": 14,
 		"spacing": 8
