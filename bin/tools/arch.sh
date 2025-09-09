@@ -206,6 +206,7 @@ yay_deps=(
 	urlview
 	mutt-wizard-git
 	abook
+	protonup-rs
 )
 
 yay -S --noconfirm ${yay_deps[@]}
