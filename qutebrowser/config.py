@@ -192,6 +192,8 @@ c.colors.webpage.darkmode.policy.images = "smart"
 c.colors.webpage.darkmode.threshold.background = 128
 c.colors.webpage.darkmode.threshold.foreground = 128
 
+config.set("colors.webpage.darkmode.enabled", False, "docs.google.com")
+
 c.colors.webpage.preferred_color_scheme = "dark"
 if "THEME" in os.environ:
     theme = os.environ["THEME"]
