@@ -85,7 +85,7 @@ local servers = {
     },
   },
   unocss = { manual_install = true },
-  biome = {},
+  -- biome = {},
   clangd = {},
   rust_analyzer = {
     manual_install = true,
