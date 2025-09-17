@@ -15,6 +15,7 @@ pacman_deps=(
 	gcc
 	iwd
 	openssh
+	rsync
 
 	# git
 	git
