@@ -14,6 +14,7 @@ pacman_deps=(
 	cpio
 	gcc
 	iwd
+	openssh
 
 	# git
 	git
