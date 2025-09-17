@@ -194,6 +194,7 @@ c.colors.webpage.darkmode.threshold.foreground = 128
 
 config.set("colors.webpage.darkmode.enabled", False, "docs.google.com")
 config.set("colors.webpage.darkmode.enabled", False, "localhost:*")
+config.set("colors.webpage.darkmode.enabled", False, "*.ronshavit.com")
 
 c.colors.webpage.preferred_color_scheme = "dark"
 if "THEME" in os.environ:
