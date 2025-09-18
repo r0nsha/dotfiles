@@ -108,9 +108,16 @@ local M = {
     {
       "<leader>sf",
       function()
+        Snacks.picker.git_files()
+      end,
+      desc = "Git Files",
+    },
+    {
+      "<leader>sF",
+      function()
         Snacks.picker.files()
       end,
-      desc = "Find Files",
+      desc = "Git Files",
     },
     {
       "<leader>sr",
@@ -118,13 +125,6 @@ local M = {
         Snacks.picker.smart()
       end,
       desc = "Find Files (Smart)",
-    },
-    {
-      "<leader>sF",
-      function()
-        Snacks.picker.git_files()
-      end,
-      desc = "Git Files",
     },
     {
       "<leader>ss",
