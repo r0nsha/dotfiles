@@ -132,8 +132,8 @@ vim.api.nvim_create_autocmd("FileType", {
     "mail",
   },
   callback = function()
-    vim.bo.spell = true
-    vim.bo.spelloptions = { "camel" }
-    vim.bo.spellsuggest = "best"
+    vim.wo.spell = true
+    vim.wo.spelloptions = { "camel" }
+    vim.wo.spellsuggest = "best"
   end,
 })
