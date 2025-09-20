@@ -224,7 +224,7 @@ local ensure_installed = {
   "typescript-language-server",
   "lua-language-server",
   "css-lsp",
-  "tailwind-language-server",
+  "tailwindcss-language-server",
   "rust-analyzer",
   "gopls",
   "json-lsp",
