@@ -23,6 +23,7 @@ return {
         graphql = prettier,
         handlebars = prettier,
         markdown = prettier,
+        astro = prettier,
         c = { "qmkfmt", "clang-format", stop_after_first = true },
         cpp = { "clang-format" },
         rust = { "rustfmt" },
