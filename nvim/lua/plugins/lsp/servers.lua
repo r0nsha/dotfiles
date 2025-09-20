@@ -84,7 +84,6 @@ local servers = {
       },
     },
   },
-  unocss = { manual_install = true },
   -- biome = {},
   clangd = {},
   rust_analyzer = {
@@ -224,7 +223,6 @@ local ensure_installed = {
   "typescript-language-server",
   "lua-language-server",
   "css-lsp",
-  "unocss-language-server",
   "rust-analyzer",
   "gopls",
   "json-lsp",
