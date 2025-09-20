@@ -205,6 +205,7 @@ local servers = {
   },
   marksman = {},
   tinymist = {},
+  astro = { manual_install = true },
 }
 
 local servers_to_install = vim.tbl_filter(function(key)
@@ -230,6 +231,7 @@ local ensure_installed = {
   "yaml-language-server",
   "basedpyright",
   "tinymist",
+  "astro-language-server",
 
   -- formatters
   "prettierd",

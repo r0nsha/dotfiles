@@ -126,9 +126,6 @@ vim.api.nvim_create_autocmd("FileType", {
     "typst",
     "lex",
     "latex",
-    "gitcommit",
-    "gitrebase",
-    "gitconfig",
     "mail",
   },
   callback = function()
