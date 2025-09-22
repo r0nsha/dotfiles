@@ -206,6 +206,7 @@ local servers = {
   marksman = {},
   tinymist = {},
   astro = { manual_install = true },
+  mdx_analyzer = { manual_install = true },
 }
 
 local servers_to_install = vim.tbl_filter(function(key)
@@ -232,6 +233,7 @@ local ensure_installed = {
   "basedpyright",
   "tinymist",
   "astro-language-server",
+  "mdx-analyzer",
 
   -- formatters
   "prettierd",
