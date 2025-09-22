@@ -90,7 +90,6 @@ return {
       local parsers = require("nvim-treesitter.parsers")
       local parser_config = parsers.get_parser_configs()
       parser_config.tsx.filetype_to_parsername = { "javascript", "typescript.tsx" }
-      parser_config.markdown.filetype_to_parsername = { "mdx" }
 
       if utils.is_windows() then
         local install = require("nvim-treesitter.install")
@@ -101,6 +100,8 @@ return {
       vim.keymap.set("n", "<leader>ih", "<cmd>Inspect<cr>", { desc = "TS: Inspect" })
       vim.keymap.set("n", "<leader>ip", "<cmd>InspectTree<cr>", { desc = "TS: Inspect Tree" })
       vim.keymap.set("n", "<leader>iq", "<cmd>EditQuery<cr>", { desc = "TS: Edit Query" })
+
+      vim.treesitter.language.register("markdown", "mdx")
     end,
     init = function()
       vim.filetype.add({ extension = { mdx = "markdown" } })
