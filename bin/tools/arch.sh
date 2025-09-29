@@ -116,9 +116,11 @@ pacman_deps=(
 	hypridle
 	hyprsunset
 	hyprpicker
+	hyprutils
 	hyprpolkitagent
 	xdg-desktop-portal
 	xdg-desktop-portal-gtk
+	xdg-desktop-portal-hyprland
 	qt5-wayland
 	qt6-wayland
 	qt6-multimedia-ffmpeg
@@ -191,7 +193,6 @@ install_wrapper rustup install_rust
 yay_deps=(
 	qutebrowser-git
 	wired
-	hyprprop-git
 	vesktop
 	walcord
 	bzmenu
@@ -199,7 +200,6 @@ yay_deps=(
 	pinentry-rofi
 	python-pywal16
 	python-colorthief
-	xdg-desktop-portal-hyprland-git
 	nyaa
 	mpv-uosc-git
 	mpv-thumbfast-git
@@ -209,6 +209,7 @@ yay_deps=(
 	mutt-wizard-git
 	abook
 	protonup-rs
+	downgrade
 )
 
 yay -S --noconfirm ${yay_deps[@]}
