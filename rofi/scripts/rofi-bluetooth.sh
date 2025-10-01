@@ -136,12 +136,12 @@ toggle_connection() {
         _notify "Disconnecting from $device_name"
         bluetoothctl disconnect "$mac"
         _notify "Disconnected from $device_name"
-        device_menu "$device"
+        # device_menu "$device"
     else
         _notify "Connecting to $device_name"
         bluetoothctl connect "$mac"
         _notify "Connected to $device_name"
-        device_menu "$device"
+        # device_menu "$device"
     fi
 }
 
