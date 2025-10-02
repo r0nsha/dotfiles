@@ -1,0 +1,7 @@
+Host website
+    HostName ronshavit.com
+    User root
+    ForwardAgent yes
+    RequestTTY yes
+    IdentityFile ~/.ssh/website
+    RemoteCommand tmux new -A -s default

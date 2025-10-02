@@ -150,7 +150,7 @@ pacman_deps=(
 	# email
 	neomutt
 	isync
-	msmpt
+	msmtp
 	lynx
 	notmuch
 	cronie
