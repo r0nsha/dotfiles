@@ -7,4 +7,8 @@ end
 
 set picked (fd . ~/pictures/backgrounds | xargs -I% basename % | rofi -dmenu -p "background")
 
+if test -z "$picked"
+    exit
+end
+
 ~/.config/scripts/set_background.fish $dir/$picked
