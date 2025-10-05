@@ -2,6 +2,7 @@
     max_notifications: 10,
     timeout: 10000,
     poll_interval: 8,
+    notify_on_reload: false,
     shortcuts: (
         notification_interact: 2,
         notification_close: 1,
