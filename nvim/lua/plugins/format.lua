@@ -30,7 +30,7 @@ return {
         sh = { "shfmt" },
         fish = { "fish_indent" },
         toml = { "taplo" },
-        yaml = { "yamlfmt" },
+        yaml = { "prettierd", "prettier", "yamlfmt", stop_after_first = true },
         xml = { "xmlformatter" },
         go = {
           "gofumpt",
