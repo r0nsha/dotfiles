@@ -1,5 +1,6 @@
 local notify = require("ai.notify")
 local spinner = require("ai.spinner")
+local utils = require("utils")
 
 local group = vim.api.nvim_create_augroup("AiProgress", { clear = true })
 
@@ -19,18 +20,31 @@ vim.api.nvim_create_autocmd("User", {
   end,
 })
 
--- vim.api.nvim_create_autocmd("User", {
---   group = group,
---   pattern = { "MinuetRequestStarted" },
---   callback = function()
---     spinner.start()
---   end,
--- })
+local start_spinner = utils.debounce(function()
+  vim.schedule(function()
+    spinner.start()
+  end)
+end, 500)
 
--- vim.api.nvim_create_autocmd("User", {
---   group = group,
---   pattern = { "MinuetRequestFinished" },
---   callback = function()
---     spinner.stop()
---   end,
--- })
+local stop_spinner = function()
+  start_spinner.cancel()
+  vim.schedule(function()
+    spinner.stop()
+  end)
+end
+
+vim.api.nvim_create_autocmd("User", {
+  group = group,
+  pattern = { "MinuetRequestStarted" },
+  callback = function()
+    start_spinner()
+  end,
+})
+
+vim.api.nvim_create_autocmd("User", {
+  group = group,
+  pattern = { "MinuetRequestFinished" },
+  callback = function()
+    stop_spinner()
+  end,
+})
