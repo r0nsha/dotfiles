@@ -210,6 +210,7 @@ yay_deps=(
 	abook
 	protonup-rs
 	downgrade
+	opencode
 )
 
 yay -S --noconfirm ${yay_deps[@]}
