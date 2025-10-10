@@ -5,16 +5,7 @@ return {
       local sidekick = require("sidekick")
       local nes = require("sidekick.nes")
 
-      sidekick.setup({
-        cli = {
-          mux = {
-            enabled = true,
-            backend = "tmux",
-            create = "window",
-          },
-        },
-        tools = {},
-      })
+      sidekick.setup({})
 
       vim.keymap.set("n", "<a-cr>", function()
         sidekick.nes_jump_or_apply()
