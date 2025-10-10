@@ -19,18 +19,18 @@ vim.api.nvim_create_autocmd("User", {
   end,
 })
 
-vim.api.nvim_create_autocmd("User", {
-  group = group,
-  pattern = { "MinuetRequestStarted" },
-  callback = function()
-    spinner.start()
-  end,
-})
+-- vim.api.nvim_create_autocmd("User", {
+--   group = group,
+--   pattern = { "MinuetRequestStarted" },
+--   callback = function()
+--     spinner.start()
+--   end,
+-- })
 
-vim.api.nvim_create_autocmd("User", {
-  group = group,
-  pattern = { "MinuetRequestFinished" },
-  callback = function()
-    spinner.stop()
-  end,
-})
+-- vim.api.nvim_create_autocmd("User", {
+--   group = group,
+--   pattern = { "MinuetRequestFinished" },
+--   callback = function()
+--     spinner.stop()
+--   end,
+-- })
