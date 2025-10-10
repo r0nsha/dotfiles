@@ -46,9 +46,6 @@ return {
           },
         },
       },
-      throttle = 200,
-      debounce = 400,
-      n_completions = 1,
       virtualtext = {
         -- auto_trigger_ft = { "*" },
         -- auto_trigger_ignore_ft = {
