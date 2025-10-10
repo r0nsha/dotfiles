@@ -36,11 +36,19 @@ return {
   {
     "milanglacier/minuet-ai.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
-    enabled = true,
     opts = {
       provider = "codestral",
+      provider_options = {
+        codestral = {
+          optional = {
+            max_tokens = 256,
+            stop = { "\n\n" },
+          },
+        },
+      },
       throttle = 200,
       debounce = 400,
+      n_completions = 1,
       virtualtext = {
         -- auto_trigger_ft = { "*" },
         -- auto_trigger_ignore_ft = {
