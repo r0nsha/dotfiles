@@ -1,7 +1,6 @@
 return {
   {
     "folke/sidekick.nvim",
-    enabled = false,
     config = function()
       local sidekick = require("sidekick")
       local nes = require("sidekick.nes")
@@ -17,18 +16,18 @@ return {
         tools = {},
       })
 
-      vim.keymap.set({ "n", "i" }, "<a-y>", function()
+      vim.keymap.set("n", "<a-cr>", function()
         sidekick.nes_jump_or_apply()
       end, {
         expr = true,
         desc = "Goto/Apply Next Edit Suggestion",
       })
 
-      vim.keymap.set({ "n", "i" }, "<a-n>", function()
+      vim.keymap.set("n", "<a-bs>", function()
         nes.jump()
       end, { desc = "Goto Next Edit Suggestion" })
 
-      vim.keymap.set({ "n", "i" }, "<a-r>", function()
+      vim.keymap.set("n", "<a-u>", function()
         sidekick.clear()
       end, { desc = "Clear Edit Suggestion" })
     end,
@@ -66,8 +65,8 @@ return {
         },
         keymap = {
           accept = "<a-y>",
-          accept_line = "<a-l>",
-          accept_n_lines = "<a-L>",
+          accept_line = nil,
+          accept_n_lines = nil,
           prev = "<a-p>",
           next = "<a-n>",
           dismiss = "<a-r>",
