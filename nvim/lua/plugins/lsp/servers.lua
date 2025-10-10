@@ -207,6 +207,7 @@ local servers = {
   tinymist = {},
   astro = { manual_install = true },
   mdx_analyzer = { manual_install = true },
+  copilot = { manual_install = true },
 }
 
 local servers_to_install = vim.tbl_filter(function(key)
@@ -234,6 +235,7 @@ local ensure_installed = {
   "tinymist",
   "astro-language-server",
   "mdx-analyzer",
+  "copilot-language-server",
 
   -- formatters
   "prettierd",
