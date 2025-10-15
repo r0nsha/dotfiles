@@ -8,7 +8,7 @@ config.load_autoconfig(True)
 
 # Options
 c.fonts.default_family = ["BerkeleyMono Nerd Font Propo"]
-c.fonts.default_size = "14pt" if system == "Darwin" else "10pt"
+c.fonts.default_size = "12pt" if system == "Darwin" else "10pt"
 c.fonts.tabs.selected = "bold default_size default_family"
 c.auto_save.interval = 15000
 c.auto_save.session = True
