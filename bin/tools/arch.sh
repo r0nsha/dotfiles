@@ -60,6 +60,7 @@ pacman_deps=(
 	yt-dlp
 	mpv
 	typst
+	docker
 
 	# media
 	pipewire
@@ -225,6 +226,11 @@ sudo gpasswd -a $USER network
 
 # bluetooth
 sudo systemctl enable --now bluetooth.service
+
+# docker
+newgrp docker
+sudo usermod -aG docker $USER
+sudo systemctl enable --now docker
 
 pip_deps=(
 	subliminal

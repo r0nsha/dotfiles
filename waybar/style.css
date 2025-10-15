@@ -1,58 +1,58 @@
-@import url('file:///home/ron/.cache/wal/waybar.css');
+@import url("file:///home/ron/.cache/wal/waybar.css");
 
 * {
-	font-family: Iosevka Nerd Font Propo;
-	font-weight: bold;
-	font-size: 14px;
+  font-family: BerkeleyMono Nerd Font Propo;
+  font-weight: bold;
+  font-size: 13px;
 }
 
 window#waybar {
-    all: unset;
-    color: @color7;
+  all: unset;
+  color: @color7;
 }
 
 tooltip {
-	background: @background-opaque;
-	border: 1px solid @border;
-    border-radius: 0;
-    padding: 0px;
+  background: @background-opaque;
+  border: 1px solid @border;
+  border-radius: 0;
+  padding: 0px;
 }
 
 .modules-right {
-    margin-top: 8px;
-    margin-left: 8px;
-    margin-right: 8px;
-    padding: 4px 16px;
-    background: @background;
-	border: 1px solid @border;
+  margin-top: 8px;
+  margin-left: 8px;
+  margin-right: 8px;
+  padding: 4px 16px;
+  background: @background;
+  border: 1px solid @border;
 }
 
 #submap,
 #workspaces,
 #tray {
-    margin-top: 8px;
-    margin-left: 8px;
-    padding: 4px 8px;
-    background: @background;
-	border: 1px solid @border;
+  margin-top: 8px;
+  margin-left: 8px;
+  padding: 4px 8px;
+  background: @background;
+  border: 1px solid @border;
 }
 
 #submap {
-    background: @color5;
-    color: @background-opaque;
+  background: @color5;
+  color: @background-opaque;
 }
 
 #tray {
-    background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.5);
 }
 
 #mpris {
-    margin-top: 8px;
-    margin-left: 8px;
-    margin-right: 8px;
-    padding: 4px 16px;
-    background: @background;
-	border: 1px solid @border;
+  margin-top: 8px;
+  margin-left: 8px;
+  margin-right: 8px;
+  padding: 4px 16px;
+  background: @background;
+  border: 1px solid @border;
 }
 
 #language,
@@ -61,101 +61,104 @@ tooltip {
 #network,
 #clock,
 #hardware {
-    margin-left: 16px;
-    padding-left: 16px;
-    border-left: 1px solid @separator;
+  margin-left: 16px;
+  padding-left: 16px;
+  border-left: 1px solid @separator;
 }
 
 #privacy,
 #gamemode {
-    margin-right: 16px;
+  margin-right: 16px;
 }
 
 #workspaces button {
-	all: unset;
-	min-width: 0;
-	margin-left: 4px;
-	margin-right: 4px;
-	color: @color5;
+  all: unset;
+  min-width: 0;
+  margin-left: 4px;
+  margin-right: 4px;
+  color: @color5;
 }
 
 #workspaces button.active {
-	color: @color15;
+  color: @color15;
 }
 
 #workspaces button.urgent {
-	color: @color14;
+  color: @color14;
 }
 
 #tray menu {
-    background: @background-opaque;
-    border: 1px solid @border;
-    color: @color7;
-    border-radius: 0;
+  background: @background-opaque;
+  border: 1px solid @border;
+  color: @color7;
+  border-radius: 0;
 }
 
 #mpris {
-    opacity: 0;
+  opacity: 0;
 }
 
 #mpris.playing {
-    opacity: 1;
-    color: @color15;
+  opacity: 1;
+  color: @color15;
 }
 
-#mpris.paused, #mpris.stopped {
-    opacity: 1;
-    color: @color6;
+#mpris.paused,
+#mpris.stopped {
+  opacity: 1;
+  color: @color6;
 }
 
 #custom-recording,
 #privacy {
-    background: @color4-alpha;
-	border: 1px solid @color4;
-    color: @background-opaque;
+  background: @color4-alpha;
+  border: 1px solid @color4;
+  color: @background-opaque;
 }
 
 #idle_inhibitor.deactivated {
-    color: @color11;
+  color: @color11;
 }
 
 #idle_inhibitor.activated {
-    background: @color11;
-    color: @background-opaque;
+  background: @color11;
+  color: @background-opaque;
 }
 
 #pulseaudio.bluetooth {
-    color: @color2;
+  color: @color2;
 }
 
 #pulseaudio.muted {
-    color: @color6;
+  color: @color6;
 }
 
 #network.disabled {
-    color: @color6;
+  color: @color6;
 }
 
 #network.disconnected {
-    color: @color14;
+  color: @color14;
 }
 
-#battery, #cpu, #memory {
-    margin-right: 8px;
+#battery,
+#cpu,
+#memory {
+  margin-right: 8px;
 }
 
 #temperature.critical {
-    color: @color14;
+  color: @color14;
 }
 
 #battery.charging {
-    color: @color11;
+  color: @color11;
 }
 
 #battery.warning {
-    color: @color13;
+  color: @color13;
 }
 
 #battery.critical {
-    color: @color14;
+  color: @color14;
 }

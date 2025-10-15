@@ -5,7 +5,7 @@ set $browser qutebrowser
 set $statuscmd i3blocks
 set $statussig SIGUSR1
 
-font pango:IosevkaNerdFontPropo 14
+font pango:BerkeleyMonoNerdFontPropo 14
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart

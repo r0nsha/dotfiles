@@ -1,4 +1,4 @@
-source $DOTFILES/bin/fonts.sh
+# source $DOTFILES/bin/fonts.sh
 
 install_brew() {
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -47,6 +47,8 @@ install_deps() {
 		imagemagick
 		font-symbols-only-nerd-font
 		yazi
+		docker
+		font-iosevka-nerd-font
 	)
 
 	brew install ${deps[@]}

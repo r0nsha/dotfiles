@@ -11,6 +11,9 @@ return {
           cancelled = { raw = "[/]", rendered = "󱋭 ", highlight = "RenderMarkdownError", scope_highlight = nil },
         },
       },
+      code = {
+        conceal_delimiters = false,
+      },
     },
   },
   {

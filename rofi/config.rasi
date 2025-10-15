@@ -1,6 +1,6 @@
 configuration {
     matching: "fuzzy";
-    font: "IosevkaNerdFontPropo 14";
+    font: "BerkeleyMonoNerdFontPropo 13";
     kb-accept-entry: "Control+y,Return,KP_Enter";
     kb-cancel: "Escape,Control+g";
 }

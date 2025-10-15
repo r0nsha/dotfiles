@@ -8,7 +8,7 @@ set guioptions ""
 set selection-clipboard clipboard
 set render-loading "false"
 set scroll-step 50
-set font "Iosevka Nerd Font Propo 14"
+set font "BerkeleyMono Nerd Font Propo 14"
 
 # maps
 map r reload

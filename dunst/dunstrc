@@ -1,5 +1,5 @@
 [global]
-    font = IosevkaNerdFontPropo 14
+    font = BerkeleyMonoNerdFontPropo 14
     frame_width = 1
     frame_color = "#00b8d3"
     highlight = "#00b8d3"
