@@ -37,7 +37,7 @@
             params: TextBlock((
                 text: "%s",
                 padding: (left: 8.0, right: 8.0, top: 8.0, bottom: 0.0),
-                font: "BerkeleyMono Nerd Font Propo Bold 11",
+                font: "BerkeleyMono Nerd Font Propo Bold 12",
                 color: Color(hex: "{foreground}"),
                 dimensions: (
                     width: (min: 280, max: 280),
