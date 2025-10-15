@@ -1,6 +1,7 @@
 return {
   {
     "folke/sidekick.nvim",
+    enabled = false,
     config = function()
       local sidekick = require("sidekick")
       local nes = require("sidekick.nes")
