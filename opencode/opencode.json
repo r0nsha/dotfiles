@@ -38,5 +38,11 @@
     "input_paste": "ctrl+v,ctrl+alt+v",
     "input_submit": "enter",
     "input_newline": "shift+enter,ctrl+j"
+  },
+  "mcp": {
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp"
+    }
   }
 }
