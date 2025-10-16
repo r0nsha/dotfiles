@@ -49,6 +49,7 @@ install_deps() {
 		yazi
 		docker
 		font-iosevka-nerd-font
+		opencode
 	)
 
 	brew install ${deps[@]}
