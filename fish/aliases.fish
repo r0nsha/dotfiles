@@ -40,6 +40,7 @@ if binary_exists neomutt
 end
 
 # GIT ALIASES -----------------------------------------------------------------
+alias g git
 alias gg 'git branch | fzf | xargs git switch'
 alias gl "git log --all --graph --format=format:'%C(bold blue)%h%C(reset) - %C(white)%s%C(reset) %C(bold magenta)%d%C(reset)'"
 alias gll "git log --graph --format=format:'%C(bold blue)%h%C(reset) - %C(white)%s%C(reset) %C(green)%an %ar %C(reset) %C(bold magenta)%d%C(reset)'"
