@@ -78,4 +78,7 @@ if status is-interactive
         mcfly init fish | source
     end
 
+    if binary_exists jj
+        jj util completion fish | source
+    end
 end

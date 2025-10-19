@@ -50,7 +50,8 @@ install_deps() {
 		docker
 		font-iosevka-nerd-font
 		opencode
-
+		jj
+		jjui
 	)
 
 	brew install ${deps[@]}

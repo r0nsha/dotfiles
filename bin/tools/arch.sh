@@ -21,6 +21,7 @@ pacman_deps=(
 	git
 	github-cli
 	git-delta
+	jujutsu
 
 	# cli
 	zoxide
@@ -212,6 +213,7 @@ yay_deps=(
 	protonup-rs
 	downgrade
 	opencode
+	jjui-bin
 )
 
 yay -S --noconfirm ${yay_deps[@]}
