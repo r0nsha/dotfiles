@@ -129,21 +129,14 @@ local M = {
     {
       "<leader>ss",
       function()
-        Snacks.picker.grep()
-      end,
-      desc = "Grep",
-    },
-    {
-      "<leader>/",
-      function()
-        Snacks.picker.grep()
+        Snacks.picker.git_grep()
       end,
       desc = "Grep",
     },
     {
       "<leader>sS",
       function()
-        Snacks.picker.git_grep()
+        Snacks.picker.grep()
       end,
       desc = "Grep Git",
     },
