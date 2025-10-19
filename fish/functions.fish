@@ -39,8 +39,7 @@ function tmux_select_dir
         set -l search_dirs (
             filter_dirs \
             $HOME/dev \
-            $HOME/repos \
-            $HOME/dev/core-public/core
+            $HOME/repos
         )
 
         set -l include_dirs (
