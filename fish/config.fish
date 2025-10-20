@@ -47,6 +47,9 @@ set -Ux NVM_DIR "$HOME/.nvm"
 set -Ux PNPM_HOME "$HOME/.local/share/pnpm"
 fish_add_path $PNPM_HOME
 
+# tide prompt
+set -g tide_cmd_duration_decimals 0
+
 if status is-interactive
     stty -ixon # disable C-s and C-q
 

@@ -92,6 +92,8 @@ if exists "fish"; then
         sudo chsh -s $fish_bin
         success
     fi
+
+    fish $DOTFILES/scripts/tide_configure.fish
 fi
 
 # macos defaults
