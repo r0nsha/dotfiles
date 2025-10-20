@@ -47,13 +47,6 @@ set -Ux NVM_DIR "$HOME/.nvm"
 set -Ux PNPM_HOME "$HOME/.local/share/pnpm"
 fish_add_path $PNPM_HOME
 
-# jorgebucaran/hydro config
-set -U hydro_symbol_start
-set -U hydro_symbol_prompt "❱"
-set -U hydro_symbol_git_dirty "*"
-set -U hydro_multiline false
-set -U hydro_color_git $fish_color_param
-
 if status is-interactive
     stty -ixon # disable C-s and C-q
 
