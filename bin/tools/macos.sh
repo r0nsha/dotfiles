@@ -32,7 +32,6 @@ install_deps() {
 		sk
 		pass
 		tldr
-		starship
 		rustup
 		bat
 		n

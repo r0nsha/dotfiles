@@ -12,7 +12,7 @@ if test -r $local_config
     source $local_config
 end
 
-function update_theme -v COLORS_CHANGED
+function update_theme --on-variable COLORS_CHANGED
     set -l colors_file ~/.cache/wal/colors.fish
     if test -r $colors_file
         source $colors_file
@@ -47,26 +47,19 @@ set -Ux NVM_DIR "$HOME/.nvm"
 set -Ux PNPM_HOME "$HOME/.local/share/pnpm"
 fish_add_path $PNPM_HOME
 
+# jorgebucaran/hydro config
+set -U hydro_symbol_start
+set -U hydro_symbol_prompt "❱"
+set -U hydro_symbol_git_dirty "*"
+set -U hydro_multiline false
+set -U hydro_color_git $fish_color_param
+
 if status is-interactive
     stty -ixon # disable C-s and C-q
 
     # Zoxide
     if binary_exists zoxide
         zoxide init fish | source
-    end
-
-    # Starship
-    if binary_exists starship
-        function starship_transient_prompt_func
-            starship module character
-        end
-
-        function starship_transient_rprompt_func
-            starship module time
-        end
-
-        starship init fish | source
-        enable_transience
     end
 
     if binary_exists mcfly

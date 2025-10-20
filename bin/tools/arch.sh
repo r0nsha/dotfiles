@@ -93,7 +93,6 @@ pacman_deps=(
 	fish
 	tmux
 	nvim
-	starship
 	mcfly
 
 	# fonts
