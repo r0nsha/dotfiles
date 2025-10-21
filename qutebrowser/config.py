@@ -52,6 +52,19 @@ c.content.blocking.adblock.lists = [
     "https://secure.fanboy.co.nz/fanboy-social.txt",
 ]
 
+# Permissions
+
+webcam_allowed_domains = [
+    "*://riverside.fm/*",
+    "*://meet.google.com/*",
+]
+
+for domain in webcam_allowed_domains:
+    config.set("content.media.video_capture", True, domain)
+    config.set("content.media.audio_capture", True, domain)
+    config.set("content.media.audio_video_capture", True, domain)
+
+
 # Search engines
 c.url.searchengines["DEFAULT"] = "https://duckduckgo.com/?q={}"
 c.url.searchengines["g"] = (
