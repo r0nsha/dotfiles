@@ -8,3 +8,15 @@ email = "r0nsh4v1t@gmail.com"
 default-command = "log"
 diff-editor = ["nvim", "-c", "DiffEditor $left $right $output"]
 
+[templates]
+draft_commit_description = '''
+concat(
+  coalesce(description, default_commit_description, "\n"),
+  surround(
+    "\nJJ: This commit contains the following changes:\n", "",
+    indent("JJ:     ", diff.stat(72)),
+  ),
+  "\nJJ: ignore-rest\n",
+  diff.git(),
+)
+'''
