@@ -89,7 +89,7 @@ return {
     },
     config = function()
       vim.g.opencode_opts = {
-        -- Your configuration, if any — see `lua/opencode/config.lua`, or "goto definition" on `opencode_opts`.
+        auto_reload = true,
       }
 
       -- Required for `vim.g.opencode_opts.auto_reload`.
@@ -97,7 +97,9 @@ return {
 
       local opencode = require("opencode")
 
-      -- Recommended/example keymaps.
+      vim.keymap.set("n", "<leader>ap", function()
+        opencode.ask("", { clear = true, submit = true })
+      end, { desc = "Opencode: Add this" })
       vim.keymap.set({ "n", "x" }, "<leader>aa", function()
         opencode.ask("@this: ", { submit = true })
       end, { desc = "Opencode: Ask about this" })
@@ -119,9 +121,12 @@ return {
       vim.keymap.set("n", "<leader>ai", function()
         opencode.command("session_interrupt")
       end, { desc = "Opencode: Interrupt session" })
-      -- vim.keymap.set("n", "<leader>an", function()
-      --   opencode.command("agent_cycle")
-      -- end, { desc = "Opencode: Cycle selected agent" })
+      vim.keymap.set("n", "<leader>an", function()
+        opencode.command("agent_cycle")
+      end, { desc = "Opencode: Cycle selected agent" })
+      vim.keymap.set("n", "<leader>a<tab>", function()
+        opencode.command("agent_cycle")
+      end, { desc = "Opencode: Cycle selected agent" })
       -- vim.keymap.set("n", "<S-C-u>", function()
       --   opencode.command("messages_half_page_up")
       -- end, { desc = "Opencode: Messages half page up" })

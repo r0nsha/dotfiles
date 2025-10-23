@@ -114,5 +114,6 @@ vim.keymap.set("n", "zT", "za", { desc = "Toggle all folds under cursor" })
 -- Spell
 vim.keymap.set("n", "<leader>cc", "1z=", { desc = "Correct spelling" })
 
--- Terminal mode to normal mode, and back
+-- Terminal
 vim.keymap.set("t", "<c-w>n", "<c-\\><c-n>", { desc = "Exit terminal mode" })
+vim.keymap.set("t", "<c-cr>", "<c-\\><c-n><cr>")
