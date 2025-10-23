@@ -80,4 +80,54 @@ return {
       },
     },
   },
+  {
+    "NickvanDyke/opencode.nvim",
+    dependencies = {
+      -- Recommended for `ask()` and `select()`.
+      -- Required for `toggle()`.
+      { "folke/snacks.nvim", opts = { input = {}, picker = {} } },
+    },
+    config = function()
+      vim.g.opencode_opts = {
+        -- Your configuration, if any — see `lua/opencode/config.lua`, or "goto definition" on `opencode_opts`.
+      }
+
+      -- Required for `vim.g.opencode_opts.auto_reload`.
+      vim.o.autoread = true
+
+      local opencode = require("opencode")
+
+      -- Recommended/example keymaps.
+      vim.keymap.set({ "n", "x" }, "<leader>aa", function()
+        opencode.ask("@this: ", { submit = true })
+      end, { desc = "Opencode: Ask about this" })
+      vim.keymap.set({ "n", "x" }, "<leader>aA", function()
+        opencode.prompt("@this")
+      end, { desc = "Opencode: Add this" })
+      vim.keymap.set({ "n", "x" }, "<leader>as", function()
+        opencode.select()
+      end, { desc = "Opencode: Select prompt" })
+      -- vim.keymap.set("n", "<leader>at", function()
+      --   opencode.toggle()
+      -- end, { desc = "Opencode: Toggle embedded" })
+      vim.keymap.set("n", "<leader>ac", function()
+        opencode.command()
+      end, { desc = "Opencode: Select command" })
+      vim.keymap.set("n", "<leader>aN", function()
+        opencode.command("session_new")
+      end, { desc = "Opencode: New session" })
+      vim.keymap.set("n", "<leader>ai", function()
+        opencode.command("session_interrupt")
+      end, { desc = "Opencode: Interrupt session" })
+      vim.keymap.set("n", "<leader>an", function()
+        opencode.command("agent_cycle")
+      end, { desc = "Opencode: Cycle selected agent" })
+      -- vim.keymap.set("n", "<S-C-u>", function()
+      --   opencode.command("messages_half_page_up")
+      -- end, { desc = "Opencode: Messages half page up" })
+      -- vim.keymap.set("n", "<S-C-d>", function()
+      --   opencode.command("messages_half_page_down")
+      -- end, { desc = "Opencode: Messages half page down" })
+    end,
+  },
 }
