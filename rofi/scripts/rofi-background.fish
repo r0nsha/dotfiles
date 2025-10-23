@@ -5,7 +5,10 @@ if test -z "$dir"
     set dir ~/pictures/backgrounds
 end
 
-set picked (fd . ~/pictures/backgrounds | xargs -I% basename % | rofi -dmenu -p "background")
+set picked (for bg in (fd . ~/pictures/backgrounds)
+    set -l name (basename $bg)
+    echo -en "$name\0icon\x1f$bg\n"
+end | rofi -dmenu -theme fullscreen-preview.rasi)
 
 if test -z "$picked"
     exit
