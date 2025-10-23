@@ -44,7 +44,7 @@ icon-ib {
 	filename: "system-search";
 	vertical-align: 0.5;
 	horizontal-align: 0.5;
-	size: 1em;
+	size: 0em;
 }
 inputbar {
 	spacing: 0.4em;
@@ -53,11 +53,11 @@ inputbar {
 }
 entry {
 	placeholder: "Search";
-	placeholder-color: grey;
+	placeholder-color: @fg-dim;
 }
 message {
-	background-color: red/20%;
-	border-color: lightsalmon;
+	background-color: @bg;
+	border-color: @urgent;
     border: 2px 0px 0px 0px;
 	padding: 0.4em;
 	spacing: 0.4em;
@@ -82,7 +82,7 @@ element {
     children: [element-icon, element-text ];
 }
 element-icon {
-	size: calc((100% / 3 ));
+	size: calc((100% / 4 ));
 	horizontal-align: 0.5;
 	vertical-align: 0.5;
 }

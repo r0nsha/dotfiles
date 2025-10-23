@@ -17,6 +17,6 @@ match(\$0, /^([0-9]+)\s(\[\[\s)?binary.*(jpg|jpeg|png|bmp)/, grp) {
     print \$0"\0icon\x1f$tmp_dir/"grp[1]"."grp[3]
     next
 }
-1
+#1
 EOF
 cliphist list | gawk "$prog"
