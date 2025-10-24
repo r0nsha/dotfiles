@@ -108,14 +108,14 @@ local M = {
     {
       "<leader>sf",
       function()
-        Snacks.picker.git_files()
+        Snacks.picker.files()
       end,
       desc = "Git Files",
     },
     {
       "<leader>sF",
       function()
-        Snacks.picker.files()
+        Snacks.picker.files({ ignored = true })
       end,
       desc = "Git Files",
     },
@@ -136,9 +136,11 @@ local M = {
     {
       "<leader>sS",
       function()
-        Snacks.picker.git_grep()
+        Snacks.picker.grep({
+          ignored = true,
+        })
       end,
-      desc = "Grep Git",
+      desc = "Grep (don't respect .gitignore)",
     },
     {
       "<leader>ss",

@@ -2,7 +2,6 @@
 --max-columns=450
 --max-columns-preview
 --column
---no-ignore
 --smart-case
 --hidden
 
@@ -19,17 +18,3 @@ web:*.{html,css,php,phtml,md,js,jsx,ts,tsx,svelte,vue}*
 ## text
 --type-add
 text:*.{txt,text,md}*
-
-# ignore
---glob=!.git/*
-# --glob=!.cache/*
-# --glob=!SteamLibrary/*
-# --glob=!.steampath/*
-# --glob=!.steampid/*
-# --glob=!.wine/*
-# --glob=!wineprefixes/*
-# --glob=!Steam/*
-# --glob=!.steam/*
-# --glob=!.cargo/*
-# --glob=!.gradle/*
-# --glob=!.PlayOnLinux/*
