@@ -1,52 +1,52 @@
 # ALIASES ---------------------------------------------------------------------
-alias s 'source ~/.config/fish/config.fish'
+abbr -a s 'source ~/.config/fish/config.fish'
 
-alias c clear
+abbr -a c clear
 
-alias e $EDITOR
-alias v nvim
-alias vi nvim
-alias vim nvim
+abbr -a e $EDITOR
+abbr -a v nvim
+abbr -a vi nvim
+abbr -a vim nvim
 
 # sensible defaults
-alias cp "cp -ivr"
-alias mv "mv -iv"
-alias df "df -h"
-alias du "du -h"
+abbr -a cp "cp -ivr"
+abbr -a mv "mv -iv"
+abbr -a df "df -h"
+abbr -a du "du -h"
 
 # TOOL ALIASES ----------------------------------------------------------------
 
 if binary_exists eza
-    alias l eza
-    alias ll 'eza -lah'
-    alias ls eza
-    alias sl eza
+    abbr -a l eza
+    abbr -a ll 'eza -lah'
+    abbr -a ls eza
+    abbr -a sl eza
 end
 
 if binary_exists bat
-    alias cat bat
+    abbr -a cat bat
 else if binary_exists batcat
-    alias cat batcat
+    abbr -a cat batcat
 else if binary_exists bat
-    alias cat bat
+    abbr -a cat bat
 end
 
 if binary_exists yazi
-    alias y yazi
+    abbr -a y yazi
 end
 
 if binary_exists neomutt
-    alias mutt neomutt
+    abbr -a mutt neomutt
 end
 
 # GIT ALIASES -----------------------------------------------------------------
-alias g git
-alias gg 'git branch | fzf | xargs git switch'
-alias gl "git log --all --graph --format=format:'%C(bold blue)%h%C(reset) - %C(white)%s%C(reset) %C(bold magenta)%d%C(reset)'"
-alias gll "git log --graph --format=format:'%C(bold blue)%h%C(reset) - %C(white)%s%C(reset) %C(green)%an %ar %C(reset) %C(bold magenta)%d%C(reset)'"
-alias glc 'git branch | fzf | xargs -I % git log %..HEAD --oneline --decorate --color --graph'
-alias glcr 'git branch | fzf | xargs -I % git log %..origin/HEAD --oneline --decorate --color --graph'
+abbr -a g git
+abbr -a gg 'git branch | fzf | xargs git switch'
+abbr -a gl "git log --all --graph --format=format:'%C(bold blue)%h%C(reset) - %C(white)%s%C(reset) %C(bold magenta)%d%C(reset)'"
+abbr -a gll "git log --graph --format=format:'%C(bold blue)%h%C(reset) - %C(white)%s%C(reset) %C(green)%an %ar %C(reset) %C(bold magenta)%d%C(reset)'"
+abbr -a glc 'git branch | fzf | xargs -I % git log %..HEAD --oneline --decorate --color --graph'
+abbr -a glcr 'git branch | fzf | xargs -I % git log %..origin/HEAD --oneline --decorate --color --graph'
 
 # PYTHON ALIASES --------------------------------------------------------------
-alias python python3
-alias pip pip3
+abbr -a python python3
+abbr -a pip pip3

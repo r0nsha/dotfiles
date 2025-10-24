@@ -97,9 +97,9 @@ function tmux_select_session
     end
 end
 
-alias t tmux_select_dir
-alias td tmux_select_dir
-alias ts tmux_select_session
+abbr -a t tmux_select_dir
+abbr -a td tmux_select_dir
+abbr -a ts tmux_select_session
 
 function show_colors
     for COLOR in (seq 0 255)
