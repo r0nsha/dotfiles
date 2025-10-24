@@ -29,14 +29,14 @@ if vim.fn.executable("tmux") ~= 1 then
 end
 
 -- Deal with word wrap
-vim.keymap.set("n", "j", function()
+vim.keymap.set({ "n", "x" }, "j", function()
   if vim.v.count == 0 then
     return "gj"
   else
     return "j"
   end
 end, { expr = true })
-vim.keymap.set("n", "k", function()
+vim.keymap.set({ "n", "x" }, "k", function()
   if vim.v.count == 0 then
     return "gk"
   else

@@ -55,12 +55,10 @@ vim.opt.fillchars:append({ diff = "╱" })
 vim.opt.winborder = "single"
 
 -- wrap
-vim.opt.wrap = true
-if vim.opt.wrap then
-  vim.opt.showbreak = ""
-  vim.opt.breakindent = true
-  vim.opt.linebreak = true
-end
+vim.opt.wrap = false
+vim.opt.showbreak = ""
+vim.opt.breakindent = true
+vim.opt.linebreak = true
 
 -- title
 vim.opt.title = true
