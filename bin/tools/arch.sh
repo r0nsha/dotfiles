@@ -213,6 +213,7 @@ yay_deps=(
 	downgrade
 	opencode
 	jjui-bin
+	responsively
 )
 
 yay -S --noconfirm ${yay_deps[@]}

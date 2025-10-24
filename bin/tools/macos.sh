@@ -51,6 +51,7 @@ install_deps() {
 		opencode
 		jj
 		jjui
+		responsively
 	)
 
 	brew install ${deps[@]}
