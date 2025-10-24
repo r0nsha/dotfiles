@@ -18,9 +18,13 @@ abbr -a du "du -h"
 
 if binary_exists eza
     abbr -a l eza
-    abbr -a ll 'eza -lah'
     abbr -a ls eza
-    abbr -a sl eza
+    abbr -a ll 'eza -lh'
+    abbr -a lll 'eza -lah'
+else
+    abbr -a l ls
+    abbr -a ll 'ls -lh'
+    abbr -a lll 'ls -lah'
 end
 
 if binary_exists bat
