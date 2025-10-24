@@ -1,5 +1,4 @@
 local utils = require("utils")
-local undodir = vim.fn.expand("~/.vim/undodir")
 
 -- basic
 vim.opt.number = true
@@ -70,7 +69,6 @@ vim.opt.backup = false
 vim.opt.writebackup = false
 vim.opt.swapfile = false
 vim.opt.undofile = true
-vim.opt.undodir = undodir
 vim.opt.shada = { "'10", "<0", "s10", "h" }
 vim.opt.updatetime = 300
 vim.opt.timeout = true
@@ -115,11 +113,6 @@ vim.opt.fillchars:append({
   foldopen = "",
   foldclose = "",
 })
-
--- Create undo directory if it doesn't exist
-if vim.fn.isdirectory(undodir) == 0 then
-  vim.fn.mkdir(undodir, "p")
-end
 
 -- clipboard
 vim.opt.clipboard:append("unnamedplus")
