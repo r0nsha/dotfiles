@@ -110,7 +110,8 @@ vim.opt.mouse = "a"
 vim.opt.mousemodel = "popup_setpos"
 
 -- fold
-vim.o.foldenable = true
+vim.o.foldenable = false
+vim.o.foldmethod = "manual"
 vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
 vim.opt.foldcolumn = "1"
