@@ -1,8 +1,6 @@
 # Homebrew
 switch (uname)
     case Darwin
-        set -l machine (uname -m)
-
         switch (uname -m)
             case arm64
                 set HOMEBREW_PREFIX /opt/homebrew

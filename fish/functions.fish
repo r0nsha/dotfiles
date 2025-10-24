@@ -1,7 +1,3 @@
-function warn
-    printf "\r\033[2K  [\033[0;33mWARN\033[0m] $argv[1]\n"
-end
-
 function binary_exists
     command -v -q $argv[1]
 end
@@ -14,10 +10,6 @@ function dashboard
     tmux send-keys -t $name:1.1 "tmux split-window -v -l 65%" enter
     tmux send-keys -t $name:1.1 btm enter
     tmux switch-client -t $name
-end
-
-function mysk
-    sk --color=current_bg:232 $argv
 end
 
 function myfzf
@@ -61,14 +53,14 @@ function tmux_select_dir
         set selected $HOME/$selected
     end
 
-    if test -z $selected
+    if test -z "$selected"
         return
     end
 
     set -l name (basename $selected | tr . _)
     set -l tmux_running (pgrep tmux)
 
-    if test -z $TMUX; and test -z $tmux_running
+    if test -z "$TMUX"; and test -z "$tmux_running"
         tmux new-session -s $name -c "$selected"
         return
     end
@@ -78,7 +70,7 @@ function tmux_select_dir
         tmux select-window -t $name:1 # select first window
     end
 
-    if test -z $TMUX
+    if test -z "$TMUX"
         tmux attach -t $name
     else
         tmux switch-client -t $name
@@ -92,7 +84,7 @@ function tmux_select_session
         set selected (tmux list-sessions -F "#{session_name}" | myfzf)
     end
 
-    if test -n $selected
+    if test -n "$selected"
         tmux switch-client -t $selected
     end
 end

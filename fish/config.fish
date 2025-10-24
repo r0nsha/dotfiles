@@ -43,8 +43,8 @@ set fish_cursor_visual block
 fish_add_path $HOME/.cargo/bin
 fish_add_path $HOME/.local/bin
 fish_add_path ./node_modules/.bin
-set -Ux NVM_DIR "$HOME/.nvm"
-set -Ux PNPM_HOME "$HOME/.local/share/pnpm"
+set -gx NVM_DIR "$HOME/.nvm"
+set -gx PNPM_HOME "$HOME/.local/share/pnpm"
 fish_add_path $PNPM_HOME
 
 if status is-interactive
