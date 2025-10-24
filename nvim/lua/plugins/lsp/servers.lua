@@ -208,6 +208,8 @@ local servers = {
   astro = { manual_install = true },
   mdx_analyzer = { manual_install = true },
   copilot = { manual_install = true },
+  bashls = { manual_install = true },
+  fish_lsp = { manual_install = true },
 }
 
 local servers_to_install = vim.tbl_filter(function(key)
@@ -236,6 +238,8 @@ local ensure_installed = {
   "astro-language-server",
   "mdx-analyzer",
   "copilot-language-server",
+  "bash-language-server",
+  "fish-lsp",
 
   -- formatters
   "prettierd",

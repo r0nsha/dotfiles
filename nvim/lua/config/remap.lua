@@ -117,3 +117,10 @@ vim.keymap.set("n", "<leader>cc", "1z=", { desc = "Correct spelling" })
 -- Terminal
 vim.keymap.set("t", "<c-w>n", "<c-\\><c-n>", { desc = "Exit terminal mode" })
 vim.keymap.set("t", "<c-cr>", "<c-\\><c-n><cr>")
+
+-- Write
+vim.keymap.set("n", "<leader>w", "<cmd>w<cr>", { desc = "Write" })
+
+-- Jump to start and end of line using home row keys
+vim.keymap.set("n", "H", "^", { desc = "Jump to start of line" })
+vim.keymap.set("n", "L", "$", { desc = "Jump to end of line" })

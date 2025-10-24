@@ -43,11 +43,14 @@ vim.opt.list = true
 vim.opt.listchars = {
   eol = "↲",
   tab = "󰧟 ",
+  nbsp = "¬",
+  extends = "»",
+  precedes = "«",
+  trail = " ",
   multispace = " ",
   lead = " ",
-  trail = " ",
-  nbsp = " ",
 }
+listchars = "tab:^ ,nbsp:¬,extends:»,precedes:«,trail:•"
 vim.opt.fillchars:append({ diff = "╱" })
 vim.opt.winborder = "single"
 
@@ -82,13 +85,18 @@ vim.filetype.add({ extension = { ll = "llvm" } })
 
 -- behavior
 vim.opt.hidden = true
-vim.opt.errorbells = false
+vim.opt.visualbell = true
 vim.opt.backspace = { "indent", "start", "eol" }
 vim.opt.autochdir = false
 vim.opt.path:append("**")
 vim.opt.modifiable = true
 vim.opt.encoding = "utf-8"
 vim.opt.more = false
+
+-- diff
+vim.opt.diffopt:append("iwhite")
+vim.opt.diffopt:append("algorithm:histogram")
+vim.opt.diffopt:append("indent-heuristic")
 
 -- splits
 vim.opt.splitbelow = true
