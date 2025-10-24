@@ -70,6 +70,7 @@
   "snacks.nvim": { "branch": "main", "commit": "c9528341a6ef9dc9cb404b1c901b1276af331ccf" },
   "todo-comments.nvim": { "branch": "main", "commit": "19d461ddd543e938eb22505fb03fa878800270b6" },
   "treesj": { "branch": "main", "commit": "4770492244ccecdc9b01e0e81fa8f2f6b4a23841" },
+  "typescript-tools.nvim": { "branch": "master", "commit": "bf11d98ad5736e1cbc1082ca9a03196d45c701f1" },
   "typst-preview.nvim": { "branch": "master", "commit": "1603d37bb44ed2efa0b4378d1dfedc087b4f2141" },
   "undotree": { "branch": "master", "commit": "0f1c9816975b5d7f87d5003a19c53c6fd2ff6f7f" }
 }

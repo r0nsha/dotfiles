@@ -41,27 +41,27 @@ local servers = {
       client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, nvim_settings)
     end,
   },
-  ts_ls = {
-    manual_install = true,
-    init_options = {
-      preferences = {
-        importModuleSpecifierPreference = "relative",
-      },
-    },
-    commands = {
-      OrganizeImports = {
-        function()
-          local params = {
-            command = "_typescript.organizeImports",
-            arguments = { vim.api.nvim_buf_get_name(0) },
-            title = "",
-          }
-          vim.lsp.buf.execute_command(params)
-        end,
-        description = "Organize Imports",
-      },
-    },
-  },
+  -- ts_ls = {
+  --   manual_install = true,
+  --   init_options = {
+  --     preferences = {
+  --       importModuleSpecifierPreference = "relative",
+  --     },
+  --   },
+  --   commands = {
+  --     OrganizeImports = {
+  --       function()
+  --         local params = {
+  --           command = "_typescript.organizeImports",
+  --           arguments = { vim.api.nvim_buf_get_name(0) },
+  --           title = "",
+  --         }
+  --         vim.lsp.buf.execute_command(params)
+  --       end,
+  --       description = "Organize Imports",
+  --     },
+  --   },
+  -- },
   cssls = {
     manual_install = true,
     settings = {
