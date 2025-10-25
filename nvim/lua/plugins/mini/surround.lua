@@ -1,5 +1,6 @@
 return {
   "nvim-mini/mini.surround",
+  enabled = false,
   opts = {
     mappings = {
       add = "sa",
