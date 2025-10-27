@@ -17,35 +17,7 @@ Prerequisites:
 - Docker CLI
 - Installed and unzipped the font from their [website](https://usgraphics.com/products/berkeley-mono)
 
-After installing it, run the following:
-
-```sh
-cp 251015*/TX-02-* /tmp/original
-cd /tmp
-mkdir patched
-git clone --depth 1 https://github.com/ryanoasis/nerd-fonts.git
-cd nerd-fonts
-
-newgrp docker
-
-# Mono
-docker run --rm \
-        -v /tmp/original:/in \
-        -v /tmp/patched:/out \
-        nerdfonts/patcher \
-        --complete
-
-# Propo
-docker run --rm \
-        -v /tmp/original:/in \
-        -v /tmp/patched:/out \
-        nerdfonts/patcher \
-        --complete \
-        --variable-width-glyphs
-
-mkdir ~/.local/share/fonts
-cp /tmp/patched/* ~/.local/share/fonts
-```
+After installing it, run `scripts/patch_berkeley_mono.fish`
 
 ## Local Fish Config
 
