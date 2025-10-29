@@ -1,10 +1,10 @@
 #!/usr/bin/env fish
 
 function usage
-    echo "usage: screen.fish -a/--action <shot|record> -r/--region <region|window|screen> -t/--to <clipboard|ui|file> [--gif] [--audio] [-h/--help]"
+    echo "usage: screen.fish -a/--action <shot|record> -r/--region <region|window|screen> -t/--to <clipboard|ui|file> [--gif] [--audio|--mic] [-h/--help]"
 end
 
-argparse h/help "a/action=" "r/region=" "t/to=" gif audio -- $argv
+argparse h/help "a/action=" "r/region=" "t/to=" gif audio mic -- $argv
 
 if set -ql _flag_h
     usage
@@ -15,7 +15,7 @@ set action $_flag_a
 set region $_flag_r
 set to $_flag_t
 
-if test -z $action; or test -z $region; or test -z $to
+if test -z "$action"; or test -z "$region"; or test -z "$to"
     usage
     return 1
 end
@@ -35,9 +35,9 @@ function get_filename
 end
 
 function select_region
-    set background (test -n $color0; and echo "$(echo $color0)aa"; or echo "#d0d0d0aa")
-    set border (test -n $color5; and echo "$color5"; or echo "#ffffff")
-    set selection (test -n $color7; and echo "$(echo $color7)00"; or echo "#00000022")
+    set background (test -n "$color0"; and echo "$(echo $color0)aa"; or echo "#d0d0d0aa")
+    set border (test -n "$color5"; and echo "$color5"; or echo "#ffffff")
+    set selection (test -n "$color7"; and echo "$(echo $color7)00"; or echo "#00000022")
     set geom (slurp -b $background -c $border -s $selection -w 2)
     if test $status -ne 0
         exit 1
@@ -73,7 +73,7 @@ switch $action
         set file "$dir/$(get_filename).png"
         set geom (get_geometry)
         set shot_args
-        if test -n $geom
+        if test -n "$geom"
             set shot_args -g "$geom"
         end
 
@@ -117,13 +117,17 @@ switch $action
         else
             set ext mp4
             if set -q _flag_audio
+                set -a recorder_args --audio="$(pactl get-default-sink).monitor"
+            end
+
+            if set -q _flag_mic
                 set -a recorder_args --audio
             end
         end
 
         set file "$dir/$(get_filename).$ext"
         set geom (get_geometry)
-        if test -n $geom
+        if test -n "$geom"
             set -a recorder_args -g "$geom"
         end
 
@@ -143,7 +147,7 @@ switch $action
             case ui
                 if test "$ext" != gif
                     wl-copy $file
-                    openshot-qt $file
+                    shotcut $file
                     echo recording
                 else 
                     echo path

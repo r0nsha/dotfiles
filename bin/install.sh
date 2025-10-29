@@ -12,6 +12,7 @@ LOCAL_SHARE="${XDG_DATA_HOME:-$HOME/.local/share}"
 DEV="$HOME/dev"
 DOWNLOADS="${XDG_DOWNLOAD_DIR:-$HOME/downloads}"
 PICTURES="${XDG_PICTURES_DIR:-$HOME/pictures}"
+VIDEOS="${XDG_VIDEOS_DIR:-$HOME/videos}"
 
 cat $DOTFILES/bin/pepe.txt
 
@@ -29,7 +30,7 @@ fi
 
 cd $DOTFILES
 
-mkdir -p $LOCAL_BIN $LOCAL_OPT $LOCAL_SHARE $DEV $DOWNLOADS $PICTURES
+mkdir -p $LOCAL_BIN $LOCAL_OPT $LOCAL_SHARE $DEV $DOWNLOADS $PICTURES $VIDEOS
 
 LOCAL_ENV=$HOME/.env.fish
 if [ ! -f "$LOCAL_ENV" ]; then

@@ -140,7 +140,7 @@ pacman_deps=(
 
 	# apps
 	steam
-	openshot
+	shotcut
 	rqbit
 	zathura
 
