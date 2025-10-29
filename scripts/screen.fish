@@ -101,9 +101,12 @@ switch $action
 
         notify "saved screenshot to $file, \ncopied $copied to clipboard"
     case record
-        # if wf-recorder is running, stop it and return
+        # if wf-recorder is running, stop/kill it and exit
         set -l pcount (pkill -SIGINT -c wf-recorder)
         if test $pcount -gt 0
+            # unload virtual pulseaudio modules
+            pactl unload-module module-null-sink
+            pactl unload-module module-loopback
             exit
         end
 
@@ -117,7 +120,12 @@ switch $action
         else
             set ext mp4
             if set -q _flag_audio
-                set -a recorder_args --audio="$(pactl get-default-sink).monitor"
+                # we setup a virtual sink that combines the default sink and source, so that we can record both
+                set -l virtual_sink Combined
+                pactl load-module module-null-sink sink_name=$virtual_sink
+                pactl load-module module-loopback sink=$virtual_sink source=$(pactl get-default-sink).monitor
+                pactl load-module module-loopback sink=$virtual_sink source=(pactl get-default-source)
+                set -a recorder_args --audio=$virtual_sink.monitor
             end
 
             if set -q _flag_mic
