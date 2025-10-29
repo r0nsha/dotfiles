@@ -1,10 +1,10 @@
 #!/usr/bin/env fish
 
 function usage
-    echo "usage: screen.fish -a/--action <shot|record> -r/--region <region|window|screen> -t/--to <clipboard|ui|file> [--gif] [--audio|--mic] [-h/--help]"
+    echo "usage: screen.fish -a/--action <shot|record> -r/--region <region|window|screen> -t/--to <clipboard|ui|file> [--gif] [--audio] [-h/--help]"
 end
 
-argparse h/help "a/action=" "r/region=" "t/to=" gif audio mic -- $argv
+argparse h/help "a/action=" "r/region=" "t/to=" gif audio -- $argv
 
 if set -ql _flag_h
     usage
@@ -126,10 +126,6 @@ switch $action
                 pactl load-module module-loopback sink=$virtual_sink source=$(pactl get-default-sink).monitor
                 pactl load-module module-loopback sink=$virtual_sink source=(pactl get-default-source)
                 set -a recorder_args --audio=$virtual_sink.monitor
-            end
-
-            if set -q _flag_mic
-                set -a recorder_args --audio
             end
         end
 
