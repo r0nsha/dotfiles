@@ -2,6 +2,7 @@
 abbr -a s 'source ~/.config/fish/config.fish'
 
 abbr -a c clear
+abbr -a o open
 
 abbr -a e $EDITOR
 abbr -a v nvim
@@ -41,10 +42,6 @@ end
 
 if binary_exists neomutt
     abbr -a mutt neomutt
-end
-
-if binary_exists open
-    abbr -a o open
 end
 
 # GIT ALIASES -----------------------------------------------------------------
