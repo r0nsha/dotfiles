@@ -43,6 +43,10 @@ if binary_exists neomutt
     abbr -a mutt neomutt
 end
 
+if binary_exists open
+    abbr -a o open
+end
+
 # GIT ALIASES -----------------------------------------------------------------
 abbr -a g git
 abbr -a gg 'git branch | fzf | xargs git switch'
