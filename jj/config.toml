@@ -68,3 +68,4 @@ si = ["squash", "--interactive"]
 mine = ["bookmark", "list", "-r", "mine()"]
 # List all branches
 branches = ["log", "-r", "heads(all())"]
+bs = ["bookmark", "set"]
