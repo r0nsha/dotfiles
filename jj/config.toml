@@ -6,7 +6,14 @@ email = "r0nsh4v1t@gmail.com"
 
 [ui]
 default-command = "log"
+pager = "delta"
+diff-formatter = ":git"
 diff-editor = ["nvim", "-c", "DiffEditor $left $right $output"]
+
+[git]
+push-new-bookmarks = true
+# Prevent pushing work in progress or anything explicitly labeled "private"
+private-commits = "description(glob:'wip:*') | description(glob:'private:*')"
 
 [templates]
 draft_commit_description = '''
@@ -34,3 +41,30 @@ merge-args = [
   "$right",
 ]
 merge-tool-edits-conflict-markers = true
+
+[aliases]
+# Bring nearest bookmark up to recent commit
+tug = ["bookmark", "move", "--from", "closest_bookmark(@-)", "--to", "@"]
+tug- = ["bookmark", "move", "--from", "closest_bookmark(@-)", "--to", "@-"]
+# retrunk:
+# `jj rebase -d 'trunk()'` is shorthand for `jj rebase -b @ -d 'trunk()'`
+#
+# What that does:
+#
+# `-b @` rebases the entire branch that the current @ is on relative to the destination. (Default),
+# `-d trunk()` sets the destination. trunk() finds the most recent `main | master | trunk` branch thats on a remote. trunk() is builtin.
+retrunk = ["rebase", "-d", "trunk()"]
+e = ["edit"]
+i = ["git", "init", "--colocate"]
+# Pull from remote
+pull = ["git", "fetch"]
+# Push to remote
+push = ["git", "push"]
+# Rebase
+r = ["rebase"]
+s = ["squash"]
+si = ["squash", "--interactive"]
+# List my branches
+mine = ["bookmark", "list", "-r", "mine()"]
+# List all branches
+branches = ["log", "-r", "heads(all())"]

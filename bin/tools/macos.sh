@@ -34,6 +34,7 @@ install_deps() {
 		tldr
 		rustup
 		bat
+		git-delta
 		n
 		deno
 		just
