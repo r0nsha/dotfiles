@@ -134,3 +134,10 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.spellsuggest = "best"
   end,
 })
+
+-- Open help window in a vertical split to the right
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup,
+  pattern = "help",
+  command = "wincmd L",
+})
