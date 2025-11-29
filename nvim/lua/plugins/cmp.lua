@@ -9,7 +9,7 @@ return {
 
     -- sources
     "Kaiser-Yang/blink-cmp-git",
-    "mgalliou/blink-cmp-tmux",
+    -- "mgalliou/blink-cmp-tmux",
     "ribru17/blink-cmp-spell",
 
     -- misc
@@ -106,16 +106,18 @@ return {
         preset = "mini_snippets",
       },
       sources = {
-        default = { "lazydev", "lsp", "snippets", "spell", "path", "buffer", "tmux", "git" },
+        default = {
+          "lsp",
+          "snippets",
+          "spell",
+          "path",
+          "buffer", --[[ "tmux", ]]
+          "git",
+        },
         per_filetype = {
           codecompanion = { "codecompanion" },
         },
         providers = {
-          lazydev = {
-            name = "LazyDev",
-            module = "lazydev.integrations.blink",
-            score_offset = 100,
-          },
           lsp = {
             -- always show `buffer` source
             fallbacks = {},
@@ -155,11 +157,11 @@ return {
             end,
             opts = {},
           },
-          tmux = {
-            module = "blink-cmp-tmux",
-            name = "tmux",
-            opts = {},
-          },
+          -- tmux = {
+          --   module = "blink-cmp-tmux",
+          --   name = "tmux",
+          --   opts = {},
+          -- },
           spell = {
             name = "spell",
             module = "blink-cmp-spell",

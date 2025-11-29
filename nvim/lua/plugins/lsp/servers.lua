@@ -8,6 +8,9 @@ local servers = {
         telemetry = {
           enable = false,
         },
+        workspace = {
+          library = vim.api.nvim_get_runtime_file("", true),
+        },
       },
     },
     on_init = function(client)
@@ -15,7 +18,7 @@ local servers = {
       local path = client.workspace_folders[1].name
 
       -- Don't do anything if there is project local config
-      if vim.uv.fs_stat(join(path, ".luarc.json")) or vim.uv.fs_stat(join(path, ".luarc.jsonc")) then
+      if vim.loop.fs_stat(join(path, ".luarc.json")) or vim.loop.fs_stat(join(path, ".luarc.jsonc")) then
         return
       end
 

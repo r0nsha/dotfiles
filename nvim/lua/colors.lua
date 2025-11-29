@@ -1,4 +1,4 @@
-local uv = vim.uv
+local uv = vim.loop
 local w = require("utils.watch")
 
 local types = {

@@ -75,7 +75,7 @@ return {
     end, { desc = "Oil (Parent)" })
 
     vim.keymap.set("n", "<leader>E", function()
-      oil.open(vim.uv.cwd())
+      oil.open(vim.loop.cwd())
     end, { desc = "Oil (CWD)" })
 
     vim.api.nvim_create_autocmd("User", {

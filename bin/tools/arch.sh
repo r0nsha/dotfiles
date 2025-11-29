@@ -211,12 +211,12 @@ yay_deps=(
 	abook
 	protonup-rs
 	downgrade
-	opencode
+	opencode=1.0.60
 	jjui-bin
 	responsively
 )
 
-yay -S --noconfirm ${yay_deps[@]}
+yay -Syu --noconfirm ${yay_deps[@]}
 
 # ly
 sudo systemctl enable ly.service
