@@ -114,7 +114,7 @@ function M.start()
 
   state.buf = buf
   state.win = win
-  state.timer = vim.loop.new_timer()
+  state.timer = vim.uv.new_timer()
   state.timer:start(0, config.interval, vim.schedule_wrap(tick))
 end
 

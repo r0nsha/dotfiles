@@ -18,7 +18,7 @@ function M.get_codelldb_paths()
   local codelldb_path = extension_path .. "adapter/codelldb"
   local liblldb_path = extension_path .. "lldb/lib/liblldb"
 
-  local this_os = vim.loop.os_uname().sysname
+  local this_os = vim.uv.os_uname().sysname
 
   -- The path in windows is different
   if this_os:find("Windows") then
@@ -45,7 +45,7 @@ end
 ---@param timeout number
 ---@return function | { cancel: function }
 function M.debounce(callback, timeout)
-  local timer = vim.loop.new_timer()
+  local timer = vim.uv.new_timer()
 
   if not timer then
     return callback

@@ -2,7 +2,7 @@ local icons = require("config.icons")
 
 local M = {}
 
-local uv = vim.loop
+local uv = vim.uv
 
 -- active requests
 local active = {}
