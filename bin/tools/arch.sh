@@ -211,7 +211,7 @@ yay_deps=(
 	abook
 	protonup-rs
 	downgrade
-	opencode=1.0.60
+	opencode
 	jjui-bin
 	responsively
 )
