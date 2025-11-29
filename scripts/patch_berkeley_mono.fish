@@ -14,6 +14,12 @@ if not test -f $zip_path
     exit 1
 end
 
+if test (uname) = Darwin
+    set system_fonts /Library/Fonts
+else
+    set system_fonts ~/.local/share/fonts
+end
+
 set original_path (pwd)
 set base_dir ~/tmp_nf_patch
 
@@ -23,6 +29,7 @@ mkdir -p $base_dir
 cd (realpath (dirname $zip_path))
 yes | unzip $zip_path
 cp -r 251*/TX-02-* $base_dir/in
+cp -r 251*/TX-02-*/* $system_fonts
 cd $base_dir
 mkdir $base_dir/out
 
@@ -39,12 +46,6 @@ docker run --rm \
     -v $base_dir/out:/out \
     nerdfonts/patcher \
     --complete --variable-width-glyphs
-
-if test (uname) = Darwin
-    set system_fonts /Library/Fonts
-else
-    set system_fonts ~/.local/share/fonts
-end
 
 mkdir -p $system_fonts
 yes | cp $base_dir/out/* $system_fonts
