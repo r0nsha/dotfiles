@@ -17,9 +17,9 @@ install_brew() {
 
 	eval "\$(${HOMEBREW_PREFIX}/bin/brew shellenv)"
 
-	echo >> /Users/ron.s/.zprofile
-    echo 'eval "$(${HOMEBREW_PREFIX}bin/brew shellenv)"' >> /Users/ron.s/.zprofile
-    eval "$(${HOMEBREW_PREFIX}/brew shellenv)"
+	echo >>/Users/ron.s/.zprofile
+	echo 'eval "$(${HOMEBREW_PREFIX}bin/brew shellenv)"' >>/Users/ron.s/.zprofile
+	eval "$(${HOMEBREW_PREFIX}/brew shellenv)"
 }
 
 install_deps() {
@@ -54,7 +54,7 @@ install_deps() {
 		docker
 		colima
 		kitty
-		neovim	
+		neovim
 		font-iosevka-nerd-font
 		opencode
 		jj
@@ -63,6 +63,8 @@ install_deps() {
 		mcfly
 		gnupg
 		pinentry-mac
+		n
+		go
 	)
 
 	brew install ${deps[@]}
@@ -72,5 +74,5 @@ install_wrapper brew install_brew
 install_deps
 echo ""
 
-echo "pinentry-program $(which pinentry-mac)" >>  ~/.gnupg/gpg-agent.conf
+echo "pinentry-program $(which pinentry-mac)" >>~/.gnupg/gpg-agent.conf
 gpg-connect-agent reloadagent /bye
