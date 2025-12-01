@@ -16,6 +16,10 @@ install_brew() {
 	fi
 
 	eval "\$(${HOMEBREW_PREFIX}/bin/brew shellenv)"
+
+	echo >> /Users/ron.s/.zprofile
+    echo 'eval "$(${HOMEBREW_PREFIX}bin/brew shellenv)"' >> /Users/ron.s/.zprofile
+    eval "$(${HOMEBREW_PREFIX}/brew shellenv)"
 }
 
 install_deps() {
@@ -48,26 +52,25 @@ install_deps() {
 		font-symbols-only-nerd-font
 		yazi
 		docker
+		colima
+		kitty
+		neovim	
 		font-iosevka-nerd-font
 		opencode
 		jj
 		jjui
 		responsively
+		mcfly
+		gnupg
+		pinentry-mac
 	)
 
 	brew install ${deps[@]}
 }
 
-install_nvim() {
-	curl -L# https://github.com/neovim/neovim/releases/download/stable/nvim-macos.tar.gz --output $DOWNLOADS/nvim-macos.tar.gz
-	cd $DOWNLOADS
-	xattr -c ./nvim-macos.tar.gz
-	tar xzf nvim-macos.tar.gz
-	cd $HOME
-	ln -sf $DOWNLOADS/nvim-macos/bin/nvim $HOME/.local/bin/nvim
-}
-
 install_wrapper brew install_brew
 install_deps
 echo ""
-install_wrapper nvim install_nvim
+
+echo "pinentry-program $(which pinentry-mac)" >>  ~/.gnupg/gpg-agent.conf
+gpg-connect-agent reloadagent /bye

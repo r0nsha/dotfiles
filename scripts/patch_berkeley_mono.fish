@@ -20,7 +20,7 @@ rm -rf /tmp/original /tmp/patched
 
 cd (realpath (dirname $zip_path))
 yes | unzip $zip_path
-cp 251015*/TX-02-* /tmp/original
+cp 251*/TX-02-* /tmp/original
 cd /tmp
 mkdir patched
 

@@ -1,6 +1,14 @@
 return {
   "saghen/blink.cmp",
-  build = "cargo build --release",
+  build = function(plugin)
+    local result = vim.system({ 'rustup', 'run', 'nightly', 'cargo', 'build', '--release' }, { 
+      cwd = plugin.dir,
+      env = { RUSTUP_TOOLCHAIN = 'nightly' }
+    }):wait()
+    if result.code ~= 0 then
+      error("Failed to build blink.cmp: " .. result.stderr)
+    end
+  end,
   version = "*",
   dependencies = {
     -- snippets
