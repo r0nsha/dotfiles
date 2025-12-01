@@ -1,15 +1,7 @@
 return {
   "saghen/blink.cmp",
-  build = function(plugin)
-    local result = vim.system({ 'rustup', 'run', 'nightly', 'cargo', 'build', '--release' }, { 
-      cwd = plugin.dir,
-      env = { RUSTUP_TOOLCHAIN = 'nightly' }
-    }):wait()
-    if result.code ~= 0 then
-      error("Failed to build blink.cmp: " .. result.stderr)
-    end
-  end,
-  version = "*",
+  -- build = "cargo build --release",
+  version = "1.*",
   dependencies = {
     -- snippets
     "rafamadriz/friendly-snippets",
@@ -88,7 +80,7 @@ return {
       fuzzy = {
         implementation = "prefer_rust_with_warning",
         prebuilt_binaries = {
-          download = false,
+          download = true,
         },
         sorts = { "exact", "score", "sort_text", "kind", "label" },
       },
