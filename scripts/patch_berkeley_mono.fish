@@ -15,35 +15,30 @@ if not test -f $zip_path
 end
 
 set original_path (pwd)
+set base_dir ~/tmp_nf_patch
 
-rm -rf /tmp/original /tmp/patched
+rm -rf $base_dir
+mkdir -p $base_dir
 
 cd (realpath (dirname $zip_path))
 yes | unzip $zip_path
-cp 251*/TX-02-* /tmp/original
-cd /tmp
-mkdir patched
-
-if not test -d nerd-fonts
-    git clone --depth 1 https://github.com/ryanoasis/nerd-fonts.git
-end
-
-cd nerd-fonts
+cp -r 251*/TX-02-* $base_dir/in
+cd $base_dir
+mkdir $base_dir/out
 
 # Mono
 docker run --rm \
-    -v /tmp/original:/in \
-    -v /tmp/patched:/out \
+    -v $base_dir/in:/in \
+    -v $base_dir/out:/out \
     nerdfonts/patcher \
     --complete
 
 # Propo
 docker run --rm \
-    -v /tmp/original:/in \
-    -v /tmp/patched:/out \
+    -v $base_dir/in:/in \
+    -v $base_dir/out:/out \
     nerdfonts/patcher \
-    --complete \
-    --variable-width-glyphs
+    --complete --variable-width-glyphs
 
 if test (uname) = Darwin
     set system_fonts /Library/Fonts
@@ -52,6 +47,7 @@ else
 end
 
 mkdir -p $system_fonts
-yes | cp /tmp/patched/* $system_fonts
+yes | cp $base_dir/out/* $system_fonts
 
+rm -rf $base_dir
 cd $original_path

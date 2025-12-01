@@ -66,6 +66,7 @@ install_deps() {
 		n
 		go
 		nikitabobko/tap/aerospace
+		fontforge
 	)
 
 	brew install ${deps[@]}
