@@ -65,6 +65,7 @@ install_deps() {
 		pinentry-mac
 		n
 		go
+		nikitabobko/tap/aerospace
 	)
 
 	brew install ${deps[@]}
