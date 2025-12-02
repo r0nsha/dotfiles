@@ -1,7 +1,7 @@
 return {
   "saghen/blink.cmp",
-  build = "cargo build --release",
-  version = "*",
+  -- build = "cargo build --release",
+  version = "1.*",
   dependencies = {
     -- snippets
     "rafamadriz/friendly-snippets",
@@ -80,7 +80,7 @@ return {
       fuzzy = {
         implementation = "prefer_rust_with_warning",
         prebuilt_binaries = {
-          download = false,
+          download = true,
         },
         sorts = { "exact", "score", "sort_text", "kind", "label" },
       },

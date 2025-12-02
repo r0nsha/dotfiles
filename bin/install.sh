@@ -5,7 +5,7 @@
 set -euo pipefail
 
 script_dir=$(dirname "$0")
-DOTFILES=$(realpath -s $script_dir/..)
+DOTFILES=$(realpath $script_dir/..)
 LOCAL_BIN="$HOME/.local/bin"
 LOCAL_OPT="$HOME/.local/opt"
 LOCAL_SHARE="${XDG_DATA_HOME:-$HOME/.local/share}"
@@ -64,15 +64,29 @@ step "tools"
 source $DOTFILES/bin/tools.sh
 success
 
+# install tpm for tmux
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
 # stow dotfiles
 step "stow"
 cd $DOTFILES
 stow .
+
+# gnupg
+mkdir -p $HOME/.gnupg
+find ~/.gnupg -type f -exec chmod 600 {} \;
+find ~/.gnupg -type d -exec chmod 700 {} \;
 ln -sfv $DOTFILES/gpg/gpg-agent.conf $HOME/.gnupg/gpg-agent.conf
 ln -sfv $DOTFILES/.pam-gnupg $HOME/.pam-gnupg
+
+# ssh
 mkdir -p $HOME/.ssh
 ln -sfv $DOTFILES/ssh/config ~/.ssh/config
-sudo ln -sfv $DOTFILES/ly/config.ini /etc/ly/config.ini
+
+# ly
+if [ "$MACHINE" = "linux" ]; then
+	sudo ln -sfv $DOTFILES/ly/config.ini /etc/ly/config.ini
+fi
 
 # macos defaults
 if [ "$MACHINE" = "darwin" ]; then

@@ -9,4 +9,5 @@ switch (uname)
         end
 
         eval ($HOMEBREW_PREFIX/bin/brew shellenv)
+        fish_add_path /opt/homebrew/opt/rustup/bin
 end

@@ -62,6 +62,7 @@ pacman_deps=(
 	mpv
 	typst
 	docker
+	go
 
 	# media
 	pipewire
