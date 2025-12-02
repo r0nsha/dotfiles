@@ -30,7 +30,7 @@ return {
       function()
         Snacks.gitbrowse()
       end,
-      desc = "Git: Browse",
+      desc = "Git: Browse (Yank)",
       mode = { "n", "v" },
     },
     {
@@ -45,7 +45,7 @@ return {
           })
         end)
       end,
-      desc = "Git: Browse",
+      desc = "Git: Browse (Yank)",
       mode = { "n", "v" },
     },
   },

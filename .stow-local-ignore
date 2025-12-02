@@ -31,3 +31,5 @@ gpg
 ly
 ssh
 .pam-gnupg
+\.jj
+jj/conf.d

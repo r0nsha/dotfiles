@@ -16,7 +16,6 @@ local servers = {
   tinymist = {},
   astro = { name = "astro-language-server" },
   mdx_analyzer = { name = "mdx-analyzer" },
-  copilot = { name = "copilot-language-server" },
   bashls = { name = "bash-language-server" },
   fish_lsp = { name = "fish-lsp" },
   terraformls = { name = "terraform-ls" },

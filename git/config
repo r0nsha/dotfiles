@@ -2,12 +2,13 @@
 	name = r0nsha
 	email = r0nsh4v1t@gmail.com
 
+[include]
+    path = ~/.gitconfig.local
+
 [credential "https://github.com"]
-	helper = 
 	helper = !/opt/homebrew/bin/gh auth git-credential
 
 [credential "https://gist.github.com"]
-	helper = 
 	helper = !/opt/homebrew/bin/gh auth git-credential
 
 [init]

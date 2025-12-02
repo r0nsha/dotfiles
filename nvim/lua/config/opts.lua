@@ -37,7 +37,7 @@ vim.opt.completeopt = { "menu", "menuone", "noselect" }
 vim.opt.pumheight = 10
 vim.opt.pumblend = 10
 vim.opt.winblend = 0
-vim.opt.conceallevel = 2
+vim.opt.conceallevel = 0
 vim.opt.concealcursor = ""
 vim.opt.list = true
 vim.opt.listchars = {
@@ -79,7 +79,10 @@ vim.opt.autoread = true
 vim.opt.autowrite = false
 
 -- filetypes
-vim.filetype.add({ extension = { ll = "llvm" } })
+vim.filetype.add({
+  extension = { ll = "llvm" },
+  filename = { [".gitconfig.local"] = "gitconfig" },
+})
 
 -- behavior
 vim.opt.hidden = true
