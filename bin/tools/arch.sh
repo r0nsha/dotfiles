@@ -63,6 +63,7 @@ pacman_deps=(
 	typst
 	docker
 	go
+	qmk
 
 	# media
 	pipewire
