@@ -100,12 +100,6 @@
 	abbrevCommit = true
 	graphColors = blue,yellow,cyan,magenta,green,red
 
-[status]
-	branch = true
-	short = true
-	showStash = true
-	showUntrackedFiles = all
-
 [interactive]
 	diffFilter = delta --color-only
 	singleKey = true
