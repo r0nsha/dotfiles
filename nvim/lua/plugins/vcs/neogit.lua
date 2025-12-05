@@ -1,5 +1,6 @@
 return {
   "NeogitOrg/neogit",
+  enabled = false,
   event = "VeryLazy",
   config = function()
     require("neogit").setup({

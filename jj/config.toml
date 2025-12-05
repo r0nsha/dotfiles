@@ -43,9 +43,6 @@ merge-args = [
 merge-tool-edits-conflict-markers = true
 
 [aliases]
-# Bring nearest bookmark up to recent commit
-tug = ["bookmark", "move", "--from", "closest_bookmark(@-)", "--to", "@"]
-tug- = ["bookmark", "move", "--from", "closest_bookmark(@-)", "--to", "@-"]
 # retrunk:
 # `jj rebase -d 'trunk()'` is shorthand for `jj rebase -b @ -d 'trunk()'`
 #
