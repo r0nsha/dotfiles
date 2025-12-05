@@ -81,223 +81,194 @@ return {
     },
   },
   {
-    "sudo-tee/opencode.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      {
-        "MeanderingProgrammer/render-markdown.nvim",
-        opts = {
-          anti_conceal = { enabled = false },
-          file_types = { "markdown", "opencode_output" },
-        },
-        ft = { "markdown", "Avante", "copilot-chat", "opencode_output" },
-      },
-      "saghen/blink.cmp",
-      "folke/snacks.nvim",
-    },
+    "NickvanDyke/opencode.nvim",
     config = function()
-      ---@param new_session boolean
-      local function ask(new_session)
-        local base = ""
-        local in_visual_mode = vim.api.nvim_get_mode().mode:lower() == "v"
-        if in_visual_mode then
-          local start = vim.fn.line("v")
-          local end_ = vim.fn.line(".")
-          base = "Context lines " .. start .. "-" .. end_ .. ": "
-        end
+      vim.g.opencode_opts = {
+        auto_reload = true,
+      }
 
-        vim.ui.input({
-          prompt = "Enter a prompt: ",
-          default = "",
-        }, function(input)
-          if input and input:match("^%s*$") == nil then
-            local api = require("opencode.api")
-            api.open_output()
-            api.run(base .. input, {
-              new_session = new_session,
-              context = {
-                cursor_data = {
-                  enabled = not in_visual_mode,
-                },
-              },
-            })
-          end
-        end)
-      end
+      -- Required for `vim.g.opencode_opts.auto_reload`.
+      vim.o.autoread = true
 
-      require("opencode").setup({
-        default_global_keymaps = false,
-        default_mode = "plan",
-        keymap_prefix = "<leader>o",
-        keymap = {
-          editor = {
-            ["<leader>og"] = { "toggle" },
-            ["<leader>oi"] = { "open_input" },
-            ["<leader>oI"] = { "open_input_new_session" },
-            ["<leader>oo"] = { "open_output" },
-            ["<leader>ot"] = { "toggle_focus" },
-            ["<leader>oT"] = { "timeline" },
-            ["<leader>oq"] = { "close" },
-            ["<leader>os"] = { "select_session" },
-            ["<leader>oR"] = { "rename_session" },
-            ["<leader>oP"] = { "configure_provider" },
-            ["<leader>oz"] = { "toggle_zoom" },
-            ["<leader>ov"] = { "paste_image" },
-            ["<leader>od"] = { "diff_open" },
-            ["<leader>o]"] = { "diff_next" },
-            ["<leader>o["] = { "diff_prev" },
-            ["<leader>oc"] = { "diff_close" },
-            ["<leader>oua"] = { "diff_revert_all_last_prompt" },
-            ["<leader>out"] = { "diff_revert_this_last_prompt" },
-            ["<leader>ouA"] = { "diff_revert_all" },
-            ["<leader>ouT"] = { "diff_revert_this" },
-            ["<leader>our"] = { "diff_restore_snapshot_file" },
-            ["<leader>ouR"] = { "diff_restore_snapshot_all" },
-            ["<leader>ox"] = { "swap_position" },
-            ["<leader>opa"] = { "permission_accept" },
-            ["<leader>opA"] = { "permission_accept_all" },
-            ["<leader>opd"] = { "permission_deny" },
-            ["<M-o>"] = {
-              function()
-                ask(false)
-              end,
-              mode = { "n", "x" },
-            },
-            ["<M-O>"] = {
-              function()
-                ask(true)
-              end,
-              mode = { "n", "x" },
-            },
-          },
-          input_window = {
-            ["<cr>"] = { "submit_input_prompt", mode = { "n" } },
-            ["<a-cr>"] = { "submit_input_prompt", mode = { "i" } },
-            ["<esc>"] = { function() end }, -- ESC should do nothing
-            ["<C-c>"] = { "cancel" },
-            ["~"] = { "mention_file", mode = "i" },
-            ["@"] = { "mention", mode = "i" },
-            ["/"] = { "slash_commands", mode = "i" },
-            ["#"] = { "context_items", mode = "i" },
-            ["<M-v>"] = { "paste_image", mode = "i" },
-            ["<C-i>"] = { "focus_input", mode = { "n", "i" } },
-            ["<up>"] = { "prev_prompt_history" },
-            ["<down>"] = { "next_prompt_history" },
-            ["<M-m>"] = { "switch_mode" },
-          },
-          output_window = {
-            ["<esc>"] = { function() end }, -- ESC should do nothing
-            ["<C-c>"] = { "cancel" },
-            ["<C-n>"] = { "next_message" },
-            ["<C-p>"] = { "prev_message" },
-            ["]]"] = { "next_message" },
-            ["[["] = { "prev_message" },
-            ["<M-m>"] = { "switch_mode" },
-            ["i"] = { "focus_input", "n" },
-            ["<leader>oS"] = { "select_child_session" },
-            ["<leader>oD"] = { "debug_message" },
-            ["<leader>oO"] = { "debug_output" },
-            ["<leader>ods"] = { "debug_session" },
-          },
-          permission = {
-            accept = "a",
-            accept_all = "A",
-            deny = "d",
-          },
-          session_picker = {
-            rename_session = { "<C-r>" },
-            delete_session = { "<C-x>" },
-            new_session = { "<C-m>" },
-          },
-          timeline_picker = {
-            undo = { "<C-u>", mode = { "i", "n" } },
-            fork = { "<C-f>", mode = { "i", "n" } },
-          },
-          history_picker = {
-            delete_entry = { "<C-d>", mode = { "i", "n" } },
-            clear_all = { "<C-X>", mode = { "i", "n" } },
-          },
-        },
-        ui = {
-          window_width = 0.35,
-          zoom_width = 0.8,
-          input_height = 0.15,
-          completion = {
-            file_sources = {
-              preferred_cli_tool = nil,
-            },
-          },
-        },
-        context = {
-          enabled = true,
-          diagnostics = {
-            info = true,
-            warn = true,
-            error = true,
-          },
-          current_file = {
-            enabled = true,
-          },
-          selection = {
-            enabled = true,
-          },
-        },
-      })
+      local opencode = require("opencode")
+
+      vim.keymap.set("n", "ga", function()
+        opencode.toggle()
+      end, { desc = "Opencode: Toggle" })
+      vim.keymap.set({ "n", "x" }, "gp", function()
+        opencode.ask("@this: ", { submit = true })
+      end, { desc = "Opencode: Ask about this" })
+      vim.keymap.set({ "n", "x" }, "gP", function()
+        opencode.ask("", { submit = true })
+      end, { desc = "Opencode: Prompt" })
+      vim.keymap.set({ "n", "x" }, "gs", function()
+        opencode.select()
+      end, { desc = "Opencode: Select prompt" })
     end,
   },
   -- {
-  --   "NickvanDyke/opencode.nvim",
+  --   "sudo-tee/opencode.nvim",
   --   dependencies = {
-  --     -- Recommended for `ask()` and `select()`.
-  --     -- Required for `toggle()`.
-  --     { "folke/snacks.nvim", opts = { input = {}, picker = {} } },
+  --     "nvim-lua/plenary.nvim",
+  --     {
+  --       "MeanderingProgrammer/render-markdown.nvim",
+  --       opts = {
+  --         anti_conceal = { enabled = false },
+  --         file_types = { "markdown", "opencode_output" },
+  --       },
+  --       ft = { "markdown", "Avante", "copilot-chat", "opencode_output" },
+  --     },
+  --     "saghen/blink.cmp",
+  --     "folke/snacks.nvim",
   --   },
   --   config = function()
-  --     vim.g.opencode_opts = {
-  --       auto_reload = true,
-  --     }
+  --     ---@param new_session boolean
+  --     local function ask(new_session)
+  --       local base = ""
+  --       local in_visual_mode = vim.api.nvim_get_mode().mode:lower() == "v"
+  --       if in_visual_mode then
+  --         local start = vim.fn.line("v")
+  --         local end_ = vim.fn.line(".")
+  --         base = "Context lines " .. start .. "-" .. end_ .. ": "
+  --       end
 
-  --     -- Required for `vim.g.opencode_opts.auto_reload`.
-  --     vim.o.autoread = true
+  --       vim.ui.input({
+  --         prompt = "Enter a prompt: ",
+  --         default = "",
+  --       }, function(input)
+  --         if input and input:match("^%s*$") == nil then
+  --           local api = require("opencode.api")
+  --           api.open_output()
+  --           api.run(base .. input, {
+  --             new_session = new_session,
+  --             context = {
+  --               cursor_data = {
+  --                 enabled = not in_visual_mode,
+  --               },
+  --             },
+  --           })
+  --         end
+  --       end)
+  --     end
 
-  --     local opencode = require("opencode")
-
-  --     vim.keymap.set("n", "<leader>ap", function()
-  --       opencode.ask("", { clear = true, submit = true })
-  --     end, { desc = "Opencode: Prompt" })
-  --     vim.keymap.set({ "n", "x" }, "<leader>aa", function()
-  --       opencode.ask("@this: ", { submit = true })
-  --     end, { desc = "Opencode: Ask about this" })
-  --     vim.keymap.set({ "n", "x" }, "<leader>aA", function()
-  --       opencode.prompt("@this")
-  --     end, { desc = "Opencode: Add this" })
-  --     vim.keymap.set({ "n", "x" }, "<leader>as", function()
-  --       opencode.select()
-  --     end, { desc = "Opencode: Select prompt" })
-  --     vim.keymap.set("n", "<leader>at", function()
-  --       opencode.toggle()
-  --     end, { desc = "Opencode: Toggle embedded" })
-  --     -- vim.keymap.set("n", "<leader>ac", function()
-  --     --   opencode.command()
-  --     -- end, { desc = "Opencode: Select command" })
-  --     vim.keymap.set("n", "<leader>aN", function()
-  --       opencode.command("session_new")
-  --     end, { desc = "Opencode: New session" })
-  --     vim.keymap.set("n", "<leader>ai", function()
-  --       opencode.command("session_interrupt")
-  --     end, { desc = "Opencode: Interrupt session" })
-  --     vim.keymap.set("n", "<leader>an", function()
-  --       opencode.command("agent_cycle")
-  --     end, { desc = "Opencode: Cycle selected agent" })
-  --     vim.keymap.set("n", "<leader>a<tab>", function()
-  --       opencode.command("agent_cycle")
-  --     end, { desc = "Opencode: Cycle selected agent" })
-  --     -- vim.keymap.set("n", "<S-C-u>", function()
-  --     --   opencode.command("messages_half_page_up")
-  --     -- end, { desc = "Opencode: Messages half page up" })
-  --     -- vim.keymap.set("n", "<S-C-d>", function()
-  --     --   opencode.command("messages_half_page_down")
-  --     -- end, { desc = "Opencode: Messages half page down" })
+  --     require("opencode").setup({
+  --       default_global_keymaps = false,
+  --       default_mode = "plan",
+  --       keymap_prefix = "<leader>o",
+  --       keymap = {
+  --         editor = {
+  --           ["<leader>og"] = { "toggle" },
+  --           ["<leader>oi"] = { "open_input" },
+  --           ["<leader>oI"] = { "open_input_new_session" },
+  --           ["<leader>oo"] = { "open_output" },
+  --           ["<leader>ot"] = { "toggle_focus" },
+  --           ["<leader>oT"] = { "timeline" },
+  --           ["<leader>oq"] = { "close" },
+  --           ["<leader>os"] = { "select_session" },
+  --           ["<leader>oR"] = { "rename_session" },
+  --           ["<leader>oP"] = { "configure_provider" },
+  --           ["<leader>oz"] = { "toggle_zoom" },
+  --           ["<leader>ov"] = { "paste_image" },
+  --           ["<leader>od"] = { "diff_open" },
+  --           ["<leader>o]"] = { "diff_next" },
+  --           ["<leader>o["] = { "diff_prev" },
+  --           ["<leader>oc"] = { "diff_close" },
+  --           ["<leader>oua"] = { "diff_revert_all_last_prompt" },
+  --           ["<leader>out"] = { "diff_revert_this_last_prompt" },
+  --           ["<leader>ouA"] = { "diff_revert_all" },
+  --           ["<leader>ouT"] = { "diff_revert_this" },
+  --           ["<leader>our"] = { "diff_restore_snapshot_file" },
+  --           ["<leader>ouR"] = { "diff_restore_snapshot_all" },
+  --           ["<leader>ox"] = { "swap_position" },
+  --           ["<leader>opa"] = { "permission_accept" },
+  --           ["<leader>opA"] = { "permission_accept_all" },
+  --           ["<leader>opd"] = { "permission_deny" },
+  --           ["<M-o>"] = {
+  --             function()
+  --               ask(false)
+  --             end,
+  --             mode = { "n", "x" },
+  --           },
+  --           ["<M-O>"] = {
+  --             function()
+  --               ask(true)
+  --             end,
+  --             mode = { "n", "x" },
+  --           },
+  --         },
+  --         input_window = {
+  --           ["<cr>"] = { "submit_input_prompt", mode = { "n" } },
+  --           ["<a-cr>"] = { "submit_input_prompt", mode = { "i" } },
+  --           ["<esc>"] = { function() end }, -- ESC should do nothing
+  --           ["<C-c>"] = { "cancel" },
+  --           ["~"] = { "mention_file", mode = "i" },
+  --           ["@"] = { "mention", mode = "i" },
+  --           ["/"] = { "slash_commands", mode = "i" },
+  --           ["#"] = { "context_items", mode = "i" },
+  --           ["<M-v>"] = { "paste_image", mode = "i" },
+  --           ["<C-i>"] = { "focus_input", mode = { "n", "i" } },
+  --           ["<up>"] = { "prev_prompt_history" },
+  --           ["<down>"] = { "next_prompt_history" },
+  --           ["<M-m>"] = { "switch_mode" },
+  --         },
+  --         output_window = {
+  --           ["<esc>"] = { function() end }, -- ESC should do nothing
+  --           ["<C-c>"] = { "cancel" },
+  --           ["<C-n>"] = { "next_message" },
+  --           ["<C-p>"] = { "prev_message" },
+  --           ["]]"] = { "next_message" },
+  --           ["[["] = { "prev_message" },
+  --           ["<M-m>"] = { "switch_mode" },
+  --           ["i"] = { "focus_input", "n" },
+  --           ["<leader>oS"] = { "select_child_session" },
+  --           ["<leader>oD"] = { "debug_message" },
+  --           ["<leader>oO"] = { "debug_output" },
+  --           ["<leader>ods"] = { "debug_session" },
+  --         },
+  --         permission = {
+  --           accept = "a",
+  --           accept_all = "A",
+  --           deny = "d",
+  --         },
+  --         session_picker = {
+  --           rename_session = { "<C-r>" },
+  --           delete_session = { "<C-x>" },
+  --           new_session = { "<C-m>" },
+  --         },
+  --         timeline_picker = {
+  --           undo = { "<C-u>", mode = { "i", "n" } },
+  --           fork = { "<C-f>", mode = { "i", "n" } },
+  --         },
+  --         history_picker = {
+  --           delete_entry = { "<C-d>", mode = { "i", "n" } },
+  --           clear_all = { "<C-X>", mode = { "i", "n" } },
+  --         },
+  --       },
+  --       ui = {
+  --         window_width = 0.35,
+  --         zoom_width = 0.8,
+  --         input_height = 0.15,
+  --         completion = {
+  --           file_sources = {
+  --             preferred_cli_tool = nil,
+  --           },
+  --         },
+  --       },
+  --       context = {
+  --         enabled = true,
+  --         diagnostics = {
+  --           info = true,
+  --           warn = true,
+  --           error = true,
+  --         },
+  --         current_file = {
+  --           enabled = true,
+  --         },
+  --         selection = {
+  --           enabled = true,
+  --         },
+  --       },
+  --     })
   --   end,
   -- },
 }

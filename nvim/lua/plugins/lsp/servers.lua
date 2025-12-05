@@ -46,6 +46,9 @@ local ensure_installed = {
   -- dap
   "delve",
   -- "codelldb",
+
+  -- linters
+  "eslint_d",
 }
 
 -- Add server names from servers with name field

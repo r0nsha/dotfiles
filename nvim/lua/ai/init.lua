@@ -24,7 +24,7 @@ local start_spinner = utils.debounce(function()
   vim.schedule(function()
     spinner.start()
   end)
-end, 500)
+end, 1000)
 
 local stop_spinner = function()
   start_spinner.cancel()
