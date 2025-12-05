@@ -56,6 +56,7 @@ return {
           "go",
           "gomod",
           "gowork",
+          "diff",
         },
         sync_install = false,
         auto_install = true,

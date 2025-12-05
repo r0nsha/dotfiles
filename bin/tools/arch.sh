@@ -64,6 +64,7 @@ pacman_deps=(
 	docker
 	go
 	qmk
+	bear
 
 	# media
 	pipewire

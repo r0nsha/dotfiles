@@ -11,7 +11,7 @@ return {
       typescriptreact = { "eslint_d" },
     }
 
-    vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+    vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost" }, {
       group = vim.api.nvim_create_augroup("CustomLint", { clear = true }),
       callback = function()
         require("lint").try_lint()

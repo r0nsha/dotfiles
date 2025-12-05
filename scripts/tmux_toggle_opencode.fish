@@ -5,6 +5,6 @@ else
     if tmux list-windows | grep -q opencode
         tmux select-window -t opencode
     else
-        tmux new-window -n opencode opencode
+        tmux new-window -a -n opencode opencode
     end
 end
