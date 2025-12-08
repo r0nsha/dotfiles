@@ -121,6 +121,7 @@ cmd-ctrl-alt-l = 'move right'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#resize
 ctrl-alt-minus = 'resize smart -100'
+ctrl-alt-equal = 'resize smart +100'       # make it more ergonomic on a regular keyboard
 ctrl-alt-shift-equal = 'resize smart +100' # there's no plus, so we do shift-equal
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
@@ -136,22 +137,20 @@ alt-9 = 'workspace 9'
 alt-0 = 'workspace 10'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
-ctrl-alt-1 = 'move-node-to-workspace --focus-follows-window 1'
-ctrl-alt-2 = 'move-node-to-workspace --focus-follows-window 2'
-ctrl-alt-3 = 'move-node-to-workspace --focus-follows-window 3'
-ctrl-alt-4 = 'move-node-to-workspace --focus-follows-window 4'
-ctrl-alt-5 = 'move-node-to-workspace --focus-follows-window 5'
-ctrl-alt-6 = 'move-node-to-workspace --focus-follows-window 6'
-ctrl-alt-7 = 'move-node-to-workspace --focus-follows-window 7'
-ctrl-alt-8 = 'move-node-to-workspace --focus-follows-window 8'
-ctrl-alt-9 = 'move-node-to-workspace --focus-follows-window 9'
-ctrl-alt-0 = 'move-node-to-workspace --focus-follows-window 10'
+alt-shift-1 = 'move-node-to-workspace --focus-follows-window 1'
+alt-shift-2 = 'move-node-to-workspace --focus-follows-window 2'
+alt-shift-3 = 'move-node-to-workspace --focus-follows-window 3'
+alt-shift-4 = 'move-node-to-workspace --focus-follows-window 4'
+alt-shift-5 = 'move-node-to-workspace --focus-follows-window 5'
+alt-shift-6 = 'move-node-to-workspace --focus-follows-window 6'
+alt-shift-7 = 'move-node-to-workspace --focus-follows-window 7'
+alt-shift-8 = 'move-node-to-workspace --focus-follows-window 8'
+alt-shift-9 = 'move-node-to-workspace --focus-follows-window 9'
+alt-shift-0 = 'move-node-to-workspace --focus-follows-window 10'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#mode
 ctrl-alt-quote = 'mode service'
 
-# 'service' binding mode declaration.
-# See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 [mode.service.binding]
 esc = ['reload-config', 'mode main']
 r = ['flatten-workspace-tree', 'mode main'] # reset layout
@@ -159,4 +158,3 @@ f = [
   'layout floating tiling',
   'mode main',
 ] # Toggle between floating and tiling layout
-backspace = ['close-all-windows-but-current', 'mode main']

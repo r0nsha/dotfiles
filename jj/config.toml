@@ -6,16 +6,24 @@ email = "r0nsh4v1t@gmail.com"
 
 [ui]
 default-command = "log"
-pager = "delta"
+pager = ["delta", "--pager", "less -FRX"]
 diff-formatter = ":git"
 diff-editor = ["nvim", "-c", "DiffEditor $left $right $output"]
 
+[[--scope]]
+--when.commands = ["diff", "show"]
+
+[--scope.ui]
+pager = "delta"
+
 [git]
-push-new-bookmarks = true
+auto-local-bookmark = false
+push-new-bookmarks = false
 # Prevent pushing work in progress or anything explicitly labeled "private"
 private-commits = "description(glob:'wip:*') | description(glob:'private:*')"
 
 [templates]
+git_push_bookmark = '"ron/" ++ change_id.short()'
 draft_commit_description = '''
 concat(
   coalesce(description, default_commit_description, "\n"),
@@ -42,21 +50,13 @@ merge-args = [
 ]
 merge-tool-edits-conflict-markers = true
 
+[commit]
+verbose = true
+
 [aliases]
-# retrunk:
-# `jj rebase -d 'trunk()'` is shorthand for `jj rebase -b @ -d 'trunk()'`
-#
-# What that does:
-#
-# `-b @` rebases the entire branch that the current @ is on relative to the destination. (Default),
-# `-d trunk()` sets the destination. trunk() finds the most recent `main | master | trunk` branch thats on a remote. trunk() is builtin.
 retrunk = ["rebase", "-d", "trunk()"]
 e = ["edit"]
 i = ["git", "init", "--colocate"]
-# Pull from remote
-pull = ["git", "fetch"]
-# Push to remote
-push = ["git", "push"]
 # Rebase
 r = ["rebase"]
 s = ["squash"]
@@ -65,5 +65,11 @@ si = ["squash", "--interactive"]
 mine = ["bookmark", "list", "-r", "mine()"]
 # List all branches
 branches = ["log", "-r", "heads(all())"]
-bs = ["bookmark", "set"]
 res = ["resolve", "--tool", "diffconflicts"]
+pmine = ["git", "push", "-b", "glob:ron/*"]
+l = [
+  "log",
+  "-r",
+  "@ | ancestors(trunk()..(visible_heads() & mine()), 2) | trunk()",
+]
+la = ["log", "-r", "all()"]
