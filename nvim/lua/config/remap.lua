@@ -44,6 +44,7 @@ vim.keymap.set({ "n", "x" }, "k", function()
   end
 end, { expr = true })
 
+-- replaced with mini.move
 -- vim.keymap.set("v", "J", ":m '>+1<cr>gv=gv", { desc = "Move Selection: Down" })
 -- vim.keymap.set("v", "K", ":m '<-2<cr>gv=gv", { desc = "Move Selection: Up" })
 
