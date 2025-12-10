@@ -95,12 +95,19 @@ return {
       vim.keymap.set("n", "ga", function()
         opencode.toggle()
       end, { desc = "Opencode: Toggle" })
+
+      vim.keymap.set({ "n", "x" }, "gA", function()
+        opencode.prompt("@this")
+      end, { desc = "Opencode: Add this" })
+
       vim.keymap.set({ "n", "x" }, "gp", function()
         opencode.ask("@this: ", { submit = true })
-      end, { desc = "Opencode: Ask about this" })
+      end, { desc = "Opencode: Prompt about this" })
+
       vim.keymap.set({ "n", "x" }, "gP", function()
         opencode.ask("", { submit = true })
       end, { desc = "Opencode: Prompt" })
+
       vim.keymap.set({ "n", "x" }, "gs", function()
         opencode.select()
       end, { desc = "Opencode: Select prompt" })

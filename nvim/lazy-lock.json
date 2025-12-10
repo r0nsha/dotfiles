@@ -35,7 +35,7 @@
   "mini.jump": { "branch": "main", "commit": "99799e8ca33fe936b81a70b5ab9a081f8794c8a1" },
   "mini.move": { "branch": "main", "commit": "4d214202d71e0a4066b6288176bbe88f268f9777" },
   "mini.snippets": { "branch": "main", "commit": "b4065ca6b33e4df2897672d3bb760cfc93f4390a" },
-  "mini.surround": { "branch": "main", "commit": "444e155147e2b5159dd28a65f9736254c16cb817" },
+  "mini.surround": { "branch": "main", "commit": "88c52297ed3e69ecf9f8652837888ecc727a28ee" },
   "minuet-ai.nvim": { "branch": "main", "commit": "937ff7eb5fda18a68f96408c15533305af423837" },
   "modus-themes.nvim": { "branch": "master", "commit": "c57c2c56c9f0af04f3b609d11caa840880074784" },
   "multicursor.nvim": { "branch": "main", "commit": "a0ea3303a6c4b233cf3272fb1e358d4c842e5260" },
