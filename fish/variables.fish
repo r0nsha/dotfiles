@@ -19,7 +19,7 @@ set -Ux EDITOR nvim
 switch (uname)
     case Darwin
         # Do nothing
-    case *
+    case '*'
         set -Ux BROWSER qutebrowser
 end
 set -Ux MANPAGER nvim +Man!
