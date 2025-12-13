@@ -7,7 +7,7 @@ return {
         "nvim-treesitter/nvim-treesitter-context",
         config = function()
           vim.g.skip_ts_context_commentstring_module = true
-          require("treesitter-context").setup({
+          require("treesitter-context").setup {
             enable = true,
             multiwindow = false,
             max_lines = 0,
@@ -16,20 +16,20 @@ return {
             multiline_threshold = 20,
             trim_scope = "outer",
             mode = "cursor",
-          })
+          }
         end,
       },
       {
         "JoosepAlviste/nvim-ts-context-commentstring",
         config = function()
-          require("ts_context_commentstring").setup({})
+          require("ts_context_commentstring").setup {}
         end,
       },
     },
     config = function()
-      local utils = require("utils")
+      local utils = require "utils"
 
-      require("nvim-treesitter.configs").setup({
+      require("nvim-treesitter.configs").setup {
         ensure_installed = {
           "query",
           "lua",
@@ -86,14 +86,14 @@ return {
           additional_vim_regex_highlighting = { "markdown" },
         },
         context_commentstring = { enable = true, enable_autocmd = false },
-      })
+      }
 
-      local parsers = require("nvim-treesitter.parsers")
+      local parsers = require "nvim-treesitter.parsers"
       local parser_config = parsers.get_parser_configs()
       parser_config.tsx.filetype_to_parsername = { "javascript", "typescript.tsx" }
 
       if utils.is_windows() then
-        local install = require("nvim-treesitter.install")
+        local install = require "nvim-treesitter.install"
         install.prefer_git = false
         install.compilers = { "clang" }
       end
@@ -105,7 +105,7 @@ return {
       vim.treesitter.language.register("markdown", "mdx")
     end,
     init = function()
-      vim.filetype.add({ extension = { mdx = "markdown" } })
+      vim.filetype.add { extension = { mdx = "markdown" } }
     end,
   },
 }

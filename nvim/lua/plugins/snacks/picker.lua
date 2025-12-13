@@ -1,4 +1,4 @@
-local icons = require("config.icons")
+local icons = require "config.icons"
 
 ---@param layout snacks.picker.layout.Config
 local function override_layout_wo(layout)
@@ -24,7 +24,7 @@ local M = {
     picker = {
       prompt = " ",
       layout = function()
-        local layouts = require("snacks.picker.config.layouts")
+        local layouts = require "snacks.picker.config.layouts"
         local ivy = override_layout_wo(layouts.ivy)
         local ivy_split = override_layout_wo(layouts.ivy_split)
 
@@ -115,7 +115,7 @@ local M = {
     {
       "<leader>sF",
       function()
-        Snacks.picker.files({ ignored = true })
+        Snacks.picker.files { ignored = true }
       end,
       desc = "Git Files",
     },
@@ -136,9 +136,9 @@ local M = {
     {
       "<leader>sS",
       function()
-        Snacks.picker.grep({
+        Snacks.picker.grep {
           ignored = true,
-        })
+        }
       end,
       desc = "Grep (don't respect .gitignore)",
     },
@@ -196,8 +196,8 @@ local M = {
     {
       "<leader>sp",
       function()
-        Snacks.picker.files({
-          dirs = { vim.fn.stdpath("data") .. "/lazy" },
+        Snacks.picker.files {
+          dirs = { vim.fn.stdpath "data" .. "/lazy" },
           cmd = "fd",
           args = { "-td", "--exact-depth", "1" },
           confirm = function(picker, item, action)
@@ -217,7 +217,7 @@ local M = {
               end)
             end
           end,
-        })
+        }
       end,
       desc = "Plugins",
     },
@@ -246,7 +246,7 @@ local M = {
 }
 
 ---@type snacks.layout.Box
-M.ivy_cursor = override_layout_wo({
+M.ivy_cursor = override_layout_wo {
   layout = {
     box = "vertical",
     backdrop = false,
@@ -266,6 +266,6 @@ M.ivy_cursor = override_layout_wo({
       border = "bottom",
     },
   },
-})
+}
 
 return M

@@ -6,7 +6,7 @@ return {
     event = "VeryLazy",
     config = function()
       ---@diagnostic disable-next-line: missing-fields
-      require("blame").setup({
+      require("blame").setup {
         virtual_style = "right_align",
         blame_options = { "-w" },
         merge_consecutive = true,
@@ -18,7 +18,7 @@ return {
           show_commit = { "<C-y>", "<CR>" },
           close = "q",
         },
-      })
+      }
 
       local opened = {
         window = false,
@@ -54,15 +54,15 @@ return {
         end
       end
 
-      vim.keymap.set("n", "<leader>gb", toggle_blame_exclusive("window"), { desc = "Git: Blame" })
-      vim.keymap.set("n", "<leader>gB", toggle_blame_exclusive("virtual"), { desc = "Git: Blame" })
+      vim.keymap.set("n", "<leader>gb", toggle_blame_exclusive "window", { desc = "Git: Blame" })
+      vim.keymap.set("n", "<leader>gB", toggle_blame_exclusive "virtual", { desc = "Git: Blame" })
 
       vim.api.nvim_create_autocmd({ "FileType" }, {
         group = group,
         pattern = "blame",
         callback = function(args)
           vim.keymap.set("n", "d", function()
-            local lnum = vim.fn.line(".")
+            local lnum = vim.fn.line "."
             local last_lnum = vim.api.nvim_buf_line_count(0)
 
             while lnum <= last_lnum do
@@ -70,7 +70,7 @@ return {
 
               if vim.trim(line_content) ~= "" then
                 ---@type string?
-                local hash = line_content:match("^(%x+)%s%s")
+                local hash = line_content:match "^(%x+)%s%s"
                 if hash then
                   vim.cmd("DiffviewOpen " .. hash)
                 end

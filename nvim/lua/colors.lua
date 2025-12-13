@@ -1,12 +1,12 @@
 local uv = vim.uv
-local w = require("utils.watch")
+local w = require "utils.watch"
 
 local types = {
   dark = "dark",
   light = "light",
 }
 
-local path = vim.fn.expand("~/.cache") .. "/theme"
+local path = vim.fn.expand "~/.cache" .. "/theme"
 
 ---@return boolean
 local function validate_path()
@@ -58,11 +58,11 @@ local function update_background()
 
   vim.schedule(function()
     if data == types.dark then
-      vim.cmd("set background=dark")
+      vim.cmd "set background=dark"
     elseif data == types.light then
-      vim.cmd("set background=light")
+      vim.cmd "set background=light"
     end
-    vim.cmd("redraw!")
+    vim.cmd "redraw!"
   end)
 end
 

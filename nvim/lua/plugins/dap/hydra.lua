@@ -1,10 +1,10 @@
 ---@type Hydra
 local M
 
-local Hydra = require("hydra")
-local dap = require("dap")
-local dv = require("dap-view")
-local persistent_breakpoints_api = require("persistent-breakpoints.api")
+local Hydra = require "hydra"
+local dap = require "dap"
+local dv = require "dap-view"
+local persistent_breakpoints_api = require "persistent-breakpoints.api"
 
 ---@param view dapview.SectionType
 local function jump_to_view(view)
@@ -63,7 +63,7 @@ end
 vim.keymap.set("n", "<leader>ds", dap.continue, { desc = "Debug: Start" })
 vim.keymap.set("n", "<leader>dl", dap.run_last, { desc = "Debug: Run last" })
 
-M = Hydra({
+M = Hydra {
   name = "DBG",
   mode = { "n", "x", "v" },
   body = "<leader>dm",
@@ -112,7 +112,7 @@ M = Hydra({
     {
       "dX",
       function()
-        dap.set_exception_breakpoints({})
+        dap.set_exception_breakpoints {}
       end,
       { desc = "Clear exception breakpoints", private = true },
     },
@@ -133,18 +133,18 @@ M = Hydra({
       end,
       { desc = "Toggle UI", private = true },
     },
-    { "gw", jump_to_view("watches"), { desc = "Jump to Watches", private = true } },
-    { "gs", jump_to_view("scopes"), { desc = "Jump to Scopes", private = true } },
-    { "gx", jump_to_view("exceptions"), { desc = "Jump to Exceptions", private = true } },
-    { "gb", jump_to_view("breakpoints"), { desc = "Jump to Breakpoints", private = true } },
-    { "gT", jump_to_view("threads"), { desc = "Jump to Threads", private = true } },
-    { "gR", jump_to_view("repl"), { desc = "Jump to REPL", private = true } },
-    { "gC", jump_to_view("console"), { desc = "Jump to Console", private = true } },
+    { "gw", jump_to_view "watches", { desc = "Jump to Watches", private = true } },
+    { "gs", jump_to_view "scopes", { desc = "Jump to Scopes", private = true } },
+    { "gx", jump_to_view "exceptions", { desc = "Jump to Exceptions", private = true } },
+    { "gb", jump_to_view "breakpoints", { desc = "Jump to Breakpoints", private = true } },
+    { "gT", jump_to_view "threads", { desc = "Jump to Threads", private = true } },
+    { "gR", jump_to_view "repl", { desc = "Jump to REPL", private = true } },
+    { "gC", jump_to_view "console", { desc = "Jump to Console", private = true } },
     { "<leader>w", dv.add_expr, { desc = "Watch expression", private = true, mode = { "n", "v" } } },
     {
       "<leader>W",
       function()
-        dv.add_expr(vim.fn.input("[Expression] > "))
+        dv.add_expr(vim.fn.input "[Expression] > ")
       end,
       { desc = "Add watch", private = true },
     },
@@ -164,6 +164,6 @@ M = Hydra({
     { "?", toggle_help, { desc = "Toggle Help", private = true } },
     { "g?", toggle_help, { desc = "Toggle Help", private = true } },
   },
-})
+}
 
 return M

@@ -1,9 +1,9 @@
 return {
   "nvim-mini/mini.snippets",
   config = function()
-    local snippets = require("mini.snippets")
+    local snippets = require "mini.snippets"
     local gen_loader = snippets.gen_loader
-    snippets.setup({
+    snippets.setup {
       snippets = { gen_loader.from_lang() },
       mappings = {
         expand = "",
@@ -11,6 +11,6 @@ return {
         jump_next = "<C-l>",
         stop = "<C-c>",
       },
-    })
+    }
   end,
 }

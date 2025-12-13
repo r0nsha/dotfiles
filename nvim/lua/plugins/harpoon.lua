@@ -3,18 +3,18 @@ return {
   branch = "harpoon2",
   dependencies = { "nvim-lua/plenary.nvim" },
   config = function()
-    local h = require("harpoon")
-    h:setup({
+    local h = require "harpoon"
+    h:setup {
       settings = {
         save_on_toggle = true,
         sync_on_ui_close = true,
       },
-    })
+    }
 
     local keys = { "u", "i", "o", "m" }
 
     local function add()
-      if vim.fn.expand("%") == "" then
+      if vim.fn.expand "%" == "" then
         vim.notify("Cannot add empty buffer to Harpoon", vim.log.levels.WARN)
         return
       end
@@ -28,7 +28,7 @@ return {
     end
 
     local function set(index)
-      local path = vim.fn.expand("%")
+      local path = vim.fn.expand "%"
       local list = h:list()
       local len = list:length()
       local items = list.items

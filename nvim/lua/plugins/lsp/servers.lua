@@ -57,7 +57,7 @@ for _, config in pairs(servers) do
   end
 end
 
-require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+require("mason-tool-installer").setup { ensure_installed = ensure_installed }
 
 vim.lsp.enable(vim.tbl_keys(servers))
 

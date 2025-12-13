@@ -3,10 +3,10 @@ return {
     "folke/sidekick.nvim",
     enabled = false,
     config = function()
-      local sidekick = require("sidekick")
-      local nes = require("sidekick.nes")
+      local sidekick = require "sidekick"
+      local nes = require "sidekick.nes"
 
-      sidekick.setup({})
+      sidekick.setup {}
 
       vim.keymap.set("n", "<a-cr>", function()
         sidekick.nes_jump_or_apply()
@@ -90,14 +90,14 @@ return {
       -- Required for `vim.g.opencode_opts.auto_reload`.
       vim.o.autoread = true
 
-      local opencode = require("opencode")
+      local opencode = require "opencode"
 
       vim.keymap.set("n", "ga", function()
         opencode.toggle()
       end, { desc = "Opencode: Toggle" })
 
       vim.keymap.set({ "n", "x" }, "gA", function()
-        opencode.prompt("@this")
+        opencode.prompt "@this"
       end, { desc = "Opencode: Add this" })
 
       vim.keymap.set({ "n", "x" }, "gp", function()

@@ -1,6 +1,6 @@
-local cond = require("heirline.conditions")
-local icons = require("config.icons")
-local utils = require("heirline.utils")
+local cond = require "heirline.conditions"
+local icons = require "config.icons"
+local utils = require "heirline.utils"
 
 local function active_fg()
   return cond.is_active() and "fg_active" or "fg_inactive"
@@ -15,7 +15,7 @@ local function update_on(events)
     "FocusGained",
     "FocusLost",
     callback = vim.schedule_wrap(function()
-      vim.cmd("redrawstatus")
+      vim.cmd "redrawstatus"
     end),
   })
 end
@@ -102,7 +102,7 @@ local Mode = {
     local fg = cond.is_active() and self.mode_colors[mode] or "fg_inactive"
     return { fg = fg, bold = false }
   end,
-  update = update_on({ "ModeChanged", "User" }),
+  update = update_on { "ModeChanged", "User" },
 }
 
 local FileBlock = {
@@ -291,10 +291,10 @@ local Git = {
     },
   },
 
-  update = update_on({
+  update = update_on {
     "User",
     pattern = { "GitSignsUpdate", "GitSignsChanged", "MiniDiffUpdated" },
-  }),
+  },
 }
 
 ---@param type "error" | "warning" | "info" | "hint"
@@ -321,12 +321,12 @@ local Diagnostics = {
     self.infos = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
   end,
 
-  diagnostic_provider("error"),
-  diagnostic_provider("warning"),
-  diagnostic_provider("info"),
-  diagnostic_provider("hint"),
+  diagnostic_provider "error",
+  diagnostic_provider "warning",
+  diagnostic_provider "info",
+  diagnostic_provider "hint",
 
-  update = update_on({ "DiagnosticChanged", "BufEnter" }),
+  update = update_on { "DiagnosticChanged", "BufEnter" },
 }
 
 local Lsp = {
@@ -337,7 +337,7 @@ local Lsp = {
     provider = function()
       local names = {}
 
-      for _, server in pairs(vim.lsp.get_clients({ bufnr = 0 })) do
+      for _, server in pairs(vim.lsp.get_clients { bufnr = 0 }) do
         table.insert(names, server.name)
       end
 
@@ -358,7 +358,7 @@ local Lsp = {
     hl = function()
       return { fg = "gray" }
     end,
-    update = update_on({ "LspAttach", "LspDetach" }),
+    update = update_on { "LspAttach", "LspDetach" },
   },
   Space(2),
 }
@@ -373,8 +373,8 @@ local Selection = {
       return nil
     end
 
-    local start_line = vim.fn.line("v")
-    local end_line = vim.fn.line(".")
+    local start_line = vim.fn.line "v"
+    local end_line = vim.fn.line "."
     local lines = math.abs(end_line - start_line) + 1
     local cols = vim.fn.wordcount().visual_chars
 

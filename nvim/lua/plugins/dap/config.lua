@@ -1,9 +1,9 @@
-local dap = require("dap")
-dap.set_log_level("INFO")
+local dap = require "dap"
+dap.set_log_level "INFO"
 
-require("persistent-breakpoints").setup({
+require("persistent-breakpoints").setup {
   load_breakpoints_event = { "BufReadPost" },
-})
+}
 
 vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticError" })
 vim.fn.sign_define("DapBreakpointCondition", { text = "", texthl = "DiagnosticWarn" })

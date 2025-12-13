@@ -14,9 +14,9 @@ end
 return {
   "stevearc/oil.nvim",
   config = function()
-    local oil = require("oil")
+    local oil = require "oil"
 
-    oil.setup({
+    oil.setup {
       default_file_explorer = true,
       watch_for_changes = true,
       view_options = {
@@ -61,14 +61,14 @@ return {
             DETAIL = not DETAIL
 
             if DETAIL then
-              require("oil").set_columns({ "icon", "permissions", "size", "mtime" })
+              require("oil").set_columns { "icon", "permissions", "size", "mtime" }
             else
-              require("oil").set_columns({ "icon" })
+              require("oil").set_columns { "icon" }
             end
           end,
         },
       },
-    })
+    }
 
     vim.keymap.set("n", "<leader>e", function()
       oil.open()
@@ -91,7 +91,7 @@ return {
             local _, path = require("oil.util").parse_url(action.url)
             local bufnr = vim.fn.bufnr(path)
             if bufnr ~= -1 then
-              vim.cmd.bwipeout({ bufnr, bang = true })
+              vim.cmd.bwipeout { bufnr, bang = true }
             end
           end
         end

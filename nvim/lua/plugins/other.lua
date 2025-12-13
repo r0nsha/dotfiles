@@ -1,7 +1,7 @@
 return {
   "rgroli/other.nvim",
   config = function()
-    require("other-nvim").setup({
+    require("other-nvim").setup {
       mappings = {
         -- "livewire",
         -- "angular",
@@ -49,7 +49,7 @@ return {
         },
       },
       rememberBuffers = false,
-    })
+    }
 
     vim.keymap.set("n", "go", "<cmd>Other<cr>", { desc = "Other" })
   end,

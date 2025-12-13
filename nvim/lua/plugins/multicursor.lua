@@ -1,7 +1,7 @@
 return {
   "jake-stewart/multicursor.nvim",
   config = function()
-    local mc = require("multicursor-nvim")
+    local mc = require "multicursor-nvim"
     mc.setup()
 
     ---@param desc string
@@ -14,41 +14,41 @@ return {
     -- Add or skip cursor above/below the main cursor.
     vim.keymap.set({ "n", "x" }, "<Up>", function()
       mc.lineAddCursor(-1)
-    end, opts("Add Cursor Above"))
+    end, opts "Add Cursor Above")
     vim.keymap.set({ "n", "x" }, "<Down>", function()
       mc.lineAddCursor(1)
-    end, opts("Add Cursor Below"))
+    end, opts "Add Cursor Below")
 
     -- Add a new cursor by matching word/selection
     vim.keymap.set({ "n", "x" }, "<C-N>", function()
       mc.matchAddCursor(-1)
-    end, opts("Add Cursor Match Above"))
+    end, opts "Add Cursor Match Above")
     vim.keymap.set({ "n", "x" }, "<C-n>", function()
       mc.matchAddCursor(1)
-    end, opts("Add Cursor Match Below"))
+    end, opts "Add Cursor Match Below")
 
     -- Easy way to add and remove cursors using the main cursor.
-    vim.keymap.set("n", "<C-m>", mc.toggleCursor, opts("Toggle Cursor"))
+    vim.keymap.set("n", "<C-m>", mc.toggleCursor, opts "Toggle Cursor")
 
     -- Add all matches in the document
-    vim.keymap.set("n", "<C-M>", mc.matchAllAddCursors, opts("Add Cursors to All Matches"))
+    vim.keymap.set("n", "<C-M>", mc.matchAllAddCursors, opts "Add Cursors to All Matches")
 
     -- Match new cursors within visual selections by regex.
-    vim.keymap.set("x", "m", mc.matchCursors, opts("Match Cursors by Regex"))
+    vim.keymap.set("x", "m", mc.matchCursors, opts "Match Cursors by Regex")
 
     -- Split visual selections by regex.
-    vim.keymap.set("x", "M", mc.splitCursors, opts("Split Cursors by Regex"))
+    vim.keymap.set("x", "M", mc.splitCursors, opts "Split Cursors by Regex")
 
     -- Bring back cursors if you accidentally clear them
-    vim.keymap.set("n", "gM", mc.restoreCursors, opts("Restore Cursors"))
+    vim.keymap.set("n", "gM", mc.restoreCursors, opts "Restore Cursors")
 
     -- Append/insert for each line of visual selections.
-    vim.keymap.set("x", "I", mc.insertVisual, opts("Insert"))
-    vim.keymap.set("x", "A", mc.appendVisual, opts("Append"))
+    vim.keymap.set("x", "I", mc.insertVisual, opts "Insert")
+    vim.keymap.set("x", "A", mc.appendVisual, opts "Append")
 
     -- Jumplist support
-    vim.keymap.set({ "n", "x" }, "<C-i>", mc.jumpForward, opts("Jump Forward"))
-    vim.keymap.set({ "n", "x" }, "<C-o>", mc.jumpBackward, opts("Jump Backward"))
+    vim.keymap.set({ "n", "x" }, "<C-i>", mc.jumpForward, opts "Jump Forward")
+    vim.keymap.set({ "n", "x" }, "<C-o>", mc.jumpBackward, opts "Jump Backward")
 
     mc.addKeymapLayer(function(layerSet)
       layerSet({ "n", "x" }, "<C-Up>", function()

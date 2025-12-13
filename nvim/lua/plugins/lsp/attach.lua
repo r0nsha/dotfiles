@@ -1,4 +1,4 @@
-local utils = require("utils")
+local utils = require "utils"
 
 vim.api.nvim_create_autocmd("LspAttach", {
   desc = "LSP actions",
@@ -32,49 +32,49 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "gd", function()
       vim.api.nvim_feedkeys("zz", "n", true)
       Snacks.picker.lsp_definitions(picker_opts)
-    end, opts("Go to Definition"))
+    end, opts "Go to Definition")
 
     vim.keymap.set("n", "grd", function()
       vim.api.nvim_feedkeys("zz", "n", true)
       Snacks.picker.lsp_declarations(picker_opts)
-    end, opts("Declarations"))
+    end, opts "Declarations")
 
     vim.keymap.set("n", "grr", function()
       vim.api.nvim_feedkeys("zz", "n", true)
       Snacks.picker.lsp_references(picker_opts)
-    end, opts("References"))
+    end, opts "References")
 
     vim.keymap.set("n", "gt", function()
       vim.api.nvim_feedkeys("zz", "n", true)
       Snacks.picker.lsp_type_definitions(picker_opts)
-    end, opts("Type Definitions"))
+    end, opts "Type Definitions")
 
     vim.keymap.set("n", "grt", function()
       vim.api.nvim_feedkeys("zz", "n", true)
       Snacks.picker.lsp_type_definitions(picker_opts)
-    end, opts("Type Definitions"))
+    end, opts "Type Definitions")
 
     vim.keymap.set("n", "gri", function()
       vim.api.nvim_feedkeys("zz", "n", true)
       Snacks.picker.lsp_implementations(picker_opts)
-    end, opts("Implementations"))
+    end, opts "Implementations")
 
-    vim.keymap.set("n", "grn", vim.lsp.buf.rename, opts("Rename"))
-    vim.keymap.set({ "n", "v" }, "gra", require("actions-preview").code_actions, opts("Code Action"))
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts("Hover"))
+    vim.keymap.set("n", "grn", vim.lsp.buf.rename, opts "Rename")
+    vim.keymap.set({ "n", "v" }, "gra", require("actions-preview").code_actions, opts "Code Action")
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts "Hover")
     vim.keymap.set("n", "grh", function()
-      local enable = not vim.lsp.inlay_hint.is_enabled({ bufnr = buf })
+      local enable = not vim.lsp.inlay_hint.is_enabled { bufnr = buf }
       vim.lsp.inlay_hint.enable(enable, { bufnr = buf })
       vim.notify("Inlay hints " .. utils.bool_to_enabled(enable))
-    end, opts("Toggle Inlay Hints"))
+    end, opts "Toggle Inlay Hints")
 
     vim.keymap.set("n", "[d", function()
-      vim.diagnostic.jump({ count = -1, float = true })
-    end, opts("Previous Diagnostic"))
+      vim.diagnostic.jump { count = -1, float = true }
+    end, opts "Previous Diagnostic")
     vim.keymap.set("n", "]d", function()
-      vim.diagnostic.jump({ count = 1, float = true })
-    end, opts("Next Diagnostic"))
+      vim.diagnostic.jump { count = 1, float = true }
+    end, opts "Next Diagnostic")
 
-    vim.keymap.set("n", "<leader>x", vim.diagnostic.setqflist, opts("Diagnostics"))
+    vim.keymap.set("n", "<leader>x", vim.diagnostic.setqflist, opts "Diagnostics")
   end,
 })

@@ -1,9 +1,9 @@
 return {
   "nvim-mini/mini.diff",
   config = function()
-    local diff = require("mini.diff")
+    local diff = require "mini.diff"
 
-    diff.setup({
+    diff.setup {
       source = diff.gen_source.none(),
       mappings = {
         apply = "",
@@ -14,6 +14,6 @@ return {
         goto_next = "",
         goto_last = "",
       },
-    })
+    }
   end,
 }

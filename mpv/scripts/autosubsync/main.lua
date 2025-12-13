@@ -1,1 +1,1 @@
-require('autosubsync')
+require("autosubsync")

@@ -2,7 +2,7 @@ vim.api.nvim_create_autocmd("User", {
   group = vim.api.nvim_create_augroup("CustomColorscheme", { clear = true }),
   pattern = "LazyDone",
   callback = function()
-    vim.cmd("colorscheme " .. require("config.colorscheme"))
+    vim.cmd("colorscheme " .. require "config.colorscheme")
   end,
 })
 
@@ -12,7 +12,7 @@ return {
     lazy = false,
     priority = 1000,
     config = function()
-      require("modus-themes").setup({
+      require("modus-themes").setup {
         on_highlights = function(highlight, color)
           highlight.MiniCursorword = { underdotted = true }
           highlight.MiniCursorwordCurrent = highlight.MiniCursorword
@@ -35,7 +35,7 @@ return {
           highlight.FoldColumn = { link = "LineNr" }
           highlight.CursorLineFold = { link = "CursorLineNr" }
         end,
-      })
+      }
     end,
   },
 }

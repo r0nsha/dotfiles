@@ -9,19 +9,19 @@ vim.keymap.set({ "n", "v" }, "<leader>y", '"+y', { remap = false, desc = "Yank t
 vim.keymap.set({ "n", "v" }, "<leader>p", '"+p', { remap = false, desc = "Paste from clipboard" })
 vim.keymap.set("n", "<c-g>", function()
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-g>", true, true, true), "n", true)
-  local file = require("plenary.path"):new(vim.fn.expand("%")):normalize()
-  local line = vim.fn.line(".")
+  local file = require("plenary.path"):new(vim.fn.expand "%"):normalize()
+  local line = vim.fn.line "."
   local ref = string.format("%s:%d", file, line)
   vim.fn.setreg("+", ref)
   vim.fn.setreg('"', ref)
-  vim.notify("Copied line reference to clipboard")
+  vim.notify "Copied line reference to clipboard"
 end, { remap = false, desc = "Copy line reference to clipboard" })
 
 -- Don't yank when using 'p' in visual mode
 vim.keymap.set("v", "p", '"_dP', { remap = false })
 
 -- Window mappings when tmux is not available
-if vim.fn.executable("tmux") ~= 1 then
+if vim.fn.executable "tmux" ~= 1 then
   vim.keymap.set("n", "<c-h>", "<c-w>h", { remap = false, desc = "Move Window: Left" })
   vim.keymap.set("n", "<c-j>", "<c-w>j", { remap = false, desc = "Move Window: Down" })
   vim.keymap.set("n", "<c-k>", "<c-w>k", { remap = false, desc = "Move Window: Up" })
@@ -80,10 +80,10 @@ vim.keymap.set("n", "<leader>cl", function()
     vim.wo.conceallevel = 0
   end
 
-  local cloak = require("cloak")
+  local cloak = require "cloak"
   cloak.toggle()
 
-  local utils = require("utils")
+  local utils = require "utils"
   local conceal_enabled = utils.bool_to_enabled(vim.wo.conceallevel == 2)
   local cloak_enabled = utils.bool_to_enabled(cloak.opts.enabled)
 

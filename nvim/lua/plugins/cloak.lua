@@ -1,7 +1,7 @@
 return {
   "laytan/cloak.nvim",
   config = function()
-    require("cloak").setup({
+    require("cloak").setup {
       enabled = true,
       cloak_character = "*",
       highlight_group = "Comment",
@@ -11,6 +11,6 @@ return {
           cloak_pattern = { "=.+", ":.+", { "(set ).+", replace = "%1" }, "-.+" },
         },
       },
-    })
+    }
   end,
 }

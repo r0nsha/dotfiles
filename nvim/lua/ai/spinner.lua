@@ -1,8 +1,8 @@
-local icons = require("config.icons")
+local icons = require "config.icons"
 
 local M = {}
 
-local ns_id = vim.api.nvim_create_namespace("spinner")
+local ns_id = vim.api.nvim_create_namespace "spinner"
 
 local config = {
   text = icons.ai .. " ",

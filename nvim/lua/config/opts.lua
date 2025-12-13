@@ -1,4 +1,4 @@
-local utils = require("utils")
+local utils = require "utils"
 
 -- basic
 vim.opt.number = true
@@ -51,7 +51,7 @@ vim.opt.listchars = {
   lead = " ",
 }
 listchars = "tab:^ ,nbsp:¬,extends:»,precedes:«,trail:•"
-vim.opt.fillchars:append({ diff = "╱" })
+vim.opt.fillchars:append { diff = "╱" }
 vim.opt.winborder = "single"
 
 -- wrap
@@ -65,7 +65,7 @@ vim.opt.title = true
 vim.opt.titlestring = '%t%( %M%)%( (%{expand("%:~:h")})%)%a (nvim)'
 
 -- files
-vim.opt.isfname:append("@-@")
+vim.opt.isfname:append "@-@"
 vim.opt.backup = false
 vim.opt.writebackup = false
 vim.opt.swapfile = false
@@ -79,32 +79,32 @@ vim.opt.autoread = true
 vim.opt.autowrite = false
 
 -- filetypes
-vim.filetype.add({
+vim.filetype.add {
   extension = { ll = "llvm" },
   filename = { [".gitconfig.local"] = "gitconfig" },
-})
+}
 
 -- behavior
 vim.opt.hidden = true
 vim.opt.visualbell = true
 vim.opt.backspace = { "indent", "start", "eol" }
 vim.opt.autochdir = false
-vim.opt.path:append("**")
+vim.opt.path:append "**"
 vim.opt.modifiable = true
 vim.opt.encoding = "utf-8"
 vim.opt.more = false
 
 -- diff
-vim.opt.diffopt:append("iwhite")
-vim.opt.diffopt:append("algorithm:histogram")
-vim.opt.diffopt:append("indent-heuristic")
+vim.opt.diffopt:append "iwhite"
+vim.opt.diffopt:append "algorithm:histogram"
+vim.opt.diffopt:append "indent-heuristic"
 
 -- splits
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 
 -- disable startup message
-vim.opt.shortmess:append({ I = true })
+vim.opt.shortmess:append { I = true }
 
 -- mouse
 vim.opt.mouse = "a"
@@ -118,26 +118,26 @@ vim.o.foldlevelstart = 99
 vim.opt.foldcolumn = "1"
 vim.opt.foldminlines = 1
 vim.opt.foldnestmax = 3
-vim.opt.fillchars:append({
+vim.opt.fillchars:append {
   fold = "󰧟",
   foldopen = "",
   foldclose = "",
-})
+}
 
 -- clipboard
-vim.opt.clipboard:append("unnamedplus")
+vim.opt.clipboard:append "unnamedplus"
 
 if vim.env.SSH_CONNECTION then
   local function vim_paste()
-    local content = vim.fn.getreg('"')
+    local content = vim.fn.getreg '"'
     return vim.split(content, "\n")
   end
 
   vim.g.clipboard = {
     name = "OSC 52",
     copy = {
-      ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
-      ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+      ["+"] = require("vim.ui.clipboard.osc52").copy "+",
+      ["*"] = require("vim.ui.clipboard.osc52").copy "*",
     },
     paste = {
       ["+"] = vim_paste,

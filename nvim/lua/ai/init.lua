@@ -1,6 +1,6 @@
-local notify = require("ai.notify")
-local spinner = require("ai.spinner")
-local utils = require("utils")
+local notify = require "ai.notify"
+local spinner = require "ai.spinner"
+local utils = require "utils"
 
 local group = vim.api.nvim_create_augroup("AiProgress", { clear = true })
 
