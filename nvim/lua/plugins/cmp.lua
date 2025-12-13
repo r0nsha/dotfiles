@@ -107,6 +107,7 @@ return {
       },
       sources = {
         default = {
+          "lazydev",
           "lsp",
           "snippets",
           "spell",
@@ -118,6 +119,11 @@ return {
           codecompanion = { "codecompanion" },
         },
         providers = {
+          lazydev = {
+            name = "lazydev",
+            module = "lazydev.integrations.blink",
+            score_offset = 100,
+          },
           lsp = {
             -- always show `buffer` source
             fallbacks = {},
