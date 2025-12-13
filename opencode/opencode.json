@@ -36,8 +36,8 @@
     "agent_cycle_reverse": "shift+tab",
     "input_clear": "ctrl+c,ctrl+alt+c",
     "input_paste": "ctrl+v,ctrl+alt+v",
-    "input_submit": "ctrl+enter,ctrl+y",
-    "input_newline": "enter,shift+enter,ctrl+j"
+    "input_submit": "ctrl+return,ctrl+y",
+    "input_newline": "return,shift+return,ctrl+j"
   },
   "mcp": {
     "context7": {

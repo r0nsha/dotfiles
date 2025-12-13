@@ -117,7 +117,7 @@ vim.keymap.set("n", "<leader>cc", "1z=", { desc = "Correct spelling" })
 
 -- Terminal
 vim.keymap.set("t", "<c-w>n", "<c-\\><c-n>", { desc = "Exit terminal mode" })
-vim.keymap.set("t", "<c-cr>", "<c-\\><c-n><cr>")
+vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n><cr>")
 
 -- Write
 vim.keymap.set("n", "<leader>w", "<cmd>w<cr>", { desc = "Write" })
