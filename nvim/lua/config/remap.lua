@@ -44,6 +44,7 @@ vim.keymap.set({ "n", "x" }, "k", function()
   end
 end, { expr = true })
 
+-- replaced with mini.move
 -- vim.keymap.set("v", "J", ":m '>+1<cr>gv=gv", { desc = "Move Selection: Down" })
 -- vim.keymap.set("v", "K", ":m '<-2<cr>gv=gv", { desc = "Move Selection: Up" })
 
@@ -120,6 +121,7 @@ vim.keymap.set("t", "<c-cr>", "<c-\\><c-n><cr>")
 
 -- Write
 vim.keymap.set("n", "<leader>w", "<cmd>w<cr>", { desc = "Write" })
+vim.keymap.set("n", "<leader>W", "<cmd>noau w<cr>", { desc = "Write without formatting" })
 
 -- Jump to start and end of line using home row keys
 vim.keymap.set("n", "H", "^", { desc = "Jump to start of line" })

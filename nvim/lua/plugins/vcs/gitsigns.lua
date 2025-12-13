@@ -22,7 +22,7 @@ return {
       },
       current_line_blame = false,
       on_attach = function(bufnr)
-        ---@param mode string
+        ---@param mode string|table<string>
         ---@param l string
         ---@param r string|function
         ---@param desc string
@@ -71,6 +71,10 @@ return {
         map("n", "<leader>gdw", function()
           gs.toggle_word_diff()
         end, "Git: Toggle Word Diff")
+
+        map({ "n", "v" }, "<leader>gr", function()
+          gs.reset_hunk()
+        end, "Git: Reset Hunk")
 
         if utils.repo_too_large() then
           gs.detach(bufnr)

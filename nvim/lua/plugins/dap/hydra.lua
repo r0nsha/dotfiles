@@ -46,9 +46,9 @@ local hint = [[
  _gR_ REPL           ^
  _gC_ Console        ^
                      ^
- _?_/_g?_ Help         ^_<Esc>_ Close this window
+ _?_/_g?_ Help
  ^
- _q_ Terminate ^_d_ Disconnect _<C-c>_ Exit mode
+ _Q_ Terminate ^_dd_ Disconnect _<C-c>_ Exit mode
 ]]
 
 local function toggle_help()
@@ -66,7 +66,7 @@ vim.keymap.set("n", "<leader>dl", dap.run_last, { desc = "Debug: Run last" })
 M = Hydra({
   name = "DBG",
   mode = { "n", "x", "v" },
-  body = "<leader>D",
+  body = "<leader>dm",
   hint = hint,
   config = {
     color = "pink",
@@ -150,8 +150,8 @@ M = Hydra({
     },
 
     -- Quitting
-    { "d", disconnect, { desc = "Continue", exit = true } },
-    { "q", terminate, { desc = "Terminate", exit = true } },
+    { "dd", disconnect, { desc = "Continue", exit = true } },
+    { "Q", terminate, { desc = "Terminate", exit = true } },
     {
       "<C-c>",
       function()
@@ -161,18 +161,8 @@ M = Hydra({
     },
 
     -- Hint
-    { "g?", toggle_help, { desc = "Toggle Help", private = true } },
     { "?", toggle_help, { desc = "Toggle Help", private = true } },
-    {
-      "<Esc>",
-      function()
-        ---@diagnostic disable-next-line: undefined-field
-        if M.hint.win then
-          M.hint:close()
-        end
-      end,
-      { desc = "Hide Help", private = true },
-    },
+    { "g?", toggle_help, { desc = "Toggle Help", private = true } },
   },
 })
 

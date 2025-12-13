@@ -34,6 +34,12 @@ return {
         -- `z` key
         { mode = "n", keys = "z" },
         { mode = "x", keys = "z" },
+
+        -- `[` and `]` keys for textobject navigation
+        { mode = "n", keys = "[" },
+        { mode = "x", keys = "[" },
+        { mode = "n", keys = "]" },
+        { mode = "x", keys = "]" },
       },
       clues = {
         -- Enhance this by adding descriptions for <Leader> mapping groups
@@ -45,7 +51,7 @@ return {
         clue.gen_clues.z(),
 
         { mode = "n", keys = "<Leader>b", desc = "+Buffers" },
-        { mode = "n", keys = "<Leader>g", desc = "+Git" },
+        { mode = "n", keys = "<Leader>g", desc = "+Source Control" },
         { mode = "n", keys = "<Leader>a", desc = "+AI" },
         { mode = "n", keys = "<Leader>c", desc = "+Misc" },
         { mode = "n", keys = "<Leader>v", desc = "+CSV" },
@@ -55,6 +61,11 @@ return {
         { mode = "n", keys = "<Leader>s", desc = "+Pickers" },
         { mode = "n", keys = "<Leader>d", desc = "+Debug" },
         { mode = "n", keys = "gr", desc = "+LSP" },
+
+        { mode = "n", keys = "[", desc = "+Previous" },
+        { mode = "x", keys = "[", desc = "+Previous" },
+        { mode = "n", keys = "]", desc = "+Next" },
+        { mode = "x", keys = "]", desc = "+Next" },
       },
       window = {
         config = {

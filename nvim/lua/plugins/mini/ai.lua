@@ -44,8 +44,48 @@ return {
         inside_next = "in",
         around_last = "al",
         inside_last = "il",
+
+        -- Disable default goto mappings - using custom treesitter-style below
+        goto_left = "",
+        goto_right = "",
       },
       n_lines = 500,
     })
+
+    -- Treesitter-textobjects style goto mappings
+    -- Automatically creates ]x/]X/[x/[X for each textobject
+    local textobjects = {
+      { id = "f", desc = "function" },
+      { id = "v", desc = "parameter" },
+      { id = "b", desc = "block" },
+      { id = "c", desc = "comment" },
+      { id = "o", desc = "conditional/loop" },
+      { id = "a", desc = "statement" },
+    }
+
+    for _, obj in ipairs(textobjects) do
+      local id = obj.id
+      local desc = obj.desc
+
+      -- ]x - next start (left edge with next search)
+      vim.keymap.set({ "n", "x", "o" }, "]" .. id, function()
+        ai.move_cursor("left", "a", id, { search_method = "next" })
+      end, { desc = "Next " .. desc .. " start" })
+
+      -- ]X - next end (right edge with next search)
+      vim.keymap.set({ "n", "x", "o" }, "]" .. id:upper(), function()
+        ai.move_cursor("right", "a", id, { search_method = "next" })
+      end, { desc = "Next " .. desc .. " end" })
+
+      -- [x - previous start (left edge with prev search)
+      vim.keymap.set({ "n", "x", "o" }, "[" .. id, function()
+        ai.move_cursor("left", "a", id, { search_method = "prev" })
+      end, { desc = "Previous " .. desc .. " start" })
+
+      -- [X - previous end (right edge with prev search)
+      vim.keymap.set({ "n", "x", "o" }, "[" .. id:upper(), function()
+        ai.move_cursor("right", "a", id, { search_method = "prev" })
+      end, { desc = "Previous " .. desc .. " end" })
+    end
   end,
 }
