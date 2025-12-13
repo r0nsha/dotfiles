@@ -26,7 +26,20 @@ end
 update_theme
 
 set fish_greeting # disable welcome message
+
+# vi mode
 fish_vi_key_bindings
+
+# vi: Copy to clipboard in normal mode
+bind -M default yy 'commandline -f begin-selection; commandline -f end-selection; fish_clipboard_copy; commandline -f end-selection'
+bind -M default Y 'commandline -f begin-selection; commandline -f end-of-line; fish_clipboard_copy; commandline -f end-selection'
+
+# vi: Paste from clipboard in normal and insert mode
+bind -M default p fish_clipboard_paste
+bind -M insert \cp fish_clipboard_paste
+
+# vi: Visual mode bindings
+bind -M visual y fish_clipboard_copy
 
 # yank/paste with system clipboard
 bind yy fish_clipboard_copy
