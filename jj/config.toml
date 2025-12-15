@@ -9,6 +9,7 @@ default-command = "log"
 pager = ["delta", "--pager", "less -FRX"]
 diff-formatter = ":git"
 diff-editor = ["nvim", "-c", "DiffEditor $left $right $output"]
+should-sign-off = true
 
 [[--scope]]
 --when.commands = ["diff", "show"]
@@ -27,6 +28,10 @@ git_push_bookmark = '"ron/" ++ change_id.short()'
 draft_commit_description = '''
 concat(
   coalesce(description, default_commit_description, "\n"),
+  if(
+    config("ui.should-sign-off").as_boolean() && !description.contains("Signed-off-by: " ++ author.name()),
+    "\nSigned-off-by: " ++ author.name() ++ " <" ++ author.email() ++ ">\n",
+  ),
   surround(
     "\nJJ: This commit contains the following changes:\n", "",
     indent("JJ:     ", diff.stat(72)),
@@ -55,7 +60,9 @@ verbose = true
 
 [aliases]
 retrunk = ["rebase", "-d", "trunk()"]
+d = ["diff"]
 e = ["edit"]
+n = ["new"]
 i = ["git", "init", "--colocate"]
 # Rebase
 r = ["rebase"]
