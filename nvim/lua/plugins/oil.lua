@@ -67,6 +67,10 @@ return {
             end
           end,
         },
+
+        ["gy"] = { "actions.yank_entry", opts = { modify = ":." } },
+        ["gY"] = "actions.yank_entry",
+        ["gF"] = { "actions.yank_entry", opts = { modify = ":t" } },
       },
     }
 
