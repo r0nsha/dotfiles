@@ -92,25 +92,25 @@ return {
 
       local opencode = require "opencode"
 
-      vim.keymap.set("n", "ga", function()
+      vim.keymap.set("n", "<leader>a", function()
         opencode.toggle()
       end, { desc = "Opencode: Toggle" })
 
-      vim.keymap.set({ "n", "x" }, "gA", function()
-        opencode.prompt "@this"
-      end, { desc = "Opencode: Add this" })
-
-      vim.keymap.set({ "n", "x" }, "gp", function()
+      vim.keymap.set({ "n", "x" }, "ga", function()
         opencode.ask("@this: ", { submit = true })
       end, { desc = "Opencode: Prompt about this" })
 
-      vim.keymap.set({ "n", "x" }, "gP", function()
+      vim.keymap.set({ "n", "x" }, "gA", function()
         opencode.ask("", { submit = true })
       end, { desc = "Opencode: Prompt" })
 
       vim.keymap.set({ "n", "x" }, "gs", function()
         opencode.select()
       end, { desc = "Opencode: Select prompt" })
+
+      vim.keymap.set({ "n", "x" }, "g.", function()
+        opencode.prompt "@this"
+      end, { desc = "Opencode: Add this" })
     end,
   },
 }
