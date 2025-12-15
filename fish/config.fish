@@ -59,6 +59,7 @@ fish_add_path ./node_modules/.bin
 set -gx NVM_DIR "$HOME/.nvm"
 set -gx PNPM_HOME "$HOME/.local/share/pnpm"
 fish_add_path $PNPM_HOME
+fish_add_path ~/.local/share/bob/nvim-bin
 
 if status is-interactive
     stty -ixon # disable C-s and C-q
@@ -79,5 +80,9 @@ if status is-interactive
 
     if binary_exists jj
         jj util completion fish | source
+    end
+
+    if binary_exists bob
+        bob complete fish | source
     end
 end
