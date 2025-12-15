@@ -38,6 +38,7 @@ return {
           "golines",
         },
         typst = { "typstyle" },
+        http = { "kulala-fmt" },
         ["_"] = { "trim_whitespace" },
       },
       default_format_opts = {

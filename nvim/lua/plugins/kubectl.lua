@@ -3,13 +3,18 @@ return {
     "ramilito/kubectl.nvim",
     version = "2.*",
     dependencies = "saghen/blink.download",
+    keys = {
+      {
+        "<leader>k",
+        function()
+          require("kubectl").toggle { tab = true }
+        end,
+        desc = "Kubectl",
+      },
+    },
+    cmd = { "Kubectl", "Kubectx", "Kubens" },
     config = function()
-      local k = require "kubectl"
-      k.setup {}
-
-      vim.keymap.set("n", "<leader>k", function()
-        k.toggle { tab = true }
-      end, { noremap = true, silent = true })
+      require("kubectl").setup {}
 
       local group = vim.api.nvim_create_augroup("custom_kubectl", { clear = true })
       vim.api.nvim_create_autocmd("User", {

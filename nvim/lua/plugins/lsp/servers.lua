@@ -41,6 +41,7 @@ local ensure_installed = {
   "golines",
   "ruff",
   "typstyle",
+  "kulala-fmt",
 
   -- dap
   "delve",
