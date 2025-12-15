@@ -59,7 +59,8 @@ merge-tool-edits-conflict-markers = true
 verbose = true
 
 [aliases]
-retrunk = ["rebase", "-d", "trunk()"]
+retrunk = ["rebase", "--skip-emptied", "-d", "trunk()"]
+pullup = ['retrunk', '-s', 'mutable()']
 d = ["diff"]
 e = ["edit"]
 n = ["new"]
@@ -80,3 +81,8 @@ l = [
   "@ | ancestors(trunk()..(visible_heads() & mine()), 2) | trunk()",
 ]
 la = ["log", "-r", "all()"]
+gc = ["abandon", "-r", "empty() & mutable()"]
+init = ["git", "init"]
+clone = ["git", "clone"]
+fetch = ["git", "fetch"]
+push = ["git", "push"]
