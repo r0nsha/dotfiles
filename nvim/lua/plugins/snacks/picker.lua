@@ -229,6 +229,13 @@ local M = {
       desc = "Man Pages",
     },
     {
+      "<leader>sn",
+      function()
+        Snacks.picker.notifications()
+      end,
+      desc = "Notifications",
+    },
+    {
       "<leader>si",
       function()
         Snacks.picker.icons()
