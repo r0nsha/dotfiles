@@ -35,10 +35,7 @@ return {
   {
     "r0nsha/qfpreview.nvim",
     -- dir = "~/dev/qfpreview.nvim",
-    opts = {
-      ui = {
-        height = 20,
-      },
-    },
+    enabled = false,
+    opts = { ui = { height = 20 } },
   },
 }
