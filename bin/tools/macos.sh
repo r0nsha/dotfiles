@@ -58,7 +58,6 @@ install_deps() {
 		font-iosevka-nerd-font
 		opencode
 		jj
-		jjui
 		responsively
 		mcfly
 		gnupg
@@ -67,6 +66,8 @@ install_deps() {
 		go
 		nikitabobko/tap/aerospace
 		fontforge
+		kubectl
+		kubectx
 	)
 
 	brew install ${deps[@]}

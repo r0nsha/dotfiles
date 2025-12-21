@@ -65,6 +65,8 @@ pacman_deps=(
 	go
 	qmk
 	bear
+	kubectl
+	kubectx
 
 	# media
 	pipewire
@@ -215,7 +217,6 @@ yay_deps=(
 	protonup-rs
 	downgrade
 	opencode
-	jjui-bin
 	responsively
 )
 
