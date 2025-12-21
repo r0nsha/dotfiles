@@ -39,7 +39,7 @@ bind -M default p fish_clipboard_paste
 bind -M insert \cp fish_clipboard_paste
 
 # vi: Visual mode bindings
-bind -M visual y fish_clipboard_copy
+bind -M visual y 'fish_clipboard_copy; commandline -f end-selection'
 
 # yank/paste with system clipboard
 bind yy fish_clipboard_copy
