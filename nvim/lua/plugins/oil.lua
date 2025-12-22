@@ -11,6 +11,8 @@ function _G.get_oil_winbar()
   end
 end
 
+---@module "lazy"
+---@type LazySpec
 return {
   "stevearc/oil.nvim",
   config = function()

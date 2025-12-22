@@ -1,3 +1,5 @@
+---@module "lazy"
+---@type LazySpec
 return {
   "nvim-mini/mini.ai",
   dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },

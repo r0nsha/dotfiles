@@ -1,3 +1,5 @@
+---@module "lazy"
+---@type LazySpec
 return {
   "code-biscuits/nvim-biscuits",
   config = function()

@@ -1,12 +1,15 @@
+---@module "lazy"
+---@type LazySpec
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "master",
+    lazy = false,
     build = ":TSUpdate",
     dependencies = {
       {
         "nvim-treesitter/nvim-treesitter-context",
         config = function()
-          vim.g.skip_ts_context_commentstring_module = true
           require("treesitter-context").setup {
             enable = true,
             multiwindow = false,
@@ -19,16 +22,8 @@ return {
           }
         end,
       },
-      {
-        "JoosepAlviste/nvim-ts-context-commentstring",
-        config = function()
-          require("ts_context_commentstring").setup {}
-        end,
-      },
     },
     config = function()
-      local utils = require "utils"
-
       require("nvim-treesitter.configs").setup {
         ensure_installed = {
           "query",
@@ -85,27 +80,17 @@ return {
           -- Instead of true it can also be a list of languages
           additional_vim_regex_highlighting = { "markdown" },
         },
-        context_commentstring = { enable = true, enable_autocmd = false },
       }
 
       local parsers = require "nvim-treesitter.parsers"
       local parser_config = parsers.get_parser_configs()
       parser_config.tsx.filetype_to_parsername = { "javascript", "typescript.tsx" }
 
-      if utils.is_windows() then
-        local install = require "nvim-treesitter.install"
-        install.prefer_git = false
-        install.compilers = { "clang" }
-      end
-
       vim.keymap.set("n", "<leader>ih", "<cmd>Inspect<cr>", { desc = "TS: Inspect" })
       vim.keymap.set("n", "<leader>ip", "<cmd>InspectTree<cr>", { desc = "TS: Inspect Tree" })
       vim.keymap.set("n", "<leader>iq", "<cmd>EditQuery<cr>", { desc = "TS: Edit Query" })
 
       vim.treesitter.language.register("markdown", "mdx")
-    end,
-    init = function()
-      vim.filetype.add { extension = { mdx = "markdown" } }
     end,
   },
 }

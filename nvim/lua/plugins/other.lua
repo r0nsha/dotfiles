@@ -1,3 +1,5 @@
+---@module "lazy"
+---@type LazySpec
 return {
   "rgroli/other.nvim",
   config = function()

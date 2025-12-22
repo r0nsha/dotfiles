@@ -1,3 +1,5 @@
+---@module "lazy"
+---@type LazySpec
 return {
   "rebelot/heirline.nvim",
   dependencies = { "Zeioth/heirline-components.nvim" },

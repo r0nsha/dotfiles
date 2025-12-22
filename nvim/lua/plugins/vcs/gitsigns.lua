@@ -1,7 +1,8 @@
+---@module "lazy"
+---@type LazySpec
 return {
   "lewis6991/gitsigns.nvim",
   config = function()
-    local utils = require "utils"
     local gs = require "gitsigns"
 
     gs.setup {
@@ -75,10 +76,6 @@ return {
         map({ "n", "v" }, "<leader>gr", function()
           gs.reset_hunk()
         end, "Git: Reset Hunk")
-
-        if utils.repo_too_large() then
-          gs.detach(bufnr)
-        end
       end,
     }
   end,

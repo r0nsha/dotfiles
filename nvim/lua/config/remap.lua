@@ -90,11 +90,11 @@ vim.keymap.set("n", "<leader>cl", function()
   vim.notify("Conceal " .. conceal_enabled .. ", Cloak " .. cloak_enabled)
 end, { desc = "Toggle conceal" })
 
--- Working with tabs
-vim.keymap.set("n", "<leader>tt", "<cmd>tabnew<cr>", { desc = "New tab" })
-vim.keymap.set("n", "<leader>tn", "<cmd>tabnext<cr>", { desc = "Next tab" })
-vim.keymap.set("n", "<leader>tp", "<cmd>tabprev<cr>", { desc = "Previous tab" })
+-- Tabs
+vim.keymap.set("n", "<leader>tn", "<cmd>tabnew<cr>", { desc = "New tab" })
 vim.keymap.set("n", "<leader>tc", "<cmd>tabclose<cr>", { desc = "Close tab" })
+vim.keymap.set("n", "<A-L>", "<cmd>tabnext<cr>", { desc = "Next tab" })
+vim.keymap.set("n", "<A-H>", "<cmd>tabprev<cr>", { desc = "Previous tab" })
 
 -- Trim whitespace
 vim.keymap.set("n", "<leader>T", [[%s/\s\+$//e]], { desc = "Trim all whitespace" })

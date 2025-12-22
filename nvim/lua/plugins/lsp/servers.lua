@@ -1,5 +1,3 @@
--- local codelldb_path, liblldb_path = require("utils").get_codelldb_paths()
-
 local servers = {
   lua_ls = { name = "lua-language-server" },
   -- ts_ls = { name = "typescript-language-server" },

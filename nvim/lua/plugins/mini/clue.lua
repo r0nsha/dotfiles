@@ -1,3 +1,5 @@
+---@module "lazy"
+---@type LazySpec
 return {
   "nvim-mini/mini.clue",
   event = "VeryLazy",
@@ -54,9 +56,7 @@ return {
         { mode = "n", keys = "<Leader>g", desc = "+Source Control" },
         { mode = "n", keys = "<Leader>a", desc = "+AI" },
         { mode = "n", keys = "<Leader>c", desc = "+Misc" },
-        { mode = "n", keys = "<Leader>v", desc = "+CSV" },
         { mode = "n", keys = "<Leader>t", desc = "+Tabs" },
-        { mode = "n", keys = "<Leader>T", desc = "+Todos" },
         { mode = "n", keys = "<Leader>i", desc = "+Treesitter" },
         { mode = "n", keys = "<Leader>s", desc = "+Pickers" },
         { mode = "n", keys = "<Leader>d", desc = "+Debug" },

@@ -6,6 +6,8 @@ return {
 
     ---@param desc string
     local function opts(desc)
+      ---@module "lazy"
+      ---@type LazySpec
       return {
         desc = "Multicursor: " .. desc,
       }

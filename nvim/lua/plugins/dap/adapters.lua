@@ -1,5 +1,4 @@
 local dap = require "dap"
-local utils = require "utils"
 
 dap.adapters.nlua = function(callback, config)
   callback { type = "server", host = config.host, port = config.port }
@@ -99,6 +98,6 @@ dap.configurations.lua = {
 
 require("dap-go").setup {
   delve = {
-    detached = not utils.is_windows(),
+    detached = vim.fn.has "win32" == 0,
   },
 }

@@ -1,5 +1,7 @@
 local group = vim.api.nvim_create_augroup("CustomBlameNvim", { clear = true })
 
+---@module "lazy"
+---@type LazySpec
 return {
   {
     "FabijanZulj/blame.nvim",

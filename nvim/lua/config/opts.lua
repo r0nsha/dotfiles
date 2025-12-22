@@ -1,5 +1,3 @@
-local utils = require "utils"
-
 -- disable netrw
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
@@ -86,7 +84,7 @@ vim.opt.autowrite = false
 
 -- filetypes
 vim.filetype.add {
-  extension = { ll = "llvm" },
+  extension = { ll = "llvm", mdx = "markdown" },
   filename = { [".gitconfig.local"] = "gitconfig" },
 }
 
@@ -149,18 +147,5 @@ if vim.env.SSH_CONNECTION then
       ["+"] = vim_paste,
       ["*"] = vim_paste,
     },
-  }
-elseif utils.is_wsl() then
-  vim.g.clipboard = {
-    name = "wslclipboard",
-    copy = {
-      ["+"] = "win32yank.exe -i --crlf",
-      ["*"] = "win32yank.exe -i --crlf",
-    },
-    paste = {
-      ["+"] = "win32yank.exe -o --lf",
-      ["*"] = "win32yank.exe -o --lf",
-    },
-    cache_enabled = 1,
   }
 end

@@ -1,3 +1,5 @@
+---@module "lazy"
+---@type LazySpec
 return {
   "saghen/blink.cmp",
   -- build = "cargo build --release",
@@ -128,11 +130,6 @@ return {
             -- always show `buffer` source
             fallbacks = {},
           },
-          -- snippets = {
-          --   enabled = function()
-          --     return not utils.repo_too_large()
-          --   end,
-          -- },
           path = {
             opts = {
               show_hidden_files_by_default = true,

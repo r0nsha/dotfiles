@@ -1,3 +1,5 @@
+---@module "lazy"
+---@type LazySpec
 return {
   "pteroctopus/faster.nvim",
   config = function()

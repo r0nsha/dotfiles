@@ -18,6 +18,8 @@ local function override_layout_wo(layout)
   return layout
 end
 
+---@module "lazy"
+---@type LazySpec
 local M = {
   "folke/snacks.nvim",
   opts = {
