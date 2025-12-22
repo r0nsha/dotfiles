@@ -3,94 +3,125 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    branch = "master",
+    branch = "main",
     lazy = false,
     build = ":TSUpdate",
-    dependencies = {
-      {
-        "nvim-treesitter/nvim-treesitter-context",
-        opts = {
-          max_lines = 0,
-          multiline_threshold = 2,
-          -- enable = true,
-          -- multiwindow = false,
-          -- min_window_height = 0,
-          -- line_numbers = true,
-          -- multiline_threshold = 20,
-          -- trim_scope = "outer",
-          -- mode = "cursor",
-          -- max_lines = 4,
-        },
-      },
-    },
     config = function()
-      require("nvim-treesitter.configs").setup {
-        ensure_installed = {
-          "query",
-          "lua",
-          "vim",
-          "vimdoc",
-          "rust",
-          "go",
-          "toml",
-          "markdown",
-          "markdown_inline",
-          "c",
-          "cpp",
-          "python",
-          "html",
-          "css",
-          "javascript",
-          "typescript",
-          "tsx",
-          "json",
-          "yaml",
-          "regex",
-          "bash",
-          "fish",
-          "go",
-          "gomod",
-          "gowork",
-          "diff",
-          "http",
-        },
-        sync_install = false,
-        auto_install = true,
-        matchup = { enable = true },
-        indent = { enable = true },
-        highlight = {
-          enable = true,
-          disable = function(lang, buf)
-            _ = lang
-            local max_filesize = 20 * 1024 -- 20 KB
-            local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
-            if ok and stats and stats.size > max_filesize then
-              vim.notify(
-                "File larger than 20KB treesitter disabled for performance",
-                vim.log.levels.WARN,
-                { title = "Treesitter" }
-              )
-              return true
-            end
-          end,
+      local ts = require "nvim-treesitter"
 
-          -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-          -- Set this to `true` if you depend on "syntax" being enabled (like for indentation).
-          -- Using this option may slow down your editor, and you may see some duplicate highlights.
-          -- Instead of true it can also be a list of languages
-          additional_vim_regex_highlighting = { "markdown" },
-        },
+      local parsers = {
+        "query",
+        "lua",
+        "luadoc",
+        "vim",
+        "vimdoc",
+        "rust",
+        "go",
+        "toml",
+        "markdown",
+        "markdown_inline",
+        "c",
+        "cpp",
+        "python",
+        "html",
+        "css",
+        "scss",
+        "javascript",
+        "typescript",
+        "tsx",
+        "json",
+        "yaml",
+        "xml",
+        "regex",
+        "git_config",
+        "git_rebase",
+        "gitcommit",
+        "gitignore",
+        "make",
+        "bash",
+        "fish",
+        "go",
+        "gomod",
+        "gowork",
+        "diff",
+        "http",
+        "typst",
+        "comment",
       }
 
-      local parsers = require "nvim-treesitter.parsers"
-      local parser_config = parsers.get_parser_configs()
-      parser_config.tsx.filetype_to_parsername = { "javascript", "typescript.tsx" }
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "LazyDone",
+        once = true,
+        callback = function()
+          ts.install(parsers)
+        end,
+      })
+
+      local ignore_filetypes = {
+        "checkhealth",
+        "lazy",
+        "mason",
+        "snacks_dashboard",
+        "snacks_notif",
+        "snacks_win",
+      }
+
+      -- Auto-install parsers and enable highlighting for filetypes
+      local group = vim.api.nvim_create_augroup("TreesitterInstall", { clear = true })
+      vim.api.nvim_create_autocmd("FileType", {
+        group = group,
+        pattern = parsers,
+        callback = function(args)
+          if vim.tbl_contains(ignore_filetypes, args.match) then
+            return
+          end
+
+          local max_filesize = 20 * 1024 -- 20 KB
+          local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(args.buf))
+          if ok and stats and stats.size > max_filesize then
+            vim.notify(
+              "File larger than 20KB treesitter disabled for performance",
+              vim.log.levels.WARN,
+              { title = "Treesitter" }
+            )
+            return
+          end
+
+          vim.treesitter.start()
+        end,
+      })
 
       vim.keymap.set("n", "<leader>ih", "<cmd>Inspect<cr>", { desc = "TS: Inspect" })
       vim.keymap.set("n", "<leader>ip", "<cmd>InspectTree<cr>", { desc = "TS: Inspect Tree" })
       vim.keymap.set("n", "<leader>iq", "<cmd>EditQuery<cr>", { desc = "TS: Edit Query" })
+    end,
+  },
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    opts = {
+      max_lines = 0,
+      multiline_threshold = 2,
+    },
+  },
+  {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    branch = "main",
+  },
+  {
+    "JoosepAlviste/nvim-ts-context-commentstring",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    config = function()
+      require("ts_context_commentstring").setup {
+        enable_autocmd = false,
+      }
 
-      vim.treesitter.language.register("markdown", "mdx")
+      local get_option = vim.filetype.get_option
+      vim.filetype.get_option = function(filetype, option)
+        return option == "commentstring" and require("ts_context_commentstring.internal").calculate_commentstring()
+          or get_option(filetype, option)
+      end
     end,
   },
   {

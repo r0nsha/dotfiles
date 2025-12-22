@@ -87,6 +87,7 @@ vim.filetype.add {
   extension = { ll = "llvm", mdx = "markdown" },
   filename = { [".gitconfig.local"] = "gitconfig" },
 }
+vim.treesitter.language.register("markdown", "mdx")
 
 -- behavior
 vim.opt.hidden = true
