@@ -54,7 +54,7 @@ install_deps() {
 		docker
 		colima
 		kitty
-		neovim
+		bob # neovim version manager
 		font-iosevka-nerd-font
 		opencode
 		jj

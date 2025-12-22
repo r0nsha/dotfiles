@@ -97,8 +97,8 @@ pacman_deps=(
 	kitty
 	fish
 	tmux
-	nvim
 	mcfly
+	bob # neovim version manager
 
 	# fonts
 	noto-fonts
