@@ -9,18 +9,18 @@ return {
     dependencies = {
       {
         "nvim-treesitter/nvim-treesitter-context",
-        config = function()
-          require("treesitter-context").setup {
-            enable = true,
-            multiwindow = false,
-            max_lines = 0,
-            min_window_height = 0,
-            line_numbers = true,
-            multiline_threshold = 20,
-            trim_scope = "outer",
-            mode = "cursor",
-          }
-        end,
+        opts = {
+          max_lines = 0,
+          multiline_threshold = 2,
+          -- enable = true,
+          -- multiwindow = false,
+          -- min_window_height = 0,
+          -- line_numbers = true,
+          -- multiline_threshold = 20,
+          -- trim_scope = "outer",
+          -- mode = "cursor",
+          -- max_lines = 4,
+        },
       },
     },
     config = function()
@@ -91,6 +91,20 @@ return {
       vim.keymap.set("n", "<leader>iq", "<cmd>EditQuery<cr>", { desc = "TS: Edit Query" })
 
       vim.treesitter.language.register("markdown", "mdx")
+    end,
+  },
+  {
+    "Wansmer/treesj",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    config = function()
+      local treesj = require "treesj"
+
+      treesj.setup {
+        use_default_keymaps = false,
+        max_join_length = 9000,
+      }
+
+      vim.keymap.set({ "n", "v" }, "<leader>j", treesj.toggle, { desc = "Toggle Split/Join" })
     end,
   },
 }
