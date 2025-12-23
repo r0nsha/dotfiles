@@ -23,12 +23,17 @@ end
 --- @param on_event function
 --- @param on_error OnError
 --- @param opts Opts
---- @return userdata
+--- @return uv.uv_fs_event_t|nil
 local function watch_with_function(path, on_event, on_error, opts)
   local handle = uv.new_fs_event()
+  if not handle then
+    return nil
+  end
 
   local unwatch_cb = function()
-    uv.fs_event_stop(handle)
+    if handle then
+      uv.fs_event_stop(handle)
+    end
   end
 
   local event_cb = function(err, filename, events)
@@ -50,7 +55,7 @@ end
 --- @param path string
 --- @param string string
 --- @param opts Opts
---- @return userdata
+--- @return uv.uv_fs_event_t|nil
 local function watch_with_string(path, string, opts)
   local on_event = function(_, _)
     vim.schedule(function()
@@ -64,7 +69,7 @@ end
 --- @param path string
 --- @param runnable Runnable
 --- @param opts Opts
---- @return userdata
+--- @return uv.uv_fs_event_t|nil
 local function do_watch(path, runnable, opts)
   if type(runnable) == "string" then
     return watch_with_string(path, runnable, opts)
@@ -73,7 +78,7 @@ local function do_watch(path, runnable, opts)
     assert(type(runnable.on_event) == "function", "on_event must be a function")
 
     if runnable.on_error == nil then
-      table.on_error = make_default_error_cb(path, "on_event_cb")
+      runnable.on_error = make_default_error_cb(path, "on_event_cb")
     end
 
     return watch_with_function(path, runnable.on_event, runnable.on_error, opts)
@@ -84,22 +89,25 @@ end
 
 ---@param path string
 ---@param runnable Runnable
----@return userdata
+---@return uv.uv_fs_event_t|nil
 function M.watch(path, runnable)
   return do_watch(path, runnable, {
     is_oneshot = false,
   })
 end
 
----@param handle userdata
----@return integer
+---@param handle uv.uv_fs_event_t|nil
+---@return integer|nil
 function M.unwatch(handle)
+  if not handle then
+    return nil
+  end
   return uv.fs_event_stop(handle)
 end
 
 ---@param path string
 ---@param runnable Runnable
----@return userdata
+---@return uv.uv_fs_event_t|nil
 function M.once(path, runnable)
   return do_watch(path, runnable, {
     is_oneshot = true,
