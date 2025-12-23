@@ -98,7 +98,8 @@ pacman_deps=(
 	fish
 	tmux
 	mcfly
-	bob # neovim version manager
+	bob             # neovim version manager
+	tree-sitter-cli # needed to cache treesitter parsers
 
 	# fonts
 	noto-fonts

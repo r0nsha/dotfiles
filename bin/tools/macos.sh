@@ -54,7 +54,8 @@ install_deps() {
 		docker
 		colima
 		kitty
-		bob # neovim version manager
+		bob             # neovim version manager
+		tree-sitter-cli # needed to cache treesitter parsers
 		font-iosevka-nerd-font
 		opencode
 		jj
