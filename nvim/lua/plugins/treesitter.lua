@@ -87,7 +87,8 @@ return {
             return
           end
 
-          vim.treesitter.start()
+          vim.treesitter.start(args.buf)
+          vim.bo[args.buf].syntax = "on"
         end,
       })
 
