@@ -129,8 +129,8 @@ vim.opt.fillchars:append {
   foldclose = "",
 }
 
--- clipboard
-vim.opt.clipboard:append "unnamedplus"
+-- use system clipboard by default
+-- vim.opt.clipboard:append "unnamedplus"
 
 if vim.env.SSH_CONNECTION then
   local function vim_paste()
