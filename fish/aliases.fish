@@ -44,10 +44,6 @@ if binary_exists neomutt
     abbr -a mutt neomutt
 end
 
-if binary_exists kubectl
-    alias kk 'nvim -c "lua require(\'kubectl\').open()"'
-end
-
 # GIT ALIASES -----------------------------------------------------------------
 abbr -a g git
 abbr -a gg 'git branch | fzf | xargs git switch'

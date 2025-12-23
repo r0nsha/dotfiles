@@ -65,8 +65,6 @@ pacman_deps=(
 	go
 	qmk
 	bear
-	kubectl
-	kubectx
 
 	# media
 	pipewire

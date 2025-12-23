@@ -67,8 +67,6 @@ install_deps() {
 		go
 		nikitabobko/tap/aerospace
 		fontforge
-		kubectl
-		kubectx
 	)
 
 	brew install ${deps[@]}
