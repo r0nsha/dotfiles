@@ -25,6 +25,9 @@ local servers = {
 require("mason").setup()
 
 local ensure_installed = {
+  -- lsp
+  "typescript-language-server",
+
   -- formatters
   "prettierd",
   "taplo",
