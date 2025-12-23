@@ -40,7 +40,7 @@ return {
       }
 
       vim.keymap.set("n", "<leader>cp", "<cmd>CccPick<cr>", { desc = "Pick Color" })
-      vim.keymap.set({ "n", "v" }, "<leader>cP", "<cmd>CccConvert<cr>", { desc = "Convert Color" })
+      vim.keymap.set({ "n", "x" }, "<leader>cP", "<cmd>CccConvert<cr>", { desc = "Convert Color" })
     end,
   },
   {

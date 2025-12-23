@@ -150,7 +150,7 @@ local M = {
         Snacks.picker.grep_word()
       end,
       desc = "Grep Selection",
-      mode = "v",
+      mode = "x",
     },
     {
       "<leader>sw",
@@ -158,7 +158,7 @@ local M = {
         Snacks.picker.grep_word()
       end,
       desc = "Grep Word",
-      mode = { "n", "v" },
+      mode = { "n", "x" },
     },
     {
       "<leader>sc",

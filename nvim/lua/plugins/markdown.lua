@@ -37,12 +37,12 @@ return {
         ["<c-x>"] = {
           rhs = "<cmd>Checkmate toggle<CR>",
           desc = "Toggle todo item",
-          modes = { "n", "v" },
+          modes = { "n", "x" },
         },
         ["<a-x>"] = {
           rhs = "<cmd>Checkmate create<CR>",
           desc = "Create todo item",
-          modes = { "n", "v" },
+          modes = { "n", "x" },
         },
         ["<a-a>"] = {
           rhs = "<cmd>Checkmate archive<CR>",

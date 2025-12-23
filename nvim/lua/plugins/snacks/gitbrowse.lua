@@ -33,7 +33,7 @@ return {
         Snacks.gitbrowse()
       end,
       desc = "Git: Browse (Yank)",
-      mode = { "n", "v" },
+      mode = { "n", "x" },
     },
     {
       "<leader>gy",
@@ -48,7 +48,7 @@ return {
         end)
       end,
       desc = "Git: Browse (Yank)",
-      mode = { "n", "v" },
+      mode = { "n", "x" },
     },
   },
 }

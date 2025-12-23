@@ -140,7 +140,7 @@ M = Hydra {
     { "gT", jump_to_view "threads", { desc = "Jump to Threads", private = true } },
     { "gR", jump_to_view "repl", { desc = "Jump to REPL", private = true } },
     { "gC", jump_to_view "console", { desc = "Jump to Console", private = true } },
-    { "<leader>w", dv.add_expr, { desc = "Watch expression", private = true, mode = { "n", "v" } } },
+    { "<leader>w", dv.add_expr, { desc = "Watch expression", private = true, mode = { "n", "x" } } },
     {
       "<leader>W",
       function()

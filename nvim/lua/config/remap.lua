@@ -3,10 +3,10 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
 -- Unmap leader key
-vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { remap = false })
+vim.keymap.set({ "n", "x" }, "<Space>", "<Nop>", { remap = false })
 
-vim.keymap.set({ "n", "v" }, "<leader>y", '"+y', { remap = false, desc = "Yank to clipboard" })
-vim.keymap.set({ "n", "v" }, "<leader>p", '"+p', { remap = false, desc = "Paste from clipboard" })
+vim.keymap.set({ "n", "x" }, "<leader>y", '"+y', { remap = false, desc = "Yank to clipboard" })
+vim.keymap.set({ "n", "x" }, "<leader>p", '"+p', { remap = false, desc = "Paste from clipboard" })
 vim.keymap.set("n", "<c-g>", function()
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-g>", true, true, true), "n", true)
   local file = require("plenary.path"):new(vim.fn.expand "%"):normalize()
@@ -18,7 +18,7 @@ vim.keymap.set("n", "<c-g>", function()
 end, { remap = false, desc = "Copy line reference to clipboard" })
 
 -- Don't yank when using 'p' in visual mode
-vim.keymap.set("v", "p", '"_dP', { remap = false })
+vim.keymap.set("x", "p", '"_dP', { remap = false })
 
 -- Window mappings when tmux is not available
 if vim.fn.executable "tmux" ~= 1 then
@@ -45,8 +45,8 @@ vim.keymap.set({ "n", "x" }, "k", function()
 end, { expr = true })
 
 -- replaced with mini.move
--- vim.keymap.set("v", "J", ":m '>+1<cr>gv=gv", { desc = "Move Selection: Down" })
--- vim.keymap.set("v", "K", ":m '<-2<cr>gv=gv", { desc = "Move Selection: Up" })
+-- vim.keymap.set("x", "J", ":m '>+1<cr>gv=gv", { desc = "Move Selection: Down" })
+-- vim.keymap.set("x", "K", ":m '<-2<cr>gv=gv", { desc = "Move Selection: Up" })
 
 -- Splitjoin the line below the cursor
 vim.keymap.set("n", "J", "mzJ`z", { desc = "Splitjoin" })
@@ -60,8 +60,8 @@ vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
 -- Stay in visual mode when indenting
-vim.keymap.set("v", "<", "<gv")
-vim.keymap.set("v", ">", ">gv")
+vim.keymap.set("x", "<", "<gv")
+vim.keymap.set("x", ">", ">gv")
 
 -- Quickfix list remaps
 vim.keymap.set("n", "<leader>q", "<cmd>copen<cr>", { desc = "Toggle quickfix" })
@@ -70,7 +70,7 @@ vim.keymap.set("n", "<a-p>", "<cmd>cprev<cr>zz", { desc = "Previous quickfix ite
 
 -- Replace word under cursor (when LSP is not available)
 vim.keymap.set("n", "grn", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Rename" })
-vim.keymap.set("v", "grn", [["vy:%s/<C-r>v/<C-r>v/gI<Left><Left><Left>]], { desc = "Rename" })
+vim.keymap.set("x", "grn", [["vy:%s/<C-r>v/<C-r>v/gI<Left><Left><Left>]], { desc = "Rename" })
 
 -- Toggle conceal
 vim.keymap.set("n", "<leader>cl", function()
@@ -102,11 +102,11 @@ vim.keymap.set("n", "<leader>T", [[%s/\s\+$//e]], { desc = "Trim all whitespace"
 -- Remap inc/dec
 vim.keymap.set("n", "+", "<c-a>", { desc = "Increment" })
 vim.keymap.set("n", "-", "<c-x>", { desc = "Decrement" })
-vim.keymap.set("v", "+", "<c-a>gv=gv", { desc = "Increment" })
-vim.keymap.set("v", "-", "<c-x>gv=gv", { desc = "Decrement" })
+vim.keymap.set("x", "+", "<c-a>gv=gv", { desc = "Increment" })
+vim.keymap.set("x", "-", "<c-x>gv=gv", { desc = "Decrement" })
 
 -- Select entire buffer
-vim.keymap.set("v", "v", "<esc>ggVG", { desc = "Select all" })
+vim.keymap.set("x", "v", "<esc>ggVG", { desc = "Select all" })
 
 -- Easier to type toggle fold
 vim.keymap.set("n", "zt", "za", { desc = "Toggle fold under cursor" })

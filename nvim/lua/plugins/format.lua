@@ -70,7 +70,7 @@ return {
       },
     }
 
-    vim.keymap.set({ "n", "v" }, "<leader>f", function()
+    vim.keymap.set({ "n", "x" }, "<leader>f", function()
       conform.format { async = true, lsp_format = "fallback" }
     end, { remap = false, desc = "Conform: Format" })
 

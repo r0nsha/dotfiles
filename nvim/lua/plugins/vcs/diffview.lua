@@ -38,7 +38,7 @@ return {
       toggle_diff "DiffviewFileHistory"
     end, { desc = "Git: File History" })
 
-    vim.keymap.set("v", "<leader>gdf", function()
+    vim.keymap.set("x", "<leader>gdf", function()
       toggle_diff "'<,'>DiffviewFileHistory --follow"
     end, { desc = "Git: File History (Follow visual selection)" })
 

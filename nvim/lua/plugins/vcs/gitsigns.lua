@@ -73,7 +73,7 @@ return {
           gs.toggle_word_diff()
         end, "Git: Toggle Word Diff")
 
-        map({ "n", "v" }, "<leader>gr", function()
+        map({ "n", "x" }, "<leader>gr", function()
           gs.reset_hunk()
         end, "Git: Reset Hunk")
       end,
