@@ -38,10 +38,6 @@ vim.opt.laststatus = 2
 vim.opt.showmode = true
 vim.opt.cmdheight = 1
 vim.opt.showcmdloc = "statusline"
-vim.opt.completeopt = { "menu", "menuone", "noselect" }
-vim.opt.pumheight = 10
-vim.opt.pumblend = 10
-vim.opt.winblend = 0
 vim.opt.conceallevel = 0
 vim.opt.concealcursor = ""
 vim.opt.list = true
@@ -57,6 +53,12 @@ vim.opt.listchars = {
 }
 vim.opt.fillchars:append { diff = "╱" }
 vim.opt.winborder = "single"
+vim.opt.winblend = 0
+vim.opt.pumheight = 10
+vim.opt.pumblend = 0
+vim.opt.pumborder = "single"
+vim.opt.completeopt = { "fuzzy", "menu", "menuone", "noselect", "noinsert", "popup" }
+vim.opt.autocomplete = false
 
 -- wrap
 vim.opt.wrap = false

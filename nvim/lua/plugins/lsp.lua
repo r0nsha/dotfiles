@@ -6,8 +6,6 @@ return {
     dependencies = {
       "williamboman/mason.nvim",
       "WhoIsSethDaniel/mason-tool-installer.nvim",
-      "stevearc/conform.nvim",
-      "saghen/blink.cmp",
       "b0o/schemastore.nvim",
       {
         "aznhe21/actions-preview.nvim",
