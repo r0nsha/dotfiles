@@ -2,7 +2,7 @@ local M = {}
 
 ---@param var string
 ---@param pass_name string
-function M.read(var, pass_name)
+local function read(var, pass_name)
   local Job = require "plenary.job"
 
   ---@diagnostic disable-next-line: missing-fields
@@ -28,19 +28,10 @@ function M.read(var, pass_name)
   j:start()
 end
 
----@param tbl table<string, string>
-function M.read_all(tbl)
-  for var, pass_name in pairs(tbl) do
-    M.read(var, pass_name)
-  end
-end
-
 function M.load()
-  M.read_all {
-    CODESTRAL_API_KEY = "mistral/codestral",
-    GEMINI_API_KEY = "google/gemini",
-    TAVILY_API_KEY = "tavily/personal",
-  }
+  read("CODESTRAL_API_KEY", "mistral/codestral")
+  read("GEMINI_API_KEY", "google/gemini")
+  read("TAVILY_API_KEY", "tavily/personal")
 end
 
 vim.api.nvim_create_autocmd("User", {
