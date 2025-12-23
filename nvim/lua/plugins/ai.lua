@@ -2,31 +2,6 @@
 ---@type LazySpec
 return {
   {
-    "folke/sidekick.nvim",
-    enabled = false,
-    config = function()
-      local sidekick = require "sidekick"
-      local nes = require "sidekick.nes"
-
-      sidekick.setup {}
-
-      vim.keymap.set("n", "<a-cr>", function()
-        sidekick.nes_jump_or_apply()
-      end, {
-        expr = true,
-        desc = "Goto/Apply Next Edit Suggestion",
-      })
-
-      vim.keymap.set("n", "<a-bs>", function()
-        nes.jump()
-      end, { desc = "Goto Next Edit Suggestion" })
-
-      vim.keymap.set("n", "<a-u>", function()
-        sidekick.clear()
-      end, { desc = "Clear Edit Suggestion" })
-    end,
-  },
-  {
     "milanglacier/minuet-ai.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = {
@@ -69,17 +44,6 @@ return {
       },
       cmp = { enable_auto_complete = false },
       blink = { enable_auto_complete = false },
-    },
-  },
-  {
-    "supermaven-inc/supermaven-nvim",
-    enabled = false,
-    opts = {
-      keymaps = {
-        accept_suggestion = "<a-y>",
-        clear_suggestion = "<a-r>",
-        accept_word = "<a-l>",
-      },
     },
   },
   {
