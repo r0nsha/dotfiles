@@ -5,16 +5,8 @@ return {
   -- build = "cargo build --release",
   version = "1.*",
   dependencies = {
-    -- snippets
     "rafamadriz/friendly-snippets",
     "nvim-mini/mini.snippets",
-
-    -- sources
-    "Kaiser-Yang/blink-cmp-git",
-    -- "mgalliou/blink-cmp-tmux",
-    "ribru17/blink-cmp-spell",
-
-    -- misc
     "xzbdmw/colorful-menu.nvim",
   },
   config = function()
@@ -112,10 +104,8 @@ return {
           "lazydev",
           "lsp",
           "snippets",
-          "spell",
           "path",
-          "buffer", --[[ "tmux", ]]
-          "git",
+          "buffer",
         },
         per_filetype = {
           codecompanion = { "codecompanion" },
@@ -133,57 +123,6 @@ return {
           path = {
             opts = {
               show_hidden_files_by_default = true,
-            },
-          },
-          git = {
-            name = "Git",
-            module = "blink-cmp-git",
-            enabled = function()
-              -- Allow git completions in specific filetypes
-              if vim.tbl_contains({ "octo", "gitcommit", "markdown" }, vim.bo.filetype) then
-                return true
-              end
-
-              -- Otherwise, only allow git completions in comments/strings
-              local row, column = unpack(vim.api.nvim_win_get_cursor(0))
-              local success, node = pcall(vim.treesitter.get_node, {
-                pos = { row - 1, math.max(0, column - 1) },
-                ignore_injections = false,
-              })
-              local accepted_nodes =
-                { "comment", "line_comment", "block_comment", "string_start", "string_content", "string_end" }
-              if success and node and vim.tbl_contains(accepted_nodes, node:type()) then
-                return true
-              end
-
-              return false
-            end,
-            opts = {},
-          },
-          -- tmux = {
-          --   module = "blink-cmp-tmux",
-          --   name = "tmux",
-          --   opts = {},
-          -- },
-          spell = {
-            name = "spell",
-            module = "blink-cmp-spell",
-            opts = {
-              -- EXAMPLE: Only enable source in `@spell` captures, and disable it in `@nospell` captures.
-              -- enable_in_context = function()
-              --   local curpos = vim.api.nvim_win_get_cursor(0)
-              --   local captures = vim.treesitter.get_captures_at_pos(0, curpos[1] - 1, curpos[2] - 1)
-              --   local in_spell_capture = false
-              --   for _, cap in ipairs(captures) do
-              --     if cap.capture == "spell" then
-              --       in_spell_capture = true
-              --     elseif cap.capture == "nospell" then
-              --       return false
-              --     end
-              --   end
-              --   return in_spell_capture
-              -- end,
-              use_cmp_spell_sorting = true,
             },
           },
         },
