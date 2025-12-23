@@ -1,5 +1,4 @@
 require "config"
-require "ai"
 require "utils.globals"
 require "utils.extensions"
 require "colors"
