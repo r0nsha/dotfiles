@@ -67,6 +67,7 @@
   "snacks.nvim": { "branch": "main", "commit": "fe7cfe9800a182274d0f868a74b7263b8c0c020b" },
   "tiny-inline-diagnostic.nvim": { "branch": "main", "commit": "d9d12d4bfb9a4c5b8b8bdf7f612551df6972946c" },
   "treesj": { "branch": "main", "commit": "186084dee5e9c8eec40f6e39481c723dd567cb05" },
+  "trouble.nvim": { "branch": "main", "commit": "bd67efe408d4816e25e8491cc5ad4088e708a69a" },
   "typescript-tools.nvim": { "branch": "master", "commit": "c2f5910074103705661e9651aa841e0d7eea9932" },
   "typst-preview.nvim": { "branch": "master", "commit": "87d0f3a1beedefe6fdd96422c04c3dceb69d1063" },
   "undotree": { "branch": "master", "commit": "0f1c9816975b5d7f87d5003a19c53c6fd2ff6f7f" }
