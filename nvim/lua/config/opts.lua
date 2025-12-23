@@ -6,6 +6,8 @@ vim.g.loaded_netrwFileHandlers = 1
 vim.g.loaded_matchparen = 1
 
 -- basic
+vim.opt.exrc = true
+vim.opt.secure = true
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.cursorline = true
