@@ -26,29 +26,15 @@ return {
         return
       end
 
+      local prev_len = h:list():length()
       h:list():add()
-    end
 
-    local function set(index)
-      local path = vim.fn.expand "%"
-      local list = h:list()
-      local len = list:length()
-      local items = list.items
-
-      if index <= len then
-        local replaced = items[index].value
-
-        for i, val in ipairs(items) do
-          if val.value == path then
-            items[i].value = replaced
-            break
-          end
-        end
-
-        items[index].value = path
-      else
-        list:add()
+      if prev_len == h:list():length() then
+        -- Already in harpoon
+        return
       end
+
+      vim.notify("Harpoon: Set to `" .. keys[h:list():length()] .. "`", vim.log.levels.INFO)
     end
 
     vim.keymap.set("n", "<leader>hh", function()
@@ -62,8 +48,8 @@ return {
         h:list():select(i)
       end, { desc = "Harpoon: Select " .. i })
       vim.keymap.set("n", "<A-S-" .. key .. ">", function()
-        set(i)
-        vim.notify("Harpoon: Replaced '" .. key .. "'", vim.log.levels.INFO)
+        h:list():replace_at(i)
+        vim.notify("Harpoon: Replaced `" .. key .. "`", vim.log.levels.INFO)
       end, { desc = "Harpoon: Set " .. i })
     end
   end,
