@@ -23,7 +23,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end
 
     local actions_preview = require "actions-preview"
-    local goto_preview = require "goto-preview"
 
     ---@type snacks.picker.Config
     local picker_opts = {
@@ -59,14 +58,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
       vim.api.nvim_feedkeys("zz", "n", true)
       Snacks.picker.lsp_implementations(picker_opts)
     end, opts "Implementations")
-
-    vim.keymap.set("n", "gpd", goto_preview.goto_preview_definition, opts "Preview Definition")
-    vim.keymap.set("n", "gpt", goto_preview.goto_preview_type_definition, opts "Preview Type Definition")
-    vim.keymap.set("n", "gpi", goto_preview.goto_preview_implementation, opts "Preview Implementation")
-    vim.keymap.set("n", "gpD", goto_preview.goto_preview_declaration, opts "Preview Declaration")
-    vim.keymap.set("n", "gpq", goto_preview.close_all_win, opts "Close All Previews")
-    vim.keymap.set("n", "gP", goto_preview.close_all_win, opts "Close All Previews")
-    vim.keymap.set("n", "gpr", goto_preview.goto_preview_references, opts "Preview References")
 
     vim.keymap.set("n", "grn", vim.lsp.buf.rename, opts "Rename")
     vim.keymap.set({ "n", "x" }, "gra", actions_preview.code_actions, opts "Code Action")
