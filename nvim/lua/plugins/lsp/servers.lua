@@ -42,6 +42,7 @@ local ensure_installed = {
 
   -- dap
   "delve",
+  "js-debug-adapter",
 
   -- linters
   "eslint_d",

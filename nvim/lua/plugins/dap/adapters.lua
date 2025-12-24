@@ -101,3 +101,58 @@ require("dap-go").setup {
     detached = vim.fn.has "win32" == 0,
   },
 }
+
+dap.adapters["pwa-node"] = {
+  type = "server",
+  host = "localhost",
+  port = "${port}",
+  executable = {
+    command = "node",
+    args = {
+      vim.fn.stdpath "data" .. "/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js",
+      "${port}",
+    },
+  },
+}
+
+---@type dap.Configuration[]
+local config = {
+  {
+    type = "pwa-node",
+    request = "attach",
+    name = "Attach to Node.js",
+    port = function()
+      local co = coroutine.running()
+      local result
+      vim.ui.input({ prompt = "Port: " }, function(input)
+        result = input
+        if co then
+          coroutine.resume(co)
+        end
+      end)
+      if co then
+        coroutine.yield()
+      end
+      return tonumber(result)
+    end,
+    cwd = "${workspaceFolder}",
+    sourceMaps = true,
+    localRoot = "${workspaceFolder}/dist/domains/data/apps/consumers/static-extension-analysis",
+    remoteRoot = "/backend",
+    sourceMapPathOverrides = {
+      ["webpack:///./*"] = "${workspaceFolder}/domains/data/apps/consumers/static-extension-analysis/*",
+      ["webpack:///../../../../../*"] = "${workspaceFolder}/*",
+    },
+  },
+}
+
+local fts = {
+  "javascript",
+  "typescript",
+  "javascriptreact",
+  "typescriptreact",
+}
+
+for _, ft in ipairs(fts) do
+  dap.configurations[ft] = config
+end
