@@ -2,14 +2,6 @@ local dap = require "dap"
 local dv = require "dap-view"
 local hydra = require "plugins.dap.hydra"
 
-local function exit_hydra()
-  if hydra.layer then
-    hydra.layer:exit()
-  else
-    hydra:exit()
-  end
-end
-
 ---@type dap.RequestListener
 local function enable()
   hydra:activate()
@@ -17,7 +9,7 @@ end
 
 ---@type dap.RequestListener
 local function disable()
-  exit_hydra()
+  hydra:exit_mode()
   dv.close(true)
 end
 
@@ -37,7 +29,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
     end
 
     if vim.bo.filetype:startswith "dap-" then
-      exit_hydra()
+      hydra:exit_mode()
     else
       hydra:activate()
     end

@@ -1,12 +1,13 @@
----@type Hydra
+---@class DBG: Hydra
 local M
 
 local Hydra = require "hydra"
 local dap = require "dap"
 local dv = require "dap-view"
+local dv_globals = require "dap-view.globals"
 local persistent_breakpoints_api = require "persistent-breakpoints.api"
 
----@param view dapview.SectionType
+---@param view dapview.Section
 local function jump_to_view(view)
   return function()
     dv.open()
@@ -24,6 +25,7 @@ end
 local function terminate()
   if dap.session() then
     dap.terminate()
+    dap.close()
   end
 end
 
@@ -31,13 +33,13 @@ local hint = [[
  Navigation        ^Breakpoints
  _c_ Continue        ^_db_ Toggle breakpoint
  _J_ Step over       ^_dl_ Log point
- _K_ Step back       ^_dD_ Clear all breakpoints
+ _K_ Step back       ^_dA_ Clear all breakpoints
  _L_ Step in         ^_dx_ Set exception breakpoints
  _H_ Step out        ^_dX_ Clear exception breakpoints
  _r_ Run to cursor   ^_dp_ Pause
                       ^
  UI                   ^
- _gu_ Toggle UI      ^_<leader>w_ Watch expression
+ _u_  Toggle UI      ^_<leader>w_ Watch expression
  _gw_ Watches        ^_<leader>W_ Add watch
  _gs_ Scopes         ^
  _gx_ Exceptions     ^
@@ -63,6 +65,10 @@ end
 vim.keymap.set("n", "<leader>ds", dap.continue, { desc = "Debug: Start" })
 vim.keymap.set("n", "<leader>dl", dap.run_last, { desc = "Debug: Run last" })
 
+---@type vim.api.keyset.get_hl_info
+local original_cursor_hl
+
+---@type DBG
 M = Hydra {
   name = "DBG",
   mode = { "n", "x", "v" },
@@ -78,12 +84,14 @@ M = Hydra {
       hide_on_load = true,
     },
     on_enter = function()
+      original_cursor_hl = vim.deepcopy(vim.api.nvim_get_hl(0, { name = "Cursor" }))
       local hydra_pink = vim.api.nvim_get_hl(0, { name = "HydraPink" }).fg
       vim.api.nvim_set_hl(0, "Cursor", { bg = hydra_pink })
       vim.api.nvim_exec_autocmds("User", { pattern = "HydraEnter" })
     end,
     on_exit = function()
-      vim.api.nvim_set_hl(0, "Cursor", { bg = "none" })
+      local hl = original_cursor_hl or { bg = "none" }
+      vim.api.nvim_set_hl(0, "Cursor", hl --[[@as vim.api.keyset.highlight]])
       vim.api.nvim_exec_autocmds("User", { pattern = "HydraExit" })
     end,
   },
@@ -100,7 +108,7 @@ M = Hydra {
     { "db", persistent_breakpoints_api.toggle_breakpoint, { desc = "Toggle breakpoint", private = true } },
     { "dl", persistent_breakpoints_api.set_log_point, { desc = "Log point", private = true } },
     {
-      "dD",
+      "dA",
       persistent_breakpoints_api.clear_all_breakpoints,
       { desc = "Clear all breakpoints", private = true },
     },
@@ -116,18 +124,11 @@ M = Hydra {
       end,
       { desc = "Clear exception breakpoints", private = true },
     },
-    {
-      "dp",
-      function()
-        ---@diagnostic disable-next-line: undefined-field
-        dap.pause.toggle()
-      end,
-      { desc = "Pause", private = true },
-    },
+    { "dp", dap.pause, { desc = "Pause", private = true } },
 
     -- UI
     {
-      "gu",
+      "u",
       function()
         dv.toggle(true)
       end,
@@ -144,13 +145,15 @@ M = Hydra {
     {
       "<leader>W",
       function()
-        dv.add_expr(vim.fn.input "[Expression] > ")
+        vim.ui.input({ prompt = "Watch expression" }, function(input)
+          dv.add_expr(input)
+        end)
       end,
       { desc = "Add watch", private = true },
     },
 
     -- Quitting
-    { "dd", disconnect, { desc = "Continue", exit = true } },
+    { "dd", disconnect, { desc = "Disconnect", exit = true } },
     { "Q", terminate, { desc = "Terminate", exit = true } },
     {
       "<C-c>",
@@ -165,5 +168,32 @@ M = Hydra {
     { "g?", toggle_help, { desc = "Toggle Help", private = true } },
   },
 }
+
+function M:exit_mode()
+  if self.layer then
+    self.layer:exit()
+  else
+    self:exit()
+  end
+end
+
+local group = vim.api.nvim_create_augroup("CustomDBG", { clear = true })
+vim.api.nvim_create_autocmd("BufEnter", {
+  group = group,
+  pattern = dv_globals.MAIN_BUF_NAME,
+  callback = function()
+    M:exit_mode()
+  end,
+})
+
+vim.api.nvim_create_autocmd("BufLeave", {
+  group = group,
+  pattern = dv_globals.MAIN_BUF_NAME,
+  callback = function()
+    if dap.session() then
+      M:activate()
+    end
+  end,
+})
 
 return M
