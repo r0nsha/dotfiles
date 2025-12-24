@@ -80,14 +80,10 @@ vim.keymap.set("n", "<leader>cl", function()
     vim.wo.conceallevel = 0
   end
 
-  local cloak = require "cloak"
-  cloak.toggle()
-
   local utils = require "utils"
   local conceal_enabled = utils.bool_to_enabled(vim.wo.conceallevel == 2)
-  local cloak_enabled = utils.bool_to_enabled(cloak.opts.enabled)
 
-  vim.notify("Conceal " .. conceal_enabled .. ", Cloak " .. cloak_enabled)
+  vim.notify("Conceal " .. conceal_enabled)
 end, { desc = "Toggle conceal" })
 
 -- Tabs
