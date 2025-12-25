@@ -134,7 +134,7 @@ vim.opt.fillchars:append {
 }
 
 -- use system clipboard by default
--- vim.opt.clipboard:append "unnamedplus"
+vim.opt.clipboard:append "unnamedplus"
 
 if vim.env.SSH_CONNECTION then
   local function vim_paste()
