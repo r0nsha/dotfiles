@@ -151,7 +151,7 @@ M = Hydra {
     desc = "Debug Mode",
     hint = {
       position = "middle-right",
-      float_opts = { border = "single" },
+      -- float_opts = { border = "single" },
       hide_on_load = true,
     },
     on_enter = function()

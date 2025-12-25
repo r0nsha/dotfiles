@@ -26,7 +26,7 @@ return {
           lsp = true,
         },
         win_opts = {
-          border = "single",
+          border = "none",
         },
         mappings = {
           ["<esc>"] = mapping.quit,

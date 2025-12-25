@@ -10,10 +10,10 @@ return {
       },
     },
     styles = {
-      snacks_image = {
-        border = "single",
-        col = 0,
-      },
+      -- snacks_image = {
+      --   border = "single",
+      --   col = 0,
+      -- },
     },
   },
   keys = {
