@@ -43,8 +43,4 @@ return {
       vim.keymap.set({ "n", "x" }, "<leader>cP", "<cmd>CccConvert<cr>", { desc = "Convert Color" })
     end,
   },
-  {
-    "rktjmp/lush.nvim",
-    event = "VeryLazy",
-  },
 }
