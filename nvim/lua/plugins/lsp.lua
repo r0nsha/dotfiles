@@ -7,6 +7,7 @@ return {
       "williamboman/mason.nvim",
       "WhoIsSethDaniel/mason-tool-installer.nvim",
       "b0o/schemastore.nvim",
+      "folke/snacks.nvim",
       {
         "aznhe21/actions-preview.nvim",
         opts = {
