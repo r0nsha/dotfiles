@@ -54,11 +54,11 @@ vim.opt.listchars = {
   lead = " ",
 }
 vim.opt.fillchars:append { diff = "╱" }
-vim.opt.winborder = "single"
+vim.opt.winborder = "none"
 vim.opt.winblend = 0
 vim.opt.pumheight = 10
 vim.opt.pumblend = 0
-vim.opt.pumborder = "single"
+vim.opt.pumborder = "none"
 vim.opt.completeopt = { "fuzzy", "menu", "menuone", "noselect", "noinsert", "popup" }
 vim.opt.autocomplete = false
 
@@ -134,7 +134,7 @@ vim.opt.fillchars:append {
 }
 
 -- use system clipboard by default
--- vim.opt.clipboard:append "unnamedplus"
+vim.opt.clipboard:append "unnamedplus"
 
 if vim.env.SSH_CONNECTION then
   local function vim_paste()

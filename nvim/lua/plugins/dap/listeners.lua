@@ -1,8 +1,6 @@
 local dap = require "dap"
 local dv = require "dap-view"
 
-dap.set_log_level "INFO"
-
 local function enable() end
 
 local function disable() end

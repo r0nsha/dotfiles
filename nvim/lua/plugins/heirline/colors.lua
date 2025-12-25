@@ -20,7 +20,7 @@ local function setup_colors()
     orange = hl_color "String",
     purple = hl_color "@variable.parameter",
     red = hl_color "Error",
-    pink = hl_color "Error",
+    pink = hl_color "HydraPink",
     diag_hint = hl_color "DiagnosticHint",
     diag_info = hl_color "DiagnosticInfo",
     diag_warning = hl_color "DiagnosticWarn",

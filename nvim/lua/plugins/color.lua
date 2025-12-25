@@ -26,7 +26,7 @@ return {
           lsp = true,
         },
         win_opts = {
-          border = "single",
+          border = "none",
         },
         mappings = {
           ["<esc>"] = mapping.quit,
@@ -42,9 +42,5 @@ return {
       vim.keymap.set("n", "<leader>cp", "<cmd>CccPick<cr>", { desc = "Pick Color" })
       vim.keymap.set({ "n", "x" }, "<leader>cP", "<cmd>CccConvert<cr>", { desc = "Convert Color" })
     end,
-  },
-  {
-    "rktjmp/lush.nvim",
-    event = "VeryLazy",
   },
 }

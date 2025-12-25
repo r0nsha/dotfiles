@@ -7,6 +7,7 @@ return {
       "williamboman/mason.nvim",
       "WhoIsSethDaniel/mason-tool-installer.nvim",
       "b0o/schemastore.nvim",
+      "folke/snacks.nvim",
       {
         "aznhe21/actions-preview.nvim",
         opts = {
@@ -25,19 +26,6 @@ return {
       -- Replaced with tiny-inline-diagnostic.nvim
       -- require "plugins.lsp.diagnostic"
     end,
-  },
-  {
-    "pmizio/typescript-tools.nvim",
-    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-    opts = {
-      settings = {
-        init_options = {
-          preferences = {
-            importModuleSpecifierPreference = "relative",
-          },
-        },
-      },
-    },
   },
   {
     "rachartier/tiny-inline-diagnostic.nvim",
