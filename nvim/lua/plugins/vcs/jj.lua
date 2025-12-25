@@ -1,6 +1,7 @@
 ---@module "lazy"
 ---@type LazySpec
 return {
+  { "avm99963/vim-jjdescription" },
   { "rafikdraoui/jj-diffconflicts" },
   {
     "nicolasgb/jj.nvim",

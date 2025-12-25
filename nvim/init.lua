@@ -37,9 +37,6 @@ require("lazy").setup {
   install = {
     colorscheme = { require "config.colorscheme" },
   },
-  ui = {
-    border = "single",
-  },
   checker = {
     enabled = true,
     notify = false,

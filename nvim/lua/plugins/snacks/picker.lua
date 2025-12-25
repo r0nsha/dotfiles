@@ -64,7 +64,6 @@ local M = {
             height = 0.4,
             min_height = 3,
             box = "vertical",
-            border = "single",
             title = "{title}",
             title_pos = "center",
             { win = "input", height = 1, border = "bottom" },

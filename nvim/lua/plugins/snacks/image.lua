@@ -9,12 +9,6 @@ return {
         float = false,
       },
     },
-    styles = {
-      -- snacks_image = {
-      --   border = "single",
-      --   col = 0,
-      -- },
-    },
   },
   keys = {
     {
