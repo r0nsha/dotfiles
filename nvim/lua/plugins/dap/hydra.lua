@@ -7,6 +7,77 @@ local dv = require "dap-view"
 local dv_globals = require "dap-view.globals"
 local persistent_breakpoints_api = require "persistent-breakpoints.api"
 
+---@type table<number, boolean>
+local original_modifiable = {}
+
+local excluded_filetypes = {
+  "snacks_input",
+  "snacks_picker_input",
+  "snacks_picker_list",
+  "TelescopePrompt",
+  "TelescopeResults",
+  "neo-tree-popup",
+  "notify",
+  "lazy",
+  "mason",
+  "help",
+  "qf",
+  "Trouble",
+  "trouble",
+}
+
+---@param bufnr number
+---@return boolean
+local function is_excluded_buffer(bufnr)
+  local bufname = vim.api.nvim_buf_get_name(bufnr)
+  local filetype = vim.bo[bufnr].filetype
+  local buftype = vim.bo[bufnr].buftype
+
+  -- Exclude dap-view main buffer
+  if bufname:match(vim.pesc(dv_globals.MAIN_BUF_NAME)) then
+    return true
+  end
+
+  -- Exclude dap-* filetypes
+  if filetype:match "^dap%-" then
+    return true
+  end
+
+  -- Exclude prompts, nofile buffers (floating windows, scratch, etc.)
+  if buftype == "prompt" or buftype == "nofile" then
+    return true
+  end
+
+  -- Exclude specific filetypes (pickers, inputs, etc.)
+  for _, ft in ipairs(excluded_filetypes) do
+    if filetype == ft then
+      return true
+    end
+  end
+
+  return false
+end
+
+local function lock_buffers()
+  for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_is_valid(bufnr) and vim.bo[bufnr].buflisted then
+      if not is_excluded_buffer(bufnr) then
+        original_modifiable[bufnr] = vim.bo[bufnr].modifiable
+        vim.bo[bufnr].modifiable = false
+      end
+    end
+  end
+end
+
+local function unlock_buffers()
+  for bufnr, was_modifiable in pairs(original_modifiable) do
+    if vim.api.nvim_buf_is_valid(bufnr) then
+      vim.bo[bufnr].modifiable = was_modifiable
+    end
+  end
+  original_modifiable = {}
+end
+
 ---@param view dapview.Section
 local function jump_to_view(view)
   return function()
@@ -39,7 +110,7 @@ local hint = [[
  _r_ Run to cursor   ^_dp_ Pause
                       ^
  UI                   ^
- _u_  Toggle UI      ^_<leader>w_ Watch expression
+ _gu_  Toggle UI      ^_<leader>w_ Watch expression
  _gw_ Watches        ^_<leader>W_ Add watch
  _gs_ Scopes         ^
  _gx_ Exceptions     ^
@@ -87,11 +158,13 @@ M = Hydra {
       original_cursor_hl = vim.deepcopy(vim.api.nvim_get_hl(0, { name = "Cursor" }))
       local hydra_pink = vim.api.nvim_get_hl(0, { name = "HydraPink" }).fg
       vim.api.nvim_set_hl(0, "Cursor", { bg = hydra_pink })
+      lock_buffers()
       vim.api.nvim_exec_autocmds("User", { pattern = "HydraEnter" })
     end,
     on_exit = function()
       local hl = original_cursor_hl or { bg = "none" }
       vim.api.nvim_set_hl(0, "Cursor", hl --[[@as vim.api.keyset.highlight]])
+      unlock_buffers()
       vim.api.nvim_exec_autocmds("User", { pattern = "HydraExit" })
     end,
   },
@@ -128,7 +201,7 @@ M = Hydra {
 
     -- UI
     {
-      "u",
+      "gu",
       function()
         dv.toggle(true)
       end,
@@ -192,6 +265,23 @@ vim.api.nvim_create_autocmd("BufLeave", {
   callback = function()
     if dap.session() then
       M:activate()
+    end
+  end,
+})
+
+-- Lock newly opened buffers while debugging
+vim.api.nvim_create_autocmd("BufEnter", {
+  group = group,
+  callback = function(args)
+    -- Only if hydra is active (has layer) and dap session exists
+    if not dap.session() or not M.layer then
+      return
+    end
+
+    local bufnr = args.buf
+    if not is_excluded_buffer(bufnr) and original_modifiable[bufnr] == nil then
+      original_modifiable[bufnr] = vim.bo[bufnr].modifiable
+      vim.bo[bufnr].modifiable = false
     end
   end,
 })
