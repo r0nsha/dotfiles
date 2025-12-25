@@ -27,19 +27,6 @@ return {
     end,
   },
   {
-    "pmizio/typescript-tools.nvim",
-    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-    opts = {
-      settings = {
-        init_options = {
-          preferences = {
-            importModuleSpecifierPreference = "relative",
-          },
-        },
-      },
-    },
-  },
-  {
     "rachartier/tiny-inline-diagnostic.nvim",
     event = "VeryLazy",
     priority = 1000,

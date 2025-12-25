@@ -1,9 +1,8 @@
 local servers = {
   lua_ls = { name = "lua-language-server" },
-  -- ts_ls = { name = "typescript-language-server" },
+  tsgo = {},
   cssls = { name = "css-lsp" },
   tailwindcss = { name = "tailwindcss-language-server" },
-  -- biome = {},
   clangd = {},
   rust_analyzer = { name = "rust-analyzer" },
   gopls = {},
@@ -25,9 +24,6 @@ local servers = {
 require("mason").setup()
 
 local ensure_installed = {
-  -- lsp
-  "typescript-language-server",
-
   -- formatters
   "prettierd",
   "taplo",
@@ -46,17 +42,21 @@ local ensure_installed = {
 
   -- dap
   "delve",
-  -- "codelldb",
 
   -- linters
   "eslint_d",
 }
 
 -- Add server names from servers with name field
-for _, config in pairs(servers) do
+for name, config in pairs(servers) do
+  ---@type string
+  local server_name
   if type(config) == "table" and config.name then
-    table.insert(ensure_installed, config.name)
+    server_name = config.name
+  else
+    server_name = name
   end
+  table.insert(ensure_installed, server_name)
 end
 
 require("mason-tool-installer").setup { ensure_installed = ensure_installed }
