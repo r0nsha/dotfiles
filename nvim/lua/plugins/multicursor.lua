@@ -22,7 +22,7 @@ return {
     end, opts "Add Cursor Below")
 
     -- Add a new cursor by matching word/selection
-    vim.keymap.set({ "n", "x" }, "<C-N>", function()
+    vim.keymap.set({ "n", "x" }, "<C-S-N>", function()
       mc.matchAddCursor(-1)
     end, opts "Add Cursor Match Above")
     vim.keymap.set({ "n", "x" }, "<C-n>", function()
@@ -33,7 +33,7 @@ return {
     vim.keymap.set("n", "<C-m>", mc.toggleCursor, opts "Toggle Cursor")
 
     -- Add all matches in the document
-    vim.keymap.set("n", "<C-M>", mc.matchAllAddCursors, opts "Add Cursors to All Matches")
+    vim.keymap.set("n", "<C-S-M>", mc.matchAllAddCursors, opts "Add Cursors to All Matches")
 
     -- Match new cursors within visual selections by regex.
     vim.keymap.set("x", "m", mc.matchCursors, opts "Match Cursors by Regex")
@@ -60,7 +60,7 @@ return {
         mc.lineSkipCursor(1)
       end, { desc = "Skip Cursor Below" })
 
-      layerSet({ "n", "x" }, "<C-Q>", function()
+      layerSet({ "n", "x" }, "<C-S-Q>", function()
         mc.matchSkipCursor(-1)
       end, { desc = "Skip Cursor Match Above" })
       layerSet({ "n", "x" }, "<C-q>", function()
