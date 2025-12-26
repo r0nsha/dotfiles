@@ -31,7 +31,6 @@ require("lazy").setup {
   spec = {
     { import = "plugins" },
     { import = "plugins.vcs" },
-    { import = "plugins.mini" },
     { import = "plugins.snacks" },
   },
   install = {
