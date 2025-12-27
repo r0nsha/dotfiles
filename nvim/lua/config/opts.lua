@@ -11,6 +11,7 @@ vim.opt.secure = true
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.cursorline = true
+vim.opt.colorcolumn = "+1"
 vim.opt.scrolloff = 10
 vim.opt.sidescrolloff = 8
 
@@ -30,6 +31,7 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
+vim.opt.infercase = true
 
 -- visual
 vim.opt.termguicolors = true
@@ -59,6 +61,7 @@ vim.opt.winblend = 0
 vim.opt.pumheight = 10
 vim.opt.pumblend = 0
 vim.opt.pumborder = "none"
+vim.opt.complete = { ".", "w", "b" }
 vim.opt.completeopt = { "menuone", "noselect", "fuzzy", "nosort", "popup" }
 
 -- wrap
@@ -101,6 +104,8 @@ vim.opt.path:append "**"
 vim.opt.modifiable = true
 vim.opt.encoding = "utf-8"
 vim.opt.more = false
+vim.opt.virtualedit = "block"
+vim.opt.inccommand = "split"
 
 -- diff
 vim.opt.diffopt:append "iwhite"
