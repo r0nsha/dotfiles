@@ -3,7 +3,10 @@
 return {
   "nvim-mini/mini.nvim",
   version = false,
-  dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
+  dependencies = {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    "rafamadriz/friendly-snippets",
+  },
   config = function()
     require "plugins.mini.ai"
     require "plugins.mini.clue"

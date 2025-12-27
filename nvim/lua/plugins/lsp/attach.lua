@@ -44,11 +44,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
       Snacks.picker.lsp_references(picker_opts)
     end, opts "References")
 
-    vim.keymap.set("n", "gt", function()
-      vim.api.nvim_feedkeys("zz", "n", true)
-      Snacks.picker.lsp_type_definitions(picker_opts)
-    end, opts "Type Definitions")
-
     vim.keymap.set("n", "grt", function()
       vim.api.nvim_feedkeys("zz", "n", true)
       Snacks.picker.lsp_type_definitions(picker_opts)
@@ -68,12 +63,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
       vim.notify("Inlay hints " .. utils.bool_to_enabled(enable))
     end, opts "Toggle Inlay Hints")
 
-    vim.keymap.set("n", "[d", function()
+    vim.keymap.set({ "n", "x" }, "[d", function()
       vim.diagnostic.jump { count = -1, float = true }
     end, opts "Previous Diagnostic")
-    vim.keymap.set("n", "]d", function()
+    vim.keymap.set({ "n", "x" }, "]d", function()
       vim.diagnostic.jump { count = 1, float = true }
     end, opts "Next Diagnostic")
+
+    vim.keymap.set("i", "<C-s>", vim.lsp.buf.signature_help, opts "Signature Help")
 
     -- vim.keymap.set("n", "<leader>x", vim.diagnostic.setqflist, opts "Diagnostics")
   end,
