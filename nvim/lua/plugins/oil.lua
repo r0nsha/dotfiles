@@ -32,6 +32,9 @@ return {
         winbar = "%!v:lua.get_oil_winbar()",
       },
       skip_confirm_for_simple_edits = true,
+      lsp_file_methods = {
+        autosave_changes = true,
+      },
       keymaps = {
         ["g?"] = "actions.show_help",
 

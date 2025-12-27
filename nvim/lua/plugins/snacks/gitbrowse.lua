@@ -24,7 +24,7 @@ return {
       function()
         Snacks.gitbrowse()
       end,
-      desc = "Git: Browse (Yank)",
+      desc = "Git: Browse",
       mode = { "n", "x" },
     },
     {
