@@ -13,7 +13,7 @@ return {
       },
     }
 
-    local keys = { "u", "i", "o", "m" }
+    local keys = { "h", "j", "k", "l" }
 
     local function add()
       if vim.fn.expand "%" == "" then
@@ -37,17 +37,17 @@ return {
       vim.notify("Harpoon: Set to `" .. keys[h:list():length()] .. "`", vim.log.levels.INFO)
     end
 
-    vim.keymap.set("n", "<leader>hh", function()
+    vim.keymap.set("n", "<C-e>", function()
       h.ui:toggle_quick_menu(h:list())
     end, { desc = "Harpoon: Menu" })
 
-    vim.keymap.set("n", "<leader>ha", add, { desc = "Harpoon: Add" })
+    vim.keymap.set("n", "<leader>.", add, { desc = "Harpoon: Add" })
 
     for i, key in ipairs(keys) do
-      vim.keymap.set("n", "<A-" .. key .. ">", function()
+      vim.keymap.set("n", "<leader>" .. key, function()
         h:list():select(i)
       end, { desc = "Harpoon: Select " .. i })
-      vim.keymap.set("n", "<A-S-" .. key .. ">", function()
+      vim.keymap.set("n", "<leader>" .. key:upper(), function()
         h:list():replace_at(i)
         vim.notify("Harpoon: Replaced `" .. key .. "`", vim.log.levels.INFO)
       end, { desc = "Harpoon: Set " .. i })

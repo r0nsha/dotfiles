@@ -3,26 +3,16 @@ local treesitter = ai.gen_spec.treesitter
 
 ai.setup {
   custom_textobjects = {
-    a = treesitter { a = "@statement.outer", i = "@statement.inner" },
     b = treesitter { a = "@block.outer", i = "@block.inner" },
     f = treesitter { a = "@function.outer", i = "@function.inner" },
-    c = treesitter { a = "@comment.outer", i = "@comment.inner" },
+    c = treesitter { a = "@class.outer", i = "@class.inner" },
+    C = treesitter { a = "@comment.outer", i = "@comment.inner" },
     v = treesitter { a = "@parameter.outer", i = "@parameter.inner" },
     o = treesitter {
       a = { "@conditional.outer", "@loop.outer" },
       i = { "@conditional.inner", "@loop.inner" },
     },
-    -- Single words in different cases (camelCase, snake_case, etc.)
-    s = {
-      {
-        "%u[%l%d]+%f[^%l%d]",
-        "%f[^%s%p][%l%d]+%f[^%l%d]",
-        "^[%l%d]+%f[^%l%d]",
-        "%f[^%s%p][%a%d]+%f[^%a%d]",
-        "^[%a%d]+%f[^%a%d]",
-      },
-      "^().*()$",
-    },
+    s = treesitter { a = "@statement.outer", i = "@statement.inner" },
     -- whole buffer
     g = function()
       local from = { line = 1, col = 1 }
