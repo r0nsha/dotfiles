@@ -22,7 +22,6 @@ return {
     config = function()
       require "plugins.lsp.servers"
       require "plugins.lsp.attach"
-      require "plugins.lsp.progress"
       -- Replaced with tiny-inline-diagnostic.nvim
       -- require "plugins.lsp.diagnostic"
     end,

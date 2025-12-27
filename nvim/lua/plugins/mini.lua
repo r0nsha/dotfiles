@@ -15,5 +15,6 @@ return {
     require "plugins.mini.move"
     require "plugins.mini.snippets"
     require "plugins.mini.surround"
+    require "plugins.mini.notify"
   end,
 }

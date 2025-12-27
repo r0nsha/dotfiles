@@ -6,7 +6,7 @@ return {
   version = "1.*",
   dependencies = {
     "rafamadriz/friendly-snippets",
-    "nvim-mini/mini.snippets",
+    "nvim-mini/mini.nvim",
     "xzbdmw/colorful-menu.nvim",
   },
   config = function()

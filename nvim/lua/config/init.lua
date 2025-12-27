@@ -5,8 +5,5 @@ require "config.pass"
 
 require("vim._extui").enable {
   enable = true,
-  msg = {
-    target = "cmd",
-    timeout = 2000,
-  },
+  msg = { target = "cmd", timeout = 2000 },
 }
