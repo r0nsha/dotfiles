@@ -41,7 +41,7 @@ return {
       h.ui:toggle_quick_menu(h:list())
     end, { desc = "Harpoon: Menu" })
 
-    vim.keymap.set("n", "<leader>.", add, { desc = "Harpoon: Add" })
+    vim.keymap.set("n", "<leader>a", add, { desc = "Harpoon: Add" })
 
     for i, key in ipairs(keys) do
       vim.keymap.set("n", "<leader>" .. key, function()

@@ -18,7 +18,6 @@ return {
     require "plugins.mini.jump"
     require "plugins.mini.move"
     require "plugins.mini.snippets"
-    require "plugins.mini.splitjoin"
     require "plugins.mini.surround"
     require "plugins.mini.notify"
   end,

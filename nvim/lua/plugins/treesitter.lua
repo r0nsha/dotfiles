@@ -126,4 +126,14 @@ return {
       end
     end,
   },
+  {
+    "Wansmer/treesj",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      local treesj = require "treesj"
+      treesj.setup { use_default_keymaps = false, max_join_length = 9000 }
+      vim.keymap.set({ "n", "x" }, "gS", treesj.toggle, { desc = "Splitjoin" })
+    end,
+  },
 }

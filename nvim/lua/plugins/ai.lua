@@ -51,16 +51,13 @@ return {
     config = function()
       vim.g.opencode_opts = {
         auto_reload = true,
+        provider = { enabled = "tmux" },
       }
 
       -- Required for `vim.g.opencode_opts.auto_reload`.
       vim.o.autoread = true
 
       local opencode = require "opencode"
-
-      vim.keymap.set("n", "<leader>a", function()
-        opencode.toggle()
-      end, { desc = "Opencode: Toggle" })
 
       vim.keymap.set({ "n", "x" }, "ga", function()
         opencode.ask("@this: ", { submit = true })
