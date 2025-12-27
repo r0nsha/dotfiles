@@ -59,8 +59,7 @@ vim.opt.winblend = 0
 vim.opt.pumheight = 10
 vim.opt.pumblend = 0
 vim.opt.pumborder = "none"
-vim.opt.completeopt = { "fuzzy", "menu", "menuone", "noselect", "noinsert", "popup" }
-vim.opt.autocomplete = false
+vim.opt.completeopt = { "menuone", "noselect", "fuzzy", "nosort", "popup" }
 
 -- wrap
 vim.opt.wrap = false

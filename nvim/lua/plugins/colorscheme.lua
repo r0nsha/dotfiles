@@ -26,7 +26,6 @@ return {
           -- highlight.DapUIFloatBorder = { bg = "none" }
           -- highlight.BlinkCmpMenu = { link = "NormalFloat" }
           -- highlight.BlinkCmpMenuBorder = { link = "FloatBorder" }
-          -- highlight.BlinkCmpMenuSelection = { link = "CursorLine" }
           highlight.TroubleNormal = { link = "Normal" }
           highlight.TroubleNormalNC = { link = "NormalNC" }
           highlight.DapStoppedLine = { link = "DiagnosticVirtualTextError" }
