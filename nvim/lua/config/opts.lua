@@ -56,11 +56,11 @@ vim.opt.listchars = {
   lead = " ",
 }
 vim.opt.fillchars:append { diff = "╱" }
-vim.opt.winborder = "none"
+vim.opt.winborder = "single"
 vim.opt.winblend = 0
 vim.opt.pumheight = 10
 vim.opt.pumblend = 0
-vim.opt.pumborder = "none"
+vim.opt.pumborder = "single"
 vim.opt.complete = { ".", "w", "b" }
 vim.opt.completeopt = { "menuone", "noselect", "fuzzy", "nosort", "popup" }
 
@@ -125,7 +125,8 @@ vim.opt.mousemodel = "popup_setpos"
 
 -- fold
 vim.o.foldenable = false
-vim.o.foldmethod = "manual"
+vim.o.foldmethod = "expr"
+vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
 vim.opt.foldcolumn = "1"

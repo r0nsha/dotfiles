@@ -18,21 +18,22 @@ return {
         on_highlights = function(highlight, color)
           highlight.MiniCursorword = { underdotted = true }
           highlight.MiniCursorwordCurrent = highlight.MiniCursorword
-          Cursor = { bg = "none" }
-          -- highlight.NormalFloat = { bg = "none" }
-          -- highlight.FloatBorder = { bg = "none" }
-          -- highlight.FloatTitle = { bg = "none" }
-          -- highlight.Pmenu = { bg = "none" }
-          -- highlight.DapUIFloatBorder = { bg = "none" }
-          -- highlight.BlinkCmpMenu = { link = "NormalFloat" }
-          -- highlight.BlinkCmpMenuBorder = { link = "FloatBorder" }
+          highlight.CursorLineSign = { link = "CursorLineNr" }
+          highlight.CursorLineFold = { link = "CursorLineNr" }
+          highlight.FoldColumn = { link = "LineNr" }
+          highlight.NormalFloat = { bg = "none" }
+          highlight.FloatBorder = { bg = "none" }
+          highlight.FloatTitle = { bg = "none" }
+          highlight.Pmenu = { bg = "none" }
+          highlight.DapUIFloatBorder = { bg = "none" }
+          highlight.BlinkCmpMenu = { link = "NormalFloat" }
+          highlight.BlinkCmpMenuBorder = { link = "FloatBorder" }
+          highlight.BlinkCmpMenuSelection = { link = "CursorLine" }
           highlight.TroubleNormal = { link = "Normal" }
           highlight.TroubleNormalNC = { link = "NormalNC" }
           highlight.DapStoppedLine = { link = "DiagnosticVirtualTextError" }
           highlight.HydraPink = { fg = color.error }
           highlight.StatusLineNC = { bg = color.bg_dim }
-          highlight.FoldColumn = { link = "LineNr" }
-          highlight.CursorLineFold = { link = "CursorLineNr" }
         end,
       }
     end,

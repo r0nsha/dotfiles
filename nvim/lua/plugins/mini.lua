@@ -9,6 +9,7 @@ return {
   },
   config = function()
     require "plugins.mini.ai"
+    require "plugins.mini.bufremove"
     require "plugins.mini.clue"
     require "plugins.mini.cursorword"
     require "plugins.mini.diff"
@@ -17,6 +18,7 @@ return {
     require "plugins.mini.jump"
     require "plugins.mini.move"
     require "plugins.mini.snippets"
+    require "plugins.mini.splitjoin"
     require "plugins.mini.surround"
     require "plugins.mini.notify"
   end,

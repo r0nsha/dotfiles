@@ -142,7 +142,5 @@ return {
       },
       signature = { enabled = true },
     }
-
-    vim.api.nvim_set_hl(0, "BlinkCmpMenuBorder", { link = "FloatBorder" })
   end,
 }
