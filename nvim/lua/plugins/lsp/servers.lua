@@ -1,6 +1,6 @@
 local servers = {
   lua_ls = { name = "lua-language-server" },
-  tsgo = {},
+  vtsls = {},
   cssls = { name = "css-lsp" },
   tailwindcss = { name = "tailwindcss-language-server" },
   clangd = {},
