@@ -5,7 +5,9 @@ return {
     "nvim-treesitter/nvim-treesitter",
     branch = "main",
     lazy = false,
-    build = ":TSUpdate",
+    build = function()
+      require("nvim-treesitter").update()
+    end,
     config = function()
       local ts = require "nvim-treesitter"
 
@@ -57,40 +59,25 @@ return {
         end,
       })
 
-      local ignore_filetypes = {
-        "checkhealth",
-        "lazy",
-        "mason",
-        "snacks_dashboard",
-        "snacks_notif",
-        "snacks_win",
-      }
+      ---@param args vim.api.keyset.create_autocmd.callback_args
+      local function start_treesitter(args)
+        local lang = vim.treesitter.language.get_lang(args.match) or args.match
+
+        local ok = pcall(vim.treesitter.start, args.buf, lang)
+        if not ok then
+          return
+        end
+
+        ts.install { lang }
+
+        vim.bo[args.buf].syntax = "on"
+        vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+      end
 
       -- Auto-install parsers and enable highlighting for filetypes
       local group = vim.api.nvim_create_augroup("TreesitterInstall", { clear = true })
-      vim.api.nvim_create_autocmd("FileType", {
-        group = group,
-        pattern = parsers,
-        callback = function(args)
-          if vim.tbl_contains(ignore_filetypes, args.match) then
-            return
-          end
-
-          local max_filesize = 20 * 1024 -- 20 KB
-          local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(args.buf))
-          if ok and stats and stats.size > max_filesize then
-            vim.notify(
-              "File larger than 20KB treesitter disabled for performance",
-              vim.log.levels.WARN,
-              { title = "Treesitter" }
-            )
-            return
-          end
-
-          vim.treesitter.start(args.buf)
-          vim.bo[args.buf].syntax = "on"
-        end,
-      })
+      vim.api.nvim_create_autocmd("FileType", { group = group, pattern = parsers, callback = start_treesitter })
+      vim.api.nvim_create_user_command("TSStart", start_treesitter, {})
 
       vim.keymap.set("n", "<leader>ih", "<cmd>Inspect<cr>", { desc = "TS: Inspect" })
       vim.keymap.set("n", "<leader>ip", "<cmd>InspectTree<cr>", { desc = "TS: Inspect Tree" })
