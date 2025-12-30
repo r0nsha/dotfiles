@@ -159,3 +159,8 @@ if vim.env.SSH_CONNECTION then
     },
   }
 end
+
+require("vim._extui").enable {
+  enable = true,
+  msg = { target = "cmd", timeout = 2000 },
+}

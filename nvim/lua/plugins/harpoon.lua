@@ -13,7 +13,7 @@ return {
       },
     }
 
-    local keys = { "h", "j", "k", "l" }
+    local keys = { "j", "k", "l", "m" }
 
     local function add()
       if vim.fn.expand "%" == "" then

@@ -49,3 +49,6 @@ require("lazy").setup {
 }
 
 pcall(require, "local")
+
+-- load after plugins are loaded
+require "kafka"
