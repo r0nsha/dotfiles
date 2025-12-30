@@ -122,26 +122,15 @@ local config = {
     request = "attach",
     name = "Attach to Node.js",
     port = function()
-      local co = coroutine.running()
-      local result
-      vim.ui.input({ prompt = "Port: " }, function(input)
-        result = input
-        if co then
-          coroutine.resume(co)
-        end
-      end)
-      if co then
-        coroutine.yield()
-      end
-      return tonumber(result)
+      return tonumber(vim.fn.input "Port: ")
     end,
     cwd = "${workspaceFolder}",
     sourceMaps = true,
     localRoot = "${workspaceFolder}/dist/domains/data/apps/consumers/static-extension-analysis",
     remoteRoot = "/backend",
     sourceMapPathOverrides = {
-      ["webpack:///./*"] = "${workspaceFolder}/domains/data/apps/consumers/static-extension-analysis/*",
-      ["webpack:///../../../../../*"] = "${workspaceFolder}/*",
+      ["webpack://@data-d-consumers/static-extension-analysis/./*"] = "${workspaceFolder}/domains/data/apps/consumers/static-extension-analysis/*",
+      ["webpack://@data-d-consumers/static-extension-analysis/../../../../../*"] = "${workspaceFolder}/*",
     },
   },
 }
