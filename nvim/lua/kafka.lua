@@ -263,7 +263,7 @@ end
 
 local function kafka_send_last_topic()
   if not last_pod then
-    vim.notify("No previous pod found. Run KafkaSendBuf first.", vim.log.levels.WARN)
+    vim.notify("No previous pod found. Run :KafkaSendBuf first.", vim.log.levels.WARN)
     return
   end
 
@@ -282,7 +282,7 @@ end
 
 local function kafka_send_last_msg()
   if not last_pod then
-    vim.notify("No previous pod found. Run KafkaSendBuf first.", vim.log.levels.WARN)
+    vim.notify("No previous pod found. Run :KafkaSendBuf first.", vim.log.levels.WARN)
     return
   end
 
