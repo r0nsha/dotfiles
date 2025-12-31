@@ -3,7 +3,7 @@
 return {
   {
     "MeanderingProgrammer/render-markdown.nvim",
-    ft = { "markdown", "codecompanion" },
+    ft = { "markdown" },
     opts = {
       checkbox = {
         checked = { icon = " ", highlight = "RenderMarkdownChecked", scope_highlight = nil },

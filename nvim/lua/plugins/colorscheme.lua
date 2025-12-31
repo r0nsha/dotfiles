@@ -34,6 +34,11 @@ return {
           highlight.DapStoppedLine = { link = "DiagnosticVirtualTextError" }
           highlight.HydraPink = { fg = color.error }
           highlight.StatusLineNC = { bg = color.bg_dim }
+          highlight.DiffAdd = { bg = color.bg_added }
+          highlight.DiffChange = { bg = color.bg_changed }
+          highlight.DiffText = { bg = color.bg_changed_refine }
+          highlight.DiffTextAdd = { link = "DiffText" }
+          highlight.DiffviewDiffAddAsDelete = { bg = color.bg_removed }
         end,
       }
     end,

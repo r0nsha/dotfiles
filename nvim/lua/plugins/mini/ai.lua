@@ -5,13 +5,9 @@ ai.setup {
   custom_textobjects = {
     b = treesitter { a = "@block.outer", i = "@block.inner" },
     f = treesitter { a = "@function.outer", i = "@function.inner" },
-    c = treesitter { a = "@class.outer", i = "@class.inner" },
-    C = treesitter { a = "@comment.outer", i = "@comment.inner" },
+    C = treesitter { a = "@class.outer", i = "@class.inner" },
     v = treesitter { a = "@parameter.outer", i = "@parameter.inner" },
-    o = treesitter {
-      a = { "@conditional.outer", "@loop.outer" },
-      i = { "@conditional.inner", "@loop.inner" },
-    },
+    o = treesitter { a = { "@conditional.outer", "@loop.outer" }, i = { "@conditional.inner", "@loop.inner" } },
     s = treesitter { a = "@statement.outer", i = "@statement.inner" },
     -- whole buffer
     g = function()
@@ -41,12 +37,12 @@ ai.setup {
 -- Treesitter-textobjects style goto mappings
 -- Automatically creates ]x/]X/[x/[X for each textobject
 local textobjects = {
-  { id = "f", desc = "function" },
-  { id = "v", desc = "parameter" },
   { id = "b", desc = "block" },
-  { id = "c", desc = "comment" },
+  { id = "f", desc = "function" },
+  { id = "C", desc = "class" },
+  { id = "v", desc = "parameter" },
   { id = "o", desc = "conditional/loop" },
-  { id = "a", desc = "statement" },
+  { id = "s", desc = "statement" },
 }
 
 for _, obj in ipairs(textobjects) do

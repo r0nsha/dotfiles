@@ -108,9 +108,9 @@ vim.opt.virtualedit = "block"
 vim.opt.inccommand = "split"
 
 -- diff
-vim.opt.diffopt:append "iwhite"
 vim.opt.diffopt:append "algorithm:histogram"
 vim.opt.diffopt:append "indent-heuristic"
+vim.opt.diffopt:append "inline:char"
 
 -- splits
 vim.opt.splitbelow = true
