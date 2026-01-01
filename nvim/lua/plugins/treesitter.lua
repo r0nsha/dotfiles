@@ -59,25 +59,33 @@ return {
         end,
       })
 
-      ---@param args vim.api.keyset.create_autocmd.callback_args
-      local function start_treesitter(args)
-        local lang = vim.treesitter.language.get_lang(args.match) or args.match
+      ---@param buf number
+      ---@param ft string
+      local function start_treesitter(buf, ft)
+        local lang = vim.treesitter.language.get_lang(ft) or ft
 
-        local ok = pcall(vim.treesitter.start, args.buf, lang)
+        local ok = pcall(vim.treesitter.start, buf, lang)
         if not ok then
           return
         end
 
         ts.install { lang }
 
-        vim.bo[args.buf].syntax = "on"
-        vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        vim.bo[buf].syntax = "on"
+        vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
       end
 
       -- Auto-install parsers and enable highlighting for filetypes
       local group = vim.api.nvim_create_augroup("TreesitterInstall", { clear = true })
-      vim.api.nvim_create_autocmd("FileType", { group = group, pattern = parsers, callback = start_treesitter })
-      vim.api.nvim_create_user_command("TSStart", start_treesitter, {})
+      vim.api.nvim_create_autocmd("FileType", {
+        group = group,
+        callback = function(args)
+          start_treesitter(args.buf, args.match)
+        end,
+      })
+      vim.api.nvim_create_user_command("TSStart", function()
+        start_treesitter(0, vim.bo.filetype)
+      end, {})
 
       vim.keymap.set("n", "<leader>ih", "<cmd>Inspect<cr>", { desc = "TS: Inspect" })
       vim.keymap.set("n", "<leader>ip", "<cmd>InspectTree<cr>", { desc = "TS: Inspect Tree" })
