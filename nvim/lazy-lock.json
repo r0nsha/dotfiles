@@ -1,5 +1,4 @@
 {
-  "artio.nvim": { "branch": "main", "commit": "70200529ae1ebc5ea82d9c4ec0d0a381a50ac69a" },
   "blame.nvim": { "branch": "main", "commit": "f3f6153ea94e1120f2776f22bbbd63c4aeebaf32" },
   "blink.cmp": { "branch": "main", "commit": "b19413d214068f316c78978b08264ed1c41830ec" },
   "ccc.nvim": { "branch": "main", "commit": "9d1a256e006decc574789dfc7d628ca11644d4c2" },

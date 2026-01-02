@@ -1,7 +1,6 @@
 ---@module "lazy"
 ---@type LazySpec
 return {
-  { "comfysage/artio.nvim", lazy = false },
   { "nvim-lua/plenary.nvim" },
   {
     "folke/lazydev.nvim",
