@@ -8,16 +8,6 @@ return {
       "WhoIsSethDaniel/mason-tool-installer.nvim",
       "b0o/schemastore.nvim",
       "folke/snacks.nvim",
-      {
-        "aznhe21/actions-preview.nvim",
-        opts = {
-          backend = { "snacks" },
-          snacks = {
-            layout = require("plugins.snacks.picker").ivy_cursor,
-          },
-        },
-        config = true,
-      },
     },
     config = function()
       require "plugins.lsp.servers"

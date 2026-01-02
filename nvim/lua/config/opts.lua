@@ -61,8 +61,12 @@ vim.opt.winblend = 0
 vim.opt.pumheight = 10
 vim.opt.pumblend = 0
 vim.opt.pumborder = "single"
+
+-- completion
 vim.opt.complete = { ".", "w", "b" }
 vim.opt.completeopt = { "menuone", "noselect", "fuzzy", "nosort", "popup" }
+vim.opt.path:append "**"
+vim.opt.wildignore:append { "*/node_modules/*", "*/.git/*" }
 
 -- wrap
 vim.opt.wrap = false
@@ -100,7 +104,6 @@ vim.opt.hidden = true
 vim.opt.visualbell = true
 vim.opt.backspace = { "indent", "start", "eol" }
 vim.opt.autochdir = false
-vim.opt.path:append "**"
 vim.opt.modifiable = true
 vim.opt.encoding = "utf-8"
 vim.opt.more = false

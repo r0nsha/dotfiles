@@ -24,7 +24,6 @@ local M = {
   "folke/snacks.nvim",
   opts = {
     picker = {
-      prompt = " ",
       layout = function()
         local layouts = require "snacks.picker.config.layouts"
         local ivy = override_layout_wo(layouts.ivy)
@@ -249,29 +248,6 @@ local M = {
         Snacks.picker()
       end,
       desc = "Search pickers",
-    },
-  },
-}
-
----@type snacks.layout.Box
-M.ivy_cursor = override_layout_wo {
-  layout = {
-    box = "vertical",
-    backdrop = false,
-    row = 1,
-    width = 0,
-    height = 0.4,
-    border = "top",
-    title = " {title} {live} {flags}",
-    title_pos = "left",
-    position = "float",
-    relative = "cursor",
-    { win = "input", height = 1, border = "bottom" },
-    {
-      box = "horizontal",
-      { win = "list", border = "none" },
-      { win = "preview", title = "{preview}", width = 0.6, border = "left" },
-      border = "bottom",
     },
   },
 }

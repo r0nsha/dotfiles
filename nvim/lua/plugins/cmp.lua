@@ -42,7 +42,7 @@ return {
         },
         list = {
           selection = {
-            preselect = true,
+            preselect = false,
             auto_insert = true,
           },
         },
