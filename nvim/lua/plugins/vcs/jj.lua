@@ -4,7 +4,6 @@ return {
   { "avm99963/vim-jjdescription" },
   {
     "rafikdraoui/jj-diffconflicts",
-    branch = "user-event",
     config = function()
       vim.api.nvim_create_autocmd("User", {
         group = vim.api.nvim_create_augroup("custom-jj-diffconflicts", { clear = true }),
