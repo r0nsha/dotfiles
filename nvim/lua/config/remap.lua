@@ -13,18 +13,30 @@ vim.keymap.set({ "n", "x" }, "gy", '""y', { remap = false, desc = "Yank to unnam
 vim.keymap.set({ "n", "x" }, "gY", '""Y', { remap = false, desc = "Yank to unnamed register" })
 vim.keymap.set({ "n", "x" }, "gp", '""p', { remap = false, desc = "Paste from unnamed register" })
 vim.keymap.set({ "n", "x" }, "gP", '""P', { remap = false, desc = "Paste from unnamed register" })
-vim.keymap.set("n", "<c-g>", function()
-  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-g>", true, true, true), "n", true)
-  local file = require("plenary.path"):new(vim.fn.expand "%"):normalize()
-  local line = vim.fn.line "."
-  local ref = string.format("%s:%d", file, line)
-  vim.fn.setreg("+", ref)
-  vim.fn.setreg('"', ref)
-  vim.notify "Copied line reference to clipboard"
-end, { remap = false, desc = "Copy line reference to clipboard" })
 
 -- Don't yank when using 'p' in visual mode
 vim.keymap.set("x", "p", '"_dP', { remap = false })
+
+---@param lines string
+local function copy_line_reference(lines)
+  local file = require("plenary.path"):new(vim.fn.expand "%"):normalize()
+  local ref = string.format("%s:%s", file, lines)
+  vim.fn.setreg("+", ref)
+  vim.fn.setreg('"', ref)
+  vim.notify "Copied line reference to clipboard"
+end
+
+vim.keymap.set("n", "<c-g>", function()
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-g>", true, true, true), "n", true)
+  local line = vim.fn.line "."
+  copy_line_reference(tostring(line))
+end, { remap = false, desc = "Copy line reference to clipboard" })
+
+vim.keymap.set("x", "<c-g>", function()
+  local start_line, end_line = require("utils").get_visual_range()
+  copy_line_reference(string.format("%d-%d", start_line, end_line))
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, true, true), "n", true)
+end, { remap = false, desc = "Copy line reference to clipboard" })
 
 -- Window mappings when tmux is not available
 if vim.fn.executable "tmux" ~= 1 then

@@ -38,4 +38,15 @@ function Utils.debounce(callback, timeout)
   return t
 end
 
+---@return number, number
+function Utils.get_visual_range()
+  local start_line = vim.fn.line "v" - 1
+  local end_line = vim.fn.line "." - 1
+  if start_line > end_line then
+    return end_line, start_line
+  else
+    return start_line, end_line
+  end
+end
+
 return Utils

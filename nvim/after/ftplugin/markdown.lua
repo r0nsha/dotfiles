@@ -1,3 +1,5 @@
+local utils = require "utils"
+
 local function toggle_checkbox()
   local line = vim.api.nvim_get_current_line()
 
@@ -11,12 +13,7 @@ local function toggle_checkbox()
 end
 
 local function toggle_checkboxes_visual()
-  local start_line = vim.fn.line "v" - 1
-  local end_line = vim.fn.line "." - 1
-  if start_line > end_line then
-    start_line, end_line = end_line, start_line
-  end
-
+  local start_line, end_line = utils.get_visual_range()
   local lines = vim.api.nvim_buf_get_lines(0, start_line, end_line + 1, false)
 
   local checkbox_lines = {}
