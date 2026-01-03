@@ -100,7 +100,7 @@ return {
             local _, path = require("oil.util").parse_url(action.url)
             local bufnr = vim.fn.bufnr(path)
             if bufnr ~= -1 then
-              vim.cmd.bwipeout { bufnr, bang = true }
+              vim.api.nvim_buf_delete(bufnr, { force = true })
             end
           end
         end

@@ -63,7 +63,7 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
   end,
 })
 
--- Automatically remove hlsearch when moving the cursor
+-- Automatically remove hlsearch when moving the cursor out of a match
 vim.api.nvim_create_autocmd("CursorMoved", {
   group = augroup,
   callback = function()
