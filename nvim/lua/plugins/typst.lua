@@ -1,11 +1,10 @@
----@module "lazy"
----@type LazySpec
-return {
-  "chomosuke/typst-preview.nvim",
-  ft = "typst",
-  version = "1.*",
-  opts = {
-    invert_colors = "auto",
-    follow_cursor = true,
-  },
-}
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "typst",
+  once = true,
+  callback = function()
+    require("typst-preview").setup {
+      invert_colors = "auto",
+      follow_cursor = true,
+    }
+  end,
+})

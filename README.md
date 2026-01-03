@@ -33,7 +33,6 @@ this machine. It will be loaded at the top of `fish/config.fish`.
 ```
 ~/.gitconfig.local
 ~/.config/jj/conf.d/local.toml
-
 ```
 
 Useful for customization such as modifying the `[user]` section.

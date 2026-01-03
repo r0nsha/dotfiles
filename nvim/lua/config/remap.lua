@@ -6,7 +6,13 @@ vim.g.maplocalleader = ","
 vim.keymap.set({ "n", "x" }, "<Space>", "<Nop>", { remap = false })
 
 vim.keymap.set({ "n", "x" }, "<leader>y", '"+y', { remap = false, desc = "Yank to clipboard" })
+vim.keymap.set({ "n", "x" }, "<leader>Y", '"+Y', { remap = false, desc = "Yank to clipboard" })
 vim.keymap.set({ "n", "x" }, "<leader>p", '"+p', { remap = false, desc = "Paste from clipboard" })
+vim.keymap.set({ "n", "x" }, "<leader>P", '"+P', { remap = false, desc = "Paste from clipboard" })
+vim.keymap.set({ "n", "x" }, "gy", '""y', { remap = false, desc = "Yank to unnamed register" })
+vim.keymap.set({ "n", "x" }, "gY", '""Y', { remap = false, desc = "Yank to unnamed register" })
+vim.keymap.set({ "n", "x" }, "gp", '""p', { remap = false, desc = "Paste from unnamed register" })
+vim.keymap.set({ "n", "x" }, "gP", '""P', { remap = false, desc = "Paste from unnamed register" })
 vim.keymap.set("n", "<c-g>", function()
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-g>", true, true, true), "n", true)
   local file = require("plenary.path"):new(vim.fn.expand "%"):normalize()

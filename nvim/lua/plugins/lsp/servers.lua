@@ -40,7 +40,6 @@ local ensure_installed = {
   "typstyle",
 
   -- dap
-  "delve",
   "js-debug-adapter",
 
   -- linters

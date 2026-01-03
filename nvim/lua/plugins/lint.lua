@@ -1,9 +1,6 @@
----@module "lazy"
----@type LazySpec
-return {
-  "mfussenegger/nvim-lint",
-  event = { "BufReadPre", "BufNewFile" },
-  config = function()
+vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
+  once = true,
+  callback = function()
     require("lint").linters_by_ft = {
       fish = { "fish" },
       python = { "ruff" },
@@ -20,4 +17,4 @@ return {
       end,
     })
   end,
-}
+})

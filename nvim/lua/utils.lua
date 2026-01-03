@@ -1,18 +1,18 @@
-local M = {}
+local Utils = {}
 
-function M.is_macos()
+function Utils.is_macos()
   return vim.fn.has "macunix" == 1
 end
 
 ---@param v boolean
-function M.bool_to_enabled(v)
+function Utils.bool_to_enabled(v)
   return v and "enabled" or "disabled"
 end
 
 ---@param callback function
 ---@param timeout number
 ---@return function | { cancel: function }
-function M.debounce(callback, timeout)
+function Utils.debounce(callback, timeout)
   local timer = vim.uv.new_timer()
 
   if not timer then
@@ -38,4 +38,4 @@ function M.debounce(callback, timeout)
   return t
 end
 
-return M
+return Utils

@@ -1,49 +1,91 @@
+require "extensions"
 require "config"
-require "utils.globals"
-require "utils.extensions"
+require "pass"
 require "colors"
 
-local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-  local out = vim.fn.system { "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath }
-  if vim.v.shell_error ~= 0 then
-    vim.api.nvim_echo({
-      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-      { out, "WarningMsg" },
-      { "\nPress any key to exit..." },
-    }, true, {})
-    vim.fn.getchar()
-    os.exit(1)
-  end
-end
-vim.opt.rtp:prepend(lazypath)
+vim.cmd.packadd "nvim.undotree"
 
-require("lazy").setup {
-  performance = {
-    rtp = {
-      disabled_plugins = {
-        "matchparen",
-        "netrwPlugin",
-      },
-    },
-  },
-  spec = {
-    { import = "plugins" },
-    { import = "plugins.vcs" },
-    { import = "plugins.snacks" },
-  },
-  install = {
-    colorscheme = { require "config.colorscheme" },
-  },
-  ui = {
-    border = "single",
-  },
-  checker = {
-    enabled = true,
-    notify = false,
-  },
-  change_detection = {
-    notify = false,
-  },
+require("vim._extui").enable {
+  enable = true,
+  msg = { target = "cmd", timeout = 2000 },
 }
+
+vim.pack.add {
+  { src = "https://github.com/miikanissi/modus-themes.nvim" },
+  { src = "https://github.com/nvim-lua/plenary.nvim" },
+  { src = "https://github.com/folke/lazydev.nvim" },
+  { src = "https://github.com/rafamadriz/friendly-snippets" },
+  { src = "https://github.com/nvim-mini/mini.nvim" },
+  { src = "https://github.com/neovim/nvim-lspconfig" },
+  { src = "https://github.com/williamboman/mason.nvim" },
+  { src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
+  { src = "https://github.com/b0o/schemastore.nvim" },
+  { src = "https://github.com/stevearc/conform.nvim" },
+  { src = "https://github.com/rachartier/tiny-inline-diagnostic.nvim" },
+  { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
+  { src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects", version = "main" },
+  { src = "https://github.com/nvim-treesitter/nvim-treesitter-context" },
+  { src = "https://github.com/JoosepAlviste/nvim-ts-context-commentstring" },
+  { src = "https://github.com/Wansmer/treesj" },
+  { src = "https://github.com/folke/snacks.nvim" },
+  { src = "https://github.com/ThePrimeagen/harpoon", version = "harpoon2" },
+  { src = "https://github.com/milanglacier/minuet-ai.nvim" },
+  { src = "https://github.com/NickvanDyke/opencode.nvim" },
+  { src = "https://github.com/uga-rosa/ccc.nvim" },
+  { src = "https://github.com/xzbdmw/colorful-menu.nvim" },
+  { src = "https://github.com/saghen/blink.cmp", version = "v1.8.0" },
+  { src = "https://github.com/stevearc/oil.nvim" },
+  { src = "https://github.com/mrjones2014/smart-splits.nvim" },
+  { src = "https://github.com/rebelot/heirline.nvim" },
+  { src = "https://github.com/Zeioth/heirline-components.nvim" },
+  { src = "https://github.com/mfussenegger/nvim-dap" },
+  { src = "https://github.com/mfussenegger/nvim-lint" },
+  { src = "https://github.com/igorlfs/nvim-dap-view" },
+  { src = "https://github.com/theHamsta/nvim-dap-virtual-text" },
+  { src = "https://github.com/Weissle/persistent-breakpoints.nvim" },
+  { src = "https://github.com/nvimtools/hydra.nvim" },
+  { src = "https://github.com/jbyuki/one-small-step-for-vimkind" },
+  { src = "https://github.com/monkoose/matchparen.nvim" },
+  { src = "https://github.com/jake-stewart/multicursor.nvim" },
+  { src = "https://github.com/r0nsha/multinput.nvim" },
+  -- { src = "https://github.com/r0nsha/qfpreview.nvim" },
+  { src = "https://github.com/stevearc/quicker.nvim" },
+  { src = "https://github.com/folke/trouble.nvim" },
+  { src = "https://github.com/FabijanZulj/blame.nvim" },
+  { src = "https://github.com/sindrets/diffview.nvim" },
+  { src = "https://github.com/ruifm/gitlinker.nvim" },
+  { src = "https://github.com/lewis6991/gitsigns.nvim" },
+  { src = "https://github.com/MunifTanjim/nui.nvim" },
+  -- { src = "https://github.com/nvim-neotest/nvim-nio" },
+  { src = "https://github.com/julienvincent/hunk.nvim" },
+  { src = "https://github.com/nicolasgb/jj.nvim" },
+  { src = "https://github.com/rafikdraoui/jj-diffconflicts" },
+  { src = "https://github.com/avm99963/vim-jjdescription" },
+  { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
+  { src = "https://github.com/chomosuke/typst-preview.nvim", version = "v1.4.1" },
+}
+
+require "plugins.colorscheme"
+require "plugins.treesitter"
+require "plugins.lazydev"
+require "plugins.lsp"
+require "plugins.format"
+require "plugins.mini"
+require "plugins.cmp"
+require "plugins.smart_splits"
+require "plugins.heirline"
+require "plugins.oil"
+require "plugins.snacks.picker"
+require "plugins.harpoon"
+require "plugins.ai"
+require "plugins.ccc"
+require "plugins.matchparen"
+require "plugins.multicursor"
+require "plugins.multinput"
+require "plugins.quickfix"
+require "plugins.trouble"
+require "plugins.vcs"
+require "plugins.markdown"
+require "plugins.typst"
+require "plugins.undotree"
+require "plugins.dap"
