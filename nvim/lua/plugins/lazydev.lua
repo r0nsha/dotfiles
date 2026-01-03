@@ -1,11 +1,11 @@
----@module "lazy"
----@type LazySpec
-return {
-  "folke/lazydev.nvim",
-  ft = "lua",
-  opts = {
-    library = {
-      { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-    },
-  },
-}
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "lua",
+  once = true,
+  callback = function()
+    require("lazydev").setup {
+      library = {
+        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+      },
+    }
+  end,
+})

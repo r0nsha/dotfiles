@@ -96,12 +96,6 @@ dap.configurations.lua = {
   },
 }
 
-require("dap-go").setup {
-  delve = {
-    detached = vim.fn.has "win32" == 0,
-  },
-}
-
 dap.adapters["pwa-node"] = {
   type = "server",
   host = "localhost",

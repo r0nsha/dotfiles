@@ -34,17 +34,6 @@ function M.load()
   read("TAVILY_API_KEY", "tavily/personal")
 end
 
-vim.api.nvim_create_autocmd("User", {
-  group = vim.api.nvim_create_augroup("CustomPass", { clear = true }),
-  pattern = "LazyLoad",
-  callback = function(args)
-    local plugin = args.data
-    if plugin == "plenary.nvim" then
-      M.load()
-    end
-  end,
-})
-
 vim.api.nvim_create_user_command("PassLoad", M.load, {})
 
 return M

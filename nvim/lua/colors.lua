@@ -1,5 +1,5 @@
 local uv = vim.uv
-local w = require "utils.watch"
+local w = require "watch"
 
 local types = {
   dark = "dark",

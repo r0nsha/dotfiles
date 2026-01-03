@@ -1,6 +1,1 @@
-return {
-  "monkoose/matchparen.nvim",
-  config = function()
-    require("matchparen").setup()
-  end,
-}
+require("matchparen").setup()

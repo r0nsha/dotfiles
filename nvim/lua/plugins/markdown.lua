@@ -1,10 +1,8 @@
----@module "lazy"
----@type LazySpec
-return {
-  {
-    "MeanderingProgrammer/render-markdown.nvim",
-    ft = { "markdown" },
-    opts = {
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "lua",
+  once = true,
+  callback = function()
+    require("render-markdown").setup {
       checkbox = {
         checked = { icon = " ", highlight = "RenderMarkdownChecked", scope_highlight = nil },
         unchecked = { icon = " ", highlight = "RenderMarkdownUnchecked", scope_highlight = nil },
@@ -16,6 +14,6 @@ return {
       code = {
         conceal_delimiters = false,
       },
-    },
-  },
-}
+    }
+  end,
+})
