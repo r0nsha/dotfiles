@@ -1,5 +1,3 @@
-local icons = require "config.icons"
-
 require "plugins.lsp.servers"
 require "plugins.lsp.attach"
 
@@ -22,6 +20,7 @@ require("tiny-inline-diagnostic").setup {
   },
 }
 
+local icons = require "config.icons"
 vim.diagnostic.config {
   virtual_text = false,
   virtual_lines = false,
