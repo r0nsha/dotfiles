@@ -1,6 +1,5 @@
 vim.api.nvim_create_autocmd("FileType", {
   group = vim.api.nvim_create_augroup("QuickerSetup", { clear = true }),
-  pattern = "qf",
   once = true,
   callback = function()
     local icons = require "config.icons"
@@ -26,9 +25,9 @@ vim.api.nvim_create_autocmd("FileType", {
       },
     }
 
-    vim.keymap.set("n", "<leader>q", quicker.toggle, { desc = "Toggle quickfix" })
+    vim.keymap.set("n", "<leader>q", quicker.toggle, { desc = "Quickfix" })
     vim.keymap.set("n", "<leader>Q", function()
       quicker.toggle { loclist = true }
-    end, { desc = "Toggle loclist" })
+    end, { desc = "Loclist" })
   end,
 })

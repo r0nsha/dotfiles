@@ -23,7 +23,7 @@ local function disable_virtual_lines()
   vim.diagnostic.config { virtual_text = { current_line = true }, virtual_lines = false }
 end
 
-vim.keymap.set("n", "<leader>l", function()
+vim.keymap.set("n", "grl", function()
   local config = vim.diagnostic.config() or {}
   if config.virtual_lines then
     disable_virtual_lines()

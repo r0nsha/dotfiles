@@ -50,7 +50,6 @@ vim.pack.add {
   { src = "https://github.com/r0nsha/multinput.nvim" },
   -- { src = "https://github.com/r0nsha/qfpreview.nvim" },
   { src = "https://github.com/stevearc/quicker.nvim" },
-  { src = "https://github.com/folke/trouble.nvim" },
   { src = "https://github.com/FabijanZulj/blame.nvim" },
   { src = "https://github.com/sindrets/diffview.nvim" },
   { src = "https://github.com/ruifm/gitlinker.nvim" },
@@ -83,9 +82,32 @@ require "plugins.matchparen"
 require "plugins.multicursor"
 require "plugins.multinput"
 require "plugins.quickfix"
-require "plugins.trouble"
 require "plugins.vcs"
 require "plugins.markdown"
 require "plugins.typst"
 require "plugins.undotree"
 require "plugins.dap"
+
+local function pack_complete()
+  return vim.tbl_map(function(p)
+    return p.spec.name
+  end, vim.pack.get())
+end
+
+vim.api.nvim_create_user_command("PackUpdate", function(args)
+  local name = args.args
+  if name ~= "" then
+    vim.pack.update { name }
+  else
+    vim.pack.update()
+  end
+end, { nargs = "?", complete = pack_complete })
+
+vim.api.nvim_create_user_command("PackDel", function(args)
+  local name = args.args
+  if name ~= "" then
+    vim.pack.del { name }
+  else
+    vim.pack.del()
+  end
+end, { nargs = "?", complete = pack_complete })

@@ -46,7 +46,18 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
     vim.keymap.set("i", "<C-s>", vim.lsp.buf.signature_help, opts "Signature Help")
 
-    -- Replaced with trouble.nvim
-    -- vim.keymap.set("n", "<leader>x", vim.diagnostic.setqflist, opts "Diagnostics")
+    vim.keymap.set("n", "<leader>x", vim.diagnostic.setqflist, opts "Diagnostics")
+
+    do
+    end
   end,
 })
+
+do
+  local method_name = "textDocument/publishDiagnostics"
+  local default_handler = vim.lsp.handlers[method_name]
+  vim.lsp.handlers[method_name] = function(err, method, result, client_id)
+    default_handler(err, method, result, client_id)
+    vim.diagnostic.setloclist { open = false }
+  end
+end

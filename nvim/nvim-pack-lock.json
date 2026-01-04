@@ -192,10 +192,6 @@
       "rev": "186084dee5e9c8eec40f6e39481c723dd567cb05",
       "src": "https://github.com/Wansmer/treesj"
     },
-    "trouble.nvim": {
-      "rev": "bd67efe408d4816e25e8491cc5ad4088e708a69a",
-      "src": "https://github.com/folke/trouble.nvim"
-    },
     "typst-preview.nvim": {
       "rev": "e123a7ab64e52d836e00dea9251e85b201f38966",
       "src": "https://github.com/chomosuke/typst-preview.nvim",

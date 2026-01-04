@@ -84,10 +84,15 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<cr>", { desc = "Clear highlight" }
 vim.keymap.set("x", "<", "<gv")
 vim.keymap.set("x", ">", ">gv")
 
--- Quickfix list remaps
-vim.keymap.set("n", "<leader>q", "<cmd>copen<cr>", { desc = "Toggle quickfix" })
-vim.keymap.set("n", "<a-n>", "<cmd>cnext<cr>zz", { desc = "Next quickfix item" })
-vim.keymap.set("n", "<a-p>", "<cmd>cprev<cr>zz", { desc = "Previous quickfix item" })
+-- Quickfix remaps
+vim.keymap.set("n", "<leader>q", "<cmd>copen<cr>", { desc = "Quickfix" })
+vim.keymap.set("n", "<A-n>", "<cmd>cnext<cr>zz", { desc = "Next quickfix item" })
+vim.keymap.set("n", "<A-p>", "<cmd>cprev<cr>zz", { desc = "Previous quickfix item" })
+
+-- Loclist remaps
+vim.keymap.set("n", "<leader>Q", "<cmd>lopen<cr>", { desc = "Loclist" })
+vim.keymap.set("n", "<A-N>", "<cmd>lnext<cr>zz", { desc = "Next loclist item" })
+vim.keymap.set("n", "<A-P>", "<cmd>lprev<cr>zz", { desc = "Previous loclist item" })
 
 -- Replace word under cursor (when LSP is not available)
 vim.keymap.set("n", "grn", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Rename" })
@@ -110,8 +115,8 @@ end, { desc = "Toggle conceal" })
 -- Tabs
 vim.keymap.set("n", "<leader>tn", "<cmd>tabnew<cr>", { desc = "New tab" })
 vim.keymap.set("n", "<leader>tc", "<cmd>tabclose<cr>", { desc = "Close tab" })
-vim.keymap.set("n", "<A-L>", "<cmd>tabnext<cr>", { desc = "Next tab" })
-vim.keymap.set("n", "<A-H>", "<cmd>tabprev<cr>", { desc = "Previous tab" })
+vim.keymap.set("n", "[t", "<cmd>tabprev<cr>", { desc = "Previous tab" })
+vim.keymap.set("n", "]t", "<cmd>tabnext<cr>", { desc = "Next tab" })
 
 -- Trim whitespace
 vim.keymap.set("n", "<leader>T", [[%s/\s\+$//e]], { desc = "Trim all whitespace" })
