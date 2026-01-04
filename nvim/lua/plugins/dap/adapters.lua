@@ -13,7 +13,7 @@ dap.adapters.lldb = {
 dap.adapters.rust = {
   type = "executable",
   attach = { pidProperty = "pid", pidSelect = "ask" },
-  command = "lldb-vscode", -- my binary was called 'lldb-vscode-11'
+  command = "lldb-vscode",
   env = { LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES" },
   name = "lldb",
 }
@@ -109,23 +109,18 @@ dap.adapters["pwa-node"] = {
   },
 }
 
+dap.adapters["node"] = dap.adapters["pwa-node"]
+
 ---@type dap.Configuration[]
 local config = {
   {
     type = "pwa-node",
     request = "attach",
-    name = "Attach to Node.js",
+    name = "Attach to Node process",
     port = function()
-      return tonumber(vim.fn.input "Port: ")
+      return vim.fn.input "Port: "
     end,
     cwd = "${workspaceFolder}",
-    sourceMaps = true,
-    localRoot = "${workspaceFolder}/dist/domains/data/apps/consumers/static-extension-analysis",
-    remoteRoot = "/backend",
-    sourceMapPathOverrides = {
-      ["webpack://@data-d-consumers/static-extension-analysis/./*"] = "${workspaceFolder}/domains/data/apps/consumers/static-extension-analysis/*",
-      ["webpack://@data-d-consumers/static-extension-analysis/../../../../../*"] = "${workspaceFolder}/*",
-    },
   },
 }
 

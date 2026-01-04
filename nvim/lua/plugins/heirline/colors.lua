@@ -9,7 +9,6 @@ local function setup_colors()
     return hl.fg
   end
 
-  dbg(hl_color "DiffAdd")
   return {
     fg_active = hl_color "Normal",
     fg_inactive = hl_color "NonText",

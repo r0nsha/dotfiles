@@ -152,6 +152,10 @@
       "rev": "0b64c9c46a0f9323d8983f45dbc94b87d84340e1",
       "src": "https://github.com/NickvanDyke/opencode.nvim"
     },
+    "overseer.nvim": {
+      "rev": "3cde0d84bdae56cd119cbf835f764fa30cec384c",
+      "src": "https://github.com/stevearc/overseer.nvim"
+    },
     "persistent-breakpoints.nvim": {
       "rev": "d1656221836207787b8a7969cc2dc72668c4742a",
       "src": "https://github.com/Weissle/persistent-breakpoints.nvim"

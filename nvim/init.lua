@@ -61,6 +61,7 @@ vim.pack.add {
   { src = "https://github.com/avm99963/vim-jjdescription" },
   { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
   { src = "https://github.com/chomosuke/typst-preview.nvim", version = "v1.4.1" },
+  { src = "https://github.com/stevearc/overseer.nvim" },
 }
 
 require "plugins.colorscheme"
@@ -86,6 +87,7 @@ require "plugins.markdown"
 require "plugins.typst"
 require "plugins.undotree"
 require "plugins.dap"
+require "plugins.overseer"
 
 local function pack_complete()
   return vim.tbl_map(function(p)
