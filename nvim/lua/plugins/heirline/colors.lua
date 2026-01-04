@@ -4,12 +4,12 @@ local M = {}
 
 local function setup_colors()
   ---@param name string
-  ---@param field? string
-  local function hl_color(name, field)
+  local function hl_color(name)
     local hl = vim.api.nvim_get_hl(0, { name = name })
-    return field and hl[field] or hl.fg
+    return hl.fg
   end
 
+  dbg(hl_color "DiffAdd")
   return {
     fg_active = hl_color "Normal",
     fg_inactive = hl_color "NonText",
@@ -25,9 +25,9 @@ local function setup_colors()
     diag_info = hl_color "DiagnosticInfo",
     diag_warning = hl_color "DiagnosticWarn",
     diag_error = hl_color "DiagnosticError",
-    git_del = hl_color "GitSignsDelete",
-    git_add = hl_color "GitSignsAdd",
-    git_change = hl_color "GitSignsChange",
+    diff_add = hl_color "MiniDiffSignAdd",
+    diff_change = hl_color "MiniDiffSignChange",
+    diff_del = hl_color "MiniDiffSignDelete",
   }
 end
 

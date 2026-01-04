@@ -225,10 +225,10 @@ local Git = {
   end,
 
   init = function(self)
-    if vim.b.gitsigns_status_dict then
-      self.status_dict = vim.b.gitsigns_status_dict
-    elseif vim.b.minidiff_summary then
+    if vim.b.minidiff_summary then
       minidiff_init(self)
+    elseif vim.b.gitsigns_status_dict then
+      self.status_dict = vim.b.gitsigns_status_dict
     end
 
     if self.status_dict then
@@ -262,7 +262,7 @@ local Git = {
         return "+" .. self.status_dict.added
       end,
       hl = function()
-        return { fg = "git_add" }
+        return { fg = "diff_add" }
       end,
     },
     {
@@ -274,7 +274,7 @@ local Git = {
         return space .. "~" .. self.status_dict.changed
       end,
       hl = function()
-        return { fg = "git_change" }
+        return { fg = "diff_change" }
       end,
     },
     {
@@ -286,14 +286,14 @@ local Git = {
         return space .. "-" .. self.status_dict.removed
       end,
       hl = function()
-        return { fg = "git_del" }
+        return { fg = "diff_del" }
       end,
     },
   },
 
   update = update_on {
     "User",
-    pattern = { "GitSignsUpdate", "GitSignsChanged", "MiniDiffUpdated" },
+    pattern = { "MiniDiffUpdated", "GitSignsUpdate", "GitSignsChanged" },
   },
 }
 

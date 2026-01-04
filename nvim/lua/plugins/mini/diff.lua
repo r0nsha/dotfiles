@@ -1,14 +1,17 @@
 local diff = require "mini.diff"
 
 diff.setup {
-  source = diff.gen_source.none(),
+  view = { style = "sign" },
+  source = diff.gen_source.git(),
   mappings = {
     apply = "",
-    reset = "",
+    reset = "gH",
     textobject = "",
-    goto_first = "",
-    goto_prev = "",
-    goto_next = "",
-    goto_last = "",
+    goto_first = "[H",
+    goto_prev = "[h",
+    goto_next = "]h",
+    goto_last = "]H",
   },
 }
+
+vim.keymap.set("n", "<leader>gh", diff.toggle_overlay, { desc = "Toggle diff overlay" })

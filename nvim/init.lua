@@ -53,7 +53,6 @@ vim.pack.add {
   { src = "https://github.com/FabijanZulj/blame.nvim" },
   { src = "https://github.com/sindrets/diffview.nvim" },
   { src = "https://github.com/ruifm/gitlinker.nvim" },
-  { src = "https://github.com/lewis6991/gitsigns.nvim" },
   { src = "https://github.com/MunifTanjim/nui.nvim" },
   -- { src = "https://github.com/nvim-neotest/nvim-nio" },
   { src = "https://github.com/julienvincent/hunk.nvim" },

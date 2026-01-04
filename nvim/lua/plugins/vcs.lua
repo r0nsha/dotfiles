@@ -1,7 +1,6 @@
 require "plugins.vcs.blame"
 require "plugins.vcs.diffview"
 require "plugins.vcs.gitlinker"
-require "plugins.vcs.gitsigns"
 require "plugins.vcs.hunk"
 require "plugins.vcs.jj"
 -- require "plugins.vcs.neogit"
