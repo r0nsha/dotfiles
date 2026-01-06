@@ -23,6 +23,8 @@ require("modus-themes").load {
     -- highlight.BlinkCmpMenuSelection = { link = "CursorLine" }
     -- highlight.TroubleNormal = { link = "Normal" }
     -- highlight.TroubleNormalNC = { link = "NormalNC" }
+    highlight.PmenuSel = { link = "FloatShadow" }
+    highlight.PmenuThumb = { link = "FloatShadow" }
   end,
   on_colors = function() end,
 }

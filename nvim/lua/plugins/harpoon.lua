@@ -31,7 +31,7 @@ local function add()
 end
 
 vim.keymap.set("n", "<C-e>", function()
-  h.ui:toggle_quick_menu(h:list())
+  h.ui:toggle_quick_menu(h:list(), { border = "none" })
 end, { desc = "Harpoon: Menu" })
 
 vim.keymap.set("n", "<leader>a", add, { desc = "Harpoon: Add" })
