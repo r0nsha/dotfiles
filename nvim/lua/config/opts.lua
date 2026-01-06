@@ -109,7 +109,6 @@ vim.opt.hidden = true
 vim.opt.visualbell = true
 vim.opt.backspace = { "indent", "start", "eol" }
 vim.opt.autochdir = false
-vim.opt.modifiable = true
 vim.opt.encoding = "utf-8"
 vim.opt.more = false
 vim.opt.virtualedit = "block"

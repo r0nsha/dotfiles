@@ -61,9 +61,3 @@ end
 require("mason-tool-installer").setup { ensure_installed = ensure_installed }
 
 vim.lsp.enable(vim.tbl_keys(servers))
-
-for server, config in pairs(servers) do
-  if type(config) == "table" then
-    vim.lsp.enable(server, true)
-  end
-end

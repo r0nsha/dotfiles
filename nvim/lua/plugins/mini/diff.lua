@@ -1,7 +1,6 @@
 local diff = require "mini.diff"
 
 diff.setup {
-  view = { style = "sign" },
   source = diff.gen_source.git(),
   mappings = {
     apply = "",
