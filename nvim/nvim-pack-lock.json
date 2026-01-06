@@ -74,10 +74,6 @@
       "rev": "57e5a8addb8c71fb063ee4acda466c7cf6ad2800",
       "src": "https://github.com/williamboman/mason.nvim"
     },
-    "matchparen.nvim": {
-      "rev": "1a2dcbd026bf99b20b89345883d54823f80a2bee",
-      "src": "https://github.com/monkoose/matchparen.nvim"
-    },
     "mini.nvim": {
       "rev": "02fc1af931cb6e7bb475e4977f530073cfdcc20d",
       "src": "https://github.com/nvim-mini/mini.nvim"
@@ -200,6 +196,10 @@
     "vim-jjdescription": {
       "rev": "c99bff42e7afff356514ae5b3f225665bf10b57c",
       "src": "https://github.com/avm99963/vim-jjdescription"
+    },
+    "vim-matchup": {
+      "rev": "0fb1e6b7cea34e931a2af50b8ad565c5c4fd8f4d",
+      "src": "https://github.com/andymass/vim-matchup"
     }
   }
 }
