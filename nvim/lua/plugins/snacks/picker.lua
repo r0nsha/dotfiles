@@ -124,6 +124,10 @@ vim.keymap.set({ "n", "x" }, "<leader>sw", function()
   Snacks.picker.grep_word()
 end, { desc = "Grep Word" })
 
+vim.keymap.set("n", "<leader>sr", function()
+  Snacks.picker.smart()
+end, { desc = "Find Files (Smart)" })
+
 vim.keymap.set("n", "<leader>sc", function()
   Snacks.picker.colorschemes()
 end, { desc = "Colorschemes" })
