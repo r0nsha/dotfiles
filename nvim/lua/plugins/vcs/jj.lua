@@ -4,7 +4,6 @@ jj.setup {}
 local cmd = require "jj.cmd"
 vim.keymap.set("n", "<leader>gg", cmd.log, { desc = "JJ log" })
 vim.keymap.set("n", "<leader>gs", cmd.status, { desc = "JJ status" })
-vim.keymap.set("n", "<leader>gD", cmd.diff, { desc = "JJ diff" })
 
 vim.api.nvim_create_autocmd("User", {
   group = vim.api.nvim_create_augroup("custom-jj-diffconflicts", { clear = true }),

@@ -152,6 +152,10 @@
       "rev": "93567824fb171d0740d0f7f1e85118bb061f1811",
       "src": "https://github.com/NickvanDyke/opencode.nvim"
     },
+    "overseer.nvim": {
+      "rev": "3cde0d84bdae56cd119cbf835f764fa30cec384c",
+      "src": "https://github.com/stevearc/overseer.nvim"
+    },
     "persistent-breakpoints.nvim": {
       "rev": "d1656221836207787b8a7969cc2dc72668c4742a",
       "src": "https://github.com/Weissle/persistent-breakpoints.nvim"
@@ -196,6 +200,10 @@
     "vim-jjdescription": {
       "rev": "c99bff42e7afff356514ae5b3f225665bf10b57c",
       "src": "https://github.com/avm99963/vim-jjdescription"
+    },
+    "vim-matchup": {
+      "rev": "0fb1e6b7cea34e931a2af50b8ad565c5c4fd8f4d",
+      "src": "https://github.com/andymass/vim-matchup"
     }
   }
 }

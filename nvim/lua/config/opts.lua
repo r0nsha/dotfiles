@@ -61,11 +61,11 @@ vim.opt.listchars = {
   lead = " ",
 }
 vim.opt.fillchars:append { diff = "╱" }
-vim.opt.winborder = "single"
+vim.opt.winborder = "none"
 vim.opt.winblend = 0
 vim.opt.pumheight = 10
 vim.opt.pumblend = 0
-vim.opt.pumborder = "single"
+vim.opt.pumborder = "none"
 
 -- completion
 vim.opt.complete = { ".", "w", "b" }
