@@ -59,7 +59,7 @@
       "src": "https://github.com/rafikdraoui/jj-diffconflicts"
     },
     "jj.nvim": {
-      "rev": "8c6a6568101c43a1c8046537e41583e353f77d77",
+      "rev": "ba48ed08b5c08a7192b1a47a689e0c9f949fe5a4",
       "src": "https://github.com/nicolasgb/jj.nvim"
     },
     "lazydev.nvim": {
@@ -79,7 +79,7 @@
       "src": "https://github.com/monkoose/matchparen.nvim"
     },
     "mini.nvim": {
-      "rev": "2809a06d24fe528c572c7ceca4f0a82fecb02ea8",
+      "rev": "02fc1af931cb6e7bb475e4977f530073cfdcc20d",
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "minuet-ai.nvim": {
@@ -103,11 +103,11 @@
       "src": "https://github.com/MunifTanjim/nui.nvim"
     },
     "nvim-dap": {
-      "rev": "7bb46cc612bb127d7b0e3e9ed695267d830824ec",
+      "rev": "cdfd55a133f63228c55f91378f12908cb2a78ded",
       "src": "https://github.com/mfussenegger/nvim-dap"
     },
     "nvim-dap-view": {
-      "rev": "4f73b98b4db88a953f1998175a4daaea2bf52d28",
+      "rev": "c3dcedd11715fc1daa59de332df78093e85f8cfd",
       "src": "https://github.com/igorlfs/nvim-dap-view"
     },
     "nvim-dap-virtual-text": {
@@ -149,7 +149,7 @@
       "src": "https://github.com/jbyuki/one-small-step-for-vimkind"
     },
     "opencode.nvim": {
-      "rev": "0b64c9c46a0f9323d8983f45dbc94b87d84340e1",
+      "rev": "e235528e229b5576def1aa49dbf43804e8d525d3",
       "src": "https://github.com/NickvanDyke/opencode.nvim"
     },
     "overseer.nvim": {
@@ -185,7 +185,7 @@
       "src": "https://github.com/folke/snacks.nvim"
     },
     "tiny-inline-diagnostic.nvim": {
-      "rev": "d9d12d4bfb9a4c5b8b8bdf7f612551df6972946c",
+      "rev": "f06ffded0b6069a257d6aa8ae7113104b7313fc1",
       "src": "https://github.com/rachartier/tiny-inline-diagnostic.nvim"
     },
     "treesj": {
