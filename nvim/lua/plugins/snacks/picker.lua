@@ -100,15 +100,11 @@ end, { desc = "Resume Last Picker" })
 
 vim.keymap.set("n", "<leader>sf", function()
   Snacks.picker.files()
-end, { desc = "Git Files" })
+end, { desc = "Files" })
 
 vim.keymap.set("n", "<leader>sF", function()
   Snacks.picker.files { ignored = true }
-end, { desc = "Git Files" })
-
-vim.keymap.set("n", "<leader>sr", function()
-  Snacks.picker.smart()
-end, { desc = "Find Files (Smart)" })
+end, { desc = "All Files" })
 
 vim.keymap.set("n", "<leader>ss", function()
   Snacks.picker.grep()
@@ -142,7 +138,7 @@ end, { desc = "Highlights" })
 
 vim.keymap.set("n", "<leader>so", function()
   Snacks.picker.recent()
-end, { desc = "Recent Files" })
+end, { desc = "Oldfiles" })
 
 vim.keymap.set("n", "<leader>sb", function()
   Snacks.picker.buffers()
@@ -177,10 +173,6 @@ end, { desc = "Plugins" })
 vim.keymap.set("n", "<leader>sm", function()
   Snacks.picker.man()
 end, { desc = "Man Pages" })
-
-vim.keymap.set("n", "<leader>sn", function()
-  Snacks.picker.notifications()
-end, { desc = "Notifications" })
 
 vim.keymap.set("n", "<leader>si", function()
   Snacks.picker.icons()

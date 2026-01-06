@@ -12,17 +12,22 @@ require("modus-themes").load {
     highlight.DiffText = { bg = color.bg_changed_refine }
     highlight.DiffTextAdd = { link = "DiffText" }
     highlight.DiffviewDiffAddAsDelete = { bg = color.bg_removed }
-
-    -- highlight.NormalFloat = { bg = "none" }
-    -- highlight.FloatBorder = { bg = "none" }
-    -- highlight.FloatTitle = { bg = "none" }
-    -- highlight.Pmenu = { bg = "none" }
-    -- highlight.DapUIFloatBorder = { bg = "none" }
-    -- highlight.BlinkCmpMenu = { link = "NormalFloat" }
-    -- highlight.BlinkCmpMenuBorder = { link = "FloatBorder" }
-    -- highlight.BlinkCmpMenuSelection = { link = "CursorLine" }
-    -- highlight.TroubleNormal = { link = "Normal" }
-    -- highlight.TroubleNormalNC = { link = "NormalNC" }
+    highlight.MiniPickPrompt = { link = "NormalFloat" }
+    highlight.MiniPickPromptCaret = { link = "NormalFloat" }
+    highlight.MiniPickPromptPrefix = { link = "NormalFloat" }
+    highlight.MiniPickBorder = { link = "Pmenu" }
+    highlight.MiniPickBorderBusy = { link = "Pmenu" }
+    highlight.MiniPickBorderText = { link = "Pmenu" }
+    highlight.MiniPickIconDirectory = { link = "Pmenu" }
+    highlight.MiniPickIconFile = { link = "Pmenu" }
+    highlight.MiniPickNormal = { link = "Pmenu" }
+    highlight.MiniPickHeader = { link = "Title" }
+    highlight.MiniPickMatchCurrent = { link = "PmenuThumb" }
+    highlight.MiniPickMatchMarked = { link = "FloatTitle" }
+    -- highlight.MiniPickMatchRanges = { link = "FloatTitle" }
+    highlight.MiniPickPreviewLine = { link = "CursorLine" }
+    highlight.MiniPickPreviewRegion = { link = "PmenuThumb" }
+    highlight.MiniPickPrompt = { link = "Pmenu" }
     highlight.PmenuSel = { link = "FloatShadow" }
     highlight.PmenuThumb = { link = "FloatShadow" }
   end,
