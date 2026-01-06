@@ -1,5 +1,7 @@
 require("modus-themes").load {
   on_highlights = function(highlight, color)
+    highlight.PmenuSel = { link = "FloatShadow" }
+    highlight.PmenuThumb = { link = "FloatShadow" }
     highlight.MiniCursorword = { underdotted = true }
     highlight.MiniCursorwordCurrent = highlight.MiniCursorword
     highlight.CursorLineSign = { link = "CursorLineNr" }
@@ -28,8 +30,8 @@ require("modus-themes").load {
     highlight.MiniPickPreviewLine = { link = "CursorLine" }
     highlight.MiniPickPreviewRegion = { link = "PmenuThumb" }
     highlight.MiniPickPrompt = { link = "Pmenu" }
-    highlight.PmenuSel = { link = "FloatShadow" }
-    highlight.PmenuThumb = { link = "FloatShadow" }
+    -- highlight.SnacksPicker = { link = "Pmenu" }
+    -- highlight.SnacksPickerBorder = { link = "SnacksPicker" }
   end,
   on_colors = function() end,
 }

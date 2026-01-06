@@ -1,31 +1,10 @@
 local icons = require "config.icons"
 
----@param layout snacks.picker.layout.Config
-local function override_layout_wo(layout)
-  local input = vim.tbl_filter(
-    function(item)
-      return type(item) == "table" and item.win == "input"
-    end,
-    ---@diagnostic disable-next-line: param-type-mismatch
-    layout.layout
-  )[1]
-
-  if input then
-    input.wo = {
-      winhighlight = "NormalFloat:SnacksPickerInput,FloatBorder:SnacksPickerInputBorder,FloatTitle:SnacksPickerInputTitle,FloatFooter:SnacksPickerInputFooter,CursorLine:SnacksPickerInputCursorLine,LineNr:SnacksPickerInput",
-    }
-  end
-  return layout
-end
-
 require("snacks").setup {
   picker = {
     layout = function()
       local layouts = require "snacks.picker.config.layouts"
-      local ivy = override_layout_wo(layouts.ivy)
-      local ivy_split = override_layout_wo(layouts.ivy_split)
-
-      return vim.o.columns >= 120 and ivy or ivy_split
+      return vim.o.columns >= 120 and layouts.ivy or layouts.ivy_split
     end,
     win = {
       input = {
