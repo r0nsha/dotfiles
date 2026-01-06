@@ -47,9 +47,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("i", "<C-s>", vim.lsp.buf.signature_help, opts "Signature Help")
 
     vim.keymap.set("n", "<leader>x", vim.diagnostic.setqflist, opts "Diagnostics")
-
-    do
-    end
   end,
 })
 
