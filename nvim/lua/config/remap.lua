@@ -23,7 +23,7 @@ local function copy_line_reference(lines)
   local ref = string.format("%s:%s", file, lines)
   vim.fn.setreg("+", ref)
   vim.fn.setreg('"', ref)
-  vim.notify "Copied line reference to clipboard"
+  vim.notify "Yanked line reference"
 end
 
 vim.keymap.set("n", "<c-g>", function()
