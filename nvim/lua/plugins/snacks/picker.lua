@@ -2,6 +2,7 @@ local icons = require("config.icons")
 
 require("snacks").setup({
   picker = {
+    prompt = " ",
     layout = function()
       local layouts = require("snacks.picker.config.layouts")
       return vim.o.columns >= 120 and layouts.ivy or layouts.ivy_split

@@ -18,6 +18,7 @@ function Utils.debounce(callback, timeout)
   setmetatable(t, {
     __call = function(_, ...)
       local argv = { ... }
+      timer:stop()
       timer:start(timeout, 0, function()
         timer:stop()
         callback(unpack(argv))

@@ -13,6 +13,13 @@ require("modus-themes").load({
     highlight.DiffText = { bg = color.bg_changed_refine }
     highlight.DiffTextAdd = { link = "DiffText" }
     highlight.DiffviewDiffAddAsDelete = { bg = color.bg_removed }
+    highlight.FloatTitle = { link = "NormalFloat" }
+    highlight.SnacksPicker = { link = "NormalFloat" }
+    highlight.SnacksPickerBorder = { link = "NormalFloat" }
+    highlight.SnacksPickerPrompt = { fg = color.fg_main, bg = color.bg_active }
+    highlight.SnacksPickerCol = { link = "SnacksPickerRow" }
+    highlight.SnacksPickerTitle = { link = "NormalFloat" }
+    highlight.SnacksPickerToggle = { fg = color.blue, bg = color.bg_active, bold = true }
   end,
   on_colors = function() end,
 })
