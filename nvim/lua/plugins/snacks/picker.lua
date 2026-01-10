@@ -2,7 +2,7 @@ local icons = require("config.icons")
 
 require("snacks").setup({
   picker = {
-    prompt = " ",
+    prompt = "  ",
     layout = function()
       local layouts = require("snacks.picker.config.layouts")
       return vim.o.columns >= 120 and layouts.ivy or layouts.ivy_split
@@ -138,5 +138,7 @@ end, { desc = "Plugins" })
 vim.keymap.set("n", "<leader>sm", function() Snacks.picker.man() end, { desc = "Man Pages" })
 
 vim.keymap.set("n", "<leader>si", function() Snacks.picker.icons() end, { desc = "Search Icons" })
+
+vim.keymap.set("n", "<leader>sk", function() Snacks.picker.keymaps() end, { desc = "Search pickers" })
 
 vim.keymap.set("n", "<leader>s.", function() Snacks.picker() end, { desc = "Search pickers" })

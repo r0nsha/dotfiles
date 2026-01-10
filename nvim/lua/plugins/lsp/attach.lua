@@ -23,6 +23,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "grr", Snacks.picker.lsp_references, opts("References"))
     vim.keymap.set("n", "grt", Snacks.picker.lsp_type_definitions, opts("Type Definitions"))
     vim.keymap.set("n", "gri", Snacks.picker.lsp_implementations, opts("Implementations"))
+    vim.keymap.set("n", "grs", Snacks.picker.lsp_symbols, opts("Symbols"))
+    vim.keymap.set("n", "grw", Snacks.picker.lsp_workspace_symbols, opts("Workspace Symbols"))
 
     vim.keymap.set("n", "grn", vim.lsp.buf.rename, opts("Rename"))
     vim.keymap.set({ "n", "x" }, "gra", vim.lsp.buf.code_action, opts("Code Action"))
