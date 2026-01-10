@@ -1,3 +1,3 @@
 require("pass").load()
-require "kafka"
+require("kafka")
 pcall(require, "local")

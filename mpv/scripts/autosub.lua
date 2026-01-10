@@ -89,9 +89,7 @@ function download_subs(language)
   end
 
   a[#a + 1] = "download"
-  if bools.force then
-    a[#a + 1] = "-f"
-  end
+  if bools.force then a[#a + 1] = "-f" end
   if bools.utf8 then
     a[#a + 1] = "-e"
     a[#a + 1] = "utf-8"
@@ -120,9 +118,7 @@ function download_subs(language)
 end
 
 -- Manually download second language subs by pressing 'n':
-function download_subs2()
-  download_subs(languages[2])
-end
+function download_subs2() download_subs(languages[2]) end
 
 -- Control function: only download if necessary
 function control_downloads()
@@ -134,23 +130,17 @@ function control_downloads()
   mp.commandv("rescan_external_files")
   directory, filename = utils.split_path(mp.get_property("path"))
 
-  if not autosub_allowed() then
-    return
-  end
+  if not autosub_allowed() then return end
 
   sub_tracks = {}
   for _, track in ipairs(mp.get_property_native("track-list")) do
-    if track["type"] == "sub" then
-      sub_tracks[#sub_tracks + 1] = track
-    end
+    if track["type"] == "sub" then sub_tracks[#sub_tracks + 1] = track end
   end
   if bools.debug then -- Log subtitle properties to terminal:
     for _, track in ipairs(sub_tracks) do
       mp.msg.warn("Subtitle track", track["id"], ":\n{")
       for k, v in pairs(track) do
-        if type(v) == "string" then
-          v = '"' .. v .. '"'
-        end
+        if type(v) == "string" then v = '"' .. v .. '"' end
         mp.msg.warn('  "' .. k .. '":', v)
       end
       mp.msg.warn("}\n")
@@ -159,9 +149,7 @@ function control_downloads()
 
   for _, language in ipairs(languages) do
     if should_download_subs_in(language) then
-      if download_subs(language) then
-        return
-      end -- Download successful!
+      if download_subs(language) then return end -- Download successful!
     else
       return
     end -- No need to download!

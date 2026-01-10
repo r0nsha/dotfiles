@@ -1,8 +1,6 @@
-local dap = require "dap"
+local dap = require("dap")
 
-dap.adapters.nlua = function(callback, config)
-  callback { type = "server", host = config.host, port = config.port }
-end
+dap.adapters.nlua = function(callback, config) callback({ type = "server", host = config.host, port = config.port }) end
 
 dap.adapters.lldb = {
   type = "executable",
@@ -23,13 +21,11 @@ local lldb_config = {
     name = "Launch",
     type = "lldb",
     request = "launch",
-    program = function()
-      return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-    end,
+    program = function() return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file") end,
     cwd = "${workspaceFolder}",
     stopOnEntry = false,
     args = function()
-      local argument_string = vim.fn.input "Program arguments: "
+      local argument_string = vim.fn.input("Program arguments: ")
       return vim.fn.split(argument_string, " ", true)
     end,
   },
@@ -48,7 +44,7 @@ dap.configurations.rust = {
     program = "${workspaceFolder}/target/debug/${workspaceFolderBasename}",
     stopOnEntry = false,
     args = function()
-      local args_str = vim.fn.input "Program arguments: "
+      local args_str = vim.fn.input("Program arguments: ")
       local args = vim.fn.split(args_str, " ", true)
       return { "build", "-o", "build", unpack(args) }
     end,
@@ -56,7 +52,7 @@ dap.configurations.rust = {
     -- Types
     initCommands = function()
       -- Find out where to look for the pretty printer Python module
-      local rustc_sysroot = vim.fn.trim(vim.fn.system "rustc --print sysroot")
+      local rustc_sysroot = vim.fn.trim(vim.fn.system("rustc --print sysroot"))
 
       local script_import = 'command script import "' .. rustc_sysroot .. '/lib/rustlib/etc/lldb_lookup.py"'
       local commands_file = rustc_sysroot .. "/lib/rustlib/etc/lldb_commands"
@@ -82,10 +78,8 @@ dap.configurations.lua = {
     request = "attach",
     name = "Attach to running Neovim instance",
     host = function()
-      local value = vim.fn.input "Host [127.0.0.1]: "
-      if value ~= "" then
-        return value
-      end
+      local value = vim.fn.input("Host [127.0.0.1]: ")
+      if value ~= "" then return value end
       return "127.0.0.1"
     end,
     port = function()
@@ -103,7 +97,7 @@ dap.adapters["pwa-node"] = {
   executable = {
     command = "node",
     args = {
-      vim.fn.stdpath "data" .. "/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js",
+      vim.fn.stdpath("data") .. "/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js",
       "${port}",
     },
   },
@@ -117,9 +111,7 @@ local config = {
     type = "pwa-node",
     request = "attach",
     name = "Attach to Node process",
-    port = function()
-      return vim.fn.input "Port: "
-    end,
+    port = function() return vim.fn.input("Port: ") end,
     cwd = "${workspaceFolder}",
   },
 }

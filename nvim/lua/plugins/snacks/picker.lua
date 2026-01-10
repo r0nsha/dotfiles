@@ -1,9 +1,9 @@
-local icons = require "config.icons"
+local icons = require("config.icons")
 
-require("snacks").setup {
+require("snacks").setup({
   picker = {
     layout = function()
-      local layouts = require "snacks.picker.config.layouts"
+      local layouts = require("snacks.picker.config.layouts")
       return vim.o.columns >= 120 and layouts.ivy or layouts.ivy_split
     end,
     win = {
@@ -71,66 +71,47 @@ require("snacks").setup {
       },
     },
   },
-}
+})
 
-vim.keymap.set("n", "<leader><leader>", function()
-  Snacks.picker.resume()
-end, { desc = "Resume Last Picker" })
+vim.keymap.set("n", "<leader><leader>", function() Snacks.picker.resume() end, { desc = "Resume Last Picker" })
 
-vim.keymap.set("n", "<leader>sf", function()
-  Snacks.picker.files()
-end, { desc = "Files" })
+vim.keymap.set("n", "<leader>sf", function() Snacks.picker.files() end, { desc = "Files" })
 
-vim.keymap.set("n", "<leader>sF", function()
-  Snacks.picker.files { ignored = true }
-end, { desc = "All Files" })
+vim.keymap.set("n", "<leader>sF", function() Snacks.picker.files({ ignored = true }) end, { desc = "All Files" })
 
-vim.keymap.set("n", "<leader>ss", function()
-  Snacks.picker.grep()
-end, { desc = "Grep" })
+vim.keymap.set("n", "<leader>ss", function() Snacks.picker.grep() end, { desc = "Grep" })
 
-vim.keymap.set("n", "<leader>sS", function()
-  Snacks.picker.grep {
-    ignored = true,
-  }
-end, { desc = "Grep (don't respect .gitignore)" })
+vim.keymap.set(
+  "n",
+  "<leader>sS",
+  function()
+    Snacks.picker.grep({
+      ignored = true,
+    })
+  end,
+  { desc = "Grep (don't respect .gitignore)" }
+)
 
-vim.keymap.set("x", "<leader>ss", function()
-  Snacks.picker.grep_word()
-end, { desc = "Grep Selection" })
+vim.keymap.set("x", "<leader>ss", function() Snacks.picker.grep_word() end, { desc = "Grep Selection" })
 
-vim.keymap.set({ "n", "x" }, "<leader>sw", function()
-  Snacks.picker.grep_word()
-end, { desc = "Grep Word" })
+vim.keymap.set({ "n", "x" }, "<leader>sw", function() Snacks.picker.grep_word() end, { desc = "Grep Word" })
 
-vim.keymap.set("n", "<leader>sr", function()
-  Snacks.picker.smart()
-end, { desc = "Find Files (Smart)" })
+vim.keymap.set("n", "<leader>sr", function() Snacks.picker.smart() end, { desc = "Find Files (Smart)" })
 
-vim.keymap.set("n", "<leader>sc", function()
-  Snacks.picker.colorschemes()
-end, { desc = "Colorschemes" })
+vim.keymap.set("n", "<leader>sc", function() Snacks.picker.colorschemes() end, { desc = "Colorschemes" })
 
-vim.keymap.set("n", "<leader>sh", function()
-  Snacks.picker.help()
-end, { desc = "Helptags" })
+vim.keymap.set("n", "<leader>sh", function() Snacks.picker.help() end, { desc = "Helptags" })
 
-vim.keymap.set("n", "<leader>sH", function()
-  Snacks.picker.highlights()
-end, { desc = "Highlights" })
+vim.keymap.set("n", "<leader>sH", function() Snacks.picker.highlights() end, { desc = "Highlights" })
 
-vim.keymap.set("n", "<leader>so", function()
-  Snacks.picker.recent()
-end, { desc = "Oldfiles" })
+vim.keymap.set("n", "<leader>so", function() Snacks.picker.recent() end, { desc = "Oldfiles" })
 
-vim.keymap.set("n", "<leader>sb", function()
-  Snacks.picker.buffers()
-end, { desc = "Buffers" })
+vim.keymap.set("n", "<leader>sb", function() Snacks.picker.buffers() end, { desc = "Buffers" })
 
 vim.keymap.set("n", "<leader>sp", function()
-  Snacks.picker.files {
+  Snacks.picker.files({
     title = "Plugins ",
-    dirs = { vim.fn.stdpath "data" .. "/site/pack/core/opt" },
+    dirs = { vim.fn.stdpath("data") .. "/site/pack/core/opt" },
     cmd = "fd",
     args = { "-td", "--exact-depth", "1" },
     confirm = function(picker, item, action)
@@ -150,17 +131,11 @@ vim.keymap.set("n", "<leader>sp", function()
         end)
       end
     end,
-  }
+  })
 end, { desc = "Plugins" })
 
-vim.keymap.set("n", "<leader>sm", function()
-  Snacks.picker.man()
-end, { desc = "Man Pages" })
+vim.keymap.set("n", "<leader>sm", function() Snacks.picker.man() end, { desc = "Man Pages" })
 
-vim.keymap.set("n", "<leader>si", function()
-  Snacks.picker.icons()
-end, { desc = "Search Icons" })
+vim.keymap.set("n", "<leader>si", function() Snacks.picker.icons() end, { desc = "Search Icons" })
 
-vim.keymap.set("n", "<leader>s.", function()
-  Snacks.picker()
-end, { desc = "Search pickers" })
+vim.keymap.set("n", "<leader>s.", function() Snacks.picker() end, { desc = "Search pickers" })

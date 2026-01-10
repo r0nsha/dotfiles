@@ -1,11 +1,11 @@
-require("neogit").setup {
+require("neogit").setup({
   graph_style = "kitty",
   -- kind = "auto",
   integrations = { diffview = true, snacks = true },
   disable_insert_on_commit = false,
   disable_commit_confirmation = false,
   disable_builtin_notifications = false,
-}
+})
 
 vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Neogit" })
 

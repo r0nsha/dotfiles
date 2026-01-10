@@ -1,15 +1,15 @@
-local h = require "harpoon"
-h:setup {
+local h = require("harpoon")
+h:setup({
   settings = {
     save_on_toggle = true,
     sync_on_ui_close = true,
   },
-}
+})
 
 local keys = { "j", "k", "l", "m" }
 
 local function add()
-  if vim.fn.expand "%" == "" then
+  if vim.fn.expand("%") == "" then
     vim.notify("Cannot add empty buffer to Harpoon", vim.log.levels.WARN)
     return
   end
@@ -30,16 +30,17 @@ local function add()
   vim.notify("Harpoon: Set to `" .. keys[h:list():length()] .. "`", vim.log.levels.INFO)
 end
 
-vim.keymap.set("n", "<C-e>", function()
-  h.ui:toggle_quick_menu(h:list(), { border = "none" })
-end, { desc = "Harpoon: Menu" })
+vim.keymap.set(
+  "n",
+  "<C-e>",
+  function() h.ui:toggle_quick_menu(h:list(), { border = "none" }) end,
+  { desc = "Harpoon: Menu" }
+)
 
 vim.keymap.set("n", "<leader>a", add, { desc = "Harpoon: Add" })
 
 for i, key in ipairs(keys) do
-  vim.keymap.set("n", "<leader>" .. key, function()
-    h:list():select(i)
-  end, { desc = "Harpoon: Select " .. i })
+  vim.keymap.set("n", "<leader>" .. key, function() h:list():select(i) end, { desc = "Harpoon: Select " .. i })
   vim.keymap.set("n", "<leader>" .. key:upper(), function()
     h:list():replace_at(i)
     vim.notify("Harpoon: Replaced `" .. key .. "`", vim.log.levels.INFO)

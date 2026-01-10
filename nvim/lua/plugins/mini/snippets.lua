@@ -1,6 +1,6 @@
-local snippets = require "mini.snippets"
+local snippets = require("mini.snippets")
 local gen_loader = snippets.gen_loader
-snippets.setup {
+snippets.setup({
   snippets = { gen_loader.from_lang() },
   mappings = {
     expand = "",
@@ -8,4 +8,4 @@ snippets.setup {
     jump_next = "<C-l>",
     stop = "<C-c>",
   },
-}
+})

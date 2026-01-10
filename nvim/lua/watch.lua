@@ -26,14 +26,10 @@ end
 --- @return uv.uv_fs_event_t|nil
 local function watch_with_function(path, on_event, on_error, opts)
   local handle = uv.new_fs_event()
-  if not handle then
-    return nil
-  end
+  if not handle then return nil end
 
   local unwatch_cb = function()
-    if handle then
-      uv.fs_event_stop(handle)
-    end
+    if handle then uv.fs_event_stop(handle) end
   end
 
   local event_cb = function(err, filename, events)
@@ -42,9 +38,7 @@ local function watch_with_function(path, on_event, on_error, opts)
     else
       on_event(filename, events, unwatch_cb)
     end
-    if opts.is_oneshot then
-      unwatch_cb()
-    end
+    if opts.is_oneshot then unwatch_cb() end
   end
 
   uv.fs_event_start(handle, path, {}, event_cb)
@@ -58,9 +52,7 @@ end
 --- @return uv.uv_fs_event_t|nil
 local function watch_with_string(path, string, opts)
   local on_event = function(_, _)
-    vim.schedule(function()
-      vim.cmd(string)
-    end)
+    vim.schedule(function() vim.cmd(string) end)
   end
   local on_error = make_default_error_cb(path, string)
   return watch_with_function(path, on_event, on_error, opts)
@@ -77,9 +69,7 @@ local function do_watch(path, runnable, opts)
     assert(runnable.on_event, "must provide on_event to watch")
     assert(type(runnable.on_event) == "function", "on_event must be a function")
 
-    if runnable.on_error == nil then
-      runnable.on_error = make_default_error_cb(path, "on_event_cb")
-    end
+    if runnable.on_error == nil then runnable.on_error = make_default_error_cb(path, "on_event_cb") end
 
     return watch_with_function(path, runnable.on_event, runnable.on_error, opts)
   else
@@ -99,9 +89,7 @@ end
 ---@param handle uv.uv_fs_event_t|nil
 ---@return integer|nil
 function M.unwatch(handle)
-  if not handle then
-    return nil
-  end
+  if not handle then return nil end
   return uv.fs_event_stop(handle)
 end
 

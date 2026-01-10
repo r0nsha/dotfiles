@@ -1,4 +1,4 @@
-local blink = require "blink.cmp"
+local blink = require("blink.cmp")
 
 ---@type blink.cmp.KeymapConfig
 local keymaps = {
@@ -20,7 +20,7 @@ local keymaps = {
   toggle_signature = { "show_signature", "hide_signature", "fallback" },
 }
 
-blink.setup {
+blink.setup({
   appearance = {
     nerd_font_variant = "normal",
   },
@@ -36,9 +36,7 @@ blink.setup {
       },
     },
     menu = {
-      auto_show = function(ctx)
-        return ctx.mode ~= "cmdline" or not vim.tbl_contains({ "/", "?" }, vim.fn.getcmdtype())
-      end,
+      auto_show = function(ctx) return ctx.mode ~= "cmdline" or not vim.tbl_contains({ "/", "?" }, vim.fn.getcmdtype()) end,
       draw = {
         -- We don't need label_description now because label and label_description are already
         -- combined together in label by colorful-menu.nvim.
@@ -48,12 +46,8 @@ blink.setup {
         },
         components = {
           label = {
-            text = function(ctx)
-              return require("colorful-menu").blink_components_text(ctx)
-            end,
-            highlight = function(ctx)
-              return require("colorful-menu").blink_components_highlight(ctx)
-            end,
+            text = function(ctx) return require("colorful-menu").blink_components_text(ctx) end,
+            highlight = function(ctx) return require("colorful-menu").blink_components_highlight(ctx) end,
           },
         },
       },
@@ -130,4 +124,4 @@ blink.setup {
     },
   },
   signature = { enabled = true },
-}
+})

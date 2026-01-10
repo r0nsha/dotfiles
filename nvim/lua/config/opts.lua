@@ -60,7 +60,7 @@ vim.opt.listchars = {
   multispace = " ",
   lead = " ",
 }
-vim.opt.fillchars:append { diff = "╱" }
+vim.opt.fillchars:append({ diff = "╱" })
 vim.opt.winborder = "none"
 vim.opt.winblend = 0
 vim.opt.pumheight = 10
@@ -70,8 +70,8 @@ vim.opt.pumborder = "none"
 -- completion
 vim.opt.complete = { ".", "w", "b" }
 vim.opt.completeopt = { "menuone", "noselect", "fuzzy", "nosort", "popup" }
-vim.opt.path:append "**"
-vim.opt.wildignore:append { "*/node_modules/*", "*/.git/*" }
+vim.opt.path:append("**")
+vim.opt.wildignore:append({ "*/node_modules/*", "*/.git/*" })
 
 -- wrap
 vim.opt.wrap = false
@@ -84,7 +84,7 @@ vim.opt.title = true
 vim.opt.titlestring = '%t%( %M%)%( (%{expand("%:~:h")})%)%a (nvim)'
 
 -- files
-vim.opt.isfname:append "@-@"
+vim.opt.isfname:append("@-@")
 vim.opt.backup = false
 vim.opt.writebackup = false
 vim.opt.swapfile = false
@@ -98,10 +98,10 @@ vim.opt.autoread = true
 vim.opt.autowrite = false
 
 -- filetypes
-vim.filetype.add {
+vim.filetype.add({
   extension = { ll = "llvm", mdx = "markdown" },
   filename = { [".gitconfig.local"] = "gitconfig" },
-}
+})
 vim.treesitter.language.register("markdown", "mdx")
 
 -- behavior
@@ -115,16 +115,16 @@ vim.opt.virtualedit = "block"
 vim.opt.inccommand = "split"
 
 -- diff
-vim.opt.diffopt:append "algorithm:histogram"
-vim.opt.diffopt:append "indent-heuristic"
-vim.opt.diffopt:append "inline:char"
+vim.opt.diffopt:append("algorithm:histogram")
+vim.opt.diffopt:append("indent-heuristic")
+vim.opt.diffopt:append("inline:char")
 
 -- splits
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 
 -- disable startup message
-vim.opt.shortmess:append { I = true }
+vim.opt.shortmess:append({ I = true })
 
 -- mouse
 vim.opt.mouse = "a"
@@ -139,26 +139,26 @@ vim.o.foldlevelstart = 99
 vim.opt.foldcolumn = "1"
 vim.opt.foldminlines = 1
 vim.opt.foldnestmax = 3
-vim.opt.fillchars:append {
+vim.opt.fillchars:append({
   fold = "󰧟",
   foldopen = "",
   foldclose = "",
-}
+})
 
 -- use system clipboard by default
-vim.opt.clipboard:append "unnamedplus"
+vim.opt.clipboard:append("unnamedplus")
 
 if vim.env.SSH_CONNECTION then
   local function vim_paste()
-    local content = vim.fn.getreg '"'
+    local content = vim.fn.getreg('"')
     return vim.split(content, "\n")
   end
 
   vim.g.clipboard = {
     name = "OSC 52",
     copy = {
-      ["+"] = require("vim.ui.clipboard.osc52").copy "+",
-      ["*"] = require("vim.ui.clipboard.osc52").copy "*",
+      ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+      ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
     },
     paste = {
       ["+"] = vim_paste,
@@ -167,7 +167,7 @@ if vim.env.SSH_CONNECTION then
   }
 end
 
-require("vim._extui").enable {
+require("vim._extui").enable({
   enable = true,
   msg = { target = "cmd", timeout = 2000 },
-}
+})

@@ -1,7 +1,7 @@
 local group = vim.api.nvim_create_augroup("CustomBlameNvim", { clear = true })
 
 ---@diagnostic disable-next-line: missing-fields
-require("blame").setup {
+require("blame").setup({
   virtual_style = "right_align",
   blame_options = { "-w" },
   merge_consecutive = true,
@@ -13,7 +13,7 @@ require("blame").setup {
     show_commit = { "<C-y>", "<CR>" },
     close = "q",
   },
-}
+})
 
 local opened = {
   window = false,
@@ -21,9 +21,7 @@ local opened = {
 }
 
 ---@param type "window" | "virtual"
-local function toggle_blame(type)
-  vim.cmd("BlameToggle " .. type)
-end
+local function toggle_blame(type) vim.cmd("BlameToggle " .. type) end
 
 ---@param type "window" | "virtual"
 local function toggle_blame_exclusive(type)
@@ -49,15 +47,15 @@ local function toggle_blame_exclusive(type)
   end
 end
 
-vim.keymap.set("n", "<leader>gb", toggle_blame_exclusive "window", { desc = "Git: Blame" })
-vim.keymap.set("n", "<leader>gB", toggle_blame_exclusive "virtual", { desc = "Git: Blame" })
+vim.keymap.set("n", "<leader>gb", toggle_blame_exclusive("window"), { desc = "Git: Blame" })
+vim.keymap.set("n", "<leader>gB", toggle_blame_exclusive("virtual"), { desc = "Git: Blame" })
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
   group = group,
   pattern = "blame",
   callback = function(args)
     vim.keymap.set("n", "d", function()
-      local lnum = vim.fn.line "."
+      local lnum = vim.fn.line(".")
       local last_lnum = vim.api.nvim_buf_line_count(0)
 
       while lnum <= last_lnum do
@@ -65,10 +63,8 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 
         if vim.trim(line_content) ~= "" then
           ---@type string?
-          local hash = line_content:match "^(%x+)%s%s"
-          if hash then
-            vim.cmd("DiffviewOpen " .. hash)
-          end
+          local hash = line_content:match("^(%x+)%s%s")
+          if hash then vim.cmd("DiffviewOpen " .. hash) end
           break
         end
 

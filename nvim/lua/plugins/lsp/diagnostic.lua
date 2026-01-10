@@ -1,6 +1,6 @@
-local icons = require "config.icons"
+local icons = require("config.icons")
 
-vim.diagnostic.config {
+vim.diagnostic.config({
   virtual_text = { current_line = true },
   virtual_lines = false,
   signs = {
@@ -11,16 +11,16 @@ vim.diagnostic.config {
       [vim.diagnostic.severity.ERROR] = icons.error,
     },
   },
-}
+})
 
 local function enable_virtual_lines()
-  vim.notify "Virtual lines enabled"
-  vim.diagnostic.config { virtual_text = false, virtual_lines = true }
+  vim.notify("Virtual lines enabled")
+  vim.diagnostic.config({ virtual_text = false, virtual_lines = true })
 end
 
 local function disable_virtual_lines()
-  vim.notify "Virtual lines disabled"
-  vim.diagnostic.config { virtual_text = { current_line = true }, virtual_lines = false }
+  vim.notify("Virtual lines disabled")
+  vim.diagnostic.config({ virtual_text = { current_line = true }, virtual_lines = false })
 end
 
 vim.keymap.set("n", "grl", function()
@@ -36,8 +36,6 @@ vim.api.nvim_create_autocmd("User", {
   group = vim.api.nvim_create_augroup("CustomDisableVirtualLines", { clear = true }),
   pattern = "DiagnosticChanged",
   callback = function()
-    if vim.diagnostic.count() == 0 then
-      disable_virtual_lines()
-    end
+    if vim.diagnostic.count() == 0 then disable_virtual_lines() end
   end,
 })

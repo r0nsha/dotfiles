@@ -1,19 +1,19 @@
-local ai = require "mini.ai"
+local ai = require("mini.ai")
 local treesitter = ai.gen_spec.treesitter
 
-ai.setup {
+ai.setup({
   custom_textobjects = {
-    b = treesitter { a = "@block.outer", i = "@block.inner" },
-    f = treesitter { a = "@function.outer", i = "@function.inner" },
-    C = treesitter { a = "@class.outer", i = "@class.inner" },
-    v = treesitter { a = "@parameter.outer", i = "@parameter.inner" },
-    o = treesitter { a = { "@conditional.outer", "@loop.outer" }, i = { "@conditional.inner", "@loop.inner" } },
-    s = treesitter { a = "@statement.outer", i = "@statement.inner" },
+    b = treesitter({ a = "@block.outer", i = "@block.inner" }),
+    f = treesitter({ a = "@function.outer", i = "@function.inner" }),
+    C = treesitter({ a = "@class.outer", i = "@class.inner" }),
+    v = treesitter({ a = "@parameter.outer", i = "@parameter.inner" }),
+    o = treesitter({ a = { "@conditional.outer", "@loop.outer" }, i = { "@conditional.inner", "@loop.inner" } }),
+    s = treesitter({ a = "@statement.outer", i = "@statement.inner" }),
     -- whole buffer
     g = function()
       local from = { line = 1, col = 1 }
       local to = {
-        line = vim.fn.line "$",
+        line = vim.fn.line("$"),
         col = math.max(vim.fn.getline("$"):len(), 1),
       }
       return { from = from, to = to }
@@ -32,7 +32,7 @@ ai.setup {
     goto_right = "",
   },
   n_lines = 500,
-}
+})
 
 -- Treesitter-textobjects style goto mappings
 -- Automatically creates ]x/]X/[x/[X for each textobject
@@ -50,22 +50,34 @@ for _, obj in ipairs(textobjects) do
   local desc = obj.desc
 
   -- ]x - next start (left edge with next search)
-  vim.keymap.set({ "n", "x", "o" }, "]" .. id, function()
-    ai.move_cursor("left", "a", id, { search_method = "next" })
-  end, { desc = "Next " .. desc .. " start" })
+  vim.keymap.set(
+    { "n", "x", "o" },
+    "]" .. id,
+    function() ai.move_cursor("left", "a", id, { search_method = "next" }) end,
+    { desc = "Next " .. desc .. " start" }
+  )
 
   -- ]X - next end (right edge with next search)
-  vim.keymap.set({ "n", "x", "o" }, "]" .. id:upper(), function()
-    ai.move_cursor("right", "a", id, { search_method = "next" })
-  end, { desc = "Next " .. desc .. " end" })
+  vim.keymap.set(
+    { "n", "x", "o" },
+    "]" .. id:upper(),
+    function() ai.move_cursor("right", "a", id, { search_method = "next" }) end,
+    { desc = "Next " .. desc .. " end" }
+  )
 
   -- [x - previous start (left edge with prev search)
-  vim.keymap.set({ "n", "x", "o" }, "[" .. id, function()
-    ai.move_cursor("left", "a", id, { search_method = "prev" })
-  end, { desc = "Previous " .. desc .. " start" })
+  vim.keymap.set(
+    { "n", "x", "o" },
+    "[" .. id,
+    function() ai.move_cursor("left", "a", id, { search_method = "prev" }) end,
+    { desc = "Previous " .. desc .. " start" }
+  )
 
   -- [X - previous end (right edge with prev search)
-  vim.keymap.set({ "n", "x", "o" }, "[" .. id:upper(), function()
-    ai.move_cursor("right", "a", id, { search_method = "prev" })
-  end, { desc = "Previous " .. desc .. " end" })
+  vim.keymap.set(
+    { "n", "x", "o" },
+    "[" .. id:upper(),
+    function() ai.move_cursor("right", "a", id, { search_method = "prev" }) end,
+    { desc = "Previous " .. desc .. " end" }
+  )
 end

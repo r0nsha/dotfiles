@@ -11,9 +11,7 @@ return {
     local path = client.workspace_folders[1].name
 
     -- Don't do anything if there is project local config
-    if vim.uv.fs_stat(join(path, ".luarc.json")) or vim.uv.fs_stat(join(path, ".luarc.jsonc")) then
-      return
-    end
+    if vim.uv.fs_stat(join(path, ".luarc.json")) or vim.uv.fs_stat(join(path, ".luarc.jsonc")) then return end
 
     local nvim_settings = {
       runtime = {
@@ -29,7 +27,7 @@ return {
         library = {
           -- Make the server aware of Neovim runtime files
           vim.env.VIMRUNTIME,
-          vim.fn.stdpath "config",
+          vim.fn.stdpath("config"),
         },
       },
     }

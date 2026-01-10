@@ -1,4 +1,4 @@
-require("mini.surround").setup {
+require("mini.surround").setup({
   mappings = {
     add = "sa",
     delete = "sd",
@@ -8,4 +8,4 @@ require("mini.surround").setup {
     replace = "sc",
     update_n_lines = "sn",
   },
-}
+})

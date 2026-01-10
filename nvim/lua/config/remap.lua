@@ -19,16 +19,16 @@ vim.keymap.set("x", "p", '"_dP', { remap = false })
 
 ---@param lines string
 local function copy_line_reference(lines)
-  local file = require("plenary.path"):new(vim.fn.expand "%"):normalize()
+  local file = require("plenary.path"):new(vim.fn.expand("%")):normalize()
   local ref = string.format("%s:%s", file, lines)
   vim.fn.setreg("+", ref)
   vim.fn.setreg('"', ref)
-  vim.notify "Yanked line reference"
+  vim.notify("Yanked line reference")
 end
 
 vim.keymap.set("n", "<c-g>", function()
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-g>", true, true, true), "n", true)
-  local line = vim.fn.line "."
+  local line = vim.fn.line(".")
   copy_line_reference(tostring(line))
 end, { remap = false, desc = "Copy line reference to clipboard" })
 
@@ -39,7 +39,7 @@ vim.keymap.set("x", "<c-g>", function()
 end, { remap = false, desc = "Copy line reference to clipboard" })
 
 -- Window mappings when tmux is not available
-if vim.fn.executable "tmux" ~= 1 then
+if vim.fn.executable("tmux") ~= 1 then
   vim.keymap.set("n", "<c-h>", "<c-w>h", { remap = false, desc = "Move Window: Left" })
   vim.keymap.set("n", "<c-j>", "<c-w>j", { remap = false, desc = "Move Window: Down" })
   vim.keymap.set("n", "<c-k>", "<c-w>k", { remap = false, desc = "Move Window: Up" })
@@ -106,7 +106,7 @@ vim.keymap.set("n", "<leader>cl", function()
     vim.wo.conceallevel = 0
   end
 
-  local utils = require "utils"
+  local utils = require("utils")
   local conceal_enabled = utils.bool_to_enabled(vim.wo.conceallevel == 2)
 
   vim.notify("Conceal " .. conceal_enabled)

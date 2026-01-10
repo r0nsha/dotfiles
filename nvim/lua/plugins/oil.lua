@@ -11,16 +11,14 @@ function _G.get_oil_winbar()
   end
 end
 
-local oil = require "oil"
+local oil = require("oil")
 
-oil.setup {
+oil.setup({
   default_file_explorer = true,
   watch_for_changes = true,
   view_options = {
     show_hidden = false,
-    is_always_hidden = function(name, _)
-      return name == "." or name == ".."
-    end,
+    is_always_hidden = function(name, _) return name == "." or name == ".." end,
   },
   win_options = {
     signcolumn = "yes",
@@ -61,9 +59,9 @@ oil.setup {
         DETAIL = not DETAIL
 
         if DETAIL then
-          require("oil").set_columns { "icon", "permissions", "size", "mtime" }
+          require("oil").set_columns({ "icon", "permissions", "size", "mtime" })
         else
-          require("oil").set_columns { "icon" }
+          require("oil").set_columns({ "icon" })
         end
       end,
     },
@@ -72,31 +70,23 @@ oil.setup {
     ["gY"] = "actions.yank_entry",
     ["gF"] = { "actions.yank_entry", opts = { modify = ":t" } },
   },
-}
+})
 
-vim.keymap.set("n", "<leader>e", function()
-  oil.open()
-end, { desc = "Oil (Parent)" })
+vim.keymap.set("n", "<leader>e", function() oil.open() end, { desc = "Oil (Parent)" })
 
-vim.keymap.set("n", "<leader>E", function()
-  oil.open(vim.uv.cwd())
-end, { desc = "Oil (CWD)" })
+vim.keymap.set("n", "<leader>E", function() oil.open(vim.uv.cwd()) end, { desc = "Oil (CWD)" })
 
 vim.api.nvim_create_autocmd("User", {
   desc = "Close buffers when files are deleted in Oil",
   pattern = "OilActionsPost",
   callback = function(args)
-    if args.data.err then
-      return
-    end
+    if args.data.err then return end
 
     for _, action in ipairs(args.data.actions) do
       if action.type == "delete" then
         local _, path = require("oil.util").parse_url(action.url)
         local bufnr = vim.fn.bufnr(path)
-        if bufnr ~= -1 then
-          vim.api.nvim_buf_delete(bufnr, { force = true })
-        end
+        if bufnr ~= -1 then vim.api.nvim_buf_delete(bufnr, { force = true }) end
       end
     end
   end,

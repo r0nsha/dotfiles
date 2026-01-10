@@ -1,11 +1,9 @@
-local dap = require "dap"
-local dv = require "dap-view"
-local hydra = require "plugins.dap.hydra"
+local dap = require("dap")
+local dv = require("dap-view")
+local hydra = require("plugins.dap.hydra")
 
 ---@type dap.RequestListener
-local function enable()
-  hydra:activate()
-end
+local function enable() hydra:activate() end
 
 ---@type dap.RequestListener
 local function disable()
@@ -24,11 +22,9 @@ vim.api.nvim_create_autocmd("BufEnter", {
   group = vim.api.nvim_create_augroup("CustomHydraFT", { clear = true }),
   pattern = "*",
   callback = function()
-    if not dap.session() then
-      return
-    end
+    if not dap.session() then return end
 
-    if vim.bo.filetype:startswith "dap-" then
+    if vim.bo.filetype:startswith("dap-") then
       hydra:exit_mode()
     else
       hydra:activate()

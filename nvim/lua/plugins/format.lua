@@ -1,8 +1,8 @@
-local conform = require "conform"
+local conform = require("conform")
 local prettier = { "prettierd", "prettier", stop_after_first = true }
 local biome_or_prettier = { "biome", "prettierd", "prettier", stop_after_first = true }
 
-conform.setup {
+conform.setup({
   formatters_by_ft = {
     lua = { "stylua" },
     python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
@@ -50,22 +50,21 @@ conform.setup {
       args = { "$FILENAME" },
       stdin = false,
       condition = function(_, ctx)
-        if ctx.filename:find "[qmk_firmware|qmk_userspace]" == nil then
-          return false
-        end
+        if ctx.filename:find("[qmk_firmware|qmk_userspace]") == nil then return false end
 
-        if ctx.filename:find "[keymap.c]" == nil then
-          return false
-        end
+        if ctx.filename:find("[keymap.c]") == nil then return false end
 
         return true
       end,
     },
   },
-}
+})
 
-vim.keymap.set({ "n", "x" }, "<leader>f", function()
-  conform.format { async = true, lsp_format = "fallback" }
-end, { remap = false, desc = "Conform: Format" })
+vim.keymap.set(
+  { "n", "x" },
+  "<leader>f",
+  function() conform.format({ async = true, lsp_format = "fallback" }) end,
+  { remap = false, desc = "Conform: Format" }
+)
 
 vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"

@@ -1,4 +1,4 @@
-require("minuet").setup {
+require("minuet").setup({
   provider = "codestral",
   provider_options = {
     codestral = {
@@ -38,7 +38,7 @@ require("minuet").setup {
   },
   cmp = { enable_auto_complete = false },
   blink = { enable_auto_complete = false },
-}
+})
 
 vim.g.opencode_opts = {
   auto_reload = true,
@@ -48,20 +48,17 @@ vim.g.opencode_opts = {
 -- Required for `vim.g.opencode_opts.auto_reload`.
 vim.o.autoread = true
 
-local opencode = require "opencode"
+local opencode = require("opencode")
 
-vim.keymap.set({ "n", "x" }, "ga", function()
-  opencode.ask("@this: ", { submit = true })
-end, { desc = "Opencode: Prompt about this" })
+vim.keymap.set(
+  { "n", "x" },
+  "ga",
+  function() opencode.ask("@this: ", { submit = true }) end,
+  { desc = "Opencode: Prompt about this" }
+)
 
-vim.keymap.set({ "n", "x" }, "gA", function()
-  opencode.ask("", { submit = true })
-end, { desc = "Opencode: Prompt" })
+vim.keymap.set({ "n", "x" }, "gA", function() opencode.ask("", { submit = true }) end, { desc = "Opencode: Prompt" })
 
-vim.keymap.set({ "n", "x" }, "gs", function()
-  opencode.select()
-end, { desc = "Opencode: Select prompt" })
+vim.keymap.set({ "n", "x" }, "gs", function() opencode.select() end, { desc = "Opencode: Select prompt" })
 
-vim.keymap.set({ "n", "x" }, "g.", function()
-  opencode.prompt "@this"
-end, { desc = "Opencode: Add this" })
+vim.keymap.set({ "n", "x" }, "g.", function() opencode.prompt("@this") end, { desc = "Opencode: Add this" })

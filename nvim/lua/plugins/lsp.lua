@@ -1,10 +1,10 @@
-require "plugins.lsp.servers"
-require "plugins.lsp.attach"
+require("plugins.lsp.servers")
+require("plugins.lsp.attach")
 
 -- Replaced with tiny-inline-diagnostic.nvim
 -- require "plugins.lsp.diagnostic"
 
-require("tiny-inline-diagnostic").setup {
+require("tiny-inline-diagnostic").setup({
   preset = "minimal",
   transparent_bg = true,
   transparent_cursorline = false,
@@ -18,10 +18,10 @@ require("tiny-inline-diagnostic").setup {
     },
     show_all_diags_on_cursorline = false,
   },
-}
+})
 
-local icons = require "config.icons"
-vim.diagnostic.config {
+local icons = require("config.icons")
+vim.diagnostic.config({
   virtual_text = false,
   virtual_lines = false,
   signs = {
@@ -32,4 +32,4 @@ vim.diagnostic.config {
       [vim.diagnostic.severity.ERROR] = icons.error,
     },
   },
-}
+})

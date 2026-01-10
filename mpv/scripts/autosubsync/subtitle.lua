@@ -20,22 +20,16 @@ function TimeStamp.toTimeStamp(seconds)
   return TimeStamp:new(h, m, s)
 end
 
-function TimeStamp:toSeconds()
-  return (3600 * self.hours) + (60 * self.minutes) + self.seconds
-end
+function TimeStamp:toSeconds() return (3600 * self.hours) + (60 * self.minutes) + self.seconds end
 
-function TimeStamp:adjustTime(seconds)
-  return self.toTimeStamp(self:toSeconds() + seconds)
-end
+function TimeStamp:adjustTime(seconds) return self.toTimeStamp(self:toSeconds() + seconds) end
 
 function TimeStamp:toString(decimal_symbol)
   local seconds_fmt = string.format("%06.3f", self.seconds):gsub("%.", decimal_symbol)
   return string.format("%02d:%02d:%s", self.hours, self.minutes, seconds_fmt)
 end
 
-function TimeStamp.to_seconds(seconds, milliseconds)
-  return tonumber(string.format("%s.%s", seconds, milliseconds))
-end
+function TimeStamp.to_seconds(seconds, milliseconds) return tonumber(string.format("%s.%s", seconds, milliseconds)) end
 
 local AbstractSubtitle = {}
 local AbstractSubtitle_mt = { __index = AbstractSubtitle }
@@ -57,29 +51,21 @@ function AbstractSubtitle:sanitize(line)
   local bom_table = { 0xEF, 0xBB, 0xBF } -- TODO maybe add other ones (like UTF-16)
   local function has_bom()
     for i = 1, #bom_table do
-      if i > #line then
-        return false
-      end
+      if i > #line then return false end
       local ch, byte = line:sub(i, i), line:byte(i, i)
-      if byte ~= bom_table[i] then
-        return false
-      end
+      if byte ~= bom_table[i] then return false end
     end
     return true
   end
   return has_bom() and string.sub(line, #bom_table + 1) or line
 end
 
-local function trim(s)
-  return s:match("^%s*(.-)%s*$")
-end
+local function trim(s) return s:match("^%s*(.-)%s*$") end
 
 function AbstractSubtitle:parse_file(filename)
   local lines = {}
   for line in io.lines(filename) do
-    if #lines == 0 then
-      line = self:sanitize(line)
-    end
+    if #lines == 0 then line = self:sanitize(line) end
     line = line:gsub("\r\n?", "") -- make sure there's no carriage return
     line = trim(line)
     table.insert(lines, line)
@@ -96,9 +82,7 @@ function AbstractSubtitle:shift_timing(diff_seconds)
   end
 end
 
-function AbstractSubtitle.valid_entry(entry)
-  return entry ~= nil
-end
+function AbstractSubtitle.valid_entry(entry) return entry ~= nil end
 
 local function inheritsFrom(baseClass)
   local new_class = {}
@@ -115,23 +99,17 @@ local function inheritsFrom(baseClass)
     return instance
   end
 
-  if baseClass then
-    setmetatable(new_class, { __index = baseClass })
-  end
+  if baseClass then setmetatable(new_class, { __index = baseClass }) end
   return new_class
 end
 
 local SRT = inheritsFrom(AbstractSubtitle)
-function SRT.entry()
-  return { index = nil, start_time = nil, end_time = nil, text = {} }
-end
+function SRT.entry() return { index = nil, start_time = nil, end_time = nil, text = {} } end
 
 function SRT:populate(filename)
   local timestamp_fmt = "^(%d+):(%d+):(%d+),(%d+) %-%-> (%d+):(%d+):(%d+),(%d+)$"
   local function parse_timestamp(timestamp)
-    local function to_seconds(seconds, milliseconds)
-      return tonumber(string.format("%s.%s", seconds, milliseconds))
-    end
+    local function to_seconds(seconds, milliseconds) return tonumber(string.format("%s.%s", seconds, milliseconds)) end
     local _, _, from_h, from_m, from_s, from_ms, to_h, to_m, to_s, to_ms = timestamp:find(timestamp_fmt)
     return TimeStamp:new(from_h, from_m, to_seconds(from_s, from_ms)),
       TimeStamp:new(to_h, to_m, to_seconds(to_s, to_ms))
@@ -157,9 +135,7 @@ function SRT:populate(filename)
     else
       if #line == 0 then
         -- end of text
-        if entry.index ~= nil then
-          table.insert(new.entries, entry)
-        end
+        if entry.index ~= nil then table.insert(new.entries, entry) end
         entry = SRT.entry()
         idx = 0
       else
@@ -174,9 +150,7 @@ end
 
 function SRT:toString()
   local stringbuilder = {}
-  local function append(s)
-    table.insert(stringbuilder, s)
-  end
+  local function append(s) table.insert(stringbuilder, s) end
   for _, entry in pairs(self.entries) do
     append(entry.index)
     local timestamp_string = string.format("%s --> %s", entry.start_time:toString(","), entry.end_time:toString(","))
@@ -194,15 +168,11 @@ end
 local ASS = inheritsFrom(AbstractSubtitle)
 ASS.header_mapper = { ["Start"] = "start_time", ["End"] = "end_time" }
 
-function ASS.valid_entry(entry)
-  return entry["type"] ~= nil
-end
+function ASS.valid_entry(entry) return entry["type"] ~= nil end
 
 function ASS:toString()
   local stringbuilder = {}
-  local function append(s)
-    table.insert(stringbuilder, s)
-  end
+  local function append(s) table.insert(stringbuilder, s) end
   append(self.header)
   append("[Events]")
   for i = 1, #self.entries do
@@ -219,9 +189,7 @@ function ASS:toString()
     for _, col in pairs(self.event_header) do
       local value = entry[col]
       local timestamp_entry_column = self.header_mapper[col]
-      if timestamp_entry_column then
-        value = entry[timestamp_entry_column]:toString(".")
-      end
+      if timestamp_entry_column then value = entry[timestamp_entry_column]:toString(".") end
       table.insert(entry_sb, value)
     end
     append(string.format("%s: %s", entry["type"], table.concat(entry_sb, ",")))
@@ -235,13 +203,9 @@ function ASS:populate(filename, language)
     local _, _, event = string.find(line, "^%[([^%]]+)%]%s*$")
     if event then
       if event == "Events" then
-        parser = function(x)
-          table.insert(events, x)
-        end
+        parser = function(x) table.insert(events, x) end
       else
-        parser = function(x)
-          table.insert(header, x)
-        end
+        parser = function(x) table.insert(header, x) end
         parser(line)
       end
     else
@@ -288,9 +252,7 @@ function ASS:populate(filename, language)
   end
   sub.event_header = columns
   for _, event in pairs(events) do
-    if #event > 0 then
-      table.insert(sub.entries, parse_event(columns, event))
-    end
+    if #event > 0 then table.insert(sub.entries, parse_event(columns, event)) end
   end
   return sub
 end

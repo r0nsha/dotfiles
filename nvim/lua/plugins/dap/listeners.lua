@@ -1,5 +1,5 @@
-local dap = require "dap"
-local dv = require "dap-view"
+local dap = require("dap")
+local dv = require("dap-view")
 
 local function enable() end
 

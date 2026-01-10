@@ -1,4 +1,4 @@
-require("mini.move").setup {
+require("mini.move").setup({
   mappings = {
     left = "H",
     right = "L",
@@ -10,4 +10,4 @@ require("mini.move").setup {
     line_down = "",
     line_up = "",
   },
-}
+})

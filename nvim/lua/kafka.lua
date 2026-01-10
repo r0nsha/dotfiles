@@ -1,10 +1,10 @@
 -- TODO: refactor this messy module
-local Job = require "plenary.job"
+local Job = require("plenary.job")
 
 ---@class KafkaPod
 ---@field metadata { name: string, labels: { app: string } }
 
-local state_file = vim.fn.stdpath "data" .. "/kafka_state.json"
+local state_file = vim.fn.stdpath("data") .. "/kafka_state.json"
 
 ---@type string?
 local namespace
@@ -23,23 +23,15 @@ local function save_state()
     last_msg = last_msg,
   }
   local json = vim.json.encode(state)
-  vim.schedule(function()
-    vim.fn.writefile({ json }, state_file)
-  end)
+  vim.schedule(function() vim.fn.writefile({ json }, state_file) end)
 end
 
 local function load_state()
-  if vim.fn.filereadable(state_file) == 0 then
-    return
-  end
+  if vim.fn.filereadable(state_file) == 0 then return end
   local lines = vim.fn.readfile(state_file)
-  if #lines == 0 then
-    return
-  end
+  if #lines == 0 then return end
   local ok, state = pcall(vim.json.decode, table.concat(lines, ""))
-  if not ok or type(state) ~= "table" then
-    return
-  end
+  if not ok or type(state) ~= "table" then return end
   namespace = state.namespace
   last_pod = state.last_pod
   last_topic = state.last_topic
@@ -54,9 +46,7 @@ local function get_namespaces(callback)
     args = { "get", "namespaces", "-o", "jsonpath={.items[*].metadata.name}" },
     on_exit = function(j, return_val)
       if return_val ~= 0 then
-        vim.schedule(function()
-          vim.notify("Error getting namespaces.", vim.log.levels.ERROR)
-        end)
+        vim.schedule(function() vim.notify("Error getting namespaces.", vim.log.levels.ERROR) end)
         return
       end
 
@@ -77,9 +67,7 @@ local function select_namespace(callback)
           last_pod = nil
           save_state()
           vim.notify("Namespace set to: " .. namespace, vim.log.levels.INFO)
-          if callback then
-            callback(selected)
-          end
+          if callback then callback(selected) end
         end
       end)
     end)
@@ -89,9 +77,7 @@ end
 ---@param callback fun(pod: KafkaPod)
 local function with_kafka_pod(callback)
   if not namespace then
-    select_namespace(function()
-      with_kafka_pod(callback)
-    end)
+    select_namespace(function() with_kafka_pod(callback) end)
     return
   end
 
@@ -106,9 +92,7 @@ local function with_kafka_pod(callback)
           namespace = nil
           last_pod = nil
           save_state()
-          select_namespace(function()
-            with_kafka_pod(callback)
-          end)
+          select_namespace(function() with_kafka_pod(callback) end)
         end)
         return
       end
@@ -119,22 +103,19 @@ local function with_kafka_pod(callback)
         args = { "get", "pods", "-n", namespace, "-o", "json" },
         on_exit = function(j, pod_return_val)
           if pod_return_val ~= 0 then
-            vim.schedule(function()
-              vim.notify("Error getting Kafka pod.", vim.log.levels.ERROR)
-            end)
+            vim.schedule(function() vim.notify("Error getting Kafka pod.", vim.log.levels.ERROR) end)
             return
           end
 
           local output = table.concat(j:result(), "\n")
           local json = vim.json.decode(output)
-          local kafka_pods = vim.tbl_filter(function(item)
-            return item.metadata.labels and item.metadata.labels.app == "kafka"
-          end, json.items)
+          local kafka_pods = vim.tbl_filter(
+            function(item) return item.metadata.labels and item.metadata.labels.app == "kafka" end,
+            json.items
+          )
 
           if #kafka_pods == 0 then
-            vim.schedule(function()
-              vim.notify("No Kafka pod found.", vim.log.levels.WARN)
-            end)
+            vim.schedule(function() vim.notify("No Kafka pod found.", vim.log.levels.WARN) end)
             return
           end
 
@@ -217,15 +198,11 @@ local function get_topics(pod, callback)
     },
     on_exit = function(j, return_val)
       if return_val ~= 0 then
-        vim.schedule(function()
-          vim.notify("Error getting Kafka topics.", vim.log.levels.ERROR)
-        end)
+        vim.schedule(function() vim.notify("Error getting Kafka topics.", vim.log.levels.ERROR) end)
         return
       end
 
-      local topics = vim.tbl_filter(function(line)
-        return line ~= ""
-      end, j:result())
+      local topics = vim.tbl_filter(function(line) return line ~= "" end, j:result())
 
       callback(topics)
     end,
@@ -246,16 +223,12 @@ end
 
 local function kafka_send_buf()
   local msg = msg_from_buf_contents()
-  if not msg then
-    return
-  end
+  if not msg then return end
 
   with_kafka_pod(function(pod)
     get_topics(pod, function(topics)
       vim.schedule(function()
-        select_topic(topics, function(topic)
-          send_message(pod, topic, msg)
-        end)
+        select_topic(topics, function(topic) send_message(pod, topic, msg) end)
       end)
     end)
   end)
@@ -273,9 +246,7 @@ local function kafka_send_last_topic()
   end
 
   local msg = msg_from_buf_contents()
-  if not msg then
-    return
-  end
+  if not msg then return end
 
   send_message(last_pod, last_topic, msg)
 end
@@ -301,9 +272,7 @@ end
 
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "json",
-  callback = function(args)
-    vim.api.nvim_buf_create_user_command(args.buf, "KafkaSendBuf", kafka_send_buf, {})
-  end,
+  callback = function(args) vim.api.nvim_buf_create_user_command(args.buf, "KafkaSendBuf", kafka_send_buf, {}) end,
 })
 
 load_state()

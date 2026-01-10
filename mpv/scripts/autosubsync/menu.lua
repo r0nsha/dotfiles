@@ -28,9 +28,7 @@ function Menu:set_position(x, y)
   self.pos_y = y
 end
 
-function Menu:font_size(size)
-  self:append(string.format([[{\fs%s}]], size))
-end
+function Menu:font_size(size) self:append(string.format([[{\fs%s}]], size)) end
 
 function Menu:set_text_color(code)
   self:append(string.format("{\\1c&H%s%s%s&\\1a&H05&}", code:sub(5, 6), code:sub(3, 4), code:sub(1, 2)))
@@ -84,23 +82,17 @@ function Menu:draw()
   mp.set_osd_ass(self.canvas_width, self.canvas_height, self.text)
 end
 
-function Menu:erase()
-  mp.set_osd_ass(self.canvas_width, self.canvas_height, "")
-end
+function Menu:erase() mp.set_osd_ass(self.canvas_width, self.canvas_height, "") end
 
 function Menu:up()
   self.selected = self.selected - 1
-  if self.selected == 0 then
-    self.selected = #self.items
-  end
+  if self.selected == 0 then self.selected = #self.items end
   self:draw()
 end
 
 function Menu:down()
   self.selected = self.selected + 1
-  if self.selected > #self.items then
-    self.selected = 1
-  end
+  if self.selected > #self.items then self.selected = 1 end
   self:draw()
 end
 

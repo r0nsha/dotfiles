@@ -1,12 +1,12 @@
-local utils = require "utils"
+local utils = require("utils")
 
 local function toggle_checkbox()
   local line = vim.api.nvim_get_current_line()
 
-  if line:match "^%s*%- %[ %]" then
+  if line:match("^%s*%- %[ %]") then
     local new_line = line:gsub("%[ %]", "[x]")
     vim.api.nvim_set_current_line(new_line)
-  elseif line:match "^%s*%- %[x%]" then
+  elseif line:match("^%s*%- %[x%]") then
     local new_line = line:gsub("%[x%]", "[ ]")
     vim.api.nvim_set_current_line(new_line)
   end
@@ -21,19 +21,17 @@ local function toggle_checkboxes_visual()
   local all_off = true
 
   for i, line in ipairs(lines) do
-    if line:match "^%s*%- %[ %]" then
+    if line:match("^%s*%- %[ %]") then
       all_on = false
       table.insert(checkbox_lines, i)
-    elseif line:match "^%s*%- %[x%]" then
+    elseif line:match("^%s*%- %[x%]") then
       all_off = false
       table.insert(checkbox_lines, i)
     end
   end
 
   -- early return
-  if #checkbox_lines == 0 then
-    return
-  end
+  if #checkbox_lines == 0 then return end
 
   -- decide target
   local turn_on

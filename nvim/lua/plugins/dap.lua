@@ -1,4 +1,4 @@
-require("dap-view").setup {
+require("dap-view").setup({
   winbar = {
     controls = {
       enabled = true,
@@ -14,13 +14,13 @@ require("dap-view").setup {
       start_hidden = true,
     },
   },
-}
+})
 
-require("nvim-dap-virtual-text").setup {
+require("nvim-dap-virtual-text").setup({
   virt_text_pos = "",
-}
+})
 
-require "plugins.dap.config"
-require "plugins.dap.hydra"
-require "plugins.dap.adapters"
-require "plugins.dap.events"
+require("plugins.dap.config")
+require("plugins.dap.hydra")
+require("plugins.dap.adapters")
+require("plugins.dap.events")

@@ -1,5 +1,5 @@
-local clue = require "mini.clue"
-clue.setup {
+local clue = require("mini.clue")
+clue.setup({
   triggers = {
     -- Leader triggers
     { mode = "n", keys = "<Leader>" },
@@ -67,4 +67,4 @@ clue.setup {
     },
     delay = 500,
   },
-}
+})

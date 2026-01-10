@@ -1,11 +1,11 @@
 ---@class DBG: Hydra
 local M
 
-local Hydra = require "hydra"
-local dap = require "dap"
-local dv = require "dap-view"
-local dv_globals = require "dap-view.globals"
-local persistent_breakpoints_api = require "persistent-breakpoints.api"
+local Hydra = require("hydra")
+local dap = require("dap")
+local dv = require("dap-view")
+local dv_globals = require("dap-view.globals")
+local persistent_breakpoints_api = require("persistent-breakpoints.api")
 
 ---@param view dapview.Section
 local function jump_to_view(view)
@@ -69,7 +69,7 @@ vim.keymap.set("n", "<leader>dl", dap.run_last, { desc = "Debug: Run last" })
 local original_cursor_hl
 
 ---@type DBG
-M = Hydra {
+M = Hydra({
   name = "DBG",
   mode = { "n", "x", "v" },
   body = "<leader>dm",
@@ -118,9 +118,7 @@ M = Hydra {
     },
     {
       "dX",
-      function()
-        dap.set_exception_breakpoints {}
-      end,
+      function() dap.set_exception_breakpoints({}) end,
       { desc = "Clear exception breakpoints", private = true },
     },
     { "dp", dap.pause, { desc = "Pause", private = true } },
@@ -128,25 +126,21 @@ M = Hydra {
     -- UI
     {
       "gu",
-      function()
-        dv.toggle(true)
-      end,
+      function() dv.toggle(true) end,
       { desc = "Toggle UI", private = true },
     },
-    { "gw", jump_to_view "watches", { desc = "Jump to Watches", private = true } },
-    { "gs", jump_to_view "scopes", { desc = "Jump to Scopes", private = true } },
-    { "gx", jump_to_view "exceptions", { desc = "Jump to Exceptions", private = true } },
-    { "gb", jump_to_view "breakpoints", { desc = "Jump to Breakpoints", private = true } },
-    { "gT", jump_to_view "threads", { desc = "Jump to Threads", private = true } },
-    { "gR", jump_to_view "repl", { desc = "Jump to REPL", private = true } },
-    { "gC", jump_to_view "console", { desc = "Jump to Console", private = true } },
+    { "gw", jump_to_view("watches"), { desc = "Jump to Watches", private = true } },
+    { "gs", jump_to_view("scopes"), { desc = "Jump to Scopes", private = true } },
+    { "gx", jump_to_view("exceptions"), { desc = "Jump to Exceptions", private = true } },
+    { "gb", jump_to_view("breakpoints"), { desc = "Jump to Breakpoints", private = true } },
+    { "gT", jump_to_view("threads"), { desc = "Jump to Threads", private = true } },
+    { "gR", jump_to_view("repl"), { desc = "Jump to REPL", private = true } },
+    { "gC", jump_to_view("console"), { desc = "Jump to Console", private = true } },
     { "<leader>w", dv.add_expr, { desc = "Watch expression", private = true, mode = { "n", "x" } } },
     {
       "<leader>W",
       function()
-        vim.ui.input({ prompt = "Watch expression" }, function(input)
-          dv.add_expr(input)
-        end)
+        vim.ui.input({ prompt = "Watch expression" }, function(input) dv.add_expr(input) end)
       end,
       { desc = "Add watch", private = true },
     },
@@ -156,9 +150,7 @@ M = Hydra {
     { "Q", terminate, { desc = "Terminate", exit = true } },
     {
       "<C-c>",
-      function()
-        M:exit()
-      end,
+      function() M:exit() end,
       { desc = "Terminate", exit = true },
     },
 
@@ -166,7 +158,7 @@ M = Hydra {
     { "?", toggle_help, { desc = "Toggle Help", private = true } },
     { "g?", toggle_help, { desc = "Toggle Help", private = true } },
   },
-}
+})
 
 function M:exit_mode()
   if self.layer then
@@ -180,18 +172,14 @@ local group = vim.api.nvim_create_augroup("CustomDBG", { clear = true })
 vim.api.nvim_create_autocmd("BufEnter", {
   group = group,
   pattern = dv_globals.MAIN_BUF_NAME,
-  callback = function()
-    M:exit_mode()
-  end,
+  callback = function() M:exit_mode() end,
 })
 
 vim.api.nvim_create_autocmd("BufLeave", {
   group = group,
   pattern = dv_globals.MAIN_BUF_NAME,
   callback = function()
-    if dap.session() then
-      M:activate()
-    end
+    if dap.session() then M:activate() end
   end,
 })
 

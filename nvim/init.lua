@@ -1,16 +1,16 @@
-require "extensions"
-require "config"
-require "pass"
-require "colors"
+require("extensions")
+require("config")
+require("pass")
+require("colors")
 
-vim.cmd.packadd "nvim.undotree"
+vim.cmd.packadd("nvim.undotree")
 
-require("vim._extui").enable {
+require("vim._extui").enable({
   enable = true,
   msg = { target = "cmd", timeout = 2000 },
-}
+})
 
-vim.pack.add {
+vim.pack.add({
   { src = "https://github.com/miikanissi/modus-themes.nvim" },
   { src = "https://github.com/nvim-lua/plenary.nvim" },
   { src = "https://github.com/folke/lazydev.nvim" },
@@ -62,44 +62,42 @@ vim.pack.add {
   { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
   { src = "https://github.com/chomosuke/typst-preview.nvim", version = "v1.4.1" },
   { src = "https://github.com/stevearc/overseer.nvim" },
-}
+})
 
-require "plugins.colorscheme"
-require "plugins.treesitter"
-require "plugins.lazydev"
-require "plugins.lsp"
-require "plugins.format"
-require "plugins.lint"
-require "plugins.mini"
-require "plugins.cmp"
-require "plugins.smart_splits"
-require "plugins.heirline"
-require "plugins.oil"
-require "plugins.snacks.picker"
-require "plugins.harpoon"
-require "plugins.ai"
-require "plugins.ccc"
-require "plugins.matchup"
-require "plugins.multicursor"
-require "plugins.multinput"
-require "plugins.quickfix"
-require "plugins.vcs"
-require "plugins.markdown"
-require "plugins.typst"
-require "plugins.undotree"
-require "plugins.dap"
-require "plugins.overseer"
+require("plugins.colorscheme")
+require("plugins.treesitter")
+require("plugins.lazydev")
+require("plugins.lsp")
+require("plugins.format")
+require("plugins.lint")
+require("plugins.mini")
+require("plugins.cmp")
+require("plugins.smart_splits")
+require("plugins.heirline")
+require("plugins.oil")
+require("plugins.snacks.picker")
+require("plugins.harpoon")
+require("plugins.ai")
+require("plugins.ccc")
+require("plugins.matchup")
+require("plugins.multicursor")
+require("plugins.multinput")
+require("plugins.quickfix")
+require("plugins.vcs")
+require("plugins.markdown")
+require("plugins.typst")
+require("plugins.undotree")
+require("plugins.dap")
+require("plugins.overseer")
 
 local function pack_complete()
-  return vim.tbl_map(function(p)
-    return p.spec.name
-  end, vim.pack.get())
+  return vim.tbl_map(function(p) return p.spec.name end, vim.pack.get())
 end
 
 vim.api.nvim_create_user_command("PackUpdate", function(args)
   local name = args.args
   if name ~= "" then
-    vim.pack.update { name }
+    vim.pack.update({ name })
   else
     vim.pack.update()
   end
@@ -108,7 +106,7 @@ end, { nargs = "?", complete = pack_complete })
 vim.api.nvim_create_user_command("PackDel", function(args)
   local name = args.args
   if name ~= "" then
-    vim.pack.del { name }
+    vim.pack.del({ name })
   else
     vim.pack.del()
   end

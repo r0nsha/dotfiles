@@ -1,12 +1,12 @@
 local uv = vim.uv
-local w = require "watch"
+local w = require("watch")
 
 local types = {
   dark = "dark",
   light = "light",
 }
 
-local path = vim.fn.expand "~/.cache" .. "/theme"
+local path = vim.fn.expand("~/.cache") .. "/theme"
 
 ---@return boolean
 local function validate_path()
@@ -15,9 +15,7 @@ local function validate_path()
   -- create theme file if it doesn't exist, default to dark
   if not stat then
     local fd = uv.fs_open(path, "w", 420)
-    if not fd then
-      return false
-    end
+    if not fd then return false end
 
     uv.fs_write(fd, types.dark, -1)
     uv.fs_close(fd)
@@ -32,25 +30,17 @@ local function validate_path()
   return true
 end
 
-if not validate_path() then
-  return
-end
+if not validate_path() then return end
 
 local function update_background()
   local fd = uv.fs_open(path, "r", 420)
-  if not fd then
-    return
-  end
+  if not fd then return end
 
   local stat = uv.fs_fstat(fd)
-  if not stat then
-    return
-  end
+  if not stat then return end
 
   local data = uv.fs_read(fd, stat.size, 0)
-  if not data then
-    return
-  end
+  if not data then return end
 
   uv.fs_close(fd)
 
@@ -58,11 +48,11 @@ local function update_background()
 
   vim.schedule(function()
     if data == types.dark then
-      vim.cmd "set background=dark"
+      vim.cmd("set background=dark")
     elseif data == types.light then
-      vim.cmd "set background=light"
+      vim.cmd("set background=light")
     end
-    vim.cmd "redraw!"
+    vim.cmd("redraw!")
   end)
 end
 
@@ -70,7 +60,5 @@ update_background()
 
 w.watch(path, {
   ---@diagnostic disable-next-line: unused-local
-  on_event = function(filename, events, unwatch)
-    update_background()
-  end,
+  on_event = function(filename, events, unwatch) update_background() end,
 })

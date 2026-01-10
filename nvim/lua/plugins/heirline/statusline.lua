@@ -1,10 +1,8 @@
-local cond = require "heirline.conditions"
-local icons = require "config.icons"
-local utils = require "heirline.utils"
+local cond = require("heirline.conditions")
+local icons = require("config.icons")
+local utils = require("heirline.utils")
 
-local function active_fg()
-  return cond.is_active() and "fg_active" or "fg_inactive"
-end
+local function active_fg() return cond.is_active() and "fg_active" or "fg_inactive" end
 
 local function update_on(events)
   return vim.tbl_extend("keep", events, {
@@ -14,18 +12,14 @@ local function update_on(events)
     "BufWinLeave",
     "FocusGained",
     "FocusLost",
-    callback = vim.schedule_wrap(function()
-      vim.cmd "redrawstatus"
-    end),
+    callback = vim.schedule_wrap(function() vim.cmd("redrawstatus") end),
   })
 end
 
 local Align = { provider = "%=" }
 
 ---@param n? number
-local Space = function(n)
-  return { provider = string.rep(" ", n or 1) }
-end
+local Space = function(n) return { provider = string.rep(" ", n or 1) } end
 
 local _, hydra = pcall(require, "hydra.statusline")
 
@@ -94,15 +88,13 @@ local Mode = {
   end,
   hl = function(self)
     local hydra_color = hydra and hydra.get_color() or nil
-    if hydra_color then
-      return { fg = hydra_color, bold = false }
-    end
+    if hydra_color then return { fg = hydra_color, bold = false } end
 
     local mode = self.mode:sub(1, 1) -- get only the first mode character
     local fg = cond.is_active() and self.mode_colors[mode] or "fg_inactive"
     return { fg = fg, bold = false }
   end,
-  update = update_on { "ModeChanged", "User" },
+  update = update_on({ "ModeChanged", "User" }),
 }
 
 local FileBlock = {
@@ -113,9 +105,7 @@ local FileBlock = {
   hl = function()
     local color = vim.bo.modified and "blue" or active_fg()
 
-    if not vim.bo.modifiable or vim.bo.readonly then
-      color = "gray"
-    end
+    if not vim.bo.modifiable or vim.bo.readonly then color = "gray" end
 
     return { fg = color }
   end,
@@ -130,69 +120,45 @@ local FileIcon = {
     self.icon = icon
     self.icon_color = hl_data and hl_data.fg
   end,
-  provider = function(self)
-    return self.icon and (self.icon .. " ")
-  end,
-  hl = function(self)
-    return { fg = self.icon_color }
-  end,
+  provider = function(self) return self.icon and (self.icon .. " ") end,
+  hl = function(self) return { fg = self.icon_color } end,
 }
 
 local FileName = {
   provider = function(self)
     local filename = vim.fn.fnamemodify(self.filename, ":.")
-    if filename == "" then
-      return "[No Name]"
-    end
-    if not cond.width_percent_below(#filename, 0.5) then
-      filename = vim.fn.pathshorten(filename)
-    end
+    if filename == "" then return "[No Name]" end
+    if not cond.width_percent_below(#filename, 0.5) then filename = vim.fn.pathshorten(filename) end
     return filename
   end,
-  hl = function(self)
-    return { fg = self.filename == "" and "gray" or active_fg() }
-  end,
+  hl = function(self) return { fg = self.filename == "" and "gray" or active_fg() } end,
 }
 
 local FileNameModifer = {
   hl = function()
-    if vim.bo.modified then
-      return { fg = active_fg(), bold = true, force = true }
-    end
+    if vim.bo.modified then return { fg = active_fg(), bold = true, force = true } end
   end,
 }
 
 local FileFlags = {
   {
-    condition = function()
-      return vim.bo.modified
-    end,
+    condition = function() return vim.bo.modified end,
     provider = " [+]",
-    hl = function()
-      return { fg = active_fg(), bold = true }
-    end,
+    hl = function() return { fg = active_fg(), bold = true } end,
   },
   {
-    condition = function()
-      return not vim.bo.modifiable or vim.bo.readonly
-    end,
+    condition = function() return not vim.bo.modifiable or vim.bo.readonly end,
     provider = " ",
-    hl = function()
-      return { fg = "gray" }
-    end,
+    hl = function() return { fg = "gray" } end,
   },
 }
 
 FileBlock = utils.insert(FileBlock, FileIcon, utils.insert(FileNameModifer, FileName), FileFlags, { provider = "%<" })
 
-local function nonzero(n)
-  return n ~= nil and n ~= 0
-end
+local function nonzero(n) return n ~= nil and n ~= 0 end
 
 local function minidiff_init(self)
-  if not self.status_dict then
-    self.status_dict = { head = "" }
-  end
+  if not self.status_dict then self.status_dict = { head = "" } end
 
   self.status_dict.added = vim.b.minidiff_summary.add
   self.status_dict.removed = vim.b.minidiff_summary.delete
@@ -212,17 +178,13 @@ local function minidiff_init(self)
 
     if head ~= self.status_dict.head then
       self.status_dict.head = head
-      vim.schedule(function()
-        vim.cmd.redrawstatus()
-      end)
+      vim.schedule(function() vim.cmd.redrawstatus() end)
     end
   end)
 end
 
 local Git = {
-  condition = function()
-    return cond.is_active() and (cond.is_git_repo() or vim.b.minidiff_summary)
-  end,
+  condition = function() return cond.is_active() and (cond.is_git_repo() or vim.b.minidiff_summary) end,
 
   init = function(self)
     if vim.b.minidiff_summary then
@@ -238,63 +200,43 @@ local Git = {
     end
   end,
 
-  hl = function()
-    return { fg = "gray" }
-  end,
+  hl = function() return { fg = "gray" } end,
 
   {
-    provider = function(self)
-      return " " .. self.status_dict.head
-    end,
+    provider = function(self) return " " .. self.status_dict.head end,
   },
 
   {
-    condition = function(self)
-      return self.has_changes
-    end,
+    condition = function(self) return self.has_changes end,
 
     Space(),
     {
-      condition = function(self)
-        return self.status_dict.added > 0
-      end,
-      provider = function(self)
-        return "+" .. self.status_dict.added
-      end,
-      hl = function()
-        return { fg = "diff_add" }
-      end,
+      condition = function(self) return self.status_dict.added > 0 end,
+      provider = function(self) return "+" .. self.status_dict.added end,
+      hl = function() return { fg = "diff_add" } end,
     },
     {
-      condition = function(self)
-        return self.status_dict.changed > 0
-      end,
+      condition = function(self) return self.status_dict.changed > 0 end,
       provider = function(self)
         local space = self.status_dict.added > 0 and " " or ""
         return space .. "~" .. self.status_dict.changed
       end,
-      hl = function()
-        return { fg = "diff_change" }
-      end,
+      hl = function() return { fg = "diff_change" } end,
     },
     {
-      condition = function(self)
-        return self.status_dict.removed > 0
-      end,
+      condition = function(self) return self.status_dict.removed > 0 end,
       provider = function(self)
         local space = (self.status_dict.added > 0 or self.status_dict.changed > 0) and " " or ""
         return space .. "-" .. self.status_dict.removed
       end,
-      hl = function()
-        return { fg = "diff_del" }
-      end,
+      hl = function() return { fg = "diff_del" } end,
     },
   },
 
-  update = update_on {
+  update = update_on({
     "User",
     pattern = { "MiniDiffUpdated", "GitSignsUpdate", "GitSignsChanged" },
-  },
+  }),
 }
 
 ---@param type "error" | "warning" | "info" | "hint"
@@ -306,9 +248,7 @@ local function diagnostic_provider(type)
       local icon = icons[type]
       return count > 0 and (icon .. " " .. count .. " ")
     end,
-    hl = function()
-      return { fg = "diag_" .. type }
-    end,
+    hl = function() return { fg = "diag_" .. type } end,
   }
 end
 
@@ -321,23 +261,21 @@ local Diagnostics = {
     self.infos = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
   end,
 
-  diagnostic_provider "error",
-  diagnostic_provider "warning",
-  diagnostic_provider "info",
-  diagnostic_provider "hint",
+  diagnostic_provider("error"),
+  diagnostic_provider("warning"),
+  diagnostic_provider("info"),
+  diagnostic_provider("hint"),
 
-  update = update_on { "DiagnosticChanged", "BufEnter" },
+  update = update_on({ "DiagnosticChanged", "BufEnter" }),
 }
 
 local Lsp = {
-  condition = function()
-    return cond.is_active() and cond.lsp_attached()
-  end,
+  condition = function() return cond.is_active() and cond.lsp_attached() end,
   {
     provider = function()
       local names = {}
 
-      for _, server in pairs(vim.lsp.get_clients { bufnr = 0 }) do
+      for _, server in pairs(vim.lsp.get_clients({ bufnr = 0 })) do
         table.insert(names, server.name)
       end
 
@@ -349,32 +287,24 @@ local Lsp = {
         table.insert(display_names, names[i])
       end
 
-      if extra_count > 0 then
-        table.insert(display_names, string.format("+%d", extra_count))
-      end
+      if extra_count > 0 then table.insert(display_names, string.format("+%d", extra_count)) end
 
       return "[" .. table.concat(display_names, ", ") .. "]"
     end,
-    hl = function()
-      return { fg = "gray" }
-    end,
-    update = update_on { "LspAttach", "LspDetach" },
+    hl = function() return { fg = "gray" } end,
+    update = update_on({ "LspAttach", "LspDetach" }),
   },
   Space(2),
 }
 
-local function in_visual_mode()
-  return vim.api.nvim_get_mode().mode:lower() == "v"
-end
+local function in_visual_mode() return vim.api.nvim_get_mode().mode:lower() == "v" end
 
 local Selection = {
   provider = function()
-    if not in_visual_mode() then
-      return nil
-    end
+    if not in_visual_mode() then return nil end
 
-    local start_line = vim.fn.line "v"
-    local end_line = vim.fn.line "."
+    local start_line = vim.fn.line("v")
+    local end_line = vim.fn.line(".")
     local lines = math.abs(end_line - start_line) + 1
     local cols = vim.fn.wordcount().visual_chars
 
@@ -415,16 +345,12 @@ local disable_for = {
   filetype = { "dashboard", "Neogit*", "trouble", "Glance" },
 }
 
-local function is_statusline_disabled()
-  return not cond.buffer_matches(disable_for)
-end
+local function is_statusline_disabled() return not cond.buffer_matches(disable_for) end
 
 return {
   condition = is_statusline_disabled,
   Left,
   Align,
   Right,
-  hl = function()
-    return { fg = active_fg() }
-  end,
+  hl = function() return { fg = active_fg() } end,
 }

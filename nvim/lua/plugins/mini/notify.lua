@@ -4,7 +4,7 @@ local win_config = function()
   return { anchor = "SE", col = vim.o.columns, row = vim.o.lines - pad }
 end
 
-require("mini.notify").setup {
+require("mini.notify").setup({
   lsp_progress = { duration_last = 1500 },
   window = { config = win_config },
-}
+})

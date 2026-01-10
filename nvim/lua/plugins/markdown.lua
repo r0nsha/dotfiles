@@ -2,7 +2,7 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = "lua",
   once = true,
   callback = function()
-    require("render-markdown").setup {
+    require("render-markdown").setup({
       checkbox = {
         checked = { icon = " ", highlight = "RenderMarkdownChecked", scope_highlight = nil },
         unchecked = { icon = " ", highlight = "RenderMarkdownUnchecked", scope_highlight = nil },
@@ -14,6 +14,6 @@ vim.api.nvim_create_autocmd("FileType", {
       code = {
         conceal_delimiters = false,
       },
-    }
+    })
   end,
 })

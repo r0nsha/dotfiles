@@ -1,4 +1,4 @@
-require("modus-themes").load {
+require("modus-themes").load({
   on_highlights = function(highlight, color)
     highlight.MiniCursorword = { underdotted = true }
     highlight.MiniCursorwordCurrent = { link = "MiniCursorword" }
@@ -15,4 +15,4 @@ require("modus-themes").load {
     highlight.DiffviewDiffAddAsDelete = { bg = color.bg_removed }
   end,
   on_colors = function() end,
-}
+})

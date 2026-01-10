@@ -5,10 +5,10 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   group = augroup,
   pattern = "*",
   callback = function()
-    vim.hl.on_yank {
+    vim.hl.on_yank({
       higroup = "IncSearch",
       timeout = 40,
-    }
+    })
   end,
 })
 
@@ -18,9 +18,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   callback = function()
     local mark = vim.api.nvim_buf_get_mark(0, '"')
     local lcount = vim.api.nvim_buf_line_count(0)
-    if mark[1] > 0 and mark[1] <= lcount then
-      pcall(vim.api.nvim_win_set_cursor, 0, mark)
-    end
+    if mark[1] > 0 and mark[1] <= lcount then pcall(vim.api.nvim_win_set_cursor, 0, mark) end
   end,
 })
 
@@ -29,25 +27,21 @@ vim.api.nvim_create_autocmd("BufWritePost", {
   group = augroup,
   pattern = "*/kitty/*.conf",
   callback = function()
-    local Job = require "plenary.job"
-    local utils = require "utils"
+    local Job = require("plenary.job")
+    local utils = require("utils")
 
     local pgrep = utils.is_macos() and "pgrep -a kitty" or "pgrep kitty"
 
-    local reload_kitty_cfg = Job:new {
+    local reload_kitty_cfg = Job:new({
       command = "fish",
       args = { "-c", "kill -SIGUSR1 (" .. pgrep .. ")" },
-    }
+    })
 
     local notify = vim.schedule_wrap(vim.notify)
 
-    reload_kitty_cfg:after_success(function()
-      notify "Reloaded kitty.conf"
-    end)
+    reload_kitty_cfg:after_success(function() notify("Reloaded kitty.conf") end)
 
-    reload_kitty_cfg:after_failure(function()
-      notify "Failed to reload kitty.conf"
-    end)
+    reload_kitty_cfg:after_failure(function() notify("Failed to reload kitty.conf") end)
 
     reload_kitty_cfg:start()
   end,
@@ -59,7 +53,7 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
   pattern = "*",
   callback = function()
     -- Don't have `o` add a comment
-    vim.opt.formatoptions:remove "o"
+    vim.opt.formatoptions:remove("o")
   end,
 })
 
@@ -68,9 +62,7 @@ vim.api.nvim_create_autocmd("CursorMoved", {
   group = augroup,
   callback = function()
     if vim.v.hlsearch == 1 and vim.fn.searchcount().exact_match == 0 then
-      vim.schedule(function()
-        vim.cmd.nohlsearch()
-      end)
+      vim.schedule(function() vim.cmd.nohlsearch() end)
     end
   end,
 })
@@ -78,28 +70,22 @@ vim.api.nvim_create_autocmd("CursorMoved", {
 -- Auto-resize splits when window is resized
 vim.api.nvim_create_autocmd("VimResized", {
   group = augroup,
-  callback = function()
-    vim.cmd "tabdo wincmd ="
-  end,
+  callback = function() vim.cmd("tabdo wincmd =") end,
 })
 
 -- Create directories when saving files
 vim.api.nvim_create_autocmd("BufWritePre", {
   group = augroup,
   callback = function()
-    local dir = vim.fn.expand "<afile>:p:h"
-    if vim.fn.isdirectory(dir) == 0 and not dir:startswith "oil:/" then
-      vim.fn.mkdir(dir, "p")
-    end
+    local dir = vim.fn.expand("<afile>:p:h")
+    if vim.fn.isdirectory(dir) == 0 and not dir:startswith("oil:/") then vim.fn.mkdir(dir, "p") end
   end,
 })
 
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   group = augroup,
   pattern = "*/git/config",
-  callback = function()
-    vim.bo.filetype = "gitconfig"
-  end,
+  callback = function() vim.bo.filetype = "gitconfig" end,
 })
 
 -- Set relativenumber when in normal mode, but not in insert mode

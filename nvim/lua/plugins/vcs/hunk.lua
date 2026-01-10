@@ -1,4 +1,4 @@
-require("hunk").setup {
+require("hunk").setup({
   keys = {
     global = {
       accept = { "<c-y>" },
@@ -8,4 +8,4 @@ require("hunk").setup {
       prev_hunk = { "[h", "<C-p>" },
     },
   },
-}
+})

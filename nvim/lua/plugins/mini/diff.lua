@@ -1,6 +1,6 @@
-local diff = require "mini.diff"
+local diff = require("mini.diff")
 
-diff.setup {
+diff.setup({
   source = diff.gen_source.git(),
   mappings = {
     apply = "",
@@ -11,6 +11,6 @@ diff.setup {
     goto_next = "]h",
     goto_last = "]H",
   },
-}
+})
 
 vim.keymap.set("n", "<leader>gh", diff.toggle_overlay, { desc = "Toggle diff overlay" })

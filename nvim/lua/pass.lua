@@ -3,19 +3,17 @@ local M = {}
 ---@param var string
 ---@param pass_name string
 local function read(var, pass_name)
-  local Job = require "plenary.job"
+  local Job = require("plenary.job")
 
   ---@diagnostic disable-next-line: missing-fields
-  local j = Job:new {
+  local j = Job:new({
     command = "pass",
     args = { "show", pass_name },
-  }
+  })
 
   j:after_success(function()
     local result = table.concat(j:result(), "\n")
-    vim.schedule(function()
-      vim.env[var] = result
-    end)
+    vim.schedule(function() vim.env[var] = result end)
   end)
 
   -- j:after_failure(function()

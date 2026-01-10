@@ -58,6 +58,6 @@ for name, config in pairs(servers) do
   table.insert(ensure_installed, server_name)
 end
 
-require("mason-tool-installer").setup { ensure_installed = ensure_installed }
+require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 vim.lsp.enable(vim.tbl_keys(servers))

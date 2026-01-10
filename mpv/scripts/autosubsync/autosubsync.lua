@@ -40,25 +40,17 @@ mpopt.read_options(config, "autosubsync")
 -- originally found at: https://stackoverflow.com/a/30960054
 local os_name = (function()
   if os.getenv("HOME") == nil then
-    return function()
-      return "Windows"
-    end
+    return function() return "Windows" end
   else
-    return function()
-      return "*nix"
-    end
+    return function() return "*nix" end
   end
 end)()
 
 local os_temp = (function()
   if os_name() == "Windows" then
-    return function()
-      return os.getenv("TEMP")
-    end
+    return function() return os.getenv("TEMP") end
   else
-    return function()
-      return "/tmp/"
-    end
+    return function() return "/tmp/" end
   end
 end)()
 
@@ -79,9 +71,7 @@ local function subprocess(args)
 end
 
 local url_decode = function(url)
-  local function hex_to_char(x)
-    return string.char(tonumber(x, 16))
-  end
+  local function hex_to_char(x) return string.char(tonumber(x, 16)) end
   if url ~= nil then
     url = url:gsub("^file://", "")
     url = url:gsub("+", " ")
@@ -111,25 +101,17 @@ local function get_active_track(track_type)
       if track.external and not h.file_exists(track["external-filename"]) then
         track["external-filename"] = url_decode(track["external-filename"])
       end
-      if not (track_type == "sub" and track.id == mp.get_property_native("secondary-sid")) then
-        return num, track
-      end
+      if not (track_type == "sub" and track.id == mp.get_property_native("secondary-sid")) then return num, track end
     end
   end
   return notify(string.format("Error: no track of type '%s' selected", track_type), "error", 3)
 end
 
-local function remove_extension(filename)
-  return filename:gsub("%.%w+$", "")
-end
+local function remove_extension(filename) return filename:gsub("%.%w+$", "") end
 
-local function get_extension(filename)
-  return filename:match("^.+(%.%w+)$")
-end
+local function get_extension(filename) return filename:match("^.+(%.%w+)$") end
 
-local function startswith(str, prefix)
-  return string.sub(str, 1, string.len(prefix)) == prefix
-end
+local function startswith(str, prefix) return string.sub(str, 1, string.len(prefix)) == prefix end
 
 local function mkfp_retimed(sub_path)
   if config.overwrite_old_sub then
@@ -184,9 +166,7 @@ end
 local function sync_subtitles(ref_sub_path)
   local reference_file_path = ref_sub_path or mp.get_property("path")
   local _, sub_track = get_active_track("sub")
-  if sub_track == nil then
-    return
-  end
+  if sub_track == nil then return end
   local subtitle_path = sub_track.external and sub_track["external-filename"] or extract_to_file(sub_track)
   local engine_name = engine_selector:get_engine_name()
   local engine_path = config[engine_name .. "_path"]
@@ -226,18 +206,14 @@ local function sync_subtitles(ref_sub_path)
     ret = subprocess({ config.alass_path, reference_file_path, subtitle_path, retimed_subtitle_path })
   end
 
-  if ret == nil then
-    return notify("Parsing failed or no args passed.", "fatal", 3)
-  end
+  if ret == nil then return notify("Parsing failed or no args passed.", "fatal", 3) end
 
   if ret.status == 0 then
     local old_sid = mp.get_property("sid")
     if mp.commandv("sub_add", retimed_subtitle_path) then
       notify("Subtitle synchronized.", nil, 2)
       mp.set_property("sub-delay", 0)
-      if config.unload_old_sub then
-        mp.commandv("sub_remove", old_sid)
-      end
+      if config.unload_old_sub then mp.commandv("sub_remove", old_sid) end
     else
       notify("Error: couldn't add synchronized subtitle.", "error", 3)
     end
@@ -266,20 +242,14 @@ end
 local function sync_to_manual_offset()
   local _, track = get_active_track("sub")
   local sub_delay = tonumber(mp.get_property("sub-delay"))
-  if tonumber(sub_delay) == 0 then
-    return notify("There were no manual timings set, nothing to do!", "error", 7)
-  end
+  if tonumber(sub_delay) == 0 then return notify("There were no manual timings set, nothing to do!", "error", 7) end
   local file_path = track.external and track["external-filename"] or extract_to_file(track)
-  if file_path == nil then
-    return
-  end
+  if file_path == nil then return end
 
   local ext = get_extension(file_path)
   local codec_parser_map = { ass = sub.ASS, subrip = sub.SRT }
   local parser = codec_parser_map[track["codec"]]
-  if parser == nil then
-    return notify(string.format("Error: unsupported codec: %s", track["codec"]), "error", 3)
-  end
+  if parser == nil then return notify(string.format("Error: unsupported codec: %s", track["codec"]), "error", 3) end
   local s = parser:populate(file_path)
   s:shift_timing(sub_delay)
   if track.external == false then
@@ -290,9 +260,7 @@ local function sync_to_manual_offset()
   end
   s:save()
   mp.commandv("sub_add", s.filename)
-  if config.unload_old_sub then
-    mp.commandv("sub_remove", track.id)
-  end
+  if config.unload_old_sub then mp.commandv("sub_remove", track.id) end
   mp.set_property("sub-delay", 0)
   return notify(string.format("Manual timings saved, loading '%s'", s.filename), "info", 7)
 end
@@ -315,81 +283,55 @@ function ref_selector:get_keybindings()
   return {
     {
       key = "h",
-      fn = function()
-        self:close()
-      end,
+      fn = function() self:close() end,
     },
     {
       key = "j",
-      fn = function()
-        self:down()
-      end,
+      fn = function() self:down() end,
     },
     {
       key = "k",
-      fn = function()
-        self:up()
-      end,
+      fn = function() self:up() end,
     },
     {
       key = "l",
-      fn = function()
-        self:act()
-      end,
+      fn = function() self:act() end,
     },
     {
       key = "down",
-      fn = function()
-        self:down()
-      end,
+      fn = function() self:down() end,
     },
     {
       key = "up",
-      fn = function()
-        self:up()
-      end,
+      fn = function() self:up() end,
     },
     {
       key = "Enter",
-      fn = function()
-        self:act()
-      end,
+      fn = function() self:act() end,
     },
     {
       key = "ESC",
-      fn = function()
-        self:close()
-      end,
+      fn = function() self:close() end,
     },
     {
       key = "n",
-      fn = function()
-        self:close()
-      end,
+      fn = function() self:close() end,
     },
     {
       key = "WHEEL_DOWN",
-      fn = function()
-        self:down()
-      end,
+      fn = function() self:down() end,
     },
     {
       key = "WHEEL_UP",
-      fn = function()
-        self:up()
-      end,
+      fn = function() self:up() end,
     },
     {
       key = "MBTN_LEFT",
-      fn = function()
-        self:act()
-      end,
+      fn = function() self:act() end,
     },
     {
       key = "MBTN_RIGHT",
-      fn = function()
-        self:close()
-      end,
+      fn = function() self:close() end,
     },
   }
 end
@@ -421,12 +363,8 @@ end
 function ref_selector:act()
   self:close()
 
-  if self.selected == 3 then
-    return sync_to_manual_offset()
-  end
-  if self.selected == 4 then
-    return
-  end
+  if self.selected == 3 then return sync_to_manual_offset() end
+  if self.selected == 4 then return end
 
   engine_selector:init()
 end
@@ -499,9 +437,7 @@ local function is_supported_format(track)
   local supported_format = true
   if track.external then
     local ext = get_extension(track["external-filename"])
-    if ext ~= ".srt" and ext ~= ".ass" then
-      supported_format = false
-    end
+    if ext ~= ".srt" and ext ~= ".ass" then supported_format = false end
   end
   return supported_format
 end
@@ -509,9 +445,7 @@ end
 function track_selector:init()
   self.selected = 0
 
-  if ref_selector:get_ref() == "audio" then
-    return ref_selector:call_subsync()
-  end
+  if ref_selector:get_ref() == "audio" then return ref_selector:call_subsync() end
 
   self.all_sub_tracks = get_loaded_tracks(ref_selector:get_ref())
   self.secondary_sid = mp.get_property_native("secondary-sid")
@@ -544,18 +478,14 @@ function track_selector:init()
 end
 
 function track_selector:get_selected_track()
-  if self.selected < 1 then
-    return nil
-  end
+  if self.selected < 1 then return nil end
   return self.tracks[self.selected]
 end
 
 function track_selector:act()
   self:close()
 
-  if self.selected == #self.items then
-    return
-  end
+  if self.selected == #self.items then return end
 
   ref_selector:call_subsync()
 end
@@ -574,6 +504,4 @@ end
 -- Entry point
 
 init()
-mp.add_key_binding("n", "autosubsync-menu", function()
-  ref_selector:open()
-end)
+mp.add_key_binding("n", "autosubsync-menu", function() ref_selector:open() end)

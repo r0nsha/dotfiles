@@ -1,5 +1,5 @@
-local ss = require "smart-splits"
-ss.setup {}
+local ss = require("smart-splits")
+ss.setup({})
 
 -- move
 vim.keymap.set({ "n", "t" }, "<C-h>", ss.move_cursor_left, { desc = "Move cursor left" })
