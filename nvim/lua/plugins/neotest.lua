@@ -1,11 +1,10 @@
 ---@diagnostic disable-next-line: missing-fields
 require("neotest").setup({
   adapters = {
-    require("neotest-vitest"),
-    {
+    require("neotest-vitest")({
       ---@diagnostic disable-next-line: unused-local
       filter_dir = function(name, rel_path, root) return name ~= "node_modules" end,
-    },
+    }),
   },
   consumers = {
     ---@diagnostic disable-next-line: assign-type-mismatch - "neotest.consumers.overseer" is callable
