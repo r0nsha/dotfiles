@@ -31,26 +31,30 @@ end
 
 local hint = [[
  Navigation        ^Breakpoints
+ ==================================================== 
  _c_ Continue        ^_db_ Toggle breakpoint
- _J_ Step over       ^_dl_ Log point
- _K_ Step back       ^_dA_ Clear all breakpoints
- _L_ Step in         ^_dx_ Set exception breakpoints
- _H_ Step out        ^_dX_ Clear exception breakpoints
- _r_ Run to cursor   ^_dp_ Pause
-                      ^
- UI                   ^
- _gu_  Toggle UI      ^_<leader>w_ Watch expression
- _gw_ Watches        ^_<leader>W_ Add watch
- _gs_ Scopes         ^
- _gx_ Exceptions     ^
- _gb_ Breakpoints    ^
+ _J_ Step over       ^_dc_ Set conditional breakpoint
+ _K_ Step back       ^_dl_ Log point
+ _L_ Step in         ^_dA_ Clear all breakpoints
+ _H_ Step out        ^_dx_ Set exception breakpoints
+ _r_ Run to cursor   ^_dX_ Clear exception breakpoints
+                   ^_dp_ Pause
+                     ^
+ UI                ^Watches
+ ==================================================== 
+ _gu_ Toggle UI      ^_<leader>w_ Watch expression
+ _gW_ Watches        ^_<leader>W_ Add watch
+ _gS_ Scopes         ^
+ _gE_ Exceptions     ^
+ _gB_ Breakpoints    ^
  _gT_ Threads        ^
  _gR_ REPL           ^
  _gC_ Console        ^
                      ^
+ Misc
+ ==================================================== 
  _?_/_g?_ Help
- ^
- _Q_ Terminate ^_dd_ Disconnect _<C-c>_ Exit mode
+ _dq_ Disconnect     ^_dQ_ Terminate _<C-c>_ Exit mode
 ]]
 
 local function toggle_help()
@@ -64,6 +68,12 @@ end
 
 vim.keymap.set("n", "<leader>ds", dap.continue, { desc = "Debug: Start" })
 vim.keymap.set("n", "<leader>dl", dap.run_last, { desc = "Debug: Run last" })
+vim.keymap.set(
+  "n",
+  "<leader>dv",
+  function() require("osv").launch({ port = 8086 }) end,
+  { desc = "Debug: Start OSV server", buffer = 0 }
+)
 
 ---@type vim.api.keyset.get_hl_info
 local original_cursor_hl
@@ -105,17 +115,14 @@ M = Hydra({
 
     -- Breakpoints
     { "db", persistent_breakpoints_api.toggle_breakpoint, { desc = "Toggle breakpoint", private = true } },
+    {
+      "dc",
+      persistent_breakpoints_api.set_conditional_breakpoint,
+      { desc = "Set conditional breakpoint", private = true },
+    },
     { "dl", persistent_breakpoints_api.set_log_point, { desc = "Log point", private = true } },
-    {
-      "dA",
-      persistent_breakpoints_api.clear_all_breakpoints,
-      { desc = "Clear all breakpoints", private = true },
-    },
-    {
-      "dx",
-      dap.set_exception_breakpoints,
-      { desc = "Set exception breakpoints", private = true },
-    },
+    { "dA", persistent_breakpoints_api.clear_all_breakpoints, { desc = "Clear all breakpoints", private = true } },
+    { "dx", dap.set_exception_breakpoints, { desc = "Set exception breakpoints", private = true } },
     {
       "dX",
       function() dap.set_exception_breakpoints({}) end,
@@ -124,15 +131,11 @@ M = Hydra({
     { "dp", dap.pause, { desc = "Pause", private = true } },
 
     -- UI
-    {
-      "gu",
-      function() dv.toggle(true) end,
-      { desc = "Toggle UI", private = true },
-    },
-    { "gw", jump_to_view("watches"), { desc = "Jump to Watches", private = true } },
-    { "gs", jump_to_view("scopes"), { desc = "Jump to Scopes", private = true } },
-    { "gx", jump_to_view("exceptions"), { desc = "Jump to Exceptions", private = true } },
-    { "gb", jump_to_view("breakpoints"), { desc = "Jump to Breakpoints", private = true } },
+    { "gu", function() dv.toggle(true) end, { desc = "Toggle UI", private = true } },
+    { "gW", jump_to_view("watches"), { desc = "Jump to Watches", private = true } },
+    { "gS", jump_to_view("scopes"), { desc = "Jump to Scopes", private = true } },
+    { "gE", jump_to_view("exceptions"), { desc = "Jump to Exceptions", private = true } },
+    { "gB", jump_to_view("breakpoints"), { desc = "Jump to Breakpoints", private = true } },
     { "gT", jump_to_view("threads"), { desc = "Jump to Threads", private = true } },
     { "gR", jump_to_view("repl"), { desc = "Jump to REPL", private = true } },
     { "gC", jump_to_view("console"), { desc = "Jump to Console", private = true } },
@@ -146,13 +149,9 @@ M = Hydra({
     },
 
     -- Quitting
-    { "dd", disconnect, { desc = "Disconnect", exit = true } },
-    { "Q", terminate, { desc = "Terminate", exit = true } },
-    {
-      "<C-c>",
-      function() M:exit() end,
-      { desc = "Terminate", exit = true },
-    },
+    { "dq", disconnect, { desc = "Disconnect", exit = true } },
+    { "dQ", terminate, { desc = "Terminate", exit = true } },
+    { "<C-c>", function() M:exit() end, { desc = "Terminate", exit = true } },
 
     -- Hint
     { "?", toggle_help, { desc = "Toggle Help", private = true } },
@@ -168,19 +167,19 @@ function M:exit_mode()
   end
 end
 
-local group = vim.api.nvim_create_augroup("CustomDBG", { clear = true })
-vim.api.nvim_create_autocmd("BufEnter", {
-  group = group,
-  pattern = dv_globals.MAIN_BUF_NAME,
-  callback = function() M:exit_mode() end,
-})
-
-vim.api.nvim_create_autocmd("BufLeave", {
-  group = group,
-  pattern = dv_globals.MAIN_BUF_NAME,
-  callback = function()
-    if dap.session() then M:activate() end
-  end,
-})
+-- local group = vim.api.nvim_create_augroup("CustomDBG", { clear = true })
+-- vim.api.nvim_create_autocmd("BufEnter", {
+--   group = group,
+--   pattern = dv_globals.MAIN_BUF_NAME,
+--   callback = function() M:exit_mode() end,
+-- })
+--
+-- vim.api.nvim_create_autocmd("BufLeave", {
+--   group = group,
+--   pattern = dv_globals.MAIN_BUF_NAME,
+--   callback = function()
+--     if dap.session() then M:activate() end
+--   end,
+-- })
 
 return M
