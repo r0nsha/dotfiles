@@ -54,7 +54,6 @@ vim.pack.add({
   { src = "https://github.com/sindrets/diffview.nvim" },
   { src = "https://github.com/ruifm/gitlinker.nvim" },
   { src = "https://github.com/MunifTanjim/nui.nvim" },
-  -- { src = "https://github.com/nvim-neotest/nvim-nio" },
   { src = "https://github.com/julienvincent/hunk.nvim" },
   { src = "https://github.com/nicolasgb/jj.nvim" },
   { src = "https://github.com/rafikdraoui/jj-diffconflicts" },
@@ -62,6 +61,9 @@ vim.pack.add({
   { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
   { src = "https://github.com/chomosuke/typst-preview.nvim", version = "v1.4.1" },
   { src = "https://github.com/stevearc/overseer.nvim" },
+  { src = "https://github.com/nvim-neotest/nvim-nio" },
+  { src = "https://github.com/nvim-neotest/neotest" },
+  { src = "https://github.com/marilari88/neotest-vitest" },
 })
 
 require("plugins.colorscheme")
@@ -89,6 +91,7 @@ require("plugins.typst")
 require("plugins.undotree")
 require("plugins.dap")
 require("plugins.overseer")
+require("plugins.neotest")
 
 local function pack_complete()
   return vim.tbl_map(function(p) return p.spec.name end, vim.pack.get())
