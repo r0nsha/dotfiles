@@ -17,8 +17,8 @@ install_brew() {
 
     eval "\$(${HOMEBREW_PREFIX}/bin/brew shellenv)"
 
-    echo >>/Users/ron.s/.zprofile
-    echo 'eval "$(${HOMEBREW_PREFIX}bin/brew shellenv)"' >>/Users/ron.s/.zprofile
+    echo >>$HOME/.zprofile
+    echo 'eval "$(${HOMEBREW_PREFIX}bin/brew shellenv)"' >>$HOME/.zprofile
     eval "$(${HOMEBREW_PREFIX}/brew shellenv)"
 }
 

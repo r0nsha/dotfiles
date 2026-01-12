@@ -1,4 +1,4 @@
-Include /Users/ron.s/.colima/ssh_config
+Include ~/.colima/ssh_config
 
 Host website
     HostName ronshavit.com

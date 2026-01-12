@@ -1,4 +1,5 @@
 require("modus-themes").load({
+  transparent = true,
   on_highlights = function(highlight, color)
     highlight.MiniCursorword = { underdotted = true }
     highlight.MiniCursorwordCurrent = { link = "MiniCursorword" }

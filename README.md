@@ -37,10 +37,6 @@ this machine. It will be loaded at the top of `fish/config.fish`.
 
 Useful for customization such as modifying the `[user]` section.
 
-## MacOS Defaults
-
-If you're on MacOS and want some sensible defaults, you can run `./bin/macos_defaults.sh`.
-
 ## References
 
 - [andrew8088/dotfiles](https://github.com/andrew8088/dotfiles)
