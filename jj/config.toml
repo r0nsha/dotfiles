@@ -86,3 +86,11 @@ init = ["git", "init"]
 clone = ["git", "clone"]
 fetch = ["git", "fetch"]
 push = ["git", "push"]
+pr = [
+  "util",
+  "exec",
+  "--",
+  "fish",
+  "-c",
+  "fish $DOTFILES/scripts/jj_open_pr.fish",
+]
