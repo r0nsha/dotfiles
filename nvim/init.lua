@@ -54,7 +54,6 @@ vim.pack.add({
   { src = "https://github.com/ruifm/gitlinker.nvim" },
   { src = "https://github.com/MunifTanjim/nui.nvim" },
   { src = "https://github.com/julienvincent/hunk.nvim" },
-  { src = "https://github.com/nicolasgb/jj.nvim" },
   { src = "https://github.com/rafikdraoui/jj-diffconflicts" },
   { src = "https://github.com/avm99963/vim-jjdescription" },
   { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },

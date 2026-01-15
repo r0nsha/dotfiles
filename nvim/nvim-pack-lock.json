@@ -58,10 +58,6 @@
       "rev": "3fd00c8212ba3d7a933fbca270d8f0c8f0560789",
       "src": "https://github.com/rafikdraoui/jj-diffconflicts"
     },
-    "jj.nvim": {
-      "rev": "d13a5c9aec08318323f19fcdc1a1d2c469e00739",
-      "src": "https://github.com/nicolasgb/jj.nvim"
-    },
     "koda.nvim": {
       "rev": "b21e91effca3b6238a6ee970699ee93c04f5e602",
       "src": "https://github.com/oskarnurm/koda.nvim"
