@@ -10,12 +10,11 @@ dv.setup({
     },
   },
   windows = {
-    height = 12,
+    size = 12,
     position = "below",
     terminal = {
       position = "right",
-      width = 0.25,
-      start_hidden = true,
+      size = 0.25,
     },
   },
 })
