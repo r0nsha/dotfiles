@@ -30,7 +30,6 @@ vim.pack.add({
   { src = "https://github.com/folke/snacks.nvim" },
   { src = "https://github.com/ThePrimeagen/harpoon", version = "harpoon2" },
   { src = "https://github.com/milanglacier/minuet-ai.nvim" },
-  { src = "https://github.com/NickvanDyke/opencode.nvim" },
   { src = "https://github.com/uga-rosa/ccc.nvim" },
   { src = "https://github.com/xzbdmw/colorful-menu.nvim" },
   { src = "https://github.com/saghen/blink.cmp", version = "v1.8.0" },
