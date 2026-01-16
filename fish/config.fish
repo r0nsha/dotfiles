@@ -12,11 +12,13 @@ if test -r $local_config
     source $local_config
 end
 
-function update_theme --on-variable COLORS_CHANGED
-    set -l colors_file ~/.cache/wal/colors.fish
-    if test -r $colors_file
-        source $colors_file
-    else if test "$THEME" = light
+function update_theme --on-variable THEME
+    # FIXME: return pywal?
+    # set -l colors_file ~/.cache/wal/colors.fish
+    # if test -r $colors_file
+    #     source $colors_file
+    # else 
+    if test "$THEME" = light
         source $DOTFILES/fish/themes/modus_operandi.fish
     else
         source $DOTFILES/fish/themes/modus_vivendi.fish

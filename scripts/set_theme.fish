@@ -27,7 +27,7 @@ end
 echo "$new_theme" >~/.cache/theme
 set -Ux THEME "$new_theme"
 
-if "$new_theme" == light
+if test "$new_theme" = light
     set -Ux BAT_THEME_LIGHT $new_theme
     set -Ue BAT_THEME_DARK
 else

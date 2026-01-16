@@ -158,3 +158,4 @@ f = [
   'layout floating tiling',
   'mode main',
 ] # Toggle between floating and tiling layout
+t = ['exec-and-forget ~/.config/scripts/set_theme.fish toggle', 'mode main']

@@ -10,3 +10,4 @@ fish/conf.d
 fish/functions
 fish/fish_variables
 jj/conf.d
+kitty/current_theme.conf

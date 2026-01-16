@@ -197,7 +197,7 @@ c.colors.hints.match.fg = palette["active"]
 # c.colors.hints.match.fg = palette["success"]
 # c.hints.border = "1px solid #E3BE23"
 
-c.colors.webpage.darkmode.enabled = True
+c.colors.webpage.darkmode.enabled = False
 c.colors.webpage.darkmode.algorithm = "lightness-cielab"
 c.colors.webpage.darkmode.contrast = 0.0
 c.colors.webpage.darkmode.policy.page = "smart"
