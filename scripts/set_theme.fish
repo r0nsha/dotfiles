@@ -35,4 +35,8 @@ else
     set -Ue BAT_THEME_LIGHT
 end
 
-~/.config/scripts/wal.fish
+if command -vq wal
+    ~/.config/scripts/wal.fish
+else
+    ~/.config/scripts/color_my_system.fish
+end
