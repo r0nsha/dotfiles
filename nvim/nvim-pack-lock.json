@@ -1,5 +1,9 @@
 {
   "plugins": {
+    "arrow.nvim": {
+      "rev": "6e0f726f55f99332dd726a53effd6813786b6d49",
+      "src": "https://github.com/otavioschwanck/arrow.nvim"
+    },
     "blame.nvim": {
       "rev": "f3f6153ea94e1120f2776f22bbbd63c4aeebaf32",
       "src": "https://github.com/FabijanZulj/blame.nvim"
@@ -32,11 +36,6 @@
     "gitlinker.nvim": {
       "rev": "cc59f732f3d043b626c8702cb725c82e54d35c25",
       "src": "https://github.com/ruifm/gitlinker.nvim"
-    },
-    "harpoon": {
-      "rev": "87b1a3506211538f460786c23f98ec63ad9af4e5",
-      "src": "https://github.com/ThePrimeagen/harpoon",
-      "version": "'harpoon2'"
     },
     "heirline-components.nvim": {
       "rev": "65ff6844a6d911bd8977a106b761649d7df9a5e1",
@@ -79,7 +78,7 @@
       "src": "https://github.com/monkoose/matchparen.nvim"
     },
     "mini.nvim": {
-      "rev": "19973fa2c13399d68bf8d2cd98b0cb7367a8a72a",
+      "rev": "c9d3bc2df3015d82eabe3d2d88dac1ef5746e9e8",
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "minuet-ai.nvim": {
@@ -115,7 +114,7 @@
       "src": "https://github.com/mfussenegger/nvim-dap"
     },
     "nvim-dap-view": {
-      "rev": "663f985900074363be6b3d1e15117313ce3d4496",
+      "rev": "b1eadfadf7f161a707a3ebc100fb3989d06eaa29",
       "src": "https://github.com/igorlfs/nvim-dap-view"
     },
     "nvim-dap-virtual-text": {
@@ -191,6 +190,10 @@
     "snacks.nvim": {
       "rev": "fe7cfe9800a182274d0f868a74b7263b8c0c020b",
       "src": "https://github.com/folke/snacks.nvim"
+    },
+    "snipe.nvim": {
+      "rev": "d2d196c335919767803f905d573ce66340e33ee6",
+      "src": "https://github.com/leath-dub/snipe.nvim"
     },
     "tiny-inline-diagnostic.nvim": {
       "rev": "c7b1488ad0b389763c34bd17a6264424b3da5a52",

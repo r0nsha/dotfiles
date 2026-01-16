@@ -28,7 +28,8 @@ vim.pack.add({
   { src = "https://github.com/JoosepAlviste/nvim-ts-context-commentstring" },
   { src = "https://github.com/Wansmer/treesj" },
   { src = "https://github.com/folke/snacks.nvim" },
-  { src = "https://github.com/ThePrimeagen/harpoon", version = "harpoon2" },
+  -- { src = "https://github.com/ThePrimeagen/harpoon", version = "harpoon2" },
+  { src = "https://github.com/otavioschwanck/arrow.nvim" },
   { src = "https://github.com/milanglacier/minuet-ai.nvim" },
   { src = "https://github.com/uga-rosa/ccc.nvim" },
   { src = "https://github.com/xzbdmw/colorful-menu.nvim" },
@@ -76,7 +77,8 @@ require("plugins.smart_splits")
 require("plugins.heirline")
 require("plugins.oil")
 require("plugins.snacks.picker")
-require("plugins.harpoon")
+-- require("plugins.harpoon")
+require("plugins.arrow")
 require("plugins.ai")
 require("plugins.ccc")
 require("plugins.matchup")
