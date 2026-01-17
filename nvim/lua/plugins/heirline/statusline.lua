@@ -2,6 +2,8 @@ local cond = require("heirline.conditions")
 local icons = require("config.icons")
 local utils = require("heirline.utils")
 
+local redrawstatus = vim.schedule_wrap(function() vim.cmd.redrawstatus() end)
+
 local function active_fg() return cond.is_active() and "fg_active" or "fg_inactive" end
 
 local function update_on(events)
@@ -12,7 +14,7 @@ local function update_on(events)
     "BufWinLeave",
     "FocusGained",
     "FocusLost",
-    callback = vim.schedule_wrap(function() vim.cmd("redrawstatus") end),
+    callback = redrawstatus,
   })
 end
 
@@ -164,23 +166,42 @@ local function minidiff_init(self)
   self.status_dict.removed = vim.b.minidiff_summary.delete
   self.status_dict.changed = vim.b.minidiff_summary.change
 
-  vim.system({ "git", "rev-parse", "--abbrev-ref", "HEAD" }, {
-    text = true,
-    cwd = vim.fn.getcwd(),
-  }, function(result)
-    local head
-    if result.code == 0 then
-      local output = result.stdout:gsub("%s+", "")
-      head = output ~= "HEAD" and output or "(detached)"
-    else
-      head = ""
-    end
-
-    if head ~= self.status_dict.head then
+  ---@param head string
+  local function set_head(head)
+    vim.schedule(function()
       self.status_dict.head = head
-      vim.schedule(function() vim.cmd.redrawstatus() end)
-    end
-  end)
+      vim.api.nvim_exec_autocmds("User", { pattern = "HeadChanged" })
+    end)
+  end
+
+  ---@type vim.SystemOpts
+  local system_opts = { text = true, cwd = vim.fn.getcwd() }
+
+  local function try_git()
+    vim.system({ "git", "rev-parse", "--abbrev-ref", "HEAD" }, system_opts, function(result)
+      if result.code == 0 then
+        local output = result.stdout:gsub("%s+", "")
+        local head = output ~= "HEAD" and output or "(detached)"
+        set_head(" " .. head)
+      else
+        set_head("")
+      end
+    end)
+  end
+
+  if vim.fn.executable("jj") == 1 then
+    vim.system({ "jj", "log", "-r", "@", "--no-graph", "-T", "change_id.short()" }, system_opts, function(result)
+      if result.code ~= 0 then
+        try_git()
+        return
+      end
+
+      local output = result.stdout:gsub("%s+", "")
+      set_head("@" .. output)
+    end)
+  else
+    try_git()
+  end
 end
 
 local Git = {
@@ -203,7 +224,7 @@ local Git = {
   hl = function() return { fg = "gray" } end,
 
   {
-    provider = function(self) return " " .. self.status_dict.head end,
+    provider = function(self) return self.status_dict.head end,
   },
 
   {
@@ -235,7 +256,7 @@ local Git = {
 
   update = update_on({
     "User",
-    pattern = { "MiniDiffUpdated", "GitSignsUpdate", "GitSignsChanged" },
+    pattern = { "MiniDiffUpdated", "GitSignsUpdate", "GitSignsChanged", "HeadChanged" },
   }),
 }
 
