@@ -21,21 +21,6 @@ if test -z "$bookmark"
     exit 1
 end
 
-function url_encode
-    # URL encode a string for use in URLs
-    set -l str $argv[1]
-
-    # Fish doesn't have built-in regex replacement like Lua
-    # Use printf to encode each character
-    echo -n $str | string replace --all --regex '([^A-Za-z0-9_.~-])' '%$1' | while read -n1 char
-        if string match --quiet --regex '[A-Za-z0-9_.~-]' -- $char
-            echo -n $char
-        else
-            printf '%%%02X' "'$char"
-        end
-    end
-end
-
 function open_pr_with_url
     set -l raw_url $argv[1]
     set -l bookmark $argv[2] # Assuming bookmark is passed as second argument
@@ -59,18 +44,17 @@ function open_pr_with_url
     end
 
     # Construct the appropriate PR/MR URL based on the platform
-    set -l encoded_bookmark (url_encode $bookmark)
     set -l pr_url
 
     if string match --quiet --regex gitlab $host
         # GitLab merge request URL
-        set pr_url "$repo_url/-/merge_requests/new?merge_request[source_branch]=$encoded_bookmark"
+        set pr_url "$repo_url/-/merge_requests/new?merge_request[source_branch]=$bookmark"
     else if string match --quiet --regex '(gitea|forgejo)' $host
         # Gitea/Forgejo compare URL
-        set pr_url "$repo_url/compare/$encoded_bookmark"
+        set pr_url "$repo_url/compare/$bookmark"
     else
         # Default to GitHub-style compare URL
-        set pr_url "$repo_url/compare/$encoded_bookmark?expand=1"
+        set pr_url "$repo_url/compare/$bookmark?expand=1"
     end
 
     # Open the URL using the appropriate command
