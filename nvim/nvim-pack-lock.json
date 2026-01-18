@@ -22,7 +22,7 @@
       "src": "https://github.com/xzbdmw/colorful-menu.nvim"
     },
     "conform.nvim": {
-      "rev": "5ac2bb57a9096f00ca50e1a3c46020d5930319b8",
+      "rev": "c2526f1cde528a66e086ab1668e996d162c75f4f",
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "diffview.nvim": {
@@ -54,8 +54,12 @@
       "src": "https://github.com/nvimtools/hydra.nvim"
     },
     "jj-diffconflicts": {
-      "rev": "3fd00c8212ba3d7a933fbca270d8f0c8f0560789",
+      "rev": "6d9eedadf1fab87bccb0a4a7ceda829da8023efb",
       "src": "https://github.com/rafikdraoui/jj-diffconflicts"
+    },
+    "jj.nvim": {
+      "rev": "d13a5c9aec08318323f19fcdc1a1d2c469e00739",
+      "src": "https://github.com/nicolasgb/jj.nvim"
     },
     "lazydev.nvim": {
       "rev": "5231c62aa83c2f8dc8e7ba957aa77098cda1257d",
@@ -126,7 +130,7 @@
       "src": "https://github.com/nvim-neotest/nvim-nio"
     },
     "nvim-treesitter": {
-      "rev": "d19def46c112c26c17adeef88dd1253cc6d623a1",
+      "rev": "e75c007f2747050c2c620dc862c77b8f242551a8",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
@@ -135,7 +139,7 @@
       "src": "https://github.com/nvim-treesitter/nvim-treesitter-context"
     },
     "nvim-treesitter-textobjects": {
-      "rev": "baa6b4ec28c8be5e4a96f9b1b6ae9db85ec422f8",
+      "rev": "4d55f63252e04c5212daed958e4e940915ff16ce",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
       "version": "'main'"
     },
@@ -150,6 +154,10 @@
     "one-small-step-for-vimkind": {
       "rev": "1af6ffb9b5229a856e8090fa2f690e0931a5aace",
       "src": "https://github.com/jbyuki/one-small-step-for-vimkind"
+    },
+    "opencode.nvim": {
+      "rev": "364c7336562329f6c901629710070ea6ae256e3b",
+      "src": "https://github.com/NickvanDyke/opencode.nvim"
     },
     "overseer.nvim": {
       "rev": "5828bdbd86677497613033c142f0a8624489216f",

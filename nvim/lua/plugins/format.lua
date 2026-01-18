@@ -40,10 +40,14 @@ conform.setup({
   default_format_opts = {
     lsp_format = "fallback",
   },
-  format_on_save = {
-    lsp_format = "fallback",
-    timeout_ms = 2500,
-  },
+  format_on_save = function(bufnr)
+    if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then return end
+
+    return {
+      lsp_format = "fallback",
+      timeout_ms = 2500,
+    }
+  end,
   formatters = {
     qmkfmt = {
       command = "qmkfmt",

@@ -77,9 +77,9 @@ vim.keymap.set("n", "<leader>ih", "<cmd>Inspect<cr>", { desc = "TS: Inspect" })
 vim.keymap.set("n", "<leader>ip", "<cmd>InspectTree<cr>", { desc = "TS: Inspect Tree" })
 vim.keymap.set("n", "<leader>iq", "<cmd>EditQuery<cr>", { desc = "TS: Edit Query" })
 
-require("ts_context_commentstring").setup({
-  enable_autocmd = false,
-})
+require("treesitter-context").setup({ enable = true, max_lines = 1 })
+
+require("ts_context_commentstring").setup({ enable_autocmd = false })
 
 local get_option = vim.filetype.get_option
 ---@diagnostic disable-next-line: duplicate-set-field
