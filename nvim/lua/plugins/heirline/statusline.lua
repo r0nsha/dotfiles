@@ -157,109 +157,6 @@ local FileFlags = {
 
 FileBlock = utils.insert(FileBlock, FileIcon, utils.insert(FileNameModifer, FileName), FileFlags, { provider = "%<" })
 
-local function nonzero(n) return n ~= nil and n ~= 0 end
-
-local function minidiff_init(self)
-  if not self.status_dict then self.status_dict = { head = "" } end
-
-  self.status_dict.added = vim.b.minidiff_summary.add
-  self.status_dict.removed = vim.b.minidiff_summary.delete
-  self.status_dict.changed = vim.b.minidiff_summary.change
-
-  ---@param head string
-  local function set_head(head)
-    vim.schedule(function()
-      self.status_dict.head = head
-      vim.api.nvim_exec_autocmds("User", { pattern = "HeadChanged" })
-    end)
-  end
-
-  ---@type vim.SystemOpts
-  local system_opts = { text = true, cwd = vim.fn.getcwd() }
-
-  local function try_git()
-    vim.system({ "git", "rev-parse", "--abbrev-ref", "HEAD" }, system_opts, function(result)
-      if result.code == 0 then
-        local output = result.stdout:gsub("%s+", "")
-        local head = output ~= "HEAD" and output or "(detached)"
-        set_head(" " .. head)
-      else
-        set_head("")
-      end
-    end)
-  end
-
-  if vim.fn.executable("jj") == 1 then
-    vim.system({ "jj", "log", "-r", "@", "--no-graph", "-T", "change_id.short()" }, system_opts, function(result)
-      if result.code ~= 0 then
-        try_git()
-        return
-      end
-
-      local output = result.stdout:gsub("%s+", "")
-      set_head("@" .. output)
-    end)
-  else
-    try_git()
-  end
-end
-
-local Git = {
-  condition = function() return cond.is_active() and (cond.is_git_repo() or vim.b.minidiff_summary) end,
-
-  init = function(self)
-    if vim.b.minidiff_summary then
-      minidiff_init(self)
-    elseif vim.b.gitsigns_status_dict then
-      self.status_dict = vim.b.gitsigns_status_dict
-    end
-
-    if self.status_dict then
-      self.has_changes = nonzero(self.status_dict.added)
-        or nonzero(self.status_dict.removed)
-        or nonzero(self.status_dict.changed)
-    end
-  end,
-
-  hl = function() return { fg = "gray" } end,
-
-  {
-    provider = function(self) return self.status_dict.head end,
-  },
-
-  {
-    condition = function(self) return self.has_changes end,
-
-    Space(),
-    {
-      condition = function(self) return self.status_dict.added > 0 end,
-      provider = function(self) return "+" .. self.status_dict.added end,
-      hl = function() return { fg = "diff_add" } end,
-    },
-    {
-      condition = function(self) return self.status_dict.changed > 0 end,
-      provider = function(self)
-        local space = self.status_dict.added > 0 and " " or ""
-        return space .. "~" .. self.status_dict.changed
-      end,
-      hl = function() return { fg = "diff_change" } end,
-    },
-    {
-      condition = function(self) return self.status_dict.removed > 0 end,
-      provider = function(self)
-        local space = (self.status_dict.added > 0 or self.status_dict.changed > 0) and " " or ""
-        return space .. "-" .. self.status_dict.removed
-      end,
-      hl = function() return { fg = "diff_del" } end,
-    },
-  },
-
-  update = update_on({
-    "User",
-    pattern = { "MiniDiffUpdated", "GitSignsUpdate", "GitSignsChanged", "HeadChanged" },
-  }),
-}
-
 ---@param type "error" | "warning" | "info" | "hint"
 ---@return table
 local function diagnostic_provider(type)
@@ -350,7 +247,6 @@ local Left = {
   Space(1),
   FileBlock,
   Space(1),
-  Git,
 }
 
 local Right = {
