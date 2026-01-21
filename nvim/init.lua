@@ -45,7 +45,6 @@ vim.pack.add({
   { src = "https://github.com/Weissle/persistent-breakpoints.nvim" },
   { src = "https://github.com/nvimtools/hydra.nvim" },
   { src = "https://github.com/jbyuki/one-small-step-for-vimkind" },
-  { src = "https://github.com/andymass/vim-matchup" },
   { src = "https://github.com/jake-stewart/multicursor.nvim" },
   { src = "https://github.com/r0nsha/multinput.nvim" },
   -- { src = "https://github.com/r0nsha/qfpreview.nvim" },
@@ -81,7 +80,6 @@ require("plugins.snacks.picker")
 require("plugins.arrow")
 require("plugins.ai")
 require("plugins.ccc")
-require("plugins.matchup")
 require("plugins.multicursor")
 require("plugins.multinput")
 require("plugins.quickfix")
