@@ -15,7 +15,17 @@ function dashboard
 end
 
 function myfzf
-    fzf --bind 'ctrl-y:accept' --margin=10% --color=bw $argv
+    fzf \
+        --bind 'ctrl-y:accept' \
+        --no-separator \
+        --no-scrollbar \
+        --highlight-line \
+        --reverse \
+        --info=inline-right \
+        --pointer=' ' \
+        --gutter=' ' \
+        --color='current-bg:236,current-fg:255' \
+        $argv
 end
 
 function filter_dirs
