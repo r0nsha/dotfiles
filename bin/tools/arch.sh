@@ -133,6 +133,7 @@ pacman_deps=(
     qt6ct
     swww
     ly
+    waybar
     gamemode
     lib32-gamemode
     udiskie
@@ -159,13 +160,6 @@ pacman_deps=(
     lynx
     notmuch
     cronie
-
-    # nyxt
-    enchant
-    hspell
-    aspell
-    libvoikko
-    fuse2
 )
 
 sudo pacman -Syu --noconfirm ${pacman_deps[@]}
