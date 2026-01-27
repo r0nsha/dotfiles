@@ -5,7 +5,8 @@ require("snacks").setup({
     prompt = "  ",
     layout = function()
       local layouts = require("snacks.picker.config.layouts")
-      return vim.o.columns >= 120 and layouts.ivy or layouts.ivy_split
+      local base = vim.o.columns >= 120 and layouts.ivy or layouts.ivy_split
+      return vim.tbl_deep_extend("force", base, { hidden = { "preview" } })
     end,
     win = {
       input = {
