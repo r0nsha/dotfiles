@@ -1,21 +1,17 @@
 local _99 = require("99")
 _99.setup({
-  -- Using OpenCodeProvider (default) since opencode is the AI CLI in use
-  tmp_dir = "./tmp",
+  completion = { source = "blink", custom_rules = {} },
   logger = {
     level = _99.DEBUG,
     path = "/tmp/" .. vim.fs.basename(vim.uv.cwd()) .. ".99.debug",
     print_on_error = true,
   },
-  completion = {
-    source = "blink",
-    custom_rules = {},
-  },
-  md_files = {
-    "AGENT.md",
-  },
+  md_files = { "AGENT.md", "CLAUDE.md" },
+  model = "anthropic/claude-sonnet-4-6",
+  tmp_dir = "./tmp",
 })
 
+vim.keymap.set("n", "<A-t>", function() _99.tutorial({}) end, { desc = "99 tutorial" })
 vim.keymap.set("v", "<A-v>", function() _99.visual({}) end, { desc = "99 visual" })
 vim.keymap.set("n", "<A-f>", function() _99.search({}) end, { desc = "99 search" })
 vim.keymap.set("n", "<A-x>", function() _99.stop_all_requests() end, { desc = "99 cancel all requests" })
