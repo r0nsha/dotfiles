@@ -4,14 +4,19 @@ vim.keymap.set("n", "<leader><leader>", function() Snacks.picker.resume() end, {
 
 vim.keymap.set("n", "<leader>sf", function() Snacks.picker.files() end, { desc = "Files" })
 
-vim.keymap.set("n", "<leader>sF", function() Snacks.picker.files({ ignored = true }) end, { desc = "All Files" })
+vim.keymap.set(
+  "n",
+  "<leader>sF",
+  function() Snacks.picker.files({ ignored = true, hidden = true }) end,
+  { desc = "All Files" }
+)
 
 vim.keymap.set("n", "<leader>ss", function() Snacks.picker.grep() end, { desc = "Grep" })
 
 vim.keymap.set(
   "n",
   "<leader>sS",
-  function() Snacks.picker.grep({ ignored = true }) end,
+  function() Snacks.picker.grep({ ignored = true, hidden = true }) end,
   { desc = "Grep (don't respect .gitignore)" }
 )
 
