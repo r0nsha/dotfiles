@@ -11,7 +11,7 @@ end
 if test $remote_count = 1
     set remote $remotes[1]
 else
-    set remote (echo $remotes | myfzf --prompt="Select remote: ")
+    set remote (string join \n $remotes | myfzf --prompt="Select remote: ")
 end
 
 set remote_url (echo $remote | string split ' ' | tail -n 1)
