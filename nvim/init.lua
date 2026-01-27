@@ -26,7 +26,6 @@ vim.pack.add({
   -- { src = "https://github.com/ThePrimeagen/harpoon", version = "harpoon2" },
   { src = "https://github.com/otavioschwanck/arrow.nvim" },
   { src = "https://github.com/milanglacier/minuet-ai.nvim" },
-  { src = "https://github.com/ThePrimeagen/99" },
   { src = "https://github.com/xzbdmw/colorful-menu.nvim" },
   { src = "https://github.com/saghen/blink.cmp", version = "v1.8.0" },
   { src = "https://github.com/saghen/blink.compat", version = "v2.5.0" },

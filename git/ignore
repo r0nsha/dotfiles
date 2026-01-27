@@ -15,5 +15,3 @@ zig-out/
 
 .env
 
-# needed for 99 (https://github.com/ThePrimeagen/99)
-tmp/
