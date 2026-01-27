@@ -35,6 +35,7 @@ conform.setup({
       "golines",
     },
     typst = { "typstyle" },
+    sql = { "sqruff" },
     ["_"] = { "trim_whitespace" },
   },
   default_format_opts = {

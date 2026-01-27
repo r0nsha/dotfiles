@@ -38,6 +38,7 @@ local ensure_installed = {
   "golines",
   "ruff",
   "typstyle",
+  "sqruff",
 
   -- dap
   "js-debug-adapter",
