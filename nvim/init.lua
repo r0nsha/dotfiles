@@ -62,6 +62,9 @@ vim.pack.add({
   { src = "https://github.com/nvim-neotest/nvim-nio" },
   { src = "https://github.com/nvim-neotest/neotest" },
   { src = "https://github.com/marilari88/neotest-vitest" },
+  { src = "https://github.com/tpope/vim-dadbod" },
+  { src = "https://github.com/kristijanhusak/vim-dadbod-ui" },
+  { src = "https://github.com/kristijanhusak/vim-dadbod-completion" },
 })
 
 require("plugins.colorscheme")
@@ -90,6 +93,7 @@ require("plugins.undotree")
 require("plugins.dap")
 require("plugins.overseer")
 require("plugins.neotest")
+require("plugins.db")
 
 local function pack_complete()
   return vim.tbl_map(function(p) return p.spec.name end, vim.pack.get())
