@@ -116,25 +116,25 @@ outer.right = 0
 # '''
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#layout
-ctrl-alt-period = 'layout tiles horizontal vertical'
-ctrl-alt-slash = 'layout accordion horizontal vertical'
+alt-period = 'layout tiles horizontal vertical'
+alt-slash = 'layout accordion horizontal vertical'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#focus
-ctrl-alt-h = 'focus left'
-ctrl-alt-j = 'focus down'
-ctrl-alt-k = 'focus up'
-ctrl-alt-l = 'focus right'
+alt-h = 'focus left'
+alt-j = 'focus down'
+alt-k = 'focus up'
+alt-l = 'focus right'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move
-ctrl-alt-shift-h = 'move left'
-ctrl-alt-shift-j = 'move down'
-ctrl-alt-shift-k = 'move up'
-ctrl-alt-shift-l = 'move right'
+alt-shift-h = 'move left'
+alt-shift-j = 'move down'
+alt-shift-k = 'move up'
+alt-shift-l = 'move right'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#resize
-ctrl-alt-minus = 'resize smart -100'
-ctrl-alt-equal = 'resize smart +100'       # make it more ergonomic on a regular keyboard
-ctrl-alt-shift-equal = 'resize smart +100' # there's no plus, so we do shift-equal
+alt-minus = 'resize smart -100'
+alt-equal = 'resize smart +100'       # make it more ergonomic on a regular keyboard
+alt-shift-equal = 'resize smart +100' # there's no plus, so we do shift-equal
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
 alt-1 = 'workspace 1'
@@ -161,7 +161,7 @@ alt-shift-9 = 'move-node-to-workspace --focus-follows-window 9'
 alt-shift-0 = 'move-node-to-workspace --focus-follows-window 10'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#mode
-ctrl-alt-quote = 'mode service'
+alt-quote = 'mode service'
 
 [mode.service.binding]
 esc = ['reload-config', 'mode main']
