@@ -32,7 +32,7 @@ require("minuet").setup({
       accept_n_lines = nil,
       prev = "<A-p>",
       next = "<A-n>",
-      dismiss = "<A-r>",
+      dismiss = "<A-c>",
     },
     show_on_completion_menu = true,
   },

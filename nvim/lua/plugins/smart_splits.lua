@@ -34,7 +34,12 @@ vim.keymap.set(
 )
 
 -- resize
-vim.keymap.set({ "n", "t" }, "<A-h>", function() require("smart-splits").resize_left() end, { desc = "Resize left" })
-vim.keymap.set({ "n", "t" }, "<A-j>", function() require("smart-splits").resize_down() end, { desc = "Resize down" })
-vim.keymap.set({ "n", "t" }, "<A-k>", function() require("smart-splits").resize_up() end, { desc = "Resize up" })
-vim.keymap.set({ "n", "t" }, "<A-l>", function() require("smart-splits").resize_right() end, { desc = "Resize right" })
+vim.keymap.set({ "n", "t" }, "<C-S-H>", function() require("smart-splits").resize_left() end, { desc = "Resize left" })
+vim.keymap.set({ "n", "t" }, "<C-S-J>", function() require("smart-splits").resize_down() end, { desc = "Resize down" })
+vim.keymap.set({ "n", "t" }, "<C-S-K>", function() require("smart-splits").resize_up() end, { desc = "Resize up" })
+vim.keymap.set(
+  { "n", "t" },
+  "<C-S-L>",
+  function() require("smart-splits").resize_right() end,
+  { desc = "Resize right" }
+)
