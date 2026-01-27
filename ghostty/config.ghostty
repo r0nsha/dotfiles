@@ -13,6 +13,9 @@ app-notifications = clipboard-copy,no-config-reload
 window-decoration = none
 bell-features = no-audio
 shell-integration-features = cursor,sudo,title
+macos-option-as-alt = true
+link-url = true
+link-previews = true
 
 keybind = ctrl+enter=unbind
 keybind = ctrl+shift+enter=unbind
