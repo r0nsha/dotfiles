@@ -38,14 +38,17 @@ bind p fish_clipboard_paste
 bind -M default \cr history-pager
 bind -M insert \cr history-pager
 
-# paths
-fish_add_path $HOME/.cargo/bin
-fish_add_path $HOME/.local/bin
-fish_add_path ./node_modules/.bin
+# env
 set -gx NVM_DIR "$HOME/.nvm"
 set -gx PNPM_HOME "$HOME/.local/share/pnpm"
-fish_add_path $PNPM_HOME
-fish_add_path ~/.local/share/bob/nvim-bin
+
+# paths
+fish_add_path \
+    $HOME/.cargo/bin \
+    $HOME/.local/bin \
+    ./node_modules/.bin \
+    $PNPM_HOME \
+    ~/.local/share/bob/nvim-bin
 
 if status is-interactive
     stty -ixon # disable C-s and C-q

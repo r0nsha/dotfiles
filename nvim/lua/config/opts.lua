@@ -41,6 +41,7 @@ vim.opt.grepformat = "%f:%l:%c:%m"
 vim.opt.termguicolors = true
 vim.opt.background = "dark"
 
+vim.o.modeline = false
 vim.opt.signcolumn = "yes"
 vim.opt.laststatus = 2
 vim.opt.showmode = true
