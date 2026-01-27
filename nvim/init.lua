@@ -5,11 +5,6 @@ require("colors")
 
 vim.cmd.packadd("nvim.undotree")
 
-require("vim._extui").enable({
-  enable = true,
-  msg = { target = "cmd", timeout = 2000 },
-})
-
 vim.pack.add({
   { src = "https://github.com/miikanissi/modus-themes.nvim" },
   { src = "https://github.com/nvim-lua/plenary.nvim" },
