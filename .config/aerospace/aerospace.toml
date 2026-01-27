@@ -171,3 +171,9 @@ f = [
   'mode main',
 ] # Toggle between floating and tiling layout
 t = ['exec-and-forget ron-theme-set toggle', 'mode main']
+
+# banish microsoft update
+[[on-window-detected]]
+if.app-id = 'com.microsoft.autoupdate.fba'
+if.window-title-regex-substring = 'Microsoft AutoUpdate'
+run = 'move-node-to-workspace 9'

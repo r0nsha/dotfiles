@@ -1,4 +1,5 @@
 # paths
+
 fish_add_path \
     $HOME/.cargo/bin \
     $HOME/.local/bin

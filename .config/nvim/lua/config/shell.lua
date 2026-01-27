@@ -201,6 +201,6 @@ end
 
 map_shell("<C-s>", { nr = 1 })
 map_shell("<C-S-S>", { nr = 2 })
-map_shell("<A-u>", { nr = 1, prg = "pi" })
-map_shell("<A-i>", { nr = 2, prg = "pi" })
-map_shell("<A-o>", { nr = 3, prg = "pi" })
+map_shell("<A-u>", { nr = 1, prg = "claude" })
+map_shell("<A-i>", { nr = 2, prg = "claude" })
+map_shell("<A-o>", { nr = 3, prg = "claude" })
