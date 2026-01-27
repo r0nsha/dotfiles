@@ -92,12 +92,12 @@ switch $argv[1]
         set -l action $argv[2]
         switch $action
             case up
-                # brightnessctl -e4 -n2 set 5%+
-                hyprctl hyprsunset gamma +5
+                # brightnessctl -e4 -n2 set 10%+
+                hyprctl hyprsunset gamma +10
                 notify_brightness
             case down
-                # brightnessctl -e4 -n2 set 5%-
-                hyprctl hyprsunset gamma -5
+                # brightnessctl -e4 -n2 set 10%-
+                hyprctl hyprsunset gamma -10
                 notify_brightness
             case reset
                 hyprctl hyprsunset identity true
