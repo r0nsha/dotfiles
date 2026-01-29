@@ -74,7 +74,7 @@
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "minuet-ai.nvim": {
-      "rev": "f1a99a9a7514b0f76a4d6a073c264692e275f76d",
+      "rev": "18b8fc3a9ce17682402ee047c3ee647b52ab9893",
       "src": "https://github.com/milanglacier/minuet-ai.nvim"
     },
     "modus-themes.nvim": {
@@ -102,7 +102,7 @@
       "src": "https://github.com/MunifTanjim/nui.nvim"
     },
     "nvim-dap": {
-      "rev": "085386b9359ddf8d76ad89b98973b8e332dc5ba3",
+      "rev": "e47878dcf1ccc30136b30d19ab19fe76946d61cd",
       "src": "https://github.com/mfussenegger/nvim-dap"
     },
     "nvim-dap-view": {
@@ -114,11 +114,11 @@
       "src": "https://github.com/theHamsta/nvim-dap-virtual-text"
     },
     "nvim-lint": {
-      "rev": "ca6ea12daf0a4d92dc24c5c9ae22a1f0418ade37",
+      "rev": "b3292aac30b935d4cccf0904053d1c7930df8a20",
       "src": "https://github.com/mfussenegger/nvim-lint"
     },
     "nvim-lspconfig": {
-      "rev": "54baa4beeeabed24be24379d5b3ce402fe7b5208",
+      "rev": "238583bb00770b079c68c69a860d65e5d1d8acf9",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-nio": {
@@ -126,7 +126,7 @@
       "src": "https://github.com/nvim-neotest/nvim-nio"
     },
     "nvim-treesitter": {
-      "rev": "568ede7e79172a0fe7c9d631454a97ad968deaf2",
+      "rev": "19c729dae6e0eeb79423df0cf37780aa9a7cc3b7",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
@@ -135,7 +135,7 @@
       "src": "https://github.com/nvim-treesitter/nvim-treesitter-context"
     },
     "nvim-treesitter-textobjects": {
-      "rev": "52bda74e087034408e2d563cb4499c1601038f9d",
+      "rev": "a0e182ae21fda68c59d1f36c9ed45600aef50311",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
       "version": "'main'"
     },
@@ -168,11 +168,11 @@
       "src": "https://github.com/stevearc/quicker.nvim"
     },
     "render-markdown.nvim": {
-      "rev": "c54380dd4d8d1738b9691a7c349ecad7967ac12e",
+      "rev": "99bfa5d61381a29eedc75810898cb9c0fc755064",
       "src": "https://github.com/MeanderingProgrammer/render-markdown.nvim"
     },
     "schemastore.nvim": {
-      "rev": "55874e697fd70ce1064eb96ff5c53c9bd6172324",
+      "rev": "9afa445602e6191917b4d32f1355e77b4525f905",
       "src": "https://github.com/b0o/schemastore.nvim"
     },
     "smart-splits.nvim": {

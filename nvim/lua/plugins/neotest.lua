@@ -1,5 +1,9 @@
 ---@diagnostic disable-next-line: missing-fields
 require("neotest").setup({
+  output_panel = {
+    enabled = true,
+    open = "vsplit | vertical resize 60",
+  },
   adapters = {
     require("neotest-vitest")({
       ---@diagnostic disable-next-line: unused-local
@@ -39,5 +43,5 @@ vim.keymap.set(
   "n",
   "<leader>to",
   function() require("neotest").output_panel.toggle() end,
-  { desc = "Show test output" }
+  { desc = "Toggle test output" }
 )

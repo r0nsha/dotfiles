@@ -69,6 +69,23 @@ require("snacks").setup({
     sources = {
       files = {
         hidden = true,
+        actions = {
+          diffsplit = function(picker)
+            local item = picker:selected({ fallback = true })[1]
+            if not item or not item.file then return end
+
+            picker:close()
+            vim.cmd.stopinsert()
+            vim.schedule(function() vim.cmd("vert diffsplit " .. vim.fn.fnameescape(item.file)) end)
+          end,
+        },
+        win = {
+          input = {
+            keys = {
+              ["<A-d>"] = { "diffsplit", mode = { "n", "i" } },
+            },
+          },
+        },
       },
     },
   },
@@ -85,11 +102,7 @@ vim.keymap.set("n", "<leader>ss", function() Snacks.picker.grep() end, { desc = 
 vim.keymap.set(
   "n",
   "<leader>sS",
-  function()
-    Snacks.picker.grep({
-      ignored = true,
-    })
-  end,
+  function() Snacks.picker.grep({ ignored = true }) end,
   { desc = "Grep (don't respect .gitignore)" }
 )
 
