@@ -3,7 +3,7 @@ return {
     ["rust-analyzer"] = {
       imports = {
         granularity = {
-          group = "module",
+          group = "crate",
         },
         prefix = "self",
       },
