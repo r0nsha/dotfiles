@@ -65,7 +65,7 @@ function tmux_select_dir
         return
     end
 
-    if ! tmux has-session -t $name 2>/dev/null
+    if ! tmux has-session -t "=$name" 2>/dev/null
         tmux new-session -ds $name -c $selected
         tmux select-window -t $name:1 # select first window
     end
