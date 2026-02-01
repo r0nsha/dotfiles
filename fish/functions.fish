@@ -1,3 +1,5 @@
+# @fish-lsp-disable 4004
+
 function binary_exists
     command -v -q $argv[1]
 end
@@ -142,4 +144,12 @@ function scriptlock
     echo $fish_pid >"$lockfile"
 
     trap "rm -f \"$lockfile\"; exit 0" INT TERM EXIT
+end
+
+function exec-bash
+    exec bash -c "source $argv; exec fish"
+end
+
+function exec-zsh
+    exec zsh -c "source $argv; exec fish"
 end
