@@ -57,10 +57,6 @@
       "rev": "6d9eedadf1fab87bccb0a4a7ceda829da8023efb",
       "src": "https://github.com/rafikdraoui/jj-diffconflicts"
     },
-    "jj.nvim": {
-      "rev": "680d864e1165ac5d334eef6d69e301f2094ff4c3",
-      "src": "https://github.com/nicolasgb/jj.nvim"
-    },
     "lazydev.nvim": {
       "rev": "5231c62aa83c2f8dc8e7ba957aa77098cda1257d",
       "src": "https://github.com/folke/lazydev.nvim"
