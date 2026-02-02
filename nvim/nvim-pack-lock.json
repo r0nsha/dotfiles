@@ -74,7 +74,7 @@
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "minuet-ai.nvim": {
-      "rev": "90822118ce285130fecd77cc0942880c2ad89fd0",
+      "rev": "1911b15a9de28c08e94c439a28623fd94eab59e2",
       "src": "https://github.com/milanglacier/minuet-ai.nvim"
     },
     "modus-themes.nvim": {
@@ -172,7 +172,7 @@
       "src": "https://github.com/stevearc/quicker.nvim"
     },
     "render-markdown.nvim": {
-      "rev": "48934b49a2363b49ae1d698ed4cb30fb79d7efe8",
+      "rev": "b3efd6408e4e4d66d6caaee0579e72b579bc0884",
       "src": "https://github.com/MeanderingProgrammer/render-markdown.nvim"
     },
     "schemastore.nvim": {
