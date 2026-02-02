@@ -115,10 +115,16 @@ local FileBlock = {
 
 local FileIcon = {
   init = function(self)
+    if self.is_scratch_buffer then
+      self.icon = nil
+      return
+    end
+
     local filename = self.filename
     local extension = vim.fn.fnamemodify(filename, ":e")
     local icon, hl = require("mini.icons").get("extension", extension)
     local hl_data = vim.api.nvim_get_hl(0, { name = hl })
+
     self.icon = icon
     self.icon_color = hl_data and hl_data.fg
   end,
