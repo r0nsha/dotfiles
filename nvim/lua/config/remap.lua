@@ -118,9 +118,6 @@ vim.keymap.set("n", "<leader>tc", "<cmd>tabclose<cr>", { desc = "Close tab" })
 vim.keymap.set("n", "[t", "<cmd>tabprev<cr>", { desc = "Previous tab" })
 vim.keymap.set("n", "]t", "<cmd>tabnext<cr>", { desc = "Next tab" })
 
--- Trim whitespace
-vim.keymap.set("n", "<leader>T", [[%s/\s\+$//e]], { desc = "Trim all whitespace" })
-
 -- Remap inc/dec
 vim.keymap.set("n", "+", "<c-a>", { desc = "Increment" })
 vim.keymap.set("n", "-", "<c-x>", { desc = "Decrement" })

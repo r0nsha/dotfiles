@@ -35,6 +35,7 @@ vim.pack.add({
   { src = "https://github.com/xzbdmw/colorful-menu.nvim" },
   { src = "https://github.com/saghen/blink.cmp", version = "v1.8.0" },
   { src = "https://github.com/stevearc/oil.nvim" },
+  { src = "https://github.com/A7Lavinraj/fyler.nvim" },
   { src = "https://github.com/mrjones2014/smart-splits.nvim" },
   { src = "https://github.com/rebelot/heirline.nvim" },
   { src = "https://github.com/Zeioth/heirline-components.nvim" },
@@ -78,6 +79,7 @@ require("plugins.cmp")
 require("plugins.smart_splits")
 require("plugins.heirline")
 require("plugins.oil")
+require("plugins.fyler")
 require("plugins.snacks.picker")
 -- require("plugins.harpoon")
 require("plugins.arrow")
