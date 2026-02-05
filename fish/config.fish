@@ -87,4 +87,9 @@ if status is-interactive
     if binary_exists bob
         bob complete fish | source
     end
+
+    # @fish-lsp-disable-next-line 2003
+    set -U tide_left_prompt_items pwd character
+    # @fish-lsp-disable-next-line 2003
+    set -U tide_right_prompt_items jj status cmd_duration context jobs direnv bun node python rustc java php pulumi ruby go gcloud kubectl distrobox toolbox terraform aws nix_shell crystal elixir zig time
 end

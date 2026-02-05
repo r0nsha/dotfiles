@@ -7,7 +7,9 @@ qutebrowser/qsettings
 tmux/plugins
 fish/completions
 fish/conf.d
-fish/functions
+fish/functions/*
+# wait for https://github.com/IlanCosman/tide/pull/592 to be merged
+!fish/functions/_tide_item_jj.fish
 fish/fish_variables
 jj/conf.d
 kitty/current_theme.conf
