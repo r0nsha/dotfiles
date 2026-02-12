@@ -1,5 +1,5 @@
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = "lua",
+  pattern = "markdown",
   once = true,
   callback = function()
     require("render-markdown").setup({
@@ -13,6 +13,13 @@ vim.api.nvim_create_autocmd("FileType", {
       },
       code = {
         conceal_delimiters = false,
+      },
+      html = {
+        render_modes = true,
+        comment = {
+          conceal = true,
+          text = function(ctx) return ctx.text:match("^<!%-%-%s*(.-)%s*%-%->$") end,
+        },
       },
     })
   end,
