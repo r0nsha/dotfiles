@@ -70,6 +70,7 @@ vim.pack.add({
 
 require("plugins.colorscheme")
 require("plugins.treesitter")
+require("plugins.treesitter_textobjects")
 require("plugins.lazydev")
 require("plugins.lsp")
 require("plugins.format")

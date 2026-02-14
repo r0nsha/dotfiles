@@ -1,1 +1,5 @@
-require("mini.jump").setup()
+require("mini.jump").setup({
+  mappings = {
+    repeat_jump = "",
+  },
+})
