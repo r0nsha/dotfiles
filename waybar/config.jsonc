@@ -1,159 +1,160 @@
 {
-	"position": "top",
-	"reload_style_on_change": false,
-	"modules-left": ["hyprland/submap", "hyprland/workspaces", "tray"],
-	"modules-center": ["mpris"],
-	"modules-right": [
-		"custom/recording",
-		"privacy",
-		"gamemode",
-		"idle_inhibitor",
-		"hyprland/language",
-		"pulseaudio",
-		"network",
-		"clock",
-		"group/hardware"
-	],
-	"group/hardware": {
-		"orientation": "horizontal",
-		"modules": ["battery", "cpu", "memory", "temperature"]
-	},
-	"hyprland/workspaces": {
-		"format": "{id}:{name}"
-	},
-	"tray": {
-		"icon-size": 14,
-		"spacing": 8
-	},
-	"mpris": {
-		"format": "{player_icon} {player} | {status_icon} {status} | {dynamic}",
-		"interval": 1,
-		"player-icons": {
-			"default": "󰐊",
-			"chromium": "󰊯",
-			"firefox": "󰈹",
-			"spotify": "󰓇",
-			"vlc": "󰕼",
-			"mpv": "󰝚"
-		},
-		"status-icons": {
-			"playing": "󰐊",
-			"paused": "󰏤",
-			"stopped": "󰓛"
-		}
-	},
-	"gamemode": {
-		// "use-icon": false,
-		"glyph": "󰮂 ",
-		"icon-size": 14,
-		"spacing": 8
-	},
-	"custom/recording": {
-		"exec": "exec ~/.config/waybar/scripts/recording.fish",
-		"hide-empty-text": true,
-		"tooltip-format": "Alt+Print to stop recording",
-		"on-click": "pkill -SIGINT wf-recorder"
-	},
-	"privacy": {
-		"icon-size": 14,
-		"spacing": 8
-	},
-	"idle_inhibitor": {
-		"format": "{icon}",
-		"format-icons": {
-			"activated": "󰅶",
-			"deactivated": "󰾫"
-		}
-	},
-	"hyprland/language": {
-		"format": " {}"
-	},
-	"pulseaudio": {
-		"format": "{icon} {volume}%",
-		"format-bluetooth": "󰂯 {volume}%",
-		"format-muted": "󰝟",
-		"format-icons": {
-			"headphone": "󰋋",
-			"headphone-muted": "󰟎",
-			"hands-free": "",
-			"headset": "󰋎",
-			"headset-muted": "󰋐",
-			"speaker": "󰓃",
-			"speaker-muted": "󰓄",
-			"phone": "󰏲",
-			"phone-muted": "󱆦",
-			"portable": "󰄜",
-			"portable-muted": "󰥐",
-			"car": "󰄋",
-			"car-muted": "󰸜",
-			"default": ["󰖀", "󰕾"]
-		},
-		"scroll-step": 5
-	},
-	"network": {
-		"interval": 5,
-		"format": "{ifname}",
-		"format-wifi": "{icon} {essid} ({signalStrength}%)",
-		"format-icons": ["󰤫", "󰤠", "󰤢", "󰤥", "󰤨"],
-		"format-ethernet": "󰈁 {ipaddr}/{cidr}",
-		"format-disconnected": " Disconnected",
-		"tooltip-format": "{gwaddr} ({ifname}}",
-		"tooltip-format-wifi": "{essid} ({signalStrength}%) ",
-		"tooltip-format-ethernet": "{ipaddr}/{cidr} ({ifname})",
-		"tooltip-format-disconnected": " Disconnected",
-		"max-length": 50
-	},
-	"clock": {
-		"format": "{:%a %d %b %H:%M}",
-		"tooltip-format": "<tt><small>{calendar}</small></tt>",
-		"calendar": {
-			"mode": "year",
-			"mode-mon-col": 3,
-			"weeks-pos": "right",
-			"on-scroll": 1,
-			"format": {
-				"months": "<span color='#ffffff'><b>{}</b></span>",
-				"weekdays": "<span color='#ffffff'><b>{}</b></span>",
-				"days": "<span color='#989898'><b>{}</b></span>",
-				"weeks": "<span color='#303030'><b>W{}</b></span>",
-				"today": "<span color='#ff5f59'><b><u>{}</u></b></span>"
-			}
-		},
-		"actions": {
-			"on-click-right": "mode",
-			"on-scroll-up": "shift_up",
-			"on-scroll-down": "shift_down"
-		}
-	},
-	"battery": {
-		// "bat": "BAT2",
-		"interval": 60,
-		"states": {
-			"warning": 30,
-			"critical": 15
-		},
-		"format": "{icon} {capacity}%",
-		"format-charging": "󰢟 {capacity}% ({time})",
-		"format-full": "󰁹 100%",
-		"format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
-		"format-time": "{H}h{M}m",
-		"max-length": 25
-	},
-	"cpu": {
-		"interval": 5,
-		"format": "󰍛 {usage}%"
-	},
-	"memory": {
-		"interval": 5,
-		"format": " {percentage}%",
-		"tooltip-format": "{used:0.1f}G/{total:0.1f}G used"
-	},
-	"temperature": {
-		"interval": 5,
-		"format": "{icon} {temperatureC}℃",
-		"format-icons": {
-			"default": "",
-			"critical": ""
-		}
-	}
+    "position": "top",
+    "reload_style_on_change": false,
+    "modules-left": ["hyprland/submap", "hyprland/workspaces", "tray"],
+    "modules-center": ["mpris"],
+    "modules-right": [
+        "custom/recording",
+        "privacy",
+        "gamemode",
+        "idle_inhibitor",
+        "hyprland/language",
+        "pulseaudio",
+        "network",
+        "clock",
+        "group/hardware"
+    ],
+    "group/hardware": {
+        "orientation": "horizontal",
+        "modules": ["battery", "cpu", "memory", "temperature"]
+    },
+    "hyprland/workspaces": {
+        "format": "{id}:{name}"
+    },
+    "tray": {
+        "icon-size": 14,
+        "spacing": 8
+    },
+    "mpris": {
+        "format": "{player_icon} {player} | {status_icon} {status} | {dynamic}",
+        "interval": 1,
+        "player-icons": {
+            "default": "󰐊",
+            "chromium": "󰊯",
+            "firefox": "󰈹",
+            "spotify": "󰓇",
+            "vlc": "󰕼",
+            "mpv": "󰝚"
+        },
+        "status-icons": {
+            "playing": "󰐊",
+            "paused": "󰏤",
+            "stopped": "󰓛"
+        }
+    },
+    "gamemode": {
+        // "use-icon": false,
+        "glyph": "󰮂 ",
+        "icon-size": 14,
+        "spacing": 8
+    },
+    "custom/recording": {
+        "exec": "exec ~/.config/waybar/scripts/recording.fish",
+        "interval": 1,
+        "hide-empty-text": true,
+        "tooltip-format": "Alt+Print to stop recording",
+        "on-click": "pkill -SIGINT wf-recorder"
+    },
+    "privacy": {
+        "icon-size": 14,
+        "spacing": 8
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "󰅶",
+            "deactivated": "󰾫"
+        }
+    },
+    "hyprland/language": {
+        "format": " {}"
+    },
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-bluetooth": "󰂯 {volume}%",
+        "format-muted": "󰝟",
+        "format-icons": {
+            "headphone": "󰋋",
+            "headphone-muted": "󰟎",
+            "hands-free": "",
+            "headset": "󰋎",
+            "headset-muted": "󰋐",
+            "speaker": "󰓃",
+            "speaker-muted": "󰓄",
+            "phone": "󰏲",
+            "phone-muted": "󱆦",
+            "portable": "󰄜",
+            "portable-muted": "󰥐",
+            "car": "󰄋",
+            "car-muted": "󰸜",
+            "default": ["󰖀", "󰕾"]
+        },
+        "scroll-step": 5
+    },
+    "network": {
+        "interval": 5,
+        "format": "{ifname}",
+        "format-wifi": "{icon} {essid} ({signalStrength}%)",
+        "format-icons": ["󰤫", "󰤠", "󰤢", "󰤥", "󰤨"],
+        "format-ethernet": "󰈁 {ipaddr}/{cidr}",
+        "format-disconnected": " Disconnected",
+        "tooltip-format": "{gwaddr} ({ifname}}",
+        "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+        "tooltip-format-ethernet": "{ipaddr}/{cidr} ({ifname})",
+        "tooltip-format-disconnected": " Disconnected",
+        "max-length": 50
+    },
+    "clock": {
+        "format": "{:%a %d %b %H:%M}",
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "calendar": {
+            "mode": "year",
+            "mode-mon-col": 3,
+            "weeks-pos": "right",
+            "on-scroll": 1,
+            "format": {
+                "months": "<span color='#ffffff'><b>{}</b></span>",
+                "weekdays": "<span color='#ffffff'><b>{}</b></span>",
+                "days": "<span color='#989898'><b>{}</b></span>",
+                "weeks": "<span color='#303030'><b>W{}</b></span>",
+                "today": "<span color='#ff5f59'><b><u>{}</u></b></span>"
+            }
+        },
+        "actions": {
+            "on-click-right": "mode",
+            "on-scroll-up": "shift_up",
+            "on-scroll-down": "shift_down"
+        }
+    },
+    "battery": {
+        // "bat": "BAT2",
+        "interval": 60,
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": "󰢟 {capacity}% ({time})",
+        "format-full": "󰁹 100%",
+        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+        "format-time": "{H}h{M}m",
+        "max-length": 25
+    },
+    "cpu": {
+        "interval": 5,
+        "format": "󰍛 {usage}%"
+    },
+    "memory": {
+        "interval": 5,
+        "format": " {percentage}%",
+        "tooltip-format": "{used:0.1f}G/{total:0.1f}G used"
+    },
+    "temperature": {
+        "interval": 5,
+        "format": "{icon} {temperatureC}℃",
+        "format-icons": {
+            "default": "",
+            "critical": ""
+        }
+    }
 }
