@@ -35,7 +35,8 @@ end
 
 local textobjects = {
   b = { desc = "block", outer = "@block.outer", inner = "@block.inner" },
-  c = { desc = "comment", outer = "@comment.outer", inner = "@comment.inner" },
+  -- conflicts with [c and ]c keymaps for git conflicts
+  -- c = { desc = "comment", outer = "@comment.outer", inner = "@comment.inner" },
   f = { desc = "function", outer = "@function.outer", inner = "@function.inner" },
   C = { desc = "class", outer = "@class.outer", inner = "@class.inner" },
   m = { desc = "call", outer = "@call.outer", inner = "@call.inner" },
