@@ -14,15 +14,17 @@ set -Ux TERMINAL kitty
 set -Ux TERMCMD kitty
 
 # Set nvim as my default editor
-set -Ux VISUAL nvim
-set -Ux EDITOR nvim
+set -l nvim (which nvim)
+set -Ux VISUAL "$nvim"
+set -Ux EDITOR "$nvim"
+set -Ux SUDO_EDITOR "$nvim"
+set -Ux MANPAGER "$nvim +Man!"
 switch (uname)
     case Darwin
         # Do nothing
     case '*'
         set -Ux BROWSER qutebrowser
 end
-set -Ux MANPAGER nvim +Man!
 
 # Set lang to UTF-8
 set -Ux LANGUAGE en_US.UTF-8
