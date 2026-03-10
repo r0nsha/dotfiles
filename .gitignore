@@ -12,4 +12,5 @@ fish/functions/*
 !fish/functions/_tide_item_jj.fish
 fish/fish_variables
 jj/conf.d
+jj/repos
 kitty/current_theme.conf
