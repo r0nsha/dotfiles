@@ -60,6 +60,9 @@ verbose = true
 
 [aliases]
 retrunk = ["rebase", "--skip-emptied", "-d", "trunk()"]
+ret = ["retrunk"]
+retrunk-all = ["retrunk", "-b", "bookmarks()"]
+retall = ["retrunk-all"]
 pullup = ['retrunk', '-s', 'mutable()']
 d = ["diff"]
 e = ["edit"]
