@@ -1,3 +1,26 @@
+local _99 = require("99")
+_99.setup({
+  -- Using OpenCodeProvider (default) since opencode is the AI CLI in use
+  tmp_dir = "./tmp",
+  logger = {
+    level = _99.DEBUG,
+    path = "/tmp/" .. vim.fs.basename(vim.uv.cwd()) .. ".99.debug",
+    print_on_error = true,
+  },
+  completion = {
+    source = "blink",
+    custom_rules = {},
+  },
+  md_files = {
+    "AGENT.md",
+  },
+})
+
+vim.keymap.set("v", "<A-v>", function() _99.visual({}) end, { desc = "99 visual" })
+vim.keymap.set("n", "<A-f>", function() _99.search({}) end, { desc = "99 search" })
+vim.keymap.set("n", "<A-x>", function() _99.stop_all_requests() end, { desc = "99 cancel all requests" })
+vim.keymap.set("n", "<A-o>", function() _99.open() end, { desc = "99 open last result" })
+
 require("minuet").setup({
   provider = "codestral",
   provider_options = {
