@@ -65,6 +65,16 @@ vim.keymap.set("n", "<leader>sk", function() Snacks.picker.keymaps() end, { desc
 
 vim.keymap.set("n", "<leader>s.", function() Snacks.picker() end, { desc = "Search pickers" })
 
+vim.keymap.set("n", "<leader>gp", function() Snacks.picker.gh_pr() end, { desc = "GitHub PRs (open)" })
+vim.keymap.set("n", "<leader>gP", function() Snacks.picker.gh_pr({ state = "all" }) end, { desc = "GitHub PRs (all)" })
+vim.keymap.set("n", "<leader>gi", function() Snacks.picker.gh_issue() end, { desc = "GitHub Issues (open)" })
+vim.keymap.set(
+  "n",
+  "<leader>gI",
+  function() Snacks.picker.gh_pr({ state = "all" }) end,
+  { desc = "GitHub Issues (all)" }
+)
+
 return {
   prompt = "  ",
   layout = function()
