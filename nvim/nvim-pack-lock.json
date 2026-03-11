@@ -1,5 +1,9 @@
 {
   "plugins": {
+    "99": {
+      "rev": "ec9872f7df7f4eb8b319719c1c253eb3ea8877ed",
+      "src": "https://github.com/ThePrimeagen/99"
+    },
     "arrow.nvim": {
       "rev": "6e0f726f55f99332dd726a53effd6813786b6d49",
       "src": "https://github.com/otavioschwanck/arrow.nvim"
@@ -12,6 +16,11 @@
       "rev": "b19413d214068f316c78978b08264ed1c41830ec",
       "src": "https://github.com/saghen/blink.cmp",
       "version": "'v1.8.0'"
+    },
+    "blink.compat": {
+      "rev": "2ed6d9a28b07fa6f3bface818470605f8896408c",
+      "src": "https://github.com/saghen/blink.compat",
+      "version": "'v2.5.0'"
     },
     "ccc.nvim": {
       "rev": "9d1a256e006decc574789dfc7d628ca11644d4c2",
