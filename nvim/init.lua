@@ -63,6 +63,7 @@ vim.pack.add({
   { src = "https://github.com/kristijanhusak/vim-dadbod-ui" },
   { src = "https://github.com/kristijanhusak/vim-dadbod-completion" },
   { src = "https://github.com/Saecki/crates.nvim" },
+  { src = "https://github.com/nvzone/showkeys" },
 })
 
 require("plugins.colorscheme")
@@ -94,6 +95,7 @@ require("plugins.dap")
 require("plugins.overseer")
 require("plugins.neotest")
 require("plugins.db")
+require("plugins.showkeys")
 
 local function pack_complete()
   return vim.tbl_map(function(p) return p.spec.name end, vim.pack.get())
