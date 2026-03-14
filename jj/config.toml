@@ -6,16 +6,11 @@ email = "r0nsh4v1t@gmail.com"
 
 [ui]
 default-command = "log"
-pager = ["delta", "--pager", "less -FRX"]
-diff-formatter = ":git"
 diff-editor = ["nvim", "-c", "DiffEditor $left $right $output"]
 should-sign-off = true
 
 [[--scope]]
 --when.commands = ["diff", "show"]
-
-[--scope.ui]
-pager = "delta"
 
 [merge]
 hunk-level = "word"
