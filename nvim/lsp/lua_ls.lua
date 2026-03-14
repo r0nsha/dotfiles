@@ -1,4 +1,6 @@
+---@type vim.lsp.Config
 return {
+  ---@type lspconfig.settings.lua_ls
   settings = {
     Lua = {
       telemetry = {
@@ -13,6 +15,7 @@ return {
     -- Don't do anything if there is project local config
     if vim.uv.fs_stat(join(path, ".luarc.json")) or vim.uv.fs_stat(join(path, ".luarc.jsonc")) then return end
 
+    ---@type vim.lsp.Config
     local nvim_settings = {
       runtime = {
         -- Tell the language server which version of Lua you're using
