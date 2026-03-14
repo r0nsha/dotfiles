@@ -1,5 +1,5 @@
 vim.api.nvim_create_autocmd("PackChanged", {
-  group = vim.api.nvim_create_augroup("TreesitterUpdate", { clear = true }),
+  group = require("augroup"),
   once = true,
   callback = function(args)
     if args.data.spec.name == "nvim-treesitter" then require("nvim-treesitter").update() end
@@ -66,9 +66,9 @@ local function start_treesitter(buf, ft)
 end
 
 -- Auto-install parsers and enable highlighting for filetypes
-local group = vim.api.nvim_create_augroup("TreesitterInstall", { clear = true })
+local augroup = require("augroup")
 vim.api.nvim_create_autocmd("FileType", {
-  group = group,
+  group = augroup,
   callback = function(args) start_treesitter(args.buf, args.match) end,
 })
 vim.api.nvim_create_user_command("TSStart", function() start_treesitter(0, vim.bo.filetype) end, {})
@@ -89,7 +89,7 @@ vim.filetype.get_option = function(filetype, option)
 end
 
 vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
-  group = vim.api.nvim_create_augroup("TreeSJSetup", { clear = true }),
+  group = require("augroup"),
   once = true,
   callback = function()
     local treesj = require("treesj")

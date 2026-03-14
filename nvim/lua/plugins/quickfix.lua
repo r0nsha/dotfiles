@@ -1,5 +1,5 @@
 vim.api.nvim_create_autocmd("FileType", {
-  group = vim.api.nvim_create_augroup("QuickerSetup", { clear = true }),
+  group = require("augroup"),
   once = true,
   callback = function()
     local icons = require("config.icons")

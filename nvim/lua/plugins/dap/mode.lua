@@ -167,15 +167,15 @@ function M:exit_mode()
   end
 end
 
--- local group = vim.api.nvim_create_augroup("CustomDBG", { clear = true })
+-- local augroup = require("augroup")
 -- vim.api.nvim_create_autocmd("BufEnter", {
---   group = group,
+--   group = augroup,
 --   pattern = dv_globals.MAIN_BUF_NAME,
 --   callback = function() M:exit_mode() end,
 -- })
 --
 -- vim.api.nvim_create_autocmd("BufLeave", {
---   group = group,
+--   group = augroup,
 --   pattern = dv_globals.MAIN_BUF_NAME,
 --   callback = function()
 --     if dap.session() then M:activate() end

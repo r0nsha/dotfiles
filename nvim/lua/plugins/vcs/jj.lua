@@ -1,5 +1,5 @@
 vim.api.nvim_create_autocmd("User", {
-  group = vim.api.nvim_create_augroup("custom-jj-diffconflicts", { clear = true }),
+  group = require("augroup"),
   pattern = "JJDiffConflictsReady",
   desc = "Set keymap for jj-diffconflicts",
   callback = function(args)

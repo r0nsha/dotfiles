@@ -65,7 +65,7 @@ dap.listeners.after.event_terminated[name] = disable
 dap.listeners.after.event_exited[name] = disable
 
 -- vim.api.nvim_create_autocmd("BufEnter", {
---   group = vim.api.nvim_create_augroup("CustomDebugModeFT", { clear = true }),
+--   group = require("augroup"),
 --   pattern = "*",
 --   callback = function()
 --     if not dap.session() then return end

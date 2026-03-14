@@ -10,7 +10,7 @@ require("neogit").setup({
 vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Neogit" })
 
 vim.api.nvim_create_autocmd("FileType", {
-  group = vim.api.nvim_create_augroup("CustomNeogit", { clear = true }),
+  group = require("augroup"),
   pattern = "Neogit*",
   command = "set colorcolumn=",
 })

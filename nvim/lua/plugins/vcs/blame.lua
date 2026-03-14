@@ -1,4 +1,4 @@
-local group = vim.api.nvim_create_augroup("CustomBlameNvim", { clear = true })
+local augroup = require("augroup")
 
 ---@diagnostic disable-next-line: missing-fields
 require("blame").setup({
@@ -51,7 +51,7 @@ vim.keymap.set("n", "<leader>gb", toggle_blame_exclusive("window"), { desc = "Gi
 vim.keymap.set("n", "<leader>gB", toggle_blame_exclusive("virtual"), { desc = "Git: Blame" })
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
-  group = group,
+  group = augroup,
   pattern = "blame",
   callback = function(args)
     vim.keymap.set("n", "d", function()

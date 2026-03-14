@@ -32,7 +32,7 @@ end
 
 function M.setup()
   vim.api.nvim_create_autocmd({ "ColorScheme", "BufWinEnter" }, {
-    group = vim.api.nvim_create_augroup("Heirline", { clear = true }),
+    group = require("augroup"),
     callback = function() utils.on_colorscheme(setup_colors) end,
   })
 

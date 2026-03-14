@@ -33,7 +33,7 @@ vim.keymap.set("n", "grl", function()
 end, { desc = "LSP: Toggle line diagnostics" })
 
 vim.api.nvim_create_autocmd("User", {
-  group = vim.api.nvim_create_augroup("CustomDisableVirtualLines", { clear = true }),
+  group = require("augroup"),
   pattern = "DiagnosticChanged",
   callback = function()
     if vim.diagnostic.count() == 0 then disable_virtual_lines() end
