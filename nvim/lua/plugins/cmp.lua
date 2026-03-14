@@ -31,8 +31,8 @@ blink.setup({
     },
     list = {
       selection = {
-        preselect = false,
-        auto_insert = true,
+        preselect = true,
+        auto_insert = false,
       },
     },
     menu = {
