@@ -8,6 +8,7 @@ local servers = {
   gopls = {},
   jsonls = { name = "json-lsp" },
   yamlls = { name = "yaml-language-server" },
+  taplo = {},
   basedpyright = {},
   marksman = {},
   tinymist = {},
