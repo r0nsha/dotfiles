@@ -3,6 +3,7 @@ vim.api.nvim_create_autocmd("FileType", {
   once = true,
   callback = function()
     require("render-markdown").setup({
+      completions = { lsp = { enabled = true } },
       checkbox = {
         checked = { icon = " ", highlight = "RenderMarkdownChecked", scope_highlight = nil },
         unchecked = { icon = " ", highlight = "RenderMarkdownUnchecked", scope_highlight = nil },
@@ -12,7 +13,9 @@ vim.api.nvim_create_autocmd("FileType", {
         },
       },
       code = {
+        render_modes = true,
         conceal_delimiters = false,
+        border = "thin",
       },
       html = {
         render_modes = true,

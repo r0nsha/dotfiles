@@ -106,9 +106,7 @@ vim.keymap.set("n", "<leader>cl", function()
     vim.wo.conceallevel = 0
   end
 
-  local utils = require("utils")
-  local conceal_enabled = utils.bool_to_enabled(vim.wo.conceallevel == 2)
-
+  local conceal_enabled = require("utils").bool_to_enabled(vim.wo.conceallevel == 2)
   vim.notify("Conceal " .. conceal_enabled)
 end, { desc = "Toggle conceal" })
 

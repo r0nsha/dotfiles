@@ -2,7 +2,7 @@
 
 ## Install
 
-```
+```sh
 git clone <this-repo>
 cd <this-repo>
 make install
