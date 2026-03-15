@@ -208,6 +208,7 @@ yay_deps=(
     downgrade
     opencode
     responsively
+    stremio
 )
 
 yay -Syu --noconfirm ${yay_deps[@]}
