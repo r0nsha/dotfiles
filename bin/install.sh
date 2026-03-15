@@ -42,10 +42,11 @@ fi
 
 # make scripts executable
 step "scripts"
-chmod -v ug+x "$DOTFILES"/scripts/*
-chmod -v ug+x "$DOTFILES"/i3blocks/scripts/*
-chmod -v ug+x "$DOTFILES"/rofi/scripts/*
-chmod -v ug+x "$DOTFILES"/waybar/scripts/*
+chmod -v ug+x $DOTFILES/scripts/*
+chmod -v ug+x $DOTFILES/i3blocks/scripts/*
+chmod -v ug+x $DOTFILES/rofi/scripts/*
+chmod -v ug+x $DOTFILES/waybar/scripts/*
+chmod -v ug+x $DOTFILES/qutebrowser/userscripts/*
 success
 
 # install tools

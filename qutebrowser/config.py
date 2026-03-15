@@ -232,6 +232,12 @@ config.bind("aa", "set-cmd-text -s :quickmark-add {url} {title}")
 config.bind("gP", "open --private")
 config.bind(";m", "hint links spawn mpv {hint-url}")
 
+# qute-pass
+config.bind("<z><l>", "spawn --userscript qute-pass")
+config.bind("<z><u><l>", "spawn --userscript qute-pass --username-only")
+config.bind("<z><p><l>", "spawn --userscript qute-pass --password-only")
+config.bind("<z><o><l>", "spawn --userscript qute-pass --otp-only")
+
 # Spoof User-Agent for Google domains
 spoof_domains = [
     "https://accounts.google.com/*",

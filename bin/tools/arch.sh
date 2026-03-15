@@ -153,6 +153,9 @@ pacman_deps=(
     pdfjs # needed for qutebrowser
     zathura-pdf-mupdf
 
+    # qutebrowser userscripts
+    python-tldextract
+
     # email
     neomutt
     isync
