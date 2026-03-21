@@ -27,9 +27,9 @@ local function read(var, pass_name)
 end
 
 function M.load()
-  read("CODESTRAL_API_KEY", "mistral/codestral")
-  read("GEMINI_API_KEY", "google/gemini")
-  read("TAVILY_API_KEY", "tavily/personal")
+  read("CODESTRAL_API_KEY", "console.mistral.ai/codestral")
+  read("GEMINI_API_KEY", "google.com/gemini")
+  read("TAVILY_API_KEY", "tavily.com/personal")
 end
 
 vim.api.nvim_create_user_command("PassLoad", M.load, {})
