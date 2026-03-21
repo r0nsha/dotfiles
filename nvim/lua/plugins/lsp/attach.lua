@@ -25,6 +25,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "gri", Snacks.picker.lsp_implementations, opts("Implementations"))
     vim.keymap.set("n", "grs", Snacks.picker.lsp_symbols, opts("Symbols"))
     vim.keymap.set("n", "grw", Snacks.picker.lsp_workspace_symbols, opts("Workspace Symbols"))
+    vim.keymap.set(
+      "n",
+      "grm",
+      function()
+        vim.lsp.buf.code_action({ context = { only = { "source.organizeImports" }, diagnostics = {} }, apply = true })
+      end,
+      opts("Organize Imports")
+    )
 
     vim.keymap.set("n", "grn", vim.lsp.buf.rename, opts("Rename"))
     vim.keymap.set({ "n", "x" }, "gra", vim.lsp.buf.code_action, opts("Code Action"))
