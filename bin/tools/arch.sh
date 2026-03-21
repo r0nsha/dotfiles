@@ -93,6 +93,7 @@ pacman_deps=(
 
     # terminal
     kitty
+    ghostty
     fish
     tmux
     mcfly

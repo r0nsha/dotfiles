@@ -34,12 +34,6 @@ bind yy fish_clipboard_copy
 bind Y fish_clipboard_copy
 bind p fish_clipboard_paste
 
-# cursor
-set fish_cursor_default block
-set fish_cursor_insert block
-set fish_cursor_replace_one block
-set fish_cursor_visual block
-
 # paths
 fish_add_path $HOME/.cargo/bin
 fish_add_path $HOME/.local/bin

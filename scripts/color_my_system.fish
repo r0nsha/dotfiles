@@ -9,8 +9,10 @@ mkdir -p ~/.config/qt6ct/colors
 ln -sf ~/.config/qt6ct/colors/colors.conf ~/.cache/wal/qt.conf
 
 ln -sf ~/.config/kitty/theme_(get_theme).conf ~/.config/kitty/current_theme.conf
+mkdir -p ~/.cache/ghostty
+ln -sf ~/.config/ghostty/theme_(get_theme).ghostty ~/.cache/ghostty/current_theme.ghostty
 pkill -SIGUSR1 kitty
-
+pkill -SIGUSR2 ghostty
 pkill -SIGUSR2 waybar
 
 if pgrep qutebrowser

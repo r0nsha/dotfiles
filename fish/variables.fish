@@ -9,11 +9,11 @@ set -Ux XDG_MUSIC_DIR ~/music
 set -Ux XDG_PICTURES_DIR ~/pictures
 set -Ux XDG_VIDEOS_DIR ~/videos
 
-# Set kitty as my default terminal
-set -Ux TERMINAL kitty
-set -Ux TERMCMD kitty
+# Default terminal
+set -Ux TERMINAL ghostty
+set -Ux TERMCMD ghostty
 
-# Set nvim as my default editor
+# Default editor
 set -l nvim (which nvim)
 set -Ux VISUAL "$nvim"
 set -Ux EDITOR "$nvim"

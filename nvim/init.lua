@@ -64,6 +64,7 @@ vim.pack.add({
   { src = "https://github.com/kristijanhusak/vim-dadbod-completion" },
   { src = "https://github.com/Saecki/crates.nvim" },
   { src = "https://github.com/nvzone/showkeys" },
+  { src = "https://github.com/oskarnurm/koda.nvim" },
 })
 
 require("plugins.colorscheme")

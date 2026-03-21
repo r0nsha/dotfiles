@@ -1,0 +1,32 @@
+font-family = "Berkeley Mono"
+font-size = 14
+font-feature = -calt
+font-feature = -liga
+font-feature = -dlig
+config-file = ?~/.cache/ghostty/current_theme.ghostty
+cursor-color = cell-foreground
+cursor-text = cell-background
+cursor-style-blink = false
+mouse-hide-while-typing = true
+app-notifications = clipboard-copy,no-config-reload
+window-decoration = none
+bell-features = no-audio
+shell-integration-features = cursor,sudo,title
+
+keybind = ctrl+enter=unbind
+keybind = ctrl+shift+enter=unbind
+keybind = ctrl+shift+n=unbind
+keybind = ctrl+shift+i=unbind
+keybind = ctrl+shift+a=unbind
+keybind = ctrl+shift+y=unbind
+keybind = ctrl+shift+x=unbind
+keybind = ctrl+shift+m=unbind
+keybind = ctrl+shift+q=unbind
+keybind = ctrl+alt+arrow_up=unbind
+keybind = ctrl+alt+arrow_down=unbind
+keybind = ctrl+alt+arrow_left=unbind
+keybind = ctrl+alt+arrow_right=unbind
+keybind = ctrl+shift+o=unbind
+keybind = ctrl+shift+e=unbind
+
+keybind = ctrl+alt+shift+i=inspector:toggle

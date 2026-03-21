@@ -54,6 +54,7 @@ install_deps() {
         docker
         colima
         kitty
+        ghostty
         entr
         bob             # neovim version manager
         tree-sitter-cli # needed to cache treesitter parsers
