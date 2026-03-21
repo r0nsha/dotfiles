@@ -1,225 +1,148 @@
-# Agent Guidelines for Dotfiles Repository
+# AGENTS.md
 
-## Build/Lint/Test Commands
+This file contains guidelines for AI agents working in this dotfiles repository.
 
-This is a dotfiles repository with no traditional build process. Use these commands for validation:
+## Repository Overview
 
-### Installation
-- **Full install**: `make install` (runs `./bin/install.sh`)
-- **Install script**: `./bin/install.sh` (idempotent bootstrap)
+This is a personal dotfiles repository managed with [GNU Stow](https://www.gnu.org/software/stow/). Configurations are symlinked to `~/.config` using `stow .` from the repo root.
 
-### Linting & Formatting
-- **Lint Lua**: `stylua --check nvim/`
-- **Format Lua**: `stylua nvim/`
-- **Lint Fish script**: `fish --no-execute path/to/script.fish`
-- **Lint Shell**: `shellcheck bin/*.sh` (if available)
+## Build/Install Commands
 
-### Testing
-No test framework configured. Manual testing only:
-- Run `make install` for integration testing
-- Test individual scripts directly: `./bin/install.sh`, `./scripts/set_theme.fish`, etc.
+```bash
+# Install all dotfiles
+make install
 
-## Version Control
+# Or run the install script directly
+./bin/install.sh
+```
 
-This repository uses **Jujutsu (jj)** as the primary version control system:
-
-- **Status**: `jj status`
-- **Diff**: `jj diff`
-- **Log**: `jj log`
-- **Commit**: `jj commit -m "message"`
-- **Add files**: `jj add <files>`
-- **Push**: `jj git push`
-
-**Important**: Git commands in bootstrap scripts (`bin/install.sh`, `bin/tools.sh`) are intentional:
-- Git submodules must be managed via git (not jj)
-- External repo clones (tpm, backgrounds) use git clone
-- Do not convert these to jj commands
-
-## Repository Structure
-
-- `bin/`: Bootstrap and utility scripts (install.sh, utils.sh, tools.sh)
-- `nvim/`: Neovim configuration (Lua-based, uses native vim.pack.add)
-- `fish/`: Fish shell configuration (config, functions, aliases, variables)
-- `scripts/`: Utility scripts (mostly Fish, some Bash)
-- `rofi/scripts/`: Rofi launcher scripts
-- `i3blocks/scripts/`, `waybar/scripts/`: Status bar scripts
-- Root level: App configs (alacritty/, kitty/, tmux/, hypr/, etc.)
-
-## Code Style Guidelines
+## Code Formatting
 
 ### Lua (Neovim Config)
 
-**Formatting** (stylua.toml):
-- 120 column width
-- 2-space indentation
-- Double quotes preferred (auto)
-- Call parentheses always required
-- Auto-collapse simple statements
+Use **StyLua** for formatting Lua files:
 
-**File Organization**:
-- `nvim/init.lua`: Entry point, package declarations
-- `nvim/lua/config/`: Core config (opts, remap, autocmd)
-- `nvim/lua/plugins/`: Plugin configurations
-- Modular structure: separate concerns into individual files
-
-**Imports**:
-- Use `require()` statements at file top
-- Auto-sorted by stylua
-- Group related requires together
-
-**Naming**:
-- `snake_case` for variables and functions
-- `PascalCase` for modules
-- Descriptive names, avoid abbreviations
-
-**Error Handling**:
-- Use `pcall()` for optional requires
-- Explicit error messages when operations can fail
-- Example: `local ok, module = pcall(require, "module")`
-
-**Package Management**:
-- Uses native `vim.pack.add()` (NOT lazy.nvim)
-- Declare packages in `init.lua`
-- Configure in separate plugin files under `lua/plugins/`
-
-### Shell Scripts (Bash)
-
-**Shebang**: Always use `#!/usr/bin/env bash`
-
-**Safety**: Always include at top (after shebang):
 ```bash
-set -euo pipefail
+# Format all Lua files
+stylua .
+
+# Check formatting without making changes
+stylua --check .
 ```
 
-**Quoting**: ALWAYS quote variable expansions to handle spaces:
-- Correct: `cd "$DOTFILES"`, `source "$DOTFILES/bin/utils.sh"`
-- Wrong: `cd $DOTFILES`, `source $DOTFILES/bin/utils.sh`
-- Quote paths in commands: `mkdir -p "$LOCAL_BIN" "$LOCAL_OPT"`
-- Exception: Wildcards after quoted prefix: `chmod +x "$DOTFILES"/scripts/*`
+Configuration is in `stylua.toml`:
+- Column width: 120
+- Indent: 2 spaces
+- Quote style: AutoPreferDouble
+- Call parentheses: Always
 
-**Bootstrap Script Patterns** (from bin/utils.sh):
-Use the step/success/error/info functions for consistent output:
-```bash
-step "descriptive step name"
-# ... do work ...
-success
+### Fish Shell
 
-info "informational message"
+Fish scripts don't have a dedicated linter configured. Follow existing patterns:
+- Use 4-space indentation
+- Use `function` for defining functions
+- Use `abbr` for abbreviations/aliases
+- Functions use snake_case naming
 
-error "error message"  # exits with status 1
-```
+### Bash/Shell
 
-**Error Handling**:
-- Use trap for cleanup: `trap '[ -n "$CURR_STEP" ] && error' EXIT`
-- Check command success: `if ! stow .; then error "stow failed"; fi`
-- Provide clear, actionable error messages
-- Exit with non-zero status on failure
+Follow existing patterns in `bin/`:
+- Use `set -euo pipefail` for strict mode
+- Use snake_case for variables and functions
+- 2-space indentation for consistency with Lua
+- Quote all variables: `"$variable"`
+- Use `[[ ]]` for tests, not `[ ]`
 
-**Idempotency**: Scripts should be re-runnable safely:
-- Check before installing: `if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then`
-- Use `install_wrapper` function from utils.sh
-- Skip work if already done: `info "skipped (already installed)"`
+## Code Style Guidelines
 
-**Functions**:
-- Use local variables: `local var_name="value"`
-- Descriptive names, no unnecessary abbreviations
-- Reuse utilities from `bin/utils.sh`
+### General
 
-**Variable Naming**:
-- UPPERCASE for global/env variables: `DOTFILES`, `LOCAL_BIN`
-- lowercase for local variables: `script_dir`, `fish_bin`
+1. **File Structure**: Keep related configs in named directories (e.g., `nvim/`, `fish/`, `scripts/`)
+2. **Comments**: Use comments to explain non-obvious logic
+3. **Error Handling**: Always check for command existence with `command -v` or `which`
+4. **Local vs Global**: Prefer local variables in functions
 
-### Shell Scripts (Fish)
+### Lua (Neovim)
 
-**Shebang**: Always use `#!/usr/bin/env fish`
+1. **Type Annotations**: Use EmmyLua annotations for functions and variables
+   ```lua
+   ---@param path string
+   ---@return boolean
+   function M.validate(path)
+   ```
 
-**Variables**:
-- Local variables: `set -l variable_name value`
-- Universal exports: `set -Ux XDG_CONFIG_HOME ~/.config`
-- Local exports: `set -x VARIABLE value` (current session)
+2. **Module Pattern**: Return a table at the end of modules
+   ```lua
+   local M = {}
+   -- ... functions ...
+   return M
+   ```
 
-**Conditionals**:
-- Use `test` for checks: `if test -d $path`
-- Command existence: `command -v -q program` or use `binary_exists` function
-- File existence: `test -r $file`, `test -f $file`, `test -d $dir`
+3. **Naming**: Use PascalCase for module tables, snake_case for functions
 
-**Functions**:
-- Keep simple and focused
-- Avoid complex logic, prefer clarity over cleverness
-- Use descriptive names: `tmux_select_dir`, `filter_dirs`
-- Example pattern:
-```fish
-function my_function
-    set -l local_var value
-    if test (count $argv) -eq 0
-        echo "Usage: my_function <args>"
-        return 1
-    end
-    # ... work ...
-end
-```
+4. **Imports**: Group imports at the top, use local variables
+   ```lua
+   local uv = vim.uv
+   local utils = require("utils")
+   ```
 
-**Error Handling**:
-- Check command success: `if not command; echo "failed"; return 1; end`
-- Provide clear error messages
-- Return non-zero on failure
+5. **Plugin Configuration**: Place LSP configs in `nvim/lsp/`, plugin configs inline in `init.lua`
 
-### General Conventions
+### Fish
 
-**Comments**:
-- Brief comments only for complex operations
-- Do NOT add obvious comments explaining what code does
-- Explain WHY, not WHAT
+1. **Variables**: Use `-l` for local, `-g` for global, `-U` for universal
+2. **Conditionals**: Use `test` with proper quoting
+3. **Functions**: Define with `function name; ...; end` format
 
-**Whitespace**:
-- No trailing whitespace (formatters handle automatically)
-- Consistent indentation per language
+### Bash
 
-**Quoting in Shell Scripts**:
-- Always quote variable expansions in Bash/Fish
-- Use double quotes for interpolation
-- Use single quotes for literals (when no interpolation needed)
+1. **Utilities**: Source `bin/utils.sh` for `step`, `success`, `error`, `info` functions
+2. **Machine Detection**: Use the `MACHINE` variable (linux/darwin)
+3. **Safe Execution**: Always check if files/commands exist before using them
 
-**Modular Configuration**:
-- Separate concerns into different files
-- Use clear file names indicating purpose
-- Keep files focused and reasonably sized
+## Testing
 
-**Documentation**:
-- Update README.md for significant user-facing changes
-- Document manual steps (e.g., Berkeley Mono font installation)
-- Keep AGENTS.md updated with new patterns
+This repository does not have automated tests. When making changes:
 
-**Idempotency in Bootstrap Scripts**:
-- All install scripts must be safely re-runnable
-- Check existence before creating/cloning/installing
-- Use conditional logic to skip already-completed work
-- Provide feedback when skipping: `info "already installed"`
+1. Test shell scripts with `bash -n script.sh` for syntax checking
+2. Test Fish scripts with `fish --no-execute script.fish`
+3. For Neovim Lua: open nvim and check for errors with `:messages`
+4. Run `make install` in a test environment before committing
 
-**Local Configuration Files**:
-Users can customize via local config files (not tracked):
-- `~/.env.fish`: Loaded first by fish config
-- `~/config.fish`: Loaded after main fish config
-- `~/.gitconfig.local`: Git user config
-- `~/.config/jj/conf.d/local.toml`: Jujutsu user config
+## Symlink Management (Stow)
 
-## Supported Languages & Tools
+- Stow targets `~/.config` (configured in `.stowrc`)
+- Ignored files are listed in `.stow-local-ignore`
+- Some files are manually symlinked in `bin/install.sh` (e.g., `~/.ssh/config`)
 
-**Primary Languages**: Lua, Fish, Bash
+## Key Files Reference
 
-**LSP Support Configured For**:
-- Python (ruff)
-- JavaScript/TypeScript (biome, prettier)
-- Rust (rust-analyzer)
-- Go (gopls)
-- C/C++ (clangd)
-- And many others via Mason
+- `bin/install.sh` - Main installation script
+- `bin/utils.sh` - Shell utility functions
+- `bin/tools.sh` - Tool installation logic
+- `stylua.toml` - Lua formatter configuration
+- `.stowrc` - Stow configuration
+- `.stow-local-ignore` - Files excluded from stowing
 
-**Key Tools**:
-- Editor: Neovim (native packages via vim.pack.add)
-- Shell: Fish with Tide prompt
-- Terminal: Kitty, Alacritty
-- Multiplexer: Tmux
-- Version Control: Jujutsu (jj)
-- File Manager: Yazi
-- Fuzzy Finder: fzf, skim
+## Dependencies
+
+Required tools (installed by `bin/tools.sh`):
+- fish - Shell
+- nvim - Editor
+- tmux - Terminal multiplexer
+- stow - Symlink manager
+- jj - Version control (Jujutsu)
+
+Optional but used:
+- zoxide - Smart directory jumping
+- mcfly - Shell history search
+- eza - Modern ls replacement
+- bat - Syntax-highlighting cat
+
+## Adding New Configurations
+
+1. Create a new directory for the tool
+2. Add configuration files inside
+3. Add to `.stow-local-ignore` if it shouldn't be stowed
+4. Update `bin/install.sh` if special installation steps needed
+5. Test with `stow --no .` first (dry run)
