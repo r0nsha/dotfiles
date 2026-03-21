@@ -153,3 +153,18 @@ end
 function exec-zsh
     exec zsh -c "source $argv; exec fish"
 end
+
+function get_theme
+    set -l theme dark
+
+    if test -r $THEME_FILE
+        set theme (cat $THEME_FILE)
+    end
+
+    if test -z "$theme"
+        echo dark
+        return
+    end
+
+    echo $theme
+end

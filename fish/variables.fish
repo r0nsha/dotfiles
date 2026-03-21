@@ -19,12 +19,17 @@ set -Ux VISUAL "$nvim"
 set -Ux EDITOR "$nvim"
 set -Ux SUDO_EDITOR "$nvim"
 set -Ux MANPAGER "$nvim +Man!"
+
+# Default browser
 switch (uname)
     case Darwin
         # Do nothing
     case '*'
         set -Ux BROWSER qutebrowser
 end
+
+# Theme
+set -Ux THEME_FILE ~/.cache/theme
 
 # Set lang to UTF-8
 set -Ux LANGUAGE en_US.UTF-8

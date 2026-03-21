@@ -5,27 +5,13 @@ source $DOTFILES/fish/fisher.fish
 source $DOTFILES/fish/functions.fish
 source $DOTFILES/fish/aliases.fish
 source $DOTFILES/fish/variables.fish
+source $DOTFILES/fish/theme.fish
 source $DOTFILES/fish/macos.fish
 
 set -l local_config ~/config.fish
 if test -r $local_config
     source $local_config
 end
-
-function update_theme --on-variable THEME
-    # FIXME: return pywal?
-    # set -l colors_file ~/.cache/wal/colors.fish
-    # if test -r $colors_file
-    #     source $colors_file
-    # else 
-    if test "$THEME" = light
-        source $DOTFILES/fish/themes/modus_operandi.fish
-    else
-        source $DOTFILES/fish/themes/modus_vivendi.fish
-    end
-end
-
-update_theme
 
 set fish_greeting # disable welcome message
 
