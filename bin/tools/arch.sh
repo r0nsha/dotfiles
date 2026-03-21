@@ -206,7 +206,7 @@ yay_deps=(
     abook
     protonup-rs
     downgrade
-    opencode
+    opencode-bin
     responsively
     stremio
 )
