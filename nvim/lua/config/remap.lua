@@ -34,7 +34,11 @@ end, { remap = false, desc = "Copy line reference to clipboard" })
 
 vim.keymap.set("x", "<c-g>", function()
   local start_line, end_line = require("utils").get_visual_range()
-  copy_line_reference(string.format("%d-%d", start_line, end_line))
+  -- get_visual_range() returns 0-indexed lines
+  start_line = start_line + 1
+  end_line = end_line + 1
+  local lines = start_line == end_line and tostring(start_line) or string.format("%d-%d", start_line, end_line)
+  copy_line_reference(lines)
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, true, true), "n", true)
 end, { remap = false, desc = "Copy line reference to clipboard" })
 
