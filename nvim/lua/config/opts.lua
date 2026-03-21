@@ -124,7 +124,7 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 
 -- disable startup message
-vim.opt.shortmess:append({ I = true })
+-- vim.opt.shortmess:append({ I = true })
 
 -- mouse
 vim.opt.mouse = "a"
