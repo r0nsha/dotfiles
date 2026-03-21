@@ -265,7 +265,7 @@ local Right = {
 }
 
 local disable_for = {
-  filetype = { "dashboard", "Neogit*", "trouble", "Glance" },
+  filetype = { "dashboard", "trouble", "Glance" },
 }
 
 local function is_statusline_disabled() return not cond.buffer_matches(disable_for) end
