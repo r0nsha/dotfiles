@@ -3,6 +3,7 @@ font-size = 14
 font-feature = -calt
 font-feature = -liga
 font-feature = -dlig
+theme = Modus Vivendi
 config-file = ?~/.cache/ghostty/current_theme.ghostty
 cursor-color = cell-foreground
 cursor-text = cell-background
