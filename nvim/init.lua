@@ -47,7 +47,7 @@ vim.pack.add({
   -- { src = "https://github.com/r0nsha/qfpreview.nvim" },
   { src = "https://github.com/stevearc/quicker.nvim" },
   { src = "https://github.com/FabijanZulj/blame.nvim" },
-  { src = "https://github.com/sindrets/diffview.nvim" },
+  { src = "https://github.com/esmuellert/codediff.nvim" },
   { src = "https://github.com/ruifm/gitlinker.nvim" },
   { src = "https://github.com/MunifTanjim/nui.nvim" },
   { src = "https://github.com/julienvincent/hunk.nvim" },
