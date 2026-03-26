@@ -32,5 +32,7 @@ keybind = ctrl+alt+arrow_left=unbind
 keybind = ctrl+alt+arrow_right=unbind
 keybind = ctrl+shift+o=unbind
 keybind = ctrl+shift+e=unbind
+keybind = ctrl+shift+p=unbind
 
 keybind = ctrl+alt+shift+i=inspector:toggle
+keybind = ctrl+alt+shift+p=toggle_command_palette
