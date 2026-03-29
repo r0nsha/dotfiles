@@ -17,14 +17,22 @@ vim.keymap.set({ "n", "x" }, "gP", '""P', { remap = false, desc = "Paste from un
 -- Don't yank when using 'p' in visual mode
 vim.keymap.set("x", "p", '"_dP', { remap = false })
 
+local function get_relative_file_path() return require("plenary.path"):new(vim.fn.expand("%")):normalize() end
+
 ---@param lines string
 local function copy_line_reference(lines)
-  local file = require("plenary.path"):new(vim.fn.expand("%")):normalize()
-  local ref = string.format("%s:%s", file, lines)
+  local ref = string.format("%s:%s", get_relative_file_path(), lines)
   vim.fn.setreg("+", ref)
   vim.fn.setreg('"', ref)
   vim.notify("Yanked line reference")
 end
+
+vim.keymap.set("n", "<C-S-G>", function()
+  local file = get_relative_file_path()
+  vim.fn.setreg("+", file)
+  vim.fn.setreg('"', file)
+  vim.notify("Yanked file reference")
+end, { remap = false, desc = "Copy file path to clipboard" })
 
 vim.keymap.set("n", "<c-g>", function()
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-g>", true, true, true), "n", true)
