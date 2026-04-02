@@ -132,7 +132,7 @@ pacman_deps=(
     qt6-multimedia-ffmpeg
     qt5ct
     qt6ct
-    swww
+    awww
     ly
     waybar
     gamemode

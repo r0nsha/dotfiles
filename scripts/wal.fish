@@ -12,4 +12,4 @@ else
     set -a walargs --contrast 1.0
 end
 
-wal -s -n -e --backend colorthief --cols16 lighten $walargs -i ~/.cache/swww/.current_background -o ~/.config/scripts/color_my_system.fish
+wal -s -n -e --backend colorthief --cols16 lighten $walargs -i ~/.cache/awww/.current_background -o ~/.config/scripts/color_my_system.fish
