@@ -7,7 +7,6 @@
         "custom/recording",
         "privacy",
         "gamemode",
-        "idle_inhibitor",
         "hyprland/language",
         "pulseaudio",
         "network",
@@ -58,13 +57,6 @@
     "privacy": {
         "icon-size": 14,
         "spacing": 8
-    },
-    "idle_inhibitor": {
-        "format": "{icon}",
-        "format-icons": {
-            "activated": "󰅶",
-            "deactivated": "󰾫"
-        }
     },
     "hyprland/language": {
         "format": " {}"

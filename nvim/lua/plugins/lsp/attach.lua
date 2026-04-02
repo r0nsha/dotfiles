@@ -11,6 +11,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
     if client.server_capabilities.inlayHintProvider then vim.lsp.inlay_hint.enable(false, { bufnr = buf }) end
 
+    ---@param desc string
     local opts = function(desc)
       return {
         buffer = buf,
@@ -23,8 +24,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "grr", Snacks.picker.lsp_references, opts("References"))
     vim.keymap.set("n", "grt", Snacks.picker.lsp_type_definitions, opts("Type Definitions"))
     vim.keymap.set("n", "gri", Snacks.picker.lsp_implementations, opts("Implementations"))
-    vim.keymap.set("n", "grs", Snacks.picker.lsp_symbols, opts("Symbols"))
-    vim.keymap.set("n", "grw", Snacks.picker.lsp_workspace_symbols, opts("Workspace Symbols"))
+    vim.keymap.set("n", "grs", Snacks.picker.lsp_workspace_symbols, opts("Workspace Symbols"))
+    vim.keymap.set("n", "grS", Snacks.picker.lsp_symbols, opts("Symbols"))
+    vim.keymap.set("n", "grq", vim.diagnostic.setqflist, opts("Diagnostics"))
+    vim.keymap.set("n", "grQ", vim.diagnostic.setloclist, opts("Buffer Diagnostics"))
     vim.keymap.set(
       "n",
       "grm",
@@ -57,8 +60,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     )
 
     vim.keymap.set("i", "<C-s>", vim.lsp.buf.signature_help, opts("Signature Help"))
-
-    vim.keymap.set("n", "<leader>x", vim.diagnostic.setqflist, opts("Diagnostics"))
   end,
 })
 

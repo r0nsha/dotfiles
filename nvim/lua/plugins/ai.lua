@@ -55,6 +55,4 @@ require("minuet").setup({
     },
     show_on_completion_menu = true,
   },
-  cmp = { enable_auto_complete = false },
-  blink = { enable_auto_complete = false },
 })

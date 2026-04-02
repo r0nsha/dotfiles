@@ -1,5 +1,10 @@
 require("codediff").setup({
   diff = { compute_moves = true },
+  explorer = {
+    visible_groups = {
+      staged = false,
+    },
+  },
   keymaps = {
     view = {
       toggle_layout = "t",
@@ -7,6 +12,13 @@ require("codediff").setup({
       prev_hunk = "<C-S-P>",
       next_file = "<C-n>",
       prev_file = "<C-p>",
+      toggle_stage = false,
+    },
+    explorer = {
+      stage_all = false,
+      unstage_all = false,
+      toggle_changes = false,
+      toggle_staged = false,
     },
   },
 })

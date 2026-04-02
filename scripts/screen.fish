@@ -77,6 +77,8 @@ switch $action
             set shot_args -g "$geom"
         end
 
+        sleep 0.2 # wait for rofi to disappear
+
         grim $shot_args -t png $file
 
         if test $status -ne 0
@@ -91,7 +93,7 @@ switch $action
                 wl-copy <$file
                 echo screenshot
             case ui
-                swappy -f $file -o $file
+                satty -f $file -o $file
                 wl-copy <$file
                 echo screenshot
             case file
