@@ -53,6 +53,6 @@ require("minuet").setup({
       next = "<A-n>",
       dismiss = "<A-r>",
     },
-    show_on_completion_menu = false,
+    show_on_completion_menu = true,
   },
 })
