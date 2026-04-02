@@ -55,7 +55,6 @@ tooltip {
   border: 1px solid @border;
 }
 
-#language,
 #pulseaudio,
 #bluetooth,
 #network,
@@ -69,6 +68,7 @@ tooltip {
 #privacy,
 #gamemode {
   margin-right: 16px;
+  padding-right: 16px;
 }
 
 #workspaces button {
@@ -113,15 +113,6 @@ tooltip {
 #privacy {
   background: @color4-alpha;
   border: 1px solid @color4;
-  color: @background-opaque;
-}
-
-#idle_inhibitor.deactivated {
-  color: @color11;
-}
-
-#idle_inhibitor.activated {
-  background: @color11;
   color: @background-opaque;
 }
 
