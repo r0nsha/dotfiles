@@ -55,7 +55,7 @@ pacman_deps=(
     cliphist
     grim
     slurp
-    swappy
+    satty
     wf-recorder
     yazi
     yt-dlp
