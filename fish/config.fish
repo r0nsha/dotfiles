@@ -34,6 +34,10 @@ bind yy fish_clipboard_copy
 bind Y fish_clipboard_copy
 bind p fish_clipboard_paste
 
+# history
+bind -M default \cr history-pager
+bind -M insert \cr history-pager
+
 # paths
 fish_add_path $HOME/.cargo/bin
 fish_add_path $HOME/.local/bin
@@ -49,15 +53,6 @@ if status is-interactive
     # Zoxide
     if binary_exists zoxide
         zoxide init fish | source
-    end
-
-    if binary_exists mcfly
-        set -gx MCFLY_KEY_SCHEME vim
-        set -gx MCFLY_FUZZY 2
-        set -gx MCFLY_INTERFACE_VIEW TOP
-        set -gx MCFLY_DISABLE_MENU TRUE
-        set -gx MCFLY_PROMPT ">"
-        mcfly init fish | source
     end
 
     if binary_exists jj

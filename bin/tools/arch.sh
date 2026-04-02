@@ -96,7 +96,6 @@ pacman_deps=(
     ghostty
     fish
     tmux
-    mcfly
     bob             # neovim version manager
     tree-sitter-cli # needed to cache treesitter parsers
 

@@ -62,7 +62,6 @@ install_deps() {
         opencode
         jj
         responsively
-        mcfly
         gnupg
         pinentry-mac
         n
