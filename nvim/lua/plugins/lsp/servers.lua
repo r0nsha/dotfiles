@@ -40,6 +40,7 @@ local ensure_installed = {
   "ruff",
   "typstyle",
   "sqruff",
+  "kdlfmt",
 
   -- dap
   "js-debug-adapter",

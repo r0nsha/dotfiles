@@ -5,7 +5,7 @@ After=graphical-session.target
 
 [Service]
 Type=simple
-ExecStart=%h/dotfiles/scripts/volume-watcher.fish
+ExecStart=%h/.config/scripts/volume-watcher.fish
 Restart=on-failure
 RestartSec=5
 

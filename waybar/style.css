@@ -2,13 +2,14 @@
 
 * {
   font-family: BerkeleyMono Nerd Font Propo;
-  font-weight: bold;
-  font-size: 12px;
+  font-size: 16px;
+  font-style: oblique;
 }
 
 window#waybar {
-  all: unset;
-  color: @color7;
+  background: @background;
+  border-bottom: 1px solid @border;
+  color: @color15;
 }
 
 tooltip {
@@ -19,40 +20,16 @@ tooltip {
 }
 
 .modules-right {
-  margin-top: 8px;
-  margin-left: 8px;
-  margin-right: 8px;
   padding: 4px 16px;
-  background: @background;
-  border: 1px solid @border;
 }
 
-#submap,
 #workspaces,
 #tray {
-  margin-top: 8px;
-  margin-left: 8px;
   padding: 4px 8px;
-  background: @background;
-  border: 1px solid @border;
-}
-
-#submap {
-  background: @color5;
-  color: @background-opaque;
-}
-
-#tray {
-  background: rgba(0, 0, 0, 0.5);
 }
 
 #mpris {
-  margin-top: 8px;
-  margin-left: 8px;
-  margin-right: 8px;
   padding: 4px 16px;
-  background: @background;
-  border: 1px solid @border;
 }
 
 #pulseaudio,
@@ -74,13 +51,14 @@ tooltip {
 #workspaces button {
   all: unset;
   min-width: 0;
-  margin-left: 4px;
-  margin-right: 4px;
-  color: @color5;
+  margin-left: 8px;
+  margin-right: 8px;
+  color: @color15;
 }
 
 #workspaces button.active {
   color: @color15;
+  font-weight: bold;
 }
 
 #workspaces button.urgent {
@@ -90,7 +68,7 @@ tooltip {
 #tray menu {
   background: @background-opaque;
   border: 1px solid @border;
-  color: @color7;
+  color: @color15;
   border-radius: 0;
 }
 
@@ -106,12 +84,12 @@ tooltip {
 #mpris.paused,
 #mpris.stopped {
   opacity: 1;
-  color: @color6;
+  color: @color8;
 }
 
 #custom-recording,
 #privacy {
-  background: @color4-alpha;
+  background: @color4;
   border: 1px solid @color4;
   color: @background-opaque;
 }
@@ -121,11 +99,11 @@ tooltip {
 }
 
 #pulseaudio.muted {
-  color: @color6;
+  color: @color8;
 }
 
 #network.disabled {
-  color: @color6;
+  color: @color8;
 }
 
 #network.disconnected {

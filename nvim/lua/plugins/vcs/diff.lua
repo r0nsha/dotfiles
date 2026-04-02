@@ -13,6 +13,7 @@ require("codediff").setup({
       next_file = "<C-n>",
       prev_file = "<C-p>",
       toggle_stage = false,
+      focus_explorer = false,
     },
     explorer = {
       stage_all = false,

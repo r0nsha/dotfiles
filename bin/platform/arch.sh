@@ -81,6 +81,7 @@ pacman_deps=(
 
     # notifications
     libnotify
+    mako
 
     # clipboard
     wl-clipboard
@@ -107,7 +108,7 @@ pacman_deps=(
     ttf-iosevkatermslab-nerd
 
     # nvidia
-    nvidia
+    nvidia-open
     nvidia-utils
     lib32-nvidia-utils
     egl-wayland
@@ -117,15 +118,16 @@ pacman_deps=(
 
     # desktop
     xorg-xwayland
-    hyprland
+    xwayland-satellite
+    niri
     hyprlock
     hypridle
     hyprpicker
     hyprutils
     hyprpolkitagent
     xdg-desktop-portal
-    xdg-desktop-portal-gtk
-    xdg-desktop-portal-hyprland
+    xdg-desktop-portal-gnome
+    gnome-keyring
     qt5-wayland
     qt6-wayland
     qt6-multimedia-ffmpeg
@@ -187,7 +189,6 @@ install_wrapper rustup install_rust
 
 yay_deps=(
     qutebrowser-git
-    wired
     vesktop
     walcord
     bzmenu

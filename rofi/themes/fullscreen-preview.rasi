@@ -10,16 +10,16 @@
 @import "~/.cache/wal/rofi.rasi"
 
 * {
-	background-color: transparent;
-	text-color:       @fg;
+    background-color: transparent;
+    text-color:       @fg;
 }
 
 window {
-	fullscreen:       true;
-	background-color: transparent;
-	padding:          4em;
-	children:         [ wrap, listview-split];
-	spacing:          1em;
+    fullscreen:       true;
+    background-color: @bg;
+    padding:          4em;
+    children:         [ wrap, listview-split];
+    spacing:          1em;
 }
 
 
@@ -31,71 +31,71 @@ listview-split {
 }
 
 wrap {
-	expand: false;
-	orientation: vertical;
-	children: [ inputbar, message ];
-	background-color: @bg;
-	border-color: @border;
+    expand: false;
+    orientation: vertical;
+    children: [ inputbar, message ];
+    background-color: @bg;
+    border-color: @border;
     border: 2px;
 }
 
 icon-ib {
-	expand: false;
-	filename: "system-search";
-	vertical-align: 0.5;
-	horizontal-align: 0.5;
-	size: 0em;
+    expand: false;
+    filename: "system-search";
+    vertical-align: 0.5;
+    horizontal-align: 0.5;
+    size: 0em;
 }
 inputbar {
-	spacing: 0.4em;
-	padding: 0.4em;
-	children: [ icon-ib, entry ];
+    spacing: 0.4em;
+    padding: 0.4em;
+    children: [ icon-ib, entry ];
 }
 entry {
-	placeholder: "Search";
-	placeholder-color: @fg-dim;
+    placeholder: "Search";
+    placeholder-color: @fg-dim;
 }
 message {
-	background-color: @bg;
-	border-color: @urgent;
+    background-color: @bg;
+    border-color: @urgent;
     border: 2px 0px 0px 0px;
-	padding: 0.4em;
-	spacing: 0.4em;
+    padding: 0.4em;
+    spacing: 0.4em;
 }
 
 listview {
-	flow: horizontal;
-	fixed-columns: true;
-	columns: 7;
-	lines: 5;
-	spacing: 1.0em;
+    flow: horizontal;
+    fixed-columns: true;
+    columns: 7;
+    lines: 5;
+    spacing: 1.0em;
 }
 
 element {
-	orientation: vertical;
-	padding: 0.1em;
+    orientation: vertical;
+    padding: 0.1em;
 
-	background-color: @bg;
-	border-color: @border;
+    background-color: @bg;
+    border-color: @border;
     border: 2px;
 
     children: [element-icon, element-text ];
 }
 element-icon {
-	size: calc((100% / 4 ));
-	horizontal-align: 0.5;
-	vertical-align: 0.5;
+    size: calc((100% / 4 ));
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
 }
 element-text {
-	horizontal-align: 0.5;
-	vertical-align: 0.5;
-	padding: 0.2em;
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+    padding: 0.2em;
 }
 
 element selected {
-	background-color: @bg-active;
-	border-color: @bg-active;
-	border: 2px;
+    background-color: @bg-active;
+    border-color: @bg-active;
+    border: 2px;
 }
 
 /**
@@ -118,14 +118,14 @@ element selected {
 }
 
 @media ( enabled: env(NO_IMAGE, false)) {
-	listview {
-		columns: 1;
-		spacing: 0.4em;
-	}
-	element {
-		children: [ element-text ];
-	}
-	element-text {
-		horizontal-align: 0.0;
-	}
+    listview {
+    	columns: 1;
+    	spacing: 0.4em;
+    }
+    element {
+    	children: [ element-text ];
+    }
+    element-text {
+    	horizontal-align: 0.0;
+    }
 }

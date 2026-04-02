@@ -37,9 +37,9 @@ function show_notification
     end
 
     if test "$muted" = true
-        notify-send -a progress -t 1000 -h 'string:wired-tag:volume' -h "int:value:$volume" "$title volume muted" muted
+        notify-send -a progress -t 1000 -h "int:value:$volume" -h "string:x-dunst-stack-tag:volume-$type" "$title volume muted"
     else
-        notify-send -a progress -t 1000 -h 'string:wired-tag:volume' -h "int:value:$volume" "$title volume $volume%"
+        notify-send -a progress -t 1000 -h "int:value:$volume" -h "string:x-dunst-stack-tag:volume-$type" "$title volume $volume%"
     end
 end
 

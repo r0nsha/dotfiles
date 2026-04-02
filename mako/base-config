@@ -1,0 +1,41 @@
+# colors are managed by pywal via ~/.cache/wal/colors-mako
+
+# Base styling
+width=280
+height=100
+margin=4
+padding=4
+border-size=2
+border-radius=0
+font=BerkeleyMono Nerd Font Propo 10
+
+# Icons
+icons=1
+max-icon-size=40
+icon-location=left
+
+# Behavior
+default-timeout=10000
+ignore-timeout=0
+max-visible=5
+anchor=top-right
+
+# History
+history=1
+max-history=100
+
+# Format
+format=<b>%s</b>\n%b
+
+# Actions
+actions=1
+on-button-left=invoke-default-action
+on-button-right=dismiss
+on-button-middle=dismiss-all
+
+[app-name=progress]
+default-timeout=1000
+ignore-timeout=0
+
+[app-name=progress body="*volume*"]
+default-timeout=1000
