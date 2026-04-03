@@ -146,7 +146,6 @@ pacman_deps=(
     # apps
     steam
     shotcut
-    rqbit
     zathura
 
     # pdf
@@ -196,7 +195,6 @@ yay_deps=(
     pinentry-rofi
     python-pywal16
     python-colorthief
-    nyaa
     mpv-uosc-git
     mpv-thumbfast-git
     mpv-sponsorblock-git
