@@ -113,13 +113,13 @@ pacman_deps=(
     egl-wayland
     libva-nvidia-driver
     libva-utils
+    nvidia-settings
 
     # desktop
     xorg-xwayland
     hyprland
     hyprlock
     hypridle
-    hyprsunset
     hyprpicker
     hyprutils
     hyprpolkitagent
