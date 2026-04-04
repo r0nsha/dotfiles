@@ -1,12 +1,16 @@
 #!/usr/bin/env fish
 
-ln -sf ~/.config/wired.ron ~/.cache/wal/wired.ron
+mkdir -p ~/.config/wired
+rm -f ~/.config/wired/wired.ron
+ln -sf ~/.cache/wal/wired.ron ~/.config/wired/wired.ron
 
 mkdir -p ~/.config/qt5ct/colors
-ln -sf ~/.config/qt5ct/colors/colors.conf ~/.cache/wal/qt.conf
+rm -f ~/.config/qt5ct/colors/colors.conf
+ln -sf ~/.cache/wal/qt.conf ~/.config/qt5ct/colors/colors.conf
 
 mkdir -p ~/.config/qt6ct/colors
-ln -sf ~/.config/qt6ct/colors/colors.conf ~/.cache/wal/qt.conf
+rm -f ~/.config/qt6ct/colors/colors.conf
+ln -sf ~/.cache/wal/qt.conf ~/.config/qt6ct/colors/colors.conf
 
 ln -sf ~/.config/kitty/theme_(get_theme).conf ~/.config/kitty/current_theme.conf
 mkdir -p ~/.cache/ghostty
