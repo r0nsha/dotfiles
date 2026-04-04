@@ -18,26 +18,6 @@ function type_target
     end
 end
 
-function notify_volume
-    set -l type $argv[1]
-    set -l target (type_target $type)
-    set -l title (switch $type
-        case sink
-            echo "󰓃 Output"
-        case source
-            echo "󰍬 Input"
-    end)
-
-    set -l muted (pamixer $target --get-mute)
-    set -l volume (pamixer $target --get-volume)
-
-    if "$muted" == true
-        notify-send -a progress -t 1000 -h 'string:wired-tag:volume' -h "int:value:$volume" "$title volume muted" muted
-    else
-        notify-send -a progress -t 1000 -h 'string:wired-tag:volume' -h "int:value:$volume" "$title volume $volume%"
-    end
-end
-
 function notify_brightness
     set -l gamma (hyprctl hyprsunset gamma)
     set -l gamma (math "round(($gamma / 150) * 100)")
@@ -70,7 +50,6 @@ function update_volume
     set -l new_volume (math "round(($current_volume $op 5) / 5.0) * 5")
     pamixer $target --set-volume $new_volume
     update_mute $target
-    notify_volume $type
 end
 
 switch $argv[1]
@@ -86,7 +65,6 @@ switch $argv[1]
                 update_volume $target $type -
             case mute
                 pamixer $target --toggle-mute
-                notify_volume $type
         end
     case brightness
         set -l action $argv[2]

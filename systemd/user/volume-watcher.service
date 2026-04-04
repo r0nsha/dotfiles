@@ -1,0 +1,13 @@
+[Unit]
+Description=Volume Watcher Daemon
+Documentation=man:pactl(1)
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=%h/dotfiles/scripts/volume-watcher.fish
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target
