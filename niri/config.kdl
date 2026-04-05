@@ -43,7 +43,7 @@ layout {
     }
     border {
         width 4
-        active-color "#c1c1c1"
+        active-color "#fafafa"
         inactive-color "#505050"
     }
 }
