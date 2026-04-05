@@ -81,6 +81,7 @@ pacman_deps=(
 
     # notifications
     libnotify
+    mako
 
     # clipboard
     wl-clipboard
@@ -96,7 +97,6 @@ pacman_deps=(
     ghostty
     fish
     tmux
-    mcfly
     bob             # neovim version manager
     tree-sitter-cli # needed to cache treesitter parsers
 
@@ -108,25 +108,26 @@ pacman_deps=(
     ttf-iosevkatermslab-nerd
 
     # nvidia
-    nvidia
+    nvidia-open
     nvidia-utils
     lib32-nvidia-utils
     egl-wayland
     libva-nvidia-driver
     libva-utils
+    nvidia-settings
 
     # desktop
     xorg-xwayland
-    hyprland
+    xwayland-satellite
+    niri
     hyprlock
     hypridle
-    hyprsunset
     hyprpicker
     hyprutils
     hyprpolkitagent
     xdg-desktop-portal
-    xdg-desktop-portal-gtk
-    xdg-desktop-portal-hyprland
+    xdg-desktop-portal-gnome
+    gnome-keyring
     qt5-wayland
     qt6-wayland
     qt6-multimedia-ffmpeg
@@ -147,7 +148,6 @@ pacman_deps=(
     # apps
     steam
     shotcut
-    rqbit
     zathura
 
     # pdf
@@ -189,7 +189,6 @@ install_wrapper rustup install_rust
 
 yay_deps=(
     qutebrowser-git
-    wired
     vesktop
     walcord
     bzmenu
@@ -197,7 +196,6 @@ yay_deps=(
     pinentry-rofi
     python-pywal16
     python-colorthief
-    nyaa
     mpv-uosc-git
     mpv-thumbfast-git
     mpv-sponsorblock-git

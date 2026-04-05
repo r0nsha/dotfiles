@@ -47,6 +47,8 @@ local parsers = {
   "typst",
   "comment",
   "prisma",
+  "ron",
+  "kdl",
 }
 
 ts.install(parsers)

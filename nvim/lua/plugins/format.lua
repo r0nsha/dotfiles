@@ -36,6 +36,7 @@ conform.setup({
     },
     typst = { "typstyle" },
     sql = { "sqruff" },
+    kdl = { "kdlfmt" },
     ["_"] = { "trim_whitespace" },
   },
   default_format_opts = {

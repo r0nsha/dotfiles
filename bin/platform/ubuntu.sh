@@ -151,7 +151,7 @@ install_rofimoji() {
 }
 
 install_cargo_deps() {
-    cargo install bat skim mcfly sd xcolor --locked
+    cargo install bat skim sd xcolor --locked
 }
 
 # apt deps

@@ -1,0 +1,520 @@
+// https://yalter.github.io/niri/Configuration:-Input
+input {
+    keyboard {
+        xkb {
+            layout "us,il"
+            options "grp:win_space_toggle"
+        }
+        repeat-delay 300
+        repeat-rate 50
+    }
+    touchpad {
+        tap
+        natural-scroll
+        accel-speed 0
+    }
+    mouse {
+        accel-speed 0
+    }
+    warp-mouse-to-focus
+    focus-follows-mouse max-scroll-amount="0%"
+}
+output "DP-4" {
+    mode "5120x1440@119.99900"
+}
+gestures {
+    hot-corners {
+        off
+    }
+}
+layout {
+    gaps 0
+    center-focused-column "never"
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+    }
+    default-column-width {
+        proportion 0.5
+    }
+    focus-ring {
+        off
+    }
+    border {
+        width 4
+        active-color "#c1c1c1"
+        inactive-color "#505050"
+    }
+}
+recent-windows {
+    debounce-ms 750
+    open-delay-ms 150
+    highlight {
+        active-color "#999999ff"
+        urgent-color "#707070ff"
+        padding 30
+        corner-radius 0
+    }
+    previews {
+        max-height 480
+        max-scale 0.5
+    }
+    binds {
+        Mod+Tab {
+            next-window
+        }
+        Mod+Shift+Tab {
+            previous-window
+        }
+ // Mod+grave {
+        //     next-window filter="app-id"
+        // }
+        // Mod+Shift+grave {
+        //     previous-window filter="app-id"
+        // }
+        // Mod+Tab {
+        //     next-window
+        // }
+        // Mod+Shift+Tab {
+        //     previous-window
+        // }
+        // Mod+grave {
+        //     next-window filter="app-id"
+        // }
+        // Mod+Shift+grave {
+        //     previous-window filter="app-id"
+        // }
+    }
+}
+// Misc
+cursor {
+    hide-when-typing
+}
+overview {
+    zoom 0.5
+    backdrop-color "#0a0a0a"
+}
+hotkey-overlay {
+    skip-at-startup
+}
+prefer-no-csd
+screenshot-path "~/pictures/screenshots/%d-%m-%Y_%Hh%Mm%Ss.png"
+animations {
+    slowdown 0.75
+}
+// Startup
+spawn-at-startup "systemctl --user start hyprpolkitagent"
+spawn-at-startup "playerctld" "daemon"
+spawn-at-startup "udiskie" "--smart-tray"
+spawn-at-startup "awww-daemon"
+spawn-sh-at-startup "~/.config/scripts/randomize_background.fish ~/pictures/backgrounds"
+spawn-at-startup "mako"
+spawn-at-startup "wl-paste" "--type" "text" "--watch" "cliphist" "store"
+spawn-at-startup "wl-paste" "--type" "image" "--watch" "cliphist" "store"
+spawn-at-startup "hypridle"
+spawn-at-startup "waybar"
+spawn-sh-at-startup "~/.config/scripts/theme_watcher.fish"
+spawn-at-startup "ghostty"
+spawn-at-startup "qutebrowser"
+environment {
+    // Terminal
+    TERMINAL "ghostty"
+    TERMCMD "ghostty"
+    VISUAL "nvim"
+    EDITOR "nvim"
+    BROWSER "qutebrowser"
+    MANPAGER "nvim +Man!"
+    // NVidia
+    GDK_BACKEND "wayland,x11"
+    GBM_BACKEND "nvidia-drm"
+    LIBVA_DRIVER_NAME "nvidia"
+    __GLX_VENDOR_LIBRARY_NAME "nvidia"
+    SDL_VIDEODRIVER "wayland"
+    CLUTTER_BACKEND "wayland"
+    MOZ_ENABLE_WAYLAND "1"
+    MOZ_DISABLE_RDD_SANDBOX "1"
+    _JAVA_AWT_WM_NONREPARENTING "1"
+    QT_AUTO_SCREEN_SCALE_FACTOR "1"
+    QT_QPA_PLATFORM "wayland"
+    PROTON_ENABLE_NGX_UPDATER "1"
+    NVD_BACKEND "direct"
+    __GL_GSYNC_ALLOWED "1"
+    __GL_VRR_ALLOWED "1"
+    // WLR_DRM_NO_ATOMIC "1"
+    // WLR_NO_HARDWARE_CURSORS "1"
+    // WLR_RENDERER_ALLOW_SOFTWARE "1"
+    // WLR_USE_LIBINPUT "1"
+    // Electron
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
+    // Qt
+    QT_QPA_PLATFORMTHEME "qt6ct"
+}
+// Open the Firefox picture-in-picture player as floating by default.
+window-rule {
+    match app-id="firefox$" title="^Picture-in-Picture$"
+    open-floating true
+}
+window-rule {
+    draw-border-with-background true
+}
+// Indicate screencasted windows with red colors.
+window-rule {
+    match is-window-cast-target=true
+    border {
+        on
+        active-color "#e51651"
+        inactive-color "#990f36"
+    }
+}
+// Block out mako notifications from screencasts.
+layer-rule {
+    match namespace="^notifications$"
+    opacity 0.9
+    block-out-from "screencast"
+}
+binds {
+    Mod+Shift+Slash {
+        show-hotkey-overlay
+    }
+    Mod+Left {
+        focus-column-left
+    }
+    Mod+Down {
+        focus-window-or-workspace-down
+    }
+    Mod+Up {
+        focus-window-or-workspace-up
+    }
+    Mod+Right {
+        focus-column-right
+    }
+    Mod+H {
+        focus-column-left
+    }
+    Mod+J {
+        focus-window-or-workspace-down
+    }
+    Mod+K {
+        focus-window-or-workspace-up
+    }
+    Mod+L {
+        focus-column-right
+    }
+    Mod+Shift+Left {
+        move-column-left
+    }
+    Mod+Shift+Down {
+        move-window-down-or-to-workspace-down
+    }
+    Mod+Shift+Up {
+        move-window-up-or-to-workspace-up
+    }
+    Mod+Shift+Right {
+        move-column-right
+    }
+    Mod+Shift+H {
+        move-column-left
+    }
+    Mod+Shift+J {
+        move-window-down-or-to-workspace-down
+    }
+    Mod+Shift+K {
+        move-window-up-or-to-workspace-up
+    }
+    Mod+Shift+L {
+        move-column-right
+    }
+    Mod+Ctrl+Shift+L {
+        move-column-to-first
+    }
+    Mod+Ctrl+Shift+H {
+        move-column-to-last
+    }
+    Mod+Minus {
+        set-column-width "-10%"
+    }
+    Mod+Equal {
+        set-column-width "+10%"
+    }
+    Mod+Shift+Minus {
+        set-window-height "-10%"
+    }
+    Mod+Shift+Equal {
+        set-window-height "+10%"
+    }
+    Mod+1 {
+        focus-workspace 1
+    }
+    Mod+2 {
+        focus-workspace 2
+    }
+    Mod+3 {
+        focus-workspace 3
+    }
+    Mod+4 {
+        focus-workspace 4
+    }
+    Mod+5 {
+        focus-workspace 5
+    }
+    Mod+6 {
+        focus-workspace 6
+    }
+    Mod+7 {
+        focus-workspace 7
+    }
+    Mod+8 {
+        focus-workspace 8
+    }
+    Mod+9 {
+        focus-workspace 9
+    }
+    Mod+Shift+1 {
+        move-column-to-workspace 1
+    }
+    Mod+Shift+2 {
+        move-column-to-workspace 2
+    }
+    Mod+Shift+3 {
+        move-column-to-workspace 3
+    }
+    Mod+Shift+4 {
+        move-column-to-workspace 4
+    }
+    Mod+Shift+5 {
+        move-column-to-workspace 5
+    }
+    Mod+Shift+6 {
+        move-column-to-workspace 6
+    }
+    Mod+Shift+7 {
+        move-column-to-workspace 7
+    }
+    Mod+Shift+8 {
+        move-column-to-workspace 8
+    }
+    Mod+Shift+9 {
+        move-column-to-workspace 9
+    }
+    Mod+Alt+H {
+        focus-monitor-left
+    }
+    Mod+Alt+J {
+        focus-monitor-down
+    }
+    Mod+Alt+K {
+        focus-monitor-up
+    }
+    Mod+Alt+L {
+        focus-monitor-right
+    }
+    Mod+Alt+Left {
+        focus-monitor-left
+    }
+    Mod+Alt+Down {
+        focus-monitor-down
+    }
+    Mod+Alt+Up {
+        focus-monitor-up
+    }
+    Mod+Alt+Right {
+        focus-monitor-right
+    }
+    Mod+Alt+Shift+H {
+        move-column-to-monitor-left
+    }
+    Mod+Alt+Shift+J {
+        move-column-to-monitor-down
+    }
+    Mod+Alt+Shift+K {
+        move-column-to-monitor-up
+    }
+    Mod+Alt+Shift+L {
+        move-column-to-monitor-right
+    }
+    Mod+Alt+Shift+Left {
+        move-column-to-monitor-left
+    }
+    Mod+Alt+Shift+Down {
+        move-column-to-monitor-down
+    }
+    Mod+Alt+Shift+Up {
+        move-column-to-monitor-up
+    }
+    Mod+Alt+Shift+Right {
+        move-column-to-monitor-right
+    }
+    Mod+Comma {
+        consume-window-into-column
+    }
+    Mod+Shift+Comma {
+        expel-window-from-column
+    }
+    Mod+R {
+        switch-preset-column-width
+    }
+    Mod+Shift+R {
+        switch-preset-window-height
+    }
+    Mod+Ctrl+R {
+        reset-window-height
+    }
+    Mod+M {
+        expand-column-to-available-width
+    }
+    Mod+Shift+M {
+        maximize-column
+    }
+    Mod+Ctrl+Shift+M {
+        fullscreen-window
+    }
+    Mod+Period {
+        center-column
+    }
+    Mod+Shift+Period {
+        center-visible-columns
+    }
+    Mod+F {
+        switch-focus-between-floating-and-tiling
+    }
+    Mod+Shift+F {
+        toggle-window-floating
+    }
+    // Media
+    XF86AudioRaiseVolume allow-when-locked=true {
+        spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"
+    }
+    XF86AudioLowerVolume allow-when-locked=true {
+        spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"
+    }
+    XF86AudioMute allow-when-locked=true {
+        spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+    }
+    Mod+XF86AudioRaiseVolume allow-when-locked=true {
+        spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 0.1+ -l 1.0"
+    }
+    Mod+XF86AudioLowerVolume allow-when-locked=true {
+        spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 0.1-"
+    }
+    Mod+XF86AudioMute allow-when-locked=true {
+        spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+    }
+    XF86AudioMicMute allow-when-locked=true {
+        spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+    }
+    XF86AudioPlay allow-when-locked=true {
+        spawn-sh "playerctl play-pause"
+    }
+    XF86AudioPause allow-when-locked=true {
+        spawn-sh "playerctl play-pause"
+    }
+    XF86AudioStop allow-when-locked=true {
+        spawn-sh "playerctl stop"
+    }
+    XF86AudioPrev allow-when-locked=true {
+        spawn-sh "playerctl previous"
+    }
+    XF86AudioNext allow-when-locked=true {
+        spawn-sh "playerctl next"
+    }
+    Print {
+        spawn-sh "~/.config/rofi/scripts/rofi-screen.fish"
+    }
+    Ctrl+Print {
+        spawn-sh "~/.config/scripts/screen.fish --action=shot --region=region --to=clipboard"
+    }
+    Ctrl+Shift+Print {
+        spawn-sh "~/.config/scripts/screen.fish --action=shot --region=region --to=ui"
+    }
+    Alt+Print {
+        spawn-sh "~/.config/scripts/screen.fish --action=record --region=region --to=file"
+    }
+    Mod+Slash hotkey-overlay-title="Rofi" {
+        spawn "rofi" "-modi" "drun,run" "-show" "drun" "-show-icons"
+    }
+    Mod+T hotkey-overlay-title="Spawn Terminal" {
+        spawn "ghostty"
+    }
+    Mod+B hotkey-overlay-title="Spawn Browser" {
+        spawn "qutebrowser"
+    }
+    Mod+Alt+B hotkey-overlay-title="Spawn Browser (Private)" {
+        spawn "qutebrowser" "--target" "private-window" "-s" "content.private_browsing" "True"
+    }
+    Mod+Shift+Escape {
+        spawn-sh "rofi -show power-menu -modi power-menu:~/.config/rofi/scripts/rofi-power-menu.sh -theme-str 'window {width: 5%; height: 20%;}'"
+    }
+    Mod+C {
+        spawn-sh "~/.config/rofi/scripts/rofi-clip.fish"
+    }
+    Mod+Alt+C {
+        spawn-sh "rofi -modi clipboard:~/.config/rofi/scripts/rofi-clip-img.sh -show clipboard -show-icons -display-columns 2 -theme fullscreen-preview.rasi"
+    }
+    Mod+Ctrl+C {
+        spawn-sh "rofi -show calc -modi calc -no-show-match -no-sort"
+    }
+    Mod+Shift+C {
+        spawn-sh "hyprpicker --autocopy --format=hex --lowercase-hex"
+    }
+    Mod+P {
+        spawn-sh "~/.config/rofi/scripts/rofi-pass.fish"
+    }
+    Mod+Alt+P {
+        spawn-sh "~/.config/rofi/scripts/rofi-pass.fish show-last"
+    }
+    Mod+Shift+P {
+        spawn-sh "~/.config/rofi/scripts/rofi-pass.fish insert"
+    }
+    Mod+E {
+        spawn-sh "rofimoji --keybinding-copy alt-c"
+    }
+    Mod+Shift+B {
+        spawn-sh "~/.config/rofi/scripts/rofi-background.fish ~/pictures/backgrounds"
+    }
+    // Settings
+    Mod+Ctrl+B {
+        spawn "bzmenu" "-l" "rofi"
+    }
+    Mod+Ctrl+W {
+        spawn "iwmenu" "-l" "rofi"
+    }
+    Mod+Ctrl+S {
+        spawn-sh "~/.config/rofi/scripts/rofi-sound.fish"
+    }
+    Mod+Ctrl+D {
+        spawn-sh "~/.config/rofi/scripts/rofi-systemd.sh"
+    }
+    Mod+Ctrl+U {
+        spawn-sh "~/.config/rofi/scripts/rofi-usb.fish"
+    }
+    Mod+Ctrl+K {
+        spawn-sh "~/.config/rofi/scripts/rofi-kill.fish"
+    }
+    // Misc
+    Mod+Shift+T repeat=false {
+        spawn-sh "~/.config/scripts/set_theme.fish toggle"
+    }
+    Mod+N {
+        spawn-sh "~/.config/scripts/notification.fish --drop latest"
+    }
+    Mod+Shift+N {
+        spawn-sh "~/.config/scripts/notification.fish --drop all"
+    }
+    Mod+O repeat=false {
+        toggle-overview
+    }
+    Mod+Q repeat=false {
+        close-window
+    }
+    Mod+Escape {
+        spawn "hyprlock"
+    }
+    Mod+Alt+Ctrl+Shift+BackSpace allow-inhibiting=false {
+        toggle-keyboard-shortcuts-inhibit
+    }
+    Mod+Alt+Ctrl+Shift+Escape allow-inhibiting=false {
+        quit
+    }
+}
+

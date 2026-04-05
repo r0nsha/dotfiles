@@ -51,7 +51,7 @@ success
 
 # install tools
 step "tools"
-source "$DOTFILES/bin/tools.sh"
+source "$DOTFILES/bin/platform.sh"
 success
 
 if [ ! -d "$PICTURES/backgrounds" ]; then
@@ -87,9 +87,15 @@ ln -sfv "$DOTFILES/.pam-gnupg" "$HOME/.pam-gnupg"
 mkdir -p "$HOME/.ssh"
 ln -sfv "$DOTFILES/ssh/config" ~/.ssh/config
 
-# ly
 if [ "$MACHINE" = "linux" ]; then
+    # ly
     sudo ln -sfv "$DOTFILES/ly/config.ini" /etc/ly/config.ini
+
+    # systemd
+    step "systemd: enable services"
+    systemctl --user daemon-reload
+    systemctl --user enable $(cd "$DOTFILES/systemd/user" && echo *.service)
+    success
 fi
 
 # macos defaults
