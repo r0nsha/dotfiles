@@ -19,15 +19,15 @@ width = 4.0
 radius = 8.0
 
 [bindings]
-window_focus_west = ["alt - leftarrow", "alt - h"]
-window_focus_south = ["alt - downarrow", "alt - j"]
-window_focus_north = ["alt - uparrow", "alt - k"]
-window_focus_east = ["alt - rightarrow", "alt - l"]
+window_focus_west = "alt - h"
+window_focus_south = "alt - j"
+window_focus_north = "alt - k"
+window_focus_east = "alt - l"
 
-window_swap_west = ["alt + shift - leftarrow", "alt + shift - h"]
-window_swap_south = ["alt + shift - downarrow", "alt + shift - j"]
-window_swap_north = ["alt + shift - uparrow", "alt + shift - k"]
-window_swap_east = ["alt + shift - rightarrow", "alt + shift - l"]
+window_swap_west = "alt + shift - h"
+window_swap_south = "alt + shift - j"
+window_swap_north = "alt + shift - k"
+window_swap_east = "alt + shift - l"
 
 window_swap_first = "alt + ctrl + shift - l"
 window_swap_last = "alt + ctrl + shift - h"
@@ -42,10 +42,10 @@ window_resize = "alt - r"
 window_fullwidth = "alt - m"
 window_manage = "alt - f"
 
-window_virtual_north = ["cmd + shift - k", "cmd + shift - uparrow"]
-window_virtual_south = ["cmd + shift - j", "cmd + shift - downarrow"]
-window_virtualmove_north = ["cmd + alt - k", "cmd + alt - uparrow"]
-window_virtualmove_south = ["cmd + alt - j", "cmd + alt - downarrow"]
+window_virtual_north = "cmd + shift - k"
+window_virtual_south = "cmd + shift - j"
+window_virtualmove_north = "cmd + ctrl - k"
+window_virtualmove_south = "cmd + ctrl - j"
 
 [windows.pip]
 title = "^Picture-in-Picture$"
