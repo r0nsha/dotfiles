@@ -3,8 +3,6 @@ vim.api.nvim_create_autocmd("LspProgress", {
   callback = function(ev)
     local value = ev.data.params.value or {}
     local msg = value.message or "done"
-
-    -- rust-analyzer in particular sends extremely long messages
     if #msg > 40 then msg = msg:sub(1, 37) .. "..." end
 
     vim.api.nvim_echo({ { msg } }, false, {
