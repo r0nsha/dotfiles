@@ -1,5 +1,5 @@
 [options]
-focus_follows_mouse = true
+focus_follows_mouse = false
 mouse_follows_focus = true
 auto_center = false
 preset_column_widths = [0.33333, 0.5, 0.66667]
