@@ -66,7 +66,7 @@ install_deps() {
         pinentry-mac
         n
         go
-        # nikitabobko/tap/aerospace
+        nikitabobko/tap/aerospace
         fontforge
     )
 
@@ -82,4 +82,4 @@ gpg-connect-agent reloadagent /bye
 
 # install paneru's testing branch until virtual workspaces are merged
 # https://github.com/karinushka/paneru/issues/119
-cargo install --git https://github.com/karinushka/paneru --branch testing paneru
+# cargo install --git https://github.com/karinushka/paneru --branch testing paneru
