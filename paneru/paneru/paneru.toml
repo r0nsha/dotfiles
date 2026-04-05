@@ -3,7 +3,7 @@ focus_follows_mouse = true
 mouse_follows_focus = true
 auto_center = false
 preset_column_widths = [0.33333, 0.5, 0.66667]
-animation_speed = 100
+animation_speed = 4000
 
 [padding]
 top = 0
