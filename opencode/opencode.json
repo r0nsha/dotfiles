@@ -1,56 +1,57 @@
 {
-  "$schema": "https://opencode.ai/config.json",
-  "permission": {
-    "bash": {
-      "rm*": "ask",
-      "git push*": "ask",
-      "git checkout*": "ask",
-      "git commit*": "ask",
-      "git reset*": "ask",
-      "jj ci*": "ask",
-      "jj commit*": "ask",
-      "jj new*": "ask",
-      "jj b*": "ask",
-      "jj restore*": "ask",
-      "jj abandon*": "ask",
-      "sudo pacman*": "ask",
-      "sudo apt*": "ask",
-      "yay*": "ask",
-      "brew install*": "ask",
-      "brew upgrade*": "ask",
-      "brew uninstall*": "ask",
-      "cargo install*": "ask",
-      "pipx install*": "ask",
-      "npm install -g*": "ask",
-      "curl*|*bash": "ask",
-      "wget*|*bash": "ask",
-      "sudo systemctl enable*": "ask",
-      "sudo systemctl disable*": "ask",
-      "sudo systemctl start*": "ask",
-      "sudo systemctl stop*": "ask",
-      "sudo usermod*": "ask",
-      "sudo gpasswd*": "ask",
-      "chsh*": "ask",
-      "stow*": "ask",
-      "kill *": "ask",
-      "killall*": "ask",
-      "pkill*": "ask",
-      "systemctl reboot*": "ask",
-      "systemctl poweroff*": "ask",
-      "systemctl hibernate*": "ask",
-      "nmcli*": "ask",
-      "docker run*": "ask"
-    }
-  },
-  "mcp": {
-    "context7": {
-      "type": "remote",
-      "url": "https://mcp.context7.com/mcp"
+    "$schema": "https://opencode.ai/config.json",
+    "permission": {
+        "bash": {
+            "rm*": "ask",
+            "git push*": "ask",
+            "git checkout*": "ask",
+            "git commit*": "ask",
+            "git reset*": "ask",
+            "jj ci*": "ask",
+            "jj commit*": "ask",
+            "jj new*": "ask",
+            "jj b*": "ask",
+            "jj restore*": "ask",
+            "jj abandon*": "ask",
+            "sudo pacman*": "ask",
+            "sudo apt*": "ask",
+            "yay*": "ask",
+            "paru*": "ask",
+            "brew install*": "ask",
+            "brew upgrade*": "ask",
+            "brew uninstall*": "ask",
+            "cargo install*": "ask",
+            "pipx install*": "ask",
+            "npm install -g*": "ask",
+            "curl*|*bash": "ask",
+            "wget*|*bash": "ask",
+            "sudo systemctl enable*": "ask",
+            "sudo systemctl disable*": "ask",
+            "sudo systemctl start*": "ask",
+            "sudo systemctl stop*": "ask",
+            "sudo usermod*": "ask",
+            "sudo gpasswd*": "ask",
+            "chsh*": "ask",
+            "stow*": "ask",
+            "kill *": "ask",
+            "killall*": "ask",
+            "pkill*": "ask",
+            "systemctl reboot*": "ask",
+            "systemctl poweroff*": "ask",
+            "systemctl hibernate*": "ask",
+            "nmcli*": "ask",
+            "docker run*": "ask"
+        }
     },
-    "atlassian": {
-      "type": "remote",
-      "url": "https://mcp.atlassian.com/v1/mcp"
-    }
-  },
-  "snapshot": false
+    "mcp": {
+        "context7": {
+            "type": "remote",
+            "url": "https://mcp.context7.com/mcp"
+        },
+        "atlassian": {
+            "type": "remote",
+            "url": "https://mcp.atlassian.com/v1/mcp"
+        }
+    },
+    "snapshot": false
 }
