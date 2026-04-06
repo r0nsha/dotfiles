@@ -7,8 +7,7 @@ require("plugins.mini.hipatterns")
 require("plugins.mini.icons")
 require("plugins.mini.jump")
 require("plugins.mini.move")
-require("plugins.mini.notify")
+-- require("plugins.mini.notify")
 -- require "plugins.mini.pick"
--- require "plugins.mini.notify"
 require("plugins.mini.snippets")
 require("plugins.mini.surround")
