@@ -56,7 +56,7 @@
     },
     "hunk.nvim": {
       "rev": "a73c34934e87af4f2e615fea3a57ee28b2dceec8",
-      "src": "https://github.com/julienvincent/hunk.nvim"
+      "src": "https://github.com/r0nsha/hunk.nvim"
     },
     "hydra.nvim": {
       "rev": "8c4a9f621ec7cdc30411a1f3b6d5eebb12b469dc",

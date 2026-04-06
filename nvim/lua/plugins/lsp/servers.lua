@@ -9,10 +9,8 @@ local servers = {
   jsonls = { name = "json-lsp" },
   yamlls = { name = "yaml-language-server" },
   taplo = {},
-  basedpyright = {},
   marksman = {},
   tinymist = {},
-  astro = { name = "astro-language-server" },
   mdx_analyzer = { name = "mdx-analyzer" },
   bashls = { name = "bash-language-server" },
   fish_lsp = { name = "fish-lsp" },
@@ -49,7 +47,6 @@ local ensure_installed = {
   "eslint_d",
 }
 
--- Add server names from servers with name field
 for name, config in pairs(servers) do
   ---@type string
   local server_name

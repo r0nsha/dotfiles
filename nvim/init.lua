@@ -2,6 +2,7 @@ require("extensions")
 require("config")
 require("pass")
 require("colors")
+require("notify")
 
 vim.cmd.packadd("nvim.undotree")
 
@@ -49,7 +50,9 @@ vim.pack.add({
   { src = "https://github.com/esmuellert/codediff.nvim" },
   { src = "https://github.com/ruifm/gitlinker.nvim" },
   { src = "https://github.com/MunifTanjim/nui.nvim" },
-  { src = "https://github.com/julienvincent/hunk.nvim" },
+  -- TODO: using fork, waiting for https://github.com/julienvincent/hunk.nvim/pull/44 to be merged
+  -- { src = "https://github.com/julienvincent/hunk.nvim" },
+  { src = "https://github.com/r0nsha/hunk.nvim" },
   { src = "https://github.com/rafikdraoui/jj-diffconflicts" },
   { src = "https://github.com/avm99963/vim-jjdescription" },
   { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },

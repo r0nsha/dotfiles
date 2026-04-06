@@ -168,13 +168,13 @@ pacman_deps=(
 
 sudo pacman -Syu --noconfirm ${pacman_deps[@]}
 
-install_yay() {
+install_paru() {
     cd $DOWNLOADS
-    git clone https://aur.archlinux.org/yay.git
-    cd yay
+    git clone https://aur.archlinux.org/paru.git
+    cd paru
     makepkg -si --noconfirm
-    yay -Y --gendb
-    yay -Syu --noconfirm --devel --save
+    paru --gendb
+    paru -Syu --noconfirm --devel
 }
 
 install_rust() {
@@ -184,10 +184,10 @@ install_rust() {
     cargo install cargo-update
 }
 
-install_wrapper yay install_yay
+install_wrapper paru install_paru
 install_wrapper rustup install_rust
 
-yay_deps=(
+aur_deps=(
     qutebrowser-git
     vesktop
     walcord
@@ -210,7 +210,7 @@ yay_deps=(
     stremio
 )
 
-yay -Syu --noconfirm ${yay_deps[@]}
+paru -Syu --noconfirm ${aur_deps[@]}
 
 # ly
 sudo systemctl enable ly.service
