@@ -157,8 +157,8 @@ return {
       win = {
         input = {
           keys = {
-            ["<C-h>"] = { "toggle_hidden", mode = { "n", "i" } },
-            ["<C-i>"] = { "toggle_ignored", mode = { "n", "i" } },
+            ["<C-A-h>"] = { "toggle_hidden", mode = { "n", "i" } },
+            ["<C-A-i>"] = { "toggle_ignored", mode = { "n", "i" } },
             ["<A-d>"] = { "diffsplit", mode = { "n", "i" } },
           },
         },
