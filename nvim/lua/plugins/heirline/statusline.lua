@@ -7,7 +7,7 @@ local redrawstatus = vim.schedule_wrap(function() vim.cmd.redrawstatus() end)
 local function active_fg() return cond.is_active() and "fg_active" or "fg_inactive" end
 
 local function update_on(events)
-  return vim.tbl_extend("keep", events, {
+  return vim.tbl_extend("force", {
     "WinEnter",
     "BufWinEnter",
     "WinLeave",
@@ -15,7 +15,7 @@ local function update_on(events)
     "FocusGained",
     "FocusLost",
     callback = redrawstatus,
-  })
+  }, events)
 end
 
 local Align = { provider = "%=" }
@@ -34,68 +34,28 @@ local Mode = {
   static = {
     mode_names = {
       n = "NOR",
-      no = "NOR?",
-      nov = "NOR?",
-      noV = "NOR?",
-      ["no\22"] = "NOR?",
-      niI = "NORi",
-      niR = "NORr",
-      niV = "NORv",
-      nt = "NORt",
+      i = "INS",
       v = "VIS",
-      vs = "VIS",
-      V = "VIL",
-      Vs = "VIS",
-      ["\22"] = "VIB",
-      ["\22s"] = "VIB",
+      V = "VIS",
+      ["\22"] = "VIS",
       s = "SEL",
       S = "SEL",
-      ["\19"] = "SEB",
-      i = "INS",
-      ic = "INSc",
-      ix = "INSx",
+      ["\19"] = "SEL",
       R = "REP",
-      Rc = "REPc",
-      Rx = "REPx",
-      Rv = "REPv",
-      Rvc = "REPvc",
-      Rvx = "REPvx",
       c = "CMD",
-      cv = "EX",
-      r = "...",
-      rm = "RM",
-      ["r?"] = "?",
+      t = "TRM",
       ["!"] = "!",
-      t = "TERM",
-    },
-    mode_colors = {
-      n = "fg",
-      i = "green",
-      v = "blue",
-      V = "blue",
-      ["\22"] = "blue",
-      c = "orange",
-      s = "purple",
-      S = "purple",
-      ["\19"] = "purple",
-      R = "orange",
-      r = "orange",
-      ["!"] = "gray",
-      t = "gray",
     },
   },
   provider = function(self)
-    local name = self.hydra_mode or self.mode_names[self.mode]
-    return " %-5(" .. name .. "%)"
+    local name = self.hydra_mode
+    if not name then
+      local mode_char = self.mode:sub(1, 1)
+      name = self.mode_names[mode_char] or mode_char:upper()
+    end
+    return "%-5(" .. name .. "%)"
   end,
-  hl = function(self)
-    local hydra_color = hydra and hydra.get_color() or nil
-    if hydra_color then return { fg = hydra_color, bold = false } end
-
-    local mode = self.mode:sub(1, 1) -- get only the first mode character
-    local fg = cond.is_active() and self.mode_colors[mode] or "fg_inactive"
-    return { fg = fg, bold = false }
-  end,
+  hl = function() return { fg = hydra and hydra.get_color() or active_fg() } end,
   update = update_on({ "ModeChanged", "User" }),
 }
 
@@ -106,9 +66,7 @@ local FileBlock = {
   end,
   hl = function()
     local color = vim.bo.modified and "blue" or active_fg()
-
     if not vim.bo.modifiable or vim.bo.readonly then color = "gray" end
-
     return { fg = color }
   end,
 }
@@ -178,10 +136,11 @@ end
 local Diagnostics = {
   condition = cond.has_diagnostics,
   init = function(self)
-    self.errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
-    self.warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
-    self.hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
-    self.infos = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
+    local counts = vim.diagnostic.count(0)
+    self.errors = counts[vim.diagnostic.severity.ERROR] or 0
+    self.warnings = counts[vim.diagnostic.severity.WARN] or 0
+    self.hints = counts[vim.diagnostic.severity.HINT] or 0
+    self.infos = counts[vim.diagnostic.severity.INFO] or 0
   end,
 
   diagnostic_provider("error"),
@@ -220,6 +179,12 @@ local Lsp = {
   Space(2),
 }
 
+local LspProgress = {
+  provider = function() return vim.ui.progress_status() end,
+  hl = { fg = "gray" },
+  update = update_on({ "LspProgress" }),
+}
+
 local function in_visual_mode() return vim.api.nvim_get_mode().mode:lower() == "v" end
 
 local Selection = {
@@ -231,7 +196,7 @@ local Selection = {
     local lines = math.abs(end_line - start_line) + 1
     local cols = vim.fn.wordcount().visual_chars
 
-    local format = string.format("%2d,%2d sel", lines, cols)
+    local format = string.format("%2d,%2d sel  ", lines, cols)
     return "%8(" .. format .. "%)"
   end,
 }
@@ -242,12 +207,12 @@ local Percent = { provider = "%3(%P%)" }
 local Ruler = {
   condition = cond.is_active,
   Selection,
-  Space(2),
   Position,
   Percent,
 }
 
 local Left = {
+  Space(1),
   Mode,
   Space(1),
   FileBlock,
@@ -258,6 +223,7 @@ local Right = {
   Space(1),
   Diagnostics,
   Space(1),
+  LspProgress,
   Lsp,
   Ruler,
   Space(1),

@@ -7,7 +7,7 @@ require("modus-themes").load({
     highlight.CursorLineSign = { link = "CursorLineNr" }
     highlight.CursorLineFold = { link = "CursorLineNr" }
     highlight.FoldColumn = { link = "LineNr" }
-    highlight.HydraPink = { fg = color.error }
+    highlight.HydraPink = { fg = color.red }
     highlight.DiffAdd = { bg = color.bg_added }
     highlight.DiffChange = { bg = color.bg_changed }
     highlight.DiffText = { bg = color.bg_changed_refine }
