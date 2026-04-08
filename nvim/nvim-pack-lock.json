@@ -46,10 +46,6 @@
       "rev": "cc59f732f3d043b626c8702cb725c82e54d35c25",
       "src": "https://github.com/ruifm/gitlinker.nvim"
     },
-    "heirline-components.nvim": {
-      "rev": "5ea9a16286c01b7c36d58c91903d1f8ff0b7ddeb",
-      "src": "https://github.com/Zeioth/heirline-components.nvim"
-    },
     "heirline.nvim": {
       "rev": "fae936abb5e0345b85c3a03ecf38525b0828b992",
       "src": "https://github.com/rebelot/heirline.nvim"

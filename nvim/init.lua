@@ -33,7 +33,6 @@ vim.pack.add({
   { src = "https://github.com/A7Lavinraj/fyler.nvim" },
   { src = "https://github.com/mrjones2014/smart-splits.nvim" },
   { src = "https://github.com/rebelot/heirline.nvim" },
-  { src = "https://github.com/Zeioth/heirline-components.nvim" },
   { src = "https://github.com/mfussenegger/nvim-dap" },
   { src = "https://github.com/mfussenegger/nvim-lint" },
   { src = "https://github.com/igorlfs/nvim-dap-view" },
