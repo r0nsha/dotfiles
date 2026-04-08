@@ -4,7 +4,6 @@ local M
 local Hydra = require("hydra")
 local dap = require("dap")
 local dv = require("dap-view")
-local dv_globals = require("dap-view.globals")
 local persistent_breakpoints_api = require("persistent-breakpoints.api")
 
 ---@param view dapview.Section
@@ -166,20 +165,5 @@ function M:exit_mode()
     self:exit()
   end
 end
-
--- local augroup = require("augroup")
--- vim.api.nvim_create_autocmd("BufEnter", {
---   group = augroup,
---   pattern = dv_globals.MAIN_BUF_NAME,
---   callback = function() M:exit_mode() end,
--- })
---
--- vim.api.nvim_create_autocmd("BufLeave", {
---   group = augroup,
---   pattern = dv_globals.MAIN_BUF_NAME,
---   callback = function()
---     if dap.session() then M:activate() end
---   end,
--- })
 
 return M

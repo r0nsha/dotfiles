@@ -9,6 +9,21 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
     if client == nil then return end
 
+    vim.api.nvim_create_autocmd("LspProgress", {
+      buffer = buf,
+      callback = function(ev)
+        local value = ev.data.params.value
+        vim.api.nvim_echo({ { value.message or "done" } }, false, {
+          id = "lsp." .. ev.data.params.token,
+          kind = "progress",
+          source = "vim.lsp",
+          title = value.title,
+          status = value.kind ~= "end" and "running" or "success",
+          percent = value.percentage,
+        })
+      end,
+    })
+
     if client.server_capabilities.inlayHintProvider then vim.lsp.inlay_hint.enable(false, { bufnr = buf }) end
 
     ---@param desc string
@@ -28,6 +43,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "grS", Snacks.picker.lsp_symbols, opts("Symbols"))
     vim.keymap.set("n", "grq", vim.diagnostic.setqflist, opts("Diagnostics"))
     vim.keymap.set("n", "grQ", vim.diagnostic.setloclist, opts("Buffer Diagnostics"))
+    vim.keymap.set("n", "gre", vim.diagnostic.open_float, opts("Show Diagnostic"))
     vim.keymap.set(
       "n",
       "grm",

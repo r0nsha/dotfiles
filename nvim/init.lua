@@ -2,7 +2,6 @@ require("extensions")
 require("config")
 require("pass")
 require("colors")
-require("notify")
 
 vim.cmd.packadd("nvim.undotree")
 

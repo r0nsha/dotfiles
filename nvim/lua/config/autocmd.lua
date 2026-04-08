@@ -144,3 +144,9 @@ vim.api.nvim_create_autocmd("TermLeave", {
     vim.wo.relativenumber = true
   end,
 })
+
+-- LSP
+vim.api.nvim_create_autocmd("LspProgress", {
+  group = augroup,
+  command = "redrawstatus",
+})

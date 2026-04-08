@@ -123,8 +123,7 @@ local FileIcon = {
     local filename = self.filename
     local extension = vim.fn.fnamemodify(filename, ":e")
     local icon, hl = require("mini.icons").get("extension", extension)
-    local hl_data = vim.api.nvim_get_hl(0, { name = hl })
-
+    local hl_data = vim.api.nvim_get_hl(0, { name = hl, link = false })
     self.icon = icon
     self.icon_color = hl_data and hl_data.fg
   end,
@@ -213,7 +212,7 @@ local Lsp = {
 
       if extra_count > 0 then table.insert(display_names, string.format("+%d", extra_count)) end
 
-      return "[" .. table.concat(display_names, ", ") .. "]"
+      return table.concat(display_names, ", ")
     end,
     hl = function() return { fg = "gray" } end,
     update = update_on({ "LspAttach", "LspDetach" }),
