@@ -3,7 +3,6 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.g.loaded_netrwSettings = 1
 vim.g.loaded_netrwFileHandlers = 1
-vim.g.loaded_matchparen = 1
 
 -- disable matchparen
 vim.g.loaded_matchparen = 1
@@ -46,7 +45,6 @@ vim.opt.signcolumn = "yes"
 vim.opt.laststatus = 2
 vim.opt.showmode = true
 vim.opt.cmdheight = 1
-vim.opt.showcmdloc = "statusline"
 vim.opt.conceallevel = 0
 vim.opt.concealcursor = ""
 vim.opt.list = true
@@ -122,9 +120,6 @@ vim.opt.diffopt:append("inline:char")
 -- splits
 vim.opt.splitbelow = true
 vim.opt.splitright = true
-
--- disable startup message
--- vim.opt.shortmess:append({ I = true })
 
 -- mouse
 vim.opt.mouse = "a"

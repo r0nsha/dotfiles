@@ -1,4 +1,3 @@
--- require("plugins.mini.ai")
 require("plugins.mini.bufremove")
 require("plugins.mini.clue")
 require("plugins.mini.cursorword")

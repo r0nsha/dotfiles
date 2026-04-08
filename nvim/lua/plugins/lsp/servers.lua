@@ -42,6 +42,7 @@ local ensure_installed = {
 
   -- dap
   "js-debug-adapter",
+  "codelldb",
 
   -- linters
   "eslint_d",
