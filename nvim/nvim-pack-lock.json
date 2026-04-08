@@ -176,10 +176,6 @@
       "rev": "54d4b5431e9634ee3d8d30784e017239b5b89d41",
       "src": "https://github.com/MeanderingProgrammer/render-markdown.nvim"
     },
-    "rustaceanvim": {
-      "rev": "6c4c158b23690ef7cc65349077eae29a6be35a6c",
-      "src": "https://github.com/mrcjkb/rustaceanvim"
-    },
     "schemastore.nvim": {
       "rev": "4f1c58a59d3a4da095743dd6f04b73caa0cefc3d",
       "src": "https://github.com/b0o/schemastore.nvim"
