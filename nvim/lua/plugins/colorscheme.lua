@@ -20,6 +20,7 @@ require("modus-themes").load({
     highlight.SnacksPickerCol = { link = "SnacksPickerRow" }
     highlight.SnacksPickerTitle = { link = "NormalFloat" }
     highlight.SnacksPickerToggle = { fg = color.blue, bg = color.bg_active, bold = true }
+    highlight.DapCursor = { bg = color.red }
   end,
   on_colors = function() end,
 })

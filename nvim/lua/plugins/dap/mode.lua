@@ -74,8 +74,8 @@ vim.keymap.set(
   { desc = "Debug: Start OSV server", buffer = 0 }
 )
 
----@type vim.api.keyset.get_hl_info
-local original_cursor_hl
+local cursor_mode_off = vim.o.guicursor
+local cursor_mode_on = cursor_mode_off .. ",a:DapCursor"
 
 ---@type DBG
 M = Hydra({
@@ -92,15 +92,12 @@ M = Hydra({
       hide_on_load = true,
     },
     on_enter = function()
-      original_cursor_hl = vim.deepcopy(vim.api.nvim_get_hl(0, { name = "Cursor" }))
-      local hydra_pink = vim.api.nvim_get_hl(0, { name = "HydraPink" }).fg
-      vim.api.nvim_set_hl(0, "Cursor", { bg = hydra_pink })
       vim.api.nvim_exec_autocmds("User", { pattern = "HydraEnter" })
+      vim.o.guicursor = cursor_mode_on
     end,
     on_exit = function()
-      local hl = original_cursor_hl or { bg = "none" }
-      vim.api.nvim_set_hl(0, "Cursor", hl --[[@as vim.api.keyset.highlight]])
       vim.api.nvim_exec_autocmds("User", { pattern = "HydraExit" })
+      vim.o.guicursor = cursor_mode_off
     end,
   },
   heads = {
@@ -150,7 +147,7 @@ M = Hydra({
     -- Quitting
     { "dq", disconnect, { desc = "Disconnect", exit = true } },
     { "dQ", terminate, { desc = "Terminate", exit = true } },
-    { "<C-c>", function() M:exit() end, { desc = "Terminate", exit = true } },
+    { "<C-c>", function() M:exit_mode() end, { desc = "Terminate", exit = true } },
 
     -- Hint
     { "?", toggle_help, { desc = "Toggle Help", private = true } },
