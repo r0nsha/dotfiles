@@ -62,8 +62,8 @@ vim.pack.add({
   { src = "https://github.com/tpope/vim-dadbod" },
   { src = "https://github.com/kristijanhusak/vim-dadbod-ui" },
   { src = "https://github.com/kristijanhusak/vim-dadbod-completion" },
-  { src = "https://github.com/Saecki/crates.nvim" },
   { src = "https://github.com/nvzone/showkeys" },
+  { src = "https://github.com/mrcjkb/rustaceanvim" },
 })
 
 require("plugins.colorscheme")
@@ -71,7 +71,6 @@ require("plugins.treesitter")
 require("plugins.treesitter_textobjects")
 require("plugins.lazydev")
 require("plugins.lsp")
-require("plugins.rust")
 require("plugins.format")
 require("plugins.lint")
 require("plugins.mini")

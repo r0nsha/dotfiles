@@ -1,10 +1,15 @@
+---@class Server
+---@field name string?
+---@field skip boolean?
+
+---@type table<string, Server>
 local servers = {
   lua_ls = { name = "lua-language-server" },
   tsgo = {},
   cssls = { name = "css-lsp" },
   tailwindcss = { name = "tailwindcss-language-server" },
   clangd = {},
-  rust_analyzer = { name = "rust-analyzer" },
+  rust_analyzer = { name = "rust-analyzer", skip = true },
   gopls = {},
   jsonls = { name = "json-lsp" },
   yamlls = { name = "yaml-language-server" },
@@ -61,4 +66,4 @@ end
 
 require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
-vim.lsp.enable(vim.tbl_keys(servers))
+vim.lsp.enable(vim.tbl_filter(function(name) return not servers[name].skip end, vim.tbl_keys(servers)))
