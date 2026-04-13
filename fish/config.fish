@@ -5,8 +5,6 @@ source $DOTFILES/fish/fisher.fish
 source $DOTFILES/fish/functions.fish
 source $DOTFILES/fish/aliases.fish
 source $DOTFILES/fish/variables.fish
-source $DOTFILES/fish/theme.fish
-source $DOTFILES/fish/macos.fish
 
 set -l local_config ~/config.fish
 if test -r $local_config
@@ -48,23 +46,25 @@ fish_add_path \
     $HOME/.local/bin \
     ./node_modules/.bin \
     $PNPM_HOME \
-    ~/.local/share/bob/nvim-bin
+    ~/.local/share/bob/nvim-bin \
+    /opt/homebrew/opt/rustup/bin
 
 if status is-interactive
+    source $DOTFILES/fish/theme.fish
+
     stty -ixon # disable C-s and C-q
 
-    # Zoxide
-    if binary_exists zoxide
-        zoxide init fish | source
-    end
-
-    if binary_exists jj
-        jj util completion fish | source
-    end
-
-    if binary_exists bob
-        bob complete fish | source
-    end
+    # if binary_exists zoxide
+    #     zoxide init fish | source
+    # end
+    #
+    # if binary_exists jj
+    #     jj util completion fish >~/.config/fish/completions/jj.fish
+    # end
+    #
+    # if binary_exists bob
+    #     bob complete fish >~/.config/fish/completions/bob.fish
+    # end
 
     # @fish-lsp-disable-next-line 2003
     set -U tide_left_prompt_items pwd character
