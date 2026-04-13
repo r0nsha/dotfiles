@@ -54,17 +54,17 @@ if status is-interactive
 
     stty -ixon # disable C-s and C-q
 
-    # if binary_exists zoxide
-    #     zoxide init fish | source
-    # end
-    #
-    # if binary_exists jj
-    #     jj util completion fish >~/.config/fish/completions/jj.fish
-    # end
-    #
-    # if binary_exists bob
-    #     bob complete fish >~/.config/fish/completions/bob.fish
-    # end
+    if binary_exists zoxide
+        zoxide init fish | source
+    end
+
+    if binary_exists jj
+        jj util completion fish >~/.config/fish/completions/jj.fish
+    end
+
+    if binary_exists bob
+        bob complete fish >~/.config/fish/completions/bob.fish
+    end
 
     # @fish-lsp-disable-next-line 2003
     set -U tide_left_prompt_items pwd character
