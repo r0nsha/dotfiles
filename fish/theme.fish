@@ -1,7 +1,5 @@
 function apply_theme
-    set -l theme (get_theme)
-
-    switch $theme
+    switch (get_theme)
         case light
             source $DOTFILES/fish/themes/modus_operandi.fish
         case '*'
