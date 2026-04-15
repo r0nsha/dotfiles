@@ -1,7 +1,7 @@
 #!/usr/bin/env fish
 
 function usage
-    echo "usage: capture.fish -a/--action <shot|record> -r/--region <region|window|screen> -t/--to <clipboard|ui|file> [--gif] [--audio] [-h/--help]"
+    echo "usage: capture.fish -a/--action <shot|record> -r/--region <region|window|screen> -t/--to <clipboard|ui> [--gif] [--audio] [-h/--help]"
 end
 
 argparse h/help "a/action=" "r/region=" "t/to=" gif audio -- $argv
@@ -35,9 +35,9 @@ function get_filename
 end
 
 function select_region
-    set background (test -n "$color0"; and echo "$(echo $color0)aa"; or echo "#d0d0d0aa")
-    set border (test -n "$color5"; and echo "$color5"; or echo "#ffffff")
-    set selection (test -n "$color7"; and echo "$(echo $color7)00"; or echo "#00000022")
+    set background (test -n "$color7"; and echo "$(echo $color7)44"; or echo "#d0d0d0aa")
+    set border (test -n "$color6"; and echo "$color6"; or echo "#ffffff")
+    set selection (test -n "$color0"; and echo "$(echo $color0)00"; or echo "#00000022")
     set geom (slurp -b $background -c $border -s $selection -w 2)
     if test $status -ne 0
         exit 1
@@ -96,9 +96,6 @@ switch $action
                 satty -f $file -o $file
                 wl-copy <$file
                 echo screenshot
-            case file
-                wl-copy $file
-                echo path
         end)
 
         notify "saved screenshot to $file, \ncopied $copied to clipboard"
@@ -147,7 +144,7 @@ switch $action
 
         wl-copy $file
         set copied (switch $to
-            case clipboard file
+            case clipboard
                 wl-copy $file
                 echo path
             case ui

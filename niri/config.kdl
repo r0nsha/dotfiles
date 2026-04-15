@@ -418,17 +418,20 @@ binds {
     XF86AudioNext allow-when-locked=true {
         spawn-sh "playerctl next"
     }
-    Print {
+    Mod+S {
         spawn-sh "~/.config/rofi/scripts/rofi-capture.fish"
     }
-    Ctrl+Print {
+    Mod+Shift+S {
         spawn-sh "~/.config/scripts/capture.fish --action=shot --region=region --to=clipboard"
     }
-    Ctrl+Shift+Print {
+    Mod+Ctrl+Shift+S {
         spawn-sh "~/.config/scripts/capture.fish --action=shot --region=region --to=ui"
     }
-    Alt+Print {
-        spawn-sh "~/.config/scripts/capture.fish --action=record --region=region --to=file"
+    Mod+Alt+S {
+        spawn-sh "~/.config/scripts/capture.fish --action=record --region=region --to=clipboard"
+    }
+    Mod+Alt+Shift+S {
+        spawn-sh "~/.config/scripts/capture.fish --action=record --region=region --to=ui"
     }
     Mod+Slash hotkey-overlay-title="Rofi" {
         spawn "rofi" "-modi" "drun,run" "-show" "drun" "-show-icons"

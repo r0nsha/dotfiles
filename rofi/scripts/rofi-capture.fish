@@ -38,9 +38,9 @@ end
 
 switch $action
     case shot
-        set to (echo -e "clipboard\nfile\nui" | rofi -dmenu -p "to")
+        set to (echo -e "clipboard\nui" | rofi -dmenu -p "to")
     case record 'record (with audio)'
-        set to (echo -e "file\nui" | rofi -dmenu -p "to")
+        set to (echo -e "clipboard\nui" | rofi -dmenu -p "to")
     case 'record (gif)'
         set to file
 end
