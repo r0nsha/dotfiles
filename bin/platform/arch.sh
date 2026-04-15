@@ -1,5 +1,4 @@
 pacman_deps=(
-    # core
     coreutils
     util-linux
     stow
@@ -16,14 +15,10 @@ pacman_deps=(
     iwd
     openssh
     rsync
-
-    # git
     git
     github-cli
     git-delta
     jujutsu
-
-    # cli
     zoxide
     eza
     bat
@@ -65,8 +60,6 @@ pacman_deps=(
     go
     qmk
     bear
-
-    # media
     pipewire
     pipewire-audio
     pipewire-pulse
@@ -78,36 +71,24 @@ pacman_deps=(
     bluez-utils
     pamixer
     pavucontrol
-
-    # notifications
     libnotify
     mako
-
-    # clipboard
     wl-clipboard
-
-    # python
     python
     python-pip
     python-pipx
     python-adblock
-
-    # terminal
     kitty
     ghostty
     fish
     tmux
     bob             # neovim version manager
     tree-sitter-cli # needed to cache treesitter parsers
-
-    # fonts
     noto-fonts
     noto-fonts-emoji
     ttf-iosevka-nerd
     ttf-iosevkaterm-nerd
     ttf-iosevkatermslab-nerd
-
-    # nvidia
     nvidia-open
     nvidia-utils
     lib32-nvidia-utils
@@ -115,8 +96,6 @@ pacman_deps=(
     libva-nvidia-driver
     libva-utils
     nvidia-settings
-
-    # desktop
     xorg-xwayland
     xwayland-satellite
     niri
@@ -139,25 +118,15 @@ pacman_deps=(
     gamemode
     lib32-gamemode
     udiskie
-
-    # rofi
     rofi-wayland
     rofimoji
     rofi-calc
-
-    # apps
     steam
     shotcut
     zathura
-
-    # pdf
     pdfjs # needed for qutebrowser
     zathura-pdf-mupdf
-
-    # qutebrowser userscripts
     python-tldextract
-
-    # email
     neomutt
     isync
     msmtp
