@@ -1,6 +1,6 @@
 configuration {
     matching: "fuzzy";
-    font: "BerkeleyMonoNerdFontPropo 12";
+    font: "BerkeleyMonoNerdFontPropo 14";
     kb-accept-entry: "Control+y,Return,KP_Enter";
     kb-cancel: "Escape,Control+g";
 }
@@ -13,7 +13,7 @@ window {
     border: 1;
     padding: 4px;
     width: 10%;
-    height: 30%;
+    height: 40%;
 }
 
 mainbox {
@@ -60,6 +60,10 @@ element {
 element-text, element-icon {
     background-color: transparent;
     text-color:       inherit;
+}
+
+element-icon {
+    padding: 0 8px;
 }
 
 element.normal.normal {

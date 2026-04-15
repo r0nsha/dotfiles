@@ -474,10 +474,10 @@ binds {
     }
     // Settings
     Mod+Ctrl+B {
-        spawn "bzmenu" "-l" "rofi"
+        spawn "bzmenu" "-l" "custom" "--launcher-command" "rofi -dmenu -p bluetooth"
     }
     Mod+Ctrl+W {
-        spawn "iwmenu" "-l" "rofi"
+        spawn "iwmenu" "-l" "custom" "--launcher-command" "rofi -dmenu -p wifi"
     }
     Mod+Ctrl+S {
         spawn-sh "~/.config/rofi/scripts/rofi-sound.fish"

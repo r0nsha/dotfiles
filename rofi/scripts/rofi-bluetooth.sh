@@ -311,7 +311,7 @@ show_menu() {
     fi
 
     # Open rofi menu, read chosen option
-    chosen="$(echo -e "$options" | $rofi_command "Bluetooth")"
+    chosen="$(echo -e "$options" | $rofi_command "bluetooth")"
     chosen=$(echo "$chosen" | cut -d ' ' -f 2)
 
     # Match chosen option to command
