@@ -53,7 +53,7 @@ tooltip {
   min-width: 0;
   margin-left: 8px;
   margin-right: 8px;
-  color: @color15;
+  color: @color7;
 }
 
 #workspaces button.active {
@@ -84,7 +84,7 @@ tooltip {
 #mpris.paused,
 #mpris.stopped {
   opacity: 1;
-  color: @color8;
+  color: @color7;
 }
 
 #custom-recording,
