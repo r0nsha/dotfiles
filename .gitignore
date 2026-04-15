@@ -15,3 +15,4 @@ jj/conf.d
 jj/repos
 kitty/current_theme.conf
 glide/glide
+waybar/style.css

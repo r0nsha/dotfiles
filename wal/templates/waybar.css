@@ -21,3 +21,135 @@
 @define-color color13 {color13};
 @define-color color14 {color14};
 @define-color color15 {color15};
+
+* {{
+  font-family: BerkeleyMono Nerd Font Propo;
+  font-size: 16px;
+  font-style: oblique;
+}}
+
+window#waybar {{
+  background: @background;
+  border-bottom: 1px solid @border;
+  color: @color15;
+}}
+
+tooltip {{
+  background: @background-opaque;
+  border: 1px solid @border;
+  border-radius: 0;
+  padding: 0px;
+}}
+
+.modules-right {{
+  padding: 4px 16px;
+}}
+
+#workspaces,
+#tray {{
+  padding: 4px 8px;
+}}
+
+#mpris {{
+  padding: 4px 16px;
+}}
+
+#pulseaudio,
+#bluetooth,
+#network,
+#clock,
+#hardware {{
+  margin-left: 16px;
+  padding-left: 16px;
+  border-left: 1px solid @separator;
+}}
+
+#privacy,
+#gamemode {{
+  margin-right: 16px;
+  padding-right: 16px;
+}}
+
+#workspaces button {{
+  all: unset;
+  min-width: 0;
+  margin-left: 8px;
+  margin-right: 8px;
+  color: @color7;
+}}
+
+#workspaces button.active {{
+  color: @color15;
+  font-weight: bold;
+}}
+
+#workspaces button.urgent {{
+  color: @color14;
+}}
+
+#tray menu {{
+  background: @background-opaque;
+  border: 1px solid @border;
+  color: @color15;
+  border-radius: 0;
+}}
+
+#mpris {{
+  opacity: 0;
+}}
+
+#mpris.playing {{
+  opacity: 1;
+  color: @color15;
+}}
+
+#mpris.paused,
+#mpris.stopped {{
+  opacity: 1;
+  color: @color7;
+}}
+
+#custom-recording,
+#privacy {{
+  background: @color4;
+  border: 1px solid @color4;
+  color: @background-opaque;
+}}
+
+#pulseaudio.bluetooth {{
+  color: @color2;
+}}
+
+#pulseaudio.muted {{
+  color: @color8;
+}}
+
+#network.disabled {{
+  color: @color8;
+}}
+
+#network.disconnected {{
+  color: @color14;
+}}
+
+#battery,
+#cpu,
+#memory {{
+  margin-right: 8px;
+}}
+
+#temperature.critical {{
+  color: @color14;
+}}
+
+#battery.charging {{
+  color: @color11;
+}}
+
+#battery.warning {{
+  color: @color13;
+}}
+
+#battery.critical {{
+  color: @color14;
+}}

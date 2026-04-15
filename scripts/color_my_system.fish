@@ -9,15 +9,17 @@ mkdir -p ~/.config/qt6ct/colors
 rm -f ~/.config/qt6ct/colors/colors.conf
 ln -sf ~/.cache/wal/qt.conf ~/.config/qt6ct/colors/colors.conf
 
-# kitty/ghostty
+# waybar
+ln -sf ~/.cache/wal/waybar.css ~/.config/waybar/style.css
+
+# kitty
 ln -sf ~/.config/kitty/theme_(get_theme).conf ~/.config/kitty/current_theme.conf
+pkill -SIGUSR1 kitty
+
+# ghostty
 mkdir -p ~/.cache/ghostty
 ln -sf ~/.config/ghostty/theme_(get_theme).ghostty ~/.cache/ghostty/current_theme.ghostty
-
-# reloadable apps
-pkill -SIGUSR1 kitty
 pkill -SIGUSR2 ghostty
-pkill -SIGUSR2 waybar
 
 # mako
 mkdir -p ~/.config/mako
