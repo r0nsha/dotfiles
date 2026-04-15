@@ -80,6 +80,5 @@ echo ""
 echo "pinentry-program $(which pinentry-mac)" >>~/.gnupg/gpg-agent.conf
 gpg-connect-agent reloadagent /bye
 
-# install paneru's testing branch until virtual workspaces are merged
-# https://github.com/karinushka/paneru/issues/119
-# cargo install --git https://github.com/karinushka/paneru --branch testing paneru
+rm -rf "$HOME/.qutebrowser"
+ln -sv "$DOTFILES/qutebrowser" "$HOME/.qutebrowser"

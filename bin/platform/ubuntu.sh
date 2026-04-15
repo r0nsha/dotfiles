@@ -39,12 +39,7 @@ install_starship() {
 
 install_rustup() {
     curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable
-
-    # Needed for cargo-update on Ubuntu
-    if [ "$MACHINE" = "linux" ]; then
-        sudo apt install -y -qq libssl-dev
-    fi
-
+    sudo apt install -y -qq libssl-dev
     cargo install cargo-update
 }
 

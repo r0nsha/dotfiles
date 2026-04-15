@@ -181,7 +181,21 @@ aur_deps=(
 
 paru -Syu --noconfirm ${aur_deps[@]}
 
+pip_deps=(
+    subliminal
+    ffsubsync
+)
+
+pipx install ${pip_deps[@]}
+
+# systemd
+step "systemd: enable user services"
+systemctl --user daemon-reload
+systemctl --user enable $(cd "$DOTFILES/systemd/user" && echo *.service)
+success
+
 # ly
+sudo ln -sfv "$DOTFILES/ly/config.ini" /etc/ly/config.ini
 sudo systemctl enable ly.service
 sudo systemctl disable getty@tty2.service
 
@@ -196,10 +210,3 @@ sudo systemctl enable --now bluetooth.service
 newgrp docker
 sudo usermod -aG docker $USER
 sudo systemctl enable --now docker
-
-pip_deps=(
-    subliminal
-    ffsubsync
-)
-
-pipx install ${pip_deps[@]}
