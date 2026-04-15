@@ -3,11 +3,11 @@
 # Base styling
 width=320
 height=100
-margin=16
-padding=4
-border-size=2
+margin=8,16
+padding=4,8
+border-size=1
 border-radius=0
-font=BerkeleyMono Nerd Font Propo 10
+font=BerkeleyMono Nerd Font Propo 11
 
 # Icons
 icons=1
