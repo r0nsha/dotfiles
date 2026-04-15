@@ -202,6 +202,7 @@ sudo systemctl disable getty@tty2.service
 # groups
 sudo gpasswd -a $USER gamemode
 sudo gpasswd -a $USER network
+sudo gpasswd -a $USER input
 
 # bluetooth
 sudo systemctl enable --now bluetooth.service
