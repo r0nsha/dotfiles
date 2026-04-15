@@ -1,7 +1,7 @@
 #!/usr/bin/env fish
 
 function usage
-    echo "usage: screen.fish -a/--action <shot|record> -r/--region <region|window|screen> -t/--to <clipboard|ui|file> [--gif] [--audio] [-h/--help]"
+    echo "usage: capture.fish -a/--action <shot|record> -r/--region <region|window|screen> -t/--to <clipboard|ui|file> [--gif] [--audio] [-h/--help]"
 end
 
 argparse h/help "a/action=" "r/region=" "t/to=" gif audio -- $argv

@@ -61,4 +61,4 @@ switch $action
         set -a screen_args --audio
 end
 
-~/.config/scripts/screen.fish --action=$action --region=$region --to=$to $screen_args
+~/.config/scripts/capture.fish --action=$action --region=$region --to=$to $screen_args

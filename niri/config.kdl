@@ -419,16 +419,16 @@ binds {
         spawn-sh "playerctl next"
     }
     Print {
-        spawn-sh "~/.config/rofi/scripts/rofi-screen.fish"
+        spawn-sh "~/.config/rofi/scripts/rofi-capture.fish"
     }
     Ctrl+Print {
-        spawn-sh "~/.config/scripts/screen.fish --action=shot --region=region --to=clipboard"
+        spawn-sh "~/.config/scripts/capture.fish --action=shot --region=region --to=clipboard"
     }
     Ctrl+Shift+Print {
-        spawn-sh "~/.config/scripts/screen.fish --action=shot --region=region --to=ui"
+        spawn-sh "~/.config/scripts/capture.fish --action=shot --region=region --to=ui"
     }
     Alt+Print {
-        spawn-sh "~/.config/scripts/screen.fish --action=record --region=region --to=file"
+        spawn-sh "~/.config/scripts/capture.fish --action=record --region=region --to=file"
     }
     Mod+Slash hotkey-overlay-title="Rofi" {
         spawn "rofi" "-modi" "drun,run" "-show" "drun" "-show-icons"
@@ -505,6 +505,9 @@ binds {
         toggle-overview
     }
     Mod+Q repeat=false {
+        close-window
+    }
+    Mod+W repeat=false {
         close-window
     }
     Mod+Escape {
