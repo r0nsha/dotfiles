@@ -8,4 +8,5 @@ require("mini.surround").setup({
     replace = "sc",
     update_n_lines = "sn",
   },
+  n_lines = 200,
 })
