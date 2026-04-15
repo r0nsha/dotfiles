@@ -1,7 +1,7 @@
 #!/usr/bin/env fish
 
 function usage
-    echo "usage: capture.fish -a/--action <shot|record> -r/--region <region|window|screen> -t/--to <clipboard|ui> [--gif] [--audio] [-h/--help]"
+    echo "usage: capture.fish -a/--action <shot|record> -r/--region <region|screen> -t/--to <clipboard|ui> [--gif] [--audio] [-h/--help]"
 end
 
 argparse h/help "a/action=" "r/region=" "t/to=" gif audio -- $argv
@@ -45,22 +45,10 @@ function select_region
     echo $geom
 end
 
-function select_window
-    set workspaces "$(hyprctl monitors -j | jq -r 'map(.activeWorkspace.id)')"
-    set windows "$(hyprctl clients -j | jq -r --argjson workspaces "$workspaces" 'map(select([.workspace.id] | inside($workspaces)))' )"
-    set geom (echo "$windows" | jq -r '.[] | "\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"' | slurp)
-    if test $status -ne 0
-        exit 1
-    end
-    echo $geom
-end
-
 function get_geometry
     switch $region
         case region
             select_region
-        case window
-            select_window
         case screen
             echo ""
     end
