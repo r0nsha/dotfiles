@@ -64,10 +64,11 @@ tooltip {{
   border-left: 1px solid @separator;
 }}
 
+#custom-recording,
 #privacy,
 #gamemode {{
-  margin-right: 16px;
-  padding-right: 16px;
+  margin-right: 12px;
+  padding: 0 8px;
 }}
 
 #workspaces button {{
@@ -111,9 +112,8 @@ tooltip {{
 
 #custom-recording,
 #privacy {{
-  background: @color4;
-  border: 1px solid @color4;
-  color: @background-opaque;
+  border: 1px solid @color13;
+  color: @color13;
 }}
 
 #pulseaudio.bluetooth {{
