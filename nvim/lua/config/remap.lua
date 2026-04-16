@@ -163,3 +163,10 @@ vim.keymap.set("c", "<C-S-I>", "<C-b>", { desc = "Insert at start", noremap = tr
 vim.keymap.set("c", "<C-S-A>", "<C-e>", { desc = "Insert at end", noremap = true })
 vim.keymap.set("c", "<C-x>", "<Del>", { desc = "Delete character", noremap = true })
 vim.keymap.set("c", "<C-d>", "<C-u>", { desc = "Delete to start", noremap = true })
+
+-- Restart
+vim.keymap.set("n", "zr", function()
+  local session = vim.fn.stdpath("state") .. "/restart_session.vim"
+  vim.cmd("mksession! " .. vim.fn.fnameescape(session))
+  vim.cmd("restart source " .. vim.fn.fnameescape(session))
+end, { desc = "Restart Neovim" })

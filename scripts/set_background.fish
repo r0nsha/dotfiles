@@ -3,7 +3,7 @@
 
 # set background
 set img $argv[1]
-awww img --resize=crop "$img" --transition-fps=120 --transition-step=4 --transition-type=random
+awww img --resize=crop "$img" --transition-fps=120 --transition-step=4 --transition-type=fade
 
 # link to cache so that other apps like the lockscreen can reference it
 ln -sf "$img" ~/.cache/awww/.current_background

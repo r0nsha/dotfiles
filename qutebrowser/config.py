@@ -197,17 +197,17 @@ c.colors.hints.match.fg = palette["active"]
 # c.colors.hints.match.fg = palette["success"]
 # c.hints.border = "1px solid #E3BE23"
 
-c.colors.webpage.darkmode.enabled = False
-c.colors.webpage.darkmode.algorithm = "lightness-cielab"
-c.colors.webpage.darkmode.contrast = 0.0
-c.colors.webpage.darkmode.policy.page = "smart"
-c.colors.webpage.darkmode.policy.images = "smart"
-c.colors.webpage.darkmode.threshold.background = 128
-c.colors.webpage.darkmode.threshold.foreground = 128
-
-config.set("colors.webpage.darkmode.enabled", False, "docs.google.com")
-config.set("colors.webpage.darkmode.enabled", False, "localhost:*")
-config.set("colors.webpage.darkmode.enabled", False, "*.ronshavit.com")
+# # Dark mode
+# c.colors.webpage.darkmode.enabled = False
+# c.colors.webpage.darkmode.algorithm = "lightness-cielab"
+# c.colors.webpage.darkmode.contrast = 0.0
+# c.colors.webpage.darkmode.policy.page = "smart"
+# c.colors.webpage.darkmode.policy.images = "smart"
+# c.colors.webpage.darkmode.threshold.background = 128
+# c.colors.webpage.darkmode.threshold.foreground = 128
+# config.set("colors.webpage.darkmode.enabled", False, "docs.google.com")
+# config.set("colors.webpage.darkmode.enabled", False, "localhost:*")
+# config.set("colors.webpage.darkmode.enabled", False, "*.ronshavit.com")
 
 c.colors.webpage.preferred_color_scheme = "dark"
 if "THEME" in os.environ:

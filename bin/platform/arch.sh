@@ -1,5 +1,4 @@
 pacman_deps=(
-    # core
     coreutils
     util-linux
     stow
@@ -16,14 +15,10 @@ pacman_deps=(
     iwd
     openssh
     rsync
-
-    # git
     git
     github-cli
     git-delta
     jujutsu
-
-    # cli
     zoxide
     eza
     bat
@@ -65,8 +60,6 @@ pacman_deps=(
     go
     qmk
     bear
-
-    # media
     pipewire
     pipewire-audio
     pipewire-pulse
@@ -78,36 +71,24 @@ pacman_deps=(
     bluez-utils
     pamixer
     pavucontrol
-
-    # notifications
     libnotify
     mako
-
-    # clipboard
     wl-clipboard
-
-    # python
     python
     python-pip
     python-pipx
     python-adblock
-
-    # terminal
     kitty
     ghostty
     fish
     tmux
     bob             # neovim version manager
     tree-sitter-cli # needed to cache treesitter parsers
-
-    # fonts
     noto-fonts
     noto-fonts-emoji
     ttf-iosevka-nerd
     ttf-iosevkaterm-nerd
     ttf-iosevkatermslab-nerd
-
-    # nvidia
     nvidia-open
     nvidia-utils
     lib32-nvidia-utils
@@ -115,8 +96,6 @@ pacman_deps=(
     libva-nvidia-driver
     libva-utils
     nvidia-settings
-
-    # desktop
     xorg-xwayland
     xwayland-satellite
     niri
@@ -139,25 +118,15 @@ pacman_deps=(
     gamemode
     lib32-gamemode
     udiskie
-
-    # rofi
     rofi-wayland
     rofimoji
     rofi-calc
-
-    # apps
     steam
     shotcut
     zathura
-
-    # pdf
     pdfjs # needed for qutebrowser
     zathura-pdf-mupdf
-
-    # qutebrowser userscripts
     python-tldextract
-
-    # email
     neomutt
     isync
     msmtp
@@ -212,13 +181,28 @@ aur_deps=(
 
 paru -Syu --noconfirm ${aur_deps[@]}
 
+pip_deps=(
+    subliminal
+    ffsubsync
+)
+
+pipx install ${pip_deps[@]}
+
+# systemd
+step "systemd: enable user services"
+systemctl --user daemon-reload
+systemctl --user enable $(cd "$DOTFILES/systemd/user" && echo *.service)
+success
+
 # ly
+sudo ln -sfv "$DOTFILES/ly/config.ini" /etc/ly/config.ini
 sudo systemctl enable ly.service
 sudo systemctl disable getty@tty2.service
 
 # groups
 sudo gpasswd -a $USER gamemode
 sudo gpasswd -a $USER network
+sudo gpasswd -a $USER input
 
 # bluetooth
 sudo systemctl enable --now bluetooth.service
@@ -227,10 +211,3 @@ sudo systemctl enable --now bluetooth.service
 newgrp docker
 sudo usermod -aG docker $USER
 sudo systemctl enable --now docker
-
-pip_deps=(
-    subliminal
-    ffsubsync
-)
-
-pipx install ${pip_deps[@]}

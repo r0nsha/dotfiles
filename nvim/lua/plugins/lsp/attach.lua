@@ -24,7 +24,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
       end,
     })
 
-    if client.server_capabilities.inlayHintProvider then vim.lsp.inlay_hint.enable(false, { bufnr = buf }) end
+    vim.lsp.inlay_hint.enable(true, { bufnr = buf })
+    vim.lsp.codelens.enable(true, { bufnr = buf })
 
     ---@param desc string
     local opts = function(desc)
@@ -35,6 +36,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end
 
     vim.keymap.set("n", "gd", Snacks.picker.lsp_definitions, opts("Go to Definition"))
+    vim.keymap.set("n", "<c-w>gd", function()
+      vim.cmd("vsplit")
+      vim.lsp.buf.definition()
+    end, opts("Go to Definition (split)"))
     vim.keymap.set("n", "grd", Snacks.picker.lsp_declarations, opts("Declarations"))
     vim.keymap.set("n", "grr", Snacks.picker.lsp_references, opts("References"))
     vim.keymap.set("n", "grt", Snacks.picker.lsp_type_definitions, opts("Type Definitions"))
@@ -61,6 +66,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
       vim.lsp.inlay_hint.enable(enable, { bufnr = buf })
       vim.notify("Inlay hints " .. utils.bool_to_enabled(enable))
     end, opts("Toggle Inlay Hints"))
+    vim.keymap.set("n", "grc", function()
+      local enable = not vim.lsp.codelens.is_enabled({ bufnr = buf })
+      vim.lsp.codelens.enable(enable, { bufnr = buf })
+      vim.notify("CodeLens " .. utils.bool_to_enabled(enable))
+    end, opts("Toggle CodeLens"))
 
     vim.keymap.set(
       { "n", "x" },

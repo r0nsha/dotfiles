@@ -1,9 +1,5 @@
 {
   "plugins": {
-    "arrow.nvim": {
-      "rev": "6e0f726f55f99332dd726a53effd6813786b6d49",
-      "src": "https://github.com/otavioschwanck/arrow.nvim"
-    },
     "blame.nvim": {
       "rev": "179da7aaacce7c52874af636255ede72dd6fe796",
       "src": "https://github.com/FabijanZulj/blame.nvim"
@@ -91,7 +87,7 @@
       "src": "https://github.com/jake-stewart/multicursor.nvim"
     },
     "multinput.nvim": {
-      "rev": "f5b0b8af5a6828dc84b38396cffa410fb30c53d8",
+      "rev": "f2959e1f5f4a64ae0c79c849d8e0a4af42a8e9e0",
       "src": "https://github.com/r0nsha/multinput.nvim"
     },
     "neotest": {

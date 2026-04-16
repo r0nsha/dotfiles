@@ -87,23 +87,6 @@ ln -sfv "$DOTFILES/.pam-gnupg" "$HOME/.pam-gnupg"
 mkdir -p "$HOME/.ssh"
 ln -sfv "$DOTFILES/ssh/config" ~/.ssh/config
 
-if [ "$MACHINE" = "linux" ]; then
-    # ly
-    sudo ln -sfv "$DOTFILES/ly/config.ini" /etc/ly/config.ini
-
-    # systemd
-    step "systemd: enable services"
-    systemctl --user daemon-reload
-    systemctl --user enable $(cd "$DOTFILES/systemd/user" && echo *.service)
-    success
-fi
-
-# macos defaults
-if [ "$MACHINE" = "darwin" ]; then
-    rm -rf "$HOME/.qutebrowser"
-    ln -sv "$DOTFILES/qutebrowser" "$HOME/.qutebrowser"
-fi
-
 # default shell
 if exists "fish"; then
     if [ "$(basename "$SHELL")" != "fish" ]; then

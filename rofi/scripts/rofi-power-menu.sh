@@ -40,7 +40,11 @@ icons[cancel]="\Uf0156"
 declare -A actions
 actions[lockscreen]="loginctl lock-session ${XDG_SESSION_ID-}"
 #actions[switchuser]="???"
-actions[logout]="loginctl terminate-session ${XDG_SESSION_ID-}"
+if [ -n "${NIRI_SOCKET:-}" ]; then
+    actions[logout]="niri msg action quit --skip-confirmation"
+else
+    actions[logout]="loginctl terminate-session ${XDG_SESSION_ID-}"
+fi
 actions[suspend]="systemctl suspend"
 actions[hibernate]="systemctl hibernate"
 actions[reboot]="systemctl reboot"
