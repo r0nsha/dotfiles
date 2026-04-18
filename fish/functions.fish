@@ -18,13 +18,11 @@ function mysk
     sk \
         --bind 'ctrl-y:accept' \
         --no-separator \
-        --no-scrollbar \
         --highlight-line \
         --reverse \
         --info=hidden \
         --pointer=' ' \
         --gutter=' ' \
-        --color='current-bg:236,current-fg:255' \
         $argv
 end
 
