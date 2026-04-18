@@ -81,15 +81,6 @@ vim.keymap.set("n", "<leader>iq", "<cmd>EditQuery<cr>", { desc = "TS: Edit Query
 
 require("treesitter-context").setup({ enable = true, max_lines = 1 })
 
-require("ts_context_commentstring").setup({ enable_autocmd = false })
-
-local get_option = vim.filetype.get_option
----@diagnostic disable-next-line: duplicate-set-field
-vim.filetype.get_option = function(filetype, option)
-  return option == "commentstring" and require("ts_context_commentstring.internal").calculate_commentstring()
-    or get_option(filetype, option)
-end
-
 vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
   group = require("augroup"),
   once = true,

@@ -20,6 +20,7 @@ vim.pack.add({
   { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
   { src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects", version = "main" },
   { src = "https://github.com/nvim-treesitter/nvim-treesitter-context" },
+  { src = "https://github.com/numToStr/Comment.nvim" },
   { src = "https://github.com/JoosepAlviste/nvim-ts-context-commentstring" },
   { src = "https://github.com/Wansmer/treesj" },
   { src = "https://github.com/folke/snacks.nvim" },
@@ -67,6 +68,7 @@ vim.pack.add({
 require("plugins.colorscheme")
 require("plugins.treesitter")
 require("plugins.treesitter_textobjects")
+require("plugins.comment")
 require("plugins.lazydev")
 require("plugins.lsp")
 require("plugins.format")
