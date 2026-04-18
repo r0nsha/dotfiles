@@ -49,6 +49,5 @@
             "url": "https://mcp.context7.com/mcp"
         }
     },
-    "plugin": ["@ex-machina/opencode-anthropic-auth"],
     "snapshot": false
 }
