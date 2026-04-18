@@ -1,5 +1,19 @@
 local utils = require("utils")
 
+vim.api.nvim_create_autocmd("LspProgress", {
+  callback = function(ev)
+    local value = ev.data.params.value
+    vim.api.nvim_echo({ { value.message or "done" } }, false, {
+      id = "lsp." .. ev.data.params.token,
+      kind = "progress",
+      source = "vim.lsp",
+      title = value.title,
+      status = value.kind ~= "end" and "running" or "success",
+      percent = value.percentage,
+    })
+  end,
+})
+
 vim.api.nvim_create_autocmd("LspAttach", {
   desc = "LSP actions",
   callback = function(args)
@@ -8,21 +22,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     local client = id and vim.lsp.get_client_by_id(id)
 
     if client == nil then return end
-
-    vim.api.nvim_create_autocmd("LspProgress", {
-      buffer = buf,
-      callback = function(ev)
-        local value = ev.data.params.value
-        vim.api.nvim_echo({ { value.message or "done" } }, false, {
-          id = "lsp." .. ev.data.params.token,
-          kind = "progress",
-          source = "vim.lsp",
-          title = value.title,
-          status = value.kind ~= "end" and "running" or "success",
-          percent = value.percentage,
-        })
-      end,
-    })
 
     vim.lsp.inlay_hint.enable(false, { bufnr = buf })
     vim.lsp.codelens.enable(false, { bufnr = buf })

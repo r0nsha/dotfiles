@@ -128,8 +128,7 @@ vim.opt.mousemodel = "popup_setpos"
 
 -- fold
 vim.o.foldenable = false
-vim.o.foldmethod = "expr"
-vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.o.foldmethod = "indent"
 vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
 vim.opt.foldcolumn = "1"
@@ -163,4 +162,10 @@ if vim.env.SSH_CONNECTION then
   }
 end
 
-require("vim._core.ui2").enable({ enable = true })
+require("vim._core.ui2").enable({
+  enable = true,
+  msg = { targets = {
+    progress = "msg",
+    ["*"] = "cmd",
+  } },
+})
