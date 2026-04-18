@@ -1,12 +1,12 @@
+local ts = require("nvim-treesitter")
+
 vim.api.nvim_create_autocmd("PackChanged", {
   group = require("augroup"),
   once = true,
   callback = function(args)
-    if args.data.spec.name == "nvim-treesitter" then require("nvim-treesitter").update() end
+    if args.data.spec.name == "nvim-treesitter" then ts.update() end
   end,
 })
-
-local ts = require("nvim-treesitter")
 
 local parsers = {
   "query",
@@ -15,7 +15,6 @@ local parsers = {
   "vim",
   "vimdoc",
   "rust",
-  "go",
   "toml",
   "markdown",
   "markdown_inline",
@@ -53,33 +52,46 @@ local parsers = {
 
 ts.install(parsers)
 
+---@type string[]
+local langs_need_syntax = { "jsx", "tsx" }
+
 ---@param buf number
----@param ft string
-local function start_treesitter(buf, ft)
-  local lang = vim.treesitter.language.get_lang(ft) or ft
+---@param lang string
+local function start_treesitter(buf, lang)
+  if not vim.treesitter.language.add(lang) then return end
 
-  local ok = pcall(vim.treesitter.start, buf, lang)
-  if not ok then return end
+  vim.treesitter.start(buf, lang)
+  if vim.tbl_contains(langs_need_syntax, lang) then vim.bo[buf].syntax = "on" end
 
-  ts.install({ lang })
-
-  vim.bo[buf].syntax = "on"
-  vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+  if vim.treesitter.query.get(lang, "idnents") then
+    vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+  end
 end
 
+local available_parsers = ts.get_available()
+
 -- Auto-install parsers and enable highlighting for filetypes
-local augroup = require("augroup")
 vim.api.nvim_create_autocmd("FileType", {
-  group = augroup,
-  callback = function(args) start_treesitter(args.buf, args.match) end,
+  group = require("augroup"),
+  callback = function(args)
+    local buf, ft = args.buf, args.match
+    local lang = vim.treesitter.language.get_lang(ft)
+    if not lang then return end
+
+    local installed_parsers = ts.get_installed("parsers")
+
+    if vim.tbl_contains(installed_parsers, lang) then
+      start_treesitter(buf, lang)
+    elseif vim.tbl_contains(available_parsers, lang) then
+      ts.install(lang):await(function() start_treesitter(buf, lang) end)
+    end
+  end,
 })
 vim.api.nvim_create_user_command("TSStart", function() start_treesitter(0, vim.bo.filetype) end, {})
 
 vim.keymap.set("n", "<leader>ih", "<cmd>Inspect<cr>", { desc = "TS: Inspect" })
 vim.keymap.set("n", "<leader>ip", "<cmd>InspectTree<cr>", { desc = "TS: Inspect Tree" })
 vim.keymap.set("n", "<leader>iq", "<cmd>EditQuery<cr>", { desc = "TS: Edit Query" })
-
-require("treesitter-context").setup({ enable = true, max_lines = 1 })
 
 vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
   group = require("augroup"),
