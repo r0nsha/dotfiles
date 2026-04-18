@@ -52,16 +52,13 @@ local parsers = {
 
 ts.install(parsers)
 
----@type string[]
-local langs_need_syntax = { "jsx", "tsx" }
-
 ---@param buf number
 ---@param lang string
 local function start_treesitter(buf, lang)
   if not vim.treesitter.language.add(lang) then return end
 
   vim.treesitter.start(buf, lang)
-  if vim.tbl_contains(langs_need_syntax, lang) then vim.bo[buf].syntax = "on" end
+  vim.bo[buf].syntax = "on"
 
   if vim.treesitter.query.get(lang, "idnents") then
     vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
