@@ -14,14 +14,14 @@ function dashboard
     tmux switch-client -t $name
 end
 
-function myfzf
-    fzf \
+function mysk
+    sk \
         --bind 'ctrl-y:accept' \
         --no-separator \
         --no-scrollbar \
         --highlight-line \
         --reverse \
-        --info=inline-right \
+        --info=hidden \
         --pointer=' ' \
         --gutter=' ' \
         --color='current-bg:236,current-fg:255' \
@@ -59,7 +59,7 @@ function tmux_select_dir
             end
 
             fd . $search_dirs --full-path --type d --exact-depth 1
-        end | sd "^$HOME/" "" | string trim -r -c / | myfzf)
+        end | sd "^$HOME/" "" | string trim -r -c / | mysk)
 
         # add $HOME back
         set selected $HOME/$selected
@@ -93,7 +93,7 @@ function tmux_select_session
     if test (count $argv) -eq 1
         set selected $argv[1]
     else
-        set selected (tmux list-sessions -F "#{session_name}" | myfzf)
+        set selected (tmux list-sessions -F "#{session_name}" | mysk)
     end
 
     if test -n "$selected"

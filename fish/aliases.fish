@@ -46,11 +46,7 @@ end
 
 # GIT ALIASES
 abbr -a g git
-abbr -a gg 'git branch | fzf | xargs git switch'
-abbr -a gl "git log --all --graph --format=format:'%C(bold blue)%h%C(reset) - %C(white)%s%C(reset) %C(bold magenta)%d%C(reset)'"
-abbr -a gll "git log --graph --format=format:'%C(bold blue)%h%C(reset) - %C(white)%s%C(reset) %C(green)%an %ar %C(reset) %C(bold magenta)%d%C(reset)'"
-abbr -a glc 'git branch | fzf | xargs -I % git log %..HEAD --oneline --decorate --color --graph'
-abbr -a glcr 'git branch | fzf | xargs -I % git log %..origin/HEAD --oneline --decorate --color --graph'
+abbr -a gg 'git branch | sk | xargs git switch'
 
 # PYTHON ALIASES
 abbr -a python python3
