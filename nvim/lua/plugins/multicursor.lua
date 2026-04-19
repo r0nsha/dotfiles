@@ -17,7 +17,7 @@ vim.keymap.set({ "n", "x" }, "<C-S-N>", function() mc.matchAddCursor(-1) end, op
 vim.keymap.set({ "n", "x" }, "<C-n>", function() mc.matchAddCursor(1) end, opts("Add Cursor Match Below"))
 
 -- Easy way to add and remove cursors using the main cursor.
-vim.keymap.set("n", "<C-m>", mc.toggleCursor, opts("Toggle Cursor"))
+vim.keymap.set("n", "m.", mc.toggleCursor, opts("Toggle Cursor"))
 
 -- Add all matches in the document
 vim.keymap.set("n", "<C-S-M>", mc.matchAllAddCursors, opts("Add Cursors to All Matches"))

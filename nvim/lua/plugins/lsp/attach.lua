@@ -1,5 +1,19 @@
 local utils = require("utils")
 
+vim.api.nvim_create_autocmd("LspProgress", {
+  callback = function(ev)
+    local value = ev.data.params.value
+    vim.api.nvim_echo({ { value.message or "done" } }, false, {
+      id = "lsp." .. ev.data.params.token,
+      kind = "progress",
+      source = "vim.lsp",
+      title = value.title,
+      status = value.kind ~= "end" and "running" or "success",
+      percent = value.percentage,
+    })
+  end,
+})
+
 vim.api.nvim_create_autocmd("LspAttach", {
   desc = "LSP actions",
   callback = function(args)
@@ -9,31 +23,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
     if client == nil then return end
 
-    vim.api.nvim_create_autocmd("LspProgress", {
-      buffer = buf,
-      callback = function(ev)
-        local value = ev.data.params.value
-        vim.api.nvim_echo({ { value.message or "done" } }, false, {
-          id = "lsp." .. ev.data.params.token,
-          kind = "progress",
-          source = "vim.lsp",
-          title = value.title,
-          status = value.kind ~= "end" and "running" or "success",
-          percent = value.percentage,
-        })
-      end,
-    })
-
-    vim.lsp.inlay_hint.enable(true, { bufnr = buf })
-    vim.lsp.codelens.enable(true, { bufnr = buf })
+    vim.lsp.inlay_hint.enable(false, { bufnr = buf })
+    vim.lsp.codelens.enable(false, { bufnr = buf })
 
     ---@param desc string
-    local opts = function(desc)
-      return {
-        buffer = buf,
-        desc = "LSP: " .. desc,
-      }
-    end
+    local opts = function(desc) return { buffer = buf, desc = "LSP: " .. desc } end
 
     vim.keymap.set("n", "gd", Snacks.picker.lsp_definitions, opts("Go to Definition"))
     vim.keymap.set("n", "<c-w>gd", function()
@@ -57,20 +51,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
       end,
       opts("Organize Imports")
     )
-
     vim.keymap.set("n", "grn", vim.lsp.buf.rename, opts("Rename"))
+    vim.keymap.set("n", "grA", vim.lsp.codelens.run, opts("Rename"))
     vim.keymap.set({ "n", "x" }, "gra", vim.lsp.buf.code_action, opts("Code Action"))
     vim.keymap.set("n", "K", vim.lsp.buf.hover, opts("Hover"))
-    vim.keymap.set("n", "grh", function()
-      local enable = not vim.lsp.inlay_hint.is_enabled({ bufnr = buf })
-      vim.lsp.inlay_hint.enable(enable, { bufnr = buf })
-      vim.notify("Inlay hints " .. utils.bool_to_enabled(enable))
-    end, opts("Toggle Inlay Hints"))
-    vim.keymap.set("n", "grc", function()
-      local enable = not vim.lsp.codelens.is_enabled({ bufnr = buf })
-      vim.lsp.codelens.enable(enable, { bufnr = buf })
-      vim.notify("CodeLens " .. utils.bool_to_enabled(enable))
-    end, opts("Toggle CodeLens"))
 
     vim.keymap.set(
       { "n", "x" },
@@ -97,3 +81,15 @@ do
     vim.diagnostic.setloclist({ open = false })
   end
 end
+
+vim.keymap.set("n", "grh", function()
+  local enable = not vim.lsp.inlay_hint.is_enabled()
+  vim.lsp.inlay_hint.enable(enable)
+  vim.notify("Inlay hints " .. utils.bool_to_enabled(enable))
+end, { desc = "LSP: Toggle Inlay Hints" })
+
+vim.keymap.set("n", "grc", function()
+  local enable = not vim.lsp.codelens.is_enabled()
+  vim.lsp.codelens.enable(enable)
+  vim.notify("CodeLens " .. utils.bool_to_enabled(enable))
+end, { desc = "LSP: Toggle CodeLens" })
