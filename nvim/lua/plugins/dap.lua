@@ -17,10 +17,9 @@ dv.setup({
       size = 0.25,
     },
   },
-})
-
-require("nvim-dap-virtual-text").setup({
-  virt_text_pos = "",
+  virtual_text = {
+    enabled = true,
+  },
 })
 
 require("persistent-breakpoints").setup({
