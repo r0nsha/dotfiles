@@ -98,7 +98,14 @@ dap.adapters["pwa-node"] = {
 dap.adapters["node"] = dap.adapters["pwa-node"]
 
 ---@type dap.Configuration[]
-local config = {
+local js_config = {
+  {
+    type = "pwa-node",
+    request = "launch",
+    name = "Run current file",
+    program = "${file}",
+    cwd = "${workspaceFolder}",
+  },
   {
     type = "pwa-node",
     request = "attach",
@@ -108,13 +115,26 @@ local config = {
   },
 }
 
-local fts = {
-  "javascript",
-  "typescript",
-  "javascriptreact",
-  "typescriptreact",
+---@type dap.Configuration[]
+local ts_config = {
+  {
+    type = "pwa-node",
+    request = "launch",
+    name = "Run current file",
+    runtimeExecutable = "tsx",
+    program = "${file}",
+    cwd = "${workspaceFolder}",
+  },
+  {
+    type = "pwa-node",
+    request = "attach",
+    name = "Attach to Node process",
+    port = function() return vim.fn.input("Port: ") end,
+    cwd = "${workspaceFolder}",
+  },
 }
 
-for _, ft in ipairs(fts) do
-  dap.configurations[ft] = config
-end
+dap.configurations.javascript = js_config
+dap.configurations.javascriptreact = js_config
+dap.configurations.typescript = ts_config
+dap.configurations.typescriptreact = ts_config
