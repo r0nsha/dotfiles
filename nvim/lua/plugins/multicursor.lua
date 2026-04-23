@@ -20,16 +20,26 @@ vim.keymap.set({ "n", "x" }, "<C-n>", function() mc.matchAddCursor(1) end, opts(
 vim.keymap.set("n", "m.", mc.toggleCursor, opts("Toggle Cursor"))
 
 -- Add all matches in the document
-vim.keymap.set("n", "<C-S-M>", mc.matchAllAddCursors, opts("Add Cursors to All Matches"))
+vim.keymap.set("n", "mm", function()
+  if vim.v.hlsearch == 1 then
+    local count = vim.fn.searchcount({ recompute = 1 })
+    if count and count.total > 0 then
+      mc.searchAllAddCursors()
+      return
+    end
+  end
+
+  mc.matchAllAddCursors()
+end, opts("Add Cursors to All Matches"))
 
 -- Match new cursors within visual selections by regex.
-vim.keymap.set("x", "m", mc.matchCursors, opts("Match Cursors by Regex"))
+vim.keymap.set("x", "mm", mc.matchCursors, opts("Match Cursors by Regex"))
 
 -- Split visual selections by regex.
 vim.keymap.set("x", "M", mc.splitCursors, opts("Split Cursors by Regex"))
 
 -- Bring back cursors if you accidentally clear them
-vim.keymap.set("n", "gM", mc.restoreCursors, opts("Restore Cursors"))
+vim.keymap.set("n", "mR", mc.restoreCursors, opts("Restore Cursors"))
 
 -- Append/insert for each line of visual selections.
 vim.keymap.set("x", "I", mc.insertVisual, opts("Insert"))

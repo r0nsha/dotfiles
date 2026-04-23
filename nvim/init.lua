@@ -35,7 +35,6 @@ vim.pack.add({
   { src = "https://github.com/mfussenegger/nvim-dap" },
   { src = "https://github.com/mfussenegger/nvim-lint" },
   { src = "https://github.com/igorlfs/nvim-dap-view" },
-  { src = "https://github.com/theHamsta/nvim-dap-virtual-text" },
   { src = "https://github.com/Weissle/persistent-breakpoints.nvim" },
   { src = "https://github.com/nvimtools/hydra.nvim" },
   { src = "https://github.com/jbyuki/one-small-step-for-vimkind" },

@@ -1,5 +1,6 @@
 -- TODO: refactor this messy module
 local Job = require("plenary.job")
+local notify = vim.schedule_wrap(vim.notify)
 
 ---@class KafkaPod
 ---@field metadata { name: string, labels: { app: string } }
