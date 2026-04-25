@@ -164,8 +164,24 @@ end
 
 require("vim._core.ui2").enable({
   enable = true,
-  msg = { targets = {
-    progress = "msg",
-    ["*"] = "cmd",
-  } },
+  msg = {
+    target = "cmd",
+    -- targets = {
+    --   progress = "msg",
+    --   ["*"] = "cmd",
+    -- },
+    cmd = {
+      height = 0.5,
+    },
+    dialog = {
+      height = 0.33,
+    },
+    msg = {
+      height = 0.5,
+      timeout = 4000,
+    },
+    pager = {
+      height = 1,
+    },
+  },
 })
