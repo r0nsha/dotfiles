@@ -7,7 +7,7 @@ email = "r0nsh4v1t@gmail.com"
 [ui]
 default-command = "log"
 diff-editor = ["nvim", "-c", "DiffEditor $left $right $output"]
-should-sign-off = true
+merge-editor = "diffconflicts"
 diff-instructions = false
 
 [[--scope]]
@@ -26,21 +26,7 @@ auto-track-bookmarks = 'ron/*'
 
 [templates]
 git_push_bookmark = '"ron/" ++ change_id.short()'
-draft_commit_description = '''
-concat(
-  coalesce(description, default_commit_description, "\n"),
-  if(
-    config("ui.should-sign-off").as_boolean() && !description.contains("Signed-off-by: " ++ author.name()),
-    "\nSigned-off-by: " ++ author.name() ++ " <" ++ author.email() ++ ">\n",
-  ),
-  surround(
-    "\nJJ: This commit contains the following changes:\n", "",
-    indent("JJ:     ", diff.stat(72)),
-  ),
-  "\nJJ: ignore-rest\n",
-  diff.git(),
-)
-'''
+draft_commit_description = "builtin_draft_commit_description_with_diff"
 
 [merge-tools.diffconflicts]
 program = "nvim"
@@ -77,7 +63,6 @@ si = ["squash", "--interactive"]
 mine = ["bookmark", "list", "-r", "mine()"]
 # List all branches
 branches = ["log", "-r", "heads(all())"]
-res = ["resolve", "--tool", "diffconflicts"]
 pmine = ["git", "push", "-b", "glob:ron/*"]
 l = [
   "log",
