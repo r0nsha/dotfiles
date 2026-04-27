@@ -3,6 +3,7 @@ import os
 import platform
 
 system = platform.system()
+homedir = os.path.expanduser("~")
 
 config.load_autoconfig(True)
 
@@ -15,6 +16,22 @@ c.auto_save.session = True
 c.tabs.position = "top"
 c.tabs.show = "multiple"
 c.editor.command = ["ghostty", "nvim", "{file}", "+{line}"]
+c.fileselect.handler = "external"
+c.fileselect.single_file.command = [
+    "ghostty",
+    "-e",
+    "yazi",
+    "--chooser-file={}",
+    homedir,
+]
+c.fileselect.multiple_files.command = [
+    "ghostty",
+    "-e",
+    "yazi",
+    "--chooser-file={}",
+    homedir,
+]
+c.fileselect.folder.command = ["ghostty", "-e", "yazi", "--chooser-file={}", homedir]
 c.new_instance_open_target = "tab"
 c.new_instance_open_target_window = "last-focused"
 c.input.insert_mode.auto_load = True

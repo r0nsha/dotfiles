@@ -177,6 +177,7 @@ aur_deps=(
     opencode-bin
     responsively
     stremio
+    xdg-desktop-portal-termfilechooser
 )
 
 paru -Syu --noconfirm ${aur_deps[@]}

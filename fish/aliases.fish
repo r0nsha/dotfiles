@@ -44,6 +44,10 @@ if binary_exists neomutt
     abbr -a mutt neomutt
 end
 
+if binary_exists opencode
+    alias q 'opencode run --agent plan --model opencode/big-pickle'
+end
+
 # GIT ALIASES
 abbr -a g git
 abbr -a gg 'git branch | sk | xargs git switch'
