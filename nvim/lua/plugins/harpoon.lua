@@ -5,8 +5,9 @@ h:setup({
     sync_on_ui_close = true,
   },
 })
+h:extend(require("harpoon.extensions").builtins.highlight_current_file())
 
-local keys = { "j", "k", "l", "m" }
+local keys = { "a", "s", "d", "f" }
 
 local function add()
   if vim.fn.expand("%") == "" then
@@ -14,34 +15,48 @@ local function add()
     return
   end
 
-  if h:list():length() >= #keys then
+  local list = h:list()
+  local item = list.config.create_list_item(list.config)
+
+  if list:get_by_value(item.value) then
+    vim.notify("Harpoon: Already in list", vim.log.levels.WARN)
+    return
+  end
+
+  local slot
+  for i = 1, #keys do
+    if list:get(i) == nil then
+      slot = i
+      break
+    end
+  end
+
+  if not slot then
     vim.notify("Harpoon list is full", vim.log.levels.WARN)
     return
   end
 
-  local prev_len = h:list():length()
-  h:list():add()
-
-  if prev_len == h:list():length() then
-    -- Already in harpoon
-    return
-  end
-
-  vim.notify("Harpoon: Set to `" .. keys[h:list():length()] .. "`", vim.log.levels.INFO)
+  list:add(item)
+  vim.notify("Harpoon: Set to `" .. keys[slot] .. "`", vim.log.levels.INFO)
 end
 
 vim.keymap.set(
   "n",
   "<C-e>",
-  function() h.ui:toggle_quick_menu(h:list(), { border = "none" }) end,
+  function()
+    h.ui:toggle_quick_menu(h:list(), {
+      border = "none",
+      ui_width_ratio = 0.35,
+    })
+  end,
   { desc = "Harpoon: Menu" }
 )
 
 vim.keymap.set("n", "<leader>a", add, { desc = "Harpoon: Add" })
 
 for i, key in ipairs(keys) do
-  vim.keymap.set("n", "<leader>" .. key, function() h:list():select(i) end, { desc = "Harpoon: Select " .. i })
-  vim.keymap.set("n", "<leader>" .. key:upper(), function()
+  vim.keymap.set("n", "<A-" .. key .. ">", function() h:list():select(i) end, { desc = "Harpoon: Select " .. i })
+  vim.keymap.set("n", "<A-S-" .. key:upper() .. ">", function()
     h:list():replace_at(i)
     vim.notify("Harpoon: Replaced `" .. key .. "`", vim.log.levels.INFO)
   end, { desc = "Harpoon: Set " .. i })
