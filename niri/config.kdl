@@ -3,7 +3,7 @@ input {
     keyboard {
         xkb {
             layout "us,il"
-            options "grp:win_space_toggle"
+            options "grp:alt_space_toggle"
         }
         repeat-delay 300
         repeat-rate 50
@@ -178,7 +178,7 @@ layer-rule {
 }
 include optional=true "~/.cache/wal/niri.kdl"
 binds {
-    Mod+Shift+Slash {
+    Mod+Slash {
         show-hotkey-overlay
     }
     Mod+Left {
@@ -382,7 +382,7 @@ binds {
     Mod+F {
         switch-focus-between-floating-and-tiling
     }
-    Mod+Shift+F {
+    Mod+Ctrl+F {
         toggle-window-floating
     }
     // Media
@@ -431,7 +431,7 @@ binds {
     Mod+Alt+B hotkey-overlay-title="Spawn Browser (Private)" {
         spawn "qutebrowser" "--target" "private-window" "-s" "content.private_browsing" "True"
     }
-    Mod+Slash repeat=false {
+    Mod+Space repeat=false {
         spawn "ron-walker"
     }
     Mod+Shift+Escape repeat=false {
@@ -497,9 +497,6 @@ binds {
     }
     Mod+O repeat=false {
         toggle-overview
-    }
-    Mod+Q repeat=false {
-        close-window
     }
     Mod+W repeat=false {
         close-window
