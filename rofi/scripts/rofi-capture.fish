@@ -16,14 +16,19 @@ end
 
 wait # wait for rofi to exit
 
+set command
 set screen_args
 switch $action
+    case shot
+        set command ron-capture-screenshot
+    case record
+        set command ron-capture-screenrecord
     case 'record (gif)'
-        set action record
+        set command ron-capture-screenrecord
         set -a screen_args --gif
     case 'record (with audio)'
-        set action record
+        set command ron-capture-screenrecord
         set -a screen_args --audio
 end
 
-~/.config/scripts/capture.fish --action=$action --region=$region $screen_args
+$command --region=$region $screen_args

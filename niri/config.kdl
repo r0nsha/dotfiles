@@ -171,10 +171,6 @@ window-rule {
 layer-rule {
     match namespace="^notifications$"
     block-out-from "screencast"
- // background-effect {
-    //     blur true
-    //     xray true
-    // }
 }
 include optional=true "~/.cache/wal/niri.kdl"
 binds {
@@ -442,10 +438,10 @@ binds {
         spawn-sh "~/.config/rofi/scripts/rofi-capture.fish"
     }
     Mod+Shift+S repeat=false {
-        spawn-sh "~/.config/scripts/capture.fish --action=shot --region=region"
+        spawn "ron-capture-screenshot" "--region=region"
     }
     Mod+Alt+S repeat=false {
-        spawn-sh "~/.config/scripts/capture.fish --action=record --region=region"
+        spawn "ron-capture-screenrecord" "--region=region"
     }
     Mod+C repeat=false {
         spawn "ron-walker" "-m" "clipboard"
@@ -511,4 +507,3 @@ binds {
         quit
     }
 }
-

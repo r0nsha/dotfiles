@@ -9,6 +9,7 @@
 # Layout
 
 - Most directories are Stow packages mapping directly under `~/.config`.
+- Every file under `bin/` must be prefixed with `ron-`.
 - `.stow-local-ignore` excludes special cases: `install`, `gpg`, `ly`, `ssh`, `.pam-gnupg`, `.jj`, and `jj/conf.d` are handled manually or locally.
 - `install/install.sh` creates `~/.env.fish` with `DOTFILES`; `fish/config.fish` requires it before loading repo Fish files.
 - Machine-local Fish overrides belong in `~/config.fish`, not this repo.

@@ -1,0 +1,95 @@
+#!/usr/bin/env fish
+
+function usage
+    echo "usage: ron-capture-screenrecord -r/--region <region|screen> [--gif] [--audio] [-h/--help]"
+end
+
+argparse h/help "r/region=" gif audio -- $argv
+
+if set -ql _flag_h
+    usage
+    exit 0
+end
+
+set region $_flag_r
+
+if test -z "$region"
+    usage
+    exit 1
+end
+
+source ~/.cache/wal/colors.fish
+
+function notify_error
+    notify-send -t 10000 -u critical "screen error" "$argv"
+end
+
+function get_filename
+    echo (date +%d-%m-%Y_%Hh%Mm%Ss)
+end
+
+function select_region
+    set background (test -n "$color7"; and echo "$(echo $color7)44"; or echo "#d0d0d0aa")
+    set border (test -n "$color6"; and echo "$color6"; or echo "#ffffff")
+    set selection (test -n "$color0"; and echo "$(echo $color0)00"; or echo "#00000022")
+    set geom (slurp -b $background -c $border -s $selection -w 2)
+    if test $status -ne 0
+        exit 1
+    end
+    echo $geom
+end
+
+function get_geometry
+    switch $region
+        case region
+            select_region
+        case screen
+            echo ""
+    end
+end
+
+# if wf-recorder is running, stop/kill it and exit
+set -l pcount (pkill -SIGINT -c wf-recorder)
+if test $pcount -gt 0
+    # unload virtual pulseaudio modules
+    pactl unload-module module-null-sink
+    pactl unload-module module-loopback
+    exit
+end
+
+set dir $XDG_PICTURES_DIR/screenrecords
+mkdir -p $dir
+
+set recorder_args
+if set -q _flag_gif
+    set ext gif
+    set -a recorder_args --codec=gif
+else
+    set ext mp4
+    if set -q _flag_audio
+        # setup a virtual sink that combines default sink and source, so we can record both
+        set -l virtual_sink Combined
+        pactl load-module module-null-sink sink_name=$virtual_sink
+        pactl load-module module-loopback sink=$virtual_sink source=$(pactl get-default-sink).monitor
+        pactl load-module module-loopback sink=$virtual_sink source=(pactl get-default-source)
+        set -a recorder_args --audio=$virtual_sink.monitor
+    end
+end
+
+set file "$dir/$(get_filename).$ext"
+set geom (get_geometry)
+if test -n "$geom"
+    set -a recorder_args -g "$geom"
+end
+
+wf-recorder $recorder_args --file=$file --overwrite
+if test $status -ne 0
+    notify_error "wf-recorder failed"
+    exit 1
+end
+
+wait # wait for wf-recorder to exit
+
+wl-copy $file
+
+notify-send -t 10000 -i "$file" "Recording saved" "Copied file path to clipboard: $file"
