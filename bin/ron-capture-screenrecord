@@ -29,10 +29,9 @@ function get_filename
 end
 
 function select_region
-    set background (test -n "$color7"; and echo "$(echo $color7)44"; or echo "#d0d0d0aa")
+    set background (test -n "$color0"; and echo "$(echo $color0)5f"; or echo "#d0d0d0aa")
     set border (test -n "$color6"; and echo "$color6"; or echo "#ffffff")
-    set selection (test -n "$color0"; and echo "$(echo $color0)00"; or echo "#00000022")
-    set geom (slurp -b $background -c $border -s $selection -w 2)
+    set geom (slurp -b $background -c $border -w 2)
     if test $status -ne 0
         exit 1
     end
