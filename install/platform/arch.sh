@@ -178,6 +178,7 @@ aur_deps=(
     xdg-desktop-portal-termfilechooser
     elephant-all
     walker
+    gpu-screen-recorder-git
 )
 
 paru -Syu --noconfirm ${aur_deps[@]}
