@@ -56,19 +56,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set({ "n", "x" }, "gra", vim.lsp.buf.code_action, opts("Code Action"))
     vim.keymap.set("n", "K", vim.lsp.buf.hover, opts("Hover"))
 
-    vim.keymap.set(
-      { "n", "x" },
-      "[d",
-      function() vim.diagnostic.jump({ count = -1, float = true }) end,
-      opts("Previous Diagnostic")
-    )
-    vim.keymap.set(
-      { "n", "x" },
-      "]d",
-      function() vim.diagnostic.jump({ count = 1, float = true }) end,
-      opts("Next Diagnostic")
-    )
-
     vim.keymap.set("i", "<C-s>", vim.lsp.buf.signature_help, opts("Signature Help"))
   end,
 })

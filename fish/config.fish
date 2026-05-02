@@ -42,6 +42,7 @@ set -gx PNPM_HOME "$HOME/.local/share/pnpm"
 
 # paths
 fish_add_path \
+    $XDG_CONFIG_HOME/bin \
     $HOME/.cargo/bin \
     $HOME/.local/bin \
     ./node_modules/.bin \

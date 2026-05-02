@@ -1,10 +1,19 @@
 #!/usr/bin/env fish
 
-function usage
-    echo "usage: capture.fish -a/--action <shot|record> -r/--region <region|screen> -t/--to <clipboard|ui> [--gif] [--audio] [-h/--help]"
+function open_editor
+    set -l filepath $argv[1]
+    satty --filename "$filepath" \
+        --output-filename "$filepath" \
+        --actions-on-enter save-to-clipboard \
+        --save-after-copy \
+        --copy-command wl-copy
 end
 
-argparse h/help "a/action=" "r/region=" "t/to=" gif audio -- $argv
+function usage
+    echo "usage: capture.fish -a/--action <shot|record> -r/--region <region|screen> [--gif] [--audio] [-h/--help]"
+end
+
+argparse h/help "a/action=" "r/region=" gif audio -- $argv
 
 if set -ql _flag_h
     usage
@@ -13,9 +22,8 @@ end
 
 set action $_flag_a
 set region $_flag_r
-set to $_flag_t
 
-if test -z "$action"; or test -z "$region"; or test -z "$to"
+if test -z "$action"; or test -z "$region"
     usage
     return 1
 end
@@ -76,17 +84,14 @@ switch $action
 
         wait # wait for grim to exit
 
-        set copied (switch $to
-            case clipboard
-                wl-copy <$file
-                echo screenshot
-            case ui
-                satty -f $file -o $file
-                wl-copy <$file
-                echo screenshot
-        end)
+        wl-copy <$file
 
-        notify "saved screenshot to $file, \ncopied $copied to clipboard"
+        begin
+            set -l ACTION (notify-send "Screenshot saved to clipboard and file" "Edit with Mod+N (or click this)" -t 10000 -i "$file" -A "default=edit")
+            if test "$ACTION" = default
+                open_editor "$file"
+            end
+        end &
     case record
         # if wf-recorder is running, stop/kill it and exit
         set -l pcount (pkill -SIGINT -c wf-recorder)
@@ -131,19 +136,6 @@ switch $action
         wait # wait for wf-recorder to exit
 
         wl-copy $file
-        set copied (switch $to
-            case clipboard
-                wl-copy $file
-                echo path
-            case ui
-                if test "$ext" != gif
-                    wl-copy $file
-                    shotcut $file
-                    echo recording
-                else 
-                    echo path
-                end
-        end)
 
-        notify "saved recording to $file, \ncopied $copied to clipboard"
+        notify-send -t 10000 -i "$file" "Recording saved" "Copied file path to clipboard: $file"
 end

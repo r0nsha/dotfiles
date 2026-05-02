@@ -1,4 +1,4 @@
-source $DOTFILES/bin/utils.sh
+source $DOTFILES/install/utils.sh
 
 case "$MACHINE" in
 linux)
@@ -23,10 +23,10 @@ linux)
         error "unsupported distro '$ID'. add support to dotfiles."
     fi
 
-    script=$DOTFILES/bin/platform/$distro_type.sh
+    script=$DOTFILES/install/platform/$distro_type.sh
     info "detected linux distribution: $distro_type (based on '$ID')"
     info "installing tools from $script..."
-    source "$DOTFILES/bin/platform/${distro_type}.sh"
+    source "$DOTFILES/install/platform/${distro_type}.sh"
     ;;
-darwin) source $DOTFILES/bin/platform/macos.sh ;;
+darwin) source $DOTFILES/install/platform/macos.sh ;;
 esac

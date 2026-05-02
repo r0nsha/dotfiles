@@ -78,7 +78,6 @@ pacman_deps=(
     python-pip
     python-pipx
     python-adblock
-    kitty
     ghostty
     fish
     tmux
@@ -98,7 +97,6 @@ pacman_deps=(
     nvidia-settings
     xorg-xwayland
     xwayland-satellite
-    niri
     hyprlock
     hypridle
     hyprpicker
@@ -119,7 +117,6 @@ pacman_deps=(
     lib32-gamemode
     udiskie
     rofi-wayland
-    rofimoji
     rofi-calc
     steam
     shotcut
@@ -157,6 +154,7 @@ install_wrapper paru install_paru
 install_wrapper rustup install_rust
 
 aur_deps=(
+    niri-git
     qutebrowser-git
     vesktop
     walcord
@@ -178,6 +176,8 @@ aur_deps=(
     responsively
     stremio
     xdg-desktop-portal-termfilechooser
+    elephant-all
+    walker
 )
 
 paru -Syu --noconfirm ${aur_deps[@]}
@@ -192,7 +192,20 @@ pipx install ${pip_deps[@]}
 # systemd
 step "systemd: enable user services"
 systemctl --user daemon-reload
-systemctl --user enable $(cd "$DOTFILES/systemd/user" && echo *.service)
+shopt -s nullglob
+user_services=("$DOTFILES"/systemd/user/*.service)
+user_paths=("$DOTFILES"/systemd/user/*.path)
+
+if ((${#user_services[@]})); then
+    systemctl --user enable "${user_services[@]}"
+fi
+
+if ((${#user_paths[@]})); then
+    systemctl --user enable --now "${user_paths[@]}"
+fi
+
+shopt -u nullglob
+elephant service enable
 success
 
 # ly

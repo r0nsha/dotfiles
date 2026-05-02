@@ -22,10 +22,14 @@ if binary_exists eza
     abbr -a ls eza
     abbr -a ll 'eza -lh'
     abbr -a lll 'eza -lah'
+    abbr -a lt 'eza -T'
+    abbr -a llt 'eza -lhT'
+    abbr -a lllt 'eza -lahT'
 else
     abbr -a l ls
     abbr -a ll 'ls -lh'
     abbr -a lll 'ls -lah'
+    abbr -a lt tree
 end
 
 if binary_exists bat

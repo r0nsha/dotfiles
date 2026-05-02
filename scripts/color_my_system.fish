@@ -12,6 +12,10 @@ ln -sf ~/.cache/wal/qt.conf ~/.config/qt6ct/colors/colors.conf
 # waybar
 ln -sf ~/.cache/wal/waybar.css ~/.config/waybar/style.css
 
+# walker
+ln -sf ~/.cache/wal/walker.css ~/.config/walker/themes/square/style.css
+systemctl --user restart walker.service
+
 # kitty
 ln -sf ~/.config/kitty/theme_(get_theme).conf ~/.config/kitty/current_theme.conf
 pkill -SIGUSR1 kitty
@@ -29,8 +33,16 @@ if pgrep mako
     makoctl reload
 end
 
+# qutebrowser
 if pgrep qutebrowser
     qutebrowser :config-source
 end
 
+# tmux
 tmux source-file ~/.config/tmux/tmux.conf
+
+# niri
+if pgrep -x niri >/dev/null
+    niri msg action do-screen-transition
+    niri msg action load-config-file
+end

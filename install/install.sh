@@ -14,9 +14,9 @@ DOWNLOADS="${XDG_DOWNLOAD_DIR:-$HOME/downloads}"
 PICTURES="${XDG_PICTURES_DIR:-$HOME/pictures}"
 VIDEOS="${XDG_VIDEOS_DIR:-$HOME/videos}"
 
-cat "$DOTFILES/bin/pepe.txt"
+cat "$DOTFILES/install/pepe.txt"
 
-source "$DOTFILES/bin/utils.sh"
+source "$DOTFILES/install/utils.sh"
 
 case "$(uname)" in
 Linux) MACHINE="linux" ;;
@@ -43,15 +43,23 @@ fi
 # make scripts executable
 step "scripts"
 chmod -v ug+x $DOTFILES/scripts/*
+chmod -v ug+x $DOTFILES/bin/*
 chmod -v ug+x $DOTFILES/i3blocks/scripts/*
 chmod -v ug+x $DOTFILES/rofi/scripts/*
 chmod -v ug+x $DOTFILES/waybar/scripts/*
 chmod -v ug+x $DOTFILES/qutebrowser/userscripts/*
 success
 
+# bin -> ~/.local/bin
+step "bin"
+for f in "$DOTFILES"/bin/*; do
+    [ -f "$f" ] && ln -sfv "$f" "$LOCAL_BIN/$(basename "$f")"
+done
+success
+
 # install tools
 step "tools"
-source "$DOTFILES/bin/platform.sh"
+source "$DOTFILES/install/platform.sh"
 success
 
 if [ ! -d "$PICTURES/backgrounds" ]; then

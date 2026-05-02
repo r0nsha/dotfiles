@@ -8,16 +8,15 @@ if not pgrep mako
 end
 
 switch $argv[1]
-    case '--drop'
+    case --drop
         switch $argv[2]
-            case 'latest'
+            case latest
                 makoctl dismiss
-            case 'all'
+            case all
                 makoctl dismiss --all
             case '*'
                 makoctl dismiss
         end
     case '*'
-        # Default to dismissing latest
-        makoctl dismiss
+        makoctl invoke
 end

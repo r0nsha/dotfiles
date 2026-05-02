@@ -1,0 +1,6 @@
+[Unit]
+Description=Cache Walker background thumbnails
+
+[Service]
+Type=oneshot
+ExecStart=%h/.config/scripts/cache_background_thumbnails.fish

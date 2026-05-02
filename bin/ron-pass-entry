@@ -1,0 +1,16 @@
+#!/usr/bin/env fish
+
+set password $argv[1]
+set cache_dir ~/.cache/rofi-pass
+set cache_open_entry $cache_dir/open_entry
+set cache_current_entry $cache_dir/current_entry
+
+if test -z "$password"
+    notify-send pass "No password selected"
+    exit 1
+end
+
+mkdir -p $cache_dir
+printf %s "$password" >$cache_open_entry
+printf %s "$password" >$cache_current_entry
+exec ron-walker -m menus:pass-entry -p "$password"

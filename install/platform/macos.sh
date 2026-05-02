@@ -1,4 +1,4 @@
-# source $DOTFILES/bin/fonts.sh
+# source $DOTFILES/install/fonts.sh
 
 install_brew() {
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -53,7 +53,6 @@ install_deps() {
         yazi
         docker
         colima
-        kitty
         ghostty
         entr
         bob             # neovim version manager

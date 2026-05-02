@@ -1,0 +1,17 @@
+layout {
+    border {
+        active-color "{color15}"
+        inactive-color "{color8}"
+        urgent-color "{color1}"
+    }
+}
+overview {
+    backdrop-color "{background}"
+}
+recent-windows {
+    highlight {
+        active-color "{color7}ff"
+        urgent-color "{color1}ff"
+    }
+}
+

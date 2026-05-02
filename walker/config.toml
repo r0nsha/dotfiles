@@ -1,0 +1,147 @@
+force_keyboard_focus = true
+ext_background_effect_blur = true
+theme = "square"
+
+[shell]
+exclusive_zone = -1
+layer = "overlay"
+anchor_top = false
+anchor_bottom = false
+anchor_left = false
+anchor_right = false
+
+[placeholders]
+"default" = { input = "Search", list = "No Results" }
+"menus:pass" = { input = "Search passwords", list = "No Passwords" }
+
+[keybinds]
+next = ["Down", "ctrl n"]
+previous = ["Up", "ctrl p"]
+page_down = ["Page_Down", "ctrl j"]
+page_up = ["Page_Up", "ctrl k"]
+quick_activate = [
+  "ctrl 1",
+  "ctrl 2",
+  "ctrl 3",
+  "ctrl 4",
+  "ctrl 5",
+  "ctrl 6",
+  "ctrl 7",
+  "ctrl 8",
+  "ctrl 9",
+]
+
+[providers.actions]
+desktopapplications = [
+  { action = "start", default = true, bind = "Return" },
+  { action = "start:keep", label = "open+next", bind = "shift Return", after = "KeepOpen" },
+  { action = "new_instance", label = "new instance", bind = "ctrl Return" },
+  { action = "new_instance:keep", label = "new+next", bind = "ctrl alt Return", after = "KeepOpen" },
+  { action = "pin", bind = "alt p", after = "AsyncReload" },
+  { action = "unpin", bind = "alt p", after = "AsyncReload" },
+  { action = "pinup", bind = "alt n", after = "AsyncReload" },
+  { action = "pindown", bind = "alt m", after = "AsyncReload" },
+]
+
+runner = [
+  { action = "run", default = true, bind = "Return" },
+  # { action = "run", bind = "ctrl y" },
+  { action = "runterminal", label = "run in terminal", bind = "shift Return" },
+]
+
+bitwarden = [
+  { action = "copypassword", label = "copy password", default = true, bind = "Return" },
+  { action = "typepassword", label = "type password", default = true, bind = "alt p" },
+  { action = "copyusername", label = "copy username", bind = "shift Return" },
+  { action = "typeusername", label = "type username", bind = "ctrl u" },
+  { action = "copyotp", label = "copy 2fa", bind = "ctrl Return" },
+  { action = "typeotp", label = "type 2fa", bind = "ctrl t" },
+  { action = "syncvault", label = "sync", bind = "ctrl s" },
+]
+
+clipboard = [
+  { action = "copy", default = true, bind = "Return" },
+  { action = "remove", bind = "ctrl d", after = "AsyncClearReload" },
+  { action = "remove_all", label = "clear", bind = "ctrl shift d", after = "AsyncClearReload" },
+  { action = "show_images_only", label = "only images", bind = "ctrl i", after = "AsyncClearReload" },
+  { action = "show_text_only", label = "only text", bind = "ctrl i", after = "AsyncClearReload" },
+  { action = "show_combined", label = "show all", bind = "ctrl i", after = "AsyncClearReload" },
+  { action = "pause", bind = "ctrl shift p" },
+  { action = "unpause", bind = "ctrl shift p" },
+  { action = "unpin", bind = "alt p", after = "AsyncClearReload" },
+  { action = "pin", bind = "alt p", after = "AsyncClearReload" },
+  { action = "edit", bind = "ctrl o" },
+  { action = "localsend", bind = "ctrl l" },
+]
+
+wireplumber = [
+  { action = "increase_volume", label = "+volume", bind = "alt y", after = "Nothing" },
+  { action = "decrease_volume", label = "-volume", bind = "alt n", after = "Nothing" },
+  { action = "mute", bind = "ctrl m", after = "Nothing" },
+  { action = "unmute", bind = "ctrl m", after = "Nothing" },
+  { action = "set_default_device", label = "set default", bind = "ctrl d", after = "Nothing" },
+]
+
+playerctl = [
+  { action = "pause", label = "pause", bind = "Return", after = "Nothing", default = true },
+  { action = "play", label = "play", bind = "Return", after = "Nothing", default = true },
+  { action = "prev", label = "prev", bind = "alt p", after = "Nothing" },
+  { action = "next", label = "next", bind = "alt n", after = "Nothing" },
+  { action = "vol_up", label = "vol+", bind = "alt y", after = "Nothing" },
+  { action = "vol_down", label = "vol-", bind = "ctrl h", after = "Nothing" },
+  { action = "mute", bind = "ctrl m", after = "Nothing" },
+  { action = "unmute", bind = "ctrl m", after = "Nothing" },
+  { action = "seek_back", label = "backward", bind = "ctrl b", after = "Nothing" },
+  { action = "seek_forward", label = "forward", bind = "ctrl f", after = "Nothing" },
+]
+
+todo = [
+  { action = "save", default = true, bind = "Return", after = "AsyncClearReload" },
+  { action = "save_next", label = "save & new", bind = "shift Return", after = "AsyncClearReload" },
+  { action = "delete", bind = "ctrl d", after = "AsyncClearReload" },
+  { action = "active", default = true, bind = "Return", after = "Nothing" },
+  { action = "inactive", default = true, bind = "Return", after = "Nothing" },
+  { action = "done", bind = "ctrl f", after = "Nothing" },
+  { action = "change_category", bind = "alt y", label = "change category", after = "Nothing" },
+  { action = "clear", bind = "ctrl x", after = "AsyncClearReload" },
+  { action = "create", bind = "ctrl a", after = "AsyncClearReload" },
+  { action = "search", bind = "ctrl a", after = "AsyncClearReload" },
+]
+
+bookmarks = [
+  { action = "save", bind = "Return", after = "AsyncClearReload" },
+  { action = "open", default = true, bind = "Return" },
+  { action = "delete", bind = "ctrl d", after = "AsyncClearReload" },
+  { action = "change_category", label = "Change category", bind = "alt y", after = "Nothing" },
+  { action = "change_browser", label = "Change browser", bind = "ctrl b", after = "Nothing" },
+  { action = "import", label = "Import", bind = "ctrl i", after = "AsyncClearReload" },
+  { action = "create", bind = "ctrl a", after = "AsyncClearReload" },
+  { action = "search", bind = "ctrl a", after = "AsyncClearReload" },
+]
+
+"menus:backgrounds" = [
+  { action = "menus:default", label = "set", default = true, bind = "Return", after = "Close" },
+  { action = "menus:default", label = "set", bind = "ctrl y", after = "Close" },
+]
+
+"menus:power" = [
+  { action = "menus:open", label = "open", default = true, bind = "Return", after = "Nothing" },
+  { action = "menus:default", label = "run", default = true, bind = "Return", after = "Close" },
+]
+
+"menus:power-confirm" = [
+  { action = "menus:default", label = "run", default = true, bind = "Return", after = "Close" },
+  { action = "menus:parent", label = "back", bind = "Escape", after = "Nothing" },
+]
+
+"menus:pass" = [
+  { action = "pass_open", label = "open", default = true, bind = "Return", after = "Close" },
+  { action = "pass_copy", label = "copy password", bind = "ctrl c", after = "Close" },
+  { action = "pass_autotype", label = "autotype", bind = "ctrl y", after = "Close" },
+]
+
+"menus:pass-entry" = [
+  { action = "menus:default", label = "run", default = true, bind = "Return", after = "Close" },
+  { action = "pass_copy", label = "copy", bind = "ctrl c", after = "Close" },
+  { action = "menus:parent", label = "back", bind = "Escape", after = "Nothing" },
+]

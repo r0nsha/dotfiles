@@ -1,0 +1,17 @@
+[Unit]
+Description=Walker Launcher Service
+PartOf=graphical-session.target
+After=graphical-session.target elephant.service
+Wants=elephant.service
+ConditionEnvironment=WAYLAND_DISPLAY
+
+[Service]
+Type=simple
+# TODO: use /usr/bin/walker when [my PR](https://github.com/abenz1267/walker/pull/719) is merged
+ExecStart=%h/.local/bin/walker --gapplication-service
+Slice=session.slice
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=graphical-session.target

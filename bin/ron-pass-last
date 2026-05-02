@@ -1,0 +1,16 @@
+#!/usr/bin/env fish
+
+set cache_last_used ~/.cache/rofi-pass/last_used
+
+if test ! -f $cache_last_used
+    notify-send pass "No last password"
+    exit 1
+end
+
+set password (string collect < $cache_last_used)
+if test -z "$password"
+    notify-send pass "No last password"
+    exit 1
+end
+
+exec ron-pass-entry "$password"
