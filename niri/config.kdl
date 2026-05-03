@@ -104,7 +104,6 @@ animations {
     slowdown 0.5
 }
 // Startup
-spawn-at-startup "dbus-update-activation-environment" "--systemd" "DISPLAY" "WAYLAND_DISPLAY" "XDG_SESSION_TYPE" "XDG_SESSION_DESKTOP" "XDG_CURRENT_DESKTOP" "NIRI_SOCKET" "DBUS_SESSION_BUS_ADDRESS" "SSH_AUTH_SOCK"
 spawn-at-startup "systemctl --user start hyprpolkitagent"
 spawn-at-startup "playerctld" "daemon"
 spawn-at-startup "udiskie" "--smart-tray"
