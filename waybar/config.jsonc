@@ -47,8 +47,8 @@
         "exec": "exec ~/.config/waybar/scripts/recording.fish",
         "interval": 1,
         "hide-empty-text": true,
-        "tooltip-format": "Alt+Print to stop recording",
-        "on-click": "pkill -SIGINT wf-recorder"
+        "tooltip-format": "Click to stop recording",
+        "on-click": "ron-capture-screenrecord --stop-recording"
     },
     "privacy": {
         "icon-size": 14,

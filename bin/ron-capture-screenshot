@@ -1,0 +1,72 @@
+#!/usr/bin/env fish
+
+function usage
+    echo "usage: ron-capture-screenshot -r/--region <region|screen> [-h/--help]"
+end
+
+argparse h/help "r/region=" -- $argv
+
+if set -ql _flag_h
+    usage
+    exit 0
+end
+
+set region $_flag_r
+
+if test -z "$region"
+    usage
+    exit 1
+end
+
+source ~/.cache/wal/colors.fish
+
+function open_editor
+    set -l filepath $argv[1]
+    satty --filename "$filepath" \
+        --output-filename "$filepath" \
+        --actions-on-enter save-to-clipboard \
+        --save-after-copy \
+        --copy-command wl-copy
+end
+
+function notify_error
+    notify-send -t 10000 -u critical "capture error" "$argv"
+end
+
+set dir $XDG_PICTURES_DIR/screenshots
+mkdir -p $dir
+set file "$dir/$(get-date).png"
+
+if test $region = region
+    set geom (ron-select-screen-region)
+    if test $status -ne 0
+        exit 1
+    end
+else
+    set geom ""
+end
+
+set shot_args
+if test -n "$geom"
+    set shot_args -g "$geom"
+end
+
+sleep 0.2 # wait for launcher to disappear
+
+grim $shot_args -t png $file
+
+if test $status -ne 0
+    notify_error "grim failed"
+    exit 1
+end
+
+wait # wait for grim to exit
+
+wl-copy <$file
+
+begin
+    set -l ACTION (notify-send "Screenshot saved to clipboard and file" "Edit with Mod+N (or click this)" -t 10000 -i "$file" -A "default=edit")
+    if test "$ACTION" = default
+        open_editor "$file"
+    end
+end &

@@ -3,7 +3,7 @@ input {
     keyboard {
         xkb {
             layout "us,il"
-            options "grp:win_space_toggle"
+            options "grp:alt_space_toggle"
         }
         repeat-delay 300
         repeat-rate 50
@@ -101,20 +101,19 @@ hotkey-overlay {
 prefer-no-csd
 screenshot-path "~/pictures/screenshots/%d-%m-%Y_%Hh%Mm%Ss.png"
 animations {
-    slowdown 0.75
+    slowdown 0.5
 }
 // Startup
 spawn-at-startup "systemctl --user start hyprpolkitagent"
 spawn-at-startup "playerctld" "daemon"
 spawn-at-startup "udiskie" "--smart-tray"
 spawn-at-startup "awww-daemon"
-spawn-sh-at-startup "~/.config/scripts/randomize_background.fish ~/pictures/backgrounds"
-spawn-at-startup "mako"
 spawn-at-startup "wl-paste" "--type" "text" "--watch" "cliphist" "store"
 spawn-at-startup "wl-paste" "--type" "image" "--watch" "cliphist" "store"
+spawn-at-startup "mako"
 spawn-at-startup "hypridle"
 spawn-at-startup "waybar"
-spawn-sh-at-startup "~/.config/scripts/theme_watcher.fish"
+spawn-sh-at-startup "ron-background-random ~/pictures/backgrounds"
 spawn-at-startup "ghostty"
 spawn-at-startup "qutebrowser"
 environment {
@@ -167,14 +166,13 @@ window-rule {
         inactive-color "#990f36"
     }
 }
-// Block out mako notifications from screencasts.
 layer-rule {
     match namespace="^notifications$"
-    opacity 0.9
     block-out-from "screencast"
 }
+include optional=true "~/.cache/wal/niri.kdl"
 binds {
-    Mod+Shift+Slash {
+    Mod+Slash {
         show-hotkey-overlay
     }
     Mod+Left {
@@ -378,7 +376,7 @@ binds {
     Mod+F {
         switch-focus-between-floating-and-tiling
     }
-    Mod+Shift+F {
+    Mod+Ctrl+F {
         toggle-window-floating
     }
     // Media
@@ -418,24 +416,6 @@ binds {
     XF86AudioNext allow-when-locked=true {
         spawn-sh "playerctl next"
     }
-    Mod+S {
-        spawn-sh "~/.config/rofi/scripts/rofi-capture.fish"
-    }
-    Mod+Shift+S {
-        spawn-sh "~/.config/scripts/capture.fish --action=shot --region=region --to=clipboard"
-    }
-    Mod+Ctrl+Shift+S {
-        spawn-sh "~/.config/scripts/capture.fish --action=shot --region=region --to=ui"
-    }
-    Mod+Alt+S {
-        spawn-sh "~/.config/scripts/capture.fish --action=record --region=region --to=clipboard"
-    }
-    Mod+Alt+Shift+S {
-        spawn-sh "~/.config/scripts/capture.fish --action=record --region=region --to=ui"
-    }
-    Mod+Slash hotkey-overlay-title="Rofi" {
-        spawn "rofi" "-modi" "drun,run" "-show" "drun" "-show-icons"
-    }
     Mod+T hotkey-overlay-title="Spawn Terminal" {
         spawn "ghostty"
     }
@@ -445,76 +425,57 @@ binds {
     Mod+Alt+B hotkey-overlay-title="Spawn Browser (Private)" {
         spawn "qutebrowser" "--target" "private-window" "-s" "content.private_browsing" "True"
     }
-    Mod+Shift+Escape {
-        spawn-sh "rofi -show power-menu -modi power-menu:~/.config/rofi/scripts/rofi-power-menu.sh -theme-str 'window {width: 5%; height: 20%;}'"
+    Mod+Space repeat=false {
+        spawn "ron-launch-walker"
     }
-    Mod+C {
-        spawn-sh "~/.config/rofi/scripts/rofi-clip.fish"
+    Mod+Shift+Escape repeat=false {
+        spawn "ron-launch-walker" "-m" "menus:power" "--minwidth" "300" "--minheight" "200"
     }
-    Mod+Alt+C {
-        spawn-sh "rofi -modi clipboard:~/.config/rofi/scripts/rofi-clip-img.sh -show clipboard -show-icons -display-columns 2 -theme fullscreen-preview.rasi"
+    Mod+Shift+S repeat=false {
+        spawn "ron-capture-screenshot" "--region=region"
     }
-    Mod+Ctrl+C {
-        spawn-sh "rofi -show calc -modi calc -no-show-match -no-sort"
+    Mod+Alt+S repeat=false {
+        spawn "ron-capture-screenrecord" "--region=region"
+    }
+    Mod+C repeat=false {
+        spawn "ron-launch-walker" "-m" "clipboard"
+    }
+    Mod+Ctrl+Space repeat=false {
+        spawn "ron-launch-walker" "-m" "menus:unified" "--minwidth" "300" "--minheight" "200"
     }
     Mod+Shift+C {
         spawn-sh "hyprpicker --autocopy --format=hex --lowercase-hex"
     }
-    Mod+P {
-        spawn-sh "~/.config/rofi/scripts/rofi-pass.fish"
+    Mod+P repeat=false {
+        spawn "ron-launch-walker" "-m" "menus:pass"
     }
-    Mod+Alt+P {
-        spawn-sh "~/.config/rofi/scripts/rofi-pass.fish show-last"
+    Mod+Shift+P repeat=false {
+        spawn "ron-launch-pass-last"
     }
-    Mod+Shift+P {
-        spawn-sh "~/.config/rofi/scripts/rofi-pass.fish insert"
-    }
-    Mod+E {
-        spawn-sh "rofimoji --keybinding-copy alt-c"
-    }
-    Mod+Shift+B {
-        spawn-sh "~/.config/rofi/scripts/rofi-background.fish ~/pictures/backgrounds"
-    }
-    // Settings
-    Mod+Ctrl+B {
-        spawn "bzmenu" "-l" "custom" "--launcher-command" "rofi -dmenu -p bluetooth"
-    }
-    Mod+Ctrl+W {
-        spawn "iwmenu" "-l" "custom" "--launcher-command" "rofi -dmenu -p wifi"
-    }
-    Mod+Ctrl+S {
-        spawn-sh "~/.config/rofi/scripts/rofi-sound.fish"
-    }
-    Mod+Ctrl+D {
-        spawn-sh "~/.config/rofi/scripts/rofi-systemd.sh"
-    }
-    Mod+Ctrl+U {
-        spawn-sh "~/.config/rofi/scripts/rofi-usb.fish"
-    }
-    Mod+Ctrl+K {
-        spawn-sh "~/.config/rofi/scripts/rofi-kill.fish"
+    Mod+E repeat=false {
+        spawn "ron-launch-walker" "-m" "symbols"
     }
     // Misc
     Mod+Shift+T repeat=false {
-        spawn-sh "~/.config/scripts/set_theme.fish toggle"
+        spawn-sh "ron-theme-set toggle"
     }
     Mod+N {
-        spawn-sh "~/.config/scripts/notification.fish --drop latest"
+        spawn "makoctl" "invoke"
+    }
+    Mod+Ctrl+N {
+        spawn "makoctl" "dismiss"
     }
     Mod+Shift+N {
-        spawn-sh "~/.config/scripts/notification.fish --drop all"
+        spawn "makoctl" "dismiss" "--all"
     }
     Mod+O repeat=false {
         toggle-overview
-    }
-    Mod+Q repeat=false {
-        close-window
     }
     Mod+W repeat=false {
         close-window
     }
     Mod+Escape {
-        spawn "hyprlock"
+        spawn-sh "loginctl lock-session ${XDG_SESSION_ID:-}"
     }
     Mod+Alt+Ctrl+Shift+BackSpace allow-inhibiting=false {
         toggle-keyboard-shortcuts-inhibit

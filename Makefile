@@ -1,2 +1,4 @@
+.PHONY: install
+
 install:
-	./bin/install.sh
+	./install/install.sh

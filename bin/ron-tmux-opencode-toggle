@@ -1,0 +1,13 @@
+#!/usr/bin/env fish
+
+set current (tmux display-message -p '#W')
+if test "$current" = opencode
+    tmux last-window
+else
+    set target (tmux list-windows -F '#{window_index}' -f '#{==:#{window_name},opencode}' | head -n 1)
+    if test -n "$target"
+        tmux select-window -t "$target"
+    else
+        tmux new-window -n opencode opencode
+    end
+end

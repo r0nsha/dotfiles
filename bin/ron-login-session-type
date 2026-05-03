@@ -1,0 +1,8 @@
+#!/usr/bin/env fish
+
+if test -z "$XDG_SESSION_TYPE"
+    echo (loginctl show-session $(loginctl | grep $(whoami) | awk '{print $1}') -p Type | sed -E "s/Type=(.*)/\1/")
+    return 0
+end
+
+echo "$XDG_SESSION_TYPE"

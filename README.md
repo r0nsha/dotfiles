@@ -17,7 +17,7 @@ Prerequisites:
 - Docker CLI
 - Installed and unzipped the font from their [website](https://usgraphics.com/products/berkeley-mono)
 
-After installing it, run `scripts/patch_berkeley_mono.fish`
+After installing it, run `bin/ron-patch-berkeley-mono`
 
 ## Local Fish Config
 

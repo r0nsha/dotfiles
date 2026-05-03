@@ -1,0 +1,4 @@
+#!/usr/bin/env fish
+
+# exec walker --width 644 --maxheight 300 --minheight 300 $argv
+exec walker $argv

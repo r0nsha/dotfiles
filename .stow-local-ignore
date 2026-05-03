@@ -19,6 +19,7 @@ _darcs
 \#.*\#       # emacs autosave files
 
 ^/README.*
+^/AGENTS.md
 ^/LICENSE.*
 ^/COPYING
 
@@ -26,10 +27,11 @@ _darcs
 DS_Store
 .DS_Store
 
-bin
+^/install
 gpg
 ly
 ssh
+bin
 .pam-gnupg
 \.jj
 jj/conf.d

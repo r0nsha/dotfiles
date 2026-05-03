@@ -3,7 +3,7 @@
 set dir $argv[1]
 set -q dir[1] || set dir ~/pictures/backgrounds
 
-set current_bg (basename (readlink ~/.cache/awww/.current_background 2>/dev/null) 2>/dev/null)
+set current_bg (basename (readlink ~/.cache/current_background 2>/dev/null) 2>/dev/null)
 
 set -l items (fd . $dir)
 set -l selected_idx 0
@@ -18,4 +18,4 @@ set picked (for item in $items
 end | rofi -dmenu -theme fullscreen-preview.rasi -selected-row $selected_idx)
 
 test -z "$picked" && exit
-~/.config/scripts/set_background.fish $dir/$picked
+ron-background-set $dir/$picked

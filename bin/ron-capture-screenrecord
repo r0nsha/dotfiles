@@ -1,0 +1,220 @@
+#!/usr/bin/env fish
+
+function usage
+    echo "usage: ron-capture-screenrecord -r/--region <region|screen> [--desktop-audio] [--mic-audio] [--webcam] [--webcam-device <device>] [--resolution <size>] [--stop-recording] [-h/--help]"
+end
+
+argparse h/help "r/region=" desktop-audio mic-audio webcam "webcam-device=" "resolution=" stop-recording -- $argv
+or begin
+    usage
+    exit 1
+end
+
+if set -ql _flag_h
+    usage
+    exit 0
+end
+
+if test -f ~/.cache/wal/colors.fish
+    source ~/.cache/wal/colors.fish
+end
+
+function notify_error
+    notify-send -t 10000 -u critical "capture error" "$argv"
+end
+
+function screenrecording_active
+    pgrep -f "^gpu-screen-recorder" >/dev/null
+end
+
+function stop_screenrecording
+    set -l stopped 0
+
+    if screenrecording_active
+        pkill -SIGINT -f "^gpu-screen-recorder"
+        set stopped 1
+    end
+
+    if test $stopped -eq 0
+        return 1
+    end
+
+    set -l count 0
+    while screenrecording_active; and test $count -lt 50
+        sleep 0.1
+        set count (math $count + 1)
+    end
+
+    if screenrecording_active
+        pkill -9 -f "^gpu-screen-recorder"
+        notify_error "gpu-screen-recorder had to be force-killed; video may be corrupted"
+        return 1
+    end
+end
+
+function get_monitor
+    set -l monitors (gpu-screen-recorder --list-monitors 2>/dev/null)
+    if set -q monitors[1]
+        echo (string split "|" $monitors[1])[1]
+    else
+        echo screen
+    end
+end
+
+function default_resolution
+    set -l monitors (gpu-screen-recorder --list-monitors 2>/dev/null)
+    if not set -q monitors[1]
+        echo 0x0
+        return 0
+    end
+
+    set -l size (string split "|" $monitors[1])[2]
+    set -l dimensions (string split "x" $size)
+    if test (count $dimensions) -ne 2
+        echo 0x0
+        return 0
+    end
+
+    echo $size
+end
+
+function get_webcam_device
+    if set -q _flag_webcam_device
+        echo $_flag_webcam_device
+        return 0
+    end
+
+    set -l devices (gpu-screen-recorder --list-v4l2-devices 2>/dev/null)
+    for device in $devices
+        set -l path (string split "|" $device)[1]
+        if test -n "$path"
+            echo $path
+            return 0
+        end
+    end
+
+    notify_error "no webcam devices found"
+    return 1
+end
+
+function finalize_recording
+    set -l file $argv[1]
+
+    if not test -f "$file"
+        return 0
+    end
+
+    set -l args -y -ss 0.1 -i "$file" -c:v copy
+    if ffprobe -v error -select_streams a -show_entries stream=codec_type -of csv=p=0 "$file" 2>/dev/null | string match -q audio
+        set -a args -af loudnorm=I=-14:TP=-1.5:LRA=11
+    end
+
+    set -l processed (string replace -r "\.mp4\$" -- "-processed.mp4" "$file")
+    if ffmpeg $args "$processed" -loglevel quiet 2>/dev/null
+        mv "$processed" "$file"
+    else
+        rm -f "$processed"
+    end
+end
+
+function notify_saved
+    set -l file $argv[1]
+    set -l preview (string replace -r "\.mp4\$" -- "-preview.png" "$file")
+
+    ffmpeg -y -i "$file" -ss 00:00:00.1 -vframes 1 -q:v 2 "$preview" -loglevel quiet 2>/dev/null
+
+    begin
+        set -l action (notify-send "Recording saved" "Copied file path to clipboard: $file" -t 10000 -i "$preview" -A "default=open")
+        if test "$action" = default
+            mpv "$file"
+        end
+        rm -f "$preview"
+    end &
+end
+
+if screenrecording_active
+    stop_screenrecording
+    exit $status
+end
+
+if set -q _flag_stop_recording
+    exit 1
+end
+
+set region $_flag_r
+
+if test -z "$region"
+    usage
+    exit 1
+end
+
+set base_dir $XDG_VIDEOS_DIR
+if test -z "$base_dir"
+    set base_dir $XDG_PICTURES_DIR
+end
+if test -z "$base_dir"
+    set base_dir "$HOME/videos"
+end
+
+set dir "$base_dir/screenrecords"
+mkdir -p "$dir"
+
+set file "$dir/$(get-date).mp4"
+
+if test $region = region
+    set geom (ron-select-screen-region "%wx%h+%x+%y")
+    if test $status -ne 0
+        exit 1
+    end
+else
+    set geom ""
+end
+
+set capture_source
+if test -n "$geom"
+    set capture_source "$geom"
+else
+    set capture_source (get_monitor)
+end
+
+if set -q _flag_webcam
+    set -l webcam_device (get_webcam_device)
+    if test $status -ne 0
+        exit 1
+    end
+    set capture_source "$capture_source|$webcam_device;halign=end;valign=end;hflip=true;width=25%;height=25%;pixfmt=auto;camera_fps=0;camera_width=0;camera_height=0"
+end
+
+set audio_devices
+if set -q _flag_desktop_audio; and set -q _flag_mic_audio
+    set audio_devices default_output\|default_input
+else if set -q _flag_desktop_audio
+    set audio_devices default_output
+else if set -q _flag_mic_audio
+    set audio_devices default_input
+end
+
+set recorder_args -w "$capture_source" -f 60 -fm cfr -k auto -fallback-cpu-encoding yes -o "$file" -cursor yes
+
+set resolution $_flag_resolution
+if test -z "$resolution"; and test -z "$geom"
+    set resolution (default_resolution)
+end
+
+if test -n "$resolution"
+    set -a recorder_args -s "$resolution"
+end
+
+if test -n "$audio_devices"
+    set -a recorder_args -a "$audio_devices" -ac aac
+end
+
+gpu-screen-recorder $recorder_args
+if test $status -ne 0
+    notify_error "gpu-screen-recorder failed"
+    exit 1
+end
+
+finalize_recording "$file"
+wl-copy "$file"
+notify_saved "$file"

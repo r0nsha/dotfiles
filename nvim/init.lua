@@ -23,7 +23,7 @@ vim.pack.add({
   { src = "https://github.com/JoosepAlviste/nvim-ts-context-commentstring" },
   { src = "https://github.com/Wansmer/treesj" },
   { src = "https://github.com/folke/snacks.nvim" },
-  -- { src = "https://github.com/ThePrimeagen/harpoon", version = "harpoon2" },
+  { src = "https://github.com/ThePrimeagen/harpoon", version = "harpoon2" },
   { src = "https://github.com/milanglacier/minuet-ai.nvim" },
   { src = "https://github.com/xzbdmw/colorful-menu.nvim" },
   { src = "https://github.com/saghen/blink.cmp", version = "v1.8.0" },
@@ -78,7 +78,7 @@ require("plugins.heirline")
 require("plugins.oil")
 require("plugins.fyler")
 require("plugins.snacks")
--- require("plugins.harpoon")
+require("plugins.harpoon")
 require("plugins.ai")
 require("plugins.multicursor")
 require("plugins.multinput")

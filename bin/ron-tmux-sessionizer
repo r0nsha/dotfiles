@@ -1,0 +1,106 @@
+#!/usr/bin/env fish
+
+function filter_dirs
+    for path in $argv
+        if test -d $path
+            echo $path
+        end
+    end
+end
+
+function get_existing_sessions
+    if pgrep tmux >/dev/null
+        tmux list-sessions -F "#{session_name}" 2>/dev/null
+    end
+end
+
+if test (count $argv) -eq 1
+    set selected $argv[1]
+    set name (basename $selected | tr . _)
+    set dir $selected
+else
+    set search_dirs (
+            filter_dirs \
+            $HOME/dev \
+            $HOME/repos
+        )
+
+    set include_dirs (
+            filter_dirs \
+            $HOME/dotfiles \
+            $HOME/documents \
+            $HOME/pictures/backgrounds
+        )
+
+    set existing_sessions (get_existing_sessions)
+
+    set raw_dirs (begin
+            for dir in $include_dirs
+                echo $dir
+            end
+
+            fd . $search_dirs --full-path --type d --exact-depth 1
+        end | sd "^$HOME/" "" | string trim -r -c /)
+
+    set result (begin
+        for dir in $raw_dirs
+            set session_name (basename $dir | tr . _)
+            if contains $session_name $existing_sessions
+                printf "* %s\n" $dir
+            else
+                printf "  %s\n" $dir
+            end
+        end
+    end | sk \
+        --bind 'ctrl-y:accept' \
+        --no-separator \
+        --highlight-line \
+        --reverse \
+        --info=hidden \
+        --pointer=' ' \
+        --gutter=' ' \
+        --print-query)
+
+    if test (count $result) -eq 0
+        return
+    end
+
+    set query (string trim $result[1])
+
+    if test (count $result) -eq 2
+        set picked (string trim $result[2])
+        set picked (string replace -r '^\* ' '' $picked)
+        set selected $HOME/$picked
+        set name (basename $selected | tr . _)
+        set dir $selected
+    else
+        if test -z "$query"
+            return
+        end
+        set name (string replace -a '.' '_' $query)
+        set dir $HOME
+        set selected $dir
+    end
+end
+
+if test -z "$name"
+    return
+end
+
+set tmux_running (pgrep tmux)
+
+if test -z "$TMUX"; and test -z "$tmux_running"
+    tmux new-session -s $name -c "$dir"
+    return
+end
+
+if ! tmux has-session -t "=$name" 2>/dev/null
+    tmux new-session -ds $name -c $dir
+    tmux select-window -t $name:1
+end
+
+if test -z "$TMUX"
+    tmux attach -t $name
+else
+    tmux switch-client -t $name
+end
