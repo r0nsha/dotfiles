@@ -116,8 +116,8 @@ bindsym $mod+Shift+Tab focus mode_toggle
 bindsym $mod+Shift+Escape exec --no-startup-id "rofi -show power-menu -theme-str 'window {width: 5%; height: 20%;}'"
 bindsym $mod+c exec --no-startup-id clipmenu
 bindsym $mod+Shift+c exec --no-startup-id "xcolor --format hex --preview-size 255 --selection clipboard"
-bindsym $mod+p exec --no-startup-id ron-walker -m menus:pass
-bindsym $mod+$alt+p exec --no-startup-id ron-pass-last
+bindsym $mod+p exec --no-startup-id ron-launch-walker -m menus:pass
+bindsym $mod+$alt+p exec --no-startup-id ron-launch-pass-last
 bindsym $mod+e exec --no-startup-id rofimoji --keybinding-copy ctrl-c
 
 set $resize_amount 5

@@ -13,4 +13,4 @@ end
 mkdir -p $cache_dir
 printf %s "$password" >$cache_open_entry
 printf %s "$password" >$cache_current_entry
-exec ron-walker -m menus:pass-entry -p "$password"
+exec ron-launch-walker -m menus:pass-entry -p "$password"

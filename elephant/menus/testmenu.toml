@@ -1,0 +1,7 @@
+name = "testmenu"
+name_pretty = "Test Menu"
+icon = "applications-other"
+
+[[entries]]
+text = "Hello"
+actions = { "say" = "notify-send hello" }

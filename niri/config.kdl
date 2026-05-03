@@ -428,10 +428,10 @@ binds {
         spawn "qutebrowser" "--target" "private-window" "-s" "content.private_browsing" "True"
     }
     Mod+Space repeat=false {
-        spawn "ron-walker"
+        spawn "ron-launch-walker"
     }
     Mod+Shift+Escape repeat=false {
-        spawn "ron-walker" "-m" "menus:power" "--minwidth" "300" "--minheight" "200"
+        spawn "ron-launch-walker" "-m" "menus:power" "--minwidth" "300" "--minheight" "200"
     }
     // TODO: replace all capture binds with unified walker menu
     Mod+S repeat=false {
@@ -444,39 +444,39 @@ binds {
         spawn "ron-capture-screenrecord" "--region=region"
     }
     Mod+C repeat=false {
-        spawn "ron-walker" "-m" "clipboard"
+        spawn "ron-launch-walker" "-m" "clipboard"
     }
     Mod+Ctrl+C repeat=false {
-        spawn "ron-walker" "-m" "calc"
+        spawn "ron-launch-walker" "-m" "calc"
     }
     Mod+Shift+C {
         spawn-sh "hyprpicker --autocopy --format=hex --lowercase-hex"
     }
     Mod+P repeat=false {
-        spawn "ron-walker" "-m" "menus:pass"
+        spawn "ron-launch-walker" "-m" "menus:pass"
     }
     Mod+Ctrl+P repeat=false {
-        spawn "ron-pass-last"
+        spawn "ron-launch-pass-last"
     }
     Mod+E repeat=false {
-        spawn "ron-walker" "-m" "symbols"
+        spawn "ron-launch-walker" "-m" "symbols"
     }
     Mod+Shift+B repeat=false {
-        spawn "ron-walker" "-m" "menus:backgrounds"
+        spawn "ron-launch-walker" "-m" "menus:backgrounds"
     }
     // Settings
     Mod+Ctrl+B repeat=false {
-        spawn "ron-walker" "-m" "bluetooth"
+        spawn "ron-launch-walker" "-m" "bluetooth"
     }
     // TODO: replace with custom walker menu, uninstall iwmenu
     Mod+Ctrl+W repeat=false {
         spawn "iwmenu" "-l" "custom" "--launcher-command" "walker -d -p Wifi --width 200 --height 300"
     }
     Mod+Ctrl+S repeat=false {
-        spawn "ron-walker" "-m" "wireplumber" "-p" "Audio"
+        spawn "ron-launch-walker" "-m" "wireplumber" "-p" "Audio"
     }
     Mod+Ctrl+U repeat=false {
-        spawn "ron-walker" "-m" "menus:usb"
+        spawn "ron-launch-walker" "-m" "menus:usb"
     }
     // Misc
     Mod+Shift+T repeat=false {

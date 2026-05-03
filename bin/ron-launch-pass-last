@@ -13,4 +13,4 @@ if test -z "$password"
     exit 1
 end
 
-exec ron-pass-entry "$password"
+exec ron-launch-pass-entry "$password"

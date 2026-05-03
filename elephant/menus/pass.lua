@@ -32,7 +32,7 @@ function GetEntries()
       Value = name,
       Icon = "dialog-password-symbolic",
       Actions = {
-        pass_open = "ron-pass-entry " .. shell_quote(name),
+        pass_open = "ron-launch-pass-entry " .. shell_quote(name),
         pass_autotype = script_command("autotype", "all", name),
         pass_copy = script_command("copy", "pass", name),
       },
