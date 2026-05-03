@@ -16,28 +16,19 @@ end
 
 wait # wait for rofi to exit
 
-set command
-set screen_args
 switch $action
     case shot
-        set command ron-capture-screenshot
+        ron-capture-screenshot --region=$region
     case record
-        set command ron-capture-screenrecord
+        ron-capture-screenrecord --region=$region
     case 'record (desktop audio)'
-        set command ron-capture-screenrecord
-        set -a screen_args --desktop-audio
+        ron-capture-screenrecord --region=$region --desktop-audio
     case 'record (mic audio)'
-        set command ron-capture-screenrecord
-        set -a screen_args --mic-audio
+        ron-capture-screenrecord --region=$region --mic-audio
     case 'record (desktop + mic audio)'
-        set command ron-capture-screenrecord
-        set -a screen_args --desktop-audio --mic-audio
+        ron-capture-screenrecord --region=$region --desktop-audio --mic-audio
     case 'record (webcam)'
-        set command ron-capture-screenrecord
-        set -a screen_args --webcam
+        ron-capture-screenrecord --region=$region --webcam
     case 'record (desktop + mic + webcam audio)'
-        set command ron-capture-screenrecord
-        set -a screen_args --desktop-audio --mic-audio --webcam
+        ron-capture-screenrecord --region=$region --desktop-audio --mic-audio --webcam
 end
-
-$command --region=$region $screen_args
