@@ -50,13 +50,6 @@ chmod -v ug+x $DOTFILES/waybar/scripts/*
 chmod -v ug+x $DOTFILES/qutebrowser/userscripts/*
 success
 
-# bin -> ~/.local/bin
-step "bin"
-for f in "$DOTFILES"/bin/*; do
-    [ -f "$f" ] && ln -sfv "$f" "$LOCAL_BIN/$(basename "$f")"
-done
-success
-
 # install tools
 step "tools"
 source "$DOTFILES/install/platform.sh"

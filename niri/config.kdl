@@ -115,7 +115,6 @@ spawn-at-startup "mako"
 spawn-at-startup "hypridle"
 spawn-at-startup "waybar"
 spawn-sh-at-startup "~/.config/scripts/randomize_background.fish ~/pictures/backgrounds"
-spawn-sh-at-startup "~/.config/scripts/theme_watcher.fish"
 spawn-at-startup "ghostty"
 spawn-at-startup "qutebrowser"
 environment {
@@ -480,7 +479,7 @@ binds {
     }
     // Misc
     Mod+Shift+T repeat=false {
-        spawn-sh "~/.config/scripts/set_theme.fish toggle"
+        spawn-sh "ron-theme-set toggle"
     }
     Mod+N {
         spawn-sh "~/.config/scripts/notification.fish"
@@ -507,3 +506,4 @@ binds {
         quit
     }
 }
+

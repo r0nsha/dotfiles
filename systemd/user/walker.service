@@ -7,8 +7,7 @@ ConditionEnvironment=WAYLAND_DISPLAY
 
 [Service]
 Type=simple
-# TODO: use /usr/bin/walker when [my PR](https://github.com/abenz1267/walker/pull/719) is merged
-ExecStart=%h/.local/bin/walker --gapplication-service
+ExecStart=/usr/bin/walker --gapplication-service
 Slice=session.slice
 Restart=on-failure
 RestartSec=2

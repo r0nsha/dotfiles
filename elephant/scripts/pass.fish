@@ -4,12 +4,12 @@ set -g cache_dir ~/.cache/rofi-pass
 set -g cache_last_used $cache_dir/last_used
 
 function notify_error
-    notify-send "pass" "$argv[1]"
+    notify-send pass "$argv[1]"
 end
 
 function setup_backends
-    if command -q get_session_type
-        set -g session_type (get_session_type)
+    if command -q ron-login-session-type
+        set -g session_type (ron-login-session-type)
     else if set -q WAYLAND_DISPLAY
         set -g session_type wayland
     else if set -q DISPLAY

@@ -6,6 +6,6 @@ set img $argv[1]
 awww img --resize=crop "$img" --transition-fps=120 --transition-duration=1.5 --transition-type=random
 
 # link to cache so that other apps like the lockscreen can reference it
-ln -sf "$img" ~/.cache/awww/.current_background
+ln -sf "$img" ~/.cache/current_background
 
 ~/.config/scripts/wal.fish

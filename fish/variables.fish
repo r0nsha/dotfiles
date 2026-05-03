@@ -28,9 +28,6 @@ switch (uname)
         set -Ux BROWSER qutebrowser
 end
 
-# Theme
-set -Ux THEME_FILE ~/.cache/theme
-
 # Set lang to UTF-8
 set -Ux LANGUAGE en_US.UTF-8
 set -Ux LC_ALL en_US.UTF-8

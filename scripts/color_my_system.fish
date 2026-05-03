@@ -16,13 +16,15 @@ ln -sf ~/.cache/wal/waybar.css ~/.config/waybar/style.css
 ln -sf ~/.cache/wal/walker.css ~/.config/walker/themes/square/style.css
 systemctl --user restart walker.service
 
+set theme (ron-theme-get)
+
 # kitty
-ln -sf ~/.config/kitty/theme_(get_theme).conf ~/.config/kitty/current_theme.conf
+ln -sf "~/.config/kitty/theme_$theme.conf" ~/.config/kitty/current_theme.conf
 pkill -SIGUSR1 kitty
 
 # ghostty
 mkdir -p ~/.cache/ghostty
-ln -sf ~/.config/ghostty/theme_(get_theme).ghostty ~/.cache/ghostty/current_theme.ghostty
+ln -sf "~/.config/ghostty/theme_$theme.ghostty" ~/.cache/ghostty/current_theme.ghostty
 pkill -SIGUSR2 ghostty
 
 # mako

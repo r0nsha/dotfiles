@@ -17,7 +17,7 @@ abbr -a du "du -h"
 
 # TOOL ALIASES
 
-if binary_exists eza
+if command -vq eza
     abbr -a l eza
     abbr -a ls eza
     abbr -a ll 'eza -lh'
@@ -32,27 +32,27 @@ else
     abbr -a lt tree
 end
 
-if binary_exists bat
+if command -vq bat
     abbr -a cat bat
-else if binary_exists batcat
+else if command -vq batcat
     abbr -a cat batcat
-else if binary_exists bat
+else if command -vq bat
     abbr -a cat bat
 end
 
-if binary_exists yazi
+if command -vq yazi
     abbr -a y yazi
 end
 
-if binary_exists neomutt
+if command -vq neomutt
     abbr -a mutt neomutt
 end
 
-if binary_exists opencode
+if command -vq opencode
     alias q 'opencode run --agent plan --model opencode/big-pickle'
 end
 
-if binary_exists ron-tmux-sessionizer
+if command -vq ron-tmux-sessionizer
     abbr -a t ron-tmux-sessionizer
 end
 

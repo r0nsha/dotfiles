@@ -1,5 +1,15 @@
 source $HOME/.env.fish
 
+# paths
+fish_add_path \
+    $DOTFILES/bin \
+    $HOME/.cargo/bin \
+    $HOME/.local/bin \
+    ./node_modules/.bin \
+    $PNPM_HOME \
+    ~/.local/share/bob/nvim-bin \
+    /opt/homebrew/opt/rustup/bin
+
 source $DOTFILES/fish/fisher.fish
 
 source $DOTFILES/fish/functions.fish
@@ -40,30 +50,18 @@ bind -M insert \cr history-pager
 set -gx NVM_DIR "$HOME/.nvm"
 set -gx PNPM_HOME "$HOME/.local/share/pnpm"
 
-# paths
-fish_add_path \
-    $XDG_CONFIG_HOME/bin \
-    $HOME/.cargo/bin \
-    $HOME/.local/bin \
-    ./node_modules/.bin \
-    $PNPM_HOME \
-    ~/.local/share/bob/nvim-bin \
-    /opt/homebrew/opt/rustup/bin
-
 if status is-interactive
-    source $DOTFILES/fish/theme.fish
-
     stty -ixon # disable C-s and C-q
 
-    if binary_exists zoxide
+    if command -vq zoxide
         zoxide init fish | source
     end
 
-    if binary_exists jj
+    if command -vq jj
         jj util completion fish >~/.config/fish/completions/jj.fish
     end
 
-    if binary_exists bob
+    if command -vq bob
         bob complete fish >~/.config/fish/completions/bob.fish
     end
 
@@ -72,4 +70,13 @@ if status is-interactive
     # @fish-lsp-disable-next-line 2003 disable right prompt
     set -U tide_right_prompt_items
     # set -U tide_right_prompt_items jj status cmd_duration context jobs direnv bun node python rustc java php pulumi ruby go gcloud kubectl distrobox toolbox terraform aws nix_shell crystal elixir zig time
+
+    function __update_theme --on-event fish_prompt
+        switch (ron-theme-get)
+            case light
+                source $DOTFILES/fish/themes/modus_operandi.fish
+            case '*'
+                source $DOTFILES/fish/themes/modus_vivendi.fish
+        end
+    end
 end

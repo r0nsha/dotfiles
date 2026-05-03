@@ -1,9 +1,7 @@
 #!/usr/bin/env fish
 
-set -l theme (get_theme)
-
 set walargs
-if test "$theme" = light
+if test "$(ron-theme-get)" = light
     set -a walargs -l
     set -a walargs --saturate 0.15
     set -a walargs --contrast 1.0
@@ -16,5 +14,5 @@ wal -s -n -e \
     --backend colorthief \
     --cols16 dual \
     $walargs \
-    -i ~/.cache/awww/.current_background \
+    -i ~/.cache/current_background \
     -o ~/.config/scripts/color_my_system.fish
