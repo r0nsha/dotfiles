@@ -41,8 +41,7 @@ if [ ! -f "$LOCAL_ENV" ]; then
 fi
 
 # make scripts executable
-step "scripts"
-chmod -v ug+x $DOTFILES/scripts/*
+step "chmod"
 chmod -v ug+x $DOTFILES/bin/*
 chmod -v ug+x $DOTFILES/i3blocks/scripts/*
 chmod -v ug+x $DOTFILES/rofi/scripts/*
