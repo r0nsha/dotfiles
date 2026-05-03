@@ -45,6 +45,6 @@ while true
             end
         end
 
-        ~/.config/scripts/set_background.fish "$img"
+        ron-background-set "$img"
     end
 end

@@ -1,4 +1,5 @@
 #!/usr/bin/env fish
+# Watches pulseaudio for volume changes and displays notifications
 
 function type_target
     set -l type $argv[1]

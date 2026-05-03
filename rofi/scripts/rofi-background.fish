@@ -18,4 +18,4 @@ set picked (for item in $items
 end | rofi -dmenu -theme fullscreen-preview.rasi -selected-row $selected_idx)
 
 test -z "$picked" && exit
-~/.config/scripts/set_background.fish $dir/$picked
+ron-background-set $dir/$picked

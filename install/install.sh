@@ -100,7 +100,7 @@ if exists "fish"; then
     fi
 
     step "fish: tide prompt"
-    fish "$DOTFILES/scripts/tide_configure.fish"
+    fish "$DOTFILES/bin/ron-fish-tide-configure"
     success
 fi
 

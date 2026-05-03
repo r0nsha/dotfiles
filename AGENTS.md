@@ -34,7 +34,7 @@
 
 # pywal
 
-- NEVER run `wal` directly unless explicitly prompted. ALWAYS run `wal` via `scripts/wal.fish` so theme context (light/dark saturation, backend, hooks) is applied correctly.
+- NEVER run `wal` directly unless explicitly prompted. ALWAYS run `wal` via `./bin/ron-theme-generate` so theme context (light/dark saturation, backend, hooks) is applied correctly.
 
 # Existing Agent Config
 

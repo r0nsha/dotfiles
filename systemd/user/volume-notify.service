@@ -1,11 +1,11 @@
 [Unit]
-Description=Volume Watcher Daemon
+Description=Volume Notifications Daemon
 Documentation=man:pactl(1)
 After=graphical-session.target
 
 [Service]
 Type=simple
-ExecStart=%h/.config/scripts/volume-watcher.fish
+ExecStart=%h/dotfiles/bin/ron-volume-notify
 Restart=on-failure
 RestartSec=5
 

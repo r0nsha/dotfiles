@@ -15,4 +15,4 @@ wal -s -n -e \
     --cols16 dual \
     $walargs \
     -i ~/.cache/current_background \
-    -o ~/.config/scripts/color_my_system.fish
+    -o ron-theme-apply

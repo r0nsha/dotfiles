@@ -3,7 +3,7 @@
 # Extracts and Patches the amazing Berkeley Mono font
 
 if test (count $argv) -ne 1
-    echo "Usage: scripts/patch_berkeley_mono.fish <zip>"
+    echo "Usage: ron-patch-berkeley-mono <zip-file>"
     exit 1
 end
 

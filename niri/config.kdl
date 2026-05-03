@@ -114,7 +114,7 @@ spawn-at-startup "wl-paste" "--type" "image" "--watch" "cliphist" "store"
 spawn-at-startup "mako"
 spawn-at-startup "hypridle"
 spawn-at-startup "waybar"
-spawn-sh-at-startup "~/.config/scripts/randomize_background.fish ~/pictures/backgrounds"
+spawn-sh-at-startup "ron-background-random ~/pictures/backgrounds"
 spawn-at-startup "ghostty"
 spawn-at-startup "qutebrowser"
 environment {
@@ -482,13 +482,13 @@ binds {
         spawn-sh "ron-theme-set toggle"
     }
     Mod+N {
-        spawn-sh "~/.config/scripts/notification.fish"
+        spawn "makoctl" "invoke"
     }
     Mod+Ctrl+N {
-        spawn-sh "~/.config/scripts/notification.fish --drop latest"
+        spawn "makoctl" "dismiss"
     }
     Mod+Shift+N {
-        spawn-sh "~/.config/scripts/notification.fish --drop all"
+        spawn "makoctl" "dismiss" "--all"
     }
     Mod+O repeat=false {
         toggle-overview

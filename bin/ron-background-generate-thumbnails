@@ -14,7 +14,7 @@ for img in (fd . $dir)
 
     set thumb "$cache_dir/"(basename "$img")".jpg"
     if not test -e "$thumb"; or test "$img" -nt "$thumb"
-        magick "$img" -auto-orient -thumbnail "640x360^" -gravity center -extent "640x360" -strip "$thumb.tmp"
+        magick "$img" -auto-orient -thumbnail "640x360^" -gravity center -extent 640x360 -strip "$thumb.tmp"
         and mv "$thumb.tmp" "$thumb"
         or rm -f "$thumb.tmp"
     end
