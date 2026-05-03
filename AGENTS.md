@@ -1,5 +1,6 @@
 # Repo Notes
 
+- This is a Dotfiles repo. You can check for configuration files here instead of reading `XDG_CONFIG_HOME` or `~/.config`.
 - Dotfiles install target is `make install`; it only runs `./install/install.sh`.
 - This repo uses Jujutsu (`jj`) for VCS workflow; use `jj` commands instead of `git` unless explicitly asked.
 - Treat `make install` as destructive/bootstrap work: it installs packages, clones assets, enables services, changes shells, and runs `stow .`. Run only when explicitly requested.

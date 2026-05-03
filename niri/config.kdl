@@ -431,9 +431,6 @@ binds {
     Mod+Shift+Escape repeat=false {
         spawn "ron-launch-walker" "-m" "menus:power" "--minwidth" "300" "--minheight" "200"
     }
-    Mod+S repeat=false {
-        spawn "ron-launch-walker" "-m" "menus:capture" "--minwidth" "300" "--minheight" "200"
-    }
     Mod+Shift+S repeat=false {
         spawn "ron-capture-screenshot" "--region=region"
     }
@@ -443,8 +440,8 @@ binds {
     Mod+C repeat=false {
         spawn "ron-launch-walker" "-m" "clipboard"
     }
-    Mod+Ctrl+C repeat=false {
-        spawn "ron-launch-walker" "-m" "calc"
+    Mod+Ctrl+Space repeat=false {
+        spawn "ron-launch-walker" "-m" "menus:unified" "--minwidth" "300" "--minheight" "200"
     }
     Mod+Shift+C {
         spawn-sh "hyprpicker --autocopy --format=hex --lowercase-hex"
@@ -452,28 +449,11 @@ binds {
     Mod+P repeat=false {
         spawn "ron-launch-walker" "-m" "menus:pass"
     }
-    Mod+Ctrl+P repeat=false {
+    Mod+Shift+P repeat=false {
         spawn "ron-launch-pass-last"
     }
     Mod+E repeat=false {
         spawn "ron-launch-walker" "-m" "symbols"
-    }
-    Mod+Shift+B repeat=false {
-        spawn "ron-launch-walker" "-m" "menus:backgrounds"
-    }
-    // Settings
-    Mod+Ctrl+B repeat=false {
-        spawn "ron-launch-walker" "-m" "bluetooth"
-    }
-    // TODO: replace with custom walker menu, uninstall iwmenu
-    Mod+Ctrl+W repeat=false {
-        spawn "iwmenu" "-l" "custom" "--launcher-command" "walker -d -p Wifi --width 200 --height 300"
-    }
-    Mod+Ctrl+S repeat=false {
-        spawn "ron-launch-walker" "-m" "wireplumber" "-p" "Audio"
-    }
-    Mod+Ctrl+U repeat=false {
-        spawn "ron-launch-walker" "-m" "menus:usb"
     }
     // Misc
     Mod+Shift+T repeat=false {

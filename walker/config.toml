@@ -120,11 +120,13 @@ bookmarks = [
 ]
 
 "menus:backgrounds" = [
+  { action = "menus:parent", label = "back", bind = "Escape", after = "Nothing" },
   { action = "menus:default", label = "set", default = true, bind = "Return", after = "Close" },
   { action = "menus:default", label = "set", bind = "ctrl y", after = "Close" },
 ]
 
 "menus:power" = [
+  { action = "menus:parent", label = "back", bind = "Escape", after = "Nothing" },
   { action = "menus:open", label = "open", default = true, bind = "Return", after = "Nothing" },
   { action = "menus:default", label = "run", default = true, bind = "Return", after = "Close" },
 ]
@@ -135,6 +137,7 @@ bookmarks = [
 ]
 
 "menus:pass" = [
+  { action = "menus:parent", label = "back", bind = "Escape", after = "Nothing" },
   { action = "pass_open", label = "open", default = true, bind = "Return", after = "Close" },
   { action = "pass_copy", label = "copy password", bind = "ctrl c", after = "Close" },
   { action = "pass_autotype", label = "autotype", bind = "ctrl y", after = "Close" },
@@ -147,10 +150,15 @@ bookmarks = [
 ]
 
 "menus:capture" = [
+  { action = "menus:parent", label = "back", bind = "Escape", after = "Nothing" },
   { action = "stop", default = true, bind = "Return", after = "Close" },
   { action = "region", default = true, bind = "Return", after = "Close" },
   { action = "screen", bind = "shift Return", after = "Close" },
   { action = "toggle_desktop_audio", label = "desktop audio", bind = "ctrl d", after = "AsyncClearReload" },
   { action = "toggle_mic_audio", label = "mic", bind = "ctrl m", after = "AsyncClearReload" },
   { action = "toggle_webcam", label = "webcam", bind = "ctrl w", after = "AsyncClearReload" },
+]
+
+"menus:unified" = [
+  { action = "menus:default", label = "run", default = true, bind = "Return", after = "Close" },
 ]
