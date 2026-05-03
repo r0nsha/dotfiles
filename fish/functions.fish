@@ -1,17 +1,5 @@
 # @fish-lsp-disable 4004
 
-function mysk
-    sk \
-        --bind 'ctrl-y:accept' \
-        --no-separator \
-        --highlight-line \
-        --reverse \
-        --info=hidden \
-        --pointer=' ' \
-        --gutter=' ' \
-        $argv
-end
-
 function exec-bash
     exec bash -c "source $argv; exec fish"
 end
