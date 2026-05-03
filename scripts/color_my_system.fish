@@ -3,28 +3,28 @@
 # qt
 mkdir -p ~/.config/qt5ct/colors
 rm -f ~/.config/qt5ct/colors/colors.conf
-ln -sf ~/.cache/wal/qt.conf ~/.config/qt5ct/colors/colors.conf
+ln -sfv ~/.cache/wal/qt.conf ~/.config/qt5ct/colors/colors.conf
 
 mkdir -p ~/.config/qt6ct/colors
 rm -f ~/.config/qt6ct/colors/colors.conf
-ln -sf ~/.cache/wal/qt.conf ~/.config/qt6ct/colors/colors.conf
+ln -sfv ~/.cache/wal/qt.conf ~/.config/qt6ct/colors/colors.conf
 
 # waybar
-ln -sf ~/.cache/wal/waybar.css ~/.config/waybar/style.css
+ln -sfv ~/.cache/wal/waybar.css ~/.config/waybar/style.css
 
 # walker
-ln -sf ~/.cache/wal/walker.css ~/.config/walker/themes/square/style.css
+ln -sfv ~/.cache/wal/walker.css ~/.config/walker/themes/square/style.css
 systemctl --user restart walker.service
 
 set theme (ron-theme-get)
 
 # kitty
-ln -sf "~/.config/kitty/theme_$theme.conf" ~/.config/kitty/current_theme.conf
+ln -sfv ~/.config/kitty/theme_$theme.conf ~/.config/kitty/current_theme.conf
 pkill -SIGUSR1 kitty
 
 # ghostty
 mkdir -p ~/.cache/ghostty
-ln -sf "~/.config/ghostty/theme_$theme.ghostty" ~/.cache/ghostty/current_theme.ghostty
+ln -sfv ~/.config/ghostty/theme_$theme.ghostty ~/.cache/ghostty/current_theme.ghostty
 pkill -SIGUSR2 ghostty
 
 # mako
