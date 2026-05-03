@@ -121,11 +121,7 @@ function default_resolution
         return 0
     end
 
-    if test $dimensions[1] -gt 3840; or test $dimensions[2] -gt 2160
-        echo 3840x2160
-    else
-        echo 0x0
-    end
+    echo $size
 end
 
 function get_webcam_device
@@ -263,12 +259,16 @@ else if set -q _flag_mic_audio
     set audio_devices default_input
 end
 
+set -l recorder_args -w "$capture_source" -f 60 -fm cfr -k auto -fallback-cpu-encoding yes -o "$file" -cursor yes
+
 set -l resolution $_flag_resolution
-if test -z "$resolution"
+if test -z "$resolution"; and test -z "$geom"
     set resolution (default_resolution)
 end
 
-set -l recorder_args -w "$capture_source" -s "$resolution" -f 60 -fm cfr -k auto -fallback-cpu-encoding yes -o "$file" -cursor yes
+if test -n "$resolution"
+    set -a recorder_args -s "$resolution"
+end
 
 if test -n "$audio_devices"
     set -a recorder_args -a "$audio_devices" -ac aac
