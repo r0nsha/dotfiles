@@ -20,15 +20,7 @@ if test -f ~/.cache/wal/colors.fish
 end
 
 function notify_error
-    notify-send -t 10000 -u critical "screen error" "$argv"
-end
-
-function get_filename
-    echo (date +%d-%m-%Y_%Hh%Mm%Ss)
-end
-
-function gsr_active
-    pgrep -f "^gpu-screen-recorder" >/dev/null
+    notify-send -t 10000 -u critical "capture error" "$argv"
 end
 
 function screenrecording_active
@@ -57,35 +49,6 @@ function stop_screenrecording
         pkill -9 -f "^gpu-screen-recorder"
         notify_error "gpu-screen-recorder had to be force-killed; video may be corrupted"
         return 1
-    end
-end
-
-function select_region
-    set -l format $argv[1]
-    set -l background (test -n "$color0"; and echo "$(echo $color0)5f"; or echo "#d0d0d0aa")
-    set -l border (test -n "$color6"; and echo "$color6"; or echo "#ffffff")
-
-    if test -n "$format"
-        set geom (slurp -f "$format" -b $background -c $border -w 2)
-    else
-        set geom (slurp -b $background -c $border -w 2)
-    end
-
-    if test $status -ne 0
-        exit 1
-    end
-
-    echo $geom
-end
-
-function get_geometry
-    set -l format $argv[1]
-
-    switch $region
-        case region
-            select_region "$format"
-        case screen
-            echo ""
     end
 end
 
@@ -185,7 +148,7 @@ if test -z "$region"
     exit 1
 end
 
-set -l base_dir $XDG_VIDEOS_DIR
+set base_dir $XDG_VIDEOS_DIR
 if test -z "$base_dir"
     set base_dir $XDG_PICTURES_DIR
 end
@@ -196,9 +159,9 @@ end
 set dir "$base_dir/screenrecords"
 mkdir -p "$dir"
 
-set -l file "$dir/$(get_filename).mp4"
-set -l geom (get_geometry "%wx%h+%x+%y")
-set -l capture_source
+set file "$dir/$(get-date).mp4"
+set geom (test $region = region; and ron-select-screen-region "%wx%h+%x+%y"; or echo "")
+set capture_source
 
 if test -n "$geom"
     set capture_source "$geom"
@@ -214,7 +177,7 @@ if set -q _flag_webcam
     set capture_source "$capture_source|$webcam_device;halign=end;valign=end;hflip=true;width=25%;height=25%;pixfmt=auto;camera_fps=0;camera_width=0;camera_height=0"
 end
 
-set -l audio_devices
+set audio_devices
 if set -q _flag_desktop_audio; and set -q _flag_mic_audio
     set audio_devices default_output\|default_input
 else if set -q _flag_desktop_audio
@@ -223,9 +186,9 @@ else if set -q _flag_mic_audio
     set audio_devices default_input
 end
 
-set -l recorder_args -w "$capture_source" -f 60 -fm cfr -k auto -fallback-cpu-encoding yes -o "$file" -cursor yes
+set recorder_args -w "$capture_source" -f 60 -fm cfr -k auto -fallback-cpu-encoding yes -o "$file" -cursor yes
 
-set -l resolution $_flag_resolution
+set resolution $_flag_resolution
 if test -z "$resolution"; and test -z "$geom"
     set resolution (default_resolution)
 end

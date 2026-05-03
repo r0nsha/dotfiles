@@ -1,0 +1,14 @@
+#!/usr/bin/env fish
+
+load-color-vars
+
+set format "$argv[1]"
+set background (test -n "$color0"; and echo "$(echo $color0)5f"; or echo "#d0d0d0aa")
+set border (test -n "$color6"; and echo "$color6"; or echo "#ffffff")
+
+set args -b $background -c $border -w 2
+if test -n "$format"
+    set -a args -f $format
+end
+
+slurp $args

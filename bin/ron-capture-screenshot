@@ -30,36 +30,13 @@ function open_editor
 end
 
 function notify_error
-    notify-send -t 10000 -u critical "screen error" "$argv"
-end
-
-function get_filename
-    echo (date +%d-%m-%Y_%Hh%Mm%Ss)
-end
-
-function select_region
-    set background (test -n "$color0"; and echo "$(echo $color0)5f"; or echo "#d0d0d0aa")
-    set border (test -n "$color6"; and echo "$color6"; or echo "#ffffff")
-    set geom (slurp -b $background -c $border -w 2)
-    if test $status -ne 0
-        exit 1
-    end
-    echo $geom
-end
-
-function get_geometry
-    switch $region
-        case region
-            select_region
-        case screen
-            echo ""
-    end
+    notify-send -t 10000 -u critical "capture error" "$argv"
 end
 
 set dir $XDG_PICTURES_DIR/screenshots
 mkdir -p $dir
-set file "$dir/$(get_filename).png"
-set geom (get_geometry)
+set file "$dir/$(get-date).png"
+set geom (test $region = region; and ron-select-screen-region; or echo "")
 set shot_args
 
 if test -n "$geom"
