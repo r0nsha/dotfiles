@@ -1,0 +1,60 @@
+#!/usr/bin/env fish
+
+function filter_dirs
+    for path in $argv
+        if test -d $path
+            echo $path
+        end
+    end
+end
+
+if test (count $argv) -eq 1
+    set selected $argv[1]
+else
+    set search_dirs (
+            filter_dirs \
+            $HOME/dev \
+            $HOME/repos
+        )
+
+    set include_dirs (
+            filter_dirs \
+            $HOME/dotfiles \
+            $HOME/documents \
+            $HOME/pictures/backgrounds
+        )
+
+    set selected (begin
+            for dir in $include_dirs
+                echo $dir
+            end
+
+            fd . $search_dirs --full-path --type d --exact-depth 1
+        end | sd "^$HOME/" "" | string trim -r -c / | mysk)
+
+    # add $HOME back
+    set selected $HOME/$selected
+end
+
+if test -z "$selected"
+    return
+end
+
+set name (basename $selected | tr . _)
+set tmux_running (pgrep tmux)
+
+if test -z "$TMUX"; and test -z "$tmux_running"
+    tmux new-session -s $name -c "$selected"
+    return
+end
+
+if ! tmux has-session -t "=$name" 2>/dev/null
+    tmux new-session -ds $name -c $selected
+    tmux select-window -t $name:1 # select first window
+end
+
+if test -z "$TMUX"
+    tmux attach -t $name
+else
+    tmux switch-client -t $name
+end

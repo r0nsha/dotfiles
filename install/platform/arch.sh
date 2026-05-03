@@ -52,7 +52,6 @@ pacman_deps=(
     slurp
     satty
     yazi
-    yt-dlp
     mpv
     typst
     docker
@@ -176,7 +175,7 @@ aur_deps=(
     stremio
     xdg-desktop-portal-termfilechooser
     elephant-all
-    walker
+    walker-git
     gpu-screen-recorder-git
 )
 

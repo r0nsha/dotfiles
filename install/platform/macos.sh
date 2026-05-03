@@ -40,7 +40,6 @@ install_deps() {
         bat
         git-delta
         n
-        deno
         just
         sd
         ffmpeg

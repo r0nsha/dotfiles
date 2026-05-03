@@ -4,16 +4,6 @@ function binary_exists
     command -v -q $argv[1]
 end
 
-function dashboard
-    set -l name dashboard
-    tmux new-session -d -s $name
-    tmux send-keys -t $name:1.1 "tmux split-window -h -l 35%" enter
-    tmux send-keys -t $name:1.1 "tmux clock-mode" enter
-    tmux send-keys -t $name:1.1 "tmux split-window -v -l 65%" enter
-    tmux send-keys -t $name:1.1 btm enter
-    tmux switch-client -t $name
-end
-
 function mysk
     sk \
         --bind 'ctrl-y:accept' \
@@ -25,83 +15,6 @@ function mysk
         --gutter=' ' \
         $argv
 end
-
-function filter_dirs
-    for path in $argv
-        if test -d $path
-            echo $path
-        end
-    end
-end
-
-function tmux_select_dir
-    if test (count $argv) -eq 1
-        set selected $argv[1]
-    else
-        set -l search_dirs (
-            filter_dirs \
-            $HOME/dev \
-            $HOME/repos
-        )
-
-        set -l include_dirs (
-            filter_dirs \
-            $HOME/dotfiles \
-            $HOME/documents \
-            $HOME/pictures/backgrounds
-        )
-
-        set selected (begin
-            for dir in $include_dirs
-                echo $dir
-            end
-
-            fd . $search_dirs --full-path --type d --exact-depth 1
-        end | sd "^$HOME/" "" | string trim -r -c / | mysk)
-
-        # add $HOME back
-        set selected $HOME/$selected
-    end
-
-    if test -z "$selected"
-        return
-    end
-
-    set -l name (basename $selected | tr . _)
-    set -l tmux_running (pgrep tmux)
-
-    if test -z "$TMUX"; and test -z "$tmux_running"
-        tmux new-session -s $name -c "$selected"
-        return
-    end
-
-    if ! tmux has-session -t "=$name" 2>/dev/null
-        tmux new-session -ds $name -c $selected
-        tmux select-window -t $name:1 # select first window
-    end
-
-    if test -z "$TMUX"
-        tmux attach -t $name
-    else
-        tmux switch-client -t $name
-    end
-end
-
-function tmux_select_session
-    if test (count $argv) -eq 1
-        set selected $argv[1]
-    else
-        set selected (tmux list-sessions -F "#{session_name}" | mysk)
-    end
-
-    if test -n "$selected"
-        tmux switch-client -t $selected
-    end
-end
-
-abbr -a t tmux_select_dir
-abbr -a td tmux_select_dir
-abbr -a ts tmux_select_session
 
 function show_colors
     for COLOR in (seq 0 255)
