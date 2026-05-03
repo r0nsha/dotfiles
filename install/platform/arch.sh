@@ -51,7 +51,6 @@ pacman_deps=(
     grim
     slurp
     satty
-    wf-recorder
     yazi
     yt-dlp
     mpv

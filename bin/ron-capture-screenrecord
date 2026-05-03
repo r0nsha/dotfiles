@@ -1,10 +1,10 @@
 #!/usr/bin/env fish
 
 function usage
-    echo "usage: ron-capture-screenrecord -r/--region <region|screen> [--gif] [--desktop-audio] [--mic-audio] [--webcam] [--webcam-device <device>] [--resolution <size>] [--stop-recording] [-h/--help]"
+    echo "usage: ron-capture-screenrecord -r/--region <region|screen> [--desktop-audio] [--mic-audio] [--webcam] [--webcam-device <device>] [--resolution <size>] [--stop-recording] [-h/--help]"
 end
 
-argparse h/help "r/region=" gif desktop-audio mic-audio webcam "webcam-device=" "resolution=" stop-recording -- $argv
+argparse h/help "r/region=" desktop-audio mic-audio webcam "webcam-device=" "resolution=" stop-recording -- $argv
 or begin
     usage
     exit 1
@@ -31,24 +31,15 @@ function gsr_active
     pgrep -f "^gpu-screen-recorder" >/dev/null
 end
 
-function wf_active
-    pgrep -x wf-recorder >/dev/null
-end
-
 function screenrecording_active
-    gsr_active; or wf_active
+    pgrep -f "^gpu-screen-recorder" >/dev/null
 end
 
 function stop_screenrecording
     set -l stopped 0
 
-    if gsr_active
+    if screenrecording_active
         pkill -SIGINT -f "^gpu-screen-recorder"
-        set stopped 1
-    end
-
-    if wf_active
-        pkill -SIGINT -x wf-recorder
         set stopped 1
     end
 
@@ -57,12 +48,12 @@ function stop_screenrecording
     end
 
     set -l count 0
-    while gsr_active; and test $count -lt 50
+    while screenrecording_active; and test $count -lt 50
         sleep 0.1
         set count (math $count + 1)
     end
 
-    if gsr_active
+    if screenrecording_active
         pkill -9 -f "^gpu-screen-recorder"
         notify_error "gpu-screen-recorder had to be force-killed; video may be corrupted"
         return 1
@@ -194,13 +185,6 @@ if test -z "$region"
     exit 1
 end
 
-if set -q _flag_gif; and begin
-        set -q _flag_desktop_audio; or set -q _flag_mic_audio; or set -q _flag_webcam
-    end
-    notify_error "gif recording does not support audio or webcam"
-    exit 1
-end
-
 set -l base_dir $XDG_VIDEOS_DIR
 if test -z "$base_dir"
     set base_dir $XDG_PICTURES_DIR
@@ -211,26 +195,6 @@ end
 
 set dir "$base_dir/screenrecords"
 mkdir -p "$dir"
-
-if set -q _flag_gif
-    set -l file "$dir/$(get_filename).gif"
-    set -l geom (get_geometry)
-    set -l recorder_args --codec=gif
-
-    if test -n "$geom"
-        set -a recorder_args -g "$geom"
-    end
-
-    wf-recorder $recorder_args --file="$file" --overwrite
-    if test $status -ne 0
-        notify_error "wf-recorder failed"
-        exit 1
-    end
-
-    wl-copy "$file"
-    notify-send -t 10000 -i "$file" "Recording saved" "Copied file path to clipboard: $file"
-    exit 0
-end
 
 set -l file "$dir/$(get_filename).mp4"
 set -l geom (get_geometry "%wx%h+%x+%y")

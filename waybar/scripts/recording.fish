@@ -1,11 +1,6 @@
 #!/usr/bin/env fish
 
 set -l pid (pgrep -n -f "^gpu-screen-recorder")
-
-if test -z "$pid"
-    set pid (pgrep -n -x wf-recorder)
-end
-
 if test -z "$pid"
     exit 0
 end
