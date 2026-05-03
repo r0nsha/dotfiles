@@ -145,3 +145,16 @@ bookmarks = [
   { action = "pass_copy", label = "copy", bind = "ctrl c", after = "Close" },
   { action = "menus:parent", label = "back", bind = "Escape", after = "Nothing" },
 ]
+
+"menus:capture" = [
+  { action = "shot_region", label = "region", default = true, bind = "Return", after = "Close" },
+  { action = "shot_screen", label = "screen", bind = "shift Return", after = "Close" },
+  { action = "menus:open", label = "open", default = true, bind = "Return", after = "Nothing" },
+  { action = "stop", label = "stop", default = true, bind = "Return", after = "Close" },
+]
+
+"menus:capture-screenrecord" = [
+  { action = "toggle", bind = "space", after = "AsyncClearReload" },
+  { action = "record_region", label = "region", default = true, bind = "Return", after = "Close" },
+  { action = "record_screen", label = "screen", bind = "shift Return", after = "Close" },
+]

@@ -36,9 +36,17 @@ end
 set dir $XDG_PICTURES_DIR/screenshots
 mkdir -p $dir
 set file "$dir/$(get-date).png"
-set geom (test $region = region; and ron-select-screen-region; or echo "")
-set shot_args
 
+if test $region = region
+    set geom (ron-select-screen-region)
+    if test $status -ne 0
+        exit 1
+    end
+else
+    set geom ""
+end
+
+set shot_args
 if test -n "$geom"
     set shot_args -g "$geom"
 end

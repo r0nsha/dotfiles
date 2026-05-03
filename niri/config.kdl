@@ -431,9 +431,8 @@ binds {
     Mod+Shift+Escape repeat=false {
         spawn "ron-launch-walker" "-m" "menus:power" "--minwidth" "300" "--minheight" "200"
     }
-    // TODO: replace all capture binds with unified walker menu
     Mod+S repeat=false {
-        spawn-sh "~/.config/rofi/scripts/rofi-capture.fish"
+        spawn "ron-launch-walker" "-m" "menus:capture" "--minwidth" "300" "--minheight" "200"
     }
     Mod+Shift+S repeat=false {
         spawn "ron-capture-screenshot" "--region=region"
