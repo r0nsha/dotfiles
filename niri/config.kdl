@@ -20,7 +20,7 @@ input {
     focus-follows-mouse max-scroll-amount="0%"
 }
 output "DP-4" {
-    mode "5120x1440@119.99900"
+    mode "5120x1440@239.761002"
 }
 gestures {
     hot-corners {
