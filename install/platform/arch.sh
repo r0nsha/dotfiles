@@ -175,6 +175,7 @@ aur_deps=(
     elephant-all
     walker-git
     gpu-screen-recorder-git
+    wlr-randr
 )
 
 paru -Syu --noconfirm ${aur_deps[@]}
