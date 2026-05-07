@@ -40,3 +40,7 @@
 # Existing Agent Config
 
 - `opencode/AGENTS.md` is user communication style and is stowed to `~/.config/opencode/AGENTS.md`; keep repo workflow notes in this root file.
+
+# Bash Tool / Root Access
+
+- Bash tool commands requiring `sudo` or root access must be run manually by the user. The tool cannot handle interactive password prompts.
