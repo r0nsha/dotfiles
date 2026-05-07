@@ -18,7 +18,7 @@ if test -z "$region"
     exit 1
 end
 
-source ~/.cache/wal/colors.fish
+source ~/.cache/hellwal/colors.fish
 
 function open_editor
     set -l filepath $argv[1]

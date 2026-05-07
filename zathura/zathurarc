@@ -18,7 +18,7 @@ map J zoom out
 map K zoom in
 map R rotate
 
-include ~/.cache/wal/colors-zathura
+include ~/.cache/hellwal/colors-zathura
 
 # # zathurarc-dark
 # set default-bg "#000000" #00

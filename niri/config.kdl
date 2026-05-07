@@ -170,7 +170,7 @@ layer-rule {
     match namespace="^notifications$"
     block-out-from "screencast"
 }
-include optional=true "~/.cache/wal/niri.kdl"
+include optional=true "~/.cache/hellwal/niri.kdl"
 binds {
     Mod+Slash {
         show-hotkey-overlay

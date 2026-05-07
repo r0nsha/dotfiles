@@ -15,8 +15,8 @@ if set -ql _flag_h
     exit 0
 end
 
-if test -f ~/.cache/wal/colors.fish
-    source ~/.cache/wal/colors.fish
+if test -f ~/.cache/hellwal/colors.fish
+    source ~/.cache/hellwal/colors.fish
 end
 
 function notify_error

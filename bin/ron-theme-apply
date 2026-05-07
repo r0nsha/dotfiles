@@ -1,22 +1,33 @@
 #!/usr/bin/env fish
 
+set theme (ron-theme-get)
+
+# niri
+if pgrep -x niri >/dev/null
+    niri msg action load-config-file
+    niri msg action do-screen-transition
+end
+
 # qt
 mkdir -p ~/.config/qt5ct/colors
-rm -f ~/.config/qt5ct/colors/colors.conf
-ln -sfv ~/.cache/wal/qt.conf ~/.config/qt5ct/colors/colors.conf
-
 mkdir -p ~/.config/qt6ct/colors
-rm -f ~/.config/qt6ct/colors/colors.conf
-ln -sfv ~/.cache/wal/qt.conf ~/.config/qt6ct/colors/colors.conf
+ln -sfv ~/.cache/hellwal/qt.conf ~/.config/qt5ct/colors/colors.conf
+ln -sfv ~/.cache/hellwal/qt.conf ~/.config/qt6ct/colors/colors.conf
+
+# gtk
+mkdir -p ~/.config/gtk-3.0
+mkdir -p ~/.config/gtk-4.0
+ln -sfv ~/.cache/hellwal/gtk.css ~/.config/gtk-3.0/colors.css
+ln -sfv ~/.cache/hellwal/gtk.css ~/.config/gtk-4.0/colors.css
+gsettings set org.gnome.desktop.interface gtk-theme ""
+gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3-$theme
 
 # waybar
-ln -sfv ~/.cache/wal/waybar.css ~/.config/waybar/style.css
+ln -sfv ~/.cache/hellwal/waybar.css ~/.config/waybar/style.css
 
 # walker
-ln -sfv ~/.cache/wal/walker.css ~/.config/walker/themes/square/style.css
+ln -sfv ~/.cache/hellwal/walker.css ~/.config/walker/themes/square/style.css
 systemctl --user restart walker.service
-
-set theme (ron-theme-get)
 
 # kitty
 ln -sfv ~/.config/kitty/theme_$theme.conf ~/.config/kitty/current_theme.conf
@@ -30,7 +41,7 @@ pkill -SIGUSR2 ghostty
 # mako
 mkdir -p ~/.config/mako
 rm -f ~/.config/mako/config
-cat ~/.cache/wal/colors-mako ~/.config/mako/base-config >~/.config/mako/config
+cat ~/.cache/hellwal/colors-mako ~/.config/mako/base-config >~/.config/mako/config
 if pgrep mako
     makoctl reload
 end
@@ -42,9 +53,3 @@ end
 
 # tmux
 tmux source-file ~/.config/tmux/tmux.conf
-
-# niri
-if pgrep -x niri >/dev/null
-    niri msg action do-screen-transition
-    niri msg action load-config-file
-end

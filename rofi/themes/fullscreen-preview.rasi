@@ -7,7 +7,7 @@
  * Copyright: Dave Davenport
  */
 
-@import "~/.cache/wal/rofi.rasi"
+@import "~/.cache/hellwal/rofi.rasi"
 
 * {
     background-color: transparent;

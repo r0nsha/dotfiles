@@ -155,12 +155,10 @@ aur_deps=(
     niri-git
     qutebrowser-git
     vesktop
-    walcord
     bzmenu
     iwmenu
     pinentry-rofi
-    python-pywal16
-    python-colorthief
+    hellwal
     mpv-uosc-git
     mpv-thumbfast-git
     mpv-sponsorblock-git

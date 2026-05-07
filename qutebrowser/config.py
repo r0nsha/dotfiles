@@ -100,7 +100,7 @@ c.url.searchengines["gh"] = "https://github.com/search?q={}&type=Code"
 c.url.searchengines["pdb"] = "https://www.protondb.com/search?q={}"
 
 # Colors
-cache_path = os.path.expanduser("~/.cache/wal/qutebrowser.py")
+cache_path = os.path.expanduser("~/.cache/hellwal/qutebrowser.py")
 palette = None
 
 if os.path.isfile(cache_path):
@@ -124,8 +124,8 @@ if not palette:
 
 c.colors.tabs.selected.odd.bg = palette["bg1"]
 c.colors.tabs.selected.even.bg = palette["bg1"]
-c.colors.tabs.selected.odd.fg = palette["fg"]
-c.colors.tabs.selected.even.fg = palette["fg"]
+c.colors.tabs.selected.odd.fg = palette["active"]
+c.colors.tabs.selected.even.fg = palette["active"]
 c.colors.tabs.bar.bg = palette["bg0"]
 c.colors.tabs.odd.bg = palette["bg0"]
 c.colors.tabs.odd.fg = palette["fg"]

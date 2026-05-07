@@ -33,9 +33,9 @@
 
 - After updating Walker or Elephant config/menus/providers, run `systemctl --user restart --now elephant.service walker.service` so both services reload the stowed changes.
 
-# pywal
+# hellwal
 
-- NEVER run `wal` directly unless explicitly prompted. ALWAYS run `wal` via `./bin/ron-theme-generate` so theme context (light/dark saturation, backend, hooks) is applied correctly.
+- NEVER run `hellwal` directly unless explicitly prompted. ALWAYS run `hellwal` via `./bin/ron-theme-generate` so theme context (light/dark mode, contrast check, hooks) is applied correctly.
 
 # Existing Agent Config
 

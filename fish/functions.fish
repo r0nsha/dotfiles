@@ -9,8 +9,8 @@ function exec-zsh
 end
 
 function load-color-vars
-    if test -f ~/.cache/wal/colors.fish
-        source ~/.cache/wal/colors.fish
+    if test -f ~/.cache/hellwal/colors.fish
+        source ~/.cache/hellwal/colors.fish
     end
 end
 
