@@ -118,6 +118,7 @@ vim.opt.inccommand = "split"
 vim.opt.diffopt:append("algorithm:histogram")
 vim.opt.diffopt:append("indent-heuristic")
 vim.opt.diffopt:append("inline:char")
+vim.opt.diffopt:append("followwrap")
 
 -- splits
 vim.opt.splitbelow = true
