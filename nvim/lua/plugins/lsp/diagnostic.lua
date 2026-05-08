@@ -88,7 +88,9 @@ vim.keymap.set("n", "grQ", function()
   vim.ui.select(
     { "Error", "Warn", "Info", "Hint" },
     { prompt = "Select minimum severity" },
+    ---@param severity string?
     function(severity)
+      if not severity then return end
       set_sorted_qflist({
         severity = { min = vim.diagnostic.severity[severity:upper()], max = vim.diagnostic.severity.ERROR },
       })
