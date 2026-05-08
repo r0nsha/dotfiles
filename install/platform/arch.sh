@@ -101,7 +101,6 @@ pacman_deps=(
     hyprutils
     hyprpolkitagent
     xdg-desktop-portal
-    xdg-desktop-portal-gnome
     gnome-keyring
     qt5-wayland
     qt6-wayland
@@ -157,7 +156,6 @@ aur_deps=(
     vesktop
     bzmenu
     iwmenu
-    pinentry-rofi
     hellwal
     mpv-uosc-git
     mpv-thumbfast-git
@@ -171,6 +169,8 @@ aur_deps=(
     opencode-bin
     responsively
     stremio
+    xdg-desktop-portal-hyprland
+    xdg-desktop-portal-gnome
     xdg-desktop-portal-termfilechooser
     elephant-all
     walker-git

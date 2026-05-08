@@ -437,6 +437,15 @@ binds {
     Mod+Alt+S repeat=false {
         spawn "ron-capture-screenrecord" "--region=region"
     }
+    Mod+Ctrl+S repeat=false {
+        set-dynamic-cast-window
+    }
+    Mod+Ctrl+Shift+S repeat=false {
+        set-dynamic-cast-monitor
+    }
+    Mod+Ctrl+Alt+S repeat=false {
+        clear-dynamic-cast-target
+    }
     Mod+C repeat=false {
         spawn "ron-launch-walker" "-m" "clipboard"
     }
