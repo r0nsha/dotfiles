@@ -127,6 +127,7 @@ pacman_deps=(
     lynx
     notmuch
     cronie
+    firefox
 )
 
 sudo pacman -Syu --noconfirm ${pacman_deps[@]}

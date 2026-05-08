@@ -46,6 +46,17 @@ if pgrep mako
     makoctl reload
 end
 
+# pywalfox (Firefox)
+if command -vq pywalfox
+    ln -sfv ~/.cache/hellwal/colors.json ~/.cache/wal/colors.json
+    if test -n "$theme"
+        pywalfox $theme
+    else
+        pywalfox auto
+    end
+    pywalfox update
+end
+
 # qutebrowser
 if pgrep qutebrowser
     qutebrowser :config-source
