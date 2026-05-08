@@ -16,6 +16,7 @@ shell-integration-features = cursor,sudo,title
 macos-option-as-alt = true
 link-url = true
 link-previews = true
+confirm-close-surface=false
 
 keybind = ctrl+enter=unbind
 keybind = ctrl+shift+enter=unbind
