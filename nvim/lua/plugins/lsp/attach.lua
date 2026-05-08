@@ -40,9 +40,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "gri", Snacks.picker.lsp_implementations, opts("Implementations"))
     vim.keymap.set("n", "grs", Snacks.picker.lsp_workspace_symbols, opts("Workspace Symbols"))
     vim.keymap.set("n", "grS", Snacks.picker.lsp_symbols, opts("Symbols"))
-    vim.keymap.set("n", "grq", vim.diagnostic.setqflist, opts("Diagnostics"))
-    vim.keymap.set("n", "grQ", vim.diagnostic.setloclist, opts("Buffer Diagnostics"))
-    vim.keymap.set("n", "gre", vim.diagnostic.open_float, opts("Show Diagnostic"))
     vim.keymap.set(
       "n",
       "grm",
@@ -59,15 +56,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("i", "<C-s>", vim.lsp.buf.signature_help, opts("Signature Help"))
   end,
 })
-
-do
-  local method_name = "textDocument/publishDiagnostics"
-  local default_handler = vim.lsp.handlers[method_name]
-  vim.lsp.handlers[method_name] = function(err, method, result, client_id)
-    default_handler(err, method, result, client_id)
-    vim.diagnostic.setloclist({ open = false })
-  end
-end
 
 vim.keymap.set("n", "grh", function()
   local enable = not vim.lsp.inlay_hint.is_enabled()

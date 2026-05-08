@@ -67,6 +67,36 @@ end, {
   desc = "Jump to the next diagnostic (prioritized)",
 })
 
+local qf_severity = {
+  E = vim.diagnostic.severity.ERROR,
+  W = vim.diagnostic.severity.WARN,
+  I = vim.diagnostic.severity.INFO,
+  H = vim.diagnostic.severity.HINT,
+}
+
+local function set_sorted_qflist(opts)
+  opts = vim.tbl_extend("force", { open = false }, opts or {})
+  vim.diagnostic.setqflist(opts)
+  local items = vim.fn.getqflist()
+  table.sort(items, function(a, b) return (qf_severity[a.type] or math.huge) < (qf_severity[b.type] or math.huge) end)
+  vim.fn.setqflist({}, "r", { items = items })
+  vim.cmd.copen()
+end
+
+vim.keymap.set("n", "grq", set_sorted_qflist, { desc = "Show Diagnostics" })
+vim.keymap.set("n", "grQ", function()
+  vim.ui.select(
+    { "Error", "Warn", "Info", "Hint" },
+    { prompt = "Select minimum severity" },
+    function(severity)
+      set_sorted_qflist({
+        severity = { min = vim.diagnostic.severity[severity:upper()], max = vim.diagnostic.severity.ERROR },
+      })
+    end
+  )
+end, { desc = "Show Diagnostics (Filtered)" })
+vim.keymap.set("n", "gre", vim.diagnostic.open_float, { desc = "Open Diagnostic Float" })
+
 -- local icons = require("config.icons")
 -- vim.diagnostic.config({
 --   virtual_text = false,
