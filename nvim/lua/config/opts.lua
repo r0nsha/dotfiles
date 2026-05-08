@@ -59,7 +59,6 @@ vim.opt.listchars = {
   multispace = " ",
   lead = " ",
 }
-vim.opt.fillchars:append({ diff = "╱" })
 vim.opt.winborder = "none"
 vim.opt.winblend = 0
 vim.opt.pumheight = 10
@@ -142,6 +141,7 @@ vim.opt.fillchars:append({
   foldclose = "",
   foldinner = " ",
   foldsep = " ",
+  diff = "╱",
 })
 
 -- use system clipboard by default
