@@ -8,9 +8,12 @@ sm https://spacemail.com
 spacemail https://spacemail.com
 gmail https://mail.google.com
 gm https://mail.google.com
-mail https://mail.google.com
-calendar https://calendar.google.com
-cal https://calendar.google.com
+fm https://app.fastmail.com/mail
+fastmail https://app.fastmail.com/mail
+mail https://app.fastmail.com/mail
+gcal https://calendar.google.com
+calendar https://app.fastmail.com/calendar
+cal https://app.fastmail.com/calendar
 tel https://web.telegram.org/
 telegram https://web.telegram.org/
 jj-gist https://gist.github.com/christianromney/27fd1fca9e5f24ef24d9ed6c9eddda50,
