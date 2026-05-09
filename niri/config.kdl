@@ -115,14 +115,14 @@ spawn-at-startup "hypridle"
 spawn-at-startup "waybar"
 spawn-sh-at-startup "ron-background-random ~/pictures/backgrounds"
 spawn-at-startup "ghostty"
-spawn-at-startup "qutebrowser"
+spawn-at-startup "firefox"
 environment {
     // Terminal
     TERMINAL "ghostty"
     TERMCMD "ghostty"
     VISUAL "nvim"
     EDITOR "nvim"
-    BROWSER "qutebrowser"
+    BROWSER "firefox"
     MANPAGER "nvim +Man!"
     // NVidia
     GDK_BACKEND "wayland,x11"
@@ -420,10 +420,10 @@ binds {
         spawn "ghostty"
     }
     Mod+B hotkey-overlay-title="Spawn Browser" {
-        spawn "qutebrowser"
+        spawn "firefox"
     }
     Mod+Alt+B hotkey-overlay-title="Spawn Browser (Private)" {
-        spawn "qutebrowser" "--target" "private-window" "-s" "content.private_browsing" "True"
+        spawn "firefox" "--target" "private-window"
     }
     Mod+Space repeat=false {
         spawn "ron-launch-walker"

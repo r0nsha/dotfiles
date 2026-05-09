@@ -153,7 +153,6 @@ install_wrapper rustup install_rust
 
 aur_deps=(
     niri-git
-    qutebrowser-git
     vesktop
     bzmenu
     iwmenu
@@ -184,6 +183,7 @@ paru -Syu --noconfirm ${aur_deps[@]}
 pip_deps=(
     subliminal
     ffsubsync
+    pywalfox
 )
 
 pipx install ${pip_deps[@]}
@@ -225,3 +225,5 @@ sudo systemctl enable --now bluetooth.service
 newgrp docker
 sudo usermod -aG docker $USER
 sudo systemctl enable --now docker
+
+pywalfox install
