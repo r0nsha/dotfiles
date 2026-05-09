@@ -37,9 +37,10 @@ local function add_field_entries(entries, password, field, label, hidden)
   table.insert(entries, {
     Text = label,
     Value = script_command("type", field, password),
-    Icon = hidden and "dialog-password-symbolic" or "insert-text-symbolic",
+    Icon = hidden and "dialog-password-symbolic" or "input-keyboard-symbolic",
     Keywords = { field, "type", "copy" },
     Actions = {
+      pass_autotype = script_command("type", field, password),
       pass_copy = script_command("copy", field, password),
     },
   })
@@ -56,6 +57,9 @@ function GetEntries()
       Value = script_command("autotype", "all", password),
       Icon = "input-keyboard-symbolic",
       Keywords = { "login", "type" },
+      Actions = {
+        pass_autotype = script_command("autotype", "all", password),
+      },
     },
   }
 
