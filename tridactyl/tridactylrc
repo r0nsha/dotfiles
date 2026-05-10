@@ -174,3 +174,6 @@ jsb browser.webRequest.onHeadersReceived.addListener(tri.request.clobberCSP,{url
 
 " " For syntax highlighting see https://github.com/tridactyl/vim-tridactyl
 " " vim: set filetype=tridactyl
+
+set smoothscroll true
+set scrollduration 25
