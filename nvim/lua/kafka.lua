@@ -16,8 +16,6 @@ local last_topic
 ---@type string?
 local last_msg
 
-local notify = vim.schedule_wrap(vim.notify)
-
 local function save_state()
   local state = {
     namespace = namespace,
