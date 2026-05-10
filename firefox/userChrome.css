@@ -5,7 +5,9 @@
 
     /* try increasing if you encounter problems */
     --urlbar-height-setting: 22px !important;
-    --tab-min-height: 18px !important;
+    --tab-min-height: 22px !important;
+    --tab-group-label-height: var(--font-size) !important;
+    --tab-group-label-padding: 0 !important;
 
     /* I don't recommend you touch this unless you know what you're doing */
     --arrowpanel-menuitem-padding: 2px !important;
@@ -404,19 +406,26 @@ tab {
     content: counter(tab-counter) ":";
     margin-right: 0.5em;
     padding: var(--tab-min-height) 0.4em;
-    /* color: #222; */
-    /* background-color: #fff481; */
 }
 
 /* hide tab bar if there's only one */
-#tabbrowser-tabs tab:only-of-type {
+#tabbrowser-tabs #tabbrowser-arrowscrollbox > .tabbrowser-tab:only-of-type {
     display: none !important;
 }
 #tabbrowser-tabs {
     border: 0 !important;
 }
-#tabbrowser-tabs:has(tab:only-of-type) {
+#tabbrowser-tabs:has(#tabbrowser-arrowscrollbox > .tabbrowser-tab:only-of-type):not(:has(tab-group)) {
     visibility: collapse !important;
+}
+
+#tabbrowser-tabs[orient="horizontal"] {
+    --tab-group-line-toolbar-border-distance: 0 !important;
+}
+
+/* hide tab group labels */
+tab-group > .tab-group-label-container {
+    display: none !important;
 }
 
 :root[inFullscreen] > body > #browser {
