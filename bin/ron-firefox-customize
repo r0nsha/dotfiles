@@ -1,13 +1,19 @@
 #! /usr/bin/env fish
 
 set firefox_dir ~/.mozilla/firefox
+set policies_dir /usr/lib/firefox/distribution
 set dotfiles (realpath (dirname (status filename))/..)
+
+if test (uname) = Darwin
+    set firefox_dir ~/Library/Application\ Support/Firefox
+    set policies_dir /Applications/Firefox.app/Contents/Resources/distribution
+end
 
 if test -n "$DOTFILES"
     set dotfiles $DOTFILES
 end
 
-if pgrep -x firefox >/dev/null
+if pgrep -x firefox >/dev/null; or pgrep -x Firefox >/dev/null
     echo "error: firefox is running. close it first so prefs apply correctly." >&2
     exit 1
 end
@@ -23,8 +29,13 @@ if not test -f "$dotfiles/firefox/userChrome.css"
 end
 
 # parse profiles.ini for profile paths
+if not test -f "$firefox_dir/profiles.ini"
+    echo "error: $firefox_dir/profiles.ini not found" >&2
+    exit 1
+end
+
 set profiles
-for line in (grep '^Path=' $firefox_dir/profiles.ini)
+for line in (grep '^Path=' "$firefox_dir/profiles.ini")
     set -a profiles (string replace 'Path=' '' $line)
 end
 
@@ -35,6 +46,9 @@ end
 
 for profile in $profiles
     set profdir $firefox_dir/$profile
+    if string match -q '/*' $profile
+        set profdir $profile
+    end
 
     if not test -d "$profdir"
         echo "warning: profile dir $profdir not found, skipping" >&2
@@ -72,7 +86,6 @@ for profile in $profiles
 end
 
 # policies.json for extension installs and locked prefs
-set policies_dir /usr/lib/firefox/distribution
 set policies_file $policies_dir/policies.json
 
 set policies_content '{
@@ -102,12 +115,20 @@ set policies_content '{
   }
 }'
 
-if test -w /usr/lib/firefox/distribution
+if not test -d "$policies_dir"
+    if test -w (dirname "$policies_dir")
+        mkdir -p "$policies_dir"
+    else
+        sudo mkdir -p "$policies_dir"
+    end
+end
+
+if test -w "$policies_dir"
     if test -f "$policies_file"
         echo "backing up existing $policies_file"
-        sudo cp "$policies_file" "$policies_file.bak"
+        cp "$policies_file" "$policies_file.bak"
     end
-    echo "$policies_content" | sudo tee "$policies_file" >/dev/null
+    echo "$policies_content" >"$policies_file"
 else
     if test -f "$policies_file"
         echo "backing up existing $policies_file"
