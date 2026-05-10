@@ -1,4 +1,4 @@
-# colors are managed by pywal via ~/.cache/wal/colors-mako
+# colors are managed by hellwal via ~/.cache/hellwal/colors-mako
 
 # Base styling
 width=400

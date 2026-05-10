@@ -100,7 +100,7 @@ c.url.searchengines["gh"] = "https://github.com/search?q={}&type=Code"
 c.url.searchengines["pdb"] = "https://www.protondb.com/search?q={}"
 
 # Colors
-cache_path = os.path.expanduser("~/.cache/wal/qutebrowser.py")
+cache_path = os.path.expanduser("~/.cache/hellwal/qutebrowser.py")
 palette = None
 
 if os.path.isfile(cache_path):
@@ -124,8 +124,8 @@ if not palette:
 
 c.colors.tabs.selected.odd.bg = palette["bg1"]
 c.colors.tabs.selected.even.bg = palette["bg1"]
-c.colors.tabs.selected.odd.fg = palette["fg"]
-c.colors.tabs.selected.even.fg = palette["fg"]
+c.colors.tabs.selected.odd.fg = palette["active"]
+c.colors.tabs.selected.even.fg = palette["active"]
 c.colors.tabs.bar.bg = palette["bg0"]
 c.colors.tabs.odd.bg = palette["bg0"]
 c.colors.tabs.odd.fg = palette["fg"]
@@ -186,7 +186,7 @@ c.colors.statusbar.command.bg = palette["bg0"]
 c.colors.statusbar.command.fg = palette["fg"]
 c.colors.statusbar.command.private.bg = palette["bg0"]
 c.colors.statusbar.command.private.fg = palette["fg-private"]
-c.colors.statusbar.insert.bg = palette["bg1"]
+c.colors.statusbar.insert.bg = palette["bg2"]
 c.colors.statusbar.insert.fg = palette["fg"]
 c.colors.statusbar.normal.bg = palette["bg0"]
 c.colors.statusbar.normal.fg = palette["fg"]
@@ -204,11 +204,11 @@ c.colors.tabs.bar.bg = palette["active"]
 c.colors.tabs.indicator.start = palette["success"]
 c.colors.tabs.indicator.stop = palette["success"]
 c.colors.keyhint.bg = palette["bg0"]
-c.colors.keyhint.fg = palette["success"]
-c.colors.keyhint.suffix.fg = palette["active"]
+c.colors.keyhint.fg = palette["bg2"]
+c.colors.keyhint.suffix.fg = palette["bg2"]
 c.colors.hints.bg = palette["bg0"]
-c.colors.hints.fg = palette["active"]
-c.hints.border = "1px solid " + palette["active"]
+c.colors.hints.fg = palette["bg2"]
+c.hints.border = "1px solid " + palette["bg1"]
 c.colors.hints.match.fg = palette["active"]
 # c.colors.hints.bg = "qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgba(255, 247, 133, 0.8), stop:1 rgba(255, 197, 66, 0.8))"
 # c.colors.hints.match.fg = palette["success"]

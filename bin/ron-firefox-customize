@@ -1,0 +1,119 @@
+#! /usr/bin/env fish
+
+set firefox_dir ~/.mozilla/firefox
+set dotfiles (realpath (dirname (status filename))/..)
+
+if test -n "$DOTFILES"
+    set dotfiles $DOTFILES
+end
+
+if pgrep -x firefox >/dev/null
+    echo "error: firefox is running. close it first so prefs apply correctly." >&2
+    exit 1
+end
+
+if not test -f "$dotfiles/firefox/user.js"
+    echo "error: $dotfiles/firefox/user.js not found" >&2
+    exit 1
+end
+
+if not test -f "$dotfiles/firefox/userChrome.css"
+    echo "error: $dotfiles/firefox/userChrome.css not found" >&2
+    exit 1
+end
+
+# parse profiles.ini for profile paths
+set profiles
+for line in (grep '^Path=' $firefox_dir/profiles.ini)
+    set -a profiles (string replace 'Path=' '' $line)
+end
+
+if test (count $profiles) -eq 0
+    echo "error: no profiles found in $firefox_dir/profiles.ini" >&2
+    exit 1
+end
+
+for profile in $profiles
+    set profdir $firefox_dir/$profile
+
+    if not test -d "$profdir"
+        echo "warning: profile dir $profdir not found, skipping" >&2
+        continue
+    end
+
+    echo "configuring profile: $profile"
+
+    # userChrome.css
+    mkdir -p $profdir/chrome
+    set chrome_target $profdir/chrome/userChrome.css
+    set chrome_source $dotfiles/firefox/userChrome.css
+    if test -L "$chrome_target"
+        ln -sfv $chrome_source $chrome_target
+    else if test -f "$chrome_target"
+        echo "backing up existing $chrome_target"
+        mv "$chrome_target" "$chrome_target.bak"
+        ln -sfv $chrome_source $chrome_target
+    else
+        ln -sfv $chrome_source $chrome_target
+    end
+
+    # user.js
+    set js_target $profdir/user.js
+    set js_source $dotfiles/firefox/user.js
+    if test -L "$js_target"
+        ln -sfv $js_source $js_target
+    else if test -f "$js_target"
+        echo "backing up existing $js_target"
+        mv "$js_target" "$js_target.bak"
+        ln -sfv $js_source $js_target
+    else
+        ln -sfv $js_source $js_target
+    end
+end
+
+# policies.json for extension installs and locked prefs
+set policies_dir /usr/lib/firefox/distribution
+set policies_file $policies_dir/policies.json
+
+set policies_content '{
+  "policies": {
+    "Preferences": {
+      "toolkit.legacyUserProfileCustomizations.stylesheets": { "Value": true, "Status": "locked" },
+      "browser.compactmode.show": { "Value": true, "Status": "locked" },
+      "browser.uidensity": { "Value": 1, "Status": "locked" }
+    },
+    "ExtensionSettings": {
+      "tridactyl.vim@cmcaine.co.uk": {
+        "installation_mode": "force_installed",
+        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/tridactyl.vim@cmcaine.co.uk/latest.xpi",
+        "private_browsing": true
+      },
+      "pywalfox@frewacom.org": {
+        "installation_mode": "force_installed",
+        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/pywalfox@frewacom.org/latest.xpi",
+        "private_browsing": true
+      },
+      "uBlock0@raymondhill.net": {
+        "installation_mode": "force_installed",
+        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/uBlock0@raymondhill.net/latest.xpi",
+        "private_browsing": true
+      }
+    }
+  }
+}'
+
+if test -w /usr/lib/firefox/distribution
+    if test -f "$policies_file"
+        echo "backing up existing $policies_file"
+        sudo cp "$policies_file" "$policies_file.bak"
+    end
+    echo "$policies_content" | sudo tee "$policies_file" >/dev/null
+else
+    if test -f "$policies_file"
+        echo "backing up existing $policies_file"
+        sudo cp "$policies_file" "$policies_file.bak"
+    end
+    echo "$policies_content" | sudo tee "$policies_file" >/dev/null
+end
+
+echo "done. restart firefox to apply changes."

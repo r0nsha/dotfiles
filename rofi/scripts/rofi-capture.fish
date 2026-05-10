@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 
-source ~/.cache/wal/colors.fish
+source ~/.cache/hellwal/colors.fish
 
 set action (echo -e "shot\nrecord\nrecord (desktop audio)\nrecord (mic audio)\nrecord (desktop + mic audio)\nrecord (webcam)\nrecord (desktop + mic + webcam audio)" | rofi -dmenu -p "screen")
 

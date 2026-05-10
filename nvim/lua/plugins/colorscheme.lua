@@ -13,6 +13,7 @@ require("modus-themes").load({
     highlight.DiffText = { bg = color.bg_changed_refine }
     highlight.DiffTextAdd = { link = "DiffText" }
     highlight.DiffviewDiffAddAsDelete = { bg = color.bg_removed }
+    highlight.CodeDiffFiller = { fg = color.bg_removed }
     highlight.FloatTitle = { link = "NormalFloat" }
     highlight.SnacksPicker = { link = "NormalFloat" }
     highlight.SnacksPickerBorder = { link = "NormalFloat" }

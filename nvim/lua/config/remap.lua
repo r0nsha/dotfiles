@@ -126,8 +126,6 @@ end, { desc = "Toggle conceal" })
 vim.keymap.set("n", "<c-t>c", "<cmd>tabnew<cr>", { desc = "New tab" })
 vim.keymap.set("n", "<c-t>x", "<cmd>tabclose<cr>", { desc = "Close tab" })
 vim.keymap.set("n", "<c-t>O", "<cmd>tabonly<cr>", { desc = "Close other tabs" })
-vim.keymap.set("n", "[t", "<cmd>tabprev<cr>", { desc = "Previous tab" })
-vim.keymap.set("n", "]t", "<cmd>tabnext<cr>", { desc = "Next tab" })
 
 -- Remap inc/dec
 vim.keymap.set("n", "+", "<c-a>", { desc = "Increment" })

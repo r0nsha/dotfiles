@@ -59,7 +59,6 @@ vim.opt.listchars = {
   multispace = " ",
   lead = " ",
 }
-vim.opt.fillchars:append({ diff = "╱" })
 vim.opt.winborder = "none"
 vim.opt.winblend = 0
 vim.opt.pumheight = 10
@@ -118,6 +117,7 @@ vim.opt.inccommand = "split"
 vim.opt.diffopt:append("algorithm:histogram")
 vim.opt.diffopt:append("indent-heuristic")
 vim.opt.diffopt:append("inline:char")
+vim.opt.diffopt:append("followwrap")
 
 -- splits
 vim.opt.splitbelow = true
@@ -139,6 +139,9 @@ vim.opt.fillchars:append({
   fold = "󰧟",
   foldopen = "",
   foldclose = "",
+  foldinner = " ",
+  foldsep = " ",
+  diff = "╱",
 })
 
 -- use system clipboard by default

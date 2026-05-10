@@ -33,10 +33,14 @@
 
 - After updating Walker or Elephant config/menus/providers, run `systemctl --user restart --now elephant.service walker.service` so both services reload the stowed changes.
 
-# pywal
+# hellwal
 
-- NEVER run `wal` directly unless explicitly prompted. ALWAYS run `wal` via `./bin/ron-theme-generate` so theme context (light/dark saturation, backend, hooks) is applied correctly.
+- NEVER run `hellwal` directly unless explicitly prompted. ALWAYS run `hellwal` via `./bin/ron-theme-generate` so theme context (light/dark mode, contrast check, hooks) is applied correctly.
 
 # Existing Agent Config
 
 - `opencode/AGENTS.md` is user communication style and is stowed to `~/.config/opencode/AGENTS.md`; keep repo workflow notes in this root file.
+
+# Bash Tool / Root Access
+
+- Bash tool commands requiring `sudo` or root access must be run manually by the user. The tool cannot handle interactive password prompts.

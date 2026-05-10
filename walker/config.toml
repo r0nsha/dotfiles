@@ -144,7 +144,7 @@ bookmarks = [
 ]
 
 "menus:pass-entry" = [
-  { action = "menus:default", label = "run", default = true, bind = "Return", after = "Close" },
+  { action = "pass_autotype", label = "autotype", default = true, bind = "Return", after = "Close" },
   { action = "pass_copy", label = "copy", bind = "ctrl c", after = "Close" },
   { action = "menus:parent", label = "back", bind = "Escape", after = "Nothing" },
 ]

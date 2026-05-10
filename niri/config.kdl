@@ -20,7 +20,7 @@ input {
     focus-follows-mouse max-scroll-amount="0%"
 }
 output "DP-4" {
-    mode "5120x1440@119.99900"
+    mode "5120x1440@239.761002"
 }
 gestures {
     hot-corners {
@@ -115,14 +115,14 @@ spawn-at-startup "hypridle"
 spawn-at-startup "waybar"
 spawn-sh-at-startup "ron-background-random ~/pictures/backgrounds"
 spawn-at-startup "ghostty"
-spawn-at-startup "qutebrowser"
+spawn-at-startup "firefox"
 environment {
     // Terminal
     TERMINAL "ghostty"
     TERMCMD "ghostty"
     VISUAL "nvim"
     EDITOR "nvim"
-    BROWSER "qutebrowser"
+    BROWSER "firefox"
     MANPAGER "nvim +Man!"
     // NVidia
     GDK_BACKEND "wayland,x11"
@@ -170,7 +170,7 @@ layer-rule {
     match namespace="^notifications$"
     block-out-from "screencast"
 }
-include optional=true "~/.cache/wal/niri.kdl"
+include optional=true "~/.cache/hellwal/niri.kdl"
 binds {
     Mod+Slash {
         show-hotkey-overlay
@@ -420,10 +420,10 @@ binds {
         spawn "ghostty"
     }
     Mod+B hotkey-overlay-title="Spawn Browser" {
-        spawn "qutebrowser"
+        spawn "firefox"
     }
     Mod+Alt+B hotkey-overlay-title="Spawn Browser (Private)" {
-        spawn "qutebrowser" "--target" "private-window" "-s" "content.private_browsing" "True"
+        spawn "firefox" "--target" "private-window"
     }
     Mod+Space repeat=false {
         spawn "ron-launch-walker"
@@ -436,6 +436,15 @@ binds {
     }
     Mod+Alt+S repeat=false {
         spawn "ron-capture-screenrecord" "--region=region"
+    }
+    Mod+Ctrl+S repeat=false {
+        set-dynamic-cast-window
+    }
+    Mod+Ctrl+Shift+S repeat=false {
+        set-dynamic-cast-monitor
+    }
+    Mod+Ctrl+Alt+S repeat=false {
+        clear-dynamic-cast-target
     }
     Mod+C repeat=false {
         spawn "ron-launch-walker" "-m" "clipboard"

@@ -101,7 +101,6 @@ pacman_deps=(
     hyprutils
     hyprpolkitagent
     xdg-desktop-portal
-    xdg-desktop-portal-gnome
     gnome-keyring
     qt5-wayland
     qt6-wayland
@@ -128,6 +127,7 @@ pacman_deps=(
     lynx
     notmuch
     cronie
+    firefox
 )
 
 sudo pacman -Syu --noconfirm ${pacman_deps[@]}
@@ -153,14 +153,10 @@ install_wrapper rustup install_rust
 
 aur_deps=(
     niri-git
-    qutebrowser-git
     vesktop
-    walcord
     bzmenu
     iwmenu
-    pinentry-rofi
-    python-pywal16
-    python-colorthief
+    hellwal
     mpv-uosc-git
     mpv-thumbfast-git
     mpv-sponsorblock-git
@@ -173,10 +169,13 @@ aur_deps=(
     opencode-bin
     responsively
     stremio
+    xdg-desktop-portal-hyprland
+    xdg-desktop-portal-gnome
     xdg-desktop-portal-termfilechooser
     elephant-all
     walker-git
     gpu-screen-recorder-git
+    wlr-randr
 )
 
 paru -Syu --noconfirm ${aur_deps[@]}
@@ -184,6 +183,7 @@ paru -Syu --noconfirm ${aur_deps[@]}
 pip_deps=(
     subliminal
     ffsubsync
+    pywalfox
 )
 
 pipx install ${pip_deps[@]}
@@ -216,6 +216,7 @@ sudo systemctl disable getty@tty2.service
 sudo gpasswd -a $USER gamemode
 sudo gpasswd -a $USER network
 sudo gpasswd -a $USER input
+sudo gpasswd -a $USER i2c
 
 # bluetooth
 sudo systemctl enable --now bluetooth.service
@@ -224,3 +225,5 @@ sudo systemctl enable --now bluetooth.service
 newgrp docker
 sudo usermod -aG docker $USER
 sudo systemctl enable --now docker
+
+pywalfox install
