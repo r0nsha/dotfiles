@@ -14,3 +14,7 @@ user_pref("font.name.serif.x-western", "Berkeley Mono");
 user_pref("font.name.sans-serif.x-western", "Berkeley Mono");
 user_pref("font.name.monospace.x-western", "Berkeley Mono");
 user_pref("browser.display.use_document_fonts", 0);
+
+user_pref("privacy.resistFingerprinting.block_mozAddonManager", true);
+
+user_pref("extensions.webextensions.restrictedDomains", "");
