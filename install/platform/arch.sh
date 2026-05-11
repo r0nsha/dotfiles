@@ -19,6 +19,8 @@ pacman_deps=(
     github-cli
     git-delta
     jujutsu
+    perl-authen-sasl
+    perl-io-socket-ssl
     zoxide
     eza
     bat
@@ -28,6 +30,7 @@ pacman_deps=(
     fzf
     skim
     pass
+    pass-git-helper
     tealdeer
     just
     inotify-tools
