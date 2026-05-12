@@ -168,3 +168,7 @@ vim.keymap.set("n", "zr", function()
   vim.cmd("mksession! " .. vim.fn.fnameescape(session))
   vim.cmd("restart source " .. vim.fn.fnameescape(session))
 end, { desc = "Restart Neovim" })
+
+-- Arglist
+vim.keymap.set("n", "[a", "<cmd>prev<cr>", { desc = "Previous file in arglist" })
+vim.keymap.set("n", "]a", "<cmd>next<cr>", { desc = "Next file in arglist" })

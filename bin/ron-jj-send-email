@@ -1,0 +1,7 @@
+#!/usr/bin/env fish
+
+set revset $argv[1]
+set -e argv[1]
+
+set commits (jj log -r $revset --no-graph --reversed -T 'commit_id ++ "\n"')
+exec git send-email $commits $argv
