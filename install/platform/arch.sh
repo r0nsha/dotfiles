@@ -130,6 +130,7 @@ pacman_deps=(
     aerc
     w3m
     dante
+    senpai
 )
 
 sudo pacman -Syu --noconfirm ${pacman_deps[@]}

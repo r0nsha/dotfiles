@@ -1,0 +1,4 @@
+address "irc.libera.chat"
+nickname "ronsha"
+password-cmd pass "irc.libera.chat/ronsha"
+channel #sr.ht

@@ -71,6 +71,7 @@ install_deps() {
         aerc
         w3m
         dante
+        senpai
     )
 
     brew install ${deps[@]}
