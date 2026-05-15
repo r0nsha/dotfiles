@@ -130,6 +130,8 @@ pacman_deps=(
     lynx
     cronie
     firefox
+    aerc
+    w3m
 )
 
 sudo pacman -Syu --noconfirm ${pacman_deps[@]}
