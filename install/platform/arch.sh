@@ -125,11 +125,9 @@ pacman_deps=(
     pdfjs # needed for qutebrowser
     zathura-pdf-mupdf
     python-tldextract
-    neomutt
     isync
     msmtp
     lynx
-    notmuch
     cronie
     firefox
 )
@@ -166,7 +164,6 @@ aur_deps=(
     mpv-sponsorblock-git
     alass
     urlview
-    mutt-wizard-git
     abook
     protonup-rs
     downgrade

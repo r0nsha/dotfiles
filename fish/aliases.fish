@@ -44,10 +44,6 @@ if command -vq yazi
     abbr -a y yazi
 end
 
-if command -vq neomutt
-    abbr -a mutt neomutt
-end
-
 if command -vq opencode
     alias q 'opencode run --agent plan --model opencode/big-pickle'
 end
