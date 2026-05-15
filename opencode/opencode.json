@@ -13,8 +13,6 @@
             "jj b*": "ask",
             "jj restore*": "ask",
             "jj abandon*": "ask",
-            "sudo pacman*": "ask",
-            "sudo apt*": "ask",
             "yay*": "ask",
             "paru*": "ask",
             "brew install*": "ask",
@@ -25,22 +23,13 @@
             "npm install -g*": "ask",
             "curl*|*bash": "ask",
             "wget*|*bash": "ask",
-            "sudo systemctl enable*": "ask",
-            "sudo systemctl disable*": "ask",
-            "sudo systemctl start*": "ask",
-            "sudo systemctl stop*": "ask",
-            "sudo usermod*": "ask",
-            "sudo gpasswd*": "ask",
             "chsh*": "ask",
             "stow*": "ask",
-            "kill *": "ask",
-            "killall*": "ask",
+            "kill*": "ask",
             "pkill*": "ask",
             "systemctl reboot*": "ask",
             "systemctl poweroff*": "ask",
-            "systemctl hibernate*": "ask",
-            "nmcli*": "ask",
-            "docker run*": "ask"
+            "systemctl hibernate*": "ask"
         }
     },
     "mcp": {

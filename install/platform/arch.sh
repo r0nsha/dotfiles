@@ -13,6 +13,7 @@ pacman_deps=(
     cpio
     gcc
     iwd
+    chrony
     openssh
     rsync
     git
@@ -192,7 +193,14 @@ pip_deps=(
 pipx install ${pip_deps[@]}
 
 # systemd
+step "systemd: enable system services"
+sudo systemctl disable --now systemd-timesyncd.service
+sudo systemctl enable --now chronyd.service chrony-wait.service cronie.service iwd.service
+elephant service enable
+success
+
 step "systemd: enable user services"
+
 systemctl --user daemon-reload
 shopt -s nullglob
 user_services=("$DOTFILES"/systemd/user/*.service)
@@ -207,13 +215,17 @@ if ((${#user_paths[@]})); then
 fi
 
 shopt -u nullglob
-elephant service enable
+
+systemctl --user enable --now pipewire.socket pipewire-pulse.socket wireplumber.service
 success
 
 # ly
 sudo ln -sfv "$DOTFILES/ly/config.ini" /etc/ly/config.ini
 sudo systemctl enable ly.service
 sudo systemctl disable getty@tty2.service
+
+# chrony
+sudo chronyc online
 
 # groups
 sudo gpasswd -a $USER gamemode
