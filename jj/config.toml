@@ -45,6 +45,15 @@ merge-tool-edits-conflict-markers = true
 [commit]
 verbose = true
 
+[fsmonitor]
+backend = "watchman"
+
+[fsmonitor.watchman]
+register-snapshot-trigger = true
+
+[snapshot]
+auto-update-stale = true
+
 [aliases]
 retrunk = ["rebase", "--skip-emptied", "-d", "trunk()"]
 ret = ["retrunk"]

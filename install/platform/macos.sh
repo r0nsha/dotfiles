@@ -67,6 +67,10 @@ install_deps() {
         nikitabobko/tap/aerospace
         fontforge
         firefox
+        watchman
+        aerc
+        w3m
+        dante
     )
 
     brew install ${deps[@]}

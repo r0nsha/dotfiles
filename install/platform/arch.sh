@@ -180,6 +180,7 @@ aur_deps=(
     walker-git
     gpu-screen-recorder-git
     wlr-randr
+    watchman-bin
 )
 
 paru -Syu --noconfirm ${aur_deps[@]}
