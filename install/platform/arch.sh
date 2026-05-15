@@ -132,6 +132,7 @@ pacman_deps=(
     firefox
     aerc
     w3m
+    dante
 )
 
 sudo pacman -Syu --noconfirm ${pacman_deps[@]}
