@@ -125,9 +125,6 @@ pacman_deps=(
     pdfjs # needed for qutebrowser
     zathura-pdf-mupdf
     python-tldextract
-    isync
-    msmtp
-    lynx
     cronie
     firefox
     aerc
