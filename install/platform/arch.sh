@@ -131,6 +131,7 @@ pacman_deps=(
     w3m
     dante
     senpai
+    guvcview
 )
 
 sudo pacman -Syu --noconfirm ${pacman_deps[@]}
