@@ -150,3 +150,20 @@ vim.api.nvim_create_autocmd("LspProgress", {
   group = augroup,
   command = "redrawstatus",
 })
+
+-- Disable swapfile, backup, and undofile for pass/gopass files
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+  group = augroup,
+  pattern = {
+    "/dev/shm/pass*",
+    "/dev/shm/gopass*",
+    "/private/**/pass**",
+    "/private/**/gopass**",
+  },
+  callback = function()
+    vim.opt_local.swapfile = false
+    vim.opt_local.backup = false
+    vim.opt_local.undofile = false
+    vim.opt_local.shada = ""
+  end,
+})
