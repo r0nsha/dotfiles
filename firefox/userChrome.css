@@ -34,6 +34,9 @@
     menuitem {
         color: #222 !important;
     }
+    #nav-bar {
+        border-bottom: 1px solid #000000ac !important;
+    }
 }
 
 /* --- GENERAL DEBLOAT ---------------------------------- */
@@ -94,30 +97,48 @@ menupopup > #context-sep-navigation {
 
 /* --- STYLE NAVBAR ------------------------------------ */
 
+/* uniform spacing between all navbar items */
+#nav-bar {
+    gap: 4px !important;
+}
+
+#nav-bar {
+    border-bottom: 1px solid #ffffff33 !important;
+}
+
 /* remove padding between toolbar buttons */
 toolbar .toolbarbutton-1 {
-    padding: 0 0 !important;
+    padding: 0 !important;
 }
 
-/* add it back to the downloads button, otherwise it's too close to the urlbar */
-#downloads-button {
-    margin-left: 2px !important;
-}
-
-/* add padding to the right of the last button so that it doesn't touch the edge of the window */
+/* uniform icon color for right-side buttons */
+#fxa-toolbar-menu-button,
+#unified-extensions-button,
+#star-button-box,
+#downloads-button,
 #PanelUI-menu-button {
-    padding: 0px 4px 0px 0px !important;
+    --toolbarbutton-icon-fill: var(--lwt-text-color) !important;
+    fill: var(--lwt-text-color) !important;
 }
 
 #urlbar-container {
     --urlbar-container-height: var(--urlbar-height-setting) !important;
-    margin-left: 0 !important;
-    margin-right: 12px !important;
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
     font-family: var(--urlbar-font, "monospace");
     font-size: var(--font-size);
 }
+
+/* full-width urlbar when suggestions shown */
+/* #nav-bar:has(#urlbar[open]) { */
+/*     position: relative; */
+/* } */
+/* #nav-bar:has(#urlbar[open]) #urlbar-container { */
+/*     position: absolute; */
+/*     inset: 0; */
+/*     inset-inline-end: 10px; */
+/*     z-index: 2; */
+/* } */
 
 #urlbar {
     --urlbar-height: var(--urlbar-height-setting) !important;
@@ -130,15 +151,20 @@ toolbar .toolbarbutton-1 {
     margin: 0 !important;
 }
 
+#urlbar > .urlbar-input-container {
+    padding: 0 !important;
+    border: 0 !important;
+}
+
 #urlbar-input {
     margin-left: 0.4em !important;
     margin-right: 0.4em !important;
     font-size: var(--font-size) !important;
     min-height: unset !important;
 }
-#urlbar > .urlbar-input-container {
-    padding: 0 !important;
-    border: 0 !important;
+#urlbar-input::selection {
+    color: var(--lwt-accent-color) !important;
+    background-color: var(--lwt-text-color) !important;
 }
 
 #navigator-toolbox {
@@ -228,6 +254,9 @@ panel {
 }
 #urlbar-zoom-button {
     display: none;
+}
+#urlbar-revert-button-container {
+    display: none !important;
 }
 #tracking-protection-icon-container {
     display: none !important;
@@ -330,14 +359,18 @@ tab {
 
 /* Tab: selected colors */
 #tabbrowser-tabs .tabbrowser-tab[selected] .tab-content {
-    background-color: var(--tab-active-bg-color) !important;
-    background-image: linear-gradient(#ffffff4a, #ffffff4a) !important;
-    color: var(--identity-icon-color, var(--tab-active-fg-fallback-color)) !important;
+    background-color: var(--lwt-text-color, var(--tab-selected-bgcolor)) !important;
+    background-image: linear-gradient(#000000ac, #000000ac) !important;
+    color: var(
+        --lwt-text-color,
+        var(--identity-icon-color),
+        var(--tab-active-fg-fallback-color)
+    ) !important;
 }
 
 /* Tab: hovered colors */
 #tabbrowser-tabs .tabbrowser-tab:hover:not([selected]) .tab-content {
-    background-color: var(--tab-active-bg-color) !important;
+    background-color: var(--tab-selected-bgcolor) !important;
     background-image: linear-gradient(#ffffff4a, #ffffff4a) !important;
 }
 
@@ -415,7 +448,9 @@ tab {
 #tabbrowser-tabs {
     border: 0 !important;
 }
-#tabbrowser-tabs:has(#tabbrowser-arrowscrollbox > .tabbrowser-tab:only-of-type):not(:has(tab-group)) {
+#tabbrowser-tabs:has(
+        #tabbrowser-arrowscrollbox > .tabbrowser-tab:only-of-type
+    ):not(:has(tab-group)) {
     visibility: collapse !important;
 }
 
@@ -544,4 +579,3 @@ tab-group > .tab-group-label-container {
 /* } */
 
 /* } */
-
