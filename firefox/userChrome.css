@@ -432,111 +432,116 @@ tab-group > .tab-group-label-container {
     margin-top: 0 !important;
 }
 
+/* @media (-moz-bool-pref: "ui.auto-hide-navbar") { */
+
 /* --- AUTOHIDE NAVBAR ---------------------------------- */
 
-:root {
-    --uc-navbar-transform: calc(0px - var(--urlbar-height-setting));
-}
+/* :root { */
+/*     --uc-navbar-transform: calc(0px - var(--urlbar-height-setting)); */
+/* } */
 
-#navigator-toolbox > div {
-    display: contents;
-}
+/* #navigator-toolbox > div { */
+/*     display: contents; */
+/* } */
 
-:root[sessionrestored]
-    :where(
-        #nav-bar,
-        #PersonalToolbar,
-        #tab-notification-deck,
-        .global-notificationbox
-    ) {
-    transform: translateY(var(--uc-navbar-transform));
-}
+/* :root[sessionrestored] */
+/*     :where( */
+/*         #nav-bar, */
+/*         #PersonalToolbar, */
+/*         #tab-notification-deck, */
+/*         .global-notificationbox */
+/*     ) { */
+/*     transform: translateY(var(--uc-navbar-transform)); */
+/* } */
 
-:root:is([customizing], [chromehidden*="toolbar"])
-    :where(
-        #nav-bar,
-        #PersonalToolbar,
-        #tab-notification-deck,
-        .global-notificationbox
-    ) {
-    transform: none !important;
-    opacity: 1 !important;
-}
+/* :root:is([customizing], [chromehidden*="toolbar"]) */
+/*     :where( */
+/*         #nav-bar, */
+/*         #PersonalToolbar, */
+/*         #tab-notification-deck, */
+/*         .global-notificationbox */
+/*     ) { */
+/*     transform: none !important; */
+/*     opacity: 1 !important; */
+/* } */
 
-#nav-bar:not([customizing]) {
-    opacity: 0;
-    position: relative;
-    z-index: 2;
-}
+/* #nav-bar:not([customizing]) { */
+/*     opacity: 0; */
+/*     position: relative; */
+/*     z-index: 2; */
+/* } */
 
-#titlebar {
-    position: relative;
-    z-index: 3;
-}
+/* #titlebar { */
+/*     position: relative; */
+/*     z-index: 3; */
+/* } */
 
-#navigator-toolbox,
-#sidebar-box,
-#sidebar-main,
-#sidebar-splitter,
-#tabbrowser-tabbox {
-    z-index: auto !important;
-}
+/* #navigator-toolbox, */
+/* #sidebar-box, */
+/* #sidebar-main, */
+/* #sidebar-splitter, */
+/* #tabbrowser-tabbox { */
+/*     z-index: auto !important; */
+/* } */
 
 /* Show when toolbox is focused, like when urlbar has received focus */
-#navigator-toolbox:focus-within > .browser-toolbar {
-    transform: translateY(0);
-    opacity: 1;
-}
+/* #navigator-toolbox:focus-within > .browser-toolbar { */
+/*     transform: translateY(0); */
+/*     opacity: 1; */
+/* } */
 
 /* Show when toolbox is hovered */
-#titlebar:hover ~ .browser-toolbar,
-.browser-titlebar:hover ~ :is(#nav-bar, #PersonalToolbar),
-#nav-bar:hover,
-#nav-bar:hover + #PersonalToolbar {
-    transform: translateY(0);
-    opacity: 1;
-}
+/* #titlebar:hover ~ .browser-toolbar, */
+/* .browser-titlebar:hover ~ :is(#nav-bar, #PersonalToolbar), */
+/* #nav-bar:hover, */
+/* #nav-bar:hover + #PersonalToolbar { */
+/*     transform: translateY(0); */
+/*     opacity: 1; */
+/* } */
 
-:root[sessionrestored] #urlbar[popover] {
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(var(--uc-navbar-transform));
-}
+/* :root[sessionrestored] #urlbar[popover] { */
+/*     opacity: 0; */
+/*     pointer-events: none; */
+/*     transform: translateY(var(--uc-navbar-transform)); */
+/* } */
 
-#mainPopupSet:has(
-        > [panelopen]:not(
-                #ask-chat-shortcuts,
-                #selection-shortcut-action-panel,
-                #chat-shortcuts-options-panel,
-                #tab-preview-panel
-            )
-    )
-    ~ toolbox
-    #urlbar[popover],
-.browser-titlebar:is(:hover, :focus-within) ~ #nav-bar #urlbar[popover],
-#nav-bar:is(:hover, :focus-within) #urlbar[popover],
-#urlbar-container > #urlbar[popover]:is([focused], [open]) {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateY(0);
-}
+/* #mainPopupSet:has( */
+/*         > [panelopen]:not( */
+/*                 #ask-chat-shortcuts, */
+/*                 #selection-shortcut-action-panel, */
+/*                 #chat-shortcuts-options-panel, */
+/*                 #tab-preview-panel */
+/*             ) */
+/*     ) */
+/*     ~ toolbox */
+/*     #urlbar[popover], */
+/* .browser-titlebar:is(:hover, :focus-within) ~ #nav-bar #urlbar[popover], */
+/* #nav-bar:is(:hover, :focus-within) #urlbar[popover], */
+/* #urlbar-container > #urlbar[popover]:is([focused], [open]) { */
+/*     opacity: 1; */
+/*     pointer-events: auto; */
+/*     transform: translateY(0); */
+/* } */
 
 /* This ruleset is separate, because not having :has support breaks other selectors as well */
-#mainPopupSet:has(
-        > [panelopen]:not(
-                #ask-chat-shortcuts,
-                #selection-shortcut-action-panel,
-                #chat-shortcuts-options-panel,
-                #tab-preview-panel
-            )
-    )
-    ~ #navigator-toolbox
-    > .browser-toolbar {
-    transform: translateY(0);
-    opacity: 1;
-}
+/* #mainPopupSet:has( */
+/*         > [panelopen]:not( */
+/*                 #ask-chat-shortcuts, */
+/*                 #selection-shortcut-action-panel, */
+/*                 #chat-shortcuts-options-panel, */
+/*                 #tab-preview-panel */
+/*             ) */
+/*     ) */
+/*     ~ #navigator-toolbox */
+/*     > .browser-toolbar { */
+/*     transform: translateY(0); */
+/*     opacity: 1; */
+/* } */
 
 /* Move up the content view */
-:root[sessionrestored]:not([chromehidden~="toolbar"]) > body > #browser {
-    margin-top: var(--uc-navbar-transform);
-}
+/* :root[sessionrestored]:not([chromehidden~="toolbar"]) > body > #browser { */
+/*     margin-top: var(--uc-navbar-transform); */
+/* } */
+
+/* } */
+
