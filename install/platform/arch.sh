@@ -217,6 +217,7 @@ systemctl --user enable --now \
     pipewire.socket \
     pipewire-pulse.socket \
     wireplumber.service \
+    ssh-agent.service \
     ssh-agent.socket
 success
 
