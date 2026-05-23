@@ -473,9 +473,6 @@ binds {
     Mod+E repeat=false {
         spawn "ron-launch-walker" "-m" "symbols"
     }
-    Mod+S repeat=false {
-        spawn "ron-launch-walker" "-m" "menus:share" "--minwidth" "300" "--minheight" "200"
-    }
     // Misc
     Mod+Shift+T repeat=false {
         spawn-sh "ron-theme-set toggle"
