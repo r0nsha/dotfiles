@@ -11,3 +11,8 @@ Host tangled.org
     User git
     IdentityFile ~/.ssh/id_ed25519
     AddressFamily inet
+
+Host knot.ronshavit.com
+    Hostname knot.ronshavit.com
+    User root
+    IdentityFile ~/.ssh/id_ed25519
