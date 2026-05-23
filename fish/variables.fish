@@ -40,3 +40,6 @@ fish_add_path $N_PREFIX/bin
 
 # ripgrep
 set -Ux RIPGREP_CONFIG_PATH $XDG_CONFIG_HOME/ripgrep/config
+
+# ssh
+set -x SSH_AUTH_SOCK $XDG_RUNTIME_DIR/ssh-agent.socket

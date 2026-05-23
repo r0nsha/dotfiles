@@ -1,9 +1,7 @@
 Include ~/.colima/ssh_config
 
-Host website
-    HostName ronshavit.com
-    User root
-    ForwardAgent yes
-    RequestTTY yes
-    IdentityFile ~/.ssh/website
-    RemoteCommand tmux new -A -s default
+Host codeberg.org
+    HostName codeberg.org
+    User git
+    IdentityFile ~/.ssh/id_ed25519
+    AddressFamily inet

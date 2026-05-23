@@ -213,7 +213,11 @@ fi
 
 shopt -u nullglob
 
-systemctl --user enable --now pipewire.socket pipewire-pulse.socket wireplumber.service
+systemctl --user enable --now \
+    pipewire.socket \
+    pipewire-pulse.socket \
+    wireplumber.service \
+    ssh-agent.socket
 success
 
 # ly
