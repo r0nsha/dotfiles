@@ -1,0 +1,55 @@
+#!/usr/bin/env fish
+
+# snatched directly from omarchy's omarchy-menu-share
+
+set PICKER fuzzy
+
+while test (count $argv) -gt 0
+    switch $argv[1]
+        case '--picker=*'
+            set PICKER (string replace '--picker=' '' -- $argv[1])
+            set -e argv[1]
+        case --picker
+            set -e argv[1]
+            if test (count $argv) -gt 0
+                set PICKER $argv[1]
+                set -e argv[1]
+            end
+        case '*'
+            break
+    end
+end
+
+if test (count $argv) -eq 0
+    echo "Usage: ron-share [--picker=explorer|fuzzy] <clipboard|files>"
+    exit 1
+end
+
+set MODE $argv[1]
+set -e argv[1]
+
+if test "$MODE" = clipboard
+    set TEMP_FILE (mktemp --suffix=.txt)
+    wl-paste >"$TEMP_FILE"
+    systemd-run --user --quiet --collect localsend --headless send "$TEMP_FILE"
+else if test (count $argv) -gt 0
+    systemd-run --user --quiet --collect localsend --headless send $argv
+else
+    if test "$PICKER" = explorer
+        set CHOSEN_FILE (mktemp)
+        yazi --chooser-file="$CHOSEN_FILE" $HOME
+        set FILES (cat "$CHOSEN_FILE")
+        rm -f "$CHOSEN_FILE"
+    else
+        set FILES (fd . ~ -t f -t d 2>/dev/null | sk --multi)
+    end
+    if not set -q FILES[1]
+        exit 0
+    end
+    systemd-run --user --quiet --collect localsend --headless send $FILES
+end
+
+# Note: Temporary file remains until system cleanup for clipboard mode.
+# This ensures content available for the LocalSend GUI.
+
+exit 0

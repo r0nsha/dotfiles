@@ -1,4 +1,15 @@
-pacman_deps=(
+install_paru() {
+    cd $DOWNLOADS
+    git clone https://aur.archlinux.org/paru.git
+    cd paru
+    makepkg -si --noconfirm
+    paru --gendb
+    paru -Syu --noconfirm --devel
+}
+
+install_wrapper paru install_paru
+
+deps=(
     coreutils
     util-linux
     stow
@@ -132,30 +143,6 @@ pacman_deps=(
     dante
     senpai
     guvcview
-)
-
-sudo pacman -Syu --noconfirm ${pacman_deps[@]}
-
-install_paru() {
-    cd $DOWNLOADS
-    git clone https://aur.archlinux.org/paru.git
-    cd paru
-    makepkg -si --noconfirm
-    paru --gendb
-    paru -Syu --noconfirm --devel
-}
-
-install_rust() {
-    rustup toolchain install stable
-    rustup toolchain install nightly
-    rustup default stable
-    cargo install cargo-update
-}
-
-install_wrapper paru install_paru
-install_wrapper rustup install_rust
-
-aur_deps=(
     niri-git
     vesktop
     bzmenu
@@ -180,9 +167,19 @@ aur_deps=(
     gpu-screen-recorder-git
     wlr-randr
     watchman-bin
+    localsend
+    xdg-terminal-exec-git
 )
 
-paru -Syu --noconfirm ${aur_deps[@]}
+paru -Syu --noconfirm ${deps[@]}
+
+install_rust() {
+    rustup toolchain install stable
+    rustup toolchain install nightly
+    rustup default stable
+    cargo install cargo-update
+}
+install_wrapper rustup install_rust
 
 pip_deps=(
     subliminal

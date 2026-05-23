@@ -149,9 +149,18 @@ environment {
     // Qt
     QT_QPA_PLATFORMTHEME "qt6ct"
 }
-// Open the Firefox picture-in-picture player as floating by default.
 window-rule {
     match app-id="firefox$" title="^Picture-in-Picture$"
+    open-floating true
+}
+window-rule {
+    match app-id="localsend*|Share*"
+    open-floating true
+    min-width 1100
+    min-height 700
+}
+window-rule {
+    match app-id="^ron.terminal.floating$"
     open-floating true
 }
 window-rule {
@@ -463,6 +472,9 @@ binds {
     }
     Mod+E repeat=false {
         spawn "ron-launch-walker" "-m" "symbols"
+    }
+    Mod+S repeat=false {
+        spawn "ron-launch-walker" "-m" "menus:share" "--minwidth" "300" "--minheight" "200"
     }
     // Misc
     Mod+Shift+T repeat=false {

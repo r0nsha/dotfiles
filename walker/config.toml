@@ -162,3 +162,8 @@ bookmarks = [
 "menus:unified" = [
   { action = "menus:default", label = "run", default = true, bind = "Return", after = "Close" },
 ]
+"menus:share" = [
+  { action = "menus:parent", label = "back", bind = "Escape", after = "Nothing" },
+  { action = "explorer", label = "explorer", default = true, bind = "Return", after = "Close" },
+  { action = "fuzzy", label = "fuzzy", bind = "ctrl Return", after = "Close" },
+]

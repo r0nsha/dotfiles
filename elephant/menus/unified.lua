@@ -63,6 +63,12 @@ function GetEntries()
       Keywords = { "audio", "sound", "volume", "settings" },
     },
     {
+      Text = "Share",
+      SubMenu = "share",
+      Icon = "send-to-symbolic",
+      Keywords = { "share", "send", "transfer", "localsend", "file", "directory", "dir", "folder", "files", "dirs" },
+    },
+    {
       Text = "Power",
       SubMenu = "power",
       Icon = "system-shutdown-symbolic",
@@ -70,4 +76,3 @@ function GetEntries()
     },
   }
 end
-

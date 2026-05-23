@@ -72,6 +72,7 @@ install_deps() {
         w3m
         dante
         senpai
+        localsend
     )
 
     brew install ${deps[@]}
