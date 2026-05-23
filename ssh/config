@@ -1,1 +1,13 @@
 Include ~/.colima/ssh_config
+
+Host codeberg.org
+    HostName codeberg.org
+    User git
+    IdentityFile ~/.ssh/id_ed25519
+    AddressFamily inet
+
+Host tangled.org
+    Hostname tangled.org
+    User git
+    IdentityFile ~/.ssh/id_ed25519
+    AddressFamily inet
