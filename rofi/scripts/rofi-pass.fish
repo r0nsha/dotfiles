@@ -45,15 +45,15 @@ end
 function autotype
     set -l contents $argv[1]
     set -l pass (echo -e $contents | head -n1)
-    set -l email (echo -e $contents | rg "^email:" | awk -F ': ' '{print $2}')
     set -l user (echo -e $contents | rg "^user.*:" | awk -F ': ' '{print $2}')
+    set -l email (echo -e $contents | rg "^email:" | awk -F ': ' '{print $2}')
 
-    if test -n $email
-        set id $email
-    else if test -n $user
+    if test -n $user
         set id $user
+    else if test -n $email
+        set id $email
     else
-        notify-send "Can't autotype because no email or user is set"
+        notify-send "Can't autotype because no user or email is set"
         return
     end
 

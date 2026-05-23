@@ -99,18 +99,32 @@ function user_field_value
     return 1
 end
 
+function email_field_value
+    set -l contents $argv[1]
+
+    for line in (string split \n -- $contents)
+        set -l parts (string split -m 1 ":" -- $line)
+        if string match -qr '^(e-?)?mail$' -- $parts[1]
+            string trim -- $parts[2]
+            return
+        end
+    end
+
+    return 1
+end
+
 function autotype
     set -l contents $argv[1]
     set -l pass (field_value "$contents" pass)
-    set -l email (field_value "$contents" email)
     set -l user (user_field_value "$contents")
+    set -l email (email_field_value "$contents")
 
-    if test -n "$email"
-        set id $email
-    else if test -n "$user"
+    if test -n "$user"
         set id $user
+    else if test -n "$email"
+        set id $email
     else
-        notify_error "Can't autotype because no email or user is set"
+        notify_error "Can't autotype because no user or email is set"
         return 1
     end
 
