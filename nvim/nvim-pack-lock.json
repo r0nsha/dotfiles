@@ -75,6 +75,10 @@
       "rev": "12ddd182d9efbdc848b540f16484a583d52da0fb",
       "src": "https://github.com/williamboman/mason.nvim"
     },
+    "mini.diff.jj": {
+      "rev": "1ad385801358a864a973f5b11a71f47f1df0176c",
+      "src": "https://tangled.org/ronshavit.com/mini.diff.jj"
+    },
     "mini.nvim": {
       "rev": "5849ef04c32a6a8e55957b946c0a275801d87530",
       "src": "https://github.com/nvim-mini/mini.nvim"

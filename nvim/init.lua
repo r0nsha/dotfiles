@@ -11,6 +11,7 @@ vim.pack.add({
   "https://github.com/folke/lazydev.nvim",
   "https://github.com/rafamadriz/friendly-snippets",
   "https://github.com/nvim-mini/mini.nvim",
+  "https://tangled.org/ronshavit.com/mini.diff.jj",
   "https://github.com/neovim/nvim-lspconfig",
   "https://github.com/williamboman/mason.nvim",
   "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim",
