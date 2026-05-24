@@ -170,10 +170,6 @@ require("vim._core.ui2").enable({
   enable = true,
   msg = {
     target = "cmd",
-    targets = {
-      progress = "msg",
-      ["*"] = "cmd",
-    },
     msg = {
       height = 0.5,
       timeout = 4000,
