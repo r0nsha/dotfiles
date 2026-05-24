@@ -10,3 +10,5 @@ vim.api.nvim_create_autocmd("User", {
     end, { buffer = args.buf, desc = "Accept conflict resolution" })
   end,
 })
+
+vim.keymap.set("n", "<leader>gb", function() require("jjannotate").toggle() end, { desc = "JJ: Toggle annotate" })

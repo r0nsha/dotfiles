@@ -1,4 +1,3 @@
-require("plugins.vcs.blame")
 require("plugins.vcs.diff")
 require("plugins.vcs.gitlinker")
 require("plugins.vcs.hunk")

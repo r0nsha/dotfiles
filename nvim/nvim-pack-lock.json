@@ -4,10 +4,6 @@
       "rev": "e30b7f2008e52442154b66f7c519bfd2f1e32acb",
       "src": "https://github.com/numToStr/Comment.nvim"
     },
-    "blame.nvim": {
-      "rev": "179da7aaacce7c52874af636255ede72dd6fe796",
-      "src": "https://github.com/FabijanZulj/blame.nvim"
-    },
     "blink.cmp": {
       "rev": "b19413d214068f316c78978b08264ed1c41830ec",
       "src": "https://github.com/saghen/blink.cmp",
@@ -64,8 +60,8 @@
       "src": "https://github.com/rafikdraoui/jj-diffconflicts"
     },
     "jjannotate.nvim": {
-      "rev": "02f2bc4357151ed155db741ac66288341ef6b992",
-      "src": "file:///home/ron/dev/jjannotate.nvim"
+      "rev": "8d1f7c8cb2081521149af66e6b22b63005cfcc16",
+      "src": "https://tangled.org/ronshavit.com/jjannotate.nvim"
     },
     "lazydev.nvim": {
       "rev": "ff2cbcba459b637ec3fd165a2be59b7bbaeedf0d",
