@@ -34,10 +34,10 @@ install_deps() {
         gh
         fzf
         sk
-        pass
         tealdeer
         rustup
         bat
+        git
         git-delta
         n
         just
@@ -60,7 +60,8 @@ install_deps() {
         opencode
         jj
         responsively
-        gnupg
+        gnupg2
+        gopass
         pinentry-mac
         n
         go

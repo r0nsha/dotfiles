@@ -41,8 +41,10 @@ deps=(
     sd
     fzf
     skim
-    pass
-    pass-git-helper
+    gnupg2
+    rng-tools
+    gopass
+    git-credential-gopass
     tealdeer
     just
     inotify-tools

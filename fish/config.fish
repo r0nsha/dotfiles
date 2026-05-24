@@ -65,6 +65,10 @@ if status is-interactive
         bob complete fish >~/.config/fish/completions/bob.fish
     end
 
+    if command -vq gopass
+        gopass completion fish >~/.config/fish/completions/gopass.fish
+    end
+
     # @fish-lsp-disable-next-line 2003
     set -U tide_left_prompt_items pwd character
     # @fish-lsp-disable-next-line 2003 disable right prompt
