@@ -29,6 +29,7 @@ auto-track-bookmarks = 'ron/*'
 [templates]
 git_push_bookmark = '"ron/" ++ change_id.short()'
 draft_commit_description = "builtin_draft_commit_description_with_diff"
+commit_trailers = "format_signed_off_by_trailer(self)"
 
 [merge-tools.diffconflicts]
 program = "nvim"
