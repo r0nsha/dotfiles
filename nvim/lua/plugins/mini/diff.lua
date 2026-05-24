@@ -1,7 +1,10 @@
 local diff = require("mini.diff")
 
 diff.setup({
-  source = diff.gen_source.git(),
+  source = {
+    require("plugins.mini.diff.jj"),
+    diff.gen_source.git(),
+  },
   mappings = {
     apply = "",
     reset = "gH",
