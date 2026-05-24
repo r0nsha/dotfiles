@@ -5,8 +5,11 @@ require("colors")
 
 vim.cmd.packadd("nvim.undotree")
 
+-- load colorscheme first
+vim.pack.add({ "https://github.com/miikanissi/modus-themes.nvim" })
+require("plugins.colorscheme")
+
 vim.pack.add({
-  "https://github.com/miikanissi/modus-themes.nvim",
   "https://github.com/nvim-lua/plenary.nvim",
   "https://github.com/folke/lazydev.nvim",
   "https://github.com/rafamadriz/friendly-snippets",
@@ -59,7 +62,6 @@ vim.pack.add({
   "https://github.com/kristijanhusak/vim-dadbod-completion",
 })
 
-require("plugins.colorscheme")
 require("plugins.treesitter")
 require("plugins.treesitter_textobjects")
 require("plugins.comment")
