@@ -24,7 +24,7 @@ require("mason").setup()
 
 local ensure_installed = {
   -- formatters
-  "oxfmt",
+  "prettierd",
   "taplo",
   "stylua",
   "shfmt",
