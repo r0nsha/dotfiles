@@ -1,15 +1,15 @@
 local augroup = require("augroup")
 
--- Highlight yanked text
+-- Highlight yanked/put text
 vim.api.nvim_create_autocmd("TextYankPost", {
   group = augroup,
   pattern = "*",
-  callback = function()
-    vim.hl.on_yank({
-      higroup = "IncSearch",
-      timeout = 40,
-    })
-  end,
+  callback = function() vim.hl.hl_op({ timeout = 75 }) end,
+})
+vim.api.nvim_create_autocmd("TextPutPost", {
+  group = augroup,
+  pattern = "*",
+  callback = function() vim.hl.hl_op({ timeout = 75 }) end,
 })
 
 -- Return to last edit position when opening files
