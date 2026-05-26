@@ -49,7 +49,6 @@ vim.pack.add({
   "https://github.com/MunifTanjim/nui.nvim",
   "https://github.com/julienvincent/hunk.nvim",
   "https://github.com/rafikdraoui/jj-diffconflicts",
-  "https://github.com/avm99963/vim-jjdescription",
   "https://github.com/MeanderingProgrammer/render-markdown.nvim",
   { src = "https://github.com/chomosuke/typst-preview.nvim", version = "v1.4.1" },
   "https://github.com/stevearc/overseer.nvim",

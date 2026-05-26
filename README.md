@@ -21,7 +21,7 @@ After installing it, run `bin/ron-patch-berkeley-mono`
 
 ## Local Fish Config
 
-```
+```sh
 ~/config.fish
 ```
 
@@ -30,7 +30,7 @@ this machine. It will be loaded at the top of `fish/config.fish`.
 
 ## Local Git & JJ Configs
 
-```
+```sh
 ~/.gitconfig.local
 ~/.config/jj/conf.d/local.toml
 ```
