@@ -89,25 +89,3 @@ require("plugins.dap")
 require("plugins.overseer")
 require("plugins.neotest")
 require("plugins.db")
-
-local function pack_complete()
-  return vim.tbl_map(function(p) return p.spec.name end, vim.pack.get())
-end
-
-vim.api.nvim_create_user_command("PackUpdate", function(args)
-  local name = args.args
-  if name ~= "" then
-    vim.pack.update({ name })
-  else
-    vim.pack.update()
-  end
-end, { nargs = "?", complete = pack_complete })
-
-vim.api.nvim_create_user_command("PackDel", function(args)
-  local name = args.args
-  if name ~= "" then
-    vim.pack.del({ name })
-  else
-    vim.pack.del()
-  end
-end, { nargs = "?", complete = pack_complete })
