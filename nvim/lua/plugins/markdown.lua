@@ -16,6 +16,7 @@ vim.api.nvim_create_autocmd("FileType", {
         render_modes = true,
         conceal_delimiters = false,
         border = "thin",
+        style = "language",
       },
       html = {
         render_modes = true,
