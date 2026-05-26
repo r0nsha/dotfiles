@@ -49,7 +49,6 @@ vim.pack.add({
   "https://github.com/MunifTanjim/nui.nvim",
   "https://github.com/julienvincent/hunk.nvim",
   "https://github.com/rafikdraoui/jj-diffconflicts",
-  "https://github.com/MeanderingProgrammer/render-markdown.nvim",
   { src = "https://github.com/chomosuke/typst-preview.nvim", version = "v1.4.1" },
   "https://github.com/stevearc/overseer.nvim",
   "https://github.com/nvim-neotest/nvim-nio",
@@ -81,7 +80,6 @@ require("plugins.multicursor")
 require("plugins.multinput")
 require("plugins.quickfix")
 require("plugins.vcs")
-require("plugins.markdown")
 require("plugins.typst")
 require("plugins.undotree")
 require("plugins.dap")
