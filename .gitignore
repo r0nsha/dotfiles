@@ -10,7 +10,7 @@ fish/conf.d
 fish/functions/*
 # wait for https://github.com/IlanCosman/tide/pull/592 to be merged
 !fish/functions/_tide_item_jj.fish
-fish/fish_variables
+fish/fish_variables*
 jj/conf.d
 jj/repos
 kitty/current_theme.conf
