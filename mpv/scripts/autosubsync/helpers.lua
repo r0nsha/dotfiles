@@ -1,7 +1,9 @@
 local utils = require("mp.utils")
 local self = {}
 
-function self.is_empty(var) return var == nil or var == "" or (type(var) == "table" and next(var) == nil) end
+function self.is_empty(var)
+  return var == nil or var == "" or (type(var) == "table" and next(var) == nil)
+end
 
 function self.file_exists(filepath)
   if not self.is_empty(filepath) then

@@ -16,14 +16,24 @@ require("neotest").setup({
   },
 })
 
-vim.keymap.set("n", "<leader>tt", function() require("neotest").run.run() end, { desc = "Run nearest test" })
+vim.keymap.set(
+  "n",
+  "<leader>tt",
+  function() require("neotest").run.run() end,
+  { desc = "Run nearest test" }
+)
 vim.keymap.set(
   "n",
   "<leader>tT",
   function() require("neotest").run.run({ suite = true }) end,
   { desc = "Run all tests" }
 )
-vim.keymap.set("n", "<leader>tl", function() require("neotest").run.run_last() end, { desc = "Run last test" })
+vim.keymap.set(
+  "n",
+  "<leader>tl",
+  function() require("neotest").run.run_last() end,
+  { desc = "Run last test" }
+)
 vim.keymap.set(
   "n",
   "<leader>tf",
@@ -36,9 +46,24 @@ vim.keymap.set(
   function() require("neotest").run.run({ strategy = "dap", suite = false }) end,
   { desc = "Debug nearest test" }
 )
-vim.keymap.set("n", "<leader>ta", function() require("neotest").run.attach() end, { desc = "Attach to nearest test" })
-vim.keymap.set("n", "<leader>tx", function() require("neotest").run.stop() end, { desc = "Stop nearest test" })
-vim.keymap.set("n", "<leader>ts", function() require("neotest").summary.toggle() end, { desc = "Toggle test summary" })
+vim.keymap.set(
+  "n",
+  "<leader>ta",
+  function() require("neotest").run.attach() end,
+  { desc = "Attach to nearest test" }
+)
+vim.keymap.set(
+  "n",
+  "<leader>tx",
+  function() require("neotest").run.stop() end,
+  { desc = "Stop nearest test" }
+)
+vim.keymap.set(
+  "n",
+  "<leader>ts",
+  function() require("neotest").summary.toggle() end,
+  { desc = "Toggle test summary" }
+)
 vim.keymap.set(
   "n",
   "<leader>to",

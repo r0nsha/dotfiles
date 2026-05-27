@@ -29,4 +29,9 @@ vim.keymap.set("n", "<leader>gdD", "<cmd>CodeDiff %<cr>", { desc = "Diff (curren
 
 vim.keymap.set("n", "<leader>gdf", "<cmd>CodeDiff history<cr>", { desc = "File History" })
 vim.keymap.set("x", "<leader>gdf", "<cmd>CodeDiff history<cr>", { desc = "File History (visual)" })
-vim.keymap.set("n", "<leader>gdF", "<cmd>CodeDiff history %<cr>", { desc = "File History (current file)" })
+vim.keymap.set(
+  "n",
+  "<leader>gdF",
+  "<cmd>CodeDiff history %<cr>",
+  { desc = "File History (current file)" }
+)

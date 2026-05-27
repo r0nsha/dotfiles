@@ -2,14 +2,20 @@ local extra = require("mini.extra")
 local pick = require("mini.pick")
 
 -- taken directly from mini/pick.lua:2282
-local has_tabline = vim.o.showtabline == 2 or (vim.o.showtabline == 1 and #vim.api.nvim_list_tabpages() > 1)
+local has_tabline = vim.o.showtabline == 2
+  or (vim.o.showtabline == 1 and #vim.api.nvim_list_tabpages() > 1)
 local has_statusline = vim.o.laststatus > 0
-local max_height = vim.o.lines - vim.o.cmdheight - (has_tabline and 1 or 0) - (has_statusline and 1 or 0)
+local max_height = vim.o.lines
+  - vim.o.cmdheight
+  - (has_tabline and 1 or 0)
+  - (has_statusline and 1 or 0)
 ---@param mul number
 ---@return number
 local function height(mul) return math.floor(mul * max_height) end
 
-local function show_with_icons(buf_id, items, query) pick.default_show(buf_id, items, query, { show_icons = true }) end
+local function show_with_icons(buf_id, items, query)
+  pick.default_show(buf_id, items, query, { show_icons = true })
+end
 
 pick.setup({
   delay = { async = 10, busy = 30 },

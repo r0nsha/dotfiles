@@ -2,7 +2,9 @@ local notify = vim.schedule_wrap(vim.notify)
 
 local bufnr = vim.api.nvim_get_current_buf()
 
-local function rust_analyzer_client() return vim.lsp.get_clients({ bufnr = bufnr, name = "rust_analyzer" })[1] end
+local function rust_analyzer_client()
+  return vim.lsp.get_clients({ bufnr = bufnr, name = "rust_analyzer" })[1]
+end
 
 ---@param on_exit fun(result: vim.SystemCompleted)?
 ---@return vim.SystemObj
@@ -13,7 +15,9 @@ end
 ---@param result vim.SystemCompleted
 ---@return string[]?, string?
 local function parse_rustup_targets(result)
-  if result.code ~= 0 then return nil, result.stderr ~= "" and result.stderr or "failed to load rustup targets" end
+  if result.code ~= 0 then
+    return nil, result.stderr ~= "" and result.stderr or "failed to load rustup targets"
+  end
 
   local targets = {}
   for _, line in ipairs(vim.split(result.stdout, "\n", { trimempty = true })) do

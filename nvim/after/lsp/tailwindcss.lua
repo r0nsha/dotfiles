@@ -22,7 +22,9 @@ return {
     config.settings = config.settings or {}
     config.settings.editor = config.settings.editor or {}
 
-    if not config.settings.editor.tabSize then config.settings.editor.tabSize = vim.lsp.util.get_effective_tabstop() end
+    if not config.settings.editor.tabSize then
+      config.settings.editor.tabSize = vim.lsp.util.get_effective_tabstop()
+    end
 
     -- Avoid the upstream repo-wide CSS scan, which can block large TS workspaces.
     config.settings.tailwindCSS = config.settings.tailwindCSS or {}

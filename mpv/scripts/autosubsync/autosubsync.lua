@@ -101,7 +101,9 @@ local function get_active_track(track_type)
       if track.external and not h.file_exists(track["external-filename"]) then
         track["external-filename"] = url_decode(track["external-filename"])
       end
-      if not (track_type == "sub" and track.id == mp.get_property_native("secondary-sid")) then return num, track end
+      if not (track_type == "sub" and track.id == mp.get_property_native("secondary-sid")) then
+        return num, track
+      end
     end
   end
   return notify(string.format("Error: no track of type '%s' selected", track_type), "error", 3)
@@ -119,7 +121,11 @@ local function mkfp_retimed(sub_path)
   elseif not startswith(sub_path, os_temp()) then
     return table.concat({ remove_extension(sub_path), "_retimed", get_extension(sub_path) })
   else
-    return table.concat({ remove_extension(mp.get_property("path")), "_retimed", get_extension(sub_path) })
+    return table.concat({
+      remove_extension(mp.get_property("path")),
+      "_retimed",
+      get_extension(sub_path),
+    })
   end
 end
 
@@ -136,7 +142,11 @@ local function extract_to_file(subtitle_track)
   local codec_ext_map = { subrip = "srt", ass = "ass" }
   local ext = codec_ext_map[subtitle_track["codec"]]
   if ext == nil then
-    return notify(string.format("Error: unsupported codec: %s", subtitle_track["codec"]), "error", 3)
+    return notify(
+      string.format("Error: unsupported codec: %s", subtitle_track["codec"]),
+      "error",
+      3
+    )
   end
   local temp_sub_fp = utils.join_path(os_temp(), "autosubsync_extracted." .. ext)
   notify("Extracting internal subtitles...", nil, 3)
@@ -158,7 +168,11 @@ local function extract_to_file(subtitle_track)
     temp_sub_fp,
   })
   if ret == nil or ret.status ~= 0 or not h.file_exists(temp_sub_fp) then
-    return notify("Couldn't extract internal subtitle.\nMake sure the video has internal subtitles.", "error", 7)
+    return notify(
+      "Couldn't extract internal subtitle.\nMake sure the video has internal subtitles.",
+      "error",
+      7
+    )
   end
   return temp_sub_fp
 end
@@ -167,13 +181,17 @@ local function sync_subtitles(ref_sub_path)
   local reference_file_path = ref_sub_path or mp.get_property("path")
   local _, sub_track = get_active_track("sub")
   if sub_track == nil then return end
-  local subtitle_path = sub_track.external and sub_track["external-filename"] or extract_to_file(sub_track)
+  local subtitle_path = sub_track.external and sub_track["external-filename"]
+    or extract_to_file(sub_track)
   local engine_name = engine_selector:get_engine_name()
   local engine_path = config[engine_name .. "_path"]
 
   if h.is_path(config.ffmpeg_path) and not h.file_exists(engine_path) then
     return notify(
-      string.format("Can't find %s executable.\nPlease specify the correct path in the config.", engine_name),
+      string.format(
+        "Can't find %s executable.\nPlease specify the correct path in the config.",
+        engine_name
+      ),
       "error",
       5
     )
@@ -196,14 +214,22 @@ local function sync_subtitles(ref_sub_path)
 
   local ret
   if engine_name == "ffsubsync" then
-    local args = { config.ffsubsync_path, reference_file_path, "-i", subtitle_path, "-o", retimed_subtitle_path }
+    local args = {
+      config.ffsubsync_path,
+      reference_file_path,
+      "-i",
+      subtitle_path,
+      "-o",
+      retimed_subtitle_path,
+    }
     if not ref_sub_path then
       table.insert(args, "--reference-stream")
       table.insert(args, "0:" .. get_active_track("audio"))
     end
     ret = subprocess(args)
   else
-    ret = subprocess({ config.alass_path, reference_file_path, subtitle_path, retimed_subtitle_path })
+    ret =
+      subprocess({ config.alass_path, reference_file_path, subtitle_path, retimed_subtitle_path })
   end
 
   if ret == nil then return notify("Parsing failed or no args passed.", "fatal", 3) end
@@ -229,7 +255,11 @@ local function sync_to_subtitle()
     sync_subtitles(selected_track["external-filename"])
   else
     if h.is_path(config.ffmpeg_path) and not h.file_exists(config.ffmpeg_path) then
-      return notify("Can't find ffmpeg executable.\nPlease specify the correct path in the config.", "error", 5)
+      return notify(
+        "Can't find ffmpeg executable.\nPlease specify the correct path in the config.",
+        "error",
+        5
+      )
     end
     local temp_sub_fp = extract_to_file(selected_track)
     if temp_sub_fp then
@@ -242,14 +272,18 @@ end
 local function sync_to_manual_offset()
   local _, track = get_active_track("sub")
   local sub_delay = tonumber(mp.get_property("sub-delay"))
-  if tonumber(sub_delay) == 0 then return notify("There were no manual timings set, nothing to do!", "error", 7) end
+  if tonumber(sub_delay) == 0 then
+    return notify("There were no manual timings set, nothing to do!", "error", 7)
+  end
   local file_path = track.external and track["external-filename"] or extract_to_file(track)
   if file_path == nil then return end
 
   local ext = get_extension(file_path)
   local codec_parser_map = { ass = sub.ASS, subrip = sub.SRT }
   local parser = codec_parser_map[track["codec"]]
-  if parser == nil then return notify(string.format("Error: unsupported codec: %s", track["codec"]), "error", 3) end
+  if parser == nil then
+    return notify(string.format("Error: unsupported codec: %s", track["codec"]), "error", 3)
+  end
   local s = parser:populate(file_path)
   s:shift_timing(sub_delay)
   if track.external == false then
@@ -496,7 +530,8 @@ end
 local function init()
   for _, executable in pairs({ "ffmpeg", "ffsubsync", "alass" }) do
     local config_key = executable .. "_path"
-    config[config_key] = h.is_empty(config[config_key]) and h.find_executable(executable) or config[config_key]
+    config[config_key] = h.is_empty(config[config_key]) and h.find_executable(executable)
+      or config[config_key]
   end
 end
 

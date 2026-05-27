@@ -83,50 +83,59 @@ local function with_kafka_pod(callback)
   end
 
   notify("Verifying namespace " .. namespace .. "...", vim.log.levels.INFO)
-  Job:new({
-    command = "kubectl",
-    args = { "get", "namespace", namespace },
-    on_exit = function(_, return_val)
-      if return_val ~= 0 then
-        vim.schedule(function()
-          notify("Namespace " .. namespace .. " not found. Please select a new one.", vim.log.levels.WARN)
-          namespace = nil
-          last_pod = nil
-          save_state()
-          select_namespace(function() with_kafka_pod(callback) end)
-        end)
-        return
-      end
+  Job
+    :new({
+      command = "kubectl",
+      args = { "get", "namespace", namespace },
+      on_exit = function(_, return_val)
+        if return_val ~= 0 then
+          vim.schedule(function()
+            notify(
+              "Namespace " .. namespace .. " not found. Please select a new one.",
+              vim.log.levels.WARN
+            )
+            namespace = nil
+            last_pod = nil
+            save_state()
+            select_namespace(function() with_kafka_pod(callback) end)
+          end)
+          return
+        end
 
-      notify("Getting Kafka pod...", vim.log.levels.INFO)
-      Job:new({
-        command = "kubectl",
-        args = { "get", "pods", "-n", namespace, "-o", "json" },
-        on_exit = function(j, pod_return_val)
-          if pod_return_val ~= 0 then
-            vim.schedule(function() notify("Error getting Kafka pod.", vim.log.levels.ERROR) end)
-            return
-          end
+        notify("Getting Kafka pod...", vim.log.levels.INFO)
+        Job
+          :new({
+            command = "kubectl",
+            args = { "get", "pods", "-n", namespace, "-o", "json" },
+            on_exit = function(j, pod_return_val)
+              if pod_return_val ~= 0 then
+                vim.schedule(
+                  function() notify("Error getting Kafka pod.", vim.log.levels.ERROR) end
+                )
+                return
+              end
 
-          local output = table.concat(j:result(), "\n")
-          local json = vim.json.decode(output)
-          local kafka_pods = vim.tbl_filter(
-            function(item) return item.metadata.labels and item.metadata.labels.app == "kafka" end,
-            json.items
-          )
+              local output = table.concat(j:result(), "\n")
+              local json = vim.json.decode(output)
+              local kafka_pods = vim.tbl_filter(
+                function(item) return item.metadata.labels and item.metadata.labels.app == "kafka" end,
+                json.items
+              )
 
-          if #kafka_pods == 0 then
-            vim.schedule(function() notify("No Kafka pod found.", vim.log.levels.WARN) end)
-            return
-          end
+              if #kafka_pods == 0 then
+                vim.schedule(function() notify("No Kafka pod found.", vim.log.levels.WARN) end)
+                return
+              end
 
-          last_pod = kafka_pods[1]
-          save_state()
-          callback(last_pod)
-        end,
-      }):start()
-    end,
-  }):start()
+              last_pod = kafka_pods[1]
+              save_state()
+              callback(last_pod)
+            end,
+          })
+          :start()
+      end,
+    })
+    :start()
 end
 
 ---@param pod KafkaPod
@@ -136,7 +145,10 @@ local function send_message(pod, topic, msg)
   last_msg = msg
   save_state()
 
-  notify("Sending message to Kafka topic " .. topic .. " in namespace " .. namespace, vim.log.levels.INFO)
+  notify(
+    "Sending message to Kafka topic " .. topic .. " in namespace " .. namespace,
+    vim.log.levels.INFO
+  )
 
   Job:new({
     command = "kubectl",
@@ -273,7 +285,9 @@ end
 
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "json",
-  callback = function(args) vim.api.nvim_buf_create_user_command(args.buf, "KafkaSendBuf", kafka_send_buf, {}) end,
+  callback = function(args)
+    vim.api.nvim_buf_create_user_command(args.buf, "KafkaSendBuf", kafka_send_buf, {})
+  end,
 })
 
 load_state()

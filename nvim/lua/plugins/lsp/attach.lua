@@ -44,7 +44,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
       "n",
       "grm",
       function()
-        vim.lsp.buf.code_action({ context = { only = { "source.organizeImports" }, diagnostics = {} }, apply = true })
+        vim.lsp.buf.code_action({
+          context = { only = { "source.organizeImports" }, diagnostics = {} },
+          apply = true,
+        })
       end,
       opts("Organize Imports")
     )

@@ -13,7 +13,9 @@ return {
     local path = client.workspace_folders[1].name
 
     -- Don't do anything if there is project local config
-    if vim.uv.fs_stat(join(path, ".luarc.json")) or vim.uv.fs_stat(join(path, ".luarc.jsonc")) then return end
+    if vim.uv.fs_stat(join(path, ".luarc.json")) or vim.uv.fs_stat(join(path, ".luarc.jsonc")) then
+      return
+    end
 
     ---@type vim.lsp.Config
     local nvim_settings = {
@@ -35,6 +37,7 @@ return {
       },
     }
 
-    client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, nvim_settings)
+    client.config.settings.Lua =
+      vim.tbl_deep_extend("force", client.config.settings.Lua, nvim_settings)
   end,
 }

@@ -11,4 +11,9 @@ vim.api.nvim_create_autocmd("User", {
   end,
 })
 
-vim.keymap.set("n", "<leader>gb", function() require("jjannotate").toggle() end, { desc = "JJ: Toggle annotate" })
+vim.keymap.set(
+  "n",
+  "<leader>gb",
+  function() require("jjannotate").toggle() end,
+  { desc = "JJ: Toggle annotate" }
+)

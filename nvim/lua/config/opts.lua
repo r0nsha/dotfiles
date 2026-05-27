@@ -98,7 +98,11 @@ vim.opt.autowrite = false
 -- filetypes
 vim.filetype.add({
   extension = { jsonc = "jsonc", ll = "llvm", mdx = "markdown" },
-  filename = { [".gitconfig.local"] = "gitconfig", ["jsconfig.json"] = "jsonc", ["tsconfig.json"] = "jsonc" },
+  filename = {
+    [".gitconfig.local"] = "gitconfig",
+    ["jsconfig.json"] = "jsonc",
+    ["tsconfig.json"] = "jsonc",
+  },
   pattern = { [".*/%.vscode/.*%.json"] = "jsonc", [".*/vicinae/settings%.json"] = "jsonc" },
 })
 vim.treesitter.language.register("markdown", "mdx")

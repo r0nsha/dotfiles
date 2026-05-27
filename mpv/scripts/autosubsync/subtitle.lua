@@ -29,7 +29,9 @@ function TimeStamp:toString(decimal_symbol)
   return string.format("%02d:%02d:%s", self.hours, self.minutes, seconds_fmt)
 end
 
-function TimeStamp.to_seconds(seconds, milliseconds) return tonumber(string.format("%s.%s", seconds, milliseconds)) end
+function TimeStamp.to_seconds(seconds, milliseconds)
+  return tonumber(string.format("%s.%s", seconds, milliseconds))
+end
 
 local AbstractSubtitle = {}
 local AbstractSubtitle_mt = { __index = AbstractSubtitle }
@@ -109,8 +111,11 @@ function SRT.entry() return { index = nil, start_time = nil, end_time = nil, tex
 function SRT:populate(filename)
   local timestamp_fmt = "^(%d+):(%d+):(%d+),(%d+) %-%-> (%d+):(%d+):(%d+),(%d+)$"
   local function parse_timestamp(timestamp)
-    local function to_seconds(seconds, milliseconds) return tonumber(string.format("%s.%s", seconds, milliseconds)) end
-    local _, _, from_h, from_m, from_s, from_ms, to_h, to_m, to_s, to_ms = timestamp:find(timestamp_fmt)
+    local function to_seconds(seconds, milliseconds)
+      return tonumber(string.format("%s.%s", seconds, milliseconds))
+    end
+    local _, _, from_h, from_m, from_s, from_ms, to_h, to_m, to_s, to_ms =
+      timestamp:find(timestamp_fmt)
     return TimeStamp:new(from_h, from_m, to_seconds(from_s, from_ms)),
       TimeStamp:new(to_h, to_m, to_seconds(to_s, to_ms))
   end
@@ -128,7 +133,11 @@ function SRT:populate(filename)
     elseif idx == 2 then
       assert(
         line:match("^%d+:%d+:%d+,%d+ %-%-> %d+:%d+:%d+,%d+$"),
-        string.format("SRT FORMAT ERROR (line %d): expected a timecode string but got '%s'", f_idx, line)
+        string.format(
+          "SRT FORMAT ERROR (line %d): expected a timecode string but got '%s'",
+          f_idx,
+          line
+        )
       )
       local t_start, t_end = parse_timestamp(line)
       entry.start_time, entry.end_time = t_start, t_end
@@ -153,7 +162,8 @@ function SRT:toString()
   local function append(s) table.insert(stringbuilder, s) end
   for _, entry in pairs(self.entries) do
     append(entry.index)
-    local timestamp_string = string.format("%s --> %s", entry.start_time:toString(","), entry.end_time:toString(","))
+    local timestamp_string =
+      string.format("%s --> %s", entry.start_time:toString(","), entry.end_time:toString(","))
     append(timestamp_string)
     if type(entry.text) == "table" then
       append(table.concat(entry.text, "\n"))

@@ -55,7 +55,12 @@ vim.keymap.set(
 vim.keymap.set("n", "<leader>a", add, { desc = "Harpoon: Add" })
 
 for i, key in ipairs(keys) do
-  vim.keymap.set("n", "<A-" .. key .. ">", function() h:list():select(i) end, { desc = "Harpoon: Select " .. i })
+  vim.keymap.set(
+    "n",
+    "<A-" .. key .. ">",
+    function() h:list():select(i) end,
+    { desc = "Harpoon: Select " .. i }
+  )
   vim.keymap.set("n", "<A-S-" .. key:upper() .. ">", function()
     h:list():replace_at(i)
     vim.notify("Harpoon: Replaced `" .. key .. "`", vim.log.levels.INFO)

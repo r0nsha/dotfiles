@@ -69,11 +69,16 @@ local function do_watch(path, runnable, opts)
     assert(runnable.on_event, "must provide on_event to watch")
     assert(type(runnable.on_event) == "function", "on_event must be a function")
 
-    if runnable.on_error == nil then runnable.on_error = make_default_error_cb(path, "on_event_cb") end
+    if runnable.on_error == nil then
+      runnable.on_error = make_default_error_cb(path, "on_event_cb")
+    end
 
     return watch_with_function(path, runnable.on_event, runnable.on_error, opts)
   else
-    error("Unknown runnable type given to watch," .. " must be string or {on_event = function, on_error = function}.")
+    error(
+      "Unknown runnable type given to watch,"
+        .. " must be string or {on_event = function, on_error = function}."
+    )
   end
 end
 

@@ -110,14 +110,22 @@ M = Hydra({
     { "r", dap.run_to_cursor, { desc = "Run to cursor", private = true } },
 
     -- Breakpoints
-    { "db", persistent_breakpoints_api.toggle_breakpoint, { desc = "Toggle breakpoint", private = true } },
+    {
+      "db",
+      persistent_breakpoints_api.toggle_breakpoint,
+      { desc = "Toggle breakpoint", private = true },
+    },
     {
       "dc",
       persistent_breakpoints_api.set_conditional_breakpoint,
       { desc = "Set conditional breakpoint", private = true },
     },
     { "dl", persistent_breakpoints_api.set_log_point, { desc = "Log point", private = true } },
-    { "dA", persistent_breakpoints_api.clear_all_breakpoints, { desc = "Clear all breakpoints", private = true } },
+    {
+      "dA",
+      persistent_breakpoints_api.clear_all_breakpoints,
+      { desc = "Clear all breakpoints", private = true },
+    },
     { "dx", dap.set_exception_breakpoints, { desc = "Set exception breakpoints", private = true } },
     {
       "dX",
@@ -135,7 +143,11 @@ M = Hydra({
     { "gT", jump_to_view("threads"), { desc = "Jump to Threads", private = true } },
     { "gR", jump_to_view("repl"), { desc = "Jump to REPL", private = true } },
     { "gC", jump_to_view("console"), { desc = "Jump to Console", private = true } },
-    { "<leader>w", dv.add_expr, { desc = "Watch expression", private = true, mode = { "n", "x" } } },
+    {
+      "<leader>w",
+      dv.add_expr,
+      { desc = "Watch expression", private = true, mode = { "n", "x" } },
+    },
     {
       "<leader>W",
       function()

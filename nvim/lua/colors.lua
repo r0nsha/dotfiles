@@ -23,7 +23,10 @@ local function validate_path()
 
   -- warn if it exists but is a directory
   if stat and stat.type == "directory" then
-    vim.notify("Warning: " .. path .. " is a directory, not listening to color changes", vim.log.levels.WARN)
+    vim.notify(
+      "Warning: " .. path .. " is a directory, not listening to color changes",
+      vim.log.levels.WARN
+    )
     return false
   end
 

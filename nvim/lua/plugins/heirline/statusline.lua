@@ -118,7 +118,13 @@ local FileFlags = {
   },
 }
 
-FileBlock = utils.insert(FileBlock, FileIcon, utils.insert(FileNameModifer, FileName), FileFlags, { provider = "%<" })
+FileBlock = utils.insert(
+  FileBlock,
+  FileIcon,
+  utils.insert(FileNameModifer, FileName),
+  FileFlags,
+  { provider = "%<" }
+)
 
 ---@param type "error" | "warning" | "info" | "hint"
 ---@return table

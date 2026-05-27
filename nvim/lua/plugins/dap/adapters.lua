@@ -1,6 +1,8 @@
 local dap = require("dap")
 
-dap.adapters.nlua = function(callback, config) callback({ type = "server", host = config.host, port = config.port }) end
+dap.adapters.nlua = function(callback, config)
+  callback({ type = "server", host = config.host, port = config.port })
+end
 
 dap.adapters.lldb = {
   type = "executable",
@@ -21,7 +23,9 @@ local lldb_config = {
     name = "Launch",
     type = "lldb",
     request = "launch",
-    program = function() return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file") end,
+    program = function()
+      return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+    end,
     cwd = "${workspaceFolder}",
     stopOnEntry = false,
     args = function()
@@ -54,7 +58,9 @@ dap.configurations.rust = {
       -- Find out where to look for the pretty printer Python module
       local rustc_sysroot = vim.fn.trim(vim.fn.system("rustc --print sysroot"))
 
-      local script_import = 'command script import "' .. rustc_sysroot .. '/lib/rustlib/etc/lldb_lookup.py"'
+      local script_import = 'command script import "'
+        .. rustc_sysroot
+        .. '/lib/rustlib/etc/lldb_lookup.py"'
       local commands_file = rustc_sysroot .. "/lib/rustlib/etc/lldb_commands"
 
       local commands = {}

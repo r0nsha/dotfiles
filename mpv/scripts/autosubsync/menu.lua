@@ -31,7 +31,9 @@ end
 function Menu:font_size(size) self:append(string.format([[{\fs%s}]], size)) end
 
 function Menu:set_text_color(code)
-  self:append(string.format("{\\1c&H%s%s%s&\\1a&H05&}", code:sub(5, 6), code:sub(3, 4), code:sub(1, 2)))
+  self:append(
+    string.format("{\\1c&H%s%s%s&\\1a&H05&}", code:sub(5, 6), code:sub(3, 4), code:sub(1, 2))
+  )
 end
 
 function Menu:set_border_color(code)

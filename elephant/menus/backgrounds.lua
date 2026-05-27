@@ -9,7 +9,8 @@ local function command_output(command)
   return output
 end
 
-local pictures_dir = command_output("xdg-user-dir PICTURES 2>/dev/null") or os.getenv("HOME") .. "/pictures"
+local pictures_dir = command_output("xdg-user-dir PICTURES 2>/dev/null")
+  or os.getenv("HOME") .. "/pictures"
 local wallpaper_dir = pictures_dir .. "/backgrounds"
 local thumbnail_dir = os.getenv("HOME") .. "/.cache/walker/backgrounds"
 

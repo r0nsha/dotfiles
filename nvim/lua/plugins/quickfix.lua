@@ -24,6 +24,11 @@ vim.api.nvim_create_autocmd("FileType", {
     })
 
     vim.keymap.set("n", "<leader>q", quicker.toggle, { desc = "Quickfix" })
-    vim.keymap.set("n", "<leader>Q", function() quicker.toggle({ loclist = true }) end, { desc = "Loclist" })
+    vim.keymap.set(
+      "n",
+      "<leader>Q",
+      function() quicker.toggle({ loclist = true }) end,
+      { desc = "Loclist" }
+    )
   end,
 })

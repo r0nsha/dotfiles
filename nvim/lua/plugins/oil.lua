@@ -32,8 +32,16 @@ oil.setup({
     ["g?"] = "actions.show_help",
 
     ["<CR>"] = "actions.select",
-    ["<C-f>"] = { "actions.select", opts = { vertical = true }, desc = "Open the entry in a vertical split" },
-    ["<C-g>"] = { "actions.select", opts = { horizontal = true }, desc = "Open the entry in a horizontal split" },
+    ["<C-f>"] = {
+      "actions.select",
+      opts = { vertical = true },
+      desc = "Open the entry in a vertical split",
+    },
+    ["<C-g>"] = {
+      "actions.select",
+      opts = { horizontal = true },
+      desc = "Open the entry in a horizontal split",
+    },
     ["<C-p>"] = "actions.preview",
     ["<C-c>"] = "actions.close",
     ["<C-r>"] = "actions.refresh",

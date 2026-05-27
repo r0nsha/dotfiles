@@ -17,7 +17,9 @@ vim.keymap.set({ "n", "x" }, "gP", '""P', { remap = false, desc = "Paste from un
 -- Don't yank when using 'p' in visual mode
 vim.keymap.set("x", "p", '"_dP', { remap = false })
 
-local function get_relative_file_path() return require("plenary.path"):new(vim.fn.expand("%")):normalize() end
+local function get_relative_file_path()
+  return require("plenary.path"):new(vim.fn.expand("%")):normalize()
+end
 
 ---@param lines string
 local function copy_line_reference(lines)
@@ -45,7 +47,8 @@ vim.keymap.set("x", "<c-g>", function()
   -- get_visual_range() returns 0-indexed lines
   start_line = start_line + 1
   end_line = end_line + 1
-  local lines = start_line == end_line and tostring(start_line) or string.format("%d-%d", start_line, end_line)
+  local lines = start_line == end_line and tostring(start_line)
+    or string.format("%d-%d", start_line, end_line)
   copy_line_reference(lines)
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, true, true), "n", true)
 end, { remap = false, desc = "Copy line reference to clipboard" })
@@ -107,7 +110,12 @@ vim.keymap.set("n", "<A-N>", "<cmd>lnext<cr>zz", { desc = "Next loclist item" })
 vim.keymap.set("n", "<A-P>", "<cmd>lprev<cr>zz", { desc = "Previous loclist item" })
 
 -- Replace word under cursor (when LSP is not available)
-vim.keymap.set("n", "grn", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Rename" })
+vim.keymap.set(
+  "n",
+  "grn",
+  [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+  { desc = "Rename" }
+)
 vim.keymap.set("x", "grn", [["vy:%s/<C-r>v/<C-r>v/gI<Left><Left><Left>]], { desc = "Rename" })
 
 -- Toggle conceal

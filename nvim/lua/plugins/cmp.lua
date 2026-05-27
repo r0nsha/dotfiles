@@ -36,7 +36,9 @@ blink.setup({
       },
     },
     menu = {
-      auto_show = function(ctx) return ctx.mode ~= "cmdline" or not vim.tbl_contains({ "/", "?" }, vim.fn.getcmdtype()) end,
+      auto_show = function(ctx)
+        return ctx.mode ~= "cmdline" or not vim.tbl_contains({ "/", "?" }, vim.fn.getcmdtype())
+      end,
       draw = {
         -- We don't need label_description now because label and label_description are already
         -- combined together in label by colorful-menu.nvim.
@@ -47,7 +49,9 @@ blink.setup({
         components = {
           label = {
             text = function(ctx) return require("colorful-menu").blink_components_text(ctx) end,
-            highlight = function(ctx) return require("colorful-menu").blink_components_highlight(ctx) end,
+            highlight = function(ctx)
+              return require("colorful-menu").blink_components_highlight(ctx)
+            end,
           },
         },
       },

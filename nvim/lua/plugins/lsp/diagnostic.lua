@@ -40,7 +40,10 @@ local function set_sorted_qflist(opts)
   opts = vim.tbl_extend("force", { open = false }, opts or {})
   local diagnostics = vim.diagnostic.get(nil, opts)
   local items = vim.diagnostic.toqflist(diagnostics)
-  table.sort(items, function(a, b) return (qf_severity[a.type] or math.huge) < (qf_severity[b.type] or math.huge) end)
+  table.sort(
+    items,
+    function(a, b) return (qf_severity[a.type] or math.huge) < (qf_severity[b.type] or math.huge) end
+  )
   vim.fn.setqflist({}, " ", { items = items, title = "Diagnostics" })
   vim.cmd.copen()
 end
@@ -54,7 +57,10 @@ vim.keymap.set("n", "grQ", function()
     function(severity)
       if not severity then return end
       set_sorted_qflist({
-        severity = { min = vim.diagnostic.severity[severity:upper()], max = vim.diagnostic.severity.ERROR },
+        severity = {
+          min = vim.diagnostic.severity[severity:upper()],
+          max = vim.diagnostic.severity.ERROR,
+        },
       })
     end
   )

@@ -13,8 +13,18 @@ vim.keymap.set({ "n", "x" }, "<Up>", function() mc.lineAddCursor(-1) end, opts("
 vim.keymap.set({ "n", "x" }, "<Down>", function() mc.lineAddCursor(1) end, opts("Add Cursor Below"))
 
 -- Add a new cursor by matching word/selection
-vim.keymap.set({ "n", "x" }, "<C-S-N>", function() mc.matchAddCursor(-1) end, opts("Add Cursor Match Above"))
-vim.keymap.set({ "n", "x" }, "<C-n>", function() mc.matchAddCursor(1) end, opts("Add Cursor Match Below"))
+vim.keymap.set(
+  { "n", "x" },
+  "<C-S-N>",
+  function() mc.matchAddCursor(-1) end,
+  opts("Add Cursor Match Above")
+)
+vim.keymap.set(
+  { "n", "x" },
+  "<C-n>",
+  function() mc.matchAddCursor(1) end,
+  opts("Add Cursor Match Below")
+)
 
 -- Easy way to add and remove cursors using the main cursor.
 vim.keymap.set("n", "m.", mc.toggleCursor, opts("Toggle Cursor"))
@@ -50,11 +60,31 @@ vim.keymap.set({ "n", "x" }, "<C-i>", mc.jumpForward, opts("Jump Forward"))
 vim.keymap.set({ "n", "x" }, "<C-o>", mc.jumpBackward, opts("Jump Backward"))
 
 mc.addKeymapLayer(function(layerSet)
-  layerSet({ "n", "x" }, "<C-Up>", function() mc.lineSkipCursor(-1) end, { desc = "Skip Cursor Above" })
-  layerSet({ "n", "x" }, "<C-Down>", function() mc.lineSkipCursor(1) end, { desc = "Skip Cursor Below" })
+  layerSet(
+    { "n", "x" },
+    "<C-Up>",
+    function() mc.lineSkipCursor(-1) end,
+    { desc = "Skip Cursor Above" }
+  )
+  layerSet(
+    { "n", "x" },
+    "<C-Down>",
+    function() mc.lineSkipCursor(1) end,
+    { desc = "Skip Cursor Below" }
+  )
 
-  layerSet({ "n", "x" }, "<C-S-Q>", function() mc.matchSkipCursor(-1) end, { desc = "Skip Cursor Match Above" })
-  layerSet({ "n", "x" }, "<C-q>", function() mc.matchSkipCursor(1) end, { desc = "Skip Cursor Match Below" })
+  layerSet(
+    { "n", "x" },
+    "<C-S-Q>",
+    function() mc.matchSkipCursor(-1) end,
+    { desc = "Skip Cursor Match Above" }
+  )
+  layerSet(
+    { "n", "x" },
+    "<C-q>",
+    function() mc.matchSkipCursor(1) end,
+    { desc = "Skip Cursor Match Below" }
+  )
 
   -- Rotate the main cursor.
   layerSet({ "n", "x" }, "<Left>", mc.prevCursor, { desc = "Rotate Cursor Left" })
