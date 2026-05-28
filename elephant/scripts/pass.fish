@@ -1,33 +1,23 @@
 #!/usr/bin/env fish
 
-set -g cache_dir ~/.cache/pass-menu
+set cache_dir ~/.cache/pass-menu
 
 function notify_error
     notify-send pass "$argv[1]"
 end
 
+set session_type
+
 function setup_backends
     if command -q ron-login-session-type
-        set -g session_type (ron-login-session-type)
+        set session_type (ron-login-session-type)
     else if set -q WAYLAND_DISPLAY
-        set -g session_type wayland
+        set session_type wayland
     else if set -q DISPLAY
-        set -g session_type x11
+        set session_type x11
     else
         notify_error "Unknown display server"
         return 1
-    end
-
-    switch $session_type
-        case wayland
-            set -g clip_backend wl-copy
-            set -g type_backend wtype
-        case x11
-            set -g clip_backend xclip
-            set -g type_backend xdotool
-        case '*'
-            notify_error "Unknown display server: $session_type"
-            return 1
     end
 end
 
@@ -39,10 +29,10 @@ end
 function copy_to_clipboard
     set -l text $argv[1]
 
-    switch $clip_backend
-        case xclip
+    switch $session_type
+        case x11
             printf %s "$text" | xclip -sel clip
-        case wl-copy
+        case wayland
             printf %s "$text" | wl-copy
     end
 end
@@ -50,17 +40,17 @@ end
 function type_text
     set -l text $argv[1]
 
-    switch $type_backend
-        case xdotool
+    switch $session_type
+        case x11
             xdotool type --delay 0 --clearmodifiers -- "$text"
-        case wtype
+        case wayland
             wtype "$text"
     end
 end
 
 function password_contents
-    set -l password $argv[1]
-    command gopass show "$password" | string collect
+    set -l entry $argv[1]
+    gopass show "$entry" | string collect
 end
 
 function field_value
@@ -84,12 +74,13 @@ function field_value
     return 1
 end
 
-function user_field_value
+function find_field
     set -l contents $argv[1]
+    set -l pattern $argv[2]
 
     for line in (string split \n -- $contents)
         set -l parts (string split -m 1 ":" -- $line)
-        if string match -qr '^user' -- $parts[1]
+        if string match -qr $pattern -- $parts[1]
             string trim -- $parts[2]
             return
         end
@@ -98,25 +89,23 @@ function user_field_value
     return 1
 end
 
-function email_field_value
-    set -l contents $argv[1]
+function resolve_value
+    set -l target $argv[1]
+    set -l contents $argv[2]
+    set -l entry $argv[3]
 
-    for line in (string split \n -- $contents)
-        set -l parts (string split -m 1 ":" -- $line)
-        if string match -qr '^(e-?)?mail$' -- $parts[1]
-            string trim -- $parts[2]
-            return
-        end
+    if test "$target" = otp
+        gopass otp -o "$entry" 2>/dev/null
+    else
+        field_value "$contents" "$target"
     end
-
-    return 1
 end
 
 function autotype
     set -l contents $argv[1]
-    set -l pass (field_value "$contents" pass)
-    set -l user (user_field_value "$contents")
-    set -l email (email_field_value "$contents")
+    set -l password (field_value "$contents" pass)
+    set -l user (find_field "$contents" '^user')
+    set -l email (find_field "$contents" '^(e-?)?mail$')
 
     if test -n "$user"
         set id $user
@@ -127,19 +116,19 @@ function autotype
         return 1
     end
 
-    switch $type_backend
-        case xdotool
+    switch $session_type
+        case x11
             xdotool type --delay 0 --clearmodifiers -- "$id"
             sleep 0.1
             xdotool key --clearmodifiers Tab
             sleep 0.1
-            xdotool type --delay 0 --clearmodifiers -- "$pass"
-        case wtype
+            xdotool type --delay 0 --clearmodifiers -- "$password"
+        case wayland
             wtype "$id"
             sleep 0.1
             wtype -P Tab -p Tab
             sleep 0.1
-            wtype "$pass"
+            wtype "$password"
             sleep 0.1
             wtype -P Return -p Return
     end
@@ -147,46 +136,39 @@ end
 
 set action $argv[1]
 set target $argv[2]
-set password $argv[3]
+set entry $argv[3]
 
-if test -z "$action"; or test -z "$password"
-    notify_error "Usage: pass.fish <copy|type|autotype> <target> <password>"
+if test -z "$action"; or test -z "$entry"
+    notify_error "Usage: pass.fish <copy|type|autotype> <target> <entry>"
     exit 1
 end
 
 setup_backends || exit 1
-store_last_used "$password"
+store_last_used "$entry"
 
-set -l contents (password_contents "$password")
-if test $status -ne 0 -o -z "$contents"
-    notify_error "Could not read $password"
-    exit 1
+set -l contents
+if test "$target" != otp
+    set contents (password_contents "$entry")
+    if test $status -ne 0 -o -z "$contents"
+        notify_error "Could not read $entry"
+        exit 1
+    end
 end
 
 switch $action
     case copy
-        if test "$target" = otp
-            set value (gopass otp -o "$password" 2>/dev/null)
-        else
-            set value (field_value "$contents" "$target")
-        end
-
+        set -l value (resolve_value "$target" "$contents" "$entry")
         if test -z "$value"
-            notify_error "No $target field for $password"
+            notify_error "No $target field for $entry"
             exit 1
         end
 
         copy_to_clipboard "$value"
         notify-send "Copied $target to clipboard"
     case type
-        if test "$target" = otp
-            set value (gopass otp -o "$password" 2>/dev/null)
-        else
-            set value (field_value "$contents" "$target")
-        end
-
+        set -l value (resolve_value "$target" "$contents" "$entry")
         if test -z "$value"
-            notify_error "No $target field for $password"
+            notify_error "No $target field for $entry"
             exit 1
         end
 
@@ -197,3 +179,4 @@ switch $action
         notify_error "Unknown action: $action"
         exit 1
 end
+
