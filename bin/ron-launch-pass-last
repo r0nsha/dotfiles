@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 
-set cache_last_used ~/.cache/rofi-pass/last_used
+set cache_last_used ~/.cache/pass-menu/last_used
 
 if test ! -f $cache_last_used
     notify-send pass "No last password"

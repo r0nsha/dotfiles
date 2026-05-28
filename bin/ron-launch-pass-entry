@@ -1,7 +1,7 @@
 #!/usr/bin/env fish
 
 set password $argv[1]
-set cache_dir ~/.cache/rofi-pass
+set cache_dir ~/.cache/pass-menu
 set cache_open_entry $cache_dir/open_entry
 set cache_current_entry $cache_dir/current_entry
 

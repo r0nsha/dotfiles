@@ -1,7 +1,6 @@
 #!/usr/bin/env fish
 
-set -g cache_dir ~/.cache/rofi-pass
-set -g cache_last_used $cache_dir/last_used
+set -g cache_dir ~/.cache/pass-menu
 
 function notify_error
     notify-send pass "$argv[1]"
@@ -34,7 +33,7 @@ end
 
 function store_last_used
     mkdir -p $cache_dir
-    printf %s $argv[1] >$cache_last_used
+    printf %s $argv[1] >$cache_dir/last_used
 end
 
 function copy_to_clipboard
@@ -61,7 +60,7 @@ end
 
 function password_contents
     set -l password $argv[1]
-    pass show "$password" | string collect
+    command gopass show "$password" | string collect
 end
 
 function field_value
@@ -166,7 +165,12 @@ end
 
 switch $action
     case copy
-        set -l value (field_value "$contents" "$target")
+        if test "$target" = otp
+            set value (gopass otp -o "$password" 2>/dev/null)
+        else
+            set value (field_value "$contents" "$target")
+        end
+
         if test -z "$value"
             notify_error "No $target field for $password"
             exit 1
@@ -175,7 +179,12 @@ switch $action
         copy_to_clipboard "$value"
         notify-send "Copied $target to clipboard"
     case type
-        set -l value (field_value "$contents" "$target")
+        if test "$target" = otp
+            set value (gopass otp -o "$password" 2>/dev/null)
+        else
+            set value (field_value "$contents" "$target")
+        end
+
         if test -z "$value"
             notify_error "No $target field for $password"
             exit 1

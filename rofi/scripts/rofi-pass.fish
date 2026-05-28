@@ -1,7 +1,7 @@
 #!/usr/bin/env fish
 
 set pass_dir ~/.password-store
-set cache_dir ~/.cache/rofi-pass
+set cache_dir ~/.cache/pass-menu
 set cache_last_used $cache_dir/last_used
 set session_type (get_session_type)
 

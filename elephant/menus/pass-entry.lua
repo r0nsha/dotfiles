@@ -8,7 +8,7 @@ HideFromProviderlist = true
 SearchName = false
 Parent = "pass"
 
-local open_entry_path = os.getenv("HOME") .. "/.cache/rofi-pass/open_entry"
+local open_entry_path = os.getenv("HOME") .. "/.cache/pass-menu/open_entry"
 
 local function shell_quote(value) return "'" .. tostring(value):gsub("'", "'\\''") .. "'" end
 
@@ -65,11 +65,12 @@ function GetEntries()
 
   add_field_entries(entries, password, "pass", "password", true)
 
-  local handle = io.popen("pass show " .. shell_quote(password) .. " 2>/dev/null")
+  local handle = io.popen("gopass show " .. shell_quote(password) .. " 2>/dev/null")
   if not handle then return entries end
 
   local first = true
   local seen = { pass = true }
+  local has_otp = false
 
   for line in handle:lines() do
     if first then
@@ -78,11 +79,37 @@ function GetEntries()
       local field = line:match("^([^:]+):%s*.+$")
       if field and not seen[field] then
         seen[field] = true
-        add_field_entries(entries, password, field, field, false)
+        if field == "otpauth" then
+          has_otp = true
+        else
+          add_field_entries(entries, password, field, field, false)
+        end
       end
     end
   end
 
   handle:close()
+
+  if has_otp then
+    local otp_handle = io.popen("gopass otp " .. shell_quote(password) .. " 2>/dev/null")
+    if otp_handle then
+      local otp = otp_handle:read("*l")
+      otp_handle:close()
+      if otp and otp ~= "" then
+        table.insert(entries, {
+          Text = "OTP",
+          Subtext = otp,
+          Value = script_command("type", "otp", password),
+          Icon = "dialog-password-symbolic",
+          Keywords = { "otp", "2fa", "totp", "token" },
+          Actions = {
+            pass_autotype = script_command("type", "otp", password),
+            pass_copy = script_command("copy", "otp", password),
+          },
+        })
+      end
+    end
+  end
+
   return entries
 end
