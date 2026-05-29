@@ -76,7 +76,7 @@ bindurl www.google.com F hint -Jbc #search a
 " " bindurl ^https://duckduckgo.com F hint -Jbc [data-testid="result-title-a"]
 
 " Make `gi` on GitHub take you to the search box
-bindurl ^https://github.com gi hint -!Vc [aria-label^='search' i]
+" bindurl ^https://github.com gi hint -!Vc [aria-label^='search' i]
 
 " " Allow Ctrl-a to select all in the commandline
 " unbind --mode=ex <C-a>
@@ -182,3 +182,28 @@ autocontain facebook\.com facebook
 
 set smoothscroll true
 set scrollduration 25
+
+" the blacklist
+blacklistadd monkeytype.com
+blacklistadd play.typeracer.com
+blacklistadd docs.google.com
+blacklistadd sheets.google.com
+blacklistadd slides.google.com
+blacklistadd 10fastfingers.com
+blacklistadd keybr.com
+blacklistadd typingtutor.dev
+blacklistadd speedtyper.dev
+blacklistadd codepen.io
+blacklistadd codesandbox.io
+blacklistadd stackblitz.com
+blacklistadd replit.com
+blacklistadd github.dev
+blacklistadd vscode.dev
+blacklistadd overleaf.com
+blacklistadd figma.com
+blacklistadd excalidraw.com
+blacklistadd miro.com
+blacklistadd app.diagrams.net
+blacklistadd canva.com
+blacklistadd desmos.com
+blacklistadd shell.cloud.google.com
