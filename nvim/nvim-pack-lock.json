@@ -99,14 +99,6 @@
       "rev": "f2959e1f5f4a64ae0c79c849d8e0a4af42a8e9e0",
       "src": "https://github.com/r0nsha/multinput.nvim"
     },
-    "neotest": {
-      "rev": "ad991822b7076b1d940b33a9d6d0d30416d5df81",
-      "src": "https://github.com/nvim-neotest/neotest"
-    },
-    "neotest-vitest": {
-      "rev": "2f19d215d7d4d7f121826f99f6f35a81e2c18a6f",
-      "src": "https://github.com/marilari88/neotest-vitest"
-    },
     "nui.nvim": {
       "rev": "de740991c12411b663994b2860f1a4fd0937c130",
       "src": "https://github.com/MunifTanjim/nui.nvim"
@@ -126,10 +118,6 @@
     "nvim-lspconfig": {
       "rev": "9573948c38bfabeec353ae7dd7d3ffec4c506a6b",
       "src": "https://github.com/neovim/nvim-lspconfig"
-    },
-    "nvim-nio": {
-      "rev": "21f5324bfac14e22ba26553caf69ec76ae8a7662",
-      "src": "https://github.com/nvim-neotest/nvim-nio"
     },
     "nvim-treesitter": {
       "rev": "c82bf96f0a773d85304feeb695e1e23b2207ac35",
@@ -152,10 +140,6 @@
     "one-small-step-for-vimkind": {
       "rev": "1af6ffb9b5229a856e8090fa2f690e0931a5aace",
       "src": "https://github.com/jbyuki/one-small-step-for-vimkind"
-    },
-    "overseer.nvim": {
-      "rev": "a93d9f6d6defdac4bcd6d2c8ba988650e42e0a0e",
-      "src": "https://github.com/stevearc/overseer.nvim"
     },
     "persistent-breakpoints.nvim": {
       "rev": "d1656221836207787b8a7969cc2dc72668c4742a",

@@ -44,7 +44,6 @@ vim.pack.add({
   "https://github.com/jbyuki/one-small-step-for-vimkind",
   "https://github.com/jake-stewart/multicursor.nvim",
   "https://github.com/r0nsha/multinput.nvim",
-  -- "https://github.com/r0nsha/qfpreview.nvim" ,
   "https://github.com/stevearc/quicker.nvim",
   "https://github.com/esmuellert/codediff.nvim",
   "https://github.com/ruifm/gitlinker.nvim",
@@ -53,10 +52,6 @@ vim.pack.add({
   "https://github.com/rafikdraoui/jj-diffconflicts",
   "https://tangled.org/ronshavit.com/jjannotate.nvim",
   { src = "https://github.com/chomosuke/typst-preview.nvim", version = "v1.4.1" },
-  "https://github.com/stevearc/overseer.nvim",
-  "https://github.com/nvim-neotest/nvim-nio",
-  "https://github.com/nvim-neotest/neotest",
-  "https://github.com/marilari88/neotest-vitest",
   "https://github.com/tpope/vim-dadbod",
   "https://github.com/kristijanhusak/vim-dadbod-ui",
   "https://github.com/kristijanhusak/vim-dadbod-completion",
@@ -85,6 +80,4 @@ require("plugins.vcs")
 require("plugins.typst")
 require("plugins.undotree")
 require("plugins.dap")
-require("plugins.overseer")
-require("plugins.neotest")
 require("plugins.db")
