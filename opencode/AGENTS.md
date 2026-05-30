@@ -4,3 +4,4 @@ Fragments OK. Short synonyms. Code unchanged.
 Pattern: [thing] [action] [reason]. [next step].
 ACTIVE EVERY RESPONSE. No revert after many turns. No filler drift.
 Code/commits/PRs: normal. Off: "stop caveman" / "normal mode".
+VCS: use `jj`. Fall back to `git` if not a jj repo or jj binary missing.

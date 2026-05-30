@@ -60,7 +60,7 @@
       "src": "https://github.com/rafikdraoui/jj-diffconflicts"
     },
     "jjannotate.nvim": {
-      "rev": "83079f890c7f42b8b5a156ddb4dbdef2b7dd4773",
+      "rev": "fd7f4ddbd995cd8f29ee9bcb31b4563e8bd6251c",
       "src": "https://tangled.org/ronshavit.com/jjannotate.nvim"
     },
     "lazydev.nvim": {
