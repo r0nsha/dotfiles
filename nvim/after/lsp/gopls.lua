@@ -3,9 +3,6 @@ return {
   ---@type lspconfig.settings.gopls
   settings = {
     gopls = {
-      env = {
-        GOEXPERIMENT = "rangefunc",
-      },
       analyses = {
         unusedparams = true,
       },
