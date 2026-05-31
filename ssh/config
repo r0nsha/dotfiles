@@ -16,3 +16,9 @@ Host knot.ronshavit.com
     Hostname knot.ronshavit.com
     User root
     IdentityFile ~/.ssh/id_ed25519
+
+Host knot.tngl.boltless.dev
+    Hostname knot.tngl.boltless.dev
+    User git
+    Port 2222
+    IdentityFile ~/.ssh/id_ed25519
