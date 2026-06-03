@@ -170,13 +170,4 @@ if vim.env.SSH_CONNECTION then
   }
 end
 
-require("vim._core.ui2").enable({
-  enable = true,
-  msg = {
-    target = "cmd",
-    msg = {
-      height = 0.5,
-      timeout = 4000,
-    },
-  },
-})
+require("vim._core.ui2").enable({ enable = true, msg = { target = "msg" } })
