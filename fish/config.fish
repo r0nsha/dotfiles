@@ -21,37 +21,12 @@ if test -r $local_config
     source $local_config
 end
 
-set fish_greeting # disable welcome message
-
-# vi mode
-fish_vi_key_bindings
-
-# vi: Copy to clipboard in normal mode
-bind -M default yy 'commandline -f begin-selection; commandline -f end-selection; fish_clipboard_copy; commandline -f end-selection'
-bind -M default Y 'commandline -f begin-selection; commandline -f end-of-line; fish_clipboard_copy; commandline -f end-selection'
-
-# vi: Paste from clipboard in normal and insert mode
-bind -M default p fish_clipboard_paste
-bind -M insert \cp fish_clipboard_paste
-
-# vi: Visual mode bindings
-bind -M visual y 'fish_clipboard_copy; commandline -f end-selection'
-
-# yank/paste with system clipboard
-bind yy fish_clipboard_copy
-bind Y fish_clipboard_copy
-bind p fish_clipboard_paste
-
-# history
-bind -M default \cr history-pager
-bind -M insert \cr history-pager
-
 # env
 set -gx NVM_DIR "$HOME/.nvm"
 set -gx PNPM_HOME "$HOME/.local/share/pnpm"
 
 if status is-interactive
-    stty -ixon # disable C-s and C-q
+    set fish_greeting # disable welcome message
 
     if command -vq zoxide
         zoxide init fish | source
@@ -70,10 +45,44 @@ if status is-interactive
     end
 
     # @fish-lsp-disable-next-line 2003
-    set -U tide_left_prompt_items pwd character
+    set tide_left_prompt_items pwd character
     # @fish-lsp-disable-next-line 2003 disable right prompt
-    set -U tide_right_prompt_items
-    # set -U tide_right_prompt_items jj status cmd_duration context jobs direnv bun node python rustc java php pulumi ruby go gcloud kubectl distrobox toolbox terraform aws nix_shell crystal elixir zig time
+    set tide_right_prompt_items
+    # set tide_right_prompt_items jj status cmd_duration context jobs direnv bun node python rustc java php pulumi ruby go gcloud kubectl distrobox toolbox terraform aws nix_shell crystal elixir zig time
+
+    function fish_user_key_bindings
+        # vi: Copy to clipboard in normal mode
+        bind -M default yy 'commandline -f begin-selection; commandline -f end-selection; fish_clipboard_copy; commandline -f end-selection'
+        bind -M default Y 'commandline -f begin-selection; commandline -f end-of-line; fish_clipboard_copy; commandline -f end-selection'
+
+        # vi: Paste from clipboard in normal and insert mode
+        bind -M default p fish_clipboard_paste
+        bind -M insert \cp fish_clipboard_paste
+
+        # vi: Visual mode bindings
+        bind -M visual y 'fish_clipboard_copy; commandline -f end-selection'
+
+        # yank/paste with system clipboard
+        bind yy fish_clipboard_copy
+        bind Y fish_clipboard_copy
+        bind p fish_clipboard_paste
+
+        # history
+        bind -M default \cr history-pager
+        bind -M insert \cr history-pager
+        bind -M normal \cp history-search-backward
+        bind -M insert \cp history-search-backward
+        bind -M normal \cn history-search-forward
+        bind -M insert \cn history-search-forward
+
+        # prevent ctrl-d from exiting the shell
+        bind --preset -e ctrl-d
+        bind --preset -M insert -e ctrl-d
+        bind --preset -M visual -e ctrl-d
+    end
+
+    # vi mode
+    fish_vi_key_bindings
 
     function __update_theme --on-event fish_prompt
         switch (ron-theme-get)
