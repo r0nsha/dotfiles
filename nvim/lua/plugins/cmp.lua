@@ -25,15 +25,10 @@ blink.setup({
     nerd_font_variant = "normal",
   },
   completion = {
-    documentation = {
-      auto_show = true,
-      auto_show_delay_ms = 100,
-    },
+    accept = { auto_brackets = { enabled = false } },
+    documentation = { auto_show = true, auto_show_delay_ms = 100 },
     list = {
-      selection = {
-        preselect = true,
-        auto_insert = false,
-      },
+      selection = { preselect = true, auto_insert = false },
     },
     menu = {
       auto_show = function(ctx)
@@ -60,9 +55,7 @@ blink.setup({
   },
   fuzzy = {
     implementation = "prefer_rust_with_warning",
-    prebuilt_binaries = {
-      download = true,
-    },
+    prebuilt_binaries = { download = true },
     sorts = { "exact", "score", "sort_text", "kind", "label" },
   },
   keymap = {
@@ -87,45 +80,21 @@ blink.setup({
     preset = "mini_snippets",
   },
   sources = {
-    default = {
-      "lazydev",
-      "dadbod",
-      "lsp",
-      "snippets",
-      "path",
-      "buffer",
-    },
-    per_filetype = {
-      codecompanion = { "codecompanion" },
-    },
+    default = { "lazydev", "dadbod", "lsp", "snippets", "path", "buffer" },
     providers = {
-      lazydev = {
-        name = "lazydev",
-        module = "lazydev.integrations.blink",
-        score_offset = 100,
-      },
+      lazydev = { name = "lazydev", module = "lazydev.integrations.blink", score_offset = 100 },
       dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
       lsp = {
-        -- always show `buffer` source
-        fallbacks = {},
+        fallbacks = {}, --[[always show `buffer` source]]
       },
-      path = {
-        opts = {
-          show_hidden_files_by_default = true,
-        },
-      },
+      path = { opts = { show_hidden_files_by_default = true } },
     },
   },
   cmdline = {
     keymap = { preset = "cmdline" },
     completion = {
       ghost_text = { enabled = true },
-      list = {
-        selection = {
-          preselect = true,
-          auto_insert = false,
-        },
-      },
+      list = { selection = { preselect = true, auto_insert = false } },
       menu = { auto_show = true },
     },
   },
