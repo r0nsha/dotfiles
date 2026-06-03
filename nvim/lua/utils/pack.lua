@@ -19,4 +19,18 @@ function Pack.add_with_build(src, build)
   vim.pack.add({ { src = src } })
 end
 
+Pack.src = {
+  ---@param repo string
+  ---@return string
+  gh = function(repo) return "https://github.com/" .. repo end,
+
+  ---@param repo string
+  ---@return string
+  tngl = function(repo) return "https://tangled.org/" .. repo end,
+
+  ---@param repo string
+  ---@return string
+  cb = function(repo) return "https://codeberg.org/" .. repo end,
+}
+
 return Pack
