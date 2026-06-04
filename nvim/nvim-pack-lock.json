@@ -66,10 +66,6 @@
       "rev": "d29dec4c36be2b41aa10e70938b7b09a03f0bdba",
       "src": "https://github.com/milanglacier/minuet-ai.nvim"
     },
-    "modus-themes.nvim": {
-      "rev": "17a64464c27c1be605adca13dbe48f2f402fe107",
-      "src": "https://github.com/miikanissi/modus-themes.nvim"
-    },
     "multicursor.nvim": {
       "rev": "704b99f10a72cc05d370cfeb294ff83412a8ab55",
       "src": "https://github.com/jake-stewart/multicursor.nvim"
@@ -77,6 +73,10 @@
     "multinput.nvim": {
       "rev": "f2959e1f5f4a64ae0c79c849d8e0a4af42a8e9e0",
       "src": "https://github.com/r0nsha/multinput.nvim"
+    },
+    "nor.nvim": {
+      "rev": "f4bb2b1f405e4a3802f07ceaa98664ec0e822cf6",
+      "src": "file:///home/ron/dev/nor.nvim"
     },
     "nui.nvim": {
       "rev": "de740991c12411b663994b2860f1a4fd0937c130",

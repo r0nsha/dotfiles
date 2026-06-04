@@ -1,5 +1,4 @@
 require("codediff").setup({
-  diff = { compute_moves = true },
   explorer = {
     visible_groups = {
       staged = false,

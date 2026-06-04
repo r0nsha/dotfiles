@@ -1,3 +1,5 @@
+local group = require("augroup")
+
 -- bufremove
 local br = require("mini.bufremove")
 br.setup({})
@@ -84,10 +86,8 @@ clue.setup({
 -- diff
 local diff = require("mini.diff")
 diff.setup({
-  source = {
-    require("mini.diff.jj"),
-    diff.gen_source.git(),
-  },
+  -- view = { style = "sign" },
+  source = { require("mini.diff.jj"), diff.gen_source.git() },
   mappings = {
     apply = "",
     reset = "gH",
@@ -148,7 +148,7 @@ snippets.setup({
 
 vim.api.nvim_create_autocmd("InsertLeave", {
   desc = "stop mini.snippets when leaving insert mode",
-  group = require("augroup"),
+  group = group,
   pattern = "*",
   callback = function() snippets.session.stop() end,
 })
@@ -169,3 +169,12 @@ require("mini.surround").setup({
 
 -- trailspace
 require("mini.trailspace").setup()
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = group,
+  pattern = "jjdescription",
+  callback = function(args)
+    vim.b[args.buf].minitrailspace_disable = true
+    vim.api.nvim_buf_call(args.buf, MiniTrailspace.unhighlight)
+  end,
+})

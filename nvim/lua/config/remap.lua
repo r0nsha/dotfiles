@@ -131,7 +131,7 @@ vim.keymap.set("n", "<leader>cl", function()
 end, { desc = "Toggle conceal" })
 
 -- Tabs
-vim.keymap.set("n", "<c-t>c", "<cmd>tabnew<cr>", { desc = "New tab" })
+vim.keymap.set("n", "<c-t>n", "<cmd>tabnew<cr>", { desc = "New tab" })
 vim.keymap.set("n", "<c-t>x", "<cmd>tabclose<cr>", { desc = "Close tab" })
 vim.keymap.set("n", "<c-t>O", "<cmd>tabonly<cr>", { desc = "Close other tabs" })
 

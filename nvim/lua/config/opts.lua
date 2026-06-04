@@ -22,14 +22,13 @@ vim.opt.inccommand = "split"
 vim.opt.scrollback = 100000
 vim.opt.modeline = false
 vim.opt.signcolumn = "yes:1"
-vim.opt.winborder = "none"
+vim.opt.winborder = "single"
 vim.opt.pumheight = 10
-vim.opt.pumborder = "none"
+vim.opt.pumborder = "single"
 vim.opt.shortmess:append({ c = true, C = true })
 vim.opt.list = true
 vim.opt.listchars = {
-  -- eol = "↲",
-  eol = " ",
+  eol = "↲",
   tab = "· ",
   nbsp = "␣",
   extends = "»",
@@ -86,7 +85,7 @@ vim.opt.writebackup = false
 vim.opt.swapfile = false
 vim.opt.undofile = true
 vim.opt.shada = { "'100", "<50", "s10", "h" }
-vim.opt.updatetime = 250
+vim.opt.updatetime = 100
 vim.opt.ttimeoutlen = 0
 
 -- filetypes
@@ -122,7 +121,7 @@ vim.opt.mousemodel = "popup_setpos"
 -- fold
 vim.opt.foldmethod = "indent"
 vim.opt.foldcolumn = "0"
-vim.opt.foldlevelstart = 0
+vim.opt.foldlevelstart = 99
 
 -- use system clipboard by default
 vim.opt.clipboard:append("unnamedplus")
