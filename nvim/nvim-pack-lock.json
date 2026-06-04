@@ -1,9 +1,5 @@
 {
   "plugins": {
-    "Comment.nvim": {
-      "rev": "e30b7f2008e52442154b66f7c519bfd2f1e32acb",
-      "src": "https://github.com/numToStr/Comment.nvim"
-    },
     "blink.cmp": {
       "rev": "b19413d214068f316c78978b08264ed1c41830ec",
       "src": "https://github.com/saghen/blink.cmp",

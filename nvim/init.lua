@@ -25,7 +25,6 @@ vim.pack.add({
   src.gh("rachartier/tiny-inline-diagnostic.nvim"),
   { src = src.gh("nvim-treesitter/nvim-treesitter"), version = "main" },
   { src = src.gh("nvim-treesitter/nvim-treesitter-textobjects"), version = "main" },
-  src.gh("numToStr/Comment.nvim"),
   src.gh("JoosepAlviste/nvim-ts-context-commentstring"),
   src.gh("Wansmer/treesj"),
   src.gh("folke/snacks.nvim"),
