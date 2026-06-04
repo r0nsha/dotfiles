@@ -51,16 +51,13 @@ if status is-interactive
     # set tide_right_prompt_items jj status cmd_duration context jobs direnv bun node python rustc java php pulumi ruby go gcloud kubectl distrobox toolbox terraform aws nix_shell crystal elixir zig time
 
     function fish_user_key_bindings
-        # vi: Copy to clipboard in normal mode
+        # yank
         bind -M default yy 'commandline -f begin-selection; commandline -f end-selection; fish_clipboard_copy; commandline -f end-selection'
         bind -M default Y 'commandline -f begin-selection; commandline -f end-of-line; fish_clipboard_copy; commandline -f end-selection'
-
-        # vi: Paste from clipboard in normal and insert mode
-        bind -M default p fish_clipboard_paste
-        bind -M insert \cp fish_clipboard_paste
-
-        # vi: Visual mode bindings
         bind -M visual y 'fish_clipboard_copy; commandline -f end-selection'
+
+        # paste
+        bind -M default p fish_clipboard_paste
 
         # yank/paste with system clipboard
         bind yy fish_clipboard_copy
