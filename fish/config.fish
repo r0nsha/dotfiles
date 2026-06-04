@@ -33,15 +33,15 @@ if status is-interactive
     end
 
     if command -vq jj
-        jj util completion fish >~/.config/fish/completions/jj.fish
+        COMPLETE=fish jj | source
     end
 
     if command -vq bob
-        bob complete fish >~/.config/fish/completions/bob.fish
+        bob complete fish | source
     end
 
     if command -vq gopass
-        gopass completion fish >~/.config/fish/completions/gopass.fish
+        gopass completion fish | source
     end
 
     # @fish-lsp-disable-next-line 2003
