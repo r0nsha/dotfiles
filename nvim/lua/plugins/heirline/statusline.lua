@@ -4,8 +4,6 @@ local utils = require("heirline.utils")
 
 local redrawstatus = vim.schedule_wrap(function() vim.cmd.redrawstatus() end)
 
-local function active_fg() return cond.is_active() and "fg_active" or "fg_inactive" end
-
 local function update_on(events)
   return vim.tbl_extend("force", {
     "WinEnter",
@@ -55,7 +53,12 @@ local Mode = {
     end
     return "%-5(" .. name .. "%)"
   end,
-  hl = function() return { fg = hydra and hydra.get_color() or active_fg() } end,
+  hl = function()
+    if hydra then
+      local color = hydra.get_color()
+      if color then return { fg = color, bold = true } end
+    end
+  end,
   update = update_on({ "ModeChanged", "User" }),
 }
 
@@ -65,9 +68,8 @@ local FileBlock = {
     self.is_scratch_buffer = self.filename == ""
   end,
   hl = function()
-    local color = vim.bo.modified and "blue" or active_fg()
-    if not vim.bo.modifiable or vim.bo.readonly then color = "gray" end
-    return { fg = color }
+    if not vim.bo.modifiable or vim.bo.readonly then return { fg = "gray" } end
+    if vim.bo.modified then return { bold = true } end
   end,
 }
 
@@ -96,12 +98,12 @@ local FileName = {
     if not cond.width_percent_below(#filename, 0.5) then filename = vim.fn.pathshorten(filename) end
     return filename
   end,
-  hl = function(self) return { fg = self.filename == "" and "gray" or active_fg() } end,
+  hl = function(self) return { fg = self.filename == "" and "gray" or nil } end,
 }
 
 local FileNameModifer = {
   hl = function()
-    if vim.bo.modified then return { fg = active_fg(), bold = true, force = true } end
+    if vim.bo.modified then return { bold = true, force = true } end
   end,
 }
 
@@ -109,7 +111,7 @@ local FileFlags = {
   {
     condition = function() return vim.bo.modified end,
     provider = " [+]",
-    hl = function() return { fg = active_fg(), bold = true } end,
+    hl = function() return { bold = true } end,
   },
   {
     condition = function() return not vim.bo.modifiable or vim.bo.readonly end,
@@ -246,5 +248,4 @@ return {
   Left,
   Align,
   Right,
-  hl = function() return { fg = active_fg() } end,
 }

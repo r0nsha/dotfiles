@@ -10,23 +10,11 @@ local function setup_colors()
   end
 
   return {
-    fg_active = hl_color("Normal"),
-    fg_inactive = hl_color("NonText"),
-    green = hl_color("Keyword"),
-    blue = hl_color("Keyword"),
-    teal = hl_color("@property"),
     gray = hl_color("NonText"),
-    orange = hl_color("String"),
-    purple = hl_color("@variable.parameter"),
-    red = hl_color("Error"),
-    pink = hl_color("HydraPink"),
     diag_hint = hl_color("DiagnosticHint"),
     diag_info = hl_color("DiagnosticInfo"),
     diag_warning = hl_color("DiagnosticWarn"),
     diag_error = hl_color("DiagnosticError"),
-    diff_add = hl_color("MiniDiffSignAdd"),
-    diff_change = hl_color("MiniDiffSignChange"),
-    diff_del = hl_color("MiniDiffSignDelete"),
   }
 end
 
