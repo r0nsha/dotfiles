@@ -34,7 +34,7 @@ vim.pack.add({
   { src = src.gh("saghen/blink.cmp"), version = "v1.8.0" },
   { src = src.gh("saghen/blink.compat"), version = "v2.5.0" },
   src.gh("stevearc/oil.nvim"),
-  src.gh("A7Lavinraj/fyler.nvim"),
+  -- src.gh("A7Lavinraj/fyler.nvim"),
   src.gh("mrjones2014/smart-splits.nvim"),
   src.gh("rebelot/heirline.nvim"),
   src.gh("mfussenegger/nvim-dap"),
@@ -69,8 +69,7 @@ require("plugins.mini")
 require("plugins.cmp")
 require("plugins.smart_splits")
 require("plugins.heirline")
-require("plugins.oil")
-require("plugins.fyler")
+require("plugins.explorer")
 require("plugins.snacks")
 require("plugins.harpoon")
 require("plugins.ai")
