@@ -1,18 +1,18 @@
 ---@diagnostic disable: missing-fields
 require("fyler").setup({
+  auto_confirm_simple_mutation = true,
+  use_as_default_explorer = true,
   integrations = {
-    winpick = "builtin",
+    icon = "mini_icons",
   },
-  views = {
-    finder = {
-      confirm_simple = true,
+  mappings = {
+    n = {
+      ["<C-c>"] = { action = "close" },
     },
+  },
+  ui = {
+    indent_guides = true,
   },
 })
 
-vim.keymap.set(
-  "n",
-  "<leader>r",
-  function() require("fyler").toggle({ kind = "split_left_most" }) end,
-  { desc = "Fyler" }
-)
+vim.keymap.set("n", "<leader>r", function() require("fyler").toggle() end, { desc = "Fyler" })
