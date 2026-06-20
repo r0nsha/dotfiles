@@ -1,0 +1,4 @@
+core.autopush = false
+core.autosync = true
+core.noreminder = true
+storage.backend = jjfs
