@@ -152,8 +152,7 @@ vim.keymap.set("n", "zT", "za", { desc = "Toggle all folds under cursor" })
 vim.keymap.set("n", "<leader>cc", "1z=", { desc = "Correct spelling" })
 
 -- Terminal
-vim.keymap.set("t", "<c-w>n", "<c-\\><c-n>", { desc = "Exit terminal mode" })
-vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Exit terminal mode" })
+vim.keymap.set("t", "<esc>", "<c-\\><c-n>", { desc = "Exit terminal mode" })
 
 -- Write
 vim.keymap.set("n", "<leader>w", "<cmd>noau w<cr>", { desc = "Write without autocmds" })

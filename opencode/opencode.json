@@ -1,42 +1,42 @@
 {
-    "$schema": "https://opencode.ai/config.json",
-    "permission": {
-        "bash": {
-            "rm*": "ask",
-            "git push*": "ask",
-            "git checkout*": "ask",
-            "git commit*": "ask",
-            "git reset*": "ask",
-            "jj ci*": "ask",
-            "jj commit*": "ask",
-            "jj new*": "ask",
-            "jj b*": "ask",
-            "jj restore*": "ask",
-            "jj abandon*": "ask",
-            "yay*": "ask",
-            "paru*": "ask",
-            "brew install*": "ask",
-            "brew upgrade*": "ask",
-            "brew uninstall*": "ask",
-            "cargo install*": "ask",
-            "pipx install*": "ask",
-            "npm install -g*": "ask",
-            "curl*|*bash": "ask",
-            "wget*|*bash": "ask",
-            "chsh*": "ask",
-            "stow*": "ask",
-            "kill*": "ask",
-            "pkill*": "ask",
-            "systemctl reboot*": "ask",
-            "systemctl poweroff*": "ask",
-            "systemctl hibernate*": "ask"
-        }
-    },
-    "mcp": {
-        "context7": {
-            "type": "remote",
-            "url": "https://mcp.context7.com/mcp"
-        }
-    },
-    "snapshot": false
+  "$schema": "https://opencode.ai/config.json",
+  "permission": {
+    "bash": {
+      "rm*": "ask",
+      "git push*": "ask",
+      "git checkout*": "ask",
+      "git commit*": "ask",
+      "git reset*": "ask",
+      "jj ci*": "ask",
+      "jj commit*": "ask",
+      "jj new*": "ask",
+      "jj b*": "ask",
+      "jj restore*": "ask",
+      "jj abandon*": "ask",
+      "yay*": "ask",
+      "paru*": "ask",
+      "brew install*": "ask",
+      "brew upgrade*": "ask",
+      "brew uninstall*": "ask",
+      "cargo install*": "ask",
+      "pipx install*": "ask",
+      "npm install -g*": "ask",
+      "curl*|*bash": "ask",
+      "wget*|*bash": "ask",
+      "chsh*": "ask",
+      "stow*": "ask",
+      "kill*": "ask",
+      "pkill*": "ask",
+      "systemctl reboot*": "ask",
+      "systemctl poweroff*": "ask",
+      "systemctl hibernate*": "ask"
+    }
+  },
+  "mcp": {
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp"
+    }
+  },
+  "snapshot": false
 }
