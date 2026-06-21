@@ -114,8 +114,6 @@ spawn-at-startup "mako"
 spawn-at-startup "hypridle"
 spawn-at-startup "waybar"
 spawn-sh-at-startup "ron-background-random ~/pictures/backgrounds"
-spawn-at-startup "ghostty"
-spawn-at-startup "firefox"
 environment {
     // Terminal
     TERMINAL "ghostty"
