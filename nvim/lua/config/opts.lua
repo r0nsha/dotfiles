@@ -116,6 +116,7 @@ vim.opt.encoding = "utf-8"
 vim.opt.more = false
 vim.opt.virtualedit = "block"
 vim.opt.inccommand = "split"
+vim.opt.scrollback = 100000
 
 -- diff
 vim.opt.diffopt:append("algorithm:histogram")
