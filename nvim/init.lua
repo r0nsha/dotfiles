@@ -13,7 +13,6 @@ require("plugins.colorscheme")
 
 vim.pack.add({
   src.gh("nvim-lua/plenary.nvim"),
-  src.gh("folke/lazydev.nvim"),
   src.gh("rafamadriz/friendly-snippets"),
   src.gh("nvim-mini/mini.nvim"),
   "https://tangled.org/ronshavit.com/mini.diff.jj",
@@ -63,7 +62,6 @@ vim.pack.add({
 require("plugins.treesitter")
 require("plugins.treesitter_textobjects")
 require("plugins.comment")
-require("plugins.lazydev")
 require("plugins.lsp")
 require("plugins.format")
 require("plugins.lint")

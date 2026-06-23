@@ -80,9 +80,8 @@ blink.setup({
     preset = "mini_snippets",
   },
   sources = {
-    default = { "lazydev", "dadbod", "lsp", "snippets", "path", "buffer" },
+    default = { "dadbod", "lsp", "snippets", "path", "buffer" },
     providers = {
-      lazydev = { name = "lazydev", module = "lazydev.integrations.blink", score_offset = 100 },
       dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
       lsp = {
         fallbacks = {}, --[[always show `buffer` source]]
