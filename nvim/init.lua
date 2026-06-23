@@ -1,7 +1,7 @@
 require("extensions")
 require("config")
 require("pass")
-require("colors")
+require("theme")
 
 local src = require("utils.pack").src
 

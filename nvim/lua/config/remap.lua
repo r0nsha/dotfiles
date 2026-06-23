@@ -170,7 +170,7 @@ vim.keymap.set("c", "<C-x>", "<Del>", { desc = "Delete character", noremap = tru
 vim.keymap.set("c", "<C-d>", "<C-u>", { desc = "Delete to start", noremap = true })
 
 -- Restart
-vim.keymap.set("n", "zR", function()
+vim.keymap.set("n", "zr", function()
   local session = vim.fn.stdpath("state") .. "/restart_session.vim"
   vim.cmd("mksession! " .. vim.fn.fnameescape(session))
   vim.cmd("restart source " .. vim.fn.fnameescape(session))

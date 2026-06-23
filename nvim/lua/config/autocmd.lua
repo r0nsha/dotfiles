@@ -129,22 +129,6 @@ vim.api.nvim_create_autocmd("FileType", {
   command = "wincmd L",
 })
 
--- Terminal: enable number/relativenumber when not in terminal mode
-vim.api.nvim_create_autocmd("TermEnter", {
-  group = augroup,
-  callback = function()
-    vim.wo.number = false
-    vim.wo.relativenumber = false
-  end,
-})
-vim.api.nvim_create_autocmd("TermLeave", {
-  group = augroup,
-  callback = function()
-    vim.wo.number = true
-    vim.wo.relativenumber = true
-  end,
-})
-
 -- LSP
 vim.api.nvim_create_autocmd("LspProgress", {
   group = augroup,

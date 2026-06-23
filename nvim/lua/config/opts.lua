@@ -170,4 +170,15 @@ if vim.env.SSH_CONNECTION then
   }
 end
 
+-- terminal
+vim.api.nvim_create_autocmd("TermOpen", {
+  group = require("augroup"),
+  desc = "Configure :terminal buffer",
+  callback = function()
+    vim.opt_local.signcolumn = "auto"
+    vim.keymap.set("n", "<cr>", "i<cr><c-\\><c-n>", { buf = 0 })
+    vim.keymap.set("n", "<c-c>", "i<c-c><c-\\><c-n>", { buf = 0 })
+  end,
+})
+
 require("vim._core.ui2").enable({ enable = true, msg = { target = "msg" } })
