@@ -129,10 +129,6 @@
       "rev": "b73018b75affd13fa38e2fc94ef753b465f770d7",
       "src": "https://github.com/stevearc/oil.nvim"
     },
-    "one-small-step-for-vimkind": {
-      "rev": "1af6ffb9b5229a856e8090fa2f690e0931a5aace",
-      "src": "https://github.com/jbyuki/one-small-step-for-vimkind"
-    },
     "persistent-breakpoints.nvim": {
       "rev": "d1656221836207787b8a7969cc2dc72668c4742a",
       "src": "https://github.com/Weissle/persistent-breakpoints.nvim"

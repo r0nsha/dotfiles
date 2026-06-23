@@ -40,7 +40,6 @@ vim.pack.add({
   src.gh("igorlfs/nvim-dap-view"),
   src.gh("Weissle/persistent-breakpoints.nvim"),
   src.gh("nvimtools/hydra.nvim"),
-  src.gh("jbyuki/one-small-step-for-vimkind"),
   src.gh("jake-stewart/multicursor.nvim"),
   src.gh("r0nsha/multinput.nvim"),
   src.gh("stevearc/quicker.nvim"),
