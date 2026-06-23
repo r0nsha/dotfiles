@@ -7,47 +7,24 @@ vim.g.loaded_netrwFileHandlers = 1
 -- disable matchparen
 vim.g.loaded_matchparen = 1
 
--- basic
+-- opts
+vim.opt.termguicolors = true
 vim.opt.exrc = true
 vim.opt.secure = true
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.cursorline = true
 vim.opt.colorcolumn = "+1"
-vim.opt.scrolloff = 10
-vim.opt.sidescrolloff = 8
-
--- indentation
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
-vim.opt.smartindent = true
-vim.opt.autoindent = true
-vim.opt.copyindent = true
-vim.opt.shiftround = true
-vim.opt.joinspaces = true
-
--- search
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.hlsearch = true
-vim.opt.incsearch = true
-vim.opt.infercase = true
-vim.opt.grepprg = "rg --vimgrep --no-heading --smart-case"
-vim.opt.grepformat = "%f:%l:%c:%m"
-
--- visual
-vim.opt.termguicolors = true
-vim.opt.background = "dark"
-
+vim.opt.scrolloff = 2
+-- vim.opt.more = false
+vim.opt.virtualedit = "block"
+vim.opt.inccommand = "split"
+vim.opt.scrollback = 100000
 vim.o.modeline = false
 vim.opt.signcolumn = "yes"
-vim.opt.laststatus = 2
-vim.opt.showmode = true
-vim.opt.cmdheight = 1
-vim.opt.conceallevel = 0
-vim.opt.concealcursor = ""
+vim.opt.winborder = "none"
+vim.opt.pumheight = 10
+vim.opt.pumborder = "none"
 vim.opt.list = true
 vim.opt.listchars = {
   eol = "↲",
@@ -59,11 +36,32 @@ vim.opt.listchars = {
   multispace = " ",
   lead = " ",
 }
-vim.opt.winborder = "none"
-vim.opt.winblend = 0
-vim.opt.pumheight = 10
-vim.opt.pumblend = 0
-vim.opt.pumborder = "none"
+vim.opt.fillchars:append({
+  fold = "󰧟",
+  foldopen = "",
+  foldclose = "",
+  foldinner = " ",
+  foldsep = " ",
+  diff = "╱",
+  msgsep = "─",
+})
+
+-- indentation
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
+vim.opt.smartindent = true
+vim.opt.copyindent = true
+vim.opt.shiftround = true
+vim.opt.joinspaces = true
+
+-- search
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.infercase = true
+vim.opt.grepprg = "rg --vimgrep --no-heading --smart-case"
+vim.opt.grepformat = "%f:%l:%c:%m"
 
 -- completion
 vim.opt.complete = { ".", "w", "b" }
@@ -73,7 +71,6 @@ vim.opt.wildignore:append({ "*/node_modules/*", "*/.git/*" })
 
 -- wrap
 vim.opt.wrap = false
-vim.opt.showbreak = ""
 vim.opt.breakindent = true
 vim.opt.linebreak = true
 
@@ -83,17 +80,12 @@ vim.opt.titlestring = '%t%( %M%)%( (%{expand("%:~:h")})%)%a (nvim)'
 
 -- files
 vim.opt.isfname:append("@-@")
-vim.opt.backup = false
 vim.opt.writebackup = false
 vim.opt.swapfile = false
 vim.opt.undofile = true
 vim.opt.shada = { "'100", "<50", "s10", "h" }
 vim.opt.updatetime = 250
-vim.opt.timeout = true
-vim.opt.timeoutlen = 1000
 vim.opt.ttimeoutlen = 0
-vim.opt.autoread = true
-vim.opt.autowrite = false
 
 -- filetypes
 vim.filetype.add({
@@ -106,17 +98,6 @@ vim.filetype.add({
   pattern = { [".*/%.vscode/.*%.json"] = "jsonc", [".*/vicinae/settings%.json"] = "jsonc" },
 })
 vim.treesitter.language.register("markdown", "mdx")
-
--- behavior
-vim.opt.hidden = true
-vim.opt.visualbell = true
-vim.opt.backspace = { "indent", "start", "eol" }
-vim.opt.autochdir = false
-vim.opt.encoding = "utf-8"
-vim.opt.more = false
-vim.opt.virtualedit = "block"
-vim.opt.inccommand = "split"
-vim.opt.scrollback = 100000
 
 -- diff
 vim.opt.diffopt:append("algorithm:histogram")
@@ -140,14 +121,6 @@ vim.o.foldlevelstart = 99
 vim.opt.foldcolumn = "1"
 vim.opt.foldminlines = 1
 vim.opt.foldnestmax = 3
-vim.opt.fillchars:append({
-  fold = "󰧟",
-  foldopen = "",
-  foldclose = "",
-  foldinner = " ",
-  foldsep = " ",
-  diff = "╱",
-})
 
 -- use system clipboard by default
 vim.opt.clipboard:append("unnamedplus")
