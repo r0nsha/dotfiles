@@ -166,3 +166,6 @@ require("mini.surround").setup({
   },
   n_lines = 200,
 })
+
+-- trailspace
+require("mini.trailspace").setup()

@@ -122,12 +122,12 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- Open help window in a vertical split to the right
-vim.api.nvim_create_autocmd("FileType", {
-  group = augroup,
-  pattern = "help",
-  command = "wincmd L",
-})
+-- -- Open help window in a vertical split to the right
+-- vim.api.nvim_create_autocmd("FileType", {
+--   group = augroup,
+--   pattern = "help",
+--   command = "wincmd L",
+-- })
 
 -- LSP
 vim.api.nvim_create_autocmd("LspProgress", {

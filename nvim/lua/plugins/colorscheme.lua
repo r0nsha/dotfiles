@@ -3,6 +3,7 @@ require("modus-themes").load({
     highlight.MiniCursorword = { underdotted = true }
     highlight.MiniCursorwordCurrent = { link = "MiniCursorword" }
     highlight.MiniJump = { fg = color.bg_main, bg = color.bg_cyan_intense }
+    highlight.MiniTrailspace = { bg = color.bg_red_subtle }
     highlight.CursorLineSign = { link = "CursorLineNr" }
     highlight.CursorLineFold = { link = "CursorLineNr" }
     highlight.FoldColumn = { link = "LineNr" }
