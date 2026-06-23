@@ -76,6 +76,19 @@ if status is-interactive
         bind --preset -e ctrl-d
         bind --preset -M insert -e ctrl-d
         bind --preset -M visual -e ctrl-d
+
+        function __sk_path_widget
+            set -l sel (fd --type d --type f --hidden --exclude .git 2>/dev/null \
+        | sk --ansi -m --preview 'bat --color=always {} 2>/dev/null || cat {} 2>/dev/null' --preview-window right:50%)
+            if test -n "$sel"
+                commandline -i -- (string escape -- $sel)
+            end
+            commandline -f repaint
+        end
+
+        bind -M default \ct __sk_path_widget
+        bind -M insert \ct __sk_path_widget
+        bind -M normal \ct __sk_path_widget
     end
 
     # vi mode
