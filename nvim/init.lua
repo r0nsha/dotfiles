@@ -5,8 +5,6 @@ require("theme")
 
 local src = require("utils.pack").src
 
-vim.cmd.packadd("nvim.undotree")
-
 -- load colorscheme first
 vim.pack.add({ src.gh("miikanissi/modus-themes.nvim") })
 require("plugins.colorscheme")
