@@ -43,3 +43,6 @@ set -Ux RIPGREP_CONFIG_PATH $XDG_CONFIG_HOME/ripgrep/config
 
 # ssh
 set -x SSH_AUTH_SOCK $XDG_RUNTIME_DIR/ssh-agent.socket
+
+set -gx NVM_DIR "$HOME/.nvm"
+set -gx PNPM_HOME "$HOME/.local/share/pnpm"

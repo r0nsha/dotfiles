@@ -97,10 +97,6 @@ if exists "fish"; then
         sudo chsh -s $fish_bin
         success
     fi
-
-    step "fish: tide prompt"
-    fish "$DOTFILES/bin/ron-fish-tide-configure"
-    success
 fi
 
 if exists "bat"; then

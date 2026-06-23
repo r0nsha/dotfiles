@@ -10,8 +10,6 @@ fish_add_path \
     ~/.local/share/bob/nvim-bin \
     /opt/homebrew/opt/rustup/bin
 
-source $DOTFILES/fish/fisher.fish
-
 source $DOTFILES/fish/functions.fish
 source $DOTFILES/fish/aliases.fish
 source $DOTFILES/fish/variables.fish
@@ -21,78 +19,24 @@ if test -r $local_config
     source $local_config
 end
 
-# env
-set -gx NVM_DIR "$HOME/.nvm"
-set -gx PNPM_HOME "$HOME/.local/share/pnpm"
-
 if status is-interactive
     set fish_greeting # disable welcome message
+    set fish_prompt_pwd_dir_length 1
+    set fish_prompt_pwd_full_dirs 2
+    fish_vi_key_bindings
 
     if command -vq zoxide
         zoxide init fish | source
     end
-
     if command -vq jj
         COMPLETE=fish jj | source
     end
-
     if command -vq bob
         bob complete fish | source
     end
-
     if command -vq gopass
         gopass completion fish | source
     end
-
-    # @fish-lsp-disable-next-line 2003
-    set tide_left_prompt_items pwd character
-    # @fish-lsp-disable-next-line 2003 disable right prompt
-    set tide_right_prompt_items
-    # set tide_right_prompt_items jj status cmd_duration context jobs direnv bun node python rustc java php pulumi ruby go gcloud kubectl distrobox toolbox terraform aws nix_shell crystal elixir zig time
-
-    function fish_user_key_bindings
-        # yank
-        bind -M default yy 'commandline -f begin-selection; commandline -f end-selection; fish_clipboard_copy; commandline -f end-selection'
-        bind -M default Y 'commandline -f begin-selection; commandline -f end-of-line; fish_clipboard_copy; commandline -f end-selection'
-        bind -M visual y 'fish_clipboard_copy; commandline -f end-selection'
-
-        # paste
-        bind -M default p fish_clipboard_paste
-
-        # yank/paste with system clipboard
-        bind yy fish_clipboard_copy
-        bind Y fish_clipboard_copy
-        bind p fish_clipboard_paste
-
-        # history
-        bind -M default \cr history-pager
-        bind -M insert \cr history-pager
-        bind -M normal \cp history-search-backward
-        bind -M insert \cp history-search-backward
-        bind -M normal \cn history-search-forward
-        bind -M insert \cn history-search-forward
-
-        # prevent ctrl-d from exiting the shell
-        bind --preset -e ctrl-d
-        bind --preset -M insert -e ctrl-d
-        bind --preset -M visual -e ctrl-d
-
-        function __sk_path_widget
-            set -l sel (fd --type d --type f --hidden --exclude .git 2>/dev/null \
-        | sk --ansi -m --preview 'bat --color=always {} 2>/dev/null || cat {} 2>/dev/null' --preview-window right:50%)
-            if test -n "$sel"
-                commandline -i -- (string escape -- $sel)
-            end
-            commandline -f repaint
-        end
-
-        bind -M default \ct __sk_path_widget
-        bind -M insert \ct __sk_path_widget
-        bind -M normal \ct __sk_path_widget
-    end
-
-    # vi mode
-    fish_vi_key_bindings
 
     function __update_theme --on-event fish_prompt
         switch (ron-theme-get)
@@ -101,5 +45,10 @@ if status is-interactive
             case '*'
                 source $DOTFILES/fish/themes/modus_vivendi.fish
         end
+    end
+
+    if ! functions --query fisher
+        curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source
+        fisher update
     end
 end
