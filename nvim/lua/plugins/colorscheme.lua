@@ -2,7 +2,6 @@ require("modus-themes").load({
   on_highlights = function(highlight, color)
     highlight.MiniCursorword = { underdotted = true }
     highlight.MiniCursorwordCurrent = { link = "MiniCursorword" }
-    highlight.MatchParen = { underdotted = true }
     highlight.MiniJump = { fg = color.bg_main, bg = color.bg_cyan_intense }
     highlight.CursorLineSign = { link = "CursorLineNr" }
     highlight.CursorLineFold = { link = "CursorLineNr" }

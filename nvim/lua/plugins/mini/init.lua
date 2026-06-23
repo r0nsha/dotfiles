@@ -1,6 +1,5 @@
 require("plugins.mini.bufremove")
 require("plugins.mini.clue")
-require("plugins.mini.cursorword")
 require("plugins.mini.diff")
 require("plugins.mini.hipatterns")
 require("plugins.mini.icons")
