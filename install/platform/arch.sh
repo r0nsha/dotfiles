@@ -12,6 +12,8 @@ install_wrapper paru install_paru
 deps=(
     coreutils
     util-linux
+    xdg-utils
+    scdoc
     stow
     man-db
     man-pages
