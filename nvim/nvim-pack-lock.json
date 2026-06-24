@@ -30,11 +30,6 @@
       "rev": "cc59f732f3d043b626c8702cb725c82e54d35c25",
       "src": "https://github.com/ruifm/gitlinker.nvim"
     },
-    "harpoon": {
-      "rev": "87b1a3506211538f460786c23f98ec63ad9af4e5",
-      "src": "https://github.com/ThePrimeagen/harpoon",
-      "version": "'harpoon2'"
-    },
     "hunk.nvim": {
       "rev": "c8a8e7b6973576f63e5bf39aa8338d7f37f4dc53",
       "src": "https://github.com/julienvincent/hunk.nvim"

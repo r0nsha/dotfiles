@@ -121,7 +121,6 @@ vim.opt.mousemodel = "popup_setpos"
 
 -- fold
 vim.opt.foldmethod = "indent"
-vim.opt.foldopen:remove("search")
 vim.opt.foldcolumn = "0"
 vim.opt.foldlevelstart = 0
 

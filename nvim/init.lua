@@ -25,7 +25,6 @@ vim.pack.add({
   src.gh("JoosepAlviste/nvim-ts-context-commentstring"),
   src.gh("Wansmer/treesj"),
   src.gh("folke/snacks.nvim"),
-  { src = src.gh("ThePrimeagen/harpoon"), version = "harpoon2" },
   src.gh("milanglacier/minuet-ai.nvim"),
   src.gh("xzbdmw/colorful-menu.nvim"),
   { src = src.gh("saghen/blink.cmp"), version = "v1.8.0" },
@@ -67,7 +66,6 @@ require("plugins.smart_splits")
 -- require("plugins.heirline")
 require("plugins.explorer")
 require("plugins.snacks")
-require("plugins.harpoon")
 require("plugins.ai")
 require("plugins.multicursor")
 require("plugins.multinput")
