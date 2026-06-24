@@ -20,11 +20,13 @@ vim.opt.scrolloff = 2
 vim.opt.virtualedit = "block"
 vim.opt.inccommand = "split"
 vim.opt.scrollback = 100000
-vim.o.modeline = false
-vim.opt.signcolumn = "yes"
+vim.opt.modeline = false
+vim.opt.signcolumn = "yes:1"
 vim.opt.winborder = "none"
 vim.opt.pumheight = 10
 vim.opt.pumborder = "none"
+vim.opt.statuscolumn = "%s%=%l "
+vim.opt.shortmess:append({ c = true, C = true })
 vim.opt.list = true
 vim.opt.listchars = {
   -- eol = "↲",
@@ -38,14 +40,14 @@ vim.opt.listchars = {
   lead = " ",
 }
 vim.opt.fillchars:append({
-  fold = "󰧟",
-  foldopen = "",
-  foldclose = "",
+  -- foldopen = "",
+  -- foldclose = "",
   foldinner = " ",
   foldsep = " ",
   diff = "╱",
   msgsep = "─",
 })
+vim.opt.jumpoptions:append("view")
 
 -- indentation
 vim.opt.tabstop = 4
@@ -101,10 +103,15 @@ vim.filetype.add({
 vim.treesitter.language.register("markdown", "mdx")
 
 -- diff
-vim.opt.diffopt:append("algorithm:histogram")
-vim.opt.diffopt:append("indent-heuristic")
-vim.opt.diffopt:append("inline:char")
-vim.opt.diffopt:append("followwrap")
+vim.opt.diffopt:append({
+  "algorithm:histogram",
+  "indent-heuristic",
+  "inline:char",
+  "followwrap",
+  "hiddenoff",
+  "linematch:60",
+  "foldcolumn:0",
+})
 
 -- splits
 vim.opt.splitbelow = true
@@ -115,13 +122,9 @@ vim.opt.mouse = "a"
 vim.opt.mousemodel = "popup_setpos"
 
 -- fold
-vim.o.foldenable = false
-vim.o.foldmethod = "indent"
-vim.o.foldlevel = 99
-vim.o.foldlevelstart = 99
+vim.opt.foldmethod = "indent"
+vim.opt.foldopen:remove("search")
 vim.opt.foldcolumn = "1"
-vim.opt.foldminlines = 1
-vim.opt.foldnestmax = 3
 
 -- use system clipboard by default
 vim.opt.clipboard:append("unnamedplus")

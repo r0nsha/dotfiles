@@ -8,7 +8,7 @@ vim.api.nvim_create_autocmd("PackChanged", {
   end,
 })
 
----@param buf number
+---@param buf integer
 ---@param lang string
 local function start_treesitter(buf, lang)
   if not vim.treesitter.language.add(lang) then return end

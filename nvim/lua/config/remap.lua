@@ -144,9 +144,20 @@ vim.keymap.set("x", "-", "<c-x>gv=gv", { desc = "Decrement" })
 -- Select entire buffer
 vim.keymap.set("x", "v", "<esc>ggVG", { desc = "Select all" })
 
--- Easier to type toggle fold
-vim.keymap.set("n", "zt", "za", { desc = "Toggle fold under cursor" })
-vim.keymap.set("n", "zT", "za", { desc = "Toggle all folds under cursor" })
+-- Easier toggle fold
+vim.keymap.set("n", "zt", "<cmd>normal! za<cr>", { desc = "Toggle fold under cursor" })
+vim.keymap.set("n", "zT", "<cmd>normal! zA<cr>", { desc = "Toggle all folds under cursor" })
+
+vim.keymap.set("n", "za", function()
+  local any_closed = false
+  for lnum = 1, vim.fn.line("$") do
+    if vim.fn.foldclosed(lnum) ~= -1 then
+      any_closed = true
+      break
+    end
+  end
+  vim.cmd("normal! " .. (any_closed and "zR" or "zM"))
+end, { desc = "Toggle all folds in buffer" })
 
 -- Spell
 vim.keymap.set("n", "<leader>cc", "1z=", { desc = "Correct spelling" })
