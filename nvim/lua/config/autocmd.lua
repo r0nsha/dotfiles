@@ -1,20 +1,15 @@
 local augroup = require("augroup")
 
--- Highlight yanked/put text
-vim.api.nvim_create_autocmd("TextYankPost", {
+vim.api.nvim_create_autocmd({ "TextYankPost", "TextPutPost" }, {
   group = augroup,
+  desc = "Highlight yank/put",
   pattern = "*",
-  callback = function() vim.hl.hl_op({ timeout = 75 }) end,
-})
-vim.api.nvim_create_autocmd("TextPutPost", {
-  group = augroup,
-  pattern = "*",
-  callback = function() vim.hl.hl_op({ timeout = 75 }) end,
+  callback = function() vim.hl.hl_op({ timeout = 50 }) end,
 })
 
--- Return to last edit position when opening files
 vim.api.nvim_create_autocmd("BufReadPost", {
   group = augroup,
+  desc = "Return to last edit position when opening files",
   callback = function()
     local mark = vim.api.nvim_buf_get_mark(0, '"')
     local lcount = vim.api.nvim_buf_line_count(0)
@@ -22,9 +17,9 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   end,
 })
 
--- Reload kitty.conf when it's modified
 vim.api.nvim_create_autocmd("BufWritePost", {
   group = augroup,
+  desc = "Reload kitty.conf when it's modified",
   pattern = "*/kitty/*.conf",
   callback = function()
     local Job = require("plenary.job")
@@ -47,9 +42,9 @@ vim.api.nvim_create_autocmd("BufWritePost", {
   end,
 })
 
--- Remove `o` from formatoptions when entering a buffer
 vim.api.nvim_create_autocmd("BufWinEnter", {
   group = augroup,
+  desc = "Remove `o` from formatoptions when entering a buffer",
   pattern = "*",
   callback = function()
     -- Don't have `o` add a comment
@@ -57,9 +52,9 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
   end,
 })
 
--- Automatically remove hlsearch when moving the cursor out of a match
 vim.api.nvim_create_autocmd("CursorMoved", {
   group = augroup,
+  desc = "Clear search highlight when moving cursor",
   callback = function()
     if vim.v.hlsearch == 1 then
       local ok, sc = pcall(vim.fn.searchcount)
@@ -68,15 +63,15 @@ vim.api.nvim_create_autocmd("CursorMoved", {
   end,
 })
 
--- Auto-resize splits when window is resized
 vim.api.nvim_create_autocmd("VimResized", {
   group = augroup,
+  desc = "Auto-resize splits when window is resized",
   callback = function() vim.cmd("tabdo wincmd =") end,
 })
 
--- Create directories when saving files
 vim.api.nvim_create_autocmd("BufWritePre", {
   group = augroup,
+  desc = "Create directories when saving files",
   callback = function()
     local dir = vim.fn.expand("<afile>:p:h")
     if vim.fn.isdirectory(dir) == 0 and not dir:startswith("oil:/") then vim.fn.mkdir(dir, "p") end
@@ -85,25 +80,27 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   group = augroup,
+  desc = "Set gitconfig filetype",
   pattern = "*/git/config",
   callback = function() vim.bo.filetype = "gitconfig" end,
 })
 
--- Set relativenumber when in normal mode, but not in insert mode
 vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained", "InsertLeave", "WinEnter" }, {
   group = augroup,
+  desc = "Set relativenumber when in normal mode, but not in insert mode",
   pattern = "*",
   command = "if &nu && mode() != 'i' | set rnu | endif",
 })
 vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
   group = augroup,
+  desc = "Disable relativenumber when in insert mode",
   pattern = "*",
   command = "if &nu | set nornu | endif",
 })
 
--- Enable spell when editing prose
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup,
+  desc = "Enable spell checking for prose",
   pattern = {
     "text",
     "plaintext",
@@ -122,22 +119,14 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- -- Open help window in a vertical split to the right
--- vim.api.nvim_create_autocmd("FileType", {
---   group = augroup,
---   pattern = "help",
---   command = "wincmd L",
--- })
-
--- LSP
 vim.api.nvim_create_autocmd("LspProgress", {
   group = augroup,
   command = "redrawstatus",
 })
 
--- Disable swapfile, backup, and undofile for pass/gopass files
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
   group = augroup,
+  desc = "Disable swapfile, backup, and undofile for pass/gopass files",
   pattern = {
     "/dev/shm/pass*",
     "/dev/shm/gopass*",
@@ -149,5 +138,22 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
     vim.opt_local.backup = false
     vim.opt_local.undofile = false
     vim.opt_local.shada = ""
+  end,
+})
+
+vim.api.nvim_create_autocmd({ "TermRequest" }, {
+  desc = "Handles OSC 7 dir change requests",
+  callback = function(ev)
+    local val, n = string.gsub(ev.data.sequence, "\027]7;file://[^/]*", "")
+    if n > 0 then
+      -- OSC 7: dir-change
+      local dir = val
+      if vim.fn.isdirectory(dir) == 0 then
+        vim.notify("invalid dir: " .. dir)
+        return
+      end
+      vim.b[ev.buf].osc7_dir = dir
+      if vim.api.nvim_get_current_buf() == ev.buf then vim.cmd.lcd(dir) end
+    end
   end,
 })
