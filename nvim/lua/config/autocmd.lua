@@ -153,7 +153,7 @@ vim.api.nvim_create_autocmd({ "TermRequest" }, {
         return
       end
       vim.b[ev.buf].osc7_dir = dir
-      if vim.api.nvim_get_current_buf() == ev.buf then vim.cmd.lcd(dir) end
+      -- if vim.api.nvim_get_current_buf() == ev.buf then vim.cmd.lcd(dir) end
     end
   end,
 })

@@ -153,6 +153,10 @@
       "src": "https://github.com/chomosuke/typst-preview.nvim",
       "version": "'v1.4.1'"
     },
+    "unnest.nvim": {
+      "rev": "865b34a9db70ad4ea8715a397fad6491baa390c4",
+      "src": "https://github.com/brianhuster/unnest.nvim"
+    },
     "vim-dadbod": {
       "rev": "6d1d41da4873a445c5605f2005ad2c68c99d8770",
       "src": "https://github.com/tpope/vim-dadbod"

@@ -163,7 +163,9 @@ end, { desc = "Toggle all folds in buffer" })
 vim.keymap.set("n", "<leader>cc", "1z=", { desc = "Correct spelling" })
 
 -- Terminal
-vim.keymap.set("t", "<c-n>", "<c-\\><c-n>", { desc = "Exit terminal mode" })
+vim.keymap.set("t", "<c-esc>", "<c-\\><c-n>", { desc = "Exit terminal mode" })
+vim.keymap.set("t", "<s-esc>", "<c-\\><c-n>", { desc = "Exit terminal mode" })
+vim.keymap.set("t", "<a-esc>", "<c-\\><c-n>", { desc = "Exit terminal mode" })
 
 -- Write
 vim.keymap.set("n", "<leader>w", "<cmd>noau w<cr>", { desc = "Write without autocmds" })
