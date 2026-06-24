@@ -19,7 +19,6 @@ vim.pack.add({
   src.gh("WhoIsSethDaniel/mason-tool-installer.nvim"),
   src.gh("b0o/schemastore.nvim"),
   src.gh("stevearc/conform.nvim"),
-  src.gh("rachartier/tiny-inline-diagnostic.nvim"),
   { src = src.gh("nvim-treesitter/nvim-treesitter"), version = "main" },
   { src = src.gh("nvim-treesitter/nvim-treesitter-textobjects"), version = "main" },
   src.gh("RRethy/nvim-treesitter-endwise"),

@@ -93,19 +93,19 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.lsp.codelens.enable(false, { bufnr = buf })
 
     ---@param desc string
-    local opts = function(desc) return { buffer = buf, desc = "LSP: " .. desc } end
+    local opts = function(desc) return { buf = buf, desc = "LSP: " .. desc } end
 
-    vim.keymap.set("n", "gd", Snacks.picker.lsp_definitions, opts("Go to Definition"))
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts("Go to Definition"))
     vim.keymap.set("n", "<c-w>gd", function()
       vim.cmd("vsplit")
       vim.lsp.buf.definition()
     end, opts("Go to Definition (split)"))
-    vim.keymap.set("n", "grd", Snacks.picker.lsp_declarations, opts("Declarations"))
-    vim.keymap.set("n", "grr", Snacks.picker.lsp_references, opts("References"))
-    vim.keymap.set("n", "grt", Snacks.picker.lsp_type_definitions, opts("Type Definitions"))
-    vim.keymap.set("n", "gri", Snacks.picker.lsp_implementations, opts("Implementations"))
-    vim.keymap.set("n", "grs", Snacks.picker.lsp_workspace_symbols, opts("Workspace Symbols"))
-    vim.keymap.set("n", "grS", Snacks.picker.lsp_symbols, opts("Symbols"))
+    vim.keymap.set("n", "grd", vim.lsp.buf.declaration, opts("Declarations"))
+    vim.keymap.set("n", "grr", vim.lsp.buf.references, opts("References"))
+    vim.keymap.set("n", "grt", vim.lsp.buf.type_definition, opts("Type Definitions"))
+    vim.keymap.set("n", "gri", vim.lsp.buf.implementation, opts("Implementations"))
+    vim.keymap.set("n", "grs", vim.lsp.buf.workspace_symbol, opts("Workspace Symbols"))
+    vim.keymap.set("n", "grS", vim.lsp.buf.document_symbol, opts("Symbols"))
     vim.keymap.set(
       "n",
       "grm",
@@ -139,7 +139,6 @@ vim.keymap.set("n", "grc", function()
 end, { desc = "LSP: Toggle CodeLens" })
 
 -- diagnostic
-
 local icons = require("config.icons")
 
 vim.diagnostic.config({
@@ -155,22 +154,6 @@ vim.diagnostic.config({
   },
 })
 
-require("tiny-inline-diagnostic").setup({
-  preset = "minimal",
-  transparent_bg = true,
-  transparent_cursorline = false,
-  options = {
-    show_source = { enabled = true },
-    use_icons_from_diagnostic = false,
-    multilines = {
-      enabled = true,
-      always_show = false,
-      trim_whitespaces = true,
-    },
-    show_all_diags_on_cursorline = false,
-  },
-})
-
 local qf_severity = {
   E = vim.diagnostic.severity.ERROR,
   W = vim.diagnostic.severity.WARN,
@@ -178,9 +161,16 @@ local qf_severity = {
   H = vim.diagnostic.severity.HINT,
 }
 
+---@param opts vim.diagnostic.GetOpts?
 local function set_sorted_qflist(opts)
   opts = vim.tbl_extend("force", { open = false }, opts or {})
   local diagnostics = vim.diagnostic.get(nil, opts)
+  if #diagnostics == 0 then
+    vim.notify("No diagnostics found", vim.log.levels.INFO)
+    vim.fn.setqflist({}, " ", { items = {}, title = "Diagnostics" })
+    vim.cmd.cclose()
+    return
+  end
   local items = vim.diagnostic.toqflist(diagnostics)
   table.sort(
     items,
@@ -195,7 +185,6 @@ vim.keymap.set("n", "grQ", function()
   vim.ui.select(
     { "Error", "Warn", "Info", "Hint" },
     { prompt = "Select minimum severity" },
-    ---@param severity string?
     function(severity)
       if not severity then return end
       set_sorted_qflist({
@@ -203,50 +192,30 @@ vim.keymap.set("n", "grQ", function()
           min = vim.diagnostic.severity[severity:upper()],
           max = vim.diagnostic.severity.ERROR,
         },
-      })
+      } --[[@as vim.diagnostic.GetOpts]])
     end
   )
 end, { desc = "Show Diagnostics (Filtered)" })
-vim.keymap.set("n", "gre", vim.diagnostic.open_float, { desc = "Open Diagnostic Float" })
 
--- local icons = require("config.icons")
+---@param enabled boolean
+local function enable_virtual_lines(enabled)
+  vim.notify("Virtual lines " .. utils.bool_to_enabled(enabled))
+  if enabled then
+    vim.diagnostic.config({ virtual_text = false, virtual_lines = true })
+  else
+    vim.diagnostic.config({ virtual_text = { current_line = true }, virtual_lines = false })
+  end
+end
 
--- vim.diagnostic.config({
---   virtual_text = { current_line = true },
---   virtual_lines = false,
---   signs = {
---     text = {
---       [vim.diagnostic.severity.HINT] = icons.hint,
---       [vim.diagnostic.severity.INFO] = icons.info,
---       [vim.diagnostic.severity.WARN] = icons.warning,
---       [vim.diagnostic.severity.ERROR] = icons.error,
---     },
---   },
--- })
+vim.keymap.set("n", "grl", function()
+  local config = vim.diagnostic.config() or {}
+  enable_virtual_lines(not config.virtual_lines)
+end, { desc = "LSP: Toggle line diagnostics" })
 
--- local function enable_virtual_lines()
---   vim.notify("Virtual lines enabled")
---   vim.diagnostic.config({ virtual_text = false, virtual_lines = true })
--- end
-
--- local function disable_virtual_lines()
---   vim.notify("Virtual lines disabled")
---   vim.diagnostic.config({ virtual_text = { current_line = true }, virtual_lines = false })
--- end
-
--- vim.keymap.set("n", "grl", function()
---   local config = vim.diagnostic.config() or {}
---   if config.virtual_lines then
---     disable_virtual_lines()
---   else
---     enable_virtual_lines()
---   end
--- end, { desc = "LSP: Toggle line diagnostics" })
-
--- vim.api.nvim_create_autocmd("User", {
---   group = require("augroup"),
---   pattern = "DiagnosticChanged",
---   callback = function()
---     if vim.diagnostic.count() == 0 then disable_virtual_lines() end
---   end,
--- })
+vim.api.nvim_create_autocmd("User", {
+  group = require("augroup"),
+  pattern = "DiagnosticChanged",
+  callback = function()
+    if vim.diagnostic.count() == 0 then enable_virtual_lines(false) end
+  end,
+})
