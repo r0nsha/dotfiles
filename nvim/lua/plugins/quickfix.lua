@@ -1,14 +1,5 @@
-local icons = require("config.icons")
 local quicker = require("quicker")
-
 quicker.setup({
-  type_icons = {
-    E = icons.error,
-    W = icons.warning,
-    I = icons.info,
-    N = icons.info,
-    H = icons.hint,
-  },
   keys = {
     {
       "<Tab>",

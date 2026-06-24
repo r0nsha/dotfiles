@@ -139,20 +139,7 @@ vim.keymap.set("n", "grc", function()
 end, { desc = "LSP: Toggle CodeLens" })
 
 -- diagnostic
-local icons = require("config.icons")
-
-vim.diagnostic.config({
-  virtual_text = false,
-  virtual_lines = false,
-  signs = {
-    text = {
-      [vim.diagnostic.severity.HINT] = icons.hint,
-      [vim.diagnostic.severity.INFO] = icons.info,
-      [vim.diagnostic.severity.WARN] = icons.warning,
-      [vim.diagnostic.severity.ERROR] = icons.error,
-    },
-  },
-})
+vim.diagnostic.config({ virtual_text = false, virtual_lines = false })
 
 local qf_severity = {
   E = vim.diagnostic.severity.ERROR,

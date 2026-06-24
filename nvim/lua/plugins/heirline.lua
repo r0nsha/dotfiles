@@ -1,6 +1,5 @@
 local cond = require("heirline.conditions")
 local heirline = require("heirline")
-local icons = require("config.icons")
 local utils = require("heirline.utils")
 
 local M = {}
@@ -162,8 +161,8 @@ local function diagnostic_provider(type)
   return {
     provider = function(self)
       local count = self[type .. "s"]
-      local icon = icons[type]
-      return count > 0 and (icon .. " " .. count .. " ")
+      local icon = type:sub(1, 1):upper()
+      return count > 0 and (icon .. ":" .. count)
     end,
     hl = function() return { fg = "diag_" .. type } end,
   }

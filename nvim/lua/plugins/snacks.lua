@@ -1,5 +1,3 @@
-local icons = require("config.icons")
-
 require("snacks").setup({
   picker = {
     prompt = "  ",
@@ -52,12 +50,6 @@ require("snacks").setup({
       file = {
         filename_first = true,
       },
-    },
-    icons = {
-      Error = icons.error,
-      Warn = icons.warning,
-      Info = icons.info,
-      Hint = icons.hint,
     },
     jump = {
       reuse_win = true,
