@@ -2,3 +2,6 @@ core.autopush = false
 core.autosync = true
 core.noreminder = true
 storage.backend = jjfs
+
+[mounts]
+    path = /home/ron/.password-store
