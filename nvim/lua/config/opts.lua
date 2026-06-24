@@ -25,7 +25,6 @@ vim.opt.signcolumn = "yes:1"
 vim.opt.winborder = "none"
 vim.opt.pumheight = 10
 vim.opt.pumborder = "none"
-vim.opt.statuscolumn = "%s%=%l "
 vim.opt.shortmess:append({ c = true, C = true })
 vim.opt.list = true
 vim.opt.listchars = {
@@ -110,7 +109,6 @@ vim.opt.diffopt:append({
   "followwrap",
   "hiddenoff",
   "linematch:60",
-  "foldcolumn:0",
 })
 
 -- splits
@@ -124,7 +122,8 @@ vim.opt.mousemodel = "popup_setpos"
 -- fold
 vim.opt.foldmethod = "indent"
 vim.opt.foldopen:remove("search")
-vim.opt.foldcolumn = "1"
+vim.opt.foldcolumn = "0"
+vim.opt.foldlevelstart = 0
 
 -- use system clipboard by default
 vim.opt.clipboard:append("unnamedplus")
