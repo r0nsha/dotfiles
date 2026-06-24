@@ -26,7 +26,6 @@ vim.pack.add({
   src.gh("Wansmer/treesj"),
   src.gh("folke/snacks.nvim"),
   src.gh("milanglacier/minuet-ai.nvim"),
-  src.gh("xzbdmw/colorful-menu.nvim"),
   { src = src.gh("saghen/blink.cmp"), version = "v1.8.0" },
   { src = src.gh("saghen/blink.compat"), version = "v2.5.0" },
   src.gh("stevearc/oil.nvim"),
