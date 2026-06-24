@@ -6,6 +6,7 @@ function fish_user_key_bindings
 
     # paste
     bind -M default p fish_clipboard_paste
+    bind -M insert \cp fish_clipboard_paste
 
     # yank/paste with system clipboard
     bind yy fish_clipboard_copy
@@ -15,10 +16,10 @@ function fish_user_key_bindings
     # history
     bind -M default \cr history-pager
     bind -M insert \cr history-pager
-    bind -M normal \cp history-search-backward
-    bind -M insert \cp history-search-backward
-    bind -M normal \cn history-search-forward
-    bind -M insert \cn history-search-forward
+    # bind -M normal \cp history-search-backward
+    # bind -M insert \cp history-search-backward
+    # bind -M normal \cn history-search-forward
+    # bind -M insert \cn history-search-forward
 
     # prevent ctrl-d from exiting the shell
     bind --preset -e ctrl-d
