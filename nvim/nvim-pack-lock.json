@@ -10,6 +10,10 @@
       "src": "https://github.com/saghen/blink.compat",
       "version": "'v2.5.0'"
     },
+    "canola.nvim": {
+      "rev": "b6e41f866ae01a1f14e73fd1f57317a15020987a",
+      "src": "https://github.com/barrettruth/canola.nvim"
+    },
     "codediff.nvim": {
       "rev": "7608f3b436ce1f84a4888f75e53079caa981a2e9",
       "src": "https://github.com/esmuellert/codediff.nvim"
@@ -111,10 +115,6 @@
     "nvim-ts-context-commentstring": {
       "rev": "1b212c2eee76d787bbea6aa5e92a2b534e7b4f8f",
       "src": "https://github.com/JoosepAlviste/nvim-ts-context-commentstring"
-    },
-    "oil.nvim": {
-      "rev": "b73018b75affd13fa38e2fc94ef753b465f770d7",
-      "src": "https://github.com/stevearc/oil.nvim"
     },
     "persistent-breakpoints.nvim": {
       "rev": "d1656221836207787b8a7969cc2dc72668c4742a",
