@@ -7,7 +7,8 @@ local src = require("utils.pack").src
 
 -- load colorscheme first
 vim.pack.add({
-  "file:///home/ron/dev/nor.nvim",
+  src.tngl("ronshavit.com/nor.nvim"),
+  -- "file:///home/ron/dev/nor.nvim",
 })
 vim.cmd.colorscheme("nor")
 
