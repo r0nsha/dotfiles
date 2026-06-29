@@ -11,9 +11,6 @@ linux)
     distro_type=""
 
     case "$ID" in
-    ubuntu | pop)
-        distro_type="ubuntu"
-        ;;
     arch)
         distro_type="arch"
         ;;
