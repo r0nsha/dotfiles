@@ -96,7 +96,11 @@ vim.filetype.add({
     ["jsconfig.json"] = "jsonc",
     ["tsconfig.json"] = "jsonc",
   },
-  pattern = { [".*/%.vscode/.*%.json"] = "jsonc", [".*/vicinae/settings%.json"] = "jsonc" },
+  pattern = {
+    [".*/%.vscode/.*%.json"] = "jsonc",
+    [".*/vicinae/settings%.json"] = "jsonc",
+    [".*/ghostty/themes/.*"] = "ghostty",
+  },
 })
 vim.treesitter.language.register("markdown", "mdx")
 

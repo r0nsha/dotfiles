@@ -1,0 +1,22 @@
+# nor.nvim dark for ghostty
+# auto generated with https://tangled.org/ronshavit.com/nor.nvim/blob/master/lua/nor/extras/tmux.lua
+
+set -gF default-terminal 'tmux-256color'
+set -agF terminal-overrides ',256color:Tc'
+
+# status bar
+set -gF status-style fg=#c6c6c6,bg=#262626
+
+# active window
+set -gF window-status-current-style fg=#ffffff
+set -gF window-status-style fg=#9e9e9e
+
+# pane borders
+set -gF pane-border-style fg=#474747
+set -gF pane-active-border-style fg=#ffffff
+
+# mode (copy)
+set -gF mode-style fg=#000000,bg=#de7247,bold
+
+# messages
+set -gF message-style fg=#ffffff,bg=#224047

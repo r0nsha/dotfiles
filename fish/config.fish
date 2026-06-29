@@ -41,9 +41,9 @@ if status is-interactive
     function __update_theme --on-event fish_prompt
         switch (ron-theme-get)
             case light
-                source $DOTFILES/fish/themes/modus_operandi.fish
+                source $DOTFILES/fish/themes/nor-light.fish
             case '*'
-                source $DOTFILES/fish/themes/modus_vivendi.fish
+                source $DOTFILES/fish/themes/nor-dark.fish
         end
     end
 

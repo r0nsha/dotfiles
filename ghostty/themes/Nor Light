@@ -1,0 +1,28 @@
+# nor.nvim light for ghostty
+# auto generated with https://tangled.org/ronshavit.com/nor.nvim/blob/master/lua/nor/extras/ghostty.lua
+
+background = #ffffff
+foreground = #3b3b3b
+selection-background = #d4d4d4
+selection-foreground = #000000
+cursor-color = #000000
+cursor-text = #ffffff
+
+palette = 0=#ffffff
+palette = 1=#db5959
+palette = 2=#2e5b3f
+palette = 3=#a8522d
+palette = 4=#4e7f85
+palette = 5=#8a3ca1
+palette = 6=#305a51
+palette = 7=#3b3b3b
+palette = 8=#6a6a6a
+palette = 9=#a11c1d
+palette = 10=#164429
+palette = 11=#883c15
+palette = 12=#194d56
+palette = 13=#711f86
+palette = 14=#17423a
+palette = 15=#000000
+
+# vim:ft=ghostty
