@@ -44,7 +44,6 @@ fi
 step "chmod"
 chmod -v ug+x $DOTFILES/bin/*
 chmod -v ug+x $DOTFILES/i3blocks/scripts/*
-chmod -v ug+x $DOTFILES/rofi/scripts/*
 chmod -v ug+x $DOTFILES/waybar/scripts/*
 chmod -v ug+x $DOTFILES/qutebrowser/userscripts/*
 success
