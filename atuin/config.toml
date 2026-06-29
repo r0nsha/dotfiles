@@ -1,4 +1,0 @@
-style = "compact"
-invert = true
-enter_accept = false
-keymap_mode = "vim-insert"
