@@ -29,8 +29,7 @@ vim.pack.add({
   src.gh("Wansmer/treesj"),
   src.gh("folke/snacks.nvim"),
   src.gh("milanglacier/minuet-ai.nvim"),
-  { src = src.gh("saghen/blink.cmp"), version = "v1.8.0" },
-  { src = src.gh("saghen/blink.compat"), version = "v2.5.0" },
+  -- { src = src.gh("saghen/blink.cmp"), version = "v1.8.0" },
   -- src.gh("stevearc/oil.nvim"),
   src.gh("barrettruth/canola.nvim"),
   -- src.gh("A7Lavinraj/fyler.nvim"),
@@ -65,7 +64,7 @@ require("plugins.lsp")
 require("plugins.format")
 require("plugins.lint")
 require("plugins.mini")
-require("plugins.cmp")
+-- require("plugins.cmp")
 require("plugins.smart_splits")
 -- require("plugins.heirline")
 require("plugins.explorer")

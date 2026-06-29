@@ -65,9 +65,12 @@ vim.opt.grepprg = "rg --vimgrep --no-heading --smart-case"
 vim.opt.grepformat = "%f:%l:%c:%m"
 
 -- completion
-vim.opt.complete = { ".", "w", "b" }
-vim.opt.completeopt = { "menuone", "noselect", "fuzzy", "nosort", "popup" }
+vim.opt.complete = { ".", "w", "b", "f", "kspell" }
+vim.opt.completeopt = { "menuone", "fuzzy", "noselect", "noinsert", "preselect", "popup" }
+
 vim.opt.path:append("**")
+vim.opt.wildmode = { "noselect", "full" }
+vim.opt.wildoptions = { "fuzzy", "pum" }
 vim.opt.wildignore:append({ "*/node_modules/*", "*/.git/*" })
 
 -- wrap

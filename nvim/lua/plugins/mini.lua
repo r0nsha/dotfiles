@@ -178,3 +178,28 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.api.nvim_buf_call(args.buf, MiniTrailspace.unhighlight)
   end,
 })
+
+-- completions
+
+require("mini.completion").setup({})
+vim.api.nvim_set_hl(0, "MiniCompletionInfoBorderOutdated", { link = "FloatBorder" })
+
+vim.api.nvim_create_autocmd("BufEnter", {
+  desc = "disable mini.completion for prompt buffers",
+  group = group,
+  pattern = "*",
+  callback = function()
+    if vim.bo.buftype == "prompt" then vim.b.minicompletion_disable = true end
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  desc = "set omnifunc for dadbod",
+  group = group,
+  pattern = "sql",
+  callback = function() vim.bo.omnifunc = "vim_dadbod_completion#omni" end,
+})
+
+require("mini.cmdline").setup({
+  autopeek = { enable = false },
+})

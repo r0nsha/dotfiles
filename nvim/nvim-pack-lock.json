@@ -1,15 +1,5 @@
 {
   "plugins": {
-    "blink.cmp": {
-      "rev": "b19413d214068f316c78978b08264ed1c41830ec",
-      "src": "https://github.com/saghen/blink.cmp",
-      "version": "'v1.8.0'"
-    },
-    "blink.compat": {
-      "rev": "2ed6d9a28b07fa6f3bface818470605f8896408c",
-      "src": "https://github.com/saghen/blink.compat",
-      "version": "'v2.5.0'"
-    },
     "canola.nvim": {
       "rev": "b6e41f866ae01a1f14e73fd1f57317a15020987a",
       "src": "https://github.com/barrettruth/canola.nvim"
@@ -75,7 +65,7 @@
       "src": "https://github.com/r0nsha/multinput.nvim"
     },
     "nor.nvim": {
-      "rev": "473836a10d9b9069eaa16e8859d1160e419b3f02",
+      "rev": "7d4873c0aef422b626f9d4eaa21127968117d8ae",
       "src": "https://tangled.org/ronshavit.com/nor.nvim"
     },
     "nui.nvim": {
