@@ -48,13 +48,3 @@ vim.api.nvim_create_user_command("TSStart", function() start_treesitter(0, vim.b
 vim.keymap.set("n", "<leader>ih", "<cmd>Inspect<cr>", { desc = "TS: Inspect" })
 vim.keymap.set("n", "<leader>ip", "<cmd>InspectTree<cr>", { desc = "TS: Inspect Tree" })
 vim.keymap.set("n", "<leader>iq", "<cmd>EditQuery<cr>", { desc = "TS: Edit Query" })
-
-vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
-  group = require("augroup"),
-  once = true,
-  callback = function()
-    local treesj = require("treesj")
-    treesj.setup({ use_default_keymaps = false, max_join_length = 9000 })
-    vim.keymap.set({ "n", "x" }, "gs", treesj.toggle, { desc = "Splitjoin" })
-  end,
-})

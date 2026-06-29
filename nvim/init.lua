@@ -26,7 +26,6 @@ vim.pack.add({
   { src = src.gh("nvim-treesitter/nvim-treesitter-textobjects"), version = "main" },
   src.gh("RRethy/nvim-treesitter-endwise"),
   src.gh("JoosepAlviste/nvim-ts-context-commentstring"),
-  src.gh("Wansmer/treesj"),
   src.gh("folke/snacks.nvim"),
   src.gh("milanglacier/minuet-ai.nvim"),
   -- { src = src.gh("saghen/blink.cmp"), version = "v1.8.0" },
