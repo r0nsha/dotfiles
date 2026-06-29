@@ -180,8 +180,10 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- completions
+require("mini.completion").setup({
+  delay = { completion = 25, signature = 25 },
+})
 
-require("mini.completion").setup({})
 vim.api.nvim_set_hl(0, "MiniCompletionInfoBorderOutdated", { link = "FloatBorder" })
 
 vim.api.nvim_create_autocmd("BufEnter", {
