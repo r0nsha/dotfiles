@@ -1,0 +1,16 @@
+#!/usr/bin/env fish
+
+set selected (
+    printf  " files (fuzzy)\n files (explorer)\n󰅌 clipboard" \
+    | fuzzel --dmenu --minimal-lines --prompt "share> " \
+    | cut -d' ' -f2-
+)
+
+switch $selected
+    case "files (fuzzy)"
+        xdg-terminal-exec --app-id=ron.terminal.floating ron-share files
+    case "files (explorer)"
+        xdg-terminal-exec --app-id=ron.terminal.floating ron-share --picker explorer files
+    case clipboard
+        ron-share clipboard
+end

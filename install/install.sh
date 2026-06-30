@@ -103,4 +103,10 @@ if exists "bat"; then
     success
 fi
 
+if exists "gsettings"; then
+    step "gsettings"
+    source "$DOTFILES/install/gsettings.sh"
+    success
+fi
+
 echo "i installed your things :)"

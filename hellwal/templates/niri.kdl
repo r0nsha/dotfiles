@@ -5,8 +5,8 @@ layout {
         urgent-color "#%%color1.hex%%"
     }
     border {
-        active-color "#%%color4.hex%%"
-        inactive-color "#%%background.hex%%"
+        active-color "#%%color7.hex%%"
+        inactive-color "#%%color3.hex%%"
         urgent-color "#%%color1.hex%%"
     }
     shadow {

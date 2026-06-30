@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 
-# A rofi menu for selecting sound devices using PulseAudio. Supports both outputs and inputs.
+# A menu for selecting audio devices using PulseAudio. Supports both outputs and inputs.
 
 function get_display_name
     set -l name $argv[1]
@@ -30,47 +30,43 @@ function list_devices
     set -l default_source_display_name (get_source_display_name "$default_source")
 
     set -l options "󰓃 $(get_sink_display_name $default_sink)\n󰍬 $(get_source_display_name $default_source)"
-    set picked (echo -e "$options" | rofi -dmenu -p "sound devices")
-
-    if string match -q "󰓃 *" $picked
-        pick_sink
-    end
-
-    if string match -q "󰍬 *" $picked
-        pick_source
+    set selected (echo -e "$options" | fuzzel -d -p "audio>" -w 40 --minimal-lines --index)
+    switch $selected
+        case 0
+            select_sink
+        case 1
+            select_source
     end
 end
 
-function pick_sink
+function select_sink
     set -l sinks (pactl list sinks | rg "Name:" | cut -d' ' -f2-)
     set -l options (
         for sink in $sinks
-            echo "$(get_sink_display_name $sink):::$sink"
+            echo "$sink\t$(get_sink_display_name $sink)"
         end | sort | string join "\n"
     )
-    set -l picked (echo -e "$options" | awk -F ':::' '{print $1}' | rofi -dmenu -p "select output")
-    if test -z "$picked"
+    set -l selected (echo -e "$options" | fuzzel -d --with-nth 2 -p "select output>" -w 40 --minimal-lines)
+    if test -z "$selected"
         return
     end
-    set -l sink (echo -e $options | rg -F "$picked" | awk -F ':::' '{print $2}')
-    pactl set-default-sink $sink
-    notify-send "Default output set to '$picked'"
+    pactl set-default-sink (string split \t $selected)[1]; or notify-send "Failed to set default output to '$selected'" && return
+    notify-send "Default output set to '$selected'"
 end
 
-function pick_source
+function select_source
     set -l sources (pactl list sources | rg "Name:" | cut -d' ' -f2-)
     set -l options (
         for source in $sources
-            echo "$(get_source_display_name $source):::$source"
+            echo "$source\t$(get_source_display_name $source)"
         end | sort | string join "\n"
     )
-    set -l picked (echo -e "$options" | awk -F ':::' '{print $1}' | rofi -dmenu -p "select input")
-    if test -z "$picked"
+    set -l selected (echo -e "$options" | fuzzel -d --with-nth 2 -p "select input>" -w 40 --minimal-lines)
+    if test -z "$selected"
         return
     end
-    set -l source (echo -e $options | rg -F "$picked" | awk -F ':::' '{print $2}')
-    pactl set-default-source $source
-    notify-send "Default input set to '$picked'"
+    pactl set-default-source (string split \t $selected)[1]; or notify-send "Failed to set default input to '$selected'" && return
+    notify-send "Default input set to '$selected'"
 end
 
 list_devices

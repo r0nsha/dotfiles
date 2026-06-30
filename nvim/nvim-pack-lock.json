@@ -65,7 +65,7 @@
       "src": "https://github.com/r0nsha/multinput.nvim"
     },
     "nor.nvim": {
-      "rev": "7d4873c0aef422b626f9d4eaa21127968117d8ae",
+      "rev": "56491a5d02c8d5969ab551244589481caf4ec83e",
       "src": "https://tangled.org/ronshavit.com/nor.nvim"
     },
     "nui.nvim": {

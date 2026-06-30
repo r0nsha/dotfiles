@@ -43,6 +43,7 @@ deps=(
     sd
     fzf
     skim
+    chafa
     gnupg2
     rng-tools
     gopass
@@ -72,6 +73,7 @@ deps=(
     satty
     yazi
     mpv
+    swayimg
     typst
     docker
     go
@@ -132,8 +134,11 @@ deps=(
     gamemode
     lib32-gamemode
     udiskie
-    rofi-wayland
-    rofi-calc
+    fuzzel
+    tessen
+    bluetui
+    impala
+    rofimoji
     steam
     shotcut
     zathura
@@ -149,8 +154,6 @@ deps=(
     guvcview
     niri-git
     vesktop
-    bzmenu
-    iwmenu
     hellwal
     mpv-uosc-git
     mpv-thumbfast-git
@@ -173,6 +176,7 @@ deps=(
     watchman-bin
     localsend
     xdg-terminal-exec-git
+    adw-gtk-theme
 )
 
 paru -Syu --noconfirm ${deps[@]}

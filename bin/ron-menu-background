@@ -3,19 +3,8 @@
 set dir $argv[1]
 set -q dir[1] || set dir ~/pictures/backgrounds
 
-set current_bg (basename (readlink ~/.cache/current_background 2>/dev/null) 2>/dev/null)
+set selected (swayimg $dir -g -c ~/.config/swayimg/backgrounds.lua)
 
-set -l items (fd . $dir)
-set -l selected_idx 0
-
-# Find selected index
-for i in (seq (count $items))
-    test (basename $items[$i]) = "$current_bg" && set selected_idx (math $i - 1)
+if test -n "$selected"
+    ron-background-set $selected
 end
-
-set picked (for item in $items
-    printf "%s\0icon\x1f%s\n" (basename $item) $item
-end | rofi -dmenu -theme fullscreen-preview.rasi -selected-row $selected_idx)
-
-test -z "$picked" && exit
-ron-background-set $dir/$picked

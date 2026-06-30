@@ -1,0 +1,97 @@
+#!/usr/bin/env fish
+
+function menu
+    argparse 'p=' -- $argv
+    or return
+
+    set items $argv
+
+    set prompt_arg
+    if set -q _flag_p
+        set prompt_arg "-p$_flag_p"
+    end
+
+    string join \n $items | fuzzel -d --minimal-lines $prompt_arg
+end
+
+function icon_menu
+    menu $argv | cut -d' ' -f2-
+end
+
+function menu_capture
+    switch (icon_menu "󰵝 shot" " record" -p "capture> ")
+        case shot
+            menu_capture_shot
+        case record
+            menu_capture_record
+    end
+end
+
+function menu_capture_shot
+    switch (icon_menu " region" "󰍹 screen" -p "shot> ")
+        case region
+            ron-capture-screenshot --region=region
+        case screen
+            ron-capture-screenshot --region=screen
+    end
+end
+
+function menu_capture_record
+    switch (icon_menu " region" "󰍹 screen" -p "record> ")
+        case region
+            menu_capture_record_options region
+        case screen
+            menu_capture_record_options screen
+    end
+end
+
+function menu_capture_record_options
+    set -l region $argv[1]
+    set -l selected (menu "none" "desktop audio" "mic" "webcam" "desktop audio + mic" "desktop audio + webcam" -p "record/$region> ")
+
+    if test -z "$selected"
+        return
+    end
+
+    set record_args
+    if string match -q "*desktop audio*" "$selected"
+        set -a record_args --desktop-audio
+    end
+    if string match -q "*mic*" "$selected"
+        set -a record_args --mic-audio
+    end
+    if string match -q "*webcam*" "$selected"
+        set -a record_args --webcam
+        set -a record_args --mic-audio
+    end
+
+    ron-capture-screenrecord --region=$region $record_args
+end
+
+function menu_main
+    set -l selected (icon_menu "󰕾 audio" "󰸉 backgrounds" "󰂯 bluetooth" "󰵝 capture" "󰈊 color picker" "󱕴 passwords" " share" "󱊟 usb" "󰖩 wifi" "󰐥 power")
+    switch $selected
+        case audio
+            ron-menu-audio
+        case backgrounds
+            ron-menu-background
+        case bluetooth
+            xdg-terminal-exec --app-id=ron.terminal.floating bluetui
+        case capture
+            menu_capture
+        case "color picker"
+            hyprpicker --autocopy --format=hex --lowercase-hex
+        case passwords
+            tessen
+        case share
+            ron-menu-share
+        case usb
+            ron-menu-mount
+        case wifi
+            xdg-terminal-exec --app-id=ron.terminal.floating impala
+        case power
+            ron-menu-power
+    end
+end
+
+menu_main

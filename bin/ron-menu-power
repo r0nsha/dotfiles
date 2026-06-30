@@ -1,0 +1,32 @@
+#!/usr/bin/env fish
+
+set selected (
+    printf  "󰌾 lock screen\n󰍃 log out\n󰤄 suspend\n󰏦 hibernate\n󰜉 reboot\n󰐥 shut down" \
+    | fuzzel --dmenu --minimal-lines --prompt "power> " \
+    | cut -d' ' -f2-
+)
+
+switch $selected
+    case 'lock screen'
+        loginctl lock-session $XDG_SESSION_ID
+    case 'log out'
+        ron-menu-confirm "log out?"; or exit 1
+
+        if test -n "$NIRI_SOCKET"
+            niri msg action quit --skip-confirmation
+        else
+            loginctl terminate-session $XDG_SESSION_ID
+        end
+    case suspend
+        ron-menu-confirm "suspend?"; or exit 1
+        systemctl suspend
+    case hibernate
+        ron-menu-confirm "hibernate?"; or exit 1
+        systemctl hibernate
+    case reboot
+        ron-menu-confirm "reboot?"; or exit 1
+        systemctl reboot
+    case 'shut down'
+        ron-menu-confirm "shut down?"; or exit 1
+        systemctl poweroff
+end

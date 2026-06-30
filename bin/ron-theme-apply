@@ -68,4 +68,7 @@ tmux source-file ~/.config/tmux/tmux.conf
 # restart nautilus
 pkill nautilus
 
+# gsettings
+gsettings set org.gnome.desktop.interface color-scheme "prefer-$theme"
+
 exit 0

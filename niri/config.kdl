@@ -42,7 +42,7 @@ layout {
         off
     }
     border {
-        width 4
+        width 3
         active-color "#fafafa"
         inactive-color "#505050"
     }
@@ -148,6 +148,12 @@ environment {
     QT_QPA_PLATFORMTHEME "qt6ct"
 }
 window-rule {
+    match app-id="firefox$"
+    border {
+        width 4
+    }
+}
+window-rule {
     match app-id="firefox$" title="^Picture-in-Picture$"
     open-floating true
 }
@@ -160,6 +166,16 @@ window-rule {
 window-rule {
     match app-id="^ron.terminal.floating$"
     open-floating true
+}
+window-rule {
+    match app-id="^swayimg$"
+    open-floating true
+    default-column-width {
+        proportion 1.0
+    }
+    default-window-height {
+        proportion 1.0
+    }
 }
 window-rule {
     draw-border-with-background true
@@ -176,6 +192,12 @@ window-rule {
 layer-rule {
     match namespace="^notifications$"
     block-out-from "screencast"
+}
+layer-rule {
+    match namespace="^launcher$"
+    background-effect {
+        blur true
+    }
 }
 include optional=true "~/.cache/hellwal/niri.kdl"
 binds {
@@ -430,13 +452,13 @@ binds {
         spawn "firefox"
     }
     Mod+Alt+B hotkey-overlay-title="Spawn Browser (Private)" {
-        spawn "firefox" "--target" "private-window"
+        spawn "firefox" "--private-window"
     }
     Mod+Space repeat=false {
-        spawn "ron-launch-walker"
+        spawn "fuzzel"
     }
     Mod+Shift+Escape repeat=false {
-        spawn "ron-launch-walker" "-m" "menus:power" "--minwidth" "300" "--minheight" "200"
+        spawn "ron-menu-power"
     }
     Mod+Shift+S repeat=false {
         spawn "ron-capture-screenshot" "--region=region"
@@ -454,22 +476,19 @@ binds {
         clear-dynamic-cast-target
     }
     Mod+C repeat=false {
-        spawn "ron-launch-walker" "-m" "clipboard"
+        spawn "ron-menu-clip"
     }
-    Mod+Ctrl+Space repeat=false {
-        spawn "ron-launch-walker" "-m" "menus:unified" "--minwidth" "300" "--minheight" "200"
+    Mod+Apostrophe repeat=false {
+        spawn "ron-menu-unified"
     }
     Mod+Shift+C {
         spawn-sh "hyprpicker --autocopy --format=hex --lowercase-hex"
     }
     Mod+P repeat=false {
-        spawn "ron-launch-walker" "-m" "menus:pass"
-    }
-    Mod+Shift+P repeat=false {
-        spawn "ron-launch-pass-last"
+        spawn "tessen"
     }
     Mod+E repeat=false {
-        spawn "ron-launch-walker" "-m" "symbols"
+        spawn "rofimoji" "--selector=fuzzel" "--skin-tone=medium-light" "--prompt=emoji> "
     }
     // Misc
     Mod+Shift+T repeat=false {

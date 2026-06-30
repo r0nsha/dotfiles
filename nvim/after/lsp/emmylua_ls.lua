@@ -15,7 +15,7 @@ return {
     emmylua = {
       -- Tell the server which Lua you're using (usually LuaJIT, for Neovim).
       runtime = { version = "LuaJIT" },
-      diagnostics = { globals = { "vim" } },
+      diagnostics = { globals = { "vim", "swayimg" } },
       -- Make the server aware of Neovim runtime files.
       workspace = {
         library = {

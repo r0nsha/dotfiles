@@ -1,16 +1,14 @@
 #!/usr/bin/env fish
 
-set MESSAGE $argv[1]
-if test -z "$MESSAGE"
-    set MESSAGE "Are you sure?"
+set msg $argv[1]
+if test -z "$msg"
+    set msg "Are you sure?"
 end
 
-set CHOICE (printf "Yes\nNo" | rofi -dmenu -p "$MESSAGE")
-
-switch $CHOICE
-    case Yes
+switch (printf "yes\nno" | fuzzel -d -p "$msg " --minimal-lines)
+    case yes
         exit 0
-    case No
+    case no
         exit 1
     case '*'
         exit 2 # cancelled
