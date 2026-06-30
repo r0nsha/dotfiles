@@ -67,3 +67,5 @@ tmux source-file ~/.config/tmux/tmux.conf
 
 # restart nautilus
 pkill nautilus
+
+exit 0
