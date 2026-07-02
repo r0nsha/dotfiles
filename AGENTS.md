@@ -29,10 +29,6 @@
 - Plugin lockfile is `nvim/nvim-pack-lock.json`; update plugins from Neovim with `:PackUpdate [name]`.
 - Lua formatting follows root `stylua.toml` with 2 spaces, width 120, double-quote preference; check with `stylua --check nvim`.
 
-# Walker/Elephant
-
-- After updating Walker or Elephant config/menus/providers, run `systemctl --user restart --now elephant.service walker.service` so both services reload the stowed changes.
-
 # hellwal
 
 - NEVER run `hellwal` directly unless explicitly prompted. ALWAYS run `hellwal` via `./bin/ron-theme-generate` so theme context (light/dark mode, contrast check, hooks) is applied correctly.

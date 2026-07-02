@@ -25,10 +25,6 @@ gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3-$theme
 # waybar
 ln -sfv ~/.cache/hellwal/waybar.css ~/.config/waybar/style.css
 
-# walker
-ln -sfv ~/.cache/hellwal/walker.css ~/.config/walker/themes/square/style.css
-systemctl --user restart walker.service
-
 # kitty
 ln -sfv ~/.config/kitty/theme_$theme.conf ~/.config/kitty/current_theme.conf
 pkill -SIGUSR1 kitty

@@ -1,6 +1,0 @@
-[Unit]
-Description=Cache Walker background thumbnails
-
-[Service]
-Type=oneshot
-ExecStart=%h/dotfiles/bin/ron-background-generate-thumbnails

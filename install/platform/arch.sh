@@ -169,8 +169,6 @@ deps=(
     xdg-desktop-portal-hyprland
     xdg-desktop-portal-gnome
     xdg-desktop-portal-termfilechooser
-    elephant-all
-    walker-git
     gpu-screen-recorder-git
     wlr-randr
     watchman-bin
@@ -201,7 +199,6 @@ pipx install ${pip_deps[@]}
 step "systemd: enable system services"
 sudo systemctl disable --now systemd-timesyncd.service
 sudo systemctl enable --now chronyd.service chrony-wait.service cronie.service iwd.service
-elephant service enable
 success
 
 step "systemd: enable user services"
