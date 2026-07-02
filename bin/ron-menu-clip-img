@@ -1,22 +1,32 @@
-#!/usr/bin/env bash
+#!/usr/bin/env fish
 
-tmp_dir="/tmp/cliphist"
-rm -rf "$tmp_dir"
+set -l cache_base $HOME/.cache
+set -q XDG_CACHE_HOME; and set cache_base $XDG_CACHE_HOME
+set -l thumb_dir "$cache_base/cliphist/thumbnails"
 
-if [[ -n "$1" ]]; then
-    cliphist decode <<<"$1" | wl-copy
+set -l list (cliphist list)
+if test -z "$list"
+    notify-send cliphist "clipboard empty"
     exit
-fi
+end
 
-mkdir -p "$tmp_dir"
+mkdir -p $thumb_dir
 
-read -r -d '' prog <<EOF
-/^[0-9]+\s<meta http-equiv=/ { next }
-match(\$0, /^([0-9]+)\s(\[\[\s)?binary.*(jpg|jpeg|png|bmp)/, grp) {
-    system("echo " grp[1] "\\\\\t | cliphist decode >$tmp_dir/"grp[1]"."grp[3])
-    print \$0"\0icon\x1f$tmp_dir/"grp[1]"."grp[3]
-    next
-}
-#1
-EOF
-cliphist list | gawk "$prog"
+for line in $list
+    string match -rq '^(?<id>\d+)\t\[\[ binary data \S+ \S+ (?<ext>jpg|jpeg|png|bmp|gif|webp)\b' -- $line; or continue
+    set -l thumb "$thumb_dir/$id.$ext"
+    test -f $thumb; and continue
+    echo $line | cliphist decode >$thumb 2>/dev/null
+end
+
+for f in $thumb_dir/*
+    test -f $f; or continue
+    set -l fid (basename $f | string replace -r '\.[^.]+$' '')
+    string match -rq "^$fid\t" -- $list; or rm -f $f
+end
+
+set -l item (swayimg -g $thumb_dir -c ~/.config/swayimg/picker.lua -e 'swayimg.gallery.set_aspect("fit")')
+if test -n "$item"
+    set -l mime (file --mime-type -b $item)
+    wl-copy --type $mime <$item
+end

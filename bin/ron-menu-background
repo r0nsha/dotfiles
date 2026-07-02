@@ -3,7 +3,8 @@
 set dir $argv[1]
 set -q dir[1] || set dir ~/pictures/backgrounds
 
-set selected (swayimg $dir -g -c ~/.config/swayimg/backgrounds.lua)
+set selected (swayimg $dir -g -c ~/.config/swayimg/picker.lua \
+    -e 'swayimg.imagelist.set_order("alpha")')
 
 if test -n "$selected"
     ron-background-set $selected

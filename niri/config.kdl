@@ -457,6 +457,9 @@ binds {
     Mod+Space repeat=false {
         spawn "fuzzel"
     }
+    Mod+Apostrophe repeat=false {
+        spawn "ron-menu-unified"
+    }
     Mod+Shift+Escape repeat=false {
         spawn "ron-menu-power"
     }
@@ -478,10 +481,10 @@ binds {
     Mod+C repeat=false {
         spawn "ron-menu-clip"
     }
-    Mod+Apostrophe repeat=false {
-        spawn "ron-menu-unified"
+    Mod+Alt+C repeat=false {
+        spawn "ron-menu-clip-img"
     }
-    Mod+Shift+C {
+    Mod+Shift+C repeat=false {
         spawn-sh "hyprpicker --autocopy --format=hex --lowercase-hex"
     }
     Mod+P repeat=false {
