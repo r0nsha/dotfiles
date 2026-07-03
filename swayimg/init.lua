@@ -8,8 +8,6 @@ swayimg.gallery.set_thumb_size(400)
 swayimg.gallery.set_aspect("fill")
 swayimg.gallery.set_text("topleft", { "{name}" })
 
-swayimg.gallery.on_key("q", function() swayimg.exit(1) end)
-
 local function pan(dx, dy)
   local w = swayimg.get_window_size()
   local p = swayimg.viewer.get_position()
@@ -18,15 +16,18 @@ local function pan(dx, dy)
     math.floor(p.y + dy * w.height / 10)
   )
 end
+
 swayimg.viewer.on_key("h", function() pan(-1, 0) end)
 swayimg.viewer.on_key("j", function() pan(0, 1) end)
 swayimg.viewer.on_key("k", function() pan(0, -1) end)
 swayimg.viewer.on_key("l", function() pan(1, 0) end)
 
+swayimg.gallery.on_key("q", function() swayimg.exit(1) end)
 swayimg.gallery.on_key("h", function() swayimg.gallery.switch_image("left") end)
 swayimg.gallery.on_key("j", function() swayimg.gallery.switch_image("down") end)
 swayimg.gallery.on_key("k", function() swayimg.gallery.switch_image("up") end)
 swayimg.gallery.on_key("l", function() swayimg.gallery.switch_image("right") end)
+swayimg.gallery.on_key("Ctrl+y", function() swayimg.set_mode("viewer") end)
 
 swayimg.slideshow.on_key("h", function() swayimg.slideshow.switch_image("prev") end)
 swayimg.slideshow.on_key("j", function() swayimg.slideshow.switch_image("next_dir") end)
