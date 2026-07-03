@@ -94,6 +94,16 @@ tooltip {
   border-radius: 0;
 }
 
+#tray menu menuitem {
+  border-radius: 0;
+  font-size: 10px;
+}
+
+#tray menu menuitem:hover {
+  background: @color15;
+  color: @background-opaque;
+}
+
 #mpris {
   opacity: 0;
 }
