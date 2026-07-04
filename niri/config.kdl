@@ -168,7 +168,7 @@ window-rule {
     open-floating true
 }
 window-rule {
-    match app-id="^swayimg$"
+    match app-id="^swayimg-picker$"
     open-floating true
     default-column-width {
         proportion 1.0

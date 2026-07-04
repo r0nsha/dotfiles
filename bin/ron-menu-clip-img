@@ -25,7 +25,7 @@ for f in $thumb_dir/*
     string match -rq "^$fid\t" -- $list; or rm -f $f
 end
 
-set -l item (swayimg -g $thumb_dir -c ~/.config/swayimg/picker.lua -e 'swayimg.gallery.set_aspect("fit")')
+set -l item (swayimg -g --appid=swayimg-picker $thumb_dir -c ~/.config/swayimg/picker.lua -e 'swayimg.gallery.set_aspect("fit")')
 if test -n "$item"
     set -l mime (file --mime-type -b $item)
     wl-copy --type $mime <$item
