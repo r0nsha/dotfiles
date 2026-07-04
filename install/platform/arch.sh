@@ -121,7 +121,6 @@ deps=(
     hyprpicker
     hyprutils
     hyprpolkitagent
-    xdg-desktop-portal
     gnome-keyring
     qt5-wayland
     qt6-wayland
@@ -166,6 +165,8 @@ deps=(
     opencode-bin
     responsively
     stremio
+    xdg-desktop-portal
+    xdg-desktop-portal-wlr
     xdg-desktop-portal-hyprland
     xdg-desktop-portal-gnome
     xdg-desktop-portal-termfilechooser

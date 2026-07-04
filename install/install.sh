@@ -79,6 +79,7 @@ mkdir -p "$HOME/.gnupg"
 find ~/.gnupg -type f -exec chmod 600 {} \;
 find ~/.gnupg -type d -exec chmod 700 {} \;
 ln -sfv "$DOTFILES/gpg/gpg-agent.conf" "$HOME/.gnupg/gpg-agent.conf"
+ln -sfv "$DOTFILES/gpg/gpg.conf" "$HOME/.gnupg/gpg.conf"
 ln -sfv "$DOTFILES/.pam-gnupg" "$HOME/.pam-gnupg"
 
 # ssh
