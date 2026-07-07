@@ -19,4 +19,5 @@ set -gF pane-active-border-style fg=#000000
 set -gF mode-style fg=#ffffff,bg=#a8522d,bold
 
 # messages
-set -gF message-style fg=#000000,bg=#cae7f1
+set -gF message-style fg=#000000,bg=#cae7f1,fill=#cae7f1
+set -gF message-command-style fg=#000000,bg=#cae7f1,fill=#cae7f1
