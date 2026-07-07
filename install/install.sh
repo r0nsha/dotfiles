@@ -38,9 +38,9 @@ fi
 
 # make scripts executable
 step "chmod"
-chmod -v ug+x $DOTFILES/bin/*
-chmod -v ug+x $DOTFILES/waybar/scripts/*
-chmod -v ug+x $DOTFILES/qutebrowser/userscripts/*
+chmod -v ug+x $DOTFILES/.local/bin/*
+chmod -v ug+x $DOTFILES/.config/waybar/scripts/*
+chmod -v ug+x $DOTFILES/.config/qutebrowser/userscripts/*
 success
 
 # install tools
@@ -70,17 +70,10 @@ if ! stow .; then
 fi
 success
 
-# gnupg
+# gnupg perms (stow links files into ~/.gnupg)
 mkdir -p "$HOME/.gnupg"
 find ~/.gnupg -type f -exec chmod 600 {} \;
 find ~/.gnupg -type d -exec chmod 700 {} \;
-ln -sfv "$DOTFILES/gpg/gpg-agent.conf" "$HOME/.gnupg/gpg-agent.conf"
-ln -sfv "$DOTFILES/gpg/gpg.conf" "$HOME/.gnupg/gpg.conf"
-ln -sfv "$DOTFILES/.pam-gnupg" "$HOME/.pam-gnupg"
-
-# ssh
-mkdir -p "$HOME/.ssh"
-ln -sfv "$DOTFILES/ssh/config" ~/.ssh/config
 
 # default shell
 if exists "fish"; then
@@ -104,7 +97,7 @@ if [ "$MACHINE" = "darwin" ]; then
     pinentry_bin="$(which pinentry-mac || true)"
     if [ -n "$pinentry_bin" ]; then
         target="pinentry-program $pinentry_bin"
-        conf="$HOME/.gnupg/gpg-agent.conf"
+        conf="$DOTFILES/.gnupg/gpg-agent.conf"
         if ! grep -Fxq "$target" "$conf"; then
             sed -i '' "s|^pinentry-program .*|$target|" "$conf"
             gpg-connect-agent reloadagent /bye

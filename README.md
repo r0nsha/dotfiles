@@ -17,7 +17,7 @@ Prerequisites:
 - Docker CLI
 - Installed and unzipped the font from their [website](https://usgraphics.com/products/berkeley-mono)
 
-After installing it, run `bin/ron-patch-berkeley-mono`
+After installing it, run `ron-patch-berkeley-mono`
 
 ## Local Fish Config
 
@@ -26,7 +26,7 @@ After installing it, run `bin/ron-patch-berkeley-mono`
 ```
 
 If there's customization you want Fish to load on startup that is specific to
-this machine. It will be loaded at the top of `fish/config.fish`.
+this machine. It will be loaded at the top of `.config/fish/config.fish`.
 
 ## Local Git & JJ Configs
 

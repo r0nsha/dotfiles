@@ -21,7 +21,7 @@ linux)
     fi
 
     script=$DOTFILES/install/platform/$distro_type.sh
-    info "detected linux distribution: $distro_type (based on '$ID')"
+    info "detected linux distribution: $distro_type"
     info "installing tools from $script..."
     source "$DOTFILES/install/platform/${distro_type}.sh"
     ;;

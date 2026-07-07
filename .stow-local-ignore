@@ -28,10 +28,6 @@ DS_Store
 .DS_Store
 
 ^/install
-gpg
-ly
-ssh
-bin
-.pam-gnupg
+^/ly
+^/.config/jj/conf.d
 \.jj
-jj/conf.d

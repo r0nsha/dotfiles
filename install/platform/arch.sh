@@ -206,8 +206,8 @@ step "systemd: enable user services"
 
 systemctl --user daemon-reload
 shopt -s nullglob
-user_services=("$DOTFILES"/systemd/user/*.service)
-user_paths=("$DOTFILES"/systemd/user/*.path)
+user_services=("$DOTFILES"/.config/systemd/user/*.service)
+user_paths=("$DOTFILES"/.config/systemd/user/*.path)
 
 if ((${#user_services[@]})); then
     systemctl --user enable "${user_services[@]}"

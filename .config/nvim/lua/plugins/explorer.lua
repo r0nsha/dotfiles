@@ -17,7 +17,7 @@ oil.setup({
   default_file_explorer = true,
   watch_for_changes = true,
   view_options = {
-    show_hidden = false,
+    show_hidden = true,
     is_always_hidden = function(name, _) return name == "." or name == ".." end,
   },
   win_options = {

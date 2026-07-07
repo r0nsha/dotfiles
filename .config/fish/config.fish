@@ -2,7 +2,6 @@ source $HOME/.env.fish
 
 # paths
 fish_add_path \
-    $DOTFILES/bin \
     $HOME/.cargo/bin \
     $HOME/.local/bin \
     ./node_modules/.bin \
@@ -10,9 +9,9 @@ fish_add_path \
     ~/.local/share/bob/nvim-bin \
     /opt/homebrew/opt/rustup/bin
 
-source $DOTFILES/fish/functions.fish
-source $DOTFILES/fish/aliases.fish
-source $DOTFILES/fish/variables.fish
+source $DOTFILES/.config/fish/functions.fish
+source $DOTFILES/.config/fish/aliases.fish
+source $DOTFILES/.config/fish/variables.fish
 
 set -l local_config ~/config.fish
 if test -r $local_config
@@ -41,9 +40,9 @@ if status is-interactive
     function __update_theme --on-event fish_prompt
         switch (ron-theme-get)
             case light
-                source $DOTFILES/fish/themes/nor-light.fish
+                source $DOTFILES/.config/fish/themes/nor-light.fish
             case '*'
-                source $DOTFILES/fish/themes/nor-dark.fish
+                source $DOTFILES/.config/fish/themes/nor-dark.fish
         end
     end
 
