@@ -20,18 +20,13 @@ ln -sfv ~/.cache/hellwal/gtk.css ~/.config/gtk-3.0/colors.css
 ln -sfv ~/.cache/hellwal/gtk.css ~/.config/gtk-4.0/colors.css
 gsettings set org.gnome.desktop.interface gtk-theme ""
 gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3-$theme
+gsettings set org.gnome.desktop.interface color-scheme "prefer-$theme"
+
+# apps
+pkill nautilus
 
 # waybar
 ln -sfv ~/.cache/hellwal/waybar.css ~/.config/waybar/style.css
-
-# kitty
-ln -sfv ~/.config/kitty/theme_$theme.conf ~/.config/kitty/current_theme.conf
-pkill -SIGUSR1 kitty
-
-# ghostty
-mkdir -p ~/.cache/ghostty
-ln -sfv ~/.config/ghostty/theme_$theme.ghostty ~/.cache/ghostty/current_theme.ghostty
-pkill -SIGUSR2 ghostty
 
 # mako
 mkdir -p ~/.config/mako
@@ -41,7 +36,19 @@ if pgrep mako
     makoctl reload
 end
 
-# pywalfox (Firefox)
+# ghostty
+mkdir -p ~/.cache/ghostty
+ln -sfv ~/.config/ghostty/theme_$theme.ghostty ~/.cache/ghostty/current_theme.ghostty
+pkill -SIGUSR2 ghostty
+
+# kitty
+ln -sfv ~/.config/kitty/theme_$theme.conf ~/.config/kitty/current_theme.conf
+pkill -SIGUSR1 kitty
+
+# tmux
+tmux source-file ~/.config/tmux/tmux.conf
+
+# firefox
 if command -vq pywalfox
     ln -sfv ~/.cache/hellwal/colors.json ~/.cache/wal/colors.json
     if test -n "$theme"
@@ -51,19 +58,5 @@ if command -vq pywalfox
     end
     pywalfox update
 end
-
-# qutebrowser
-if pgrep qutebrowser
-    qutebrowser :config-source
-end
-
-# tmux
-tmux source-file ~/.config/tmux/tmux.conf
-
-# restart nautilus
-pkill nautilus
-
-# gsettings
-gsettings set org.gnome.desktop.interface color-scheme "prefer-$theme"
 
 exit 0
