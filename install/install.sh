@@ -105,4 +105,8 @@ if [ "$MACHINE" = "darwin" ]; then
     fi
 fi
 
+if exists "bob"; then
+    bob use nightly
+fi
+
 echo "i installed your things :)"
