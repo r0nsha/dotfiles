@@ -249,4 +249,11 @@ newgrp docker
 sudo usermod -aG docker $USER
 sudo systemctl enable --now docker
 
+# gtk
+if exists "gsettings"; then
+    step "gsettings"
+    source "$DOTFILES/install/gsettings.sh"
+    success
+fi
+
 pywalfox install
