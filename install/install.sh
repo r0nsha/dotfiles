@@ -21,12 +21,8 @@ source "$DOTFILES/install/utils.sh"
 case "$(uname)" in
 Linux) MACHINE="linux" ;;
 Darwin) MACHINE="darwin" ;;
-*) MACHINE="unknown" ;;
+*) error "unsupported operating system: $(uname)" ;;
 esac
-
-if [ "$MACHINE" = "unknown" ]; then
-    error "unsupported operating system: $(uname)"
-fi
 
 cd "$DOTFILES"
 
@@ -102,6 +98,18 @@ if exists "bat"; then
     step "bat cache"
     bat cache --build
     success
+fi
+
+if [ "$MACHINE" = "darwin" ]; then
+    pinentry_bin="$(which pinentry-mac || true)"
+    if [ -n "$pinentry_bin" ]; then
+        target="pinentry-program $pinentry_bin"
+        conf="$HOME/.gnupg/gpg-agent.conf"
+        if ! grep -Fxq "$target" "$conf"; then
+            sed -i '' "s|^pinentry-program .*|$target|" "$conf"
+            gpg-connect-agent reloadagent /bye
+        fi
+    fi
 fi
 
 echo "i installed your things :)"

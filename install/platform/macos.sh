@@ -85,8 +85,7 @@ install_wrapper brew install_brew
 install_deps
 echo ""
 
-echo "pinentry-program $(which pinentry-mac)" >>~/.gnupg/gpg-agent.conf
-gpg-connect-agent reloadagent /bye
-
-rm -rf "$HOME/.qutebrowser"
-ln -sv "$DOTFILES/qutebrowser" "$HOME/.qutebrowser"
+if exists "qutebrowser"; then
+    rm -rf "$HOME/.qutebrowser"
+    ln -sv "$DOTFILES/qutebrowser" "$HOME/.qutebrowser"
+fi
