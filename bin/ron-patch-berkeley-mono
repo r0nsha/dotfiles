@@ -22,33 +22,54 @@ end
 
 set original_path (pwd)
 set base_dir ~/tmp_nf_patch
+set patcher_image nerdfonts/patcher
 
 rm -rf $base_dir
 mkdir -p $base_dir
+mkdir -p $system_fonts
 
 cd (realpath (dirname $zip_path))
-yes | unzip $zip_path
-cp -r 251*/TX-02-* $base_dir/in
-cp -r 251*/TX-02-*/* $system_fonts
+set extracted_dir (unzip -Z1 $zip_path | string match -r "^[^/]+" | path sort -u)
+if test (count $extracted_dir) -ne 1
+    echo "Expected exactly one top-level directory in zip, found: " $extracted_dir
+    exit 1
+end
+
+unzip -o $zip_path
+or exit 1
+
+set font_dir $extracted_dir/TX-02-*
+if test (count $font_dir) -ne 1
+    echo "Expected exactly one TX-02-* dir, found: " $font_dir
+    exit 1
+end
+
+cp -r $font_dir $base_dir/in
+cp -r $font_dir/* $system_fonts
+
 cd $base_dir
 mkdir $base_dir/out
 
-# Mono
-docker run --rm \
-    -v $base_dir/in:/in \
-    -v $base_dir/out:/out \
-    nerdfonts/patcher \
-    --complete
+function patch
+    docker run --rm \
+        -e PN=8 \
+        -v $base_dir/in:/in \
+        -v $base_dir/out:/out \
+        $patcher_image \
+        --complete $argv
+    or exit 1
+end
 
-# Propo
-docker run --rm \
-    -v $base_dir/in:/in \
-    -v $base_dir/out:/out \
-    nerdfonts/patcher \
-    --complete --variable-width-glyphs
+patch # Mono
+patch --variable-width-glyphs # Propo
 
-mkdir -p $system_fonts
-yes | cp $base_dir/out/* $system_fonts
+set patched_fonts $base_dir/out/*
+if test (count $patched_fonts) -eq 0
+    echo "Didn't generate any patched fonts"
+    exit 1
+end
+
+yes | cp $patched_fonts $system_fonts
 
 rm -rf $base_dir
 cd $original_path
