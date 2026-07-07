@@ -61,6 +61,8 @@ install_deps() {
         jj
         responsively
         gnupg2
+        pass
+        pass-git-helper
         gopass
         pinentry-mac
         n
