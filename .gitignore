@@ -12,3 +12,6 @@ __pycache__
 .config/jj/repos
 .config/kitty/current_theme.conf
 .config/waybar/style.css
+.config/qt5ct/colors
+.config/qt6ct/colors
+.config/mako/config

@@ -74,7 +74,6 @@ deps=(
     satty
     yazi
     mpv
-    swayimg
     typst
     docker
     go
@@ -128,7 +127,8 @@ deps=(
     qt6-multimedia-ffmpeg
     qt5ct
     qt6ct
-    awww
+    swaybg
+    swayimg
     ly
     waybar
     gamemode

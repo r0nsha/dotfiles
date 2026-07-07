@@ -42,7 +42,7 @@ layout {
         off
     }
     border {
-        width 3
+        width 1
         active-color "#fafafa"
         inactive-color "#505050"
     }
@@ -107,7 +107,6 @@ animations {
 spawn-at-startup "systemctl --user start hyprpolkitagent"
 spawn-at-startup "playerctld" "daemon"
 spawn-at-startup "udiskie" "--smart-tray"
-spawn-at-startup "awww-daemon"
 spawn-at-startup "wl-paste" "--type" "text" "--watch" "cliphist" "store"
 spawn-at-startup "wl-paste" "--type" "image" "--watch" "cliphist" "store"
 spawn-at-startup "mako"
@@ -150,7 +149,7 @@ environment {
 window-rule {
     match app-id="firefox$"
     border {
-        width 4
+        width 2
     }
 }
 window-rule {

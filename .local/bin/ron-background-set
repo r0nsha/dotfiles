@@ -1,10 +1,13 @@
 #!/usr/bin/env fish
 # Changes the wallpaper to the given image and updates the updates the desktop according to the wallpaper's colors.
 
-set img $argv[1]
-awww img --resize=crop "$img" --transition-fps=120 --transition-duration=1.0 --transition-type=random
+set img "$argv[1]"
 
-# link to cache so that other apps can reference it
-ln -sf "$img" ~/.cache/current_background
+set pid (pidof wbg)
+swaybg --mode fill --output '*' --image "$img" &
+if test -n "$pid"
+    kill $pid
+end
 
+ln -sf "$img" ~/.cache/current_background # link to cache so that other apps can reference it
 ron-theme-generate

@@ -5,7 +5,6 @@ set theme (ron-theme-get)
 # niri
 if pgrep -x niri >/dev/null
     niri msg action load-config-file
-    niri msg action do-screen-transition
 end
 
 # qt

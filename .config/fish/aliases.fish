@@ -52,10 +52,6 @@ if command -vq ron-tmux-sessionizer
     abbr -a t ron-tmux-sessionizer
 end
 
-if command -vq gopass
-    alias pass gopass
-end
-
 # GIT ALIASES
 abbr -a g git
 abbr -a gg 'git branch | sk | xargs git switch'
