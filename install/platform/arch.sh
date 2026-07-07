@@ -46,8 +46,9 @@ deps=(
     chafa
     gnupg2
     rng-tools
-    gopass
-    git-credential-gopass
+    pass
+    pass-otp
+    pass-git-helper
     tealdeer
     just
     inotify-tools

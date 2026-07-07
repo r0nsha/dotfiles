@@ -33,9 +33,6 @@ if status is-interactive
     if command -vq bob
         bob complete fish | source
     end
-    if command -vq gopass
-        gopass completion fish | source
-    end
 
     function __update_theme --on-event fish_prompt
         switch (ron-theme-get)

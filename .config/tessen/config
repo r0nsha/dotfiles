@@ -1,4 +1,4 @@
-pass_backend="gopass"
+pass_backend="pass"
 dmenu_backend="fuzzel"
 action="both"
 fuzzel_config_file="/home/ron/.config/fuzzel/fuzzel-pass.ini"

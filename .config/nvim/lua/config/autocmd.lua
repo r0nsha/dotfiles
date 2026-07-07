@@ -126,13 +126,8 @@ vim.api.nvim_create_autocmd("LspProgress", {
 
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
   group = augroup,
-  desc = "Disable swapfile, backup, and undofile for pass/gopass files",
-  pattern = {
-    "/dev/shm/pass*",
-    "/dev/shm/gopass*",
-    "/private/**/pass**",
-    "/private/**/gopass**",
-  },
+  desc = "Disable swapfile, backup, and undofile for pass files",
+  pattern = { "/dev/shm/pass*", "/private/**/pass**" },
   callback = function()
     vim.opt_local.swapfile = false
     vim.opt_local.backup = false
