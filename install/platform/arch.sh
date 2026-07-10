@@ -59,7 +59,7 @@ deps=(
     rustup
     npm
     pnpm
-    bottom
+    btop
     7zip
     jq
     poppler

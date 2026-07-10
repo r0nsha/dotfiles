@@ -76,6 +76,7 @@ install_deps() {
         dante
         senpai
         localsend
+        btop
     )
 
     brew install ${deps[@]}
