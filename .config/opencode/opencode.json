@@ -30,6 +30,9 @@
       "systemctl reboot*": "ask",
       "systemctl poweroff*": "ask",
       "systemctl hibernate*": "ask"
+    },
+    "external_directory": {
+      "~/dev/**": "allow"
     }
   },
   "mcp": {
