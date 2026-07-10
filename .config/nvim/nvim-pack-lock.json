@@ -1,7 +1,7 @@
 {
   "plugins": {
     "canola.nvim": {
-      "rev": "b6e41f866ae01a1f14e73fd1f57317a15020987a",
+      "rev": "f97dff59bcc285e996a454858c3c185d86521ec3",
       "src": "https://github.com/barrettruth/canola.nvim"
     },
     "codediff.nvim": {
@@ -49,7 +49,7 @@
       "src": "https://tangled.org/ronshavit.com/mini.diff.jj"
     },
     "mini.nvim": {
-      "rev": "1599a473aa6f5290a5d740b1144846e6f0c3963d",
+      "rev": "fdc8b9701616863e44f7a7a0802cfe16bd866539",
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "minuet-ai.nvim": {
@@ -65,7 +65,7 @@
       "src": "https://github.com/r0nsha/multinput.nvim"
     },
     "nor.nvim": {
-      "rev": "56491a5d02c8d5969ab551244589481caf4ec83e",
+      "rev": "3f3d05a20a7a380b827f48b537bbc452f5f9d65c",
       "src": "https://tangled.org/ronshavit.com/nor.nvim"
     },
     "nui.nvim": {
@@ -77,7 +77,7 @@
       "src": "https://github.com/mfussenegger/nvim-dap"
     },
     "nvim-dap-view": {
-      "rev": "440ec66c2b26470ec97cd4d6667cdd4b51cbc7cb",
+      "rev": "b8c8aa91f42055d7f69012587cde4f1d99f2a701",
       "src": "https://github.com/igorlfs/nvim-dap-view"
     },
     "nvim-lint": {
@@ -85,7 +85,7 @@
       "src": "https://github.com/mfussenegger/nvim-lint"
     },
     "nvim-lspconfig": {
-      "rev": "3371bf298c1f56efc26771ee961f461176958fb5",
+      "rev": "d224a1920728ba129880efc700d4a0180ac4ecbb",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-treesitter": {
@@ -119,11 +119,11 @@
       "src": "https://github.com/stevearc/quicker.nvim"
     },
     "schemastore.nvim": {
-      "rev": "490afbd7fd3b316330550405ac74758a971104a4",
+      "rev": "e954496f8ef22904e8a84f5078f4a110fdc7a0d3",
       "src": "https://github.com/b0o/schemastore.nvim"
     },
     "smart-splits.nvim": {
-      "rev": "0e5bc00d2a32e6c782cd279cb96ab6c7ae49cd94",
+      "rev": "ebf4d8bbc16570817c0f5275468466b9d00b8d7d",
       "src": "https://github.com/mrjones2014/smart-splits.nvim"
     },
     "snacks.nvim": {
