@@ -84,6 +84,11 @@ require("snacks").setup({
   },
 })
 
+local function dotfiles_hidden()
+  if vim.fn.fnamemodify(vim.fn.getcwd(), ":t") == "dotfiles" then return { hidden = true } end
+  return {}
+end
+
 vim.keymap.set(
   "n",
   "<leader><leader>",
@@ -91,7 +96,12 @@ vim.keymap.set(
   { desc = "Resume Last Picker" }
 )
 
-vim.keymap.set("n", "<leader>sf", function() Snacks.picker.files() end, { desc = "Files" })
+vim.keymap.set(
+  "n",
+  "<leader>sf",
+  function() Snacks.picker.files(dotfiles_hidden()) end,
+  { desc = "Files" }
+)
 
 vim.keymap.set(
   "n",
@@ -100,7 +110,12 @@ vim.keymap.set(
   { desc = "All Files" }
 )
 
-vim.keymap.set("n", "<leader>ss", function() Snacks.picker.grep() end, { desc = "Grep" })
+vim.keymap.set(
+  "n",
+  "<leader>ss",
+  function() Snacks.picker.grep(dotfiles_hidden()) end,
+  { desc = "Grep" }
+)
 
 vim.keymap.set(
   "n",
@@ -112,21 +127,21 @@ vim.keymap.set(
 vim.keymap.set(
   "x",
   "<leader>ss",
-  function() Snacks.picker.grep_word() end,
+  function() Snacks.picker.grep_word(dotfiles_hidden()) end,
   { desc = "Grep Selection" }
 )
 
 vim.keymap.set(
   { "n", "x" },
   "<leader>sw",
-  function() Snacks.picker.grep_word() end,
+  function() Snacks.picker.grep_word(dotfiles_hidden()) end,
   { desc = "Grep Word" }
 )
 
 vim.keymap.set(
   "n",
   "<leader>sr",
-  function() Snacks.picker.smart() end,
+  function() Snacks.picker.smart(dotfiles_hidden()) end,
   { desc = "Find Files (Smart)" }
 )
 
