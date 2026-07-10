@@ -208,8 +208,3 @@ require("mini.cmdline").setup({
 
 -- splitjoin()
 require("mini.splitjoin").setup({ mappings = { toggle = "gs" } })
-
--- sessions
--- TODO: can be removed once https://github.com/neovim/neovim/pull/40321 is closed
-require("mini.sessions").setup()
-vim.keymap.set("n", "ZR", MiniSessions.restart, { desc = "Restart" })
