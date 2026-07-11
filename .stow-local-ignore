@@ -22,11 +22,11 @@ _darcs
 ^/AGENTS.md
 ^/LICENSE.*
 ^/COPYING
-
-.stowrc
-DS_Store
-.DS_Store
-
+^/.stowrc
+^/DS_Store
+^/.DS_Store
+^/Makefile
+^/stylua.toml
 ^/firefox
 ^/install
 ^/ly
