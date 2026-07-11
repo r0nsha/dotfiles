@@ -28,14 +28,6 @@ cd "$DOTFILES"
 
 mkdir -p "$LOCAL_BIN" "$LOCAL_OPT" "$LOCAL_SHARE" "$DEV" "$DOWNLOADS" "$PICTURES" "$VIDEOS"
 
-LOCAL_ENV=$HOME/.env.fish
-if [ ! -f "$LOCAL_ENV" ]; then
-    step "creating local env file"
-    echo "set -Ux DOTFILES $DOTFILES" >"$LOCAL_ENV"
-    info "created $LOCAL_ENV"
-    success
-fi
-
 # make scripts executable
 step "chmod"
 chmod -v ug+x $DOTFILES/.local/bin/*

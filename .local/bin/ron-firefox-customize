@@ -1,16 +1,12 @@
 #! /usr/bin/env fish
 
-set firefox_dir ~/.mozilla/firefox
+set firefox_profile_dir ~/.mozilla/firefox
 set policies_dir /usr/lib/firefox/distribution
-set dotfiles (realpath (dirname (status filename))/..)
+set firefox_dir (realpath (dirname (realpath (status filename)))/../../firefox)
 
 if test (uname) = Darwin
-    set firefox_dir ~/Library/Application\ Support/Firefox
+    set firefox_profile_dir ~/Library/Application\ Support/Firefox
     set policies_dir /Applications/Firefox.app/Contents/Resources/distribution
-end
-
-if test -n "$DOTFILES"
-    set dotfiles $DOTFILES
 end
 
 if pgrep -x firefox >/dev/null; or pgrep -x Firefox >/dev/null
@@ -18,34 +14,34 @@ if pgrep -x firefox >/dev/null; or pgrep -x Firefox >/dev/null
     exit 1
 end
 
-if not test -f "$dotfiles/firefox/user.js"
-    echo "error: $dotfiles/firefox/user.js not found" >&2
+if not test -f "$firefox_dir/user.js"
+    echo "error: $firefox_dir/user.js not found" >&2
     exit 1
 end
 
-if not test -f "$dotfiles/firefox/userChrome.css"
-    echo "error: $dotfiles/firefox/userChrome.css not found" >&2
+if not test -f "$firefox_dir/userChrome.css"
+    echo "error: $firefox_dir/userChrome.css not found" >&2
     exit 1
 end
 
 # parse profiles.ini for profile paths
-if not test -f "$firefox_dir/profiles.ini"
-    echo "error: $firefox_dir/profiles.ini not found" >&2
+if not test -f "$firefox_profile_dir/profiles.ini"
+    echo "error: $firefox_profile_dir/profiles.ini not found" >&2
     exit 1
 end
 
 set profiles
-for line in (grep '^Path=' "$firefox_dir/profiles.ini")
+for line in (grep '^Path=' "$firefox_profile_dir/profiles.ini")
     set -a profiles (string replace 'Path=' '' $line)
 end
 
 if test (count $profiles) -eq 0
-    echo "error: no profiles found in $firefox_dir/profiles.ini" >&2
+    echo "error: no profiles found in $firefox_profile_dir/profiles.ini" >&2
     exit 1
 end
 
 for profile in $profiles
-    set profdir $firefox_dir/$profile
+    set profdir $firefox_profile_dir/$profile
     if string match -q '/*' $profile
         set profdir $profile
     end
@@ -60,7 +56,7 @@ for profile in $profiles
     # userChrome.css
     mkdir -p $profdir/chrome
     set chrome_target $profdir/chrome/userChrome.css
-    set chrome_source $dotfiles/firefox/userChrome.css
+    set chrome_source $firefox_dir/userChrome.css
     if test -L "$chrome_target"
         ln -sfv $chrome_source $chrome_target
     else if test -f "$chrome_target"
@@ -73,7 +69,7 @@ for profile in $profiles
 
     # user.js
     set js_target $profdir/user.js
-    set js_source $dotfiles/firefox/user.js
+    set js_source $firefox_dir/user.js
     if test -L "$js_target"
         ln -sfv $js_source $js_target
     else if test -f "$js_target"
