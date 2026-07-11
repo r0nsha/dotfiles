@@ -1,0 +1,90 @@
+/* cascade colours mapped to pywalfox theme variables */
+
+:root {
+  /* pywalfox theme -> cascade semantics */
+  --uc-base-colour: var(--lwt-accent-color, #1e2021);
+  --uc-highlight-colour: var(--arrowpanel-background, #191b1c);
+  --uc-inverted-colour: var(--arrowpanel-color, #fafafc);
+  --uc-muted-colour: var(--toolbar-color, #aaaaac);
+  --uc-accent-colour: var(
+    --lwt-toolbarbutton-icon-fill-attention,
+    var(--lwt-tab-line-color, #786fa6)
+  );
+
+  /* identity colours kept from cascade defaults */
+  --uc-identity-colour-blue: #7ed6df;
+  --uc-identity-colour-turquoise: #55e6c1;
+  --uc-identity-colour-green: #b8e994;
+  --uc-identity-colour-yellow: #f7d794;
+  --uc-identity-colour-orange: #f19066;
+  --uc-identity-colour-red: #fc5c65;
+  --uc-identity-colour-pink: #f78fb3;
+  --uc-identity-colour-purple: #786fa6;
+
+  /* lwt reassignments matching cascade layout */
+  --lwt-text-color: var(--uc-inverted-colour) !important;
+
+  --toolbar-field-color: var(--uc-inverted-colour) !important;
+  --toolbar-field-focus-color: var(--uc-inverted-colour) !important;
+  --toolbar-field-focus-background-color: var(--uc-highlight-colour) !important;
+  --toolbar-field-focus-border-color: transparent !important;
+
+  --toolbar-field-background-color: var(--uc-base-colour) !important;
+  --lwt-toolbar-field-highlight: var(--uc-inverted-colour) !important;
+  --lwt-toolbar-field-highlight-text: var(--uc-highlight-colour) !important;
+  --urlbar-popup-url-color: var(--uc-accent-colour) !important;
+
+  --lwt-tab-text: var(--uc-inverted-colour) !important;
+
+  --lwt-selected-tab-background-color: var(--uc-highlight-colour) !important;
+
+  --toolbar-bgcolor: var(--uc-base-colour) !important;
+  --toolbar-color: var(--uc-inverted-colour) !important;
+  --toolbarseparator-color: var(--uc-accent-colour) !important;
+  --toolbarbutton-hover-background: var(--uc-highlight-colour) !important;
+  --toolbarbutton-active-background: var(
+    --toolbarbutton-hover-background
+  ) !important;
+
+  --lwt-sidebar-background-color: var(--uc-base-colour) !important;
+  --sidebar-background-color: var(--lwt-sidebar-background-color) !important;
+
+  --urlbar-box-bgcolor: var(--uc-highlight-colour) !important;
+  --urlbar-box-text-color: var(--uc-muted-colour) !important;
+  --urlbar-box-hover-bgcolor: var(--uc-highlight-colour) !important;
+  --urlbar-box-hover-text-color: var(--uc-inverted-colour) !important;
+  --urlbar-box-focus-bgcolor: var(--uc-highlight-colour) !important;
+}
+
+.identity-color-blue {
+  --identity-tab-color: var(--uc-identity-colour-blue) !important;
+  --identity-icon-color: var(--uc-identity-colour-blue) !important;
+}
+.identity-color-turquoise {
+  --identity-tab-color: var(--uc-identity-colour-turquoise) !important;
+  --identity-icon-color: var(--uc-identity-colour-turquoise) !important;
+}
+.identity-color-green {
+  --identity-tab-color: var(--uc-identity-colour-green) !important;
+  --identity-icon-color: var(--uc-identity-colour-green) !important;
+}
+.identity-color-yellow {
+  --identity-tab-color: var(--uc-identity-colour-yellow) !important;
+  --identity-icon-color: var(--uc-identity-colour-yellow) !important;
+}
+.identity-color-orange {
+  --identity-tab-color: var(--uc-identity-colour-orange) !important;
+  --identity-icon-color: var(--uc-identity-colour-orange) !important;
+}
+.identity-color-red {
+  --identity-tab-color: var(--uc-identity-colour-red) !important;
+  --identity-icon-color: var(--uc-identity-colour-red) !important;
+}
+.identity-color-pink {
+  --identity-tab-color: var(--uc-identity-colour-pink) !important;
+  --identity-icon-color: var(--uc-identity-colour-pink) !important;
+}
+.identity-color-purple {
+  --identity-tab-color: var(--uc-identity-colour-purple) !important;
+  --identity-icon-color: var(--uc-identity-colour-purple) !important;
+}

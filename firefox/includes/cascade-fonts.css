@@ -1,0 +1,14 @@
+:root {
+  --tab-font: "Berkeley Mono";
+  --urlbar-font: "Berkeley Mono";
+  --font-size: 16px;
+}
+
+#urlbar,
+#urlbar-input,
+#urlbar-container,
+.tab-label,
+tab {
+  font-family: var(--urlbar-font, var(--tab-font, monospace)) !important;
+  font-size: var(--font-size) !important;
+}

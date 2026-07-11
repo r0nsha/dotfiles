@@ -14,17 +14,6 @@ if pgrep -xi firefox >/dev/null
     exit 1
 end
 
-if not test -f "$firefox_dir/user.js"
-    echo "error: $firefox_dir/user.js not found" >&2
-    exit 1
-end
-
-if not test -f "$firefox_dir/userChrome.css"
-    echo "error: $firefox_dir/userChrome.css not found" >&2
-    exit 1
-end
-
-# parse profiles.ini for profile paths
 if not test -f "$firefox_profile_dir/profiles.ini"
     echo "error: $firefox_profile_dir/profiles.ini not found" >&2
     exit 1
@@ -54,28 +43,17 @@ for profile in $profiles
     mkdir -p $profdir/chrome
     set chrome_target $profdir/chrome/userChrome.css
     set chrome_source $firefox_dir/userChrome.css
-    if test -L "$chrome_target"
-        ln -sfv $chrome_source $chrome_target
-    else if test -f "$chrome_target"
-        echo "backing up existing $chrome_target"
-        mv "$chrome_target" "$chrome_target.bak"
-        ln -sfv $chrome_source $chrome_target
-    else
-        ln -sfv $chrome_source $chrome_target
-    end
+    ln -sfv $chrome_source $chrome_target
+
+    # includes
+    set includes_target $profdir/chrome/includes
+    set includes_source $firefox_dir/includes
+    ln -sfv $includes_source $includes_target
 
     # user.js
     set js_target $profdir/user.js
     set js_source $firefox_dir/user.js
-    if test -L "$js_target"
-        ln -sfv $js_source $js_target
-    else if test -f "$js_target"
-        echo "backing up existing $js_target"
-        mv "$js_target" "$js_target.bak"
-        ln -sfv $js_source $js_target
-    else
-        ln -sfv $js_source $js_target
-    end
+    ln -sfv $js_source $js_target
 end
 
 # policies.json for extension installs and locked prefs
@@ -117,16 +95,8 @@ if not test -d "$policies_dir"
 end
 
 if test -w "$policies_dir"
-    if test -f "$policies_file"
-        echo "backing up existing $policies_file"
-        cp "$policies_file" "$policies_file.bak"
-    end
     echo "$policies_content" >"$policies_file"
 else
-    if test -f "$policies_file"
-        echo "backing up existing $policies_file"
-        sudo cp "$policies_file" "$policies_file.bak"
-    end
     echo "$policies_content" | sudo tee "$policies_file" >/dev/null
 end
 

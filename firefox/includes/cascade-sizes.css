@@ -1,0 +1,30 @@
+:root {
+  --tab-min-height: 22px !important;
+  --urlbar-min-height: 22px !important;
+  --urlbar-height: 22px !important;
+}
+
+#tabbrowser-tabs {
+  min-height: var(--tab-min-height) !important;
+}
+
+#TabsToolbar,
+.tabbrowser-tab {
+  max-height: var(--tab-min-height) !important;
+}
+
+.tab-background {
+  min-height: var(--tab-min-height) !important;
+}
+
+#urlbar {
+  min-height: var(--urlbar-min-height) !important;
+}
+
+#urlbar-container {
+  --urlbar-container-height: var(--urlbar-min-height) !important;
+}
+
+#nav-bar {
+  padding-block: 0 !important;
+}
