@@ -1,7 +1,4 @@
 # options
---max-columns=450
---max-columns-preview
---column
 --smart-case
 --hidden
 
