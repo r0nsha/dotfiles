@@ -9,7 +9,7 @@ if test (uname) = Darwin
     set policies_dir /Applications/Firefox.app/Contents/Resources/distribution
 end
 
-if pgrep -x firefox >/dev/null; or pgrep -x Firefox >/dev/null
+if pgrep -xi firefox >/dev/null
     echo "error: firefox is running. close it first so prefs apply correctly." >&2
     exit 1
 end
@@ -30,10 +30,7 @@ if not test -f "$firefox_profile_dir/profiles.ini"
     exit 1
 end
 
-set profiles
-for line in (grep '^Path=' "$firefox_profile_dir/profiles.ini")
-    set -a profiles (string replace 'Path=' '' $line)
-end
+set profiles (rg -Nor '$1' '^Path=(.*)' "$firefox_profile_dir/profiles.ini" 2>/dev/null)
 
 if test (count $profiles) -eq 0
     echo "error: no profiles found in $firefox_profile_dir/profiles.ini" >&2
