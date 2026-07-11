@@ -183,8 +183,6 @@ vim.keymap.set("n", "<leader>sp", function()
           else
             vim.cmd("tabnew | tcd " .. item.file)
           end
-
-          vim.cmd("ex " .. item.file)
         end)
       end
     end,
