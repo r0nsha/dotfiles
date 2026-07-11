@@ -9,10 +9,10 @@ user_pref("browser.chat.enabled", false);
 user_pref("layout.css.prefers-color-scheme.content-override", 0);
 user_pref("browser.theme.content-theme", 0);
 user_pref("browser.theme.dark-private-windows", true);
-// user_pref("font.default.x-western", "sans-serif");
-// user_pref("font.name.serif.x-western", "Berkeley Mono");
-// user_pref("font.name.sans-serif.x-western", "Berkeley Mono");
-user_pref("font.name.monospace.x-western", "Berkeley Mono");
+user_pref("font.default.x-western", "sans-serif");
+user_pref("font.name.serif.x-western", "BerkeleyMono Nerd Font Propo");
+user_pref("font.name.sans-serif.x-western", "BerkeleyMono Nerd Font Propo");
+user_pref("font.name.monospace.x-western", "BerkeleyMono Nerd Font");
 user_pref("browser.display.use_document_fonts", 0);
 
 user_pref("privacy.resistFingerprinting.block_mozAddonManager", true);
