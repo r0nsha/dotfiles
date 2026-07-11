@@ -18,13 +18,13 @@ if pgrep -x firefox >/dev/null; or pgrep -x Firefox >/dev/null
     exit 1
 end
 
-if not test -f "$dotfiles/.config/firefox/user.js"
-    echo "error: $dotfiles/.config/firefox/user.js not found" >&2
+if not test -f "$dotfiles/firefox/user.js"
+    echo "error: $dotfiles/firefox/user.js not found" >&2
     exit 1
 end
 
-if not test -f "$dotfiles/.config/firefox/userChrome.css"
-    echo "error: $dotfiles/.config/firefox/userChrome.css not found" >&2
+if not test -f "$dotfiles/firefox/userChrome.css"
+    echo "error: $dotfiles/firefox/userChrome.css not found" >&2
     exit 1
 end
 
@@ -60,7 +60,7 @@ for profile in $profiles
     # userChrome.css
     mkdir -p $profdir/chrome
     set chrome_target $profdir/chrome/userChrome.css
-    set chrome_source $dotfiles/.config/firefox/userChrome.css
+    set chrome_source $dotfiles/firefox/userChrome.css
     if test -L "$chrome_target"
         ln -sfv $chrome_source $chrome_target
     else if test -f "$chrome_target"
@@ -73,7 +73,7 @@ for profile in $profiles
 
     # user.js
     set js_target $profdir/user.js
-    set js_source $dotfiles/.config/firefox/user.js
+    set js_source $dotfiles/firefox/user.js
     if test -L "$js_target"
         ln -sfv $js_source $js_target
     else if test -f "$js_target"

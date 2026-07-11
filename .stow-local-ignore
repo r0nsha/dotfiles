@@ -27,6 +27,7 @@ _darcs
 DS_Store
 .DS_Store
 
+^/firefox
 ^/install
 ^/ly
 ^/.config/jj/conf.d
