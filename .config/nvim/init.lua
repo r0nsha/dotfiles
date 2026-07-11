@@ -21,7 +21,7 @@ vim.pack.add({
   src.gh("nvim-lua/plenary.nvim"),
   src.gh("rafamadriz/friendly-snippets"),
   src.gh("nvim-mini/mini.nvim"),
-  "https://tangled.org/ronshavit.com/mini.diff.jj",
+  src.tngl("ronshavit.com/mini.diff.jj"),
   src.gh("neovim/nvim-lspconfig"),
   src.gh("williamboman/mason.nvim"),
   src.gh("WhoIsSethDaniel/mason-tool-installer.nvim"),

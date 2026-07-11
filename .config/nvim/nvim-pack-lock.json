@@ -45,7 +45,7 @@
       "src": "https://github.com/williamboman/mason.nvim"
     },
     "mini.diff.jj": {
-      "rev": "5cb6cc239394c21b90c4b7848a96c1c023aa6057",
+      "rev": "0c43dea746088ce07c1c60f2b3c50e0aa7ff11c2",
       "src": "https://tangled.org/ronshavit.com/mini.diff.jj"
     },
     "mini.nvim": {
