@@ -19,7 +19,7 @@ input {
     warp-mouse-to-focus
     focus-follows-mouse max-scroll-amount="0%"
 }
-output "DP-4" {
+output "Samsung Electric Company LC49G95T H4ZTA00002" {
     mode "5120x1440@239.761002"
 }
 gestures {
