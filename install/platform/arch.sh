@@ -147,6 +147,7 @@ deps=(
     python-tldextract
     cronie
     firefox
+    qutebrowser-git
     aerc
     w3m
     dante

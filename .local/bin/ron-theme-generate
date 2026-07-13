@@ -9,6 +9,5 @@ end
 
 hellwal -i (readlink -f ~/.cache/current_background) \
     --skip-term-colors \
-    --check-contrast \
     $hwargs \
     -s ron-theme-apply

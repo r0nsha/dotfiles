@@ -70,6 +70,7 @@ install_deps() {
         nikitabobko/tap/aerospace
         fontforge
         firefox
+        qutebrowser
         watchman
         aerc
         w3m

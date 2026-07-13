@@ -1,11 +1,10 @@
 palette = {
     "bg0": "#%%background%%",
-    "bg1": "#%%color2%%",
-    "bg2": "#%%color4%%",
+    "bg1": "#%%color3%%",
+    "bg2": "#%%color6%%",
     "bg-private": "#%%color12%%",
-    "fg": "#%%color13%%",
-    "fg-private": "#%%color13%%",
-    "active": "#%%foreground%%",
+    "fg": "#%%foreground%%",
+    "fg-dim": "#%%color14%%",
     "success": "#%%color13%%",
-    "border": "#%%color2%%",
+    "border": "#%%color6%%",
 }
