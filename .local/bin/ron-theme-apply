@@ -48,6 +48,11 @@ pkill -SIGUSR1 kitty
 # tmux
 tmux source-file ~/.config/tmux/tmux.conf
 
+# qutebrowser
+if pgrep qutebrowser
+    qutebrowser :config-source
+end
+
 # firefox
 if command -vq pywalfox
     ln -sfv ~/.cache/hellwal/colors.json ~/.cache/wal/colors.json
