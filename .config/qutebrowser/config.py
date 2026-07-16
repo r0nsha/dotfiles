@@ -1,6 +1,17 @@
+# pyright: reportMissingTypeStubs=false
+# pyright: reportUndefinedVariable=false
+# pyright: reportUnknownVariableType=false
+
 import importlib.util
 import os
 import platform
+from typing import cast
+
+from qutebrowser.config.config import ConfigContainer  # noqa: F401
+from qutebrowser.config.configfiles import ConfigAPI  # noqa: F401
+
+config = cast(ConfigAPI, config)
+c = cast(ConfigContainer, c)
 
 system = platform.system()
 homedir = os.path.expanduser("~")
@@ -10,6 +21,14 @@ config.load_autoconfig(True)
 # Options
 c.fonts.default_family = ["BerkeleyMono Nerd Font Propo"]
 c.fonts.default_size = "14pt" if system == "Darwin" else "12pt"
+c.fonts.web.family.standard = "BerkeleyMono Nerd Font Propo"
+c.fonts.web.family.fixed = "BerkeleyMono Nerd Font Mono"
+c.fonts.web.family.serif = "BerkeleyMono Nerd Font Propo"
+c.fonts.web.family.sans_serif = "BerkeleyMono Nerd Font Propo"
+c.fonts.web.family.fantasy = "BerkeleyMono Nerd Font Propo"
+c.fonts.web.family.cursive = "BerkeleyMono Nerd Font Propo"
+
+c.content.user_stylesheets = [homedir + "/.config/qutebrowser/user.css"]
 c.fonts.tabs.selected = "bold default_size default_family"
 c.auto_save.interval = 15000
 c.auto_save.session = True

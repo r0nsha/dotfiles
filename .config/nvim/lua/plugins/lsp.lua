@@ -21,6 +21,7 @@ local servers = {
   dockerls = { name = "docker-language-server" },
   sqls = {},
   helm_ls = { name = "helm-ls" },
+  basedpyright = {},
 }
 
 require("mason").setup()
