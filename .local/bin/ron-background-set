@@ -1,7 +1,11 @@
 #!/usr/bin/env fish
 # Changes the wallpaper to the given image and updates the updates the desktop according to the wallpaper's colors.
 
-set img "$argv[1]"
+set img (readlink -f "$argv[1]")
+if not test -f "$img"
+    echo "Error: '$argv[1]' is not a valid file" >&2
+    exit 1
+end
 
 set pid (pidof wbg)
 swaybg --mode fill --output '*' --image "$img" &
