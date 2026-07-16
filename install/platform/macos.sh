@@ -64,14 +64,16 @@ install_deps() {
         pinentry-mac
         n
         go
-        nikitabobko/tap/aerospace
         fontforge
         qutebrowser
         watchman
         localsend
         btop
+        nikitabobko/tap/aerospace
+        FelixKratz/formulae/borders
     )
 
+    brew trust nikitabobko/tap FelixKratz/formulae
     brew install ${deps[@]}
 }
 

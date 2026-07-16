@@ -30,8 +30,10 @@ mkdir -p "$LOCAL_BIN" "$LOCAL_OPT" "$LOCAL_SHARE" "$DEV" "$DOWNLOADS" "$PICTURES
 
 # make scripts executable
 step "chmod"
-chmod -v ug+x $DOTFILES/.local/bin/*
-chmod -v ug+x $DOTFILES/.config/waybar/scripts/*
+chmod -v ug+x \
+    $DOTFILES/.local/bin/* \
+    $DOTFILES/.config/waybar/scripts/* \
+    $DOTFILES/.config/borders/bordersrc
 success
 
 # install tools
