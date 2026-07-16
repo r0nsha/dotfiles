@@ -119,7 +119,7 @@ environment {
     TERMCMD "ghostty"
     VISUAL "nvim"
     EDITOR "nvim"
-    BROWSER "firefox"
+    BROWSER "qutebrowser"
     MANPAGER "nvim +Man!"
     // NVidia
     GDK_BACKEND "wayland,x11"
@@ -444,10 +444,10 @@ binds {
         spawn "ghostty"
     }
     Mod+B hotkey-overlay-title="Spawn Browser" {
-        spawn "firefox"
+        spawn "qutebrowser"
     }
     Mod+Alt+B hotkey-overlay-title="Spawn Browser (Private)" {
-        spawn "firefox" "--private-window"
+        spawn "qutebrowser" "--target" "private-window"
     }
     Mod+Space repeat=false {
         spawn "fuzzel"

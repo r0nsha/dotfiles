@@ -25,7 +25,7 @@ switch (uname)
     case Darwin
         # Do nothing
     case '*'
-        set -Ux BROWSER firefox
+        set -Ux BROWSER qutebrowser
 end
 
 # Set lang to UTF-8
