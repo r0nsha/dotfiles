@@ -59,7 +59,7 @@ install_deps() {
         font-iosevka-nerd-font
         opencode
         jj
-        responsively
+        mergiraf
         gnupg2
         pass
         pass-otp

@@ -33,6 +33,7 @@ deps=(
     github-cli
     git-delta
     jujutsu
+    mergiraf
     perl-authen-sasl
     perl-io-socket-ssl
     zoxide
@@ -165,7 +166,6 @@ deps=(
     protonup-rs
     downgrade
     opencode-bin
-    responsively
     stremio
     xdg-desktop-portal
     xdg-desktop-portal-wlr
