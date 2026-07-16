@@ -30,6 +30,8 @@ c.fonts.web.family.cursive = "BerkeleyMono Nerd Font Propo"
 
 c.content.user_stylesheets = [homedir + "/.config/qutebrowser/user.css"]
 c.fonts.tabs.selected = "bold default_size default_family"
+c.url.default_page = "about:blank"
+c.url.start_pages = ["about:blank"]
 c.auto_save.interval = 15000
 c.auto_save.session = True
 c.tabs.position = "top"
@@ -90,7 +92,6 @@ c.content.blocking.adblock.lists = [
 ]
 
 # Permissions
-
 webcam_allowed_domains = [
     "*://riverside.fm/*",
     "*://meet.google.com/*",
@@ -253,10 +254,11 @@ config.bind("gP", "open --private")
 config.bind(";m", "hint links spawn mpv {hint-url}")
 
 # qute-pass
-config.bind("<z><l>", "spawn --userscript qute-pass")
-config.bind("<z><u><l>", "spawn --userscript qute-pass --username-only")
-config.bind("<z><p><l>", "spawn --userscript qute-pass --password-only")
-config.bind("<z><o><l>", "spawn --userscript qute-pass --otp-only")
+spawn_qute_pass = "spawn --userscript qute-pass --dmenu-invocation 'fuzzel -d -w 50'"
+config.bind("<z><l>", spawn_qute_pass)
+config.bind("<z><u><l>", spawn_qute_pass + " --username-only")
+config.bind("<z><p><l>", spawn_qute_pass + " --password-only")
+config.bind("<z><o><l>", spawn_qute_pass + " --otp-only")
 
 # Spoof User-Agent for Google domains
 spoof_domains = [
