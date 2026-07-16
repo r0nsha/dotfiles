@@ -30,5 +30,4 @@ _darcs
 ^/firefox
 ^/install
 ^/ly
-^/.config/jj/conf.d
 \.jj
