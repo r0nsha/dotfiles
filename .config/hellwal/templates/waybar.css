@@ -44,6 +44,11 @@ tooltip {
   padding: 4px 16px;
 }
 
+#mode.normal {
+  font-size: 0;
+}
+
+#tags,
 #workspaces,
 #tray {
   padding: 4px 8px;
@@ -70,21 +75,18 @@ tooltip {
   padding: 0 8px;
 }
 
+#tags button,
 #workspaces button {
   all: unset;
   min-width: 0;
   margin-left: 8px;
   margin-right: 8px;
-  color: @color7;
+  color: @color6;
 }
 
+#tags button.focused,
 #workspaces button.active {
   color: @color15;
-  font-weight: bold;
-}
-
-#workspaces button.urgent {
-  color: @color14;
 }
 
 #tray menu {
@@ -116,7 +118,7 @@ tooltip {
 #mpris.paused,
 #mpris.stopped {
   opacity: 1;
-  color: @color7;
+  color: @color6;
 }
 
 #custom-recording,
@@ -138,27 +140,5 @@ tooltip {
 }
 
 #network.disconnected {
-  color: @color14;
-}
-
-#battery,
-#cpu,
-#memory {
-  margin-right: 8px;
-}
-
-#temperature.critical {
-  color: @color14;
-}
-
-#battery.charging {
-  color: @color11;
-}
-
-#battery.warning {
-  color: @color13;
-}
-
-#battery.critical {
   color: @color14;
 }

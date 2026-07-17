@@ -1,0 +1,151 @@
+#!/usr/bin/env fish
+
+# env
+## general
+set -gx TERMINAL ghostty
+set -gx TERMCMD ghostty
+set -gx VISUAL nvim
+set -gx EDITOR nvim
+set -gx BROWSER qutebrowser
+set -gx MANPAGER "nvim +Man!"
+
+## nvidia
+set -gx GDK_BACKEND "wayland,x11"
+set -gx GBM_BACKEND nvidia-drm
+set -gx LIBVA_DRIVER_NAME nvidia
+set -gx __GLX_VENDOR_LIBRARY_NAME nvidia
+set -gx SDL_VIDEODRIVER wayland
+set -gx CLUTTER_BACKEND wayland
+set -gx MOZ_ENABLE_WAYLAND 1
+set -gx MOZ_DISABLE_RDD_SANDBOX 1
+set -gx _JAVA_AWT_WM_NONREPARENTING 1
+set -gx QT_AUTO_SCREEN_SCALE_FACTOR 1
+set -gx QT_QPA_PLATFORM wayland
+set -gx PROTON_ENABLE_NGX_UPDATER 1
+set -gx NVD_BACKEND direct
+set -gx __GL_GSYNC_ALLOWED 1
+set -gx __GL_VRR_ALLOWED 1
+
+## electron
+set -gx ELECTRON_OZONE_PLATFORM_HINT auto
+
+## qt
+set -gx QT_QPA_PLATFORMTHEME qt6ct
+
+# output
+
+# input
+riverctl keyboard-layout -options grp:alt_space_toggle us,il
+riverctl set-repeat 50 300
+riverctl focus-follows-cursor normal
+riverctl hide-cursor when-typing enabled
+riverctl set-cursor-warp on-focus-change
+
+# layout
+riverctl default-layout bsp-layout
+river-bsp-layout &
+
+riverctl border-color-focused 0xffffff
+riverctl border-color-unfocused 0x555555
+riverctl border-color-urgent 0xff0000
+riverctl border-width 1
+
+# mappings
+set mod Super
+
+riverctl map -repeat normal $mod H focus-view left
+riverctl map -repeat normal $mod J focus-view down
+riverctl map -repeat normal $mod K focus-view up
+riverctl map -repeat normal $mod L focus-view right
+riverctl map -repeat normal $mod N focus-view next
+
+riverctl map -repeat normal $mod+Shift H swap left
+riverctl map -repeat normal $mod+Shift J swap down
+riverctl map -repeat normal $mod+Shift K swap up
+riverctl map -repeat normal $mod+Shift L swap right
+riverctl map -repeat normal $mod+Shift N swap next
+
+set resize_amount 0.05
+riverctl map -repeat normal $mod+Control H send-layout-cmd bsp-layout "--dec-vsplit $resize_amount"
+riverctl map -repeat normal $mod+Control J send-layout-cmd bsp-layout "--inc-hsplit $resize_amount"
+riverctl map -repeat normal $mod+Control K send-layout-cmd bsp-layout "--dec-hsplit $resize_amount"
+riverctl map -repeat normal $mod+Control L send-layout-cmd bsp-layout "--inc-vsplit $resize_amount"
+
+riverctl map normal $mod F toggle-float
+
+riverctl map normal $mod W close
+riverctl map normal $mod Escape spawn hyprlock
+riverctl map normal $mod+Alt+Control+Shift Escape exit
+
+riverctl map normal $mod Space spawn fuzzel
+riverctl map normal $mod Apostrophe spawn ron-menu-unified
+riverctl map normal $mod+Shift Escape spawn ron-menu-power
+riverctl map normal $mod+Shift S spawn "ron-capture-screenshot --region=region"
+riverctl map normal $mod+Alt S spawn "ron-capture-screenrecord --region=region"
+riverctl map normal $mod C spawn ron-menu-clip
+riverctl map normal $mod+Alt C spawn ron-menu-clip-img
+riverctl map normal $mod+Shift C spawn "hyprpicker --autocopy --format=hex --lowercase-hex"
+riverctl map normal $mod P spawn tessen
+riverctl map normal $mod E spawn "rofimoji --selector=fuzzel --skin-tone=medium-light --prompt='emoji> '"
+riverctl map normal $mod+Shift T spawn "ron-theme-set toggle"
+
+riverctl map normal $mod N spawn "makoctl invoke"
+riverctl map normal $mod+Ctrl N spawn "makoctl dismiss"
+riverctl map normal $mod+Shift N spawn "makoctl dismiss --all"
+
+riverctl declare-mode spawn
+riverctl map normal $mod O enter-mode spawn
+for _mod in $mod None
+    riverctl map spawn $_mod T spawn "$TERMINAL & riverctl enter-mode normal"
+    riverctl map spawn $_mod B spawn "$BROWSER & riverctl enter-mode normal"
+    riverctl map spawn $_mod+Alt B spawn "$BROWSER --target private-window & riverctl enter-mode normal"
+    riverctl map spawn $_mod Escape enter-mode normal
+end
+
+riverctl declare-mode settings
+riverctl map normal $mod Comma enter-mode settings
+for _mod in $mod None
+    riverctl map settings $_mod S spawn "ron-menu-audio & riverctl enter-mode normal"
+    riverctl map settings $_mod B spawn "xdg-terminal-exec --app-id=ron.terminal.floating bluetui & riverctl enter-mode normal"
+    riverctl map settings $_mod U spawn "ron-menu-mount & riverctl enter-mode normal"
+    riverctl map settings $_mod W spawn "xdg-terminal-exec --app-id=ron.terminal.floating impala & riverctl enter-mode normal"
+    riverctl map settings $_mod Escape enter-mode normal
+end
+
+for mode in normal locked
+    riverctl map $mode None XF86AudioRaiseVolume spawn "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"
+    riverctl map $mode None XF86AudioLowerVolume spawn "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"
+    riverctl map $mode None XF86AudioMute spawn "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+    riverctl map $mode None $mod XF86AudioRaiseVolume spawn "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 0.1+ -l 1.0"
+    riverctl map $mode None $mod XF86AudioLowerVolume spawn "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 0.1-"
+    riverctl map $mode None $mod XF86AudioMute spawn "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+    riverctl map $mode None XF86AudioMicMute spawn "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+    riverctl map $mode None XF86AudioPlay spawn "playerctl play-pause"
+    riverctl map $mode None XF86AudioPause spawn "playerctl play-pause"
+    riverctl map $mode None XF86AudioStop spawn "playerctl stop"
+    riverctl map $mode None XF86AudioPrev spawn "playerctl previous"
+    riverctl map $mode None XF86AudioNext spawn "playerctl next"
+end
+
+# rules
+riverctl rule-add -app-id '*' ssd
+riverctl rule-add -app-id 'ron.terminal.floating' float
+riverctl rule-add -app-id '*firefox*' -title Picture-in-Picture float
+riverctl rule-add -app-id '*localsend*' float
+riverctl rule-add -app-id '*localsend*' dimensions 1100 700
+riverctl rule-add -app-id '*Share*' float
+riverctl rule-add -app-id '*Share*' dimensions 1100 700
+riverctl rule-add -app-id swayimg-picker float
+riverctl rule-add -app-id swayimg-picker dimensions 9999 9999 # take up the whole screen
+
+# autostart
+systemctl --user start hyprpolkitagent.service
+playerctld daemon &
+udiskie --smart-tray &
+wl-paste --type text --watch cliphist stow &
+wl-paste --type image --watch cliphist stow &
+mako &
+kanshi &
+hypridle &
+waybar &
+ron-background-random ~/pictures/backgrounds &

@@ -149,13 +149,14 @@ deps=(
     zathura-pdf-mupdf
     python-tldextract
     cronie
-    firefox
     qutebrowser-git
     aerc
     w3m
     dante
     senpai
     guvcview
+    river-classic
+    river-bsp-layout
     niri-git
     vesktop
     hellwal
@@ -176,6 +177,7 @@ deps=(
     xdg-desktop-portal-termfilechooser
     gpu-screen-recorder-git
     wlr-randr
+    kanshi
     watchman-bin
     localsend
     xdg-terminal-exec-git

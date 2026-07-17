@@ -13,7 +13,7 @@ set -l options (
         echo $label
     end | sort | string join "\n"
 )
-set -l picked (echo -e $options | fuzzel -d -p "mount> ")
+set -l picked (echo -e $options | fuzzel -d -p "mount> " --minimal-lines)
 set -l device (echo $picked | awk '{print $2}')
 
 if test -z "$device"
