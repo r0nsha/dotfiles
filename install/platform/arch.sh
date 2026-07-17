@@ -12,6 +12,7 @@ install_wrapper paru install_paru
 deps=(
     coreutils
     util-linux
+    kmscon
     xdg-utils
     scdoc
     stow
@@ -46,6 +47,7 @@ deps=(
     skim
     chafa
     gnupg2
+    pinentry
     rng-tools
     pass
     pass-otp
@@ -229,10 +231,17 @@ systemctl --user enable --now \
     ssh-agent.socket
 success
 
+# kmscon
+sudo mkdir -pv /etc/kmscon
+sudo ln -sfv "$DOTFILES/kmscon/kmscon.conf" /etc/kmscon/kmscon.conf
+sudo systemctl disable getty@.service
+sudo systemctl enable kmsconvt@.service
+
 # ly
 sudo ln -sfv "$DOTFILES/ly/config.ini" /etc/ly/config.ini
-sudo systemctl enable ly.service
+sudo systemctl enable ly-kmsconvt@tty2.service
 sudo systemctl disable getty@tty2.service
+sudo systemctl disable kmsconvt@tty2.service
 
 # chrony
 sudo chronyc online
