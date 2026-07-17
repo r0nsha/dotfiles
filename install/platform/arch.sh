@@ -113,6 +113,7 @@ pacman_deps=(
     qt6-multimedia-ffmpeg
     qt5ct
     qt6ct
+    sway
     swaybg
     swayimg
     ly
@@ -251,6 +252,8 @@ sudo systemctl enable getty@tty1.service
 
 # # ly
 # sudo ln -sfv "$DOTFILES/ly/config.ini" /etc/ly/config.ini
+# sudo rm -rf /etc/ly/custom-sessions
+# sudo ln -sfv "$DOTFILES/ly/custom-sessions" /etc/ly/custom-sessions
 # sudo systemctl enable ly@tty2.service
 # sudo systemctl disable getty@tty2.service
 
