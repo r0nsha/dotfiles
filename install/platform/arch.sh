@@ -134,13 +134,12 @@ pacman_deps=(
     xdg-desktop-portal
     xdg-desktop-portal-gtk
     xdg-desktop-portal-wlr
-    xdg-desktop-portal-hyprland
-    xdg-desktop-portal-gnome
     wayland-utils
     wlr-randr
     wlopm
     kanshi
     adw-gtk-theme
+    river-classic
 )
 
 step "installing pacman packages"
@@ -161,7 +160,6 @@ aur_deps=(
     tessen
     pass-git-helper
     qutebrowser-git
-    niri-git
     vesktop
     hellwal
     mpv-uosc-git
@@ -179,6 +177,7 @@ aur_deps=(
     watchman-bin
     localsend-bin
     xdg-terminal-exec-git
+    river-bsp-layout
 )
 
 step "installing AUR packages"

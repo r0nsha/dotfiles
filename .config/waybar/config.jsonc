@@ -1,7 +1,7 @@
 {
   "position": "top",
   "reload_style_on_change": true,
-  "modules-left": ["niri/workspaces", "tray"],
+  "modules-left": ["river/tags", "tray", "river/mode"],
   "modules-center": ["mpris"],
   "modules-right": [
     "custom/recording",
