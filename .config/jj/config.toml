@@ -60,31 +60,11 @@ auto-update-stale = true
 [aliases]
 retrunk = ["rebase", "--skip-emptied", "-d", "trunk()"]
 ret = ["retrunk"]
-retrunk-all = ["retrunk", "-b", "bookmarks()"]
-retall = ["retrunk-all"]
 pullup = ['retrunk', '-s', 'mutable()']
 d = ["diff"]
 e = ["edit"]
 n = ["new"]
-i = ["git", "init", "--colocate"]
-# Rebase
-r = ["rebase"]
-s = ["squash"]
-si = ["squash", "--interactive"]
-# List my branches
-mine = ["bookmark", "list", "-r", "mine()"]
-# List all branches
-branches = ["log", "-r", "heads(all())"]
-pmine = ["git", "push", "-b", "glob:ron/*"]
-l = [
-  "log",
-  "-r",
-  "@ | ancestors(trunk()..(visible_heads() & mine()), 2) | trunk()",
-]
-la = ["log", "-r", "all()"]
 gc = ["abandon", "-r", "empty() & mutable()"]
-init = ["git", "init"]
-clone = ["git", "clone"]
 fetch = ["git", "fetch"]
 push = ["git", "push"]
 send-email = ["util", "exec", "--", "ron-jj-send-email"]
