@@ -116,8 +116,7 @@ c.url.searchengines["ap"] = (
 c.url.searchengines["aur"] = "https://aur.archlinux.org/packages/?K={}"
 c.url.searchengines["gh"] = "https://github.com/search?q={}&type=Code"
 c.url.searchengines["pdb"] = "https://www.protondb.com/search?q={}"
-c.url.searchengines["DEFAULT"] = c.url.searchengines["g"]
-# c.url.searchengines["DEFAULT"] = "https://duckduckgo.com/?q={}"
+c.url.searchengines["DEFAULT"] = "https://duckduckgo.com/?q={}"
 
 # Colors
 cache_path = os.path.expanduser("~/.cache/hellwal/qutebrowser.py")
