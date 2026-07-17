@@ -16,21 +16,19 @@ local function read(var, pass_name)
     vim.schedule(function() vim.env[var] = result end)
   end)
 
-  -- j:after_failure(function()
-  --   local error = table.concat(j:stderr_result(), "\n")
-  --   vim.schedule(function()
-  --     vim.notify(string.format("Failed retrieving `%s` from `pass`. %s", pass_name, error))
-  --   end)
-  -- end)
+  j:after_failure(function()
+    local error = table.concat(j:stderr_result(), "\n")
+    vim.schedule(
+      function()
+        vim.notify(string.format("Failed retrieving `%s` from `pass`. %s", pass_name, error))
+      end
+    )
+  end)
 
   j:start()
 end
 
-function M.load()
-  read("CODESTRAL_API_KEY", "console.mistral.ai/codestral")
-  read("GEMINI_API_KEY", "google.com/gemini")
-  read("TAVILY_API_KEY", "tavily.com/personal")
-end
+function M.load() read("CODESTRAL_API_KEY", "console.mistral.ai/codestral") end
 
 vim.api.nvim_create_user_command("PassLoad", M.load, {})
 
