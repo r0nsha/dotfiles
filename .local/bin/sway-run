@@ -1,0 +1,41 @@
+#!/usr/bin/env fish
+
+# general
+set -gx TERMINAL ghostty
+set -gx TERMCMD ghostty
+set -gx VISUAL nvim
+set -gx EDITOR nvim
+set -gx BROWSER qutebrowser
+set -gx MANPAGER "nvim +Man!"
+
+# electron
+set -gx ELECTRON_OZONE_PLATFORM_HINT auto
+
+# qt
+set -gx QT_QPA_PLATFORMTHEME qt6ct
+set -gx QT_QPA_PLATFORM wayland
+
+# force firefox into wayland
+set -gx MOZ_ENABLE_WAYLAND 1
+
+# sway
+set -gx XDG_CURRENT_DESKTOP sway
+set -gx XDG_SESSION_TYPE wayland
+
+# nvidia
+if command -q nvidia-smi; and nvidia-smi -L >/dev/null 2>&1
+    set -gx GBM_BACKEND nvidia-drm
+    set -gx LIBVA_DRIVER_NAME nvidia
+    set -gx __GLX_VENDOR_LIBRARY_NAME nvidia
+    set -gx MOZ_DISABLE_RDD_SANDBOX 1
+    set -gx MOZ_WAYLAND_USE_VAAPI 1
+    set -gx NVD_BACKEND direct
+    set -gx __GL_GSYNC_ALLOWED 1
+    set -gx __GL_VRR_ALLOWED 1
+end
+
+systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+systemctl --user restart xdg-desktop-portal
+
+exec sway --unsupported-gpu
