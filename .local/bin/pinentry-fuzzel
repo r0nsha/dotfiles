@@ -1,0 +1,134 @@
+#!/usr/bin/env fish
+
+# General information about the pinentry protocol:
+# https://gnupg.org/ftp/manuals/0.1/pinentry.html
+# https://www.gnupg.org/documentation/manuals/assuan/Assuan-Protocol.html
+#
+# Based on pinentry-dmenu:
+# https://github.com/inco-cc/pinentry-dmenu/blob/master/pinentry-dmenu
+#
+# Optional debug output: PINENTRY_DEBUG=/path/to/log
+
+set -l ERR_CANCELLED 83886179
+
+set -gx DBG_FILE $PINENTRY_DEBUG
+if test -n "$DBG_FILE"
+    : >$DBG_FILE
+end
+function debug
+    test -n "$DBG_FILE"; or return 0
+    printf '%s\n' $argv >>$DBG_FILE
+end
+
+function pct_decode --argument-names s
+    echo $s | python3 -c "import sys, urllib.parse as ul; print(ul.unquote_plus(sys.stdin.read().strip()))"
+end
+
+set -l KEY_NAME ''
+set -l KEY_ID ''
+set -l DESC_RAW ''
+
+# Send greeting. No options advertised; client sends its commands next.
+echo 'OK Pleased to meet you'
+
+while read -l line
+    debug "< $line"
+    # pinentry/gpg-agent commands are case-insensitive; normalize for matching.
+    switch (string upper -- $line)
+        case '*BYE*'
+            break
+
+        case '*RESET*'
+            set KEY_NAME ''
+            set KEY_ID ''
+            set DESC_RAW ''
+            echo OK
+
+        case '*OPTION*'
+            # Accept all options silently. Common: ttyname, ttytype, display,
+            # lc-ctype, lc-messages, parent-window, touch-file.
+            echo OK
+
+        case '*SETDESC*'
+            # SETDESC <percent-encoded description>. gpg-agent sends:
+            #   Please enter passphrase to unlock the OpenPGP secret key:%0A%22Key%22%0A%22User <u@e>%22%0A<grip>
+            set -l parts (string split -m 1 ' ' -- $line)
+            set DESC_RAW $parts[2]
+            # Best-effort extract the quoted key name for the short prompt.
+            set -l after (string split -m 1 ':%0A%22' -- $DESC_RAW)
+            if test (count $after) -gt 1
+                set KEY_NAME (string split -m 1 '%22%0A' -- $after[2])[1]
+            end
+            echo OK
+
+        case '*SETKEYINFO*'
+            # SETKEYINFO <keygrip-or-id>. Used as short-prompt fallback.
+            set -l parts (string split -m 1 ' ' -- $line)
+            if test (count $parts) -gt 1; and test -n "$parts[2]"
+                set KEY_ID $parts[2]
+            end
+            echo OK
+
+            # State-only setters we don't interpret; just acknowledge.
+        case '*SETTITLE*' '*SETPROMPT*' '*SETERROR*' '*SETOK*' '*SETCANCEL*' '*SETNOTOK*' '*SETDISPLAY*' '*SETTTYINFO*' '*SETTTY*'
+            echo OK
+
+        case '*GETPIN*'
+            # Short prompt: prefer key name, fall back to key id, then generic.
+            if test -n "$KEY_NAME"
+                set prompt "GPG $KEY_NAME: "
+            else if test -n "$KEY_ID"
+                set prompt "GPG $KEY_ID: "
+            else
+                set prompt "GPG passphrase: "
+            end
+
+            # Render the agent's description above the prompt via fuzzel --mesg.
+            set -l mesg_args
+            if test -n "$DESC_RAW"
+                set -l decoded (echo $DESC_RAW | python3 -c "import sys, urllib.parse as ul; print(ul.unquote_plus(sys.stdin.read().strip()))")
+                if test -n "$decoded"
+                    set mesg_args --mesg "$decoded"
+                end
+            end
+
+            set -l PASS_INPUT ''
+            set -l ok no
+            if set PASS_INPUT (fuzzel --dmenu --password --prompt-only "$prompt" --width 60 $mesg_args 2>/dev/null)
+                set ok yes
+            end
+
+            if test "$ok" = yes; and test -n "$PASS_INPUT"
+                # Assuan D line cannot contain newlines; passphrases normally
+                # don't, but reject defensively rather than emit malformed data.
+                if string match -q -- '*\n*' "$PASS_INPUT"
+                    echo "ERR $ERR_CANCELLED Operation cancelled"
+                    debug "> ERR passphrase had newline"
+                else
+                    printf 'D %s\nOK\n' "$PASS_INPUT"
+                    debug "> D <hidden>"
+                end
+            else
+                echo "ERR $ERR_CANCELLED Operation cancelled"
+                debug "> ERR cancelled"
+            end
+
+        case '*CONFIRM*'
+            echo "ERR $ERR_CANCELLED Operation cancelled"
+
+        case '*MESSAGE*'
+            echo OK
+
+        case '*GETINFO*'
+            # We don't implement any sub-queries; decline per Assuan.
+            echo "ERR $ERR_CANCELLED Operation cancelled"
+
+        case ''
+            # Blank line: required to be accepted with OK per Assuan.
+            echo OK
+
+        case '*'
+            # Unknown command: respond OK rather than hang the agent.
+            echo OK
+    end
+end
