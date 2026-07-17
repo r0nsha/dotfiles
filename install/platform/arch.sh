@@ -60,6 +60,7 @@ deps=(
     lua51
     luarocks
     rustup
+    zig
     npm
     pnpm
     btop
@@ -149,7 +150,6 @@ deps=(
     zathura-pdf-mupdf
     python-tldextract
     cronie
-    firefox
     qutebrowser-git
     aerc
     w3m
@@ -175,7 +175,10 @@ deps=(
     xdg-desktop-portal-gnome
     xdg-desktop-portal-termfilechooser
     gpu-screen-recorder-git
+    wayland-utils
     wlr-randr
+    wlopm
+    kanshi
     watchman-bin
     localsend
     xdg-terminal-exec-git
@@ -228,7 +231,8 @@ systemctl --user enable --now \
     pipewire-pulse.socket \
     wireplumber.service \
     ssh-agent.service \
-    ssh-agent.socket
+    ssh-agent.socket \
+    xdg-desktop-portal.service
 success
 
 # kmscon

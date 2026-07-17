@@ -2,6 +2,11 @@
 # Changes the background to a randomly chosen image in a given directory
 # at a set interval.
 
+if test (pgrep -cf (basename (status filename))) -gt 1
+    echo "Another instance already running. Exiting."
+    exit 1
+end
+
 set default_interval 3600 # 1 hour
 
 set dir $argv[1]
@@ -26,8 +31,6 @@ if string length -q -- $interval
 else
     set interval $default_interval
 end
-
-ron-lockfile "/tmp/randomize_background.lock"
 
 while true
     if pgrep gamemoded

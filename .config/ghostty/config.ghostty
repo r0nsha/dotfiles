@@ -6,6 +6,7 @@ font-feature = -dlig
 font-feature = +ss02
 theme = Nor Dark
 config-file = ?~/.cache/ghostty/current_theme.ghostty
+background-opacity = 0.925
 # cursor-color = cell-foreground
 # cursor-text = cell-background
 cursor-style-blink = false
@@ -21,7 +22,7 @@ shell-integration-features = cursor,sudo,title
 macos-option-as-alt = true
 link-url = true
 link-previews = true
-confirm-close-surface=false
+confirm-close-surface = false
 
 keybind = ctrl+enter=unbind
 keybind = ctrl+shift+enter=unbind

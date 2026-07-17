@@ -22,6 +22,7 @@ local servers = {
   sqls = {},
   helm_ls = { name = "helm-ls" },
   basedpyright = {},
+  zls = {},
 }
 
 require("mason").setup()
