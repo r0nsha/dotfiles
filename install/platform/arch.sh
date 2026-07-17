@@ -1,3 +1,6 @@
+# pacman
+sudo ln -sfv "$DOTFILES/pacman.conf" /etc/pacman.conf
+
 install_paru() {
     cd $DOWNLOADS
     git clone https://aur.archlinux.org/paru.git
@@ -12,7 +15,7 @@ install_wrapper paru install_paru
 deps=(
     coreutils
     util-linux
-    kmscon
+    # kmscon
     xdg-utils
     scdoc
     stow
@@ -25,6 +28,7 @@ deps=(
     meson
     pkg-config
     cpio
+    pciutils
     gcc
     iwd
     chrony
@@ -111,13 +115,7 @@ deps=(
     ttf-iosevka-nerd
     ttf-iosevkaterm-nerd
     ttf-iosevkatermslab-nerd
-    nvidia-open
-    nvidia-utils
-    lib32-nvidia-utils
-    egl-wayland
-    libva-nvidia-driver
     libva-utils
-    nvidia-settings
     xorg-xwayland
     xwayland-satellite
     hyprlock
@@ -170,6 +168,7 @@ deps=(
     opencode-bin
     stremio
     xdg-desktop-portal
+    xdg-desktop-portal-gtk
     xdg-desktop-portal-wlr
     xdg-desktop-portal-hyprland
     xdg-desktop-portal-gnome
@@ -186,6 +185,37 @@ deps=(
 )
 
 paru -Syu --noconfirm ${deps[@]}
+
+gpus="$(lspci | rg -i 'vga|3d|display')"
+
+if rg -qi nvidia <<<"$gpus"; then
+    step "installing nvidia graphics drivers"
+    sudo pacman -S \
+        nvidia-open \
+        nvidia-utils \
+        lib32-nvidia-utils \
+        egl-wayland \
+        libva-nvidia-driver
+fi
+
+if rg -qi 'amd|ati' <<<"$gpus"; then
+    step "installing radeon graphics drivers"
+    sudo pacman -S \
+        mesa \
+        lib32-mesa \
+        vulkan-radeon \
+        lib32-vulkan-radeon
+fi
+
+if rg -qi intel <<<"$gpus"; then
+    step "installing intel graphics drivers"
+    sudo pacman -S \
+        mesa \
+        lib32-mesa \
+        vulkan-intel \
+        lib32-vulkan-intel \
+        intel-media-driver
+fi
 
 install_rust() {
     rustup toolchain install stable
@@ -233,11 +263,12 @@ systemctl --user enable --now \
     ssh-agent.service \
     ssh-agent.socket \
     xdg-desktop-portal.service
+xdg-desktop-portal-wlr.service
 success
 
 # kmscon
-sudo ln -sfv "$DOTFILES/kmscon/kmscon.conf" /etc/kmscon/kmscon.conf
 # TODO: need to setup kmscon properly with nvidia drivers and autologin on tty2
+# sudo ln -sfv "$DOTFILES/kmscon/kmscon.conf" /etc/kmscon/kmscon.conf
 # sudo systemctl disable getty@.service
 # sudo systemctl enable kmsconvt@.service
 
