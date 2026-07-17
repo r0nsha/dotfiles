@@ -56,11 +56,6 @@ function notify -a type
     set -l prev_volume $$volume_var
     set -l prev_muted $$muted_var
 
-    if test -z "$prev_volume"; or test -z "$prev_muted"
-        # initial state, don't notify
-        cache_state $type
-        return
-    end
     cache_state $type; or return
 
     set -l volume $$volume_var
@@ -79,6 +74,12 @@ function notify -a type
         notify-send -a progress -t 1000 -h "int:value:$volume" -h "string:x-dunst-stack-tag:volume-$type" "$title volume $volume%"
     end
 end
+
+cache_state sink
+cache_state source
+
+# HACK: this is a hack to make sure that notifications don't show up on startup
+sleep 0.5
 
 pactl subscribe 2>/dev/null | while read -l line
     if string match -q "*Event 'change' on sink*" "$line"
