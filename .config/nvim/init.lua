@@ -11,8 +11,9 @@ vim.pack.add({
   -- "file:///home/ron/dev/nor.nvim",
 })
 vim.g.nor_opts = {
+  transparent = true,
   style = {
-    statusline = { bg = "none" },
+    -- statusline = { bg = "none" },
   },
 }
 vim.cmd.colorscheme("nor")
