@@ -59,8 +59,7 @@ auto-update-stale = true
 
 [aliases]
 retrunk = ["rebase", "--skip-emptied", "-d", "trunk()"]
-ret = ["retrunk"]
-pullup = ['retrunk', '-s', 'mutable()']
+pullup = ['retrunk', '-s', 'roots(mutable())']
 d = ["diff"]
 e = ["edit"]
 n = ["new"]
