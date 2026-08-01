@@ -32,7 +32,6 @@ mkdir -p "$LOCAL_BIN" "$LOCAL_OPT" "$LOCAL_SHARE" "$DEV" "$DOWNLOADS" "$PICTURES
 step "chmod"
 chmod -v ug+x $DOTFILES/.local/bin/*
 chmod -v ug+x $DOTFILES/.config/waybar/scripts/*
-chmod -v ug+x $DOTFILES/.config/qutebrowser/userscripts/*
 success
 
 # install tools

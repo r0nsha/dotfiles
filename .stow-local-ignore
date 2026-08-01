@@ -27,7 +27,6 @@ _darcs
 ^/.DS_Store
 ^/Makefile
 ^/stylua.toml
-^/firefox
 ^/install
 ^/ly
 \.jj

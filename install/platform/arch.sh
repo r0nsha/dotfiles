@@ -1,18 +1,7 @@
 # pacman
 sudo ln -sfv "$DOTFILES/pacman.conf" /etc/pacman.conf
 
-install_paru() {
-    cd $DOWNLOADS
-    git clone https://aur.archlinux.org/paru.git
-    cd paru
-    makepkg -si --noconfirm
-    paru --gendb
-    paru -Syu --noconfirm --devel
-}
-
-install_wrapper paru install_paru
-
-deps=(
+pacman_deps=(
     coreutils
     util-linux
     # kmscon
@@ -50,12 +39,11 @@ deps=(
     fzf
     skim
     chafa
-    gnupg2
+    gnupg
     pinentry
     rng-tools
     pass
     pass-otp
-    pass-git-helper
     tealdeer
     just
     inotify-tools
@@ -137,7 +125,6 @@ deps=(
     lib32-gamemode
     udiskie
     fuzzel
-    tessen
     bluetui
     impala
     rofimoji
@@ -148,12 +135,41 @@ deps=(
     zathura-pdf-mupdf
     python-tldextract
     cronie
-    qutebrowser-git
     aerc
     w3m
     dante
     senpai
     guvcview
+    xdg-desktop-portal
+    xdg-desktop-portal-gtk
+    xdg-desktop-portal-wlr
+    xdg-desktop-portal-hyprland
+    xdg-desktop-portal-gnome
+    wayland-utils
+    wlr-randr
+    wlopm
+    kanshi
+    adw-gtk-theme
+)
+
+step "installing pacman packages"
+sudo pacman -Syu --needed --noconfirm ${pacman_deps[@]}
+
+install_yay() {
+    cd $DOWNLOADS
+    git clone https://aur.archlinux.org/yay.git
+    cd yay && \
+    makepkg -si --noconfirm && \
+    cd .. && \
+    rm -rf yay
+}
+
+install_wrapper yay install_yay
+
+aur_deps=(
+    tessen
+    pass-git-helper
+    qutebrowser-git
     niri-git
     vesktop
     hellwal
@@ -167,30 +183,24 @@ deps=(
     downgrade
     opencode-bin
     stremio
-    xdg-desktop-portal
-    xdg-desktop-portal-gtk
-    xdg-desktop-portal-wlr
-    xdg-desktop-portal-hyprland
-    xdg-desktop-portal-gnome
     xdg-desktop-portal-termfilechooser
     gpu-screen-recorder-git
-    wayland-utils
-    wlr-randr
-    wlopm
-    kanshi
     watchman-bin
-    localsend
+    localsend-bin
     xdg-terminal-exec-git
-    adw-gtk-theme
+    subliminal
+    python-pysubs2
+    python-ffsubsync
 )
 
-paru -Syu --noconfirm ${deps[@]}
+step "installing AUR packages"
+yay -S --needed --noconfirm --devel ${aur_deps[@]}
 
 gpus="$(lspci | rg -i 'vga|3d|display')"
 
 if rg -qi nvidia <<<"$gpus"; then
-    step "installing nvidia graphics drivers"
-    sudo pacman -S \
+    step "installing nvidia packages"
+    sudo pacman -S --needed --noconfirm \
         nvidia-open \
         nvidia-utils \
         lib32-nvidia-utils \
@@ -199,8 +209,8 @@ if rg -qi nvidia <<<"$gpus"; then
 fi
 
 if rg -qi 'amd|ati' <<<"$gpus"; then
-    step "installing radeon graphics drivers"
-    sudo pacman -S \
+    step "installing amd packages"
+    sudo pacman -S --needed --noconfirm \
         mesa \
         lib32-mesa \
         vulkan-radeon \
@@ -208,8 +218,8 @@ if rg -qi 'amd|ati' <<<"$gpus"; then
 fi
 
 if rg -qi intel <<<"$gpus"; then
-    step "installing intel graphics drivers"
-    sudo pacman -S \
+    step "installing intel packages"
+    sudo pacman -S --needed --noconfirm \
         mesa \
         lib32-mesa \
         vulkan-intel \
@@ -225,14 +235,6 @@ install_rust() {
 }
 install_wrapper rustup install_rust
 
-pip_deps=(
-    subliminal
-    ffsubsync
-    pywalfox
-)
-
-pipx install ${pip_deps[@]}
-
 # systemd
 step "systemd: enable system services"
 sudo systemctl disable --now systemd-timesyncd.service
@@ -247,11 +249,11 @@ user_services=("$DOTFILES"/.config/systemd/user/*.service)
 user_paths=("$DOTFILES"/.config/systemd/user/*.path)
 
 if ((${#user_services[@]})); then
-    systemctl --user enable "${user_services[@]}"
+    systemctl --user enable "${user_services[@]##*/}"
 fi
 
 if ((${#user_paths[@]})); then
-    systemctl --user enable --now "${user_paths[@]}"
+    systemctl --user enable --now "${user_paths[@]##*/}"
 fi
 
 shopt -u nullglob
@@ -262,8 +264,8 @@ systemctl --user enable --now \
     wireplumber.service \
     ssh-agent.service \
     ssh-agent.socket \
-    xdg-desktop-portal.service
-xdg-desktop-portal-wlr.service
+    xdg-desktop-portal.service \
+    xdg-desktop-portal-wlr.service
 success
 
 # kmscon
@@ -300,5 +302,3 @@ if exists "gsettings"; then
     source "$DOTFILES/install/gsettings.sh"
     success
 fi
-
-pywalfox install

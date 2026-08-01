@@ -143,16 +143,6 @@ environment {
     QT_QPA_PLATFORMTHEME "qt6ct"
 }
 window-rule {
-    match app-id="firefox$"
-    border {
-        width 2
-    }
-}
-window-rule {
-    match app-id="firefox$" title="^Picture-in-Picture$"
-    open-floating true
-}
-window-rule {
     match app-id="localsend*|Share*"
     open-floating true
     min-width 1100
