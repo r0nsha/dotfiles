@@ -54,25 +54,16 @@ tooltip {
   padding: 4px 8px;
 }
 
-#mpris {
-  padding: 4px 16px;
-}
-
 #pulseaudio,
 #bluetooth,
 #network,
 #clock,
-#hardware {
+#hardware,
+#privacy,
+#gamemode {
   margin-left: 16px;
   padding-left: 16px;
   border-left: 1px solid @separator;
-}
-
-#custom-recording,
-#privacy,
-#gamemode {
-  margin-right: 12px;
-  padding: 0 8px;
 }
 
 #tags button,
@@ -107,6 +98,7 @@ tooltip {
 }
 
 #mpris {
+  padding: 4px 16px;
   opacity: 0;
 }
 
@@ -122,9 +114,10 @@ tooltip {
 }
 
 #custom-recording,
-#privacy {
-  border: 1px solid @color13;
+#privacy,
+#gamemode {
   color: @color13;
+  font-style: oblique;
 }
 
 #pulseaudio.bluetooth {
