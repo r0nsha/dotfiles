@@ -60,6 +60,7 @@ pacman_deps=(
     resvg
     imagemagick
     ffmpeg
+    v4l-utils
     xdotool
     wtype
     cliphist
@@ -130,7 +131,6 @@ pacman_deps=(
     python-tldextract
     cronie
     senpai
-    guvcview
     xdg-desktop-portal
     xdg-desktop-portal-gtk
     xdg-desktop-portal-wlr
@@ -167,7 +167,10 @@ aur_deps=(
     mpv-uosc-git
     mpv-thumbfast-git
     mpv-sponsorblock-git
+    mpv-autosub-git
+    mpv-autosubsync-git
     alass
+    python-ffsubsync
     protonup-rs
     opencode-bin
     stremio
@@ -176,9 +179,6 @@ aur_deps=(
     watchman-bin
     localsend-bin
     xdg-terminal-exec-git
-    subliminal
-    python-pysubs2
-    python-ffsubsync
 )
 
 step "installing AUR packages"

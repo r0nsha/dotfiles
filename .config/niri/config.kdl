@@ -163,6 +163,10 @@ window-rule {
     }
 }
 window-rule {
+    match app-id="^webcam$"
+    open-floating true
+}
+window-rule {
     draw-border-with-background true
 }
 // Indicate screencasted windows with red colors.

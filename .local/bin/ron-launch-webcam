@@ -1,0 +1,50 @@
+#!/usr/bin/env fish
+
+function usage
+    echo "usage: ron-launch-webcam [-d/--device DEV] [-m/--no-mirror] [-h/--help]"
+end
+
+argparse h/help "d/device=" m/no-mirror -- $argv
+or begin
+    usage
+    exit 1
+end
+
+if set -ql _flag_h
+    usage
+    exit 0
+end
+
+set camera $_flag_device
+if test -z "$camera"
+    set -l by_id /dev/v4l/by-id/*-video-index0
+    if set -q by_id[1]; and test -e "$by_id[1]"
+        set camera $by_id[1]
+    end
+end
+
+if test -z "$camera"
+    for n in /dev/video*
+        if v4l2-ctl -d $n --all 2>/dev/null \
+                | string match -q '*Video Capture*'
+            set camera $n
+            break
+        end
+    end
+end
+
+if test -z "$camera"; or not test -e "$camera"
+    echo "no capture device found" >&2
+    exit 1
+end
+
+echo "using $camera" >&2
+
+mpv av://v4l2:$camera \
+    --load-scripts=no \
+    --profile=low-latency --panscan=1 --pause=no \
+    --demuxer-lavf-format=video4linux2 --demuxer-lavf-o-set=input_format=mjpeg \
+    --untimed --cache=no --force-seekable=no \
+    --no-osc --really-quiet --script-opts-add=osc-visibility=never \
+    --title=Webcam --wayland-app-id=webcam \
+    (not set -q _flag_m; and echo --vf=hflip)
