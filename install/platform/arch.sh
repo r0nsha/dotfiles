@@ -100,9 +100,6 @@ pacman_deps=(
     tree-sitter-cli # needed to cache treesitter parsers
     noto-fonts
     noto-fonts-emoji
-    ttf-iosevka-nerd
-    ttf-iosevkaterm-nerd
-    ttf-iosevkatermslab-nerd
     libva-utils
     xorg-xwayland
     xwayland-satellite
@@ -158,10 +155,10 @@ sudo pacman -Syu --needed --noconfirm ${pacman_deps[@]}
 install_yay() {
     cd $DOWNLOADS
     git clone https://aur.archlinux.org/yay.git
-    cd yay && \
-    makepkg -si --noconfirm && \
-    cd .. && \
-    rm -rf yay
+    cd yay &&
+        makepkg -si --noconfirm &&
+        cd .. &&
+        rm -rf yay
 }
 
 install_wrapper yay install_yay

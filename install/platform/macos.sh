@@ -1,5 +1,3 @@
-# source $DOTFILES/install/fonts.sh
-
 install_brew() {
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     brew update --force
@@ -56,7 +54,6 @@ install_deps() {
         entr
         bob             # neovim version manager
         tree-sitter-cli # needed to cache treesitter parsers
-        font-iosevka-nerd-font
         opencode
         jj
         mergiraf
