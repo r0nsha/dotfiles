@@ -434,6 +434,12 @@ binds {
     XF86AudioNext allow-when-locked=true {
         spawn-sh "playerctl next"
     }
+    XF86MonBrightnessUp allow-when-locked=true {
+        spawn-sh "brightnessctl set +10%"
+    }
+    XF86MonBrightnessDown allow-when-locked=true {
+        spawn-sh "brightnessctl set 10%-"
+    }
     Mod+T hotkey-overlay-title="Spawn Terminal" {
         spawn "ghostty"
     }
@@ -511,4 +517,3 @@ binds {
         quit
     }
 }
-
