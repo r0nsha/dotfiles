@@ -1,36 +1,43 @@
 #!/usr/bin/env fish
 
-function usage
-    echo "usage: ron-launch-webcam [-d/--device DEV] [-m/--no-mirror] [-h/--help]"
+set -l by_id /dev/v4l/by-id/*-video-index0
+set -l devices
+if set -q by_id[1]; and test -e "$by_id[1]"
+    set devices $by_id
+else
+    set devices /dev/video*
 end
 
-argparse h/help "d/device=" m/no-mirror -- $argv
-or begin
-    usage
-    exit 1
-end
-
-if set -ql _flag_h
-    usage
-    exit 0
-end
-
-set camera $_flag_device
-if test -z "$camera"
-    set -l by_id /dev/v4l/by-id/*-video-index0
-    if set -q by_id[1]; and test -e "$by_id[1]"
-        set camera $by_id[1]
+set -l options
+set -l tab (printf '\t')
+for device in $devices
+    if not test -e "$device"
+        continue
     end
-end
 
-if test -z "$camera"
-    for n in /dev/video*
-        if v4l2-ctl -d $n --all 2>/dev/null \
-                | string match -q '*Video Capture*'
-            set camera $n
-            break
+    set -l info (v4l2-ctl -d "$device" --all 2>/dev/null)
+    if string match -q '*Video Capture*' $info
+        set -l name (string match -r --groups-only \
+            'Card type[[:space:]]*:[[:space:]]*(.*)' $info)
+        if test -z "$name"
+            set name (path basename "$device")
         end
+        set -a options "$device$tab$name"
     end
+end
+
+switch (count $options)
+    case 0
+    case 1
+        set camera (string split $tab -- $options[1])[1]
+    case '*'
+        set -l selected (string join \n $options | sort -t"$tab" -k2 \
+            | fuzzel -d --with-nth='{2}' --accept-nth=1 \
+            -p "webcam> " --minimal-lines)
+        if test -z "$selected"
+            exit 0
+        end
+        set camera $selected
 end
 
 if test -z "$camera"; or not test -e "$camera"
@@ -46,4 +53,4 @@ mpv av://v4l2:$camera \
     --untimed --cache=no --force-seekable=no \
     --no-osc --really-quiet --script-opts-add=osc-visibility=never \
     --title=Webcam --wayland-app-id=webcam \
-    (not set -q _flag_m; and echo --vf=hflip)
+    --vf=hflip
