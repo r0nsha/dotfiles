@@ -1,10 +1,10 @@
 #!/usr/bin/env fish
 
 function usage
-    echo "usage: ron-capture-screenrecord -r/--region <region|screen> [--desktop-audio] [--mic-audio] [--webcam] [--webcam-device <device>] [--resolution <size>] [--stop-recording] [-h/--help]"
+    echo "usage: ron-capture-screenrecord -r/--region <region|screen> [--desktop-audio] [--mic-audio] [--resolution <size>] [--stop-recording] [-h/--help]"
 end
 
-argparse h/help "r/region=" desktop-audio mic-audio webcam "webcam-device=" "resolution=" stop-recording -- $argv
+argparse h/help "r/region=" desktop-audio mic-audio "resolution=" stop-recording -- $argv
 or begin
     usage
     exit 1
@@ -76,25 +76,6 @@ function default_resolution
     end
 
     echo $size
-end
-
-function get_webcam_device
-    if set -q _flag_webcam_device
-        echo $_flag_webcam_device
-        return 0
-    end
-
-    set -l devices (gpu-screen-recorder --list-v4l2-devices 2>/dev/null)
-    for device in $devices
-        set -l path (string split "|" $device)[1]
-        if test -n "$path"
-            echo $path
-            return 0
-        end
-    end
-
-    notify_error "no webcam devices found"
-    return 1
 end
 
 function finalize_recording
@@ -175,14 +156,6 @@ if test -n "$geom"
     set capture_source "$geom"
 else
     set capture_source (get_monitor)
-end
-
-if set -q _flag_webcam
-    set -l webcam_device (get_webcam_device)
-    if test $status -ne 0
-        exit 1
-    end
-    set capture_source "$capture_source|$webcam_device;halign=end;valign=end;hflip=true;width=25%;height=25%;pixfmt=auto;camera_fps=0;camera_width=0;camera_height=0"
 end
 
 set audio_devices

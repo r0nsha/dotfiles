@@ -47,7 +47,7 @@ end
 
 function menu_capture_record_options
     set -l region $argv[1]
-    set -l selected (menu "no audio" "desktop audio" "microphone" "webcam" "desktop audio + microphone" "desktop audio + webcam" -p "record/$region> ")
+    set -l selected (menu "no audio" "desktop audio" "microphone" "desktop audio + microphone" -p "record/$region> ")
 
     if test -z "$selected"
         return
@@ -58,10 +58,6 @@ function menu_capture_record_options
         set -a record_args --desktop-audio
     end
     if string match -q "*microphone*" "$selected"
-        set -a record_args --mic-audio
-    end
-    if string match -q "*webcam*" "$selected"
-        set -a record_args --webcam
         set -a record_args --mic-audio
     end
 
