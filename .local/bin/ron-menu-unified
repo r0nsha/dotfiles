@@ -47,7 +47,7 @@ end
 
 function menu_capture_record_options
     set -l region $argv[1]
-    set -l selected (menu "none" "desktop audio" "mic" "webcam" "desktop audio + mic" "desktop audio + webcam" -p "record/$region> ")
+    set -l selected (menu "no audio" "desktop audio" "microphone" "webcam" "desktop audio + microphone" "desktop audio + webcam" -p "record/$region> ")
 
     if test -z "$selected"
         return
@@ -57,7 +57,7 @@ function menu_capture_record_options
     if string match -q "*desktop audio*" "$selected"
         set -a record_args --desktop-audio
     end
-    if string match -q "*mic*" "$selected"
+    if string match -q "*microphone*" "$selected"
         set -a record_args --mic-audio
     end
     if string match -q "*webcam*" "$selected"
@@ -69,7 +69,7 @@ function menu_capture_record_options
 end
 
 function menu_main
-    set -l selected (icon_menu "󰕾 audio" "󰸉 backgrounds" "󰂯 bluetooth" "󰵝 capture" "󰈊 color picker" "󱕴 passwords" " share" "󱊟 usb" "󰖩 wifi" "󰐥 power")
+    set -l selected (icon_menu "󰕾 audio" "󰸉 backgrounds" "󰂯 bluetooth" "󰵝 capture" "󰈊 color picker" "󱕴 passwords" " share" "󱊟 usb" "󰖠 webcam" "󰖩 wifi" "󰐥 power")
     switch $selected
         case audio
             ron-menu-audio
@@ -87,6 +87,8 @@ function menu_main
             ron-menu-share
         case usb
             ron-menu-mount
+        case webcam
+            ron-launch-webcam
         case wifi
             xdg-terminal-exec --app-id=ron.terminal.floating impala
         case power

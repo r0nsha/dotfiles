@@ -41,7 +41,6 @@ end
 echo "using $camera" >&2
 
 mpv av://v4l2:$camera \
-    --load-scripts=no \
     --profile=low-latency --panscan=1 --pause=no \
     --demuxer-lavf-format=video4linux2 --demuxer-lavf-o-set=input_format=mjpeg \
     --untimed --cache=no --force-seekable=no \
