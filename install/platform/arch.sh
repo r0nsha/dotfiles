@@ -49,8 +49,6 @@ pacman_deps=(
     inotify-tools
     entr
     lua
-    lua51
-    luarocks
     rustup
     zig
     npm
@@ -126,15 +124,11 @@ pacman_deps=(
     impala
     rofimoji
     steam
-    shotcut
     zathura
     pdfjs # needed for qutebrowser
     zathura-pdf-mupdf
     python-tldextract
     cronie
-    aerc
-    w3m
-    dante
     senpai
     guvcview
     xdg-desktop-portal
@@ -174,10 +168,7 @@ aur_deps=(
     mpv-thumbfast-git
     mpv-sponsorblock-git
     alass
-    urlview
-    abook
     protonup-rs
-    downgrade
     opencode-bin
     stremio
     xdg-desktop-portal-termfilechooser

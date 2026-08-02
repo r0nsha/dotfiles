@@ -68,9 +68,6 @@ install_deps() {
         fontforge
         qutebrowser
         watchman
-        aerc
-        w3m
-        dante
         senpai
         localsend
         btop
