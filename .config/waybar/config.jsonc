@@ -8,7 +8,7 @@
     "privacy",
     "gamemode",
     "niri/language",
-    "pulseaudio",
+    "wireplumber",
     "network",
     "clock",
   ],
@@ -50,10 +50,13 @@
     "icon-size": 14,
     "spacing": 8,
   },
-  "pulseaudio": {
+  "wireplumber": {
     "format": "{icon} {volume}%",
+    "format-muted": "󰝟 0%",
     "format-bluetooth": "󰂯 {volume}%",
-    "format-muted": "󰝟",
+    "format-bluetooth-muted": "󰂲 {volume}%",
+    "format-source": "󰍬 {volume}%",
+    "format-source-muted": "󰍭 {volume}%",
     "format-icons": {
       "headphone": "󰋋",
       "headphone-muted": "󰟎",
