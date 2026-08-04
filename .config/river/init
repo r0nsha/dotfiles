@@ -26,8 +26,23 @@ set -gx ELECTRON_OZONE_PLATFORM_HINT auto
 set -gx QT_QPA_PLATFORMTHEME qt6ct
 set -gx QT_QPA_PLATFORM wayland
 
-systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river
+# river
+set -gx XDG_CURRENT_DESKTOP river
+set -gx XDG_SESSION_DESKTOP river
+set -gx XDG_SESSION_TYPE wayland
+
+systemctl --user import-environment \
+    WAYLAND_DISPLAY \
+    XDG_CURRENT_DESKTOP \
+    XDG_SESSION_DESKTOP \
+    XDG_SESSION_TYPE
+
+dbus-update-activation-environment --systemd \
+    WAYLAND_DISPLAY \
+    XDG_CURRENT_DESKTOP \
+    XDG_SESSION_DESKTOP \
+    XDG_SESSION_TYPE
+
 systemctl --user restart xdg-desktop-portal
 
 # input
@@ -148,3 +163,4 @@ kanshi &
 hypridle &
 waybar &
 ron-background-random ~/pictures/backgrounds &
+ron-volume-notify &

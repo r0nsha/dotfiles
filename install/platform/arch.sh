@@ -229,22 +229,7 @@ sudo systemctl enable --now chronyd.service chrony-wait.service cronie.service i
 success
 
 step "systemd: enable user services"
-
 systemctl --user daemon-reload
-shopt -s nullglob
-user_services=("$DOTFILES"/.config/systemd/user/*.service)
-user_paths=("$DOTFILES"/.config/systemd/user/*.path)
-
-if ((${#user_services[@]})); then
-    systemctl --user enable "${user_services[@]##*/}"
-fi
-
-if ((${#user_paths[@]})); then
-    systemctl --user enable --now "${user_paths[@]##*/}"
-fi
-
-shopt -u nullglob
-
 systemctl --user enable --now \
     pipewire.socket \
     pipewire-pulse.socket \
@@ -261,10 +246,13 @@ success
 # sudo systemctl disable getty@.service
 # sudo systemctl enable kmsconvt@.service
 
-# ly
-sudo ln -sfv "$DOTFILES/ly/config.ini" /etc/ly/config.ini
-sudo systemctl enable ly@tty2.service
-sudo systemctl disable getty@tty2.service
+# login shell
+sudo systemctl enable getty@tty1.service
+
+# # ly
+# sudo ln -sfv "$DOTFILES/ly/config.ini" /etc/ly/config.ini
+# sudo systemctl enable ly@tty2.service
+# sudo systemctl disable getty@tty2.service
 
 # chrony
 sudo chronyc online

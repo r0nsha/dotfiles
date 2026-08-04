@@ -47,3 +47,7 @@ if status is-interactive
         fisher update
     end
 end
+
+if test (uname) = Linux; and status --is-login; and test "$XDG_VTNR" = 1
+    exec river
+end
