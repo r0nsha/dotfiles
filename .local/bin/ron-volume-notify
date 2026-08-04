@@ -1,8 +1,7 @@
 #!/usr/bin/env fish
 # Watches pulseaudio for volume changes and displays notifications
 
-function type_target
-    set -l type $argv[1]
+function type_target -a type
     switch $type
         case sink
             echo ""
@@ -13,15 +12,26 @@ function type_target
     end
 end
 
-function get_title
-    set -l type $argv[1]
+function get_title -a type muted
     switch $type
         case sink
-            echo "󰓃 Output"
+            if test -n "$muted"
+                echo "󰓄 Output"
+            else
+                echo "󰓃 Output"
+            end
         case source
-            echo "󰍬 Input"
+            if test -n "$muted"
+                echo "󰍭 Input"
+            else
+                echo "󰍬 Input"
+            end
         case '*'
-            echo "󰓃 Volume"
+            if test -n "$muted"
+                echo "󰖁 Volume"
+            else
+                echo "󰕾 Volume"
+            end
     end
 end
 
@@ -40,39 +50,40 @@ function cache_state
     set -g last_muted_$type $muted
 end
 
-function show_notification
-    set -l type $argv[1]
-    set -l title (get_title $type)
-
+function notify -a type
     set -l volume_var last_volume_$type
     set -l muted_var last_muted_$type
     set -l prev_volume $$volume_var
     set -l prev_muted $$muted_var
 
+    if test -z "$prev_volume"; or test -z "$prev_muted"
+        # initial state, don't notify
+        cache_state $type
+        return
+    end
     cache_state $type; or return
 
     set -l volume $$volume_var
     set -l muted $$muted_var
 
-    # diff against last known state; skip if unchanged
+    # skip if unchanged
     if test "$volume" = "$prev_volume"; and test "$muted" = "$prev_muted"
         return
     end
 
     if test "$muted" = true
-        notify-send -a progress -t 1000 -h "int:value:$volume" -h "string:x-dunst-stack-tag:volume-$type" "$title volume muted"
+        set -l title (get_title $type muted)
+        notify-send -a progress -t 1000 -h "int:value:$volume" -h "string:x-dunst-stack-tag:volume-$type" "$title muted"
     else
+        set -l title (get_title $type)
         notify-send -a progress -t 1000 -h "int:value:$volume" -h "string:x-dunst-stack-tag:volume-$type" "$title volume $volume%"
     end
 end
 
-cache_state sink
-cache_state source
-
 pactl subscribe 2>/dev/null | while read -l line
     if string match -q "*Event 'change' on sink*" "$line"
-        show_notification sink
+        notify sink
     else if string match -q "*Event 'change' on source*" "$line"
-        show_notification source
+        notify source
     end
 end
