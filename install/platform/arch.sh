@@ -67,6 +67,7 @@ pacman_deps=(
     grim
     slurp
     satty
+    gpu-screen-recorder
     yazi
     mpv
     typst
@@ -141,6 +142,8 @@ pacman_deps=(
     kanshi
     adw-gtk-theme
     river-classic
+    opencode
+    qutebrowser
 )
 
 step "installing pacman packages"
@@ -160,21 +163,16 @@ install_wrapper yay install_yay
 aur_deps=(
     tessen
     pass-git-helper
-    qutebrowser-git
     vesktop
     hellwal
     mpv-uosc-git
     mpv-thumbfast-git
-    mpv-sponsorblock-git
     mpv-autosub-git
     mpv-autosubsync-git
     alass
     python-ffsubsync
-    protonup-rs
-    opencode-bin
     stremio
     xdg-desktop-portal-termfilechooser
-    gpu-screen-recorder-git
     watchman-bin
     localsend-bin
     xdg-terminal-exec-git
