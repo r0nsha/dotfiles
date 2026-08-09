@@ -22,7 +22,6 @@ config.load_autoconfig(True)
 c.fonts.default_family = ["BerkeleyMono Nerd Font Propo"]
 c.fonts.default_size = "14pt" if system == "Darwin" else "12pt"
 
-c.content.user_stylesheets = [homedir + "/.config/qutebrowser/user.css"]
 c.fonts.tabs.selected = "bold default_size default_family"
 c.url.default_page = "about:blank"
 c.url.start_pages = ["about:blank"]
@@ -255,12 +254,11 @@ config.bind("<z><o><l>", spawn_qute_pass + " --otp-only")
 
 # Spoof User-Agent for Google domains
 spoof_domains = [
-    "https://accounts.google.com/*",
     "https://*.google.com/*",
 ]
 for domain in spoof_domains:
     config.set(
         "content.headers.user_agent",
-        "Mozilla/5.0 ({os_info}; rv:130.0) Gecko/20100101 Firefox/130",
+        "Mozilla/5.0 ({os_info}; rv:138.0) Gecko/20100101 Firefox/138.0",
         domain,
     )
