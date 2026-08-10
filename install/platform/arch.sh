@@ -4,7 +4,6 @@ sudo ln -sfv "$DOTFILES/pacman.conf" /etc/pacman.conf
 pacman_deps=(
     coreutils
     util-linux
-    # kmscon
     xdg-utils
     scdoc
     stow
@@ -54,7 +53,6 @@ pacman_deps=(
     npm
     pnpm
     btop
-    7zip
     jq
     poppler
     resvg
@@ -238,12 +236,6 @@ systemctl --user enable --now \
     xdg-desktop-portal.service \
     xdg-desktop-portal-wlr.service
 success
-
-# kmscon
-# TODO: need to setup kmscon properly with nvidia drivers and autologin on tty2
-# sudo ln -sfv "$DOTFILES/kmscon/kmscon.conf" /etc/kmscon/kmscon.conf
-# sudo systemctl disable getty@.service
-# sudo systemctl enable kmsconvt@.service
 
 # login shell
 sudo systemctl enable getty@tty1.service
