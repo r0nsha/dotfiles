@@ -48,3 +48,7 @@ vim.api.nvim_create_user_command("TSStart", function() start_treesitter(0, vim.b
 vim.keymap.set("n", "<leader>ih", "<cmd>Inspect<cr>", { desc = "TS: Inspect" })
 vim.keymap.set("n", "<leader>ip", "<cmd>InspectTree<cr>", { desc = "TS: Inspect Tree" })
 vim.keymap.set("n", "<leader>iq", "<cmd>EditQuery<cr>", { desc = "TS: Edit Query" })
+
+require("touchup").setup({
+  checkboxes = { enabled = false },
+})
