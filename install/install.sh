@@ -45,15 +45,6 @@ if [ ! -d "$PICTURES/backgrounds" ]; then
     success
 fi
 
-step "tpm"
-tpm_dir=$HOME/.tmux/plugins/tpm
-if [ ! -d "$tpm_dir" ]; then
-    jj git clone https://github.com/tmux-plugins/tpm "$tpm_dir"
-else
-    info "tpm: skipped (already installed in $tpm_dir)"
-fi
-success
-
 step "stow"
 cd "$DOTFILES"
 if ! stow .; then
