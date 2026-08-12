@@ -180,37 +180,6 @@ aur_deps=(
 step "installing AUR packages"
 yay -S --needed --noconfirm --devel ${aur_deps[@]}
 
-gpus="$(lspci | rg -i 'vga|3d|display')"
-
-if rg -qi nvidia <<<"$gpus"; then
-    step "installing nvidia packages"
-    sudo pacman -S --needed --noconfirm \
-        nvidia-open \
-        nvidia-utils \
-        lib32-nvidia-utils \
-        egl-wayland \
-        libva-nvidia-driver
-fi
-
-if rg -qi 'amd|ati' <<<"$gpus"; then
-    step "installing amd packages"
-    sudo pacman -S --needed --noconfirm \
-        mesa \
-        lib32-mesa \
-        vulkan-radeon \
-        lib32-vulkan-radeon
-fi
-
-if rg -qi intel <<<"$gpus"; then
-    step "installing intel packages"
-    sudo pacman -S --needed --noconfirm \
-        mesa \
-        lib32-mesa \
-        vulkan-intel \
-        lib32-vulkan-intel \
-        intel-media-driver
-fi
-
 install_rust() {
     rustup toolchain install stable
     rustup toolchain install nightly
