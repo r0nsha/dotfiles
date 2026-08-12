@@ -48,6 +48,12 @@ if status is-interactive
     end
 end
 
-if test (uname) = Linux; and status --is-login; and test "$XDG_VTNR" = 1
+# autostart WM on tty1
+if test (uname) = Linux
+    and status --is-login
+    and test "$XDG_VTNR" = 1
+    and not set -q TMUX
+    and not set -q WAYLAND_DISPLAY
+    and not set -q DISPLAY
     exec river
 end
