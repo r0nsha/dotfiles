@@ -7,7 +7,7 @@ if not test -f "$img"
     exit 1
 end
 
-set pid (pidof wbg)
+set pid (pidof swaybg)
 swaybg --mode fill --output '*' --image "$img" &
 if test -n "$pid"
     kill $pid
