@@ -20,10 +20,12 @@ set -gx MOZ_ENABLE_WAYLAND 1
 
 # sway
 set -gx XDG_CURRENT_DESKTOP sway
+set -gx XDG_SESSION_DESKTOP sway
 set -gx XDG_SESSION_TYPE wayland
 
 # nvidia
-if command -q nvidia-smi; and nvidia-smi -L >/dev/null 2>&1
+set is_nvidia (command -q nvidia-smi && nvidia-smi -L 2>/dev/null | wc -l)
+if test $is_nvidia -gt 0
     set -gx GBM_BACKEND nvidia-drm
     set -gx LIBVA_DRIVER_NAME nvidia
     set -gx __GLX_VENDOR_LIBRARY_NAME nvidia
@@ -32,10 +34,8 @@ if command -q nvidia-smi; and nvidia-smi -L >/dev/null 2>&1
     set -gx NVD_BACKEND direct
     set -gx __GL_GSYNC_ALLOWED 1
     set -gx __GL_VRR_ALLOWED 1
+
+    exec dbus-run-session sway --unsupported-gpu
+else
+    exec dbus-run-session sway
 end
-
-systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
-systemctl --user restart xdg-desktop-portal
-
-exec sway --unsupported-gpu

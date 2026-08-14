@@ -1,0 +1,26 @@
+# TODO: remove when moving to void linux
+exec systemctl --user import-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP SWAYSOCK I3SOCK XCURSOR_SIZE XCURSOR_THEME
+exec dbus-update-activation-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP SWAYSOCK I3SOCK XCURSOR_SIZE XCURSOR_THEME
+exec systemctl --user restart xdg-desktop-portal
+
+# TODO: switch to Mod4
+set $mod Mod1
+bindsym $mod+Return exec ghostty
+
+exec waybar
+
+default_border pixel 3
+hide_edge_borders both
+default_orientation auto
+
+bindsym $mod+Shift+r reload
+
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
