@@ -12,7 +12,6 @@ local servers = {
   jsonls = { name = "json-lsp" },
   yamlls = { name = "yaml-language-server" },
   taplo = {},
-  marksman = {},
   tinymist = {},
   markdown_oxide = { name = "markdown-oxide" },
   bashls = { name = "bash-language-server" },
