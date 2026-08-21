@@ -1,7 +1,6 @@
-# TODO: remove when moving to void linux
+# TODO: remove when moving to void linux?
 exec systemctl --user import-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP SWAYSOCK I3SOCK XCURSOR_SIZE XCURSOR_THEME
 exec dbus-update-activation-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP SWAYSOCK I3SOCK XCURSOR_SIZE XCURSOR_THEME
-exec systemctl --user restart xdg-desktop-portal
 
 # TODO: switch to Mod4
 set $mod Mod1
