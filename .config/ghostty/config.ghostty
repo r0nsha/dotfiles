@@ -23,6 +23,7 @@ macos-option-as-alt = true
 link-url = true
 link-previews = true
 confirm-close-surface = false
+resize-overlay = never
 
 keybind = ctrl+enter=unbind
 keybind = ctrl+shift+enter=unbind

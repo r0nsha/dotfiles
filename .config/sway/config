@@ -1,18 +1,35 @@
 # TODO: remove when moving to void linux?
+# needed for systemd. see https://github.com/swaywm/sway/wiki#systemd-and-dbus-activation-environments
 exec systemctl --user import-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP SWAYSOCK I3SOCK XCURSOR_SIZE XCURSOR_THEME
 exec dbus-update-activation-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP SWAYSOCK I3SOCK XCURSOR_SIZE XCURSOR_THEME
 
-# TODO: switch to Mod4
 set $mod Mod1
+# TODO: switch to Mod4
+
+# options
+default_orientation vertical
+default_border pixel 2
+default_floating_border pixel 2
+hide_edge_borders both
+floating_modifier $mod normal
+focus_follows_mouse yes
+
+# autostart
+exec mako
+exec udiskie --smart-tray
+exec wl-paste --type text --watch cliphist store
+exec wl-paste --type image --watch cliphist store
+exec mako
+exec hypridle
+exec waybar
+exec ron-volume-notify
+exec ron-background-random ~/pictures/backgrounds
+
+# bindings
 bindsym $mod+Return exec ghostty
 
-exec waybar
-
-default_border pixel 3
-hide_edge_borders both
-default_orientation auto
-
-bindsym $mod+Shift+r reload
+bindsym $mod+q kill
+bindsym $mod+Shift+r reload, exec notify-send "reloaded sway config"
 
 bindsym $mod+h focus left
 bindsym $mod+j focus down
