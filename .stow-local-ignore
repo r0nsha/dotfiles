@@ -28,6 +28,5 @@ _darcs
 ^/Makefile
 ^/stylua.toml
 ^/install
-^/ly
 \.jj
 ^/pacman.conf
