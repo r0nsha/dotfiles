@@ -1,0 +1,4 @@
+client.focused #%%color7%% #%%color7%% #%%foreground%% #%%color7%% #%%color7%%
+client.focused_inactive #%%color3%% #%%color3%% #%%foreground%% #%%color3%% #%%color3%%
+client.unfocused #%%color3%% #%%color3%% #%%foreground%% #%%color3%% #%%color3%%
+client.urgent #%%color1%% #%%color1%% #%%foreground%% #%%color1%% #%%color1%%

@@ -52,5 +52,5 @@ end
 if status is-login
     and test (uname) = Linux
     and test "$(tty)" = /dev/tty1
-    exec dbus-run-session river
+    sway-run
 end

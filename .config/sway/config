@@ -1,35 +1,62 @@
+output "Samsung Electric Company LC49G95T H4ZTA00002" {
+    mode 5120x1440@239.761Hz
+    pos 0 0
+    allow_tearing yes
+    enable
+}
+
+input "type:keyboard" {
+    xkb_layout us,il
+    xkb_options grp:alt_space_toggle
+    repeat_rate 50
+    repeat_delay 300
+}
+
 # TODO: remove when moving to void linux?
 # needed for systemd. see https://github.com/swaywm/sway/wiki#systemd-and-dbus-activation-environments
 exec systemctl --user import-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP SWAYSOCK I3SOCK XCURSOR_SIZE XCURSOR_THEME
 exec dbus-update-activation-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP SWAYSOCK I3SOCK XCURSOR_SIZE XCURSOR_THEME
 
-set $mod Mod1
-# TODO: switch to Mod4
+set $mod Super
 
 # options
 default_orientation vertical
-default_border pixel 2
-default_floating_border pixel 2
-hide_edge_borders both
+default_border pixel 1
+default_floating_border pixel 1
+# hide_edge_borders both
 floating_modifier $mod normal
 focus_follows_mouse yes
+mouse_warping container
+seat seat0 hide_cursor when-typing enable
+
+# gaps inner 8
+# gaps horizontal 8
+
+include ~/.cache/hellwal/sway-colors
 
 # autostart
-exec mako
-exec udiskie --smart-tray
-exec wl-paste --type text --watch cliphist store
-exec wl-paste --type image --watch cliphist store
+# exec kanshi
 exec mako
 exec hypridle
 exec waybar
+exec wl-paste --type text --watch cliphist store
+exec wl-paste --type image --watch cliphist store
+exec udiskie --smart-tray
 exec ron-volume-notify
 exec ron-background-random ~/pictures/backgrounds
 
 # bindings
-bindsym $mod+Return exec ghostty
 
-bindsym $mod+q kill
 bindsym $mod+Shift+r reload, exec notify-send "reloaded sway config"
+bindsym $mod+q kill
+# riverctl map normal $mod+Alt+Control+Shift Escape exit
+bindsym $mod+Alt+Control+Shift+Escape exit
+
+bindsym $mod+Return exec ghostty
+bindsym $mod+Shift+Return exec qutebrowser
+
+bindsym $mod+space exec fuzzel
+bindsym $mod+period exec ron-menu-unified
 
 bindsym $mod+h focus left
 bindsym $mod+j focus down

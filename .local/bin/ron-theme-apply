@@ -53,6 +53,11 @@ if pgrep river
     source ~/.cache/hellwal/river-colors.fish
 end
 
+# sway
+if test -n "$SWAYSOCK"
+    swaymsg reload
+end
+
 # qutebrowser
 if pgrep qutebrowser
     qutebrowser :config-source
