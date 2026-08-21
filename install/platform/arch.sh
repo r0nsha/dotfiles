@@ -138,7 +138,6 @@ pacman_deps=(
     wlr-randr
     wlopm
     kanshi
-    adw-gtk-theme
     river-classic
     opencode
     qutebrowser
