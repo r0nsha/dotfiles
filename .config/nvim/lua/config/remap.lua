@@ -135,9 +135,6 @@ vim.keymap.set("n", "<c-t>n", "<cmd>tabnew<cr>", { desc = "New tab" })
 vim.keymap.set("n", "<c-t>x", "<cmd>tabclose<cr>", { desc = "Close tab" })
 vim.keymap.set("n", "<c-t>O", "<cmd>tabonly<cr>", { desc = "Close other tabs" })
 
--- Select entire buffer
-vim.keymap.set("x", "v", "<esc>ggVG", { desc = "Select all" })
-
 -- Easier toggle fold
 vim.keymap.set("n", "zt", "<cmd>normal! za<cr>", { desc = "Toggle fold under cursor" })
 vim.keymap.set("n", "zT", "<cmd>normal! zA<cr>", { desc = "Toggle all folds under cursor" })
