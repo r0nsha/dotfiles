@@ -1,6 +1,7 @@
 output "Samsung Electric Company LC49G95T H4ZTA00002" {
-    mode 5120x1440@239.761Hz
+    mode 5120x1440@119.999001Hz
     allow_tearing yes
+    adaptive_sync on
     enable
 }
 
@@ -26,7 +27,7 @@ default_floating_border pixel 1
 floating_modifier $mod normal
 focus_follows_mouse yes
 mouse_warping container
-seat seat0 hide_cursor when-typing enable
+seat * hide_cursor when-typing enable
 
 # gaps inner 8
 # gaps horizontal 8
@@ -46,7 +47,7 @@ exec ron-background-random ~/pictures/backgrounds
 
 # bindings
 
-bindsym $mod+Shift+r reload, exec notify-send "reloaded sway config"
+bindsym $mod+r reload, exec notify-send "reloaded sway config"
 bindsym $mod+q kill
 bindsym $mod+Alt+Control+Shift+escape exit
 
@@ -65,3 +66,6 @@ bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
+
+# rules
+for_window [all] inhibit_idle fullscreen
