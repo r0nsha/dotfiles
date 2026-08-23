@@ -1,6 +1,5 @@
 output "Samsung Electric Company LC49G95T H4ZTA00002" {
     mode 5120x1440@239.761Hz
-    pos 0 0
     allow_tearing yes
     enable
 }
