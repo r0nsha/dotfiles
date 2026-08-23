@@ -35,6 +35,7 @@ if test $is_nvidia -gt 0
     set -gx __GL_GSYNC_ALLOWED 1
     set -gx __GL_VRR_ALLOWED 1
     set -gx SWAY_UNSUPPORTED_GPU true
+    exec dbus-run-session sway --unsupported-gpu -Dscanout
+else
+    exec dbus-run-session sway -Dscanout
 end
-
-exec dbus-run-session sway
