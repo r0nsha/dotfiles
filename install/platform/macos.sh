@@ -68,7 +68,6 @@ install_deps() {
         fontforge
         qutebrowser
         watchman
-        senpai
         localsend
         btop
     )

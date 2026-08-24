@@ -129,7 +129,6 @@ pacman_deps=(
     zathura-pdf-mupdf
     python-tldextract
     cronie
-    senpai
     xdg-desktop-portal
     xdg-desktop-portal-gtk
     xdg-desktop-portal-wlr
