@@ -17,25 +17,18 @@ input "type:keyboard" {
 exec systemctl --user import-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP SWAYSOCK I3SOCK XCURSOR_SIZE XCURSOR_THEME
 exec dbus-update-activation-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP SWAYSOCK I3SOCK XCURSOR_SIZE XCURSOR_THEME
 
-set $mod Super
-
 # options
 default_orientation vertical
-default_border pixel 1
-default_floating_border pixel 1
+default_border pixel 2
+default_floating_border pixel 2
 # hide_edge_borders both
-floating_modifier $mod normal
 focus_follows_mouse yes
 mouse_warping container
 seat * hide_cursor when-typing enable
 
-# gaps inner 8
-# gaps horizontal 8
-
 include ~/.cache/hellwal/sway-colors
 
 # autostart
-# exec kanshi
 exec mako
 exec hypridle
 exec waybar
@@ -46,6 +39,8 @@ exec ron-volume-notify
 exec ron-background-random ~/pictures/backgrounds
 
 # bindings
+set $mod Super
+floating_modifier $mod normal
 
 bindsym $mod+r reload, exec notify-send "reloaded sway config"
 bindsym $mod+q kill
