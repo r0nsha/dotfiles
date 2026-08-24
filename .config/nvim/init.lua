@@ -34,12 +34,9 @@ vim.pack.add({
   src.gh("JoosepAlviste/nvim-ts-context-commentstring"),
   src.gh("folke/snacks.nvim"),
   src.gh("milanglacier/minuet-ai.nvim"),
-  -- { src = src.gh("saghen/blink.cmp"), version = "v1.8.0" },
   -- src.gh("stevearc/oil.nvim"),
   src.gh("barrettruth/canola.nvim"),
-  -- src.gh("A7Lavinraj/fyler.nvim"),
   src.gh("mrjones2014/smart-splits.nvim"),
-  -- src.gh("rebelot/heirline.nvim"),
   src.gh("mfussenegger/nvim-dap"),
   src.gh("mfussenegger/nvim-lint"),
   src.gh("igorlfs/nvim-dap-view"),
@@ -70,9 +67,7 @@ require("plugins.lsp")
 require("plugins.format")
 require("plugins.lint")
 require("plugins.mini")
--- require("plugins.cmp")
 require("plugins.smart_splits")
--- require("plugins.heirline")
 require("plugins.explorer")
 require("plugins.snacks")
 require("plugins.ai")
