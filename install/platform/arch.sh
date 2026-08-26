@@ -103,7 +103,6 @@ pacman_deps=(
     xwayland-satellite
     hyprlock
     hypridle
-    hyprpicker
     hyprutils
     hyprpolkitagent
     gnome-keyring
@@ -124,8 +123,9 @@ pacman_deps=(
     impala
     rofimoji
     steam
-    zathura
+    qutebrowser
     pdfjs # needed for qutebrowser
+    zathura
     zathura-pdf-mupdf
     python-tldextract
     cronie
@@ -138,7 +138,6 @@ pacman_deps=(
     kanshi
     river-classic
     opencode
-    qutebrowser
 )
 
 step "installing pacman packages"

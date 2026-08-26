@@ -1,0 +1,129 @@
+#!/usr/bin/env python3
+
+import argparse
+import dataclasses
+import json
+import subprocess
+import sys
+import typing
+
+
+@dataclasses.dataclass
+class Args(argparse.Namespace):
+    direction: str
+
+    @staticmethod
+    def parse() -> "Args":
+        p = argparse.ArgumentParser(
+            prog="sway-move-edge",
+            description=(
+                """
+                Move the focused floating window one step on a 3x3 grid
+                (left/center/right columns, top/center/bottom rows), snapping
+                to the nearest grid position first.
+                """
+            ),
+        )
+
+        _ = p.add_argument(
+            "direction",
+            choices=["left", "down", "up", "right"],
+            help="The direction to move the window.",
+        )
+
+        return typing.cast(Args, p.parse_args())
+
+
+class Window(typing.TypedDict):
+    wx: int
+    wy: int
+    ww: int
+    wh: int
+    x: int
+    y: int
+    w: int
+    h: int
+
+
+JQ_QUERY = """
+def focus_walk($chain):
+  . as $n
+  | ([ ($n.focus // [])[] as $id
+       | (($n.nodes // []) + ($n.floating_nodes // []))[]
+       | select(.id == $id)
+     ] | first) as $child
+  | if $child == null
+    then { node: $n, chain: $chain }
+    else $child | focus_walk($chain + [$n])
+    end;
+
+focus_walk([]) as $focus
+| ($focus.chain + [$focus.node]) as $chain
+| ($chain | map(.type? == "floating_con") | index(true)) as $fci
+| select($fci != null)
+| $chain[$fci] as $fc
+| first($chain[:$fci][] | select(.type? == "workspace")) as $ws
+| select(($fc.fullscreen_mode // 0) == 0)
+| {
+    wx: $ws.rect.x,
+    wy: $ws.rect.y,
+    ww: $ws.rect.width,
+    wh: $ws.rect.height,
+    x: $fc.rect.x,
+    y: $fc.rect.y,
+    w: $fc.rect.width,
+    h: $fc.rect.height,
+  }
+"""
+
+
+def focused_floating_window() -> Window | None:
+    tree = subprocess.run(
+        ["swaymsg", "-t", "get_tree"], check=True, stdout=subprocess.PIPE
+    ).stdout
+    found = subprocess.run(
+        ["jq", "-c", JQ_QUERY], input=tree, check=True, stdout=subprocess.PIPE
+    ).stdout
+    if not found.strip():
+        return None
+    return typing.cast(Window, json.loads(found))
+
+
+def main() -> int:
+    args = Args.parse()
+    w = focused_floating_window()
+    if not w:
+        return 0
+
+    cols = [
+        0,
+        max((w["ww"] - w["w"]) // 2, 0),
+        max(w["ww"] - w["w"], 0),
+    ]
+    rows = [
+        0,
+        max((w["wh"] - w["h"]) // 2, 0),
+        max(w["wh"] - w["h"], 0),
+    ]
+    col = min(range(3), key=lambda i: abs(w["x"] - w["wx"] - cols[i]))
+    row = min(range(3), key=lambda i: abs(w["y"] - w["wy"] - rows[i]))
+
+    if args.direction == "left":
+        col = max(col - 1, 0)
+    elif args.direction == "right":
+        col = min(col + 1, 2)
+    elif args.direction == "up":
+        row = max(row - 1, 0)
+    else:
+        row = min(row + 1, 2)
+
+    _ = subprocess.run(
+        ["swaymsg", "move", "position", str(cols[col]), str(rows[row])],
+        check=True,
+    )
+
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

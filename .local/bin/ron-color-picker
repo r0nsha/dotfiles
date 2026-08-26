@@ -1,0 +1,23 @@
+#!/usr/bin/env fish
+
+# A rewrite of https://github.com/jgmdev/wl-color-picker/blob/main/wl-color-picker.sh in fish
+
+if test -z "$WAYLAND_DISPLAY"
+    notify-send "Not in a wayland session"
+    exit 1
+end
+
+set pos (slurp -b 00000000 -p)
+
+set color (grim -g "$pos" -t ppm - \
+    | magick - -format '%[pixel:p{0,0}]' txt:- \
+    | tail -n 1 \
+    | string match -r '#[0-9A-Fa-f]{6}' \
+    | string lower)
+
+echo $color | wl-copy -n
+
+set swatch (mktemp -u --suffix=.png)
+magick -size 32x32 xc:$color $swatch
+notify-send -i $swatch "Color copied to clipboard." $color
+rm $swatch

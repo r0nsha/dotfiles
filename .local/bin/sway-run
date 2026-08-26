@@ -1,41 +1,40 @@
-#!/usr/bin/env fish
+#!/bin/sh
 
 # general
-set -gx TERMINAL ghostty
-set -gx TERMCMD ghostty
-set -gx VISUAL nvim
-set -gx EDITOR nvim
-set -gx BROWSER qutebrowser
-set -gx MANPAGER "nvim +Man!"
+export TERMINAL=ghostty
+export TERMCMD=ghostty
+export VISUAL=nvim
+export EDITOR=nvim
+export BROWSER=qutebrowser
+export MANPAGER="nvim +Man!"
 
 # electron
-set -gx ELECTRON_OZONE_PLATFORM_HINT auto
+export ELECTRON_OZONE_PLATFORM_HINT=auto
 
 # qt
-set -gx QT_QPA_PLATFORMTHEME qt6ct
-set -gx QT_QPA_PLATFORM wayland
+export QT_QPA_PLATFORMTHEME=qt6ct
+export QT_QPA_PLATFORM=wayland
 
 # force firefox into wayland
-set -gx MOZ_ENABLE_WAYLAND 1
+export MOZ_ENABLE_WAYLAND=1
 
 # sway
-set -gx XDG_CURRENT_DESKTOP sway
-set -gx XDG_SESSION_DESKTOP sway
-set -gx XDG_SESSION_TYPE wayland
+export XDG_CURRENT_DESKTOP=sway
+export XDG_SESSION_DESKTOP=sway
+export XDG_SESSION_TYPE=wayland
 
 # nvidia
-set is_nvidia (command -q nvidia-smi && nvidia-smi -L 2>/dev/null | wc -l)
-if test $is_nvidia -gt 0
-    set -gx GBM_BACKEND nvidia-drm
-    set -gx LIBVA_DRIVER_NAME nvidia
-    set -gx __GLX_VENDOR_LIBRARY_NAME nvidia
-    set -gx MOZ_DISABLE_RDD_SANDBOX 1
-    set -gx MOZ_WAYLAND_USE_VAAPI 1
-    set -gx NVD_BACKEND direct
-    set -gx __GL_GSYNC_ALLOWED 1
-    set -gx __GL_VRR_ALLOWED 1
-    set -gx SWAY_UNSUPPORTED_GPU true
-    exec dbus-run-session sway --unsupported-gpu -Dscanout
+if command -v nvidia-smi >/dev/null 2>&1 && [ "$(nvidia-smi -L 2>/dev/null | wc -l)" -gt 0 ]; then
+    export GBM_BACKEND=nvidia-drm
+    export LIBVA_DRIVER_NAME=nvidia
+    export __GLX_VENDOR_LIBRARY_NAME=nvidia
+    export MOZ_DISABLE_RDD_SANDBOX=1
+    export MOZ_WAYLAND_USE_VAAPI=1
+    export NVD_BACKEND=direct
+    export __GL_GSYNC_ALLOWED=1
+    export __GL_VRR_ALLOWED=1
+    export SWAY_UNSUPPORTED_GPU=true
+    exec dbus-run-session sway --unsupported-gpu -Dnoscanout "$@"
 else
-    exec dbus-run-session sway -Dscanout
-end
+    exec dbus-run-session sway "$@"
+fi

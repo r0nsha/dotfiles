@@ -28,10 +28,10 @@ exec dbus-update-activation-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESK
 font pango:BerkeleyMono 12
 titlebar_border_thickness 0
 titlebar_padding 4 0
-default_orientation vertical
 default_border pixel 2
 default_floating_border pixel 2
 hide_edge_borders smart
+smart_borders on
 focus_follows_mouse yes
 focus_on_window_activation smart
 focus_wrapping yes
@@ -76,18 +76,25 @@ bindsym $mod+J focus down
 bindsym $mod+K focus up
 bindsym $mod+L focus right
 
-bindsym $mod+Shift+H move left
-bindsym $mod+Shift+J move down
-bindsym $mod+Shift+K move up
-bindsym $mod+Shift+L move right
+bindsym $mod+F focus mode_toggle
+bindsym $mod+Alt+F floating toggle
 
-bindsym $mod+Ctrl+H resize shrink width 10 px or 10 ppt
-bindsym $mod+Ctrl+L resize grow width 10 px or 10 ppt
-bindsym $mod+Ctrl+J resize shrink height 10 px or 10 ppt
-bindsym $mod+Ctrl+K resize grow height 10 px or 10 ppt
+bindsym $mod+Shift+H move left 50px
+bindsym $mod+Shift+J move down 50px
+bindsym $mod+Shift+K move up 50px
+bindsym $mod+Shift+L move right 50px
+
+bindsym $mod+Ctrl+Shift+H exec sway-move-edge left
+bindsym $mod+Ctrl+Shift+J exec sway-move-edge down
+bindsym $mod+Ctrl+Shift+K exec sway-move-edge up
+bindsym $mod+Ctrl+Shift+L exec sway-move-edge right
+
+bindsym $mod+Ctrl+H resize shrink width 50px or 5 ppt
+bindsym $mod+Ctrl+L resize grow width 50px or 5 ppt
+bindsym $mod+Ctrl+J resize shrink height 50px or 5 ppt
+bindsym $mod+Ctrl+K resize grow height 50px or 5 ppt
 
 bindsym $mod+Shift+M fullscreen toggle
-bindsym $mod+Ctrl+F floating toggle
 
 # menus
 bindsym --no-repeat $mod+Space exec fuzzel
@@ -97,7 +104,7 @@ bindsym --no-repeat $mod+S exec ron-capture-screenshot --region=region
 bindsym --no-repeat $mod+Alt+S exec ron-capture-screenrecord --region=region
 bindsym --no-repeat $mod+C exec ron-menu-clip
 bindsym --no-repeat $mod+Alt+C exec ron-menu-clip-img
-bindsym --no-repeat $mod+Shift+C exec hyprpicker --autocopy --format=hex --lowercase-hex
+bindsym --no-repeat $mod+Shift+C exec ron-color-picker
 bindsym --no-repeat $mod+P exec tessen
 bindsym --no-repeat $mod+E exec rofimoji --selector=fuzzel --skin-tone=medium-light --prompt='emoji> '
 bindsym --no-repeat $mod+Shift+T exec ron-theme-set toggle
@@ -130,7 +137,6 @@ bindsym XF86MonBrightnessDown exec "brightnessctl set 10%-"
 
 # rules
 for_window [all] inhibit_idle fullscreen
-for_window [app_id="localsend*|Share*"] floating enable
 for_window [app_id="ron.terminal.floating"] floating enable
 for_window [app_id="^swayimg-picker$"] fullscreen enable
 for_window [app_id="^webcam$"] floating enable
