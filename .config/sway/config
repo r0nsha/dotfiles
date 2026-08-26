@@ -12,19 +12,41 @@ input "type:keyboard" {
     repeat_delay 300
 }
 
+input "type:touchpad" {
+    tap enabled
+    natural_scroll enabled
+    dwt enabled
+    dwtp enabled
+}
+
 # TODO: remove when moving to void linux?
 # needed for systemd. see https://github.com/swaywm/sway/wiki#systemd-and-dbus-activation-environments
 exec systemctl --user import-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP SWAYSOCK I3SOCK XCURSOR_SIZE XCURSOR_THEME
 exec dbus-update-activation-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP SWAYSOCK I3SOCK XCURSOR_SIZE XCURSOR_THEME
 
 # options
+font pango:BerkeleyMono 12
+titlebar_border_thickness 0
+titlebar_padding 4 0
 default_orientation vertical
 default_border pixel 2
 default_floating_border pixel 2
-# hide_edge_borders both
+hide_edge_borders smart
 focus_follows_mouse yes
+focus_on_window_activation smart
+focus_wrapping yes
 mouse_warping container
+seat * hide_cursor 5000
 seat * hide_cursor when-typing enable
+
+# colors
+client.background #000000
+client.focused #555555 #555555 #ffffff #555555 #555555
+client.focused_inactive #000000 #000000 #ffffff #000000 #000000
+client.focused_tab_title #000000 #000000 #ffffff
+client.unfocused #000000 #000000 #ffffff #000000 #000000
+client.urgent #ff0000 #ff0000 #ffffff #ff0000 #ff0000
+client.placeholder #000000 #555555 #ffffff #555555 #555555
 
 include ~/.cache/hellwal/sway-colors
 
@@ -64,3 +86,7 @@ bindsym $mod+Shift+l move right
 
 # rules
 for_window [all] inhibit_idle fullscreen
+for_window [app_id="localsend*|Share*"] floating enable
+for_window [app_id="ron.terminal.floating"] floating enable
+for_window [app_id="^swayimg-picker$"] floating enable, resize set 100 ppt 100 ppt, border none
+for_window [app_id="^webcam$"] floating enable

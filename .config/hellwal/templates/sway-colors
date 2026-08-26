@@ -1,4 +1,7 @@
-client.focused #%%color7%% #%%color7%% #%%foreground%% #%%color7%% #%%color7%%
+client.background #%%background%%
+client.focused #%%color7%% #%%color7%% #%%background%% #%%color7%% #%%color7%%
 client.focused_inactive #%%color3%% #%%color3%% #%%foreground%% #%%color3%% #%%color3%%
+client.focused_tab_title #%%color3%% #%%color3%% #%%foreground%%
 client.unfocused #%%color3%% #%%color3%% #%%foreground%% #%%color3%% #%%color3%%
 client.urgent #%%color3%% #%%color3%% #%%foreground%% #%%color3%% #%%color3%%
+client.placeholder #%%color0%% #%%color0%% #%%foreground%% #%%color0%% #%%color0%%
