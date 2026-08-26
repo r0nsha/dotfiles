@@ -1,11 +1,11 @@
-swayimg.text.set_size(18)
-swayimg.text.set_foreground(0xffc6c6c6)
+swayimg.text.size = 18
+swayimg.text.color = 0xffc6c6c6
 
-swayimg.gallery.set_window_color(0xff000000)
-swayimg.gallery.set_border_color(0xffffffff)
-swayimg.gallery.enable_embedded_thumb(true)
-swayimg.gallery.set_thumb_size(400)
-swayimg.gallery.set_aspect("fill")
+swayimg.gallery.window_color = 0xff000000
+swayimg.gallery.border_color = 0xffffffff
+swayimg.gallery.embedded_thumb = true
+swayimg.gallery.thumb_size = 400
+swayimg.gallery.aspect = "fill"
 swayimg.gallery.set_text("topleft", { "{name}" })
 
 local function pan(dx, dy)
@@ -27,7 +27,7 @@ swayimg.gallery.on_key("h", function() swayimg.gallery.switch_image("left") end)
 swayimg.gallery.on_key("j", function() swayimg.gallery.switch_image("down") end)
 swayimg.gallery.on_key("k", function() swayimg.gallery.switch_image("up") end)
 swayimg.gallery.on_key("l", function() swayimg.gallery.switch_image("right") end)
-swayimg.gallery.on_key("Ctrl+y", function() swayimg.set_mode("viewer") end)
+swayimg.gallery.on_key("Ctrl+y", function() swayimg.mode = "viewer" end)
 
 swayimg.slideshow.on_key("h", function() swayimg.slideshow.switch_image("prev") end)
 swayimg.slideshow.on_key("j", function() swayimg.slideshow.switch_image("next_dir") end)
