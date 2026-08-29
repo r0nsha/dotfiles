@@ -1,4 +1,4 @@
-@define-color background alpha(#%%background%%, 0.9);
+@define-color background alpha(#%%background%%, 0.95);
 @define-color background-opaque #%%background%%;
 @define-color foreground #%%foreground%%;
 @define-color cursor #%%cursor%%;
@@ -41,7 +41,7 @@ tooltip {
 }
 
 .modules-right {
-  padding: 4px 16px;
+  padding: 4px 8px;
 }
 
 #mode.normal {
@@ -54,6 +54,7 @@ tooltip {
   padding: 4px 8px;
 }
 
+#wireplumber,
 #pulseaudio,
 #bluetooth,
 #network,
@@ -61,8 +62,8 @@ tooltip {
 #hardware,
 #privacy,
 #gamemode {
-  margin-left: 16px;
-  padding-left: 16px;
+  margin-left: 8px;
+  padding-left: 8px;
   border-left: 1px solid @separator;
 }
 
@@ -98,7 +99,7 @@ tooltip {
 }
 
 #mpris {
-  padding: 4px 16px;
+  padding: 4px 8px;
   opacity: 0;
 }
 
@@ -120,16 +121,18 @@ tooltip {
   font-style: oblique;
 }
 
+#wireplumber.bluetooth,
 #pulseaudio.bluetooth {
-  color: @color2;
+  color: @color5;
 }
 
+#wireplumber.muted,
 #pulseaudio.muted {
-  color: @color8;
+  color: @color10;
 }
 
 #network.disabled {
-  color: @color8;
+  color: @color10;
 }
 
 #network.disconnected {
