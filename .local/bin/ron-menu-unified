@@ -76,7 +76,7 @@ function menu_main
         case capture
             menu_capture
         case "color picker"
-            hyprpicker --autocopy --format=hex --lowercase-hex
+            ron-color-picker
         case passwords
             tessen
         case share
