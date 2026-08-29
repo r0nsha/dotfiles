@@ -159,6 +159,7 @@ aur_deps=(
     pass-git-helper
     vesktop
     hellwal
+    hyprpicker-git
     mpv-uosc-git
     mpv-thumbfast-git
     mpv-autosub-git

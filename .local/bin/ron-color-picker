@@ -1,13 +1,30 @@
 #!/usr/bin/env fish
 
-# A rewrite of https://github.com/jgmdev/wl-color-picker/blob/main/wl-color-picker.sh in fish
+# Defaults to hyprpicker if available, otherwise uses a rewrite
+# of https://github.com/jgmdev/wl-color-picker/blob/main/wl-color-picker.sh in fish.
 
 if test -z "$WAYLAND_DISPLAY"
     notify-send "Not in a wayland session"
     exit 1
 end
 
+function notify-color -a color
+    set swatch (mktemp -u --suffix=.png)
+    magick -size 32x32 xc:$color $swatch
+    notify-send -i $swatch "Color copied to clipboard." $color
+    rm $swatch
+end
+
+if command -v hyprpicker
+    set color (hyprpicker --autocopy --format=hex --lowercase-hex)
+    notify-color $color
+    exit 0
+end
+
 set pos (slurp -b 00000000 -p)
+if test -z "$pos"
+    exit 1
+end
 
 set color (grim -g "$pos" -t ppm - \
     | magick - -format '%[pixel:p{0,0}]' txt:- \
@@ -16,8 +33,4 @@ set color (grim -g "$pos" -t ppm - \
     | string lower)
 
 echo $color | wl-copy -n
-
-set swatch (mktemp -u --suffix=.png)
-magick -size 32x32 xc:$color $swatch
-notify-send -i $swatch "Color copied to clipboard." $color
-rm $swatch
+notify-color $color
