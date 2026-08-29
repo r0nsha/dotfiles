@@ -54,10 +54,11 @@ pacman_deps=(
     pnpm
     btop
     jq
-    poppler
-    resvg
     imagemagick
     ffmpeg
+    yazi
+    poppler # for yazi
+    resvg   # for yazi
     v4l-utils
     xdotool
     wtype
@@ -66,7 +67,6 @@ pacman_deps=(
     slurp
     satty
     gpu-screen-recorder
-    yazi
     mpv
     typst
     docker
