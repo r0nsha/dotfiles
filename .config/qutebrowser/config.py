@@ -7,8 +7,8 @@ import os
 import platform
 from typing import cast
 
-from qutebrowser.config.config import ConfigContainer  # noqa: F401
-from qutebrowser.config.configfiles import ConfigAPI  # noqa: F401
+from qutebrowser.config.config import ConfigContainer
+from qutebrowser.config.configfiles import ConfigAPI
 
 config = cast(ConfigAPI, config)
 c = cast(ConfigContainer, c)
@@ -232,8 +232,10 @@ if "THEME" in os.environ:
 # Keybindings
 config.bind("J", "tab-prev")
 config.bind("K", "tab-next")
-config.bind("gJ", "tab-move -")
-config.bind("gK", "tab-move +")
+config.bind("gj", "tab-move -")
+config.bind("gk", "tab-move +")
+config.bind("<<", "tab-move -")
+config.bind(">>", "tab-move +")
 config.bind("<Ctrl-n>", "completion-item-focus next", mode="command")
 config.bind("<Ctrl-p>", "completion-item-focus prev", mode="command")
 config.bind("<Ctrl-y>", "command-accept", mode="command")
