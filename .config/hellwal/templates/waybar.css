@@ -30,7 +30,7 @@
 
 window#waybar {
   background: @background;
-  color: @color15;
+  color: @foreground;
 }
 
 tooltip {
@@ -62,8 +62,8 @@ tooltip {
 #hardware,
 #privacy,
 #gamemode {
-  margin-left: 8px;
-  padding-left: 8px;
+  margin-left: 12px;
+  padding-left: 12px;
   border-left: 1px solid @separator;
 }
 
@@ -78,13 +78,13 @@ tooltip {
 
 #tags button.focused,
 #workspaces button.active {
-  color: @color15;
+  color: @foreground;
 }
 
 #tray menu {
   background: @background-opaque;
   border: 1px dashed @border;
-  color: @color15;
+  color: @foreground;
   border-radius: 0;
 }
 
@@ -94,18 +94,18 @@ tooltip {
 }
 
 #tray menu menuitem:hover {
-  background: @color15;
+  background: @foreground;
   color: @background-opaque;
 }
 
 #mpris {
-  padding: 4px 8px;
+  padding: 4px 12px;
   opacity: 0;
 }
 
 #mpris.playing {
   opacity: 1;
-  color: @color15;
+  color: @foreground;
 }
 
 #mpris.paused,
@@ -123,16 +123,16 @@ tooltip {
 
 #wireplumber.bluetooth,
 #pulseaudio.bluetooth {
-  color: @color5;
+  color: @color13;
 }
 
 #wireplumber.muted,
 #pulseaudio.muted {
-  color: @color10;
+  opacity: 0.5;
 }
 
 #network.disabled {
-  color: @color10;
+  opacity: 0.5;
 }
 
 #network.disconnected {
