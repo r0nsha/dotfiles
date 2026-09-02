@@ -28,9 +28,7 @@ local function watch_with_function(path, on_event, on_error, opts)
   local handle = uv.new_fs_event()
   if not handle then return nil end
 
-  local unwatch_cb = function()
-    if handle then uv.fs_event_stop(handle) end
-  end
+  local unwatch_cb = function() uv.fs_event_stop(handle) end
 
   local event_cb = function(err, filename, events)
     if err then
@@ -66,7 +64,6 @@ local function do_watch(path, runnable, opts)
   if type(runnable) == "string" then
     return watch_with_string(path, runnable, opts)
   elseif type(runnable) == "table" then
-    assert(runnable.on_event, "must provide on_event to watch")
     assert(type(runnable.on_event) == "function", "on_event must be a function")
 
     if runnable.on_error == nil then
@@ -95,7 +92,8 @@ end
 ---@return integer|nil
 function M.unwatch(handle)
   if not handle then return nil end
-  return uv.fs_event_stop(handle)
+  local err, _, _ = uv.fs_event_stop(handle)
+  return err
 end
 
 ---@param path string
