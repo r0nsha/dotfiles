@@ -3,7 +3,7 @@ require("config")
 require("pass")
 require("theme")
 
-local src = require("utils.pack").src
+local src = require("utils").pack.src
 
 -- load colorscheme first
 vim.pack.add({
