@@ -329,6 +329,9 @@ vim.keymap.set({ "n", "x" }, "gP", '""P', { remap = false, desc = "Paste from un
 -- Don't yank when using 'p' in visual mode
 vim.keymap.set("x", "p", '"_dP', { remap = false })
 
+-- Remove `s`, it's useless
+vim.keymap.set("n", "s", "<Nop>")
+
 local function get_relative_file_path() return vim.fs.normalize(vim.fn.expand("%")) end
 
 ---@param lines string
