@@ -1,21 +1,21 @@
-local M = {}
-
----@param var string
----@param pass_name string
-local function read(var, pass_name)
-  vim.system({ "pass", "show", pass_name }, { text = true }, function(out)
-    vim.schedule(function()
-      if out.code == 0 and out.stdout then
-        vim.env[var] = vim.trim(out.stdout)
-      else
-        vim.notify(string.format("Failed retrieving `%s` from `pass`. %s", pass_name, out.stderr))
-      end
-    end)
-  end)
-end
-
-function M.load() read("CODESTRAL_API_KEY", "console.mistral.ai/codestral") end
-
-vim.api.nvim_create_user_command("PassLoad", M.load, {})
-
-return M
+-- local M = {}
+--
+-- ---@param var string
+-- ---@param pass_name string
+-- local function read(var, pass_name)
+--   vim.system({ "pass", "show", pass_name }, { text = true }, function(out)
+--     vim.schedule(function()
+--       if out.code == 0 and out.stdout then
+--         vim.env[var] = vim.trim(out.stdout)
+--       else
+--         vim.notify(string.format("Failed retrieving `%s` from `pass`. %s", pass_name, out.stderr))
+--       end
+--     end)
+--   end)
+-- end
+--
+-- function M.load() read("CODESTRAL_API_KEY", "console.mistral.ai/codestral") end
+--
+-- vim.api.nvim_create_user_command("PassLoad", M.load, {})
+--
+-- return M

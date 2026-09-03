@@ -1,6 +1,5 @@
 require("extensions")
 require("config")
-require("pass")
 require("theme")
 
 local src = require("utils").pack.src
@@ -33,7 +32,7 @@ vim.pack.add({
   src.gh("RRethy/nvim-treesitter-endwise"),
   src.gh("JoosepAlviste/nvim-ts-context-commentstring"),
   src.gh("folke/snacks.nvim"),
-  src.gh("milanglacier/minuet-ai.nvim"),
+  -- src.gh("milanglacier/minuet-ai.nvim"),
   -- src.gh("stevearc/oil.nvim"),
   src.gh("barrettruth/canola.nvim"),
   src.gh("mrjones2014/smart-splits.nvim"),
@@ -70,7 +69,7 @@ require("plugins.mini")
 require("plugins.smart_splits")
 require("plugins.explorer")
 require("plugins.snacks")
-require("plugins.ai")
+-- require("plugins.ai")
 require("plugins.multicursor")
 require("plugins.multinput")
 require("plugins.quickfix")
