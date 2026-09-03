@@ -82,10 +82,6 @@
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
-    "nvim-treesitter-endwise": {
-      "rev": "8fe8a95630f4f2c72a87ba1927af649e0bfaa244",
-      "src": "https://github.com/RRethy/nvim-treesitter-endwise"
-    },
     "nvim-treesitter-textobjects": {
       "rev": "5c7b0263797dfd1bd6202f2b219f3b53a80b2187",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
@@ -139,6 +135,10 @@
     "vim-dadbod-ui": {
       "rev": "afd07819d8efcefc3317205b855ad4e3513b0011",
       "src": "https://github.com/kristijanhusak/vim-dadbod-ui"
+    },
+    "vim-endwise": {
+      "rev": "4994afb0cdf956d9a665a14b9c834869e602c396",
+      "src": "https://github.com/tpope/vim-endwise"
     },
     "vim-matchup": {
       "rev": "5e3c4a3274a9766aee520caebb52572c007fc4f8",

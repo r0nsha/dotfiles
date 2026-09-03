@@ -1,6 +1,5 @@
 local augroup = require("augroup")
 
--- bufremove
 local br = require("mini.bufremove")
 br.setup({})
 
@@ -12,7 +11,6 @@ vim.keymap.set(
   { desc = "Delete buffer (force)" }
 )
 
--- clue
 -- local clue = require("mini.clue")
 -- clue.setup({
 --   triggers = {
@@ -83,7 +81,6 @@ vim.keymap.set(
 --   },
 -- })
 
--- diff
 local diff = require("mini.diff")
 diff.setup({
   -- view = { style = "sign" },
@@ -98,10 +95,8 @@ diff.setup({
     goto_last = "]H",
   },
 })
-
 vim.keymap.set("n", "<leader>gh", diff.toggle_overlay, { desc = "Toggle diff overlay" })
 
--- hipatterns
 require("mini.hipatterns").setup({
   highlighters = {
     todo = { pattern = "TODO", group = "MiniHipatternsTodo" },
@@ -111,15 +106,12 @@ require("mini.hipatterns").setup({
   },
 })
 
--- icons
 require("mini.icons").setup()
 
--- jump
 require("mini.jump").setup({
   mappings = { repeat_jump = "" },
 })
 
--- move
 require("mini.move").setup({
   mappings = {
     left = "H",
@@ -134,7 +126,6 @@ require("mini.move").setup({
   },
 })
 
--- snippets
 local snippets = require("mini.snippets")
 snippets.setup({
   snippets = { snippets.gen_loader.from_lang() },
@@ -153,8 +144,7 @@ vim.api.nvim_create_autocmd("InsertLeave", {
   callback = function() snippets.session.stop() end,
 })
 
--- NOTE: replaced with kylechui/nvim-surround
--- -- surround
+-- TODO: replaced with kylechui/nvim-surround until [this](https://github.com/nvim-mini/mini.nvim/issues/2546) resolves multicursor
 -- require("mini.surround").setup({
 --   mappings = {
 --     add = "ys",
@@ -170,7 +160,8 @@ vim.api.nvim_create_autocmd("InsertLeave", {
 --   search_method = "cover_or_next",
 -- })
 
--- trailspace
+-- require("mini.pairs").setup()
+
 require("mini.trailspace").setup()
 
 vim.api.nvim_create_autocmd("FileType", {
@@ -182,7 +173,6 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- completions
 require("mini.completion").setup({
   delay = { completion = 25, signature = 25 },
 })
@@ -209,5 +199,4 @@ require("mini.cmdline").setup({
   autopeek = { enable = false },
 })
 
--- splitjoin
 require("mini.splitjoin").setup({ mappings = { toggle = "gs" } })
