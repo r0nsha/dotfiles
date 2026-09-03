@@ -1,5 +1,4 @@
 -- TODO: refactor this messy module
-local Job = require("plenary.job")
 local notify = vim.schedule_wrap(vim.notify)
 
 ---@class KafkaPod
@@ -42,20 +41,19 @@ end
 ---@param callback fun(namespaces: string[])
 local function get_namespaces(callback)
   notify("Getting namespaces...", vim.log.levels.INFO)
-  Job:new({
-    command = "kubectl",
-    args = { "get", "namespaces", "-o", "jsonpath={.items[*].metadata.name}" },
-    on_exit = function(j, return_val)
-      if return_val ~= 0 then
-        vim.schedule(function() notify("Error getting namespaces.", vim.log.levels.ERROR) end)
+  vim.system(
+    { "kubectl", "get", "namespaces", "-o", "jsonpath={.items[*].metadata.name}" },
+    { text = true },
+    function(out)
+      if out.code ~= 0 then
+        notify("Error getting namespaces.", vim.log.levels.ERROR)
         return
       end
 
-      local output = table.concat(j:result(), "")
-      local namespaces = vim.split(output, " ", { trimempty = true })
+      local namespaces = vim.split(out.stdout, " ", { trimempty = true })
       callback(namespaces)
-    end,
-  }):start()
+    end
+  )
 end
 
 ---@param callback? fun(namespace: string)
@@ -83,59 +81,46 @@ local function with_kafka_pod(callback)
   end
 
   notify("Verifying namespace " .. namespace .. "...", vim.log.levels.INFO)
-  Job
-    :new({
-      command = "kubectl",
-      args = { "get", "namespace", namespace },
-      on_exit = function(_, return_val)
-        if return_val ~= 0 then
-          vim.schedule(function()
-            notify(
-              "Namespace " .. namespace .. " not found. Please select a new one.",
-              vim.log.levels.WARN
-            )
-            namespace = nil
-            last_pod = nil
-            save_state()
-            select_namespace(function() with_kafka_pod(callback) end)
-          end)
+  vim.system({ "kubectl", "get", "namespace", namespace }, { text = true }, function(out)
+    if out.code ~= 0 then
+      notify(
+        "Namespace " .. namespace .. " not found. Please select a new one.",
+        vim.log.levels.WARN
+      )
+      namespace = nil
+      last_pod = nil
+      save_state()
+      select_namespace(function() with_kafka_pod(callback) end)
+      return
+    end
+
+    notify("Getting Kafka pod...", vim.log.levels.INFO)
+    vim.system(
+      { "kubectl", "get", "pods", "-n", namespace, "-o", "json" },
+      { text = true },
+      function(pod_out)
+        if pod_out.code ~= 0 then
+          notify("Error getting Kafka pod.", vim.log.levels.ERROR)
           return
         end
 
-        notify("Getting Kafka pod...", vim.log.levels.INFO)
-        Job
-          :new({
-            command = "kubectl",
-            args = { "get", "pods", "-n", namespace, "-o", "json" },
-            on_exit = function(j, pod_return_val)
-              if pod_return_val ~= 0 then
-                vim.schedule(
-                  function() notify("Error getting Kafka pod.", vim.log.levels.ERROR) end
-                )
-                return
-              end
+        local json = vim.json.decode(pod_out.stdout)
+        local kafka_pods = vim.tbl_filter(
+          function(item) return item.metadata.labels and item.metadata.labels.app == "kafka" end,
+          json.items
+        )
 
-              local output = table.concat(j:result(), "\n")
-              local json = vim.json.decode(output)
-              local kafka_pods = vim.tbl_filter(
-                function(item) return item.metadata.labels and item.metadata.labels.app == "kafka" end,
-                json.items
-              )
+        if #kafka_pods == 0 then
+          notify("No Kafka pod found.", vim.log.levels.WARN)
+          return
+        end
 
-              if #kafka_pods == 0 then
-                vim.schedule(function() notify("No Kafka pod found.", vim.log.levels.WARN) end)
-                return
-              end
-
-              last_pod = kafka_pods[1]
-              save_state()
-              callback(last_pod)
-            end,
-          })
-          :start()
-      end,
-    })
-    :start()
+        last_pod = kafka_pods[1]
+        save_state()
+        callback(last_pod)
+      end
+    )
+  end)
 end
 
 ---@param pod KafkaPod
@@ -150,32 +135,26 @@ local function send_message(pod, topic, msg)
     vim.log.levels.INFO
   )
 
-  Job:new({
-    command = "kubectl",
-    args = {
-      "exec",
-      "-i",
-      "-n",
-      namespace,
-      pod.metadata.name,
-      "--",
-      "kafka-console-producer",
-      "--broker-list",
-      "localhost:9092",
-      "--topic",
-      topic,
-    },
-    writer = msg,
-    on_exit = function(_, return_val)
-      vim.schedule(function()
-        if return_val == 0 then
-          notify("Message sent successfully.", vim.log.levels.INFO)
-        else
-          notify("Error sending message.", vim.log.levels.ERROR)
-        end
-      end)
-    end,
-  }):start()
+  vim.system({
+    "kubectl",
+    "exec",
+    "-i",
+    "-n",
+    namespace,
+    pod.metadata.name,
+    "--",
+    "kafka-console-producer",
+    "--broker-list",
+    "localhost:9092",
+    "--topic",
+    topic,
+  }, { stdin = msg, text = true }, function(out)
+    if out.code == 0 then
+      notify("Message sent successfully.", vim.log.levels.INFO)
+    else
+      notify("Error sending message.", vim.log.levels.ERROR)
+    end
+  end)
 end
 
 ---@return string?
@@ -196,30 +175,27 @@ end
 ---@param callback fun(topics: string[])
 local function get_topics(pod, callback)
   notify("Getting Kafka topics...", vim.log.levels.INFO)
-  Job:new({
-    command = "kubectl",
-    args = {
-      "exec",
-      "-n",
-      namespace,
-      pod.metadata.name,
-      "--",
-      "kafka-topics",
-      "--list",
-      "--bootstrap-server",
-      "localhost:9092",
-    },
-    on_exit = function(j, return_val)
-      if return_val ~= 0 then
-        vim.schedule(function() notify("Error getting Kafka topics.", vim.log.levels.ERROR) end)
-        return
-      end
+  vim.system({
+    "kubectl",
+    "exec",
+    "-n",
+    namespace,
+    pod.metadata.name,
+    "--",
+    "kafka-topics",
+    "--list",
+    "--bootstrap-server",
+    "localhost:9092",
+  }, { text = true }, function(out)
+    if out.code ~= 0 then
+      notify("Error getting Kafka topics.", vim.log.levels.ERROR)
+      return
+    end
 
-      local topics = vim.tbl_filter(function(line) return line ~= "" end, j:result())
+    local topics = vim.tbl_filter(function(line) return line ~= "" end, vim.split(out.stdout, "\n"))
 
-      callback(topics)
-    end,
-  }):start()
+    callback(topics)
+  end)
 end
 
 ---@param topics string[]

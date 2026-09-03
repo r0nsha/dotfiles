@@ -195,5 +195,5 @@ require("mini.cmdline").setup({
   autopeek = { enable = false },
 })
 
--- splitjoin()
+-- splitjoin
 require("mini.splitjoin").setup({ mappings = { toggle = "gs" } })
