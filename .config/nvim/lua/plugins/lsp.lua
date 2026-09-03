@@ -3,7 +3,7 @@ local utils = require("utils")
 -- servers
 local servers = {
   emmylua_ls = {},
-  tsgo = {},
+  tsc = {},
   cssls = { name = "css-lsp" },
   tailwindcss = { name = "tailwindcss-language-server" },
   clangd = {},
