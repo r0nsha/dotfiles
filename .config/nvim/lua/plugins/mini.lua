@@ -154,7 +154,20 @@ vim.api.nvim_create_autocmd("InsertLeave", {
 })
 
 -- surround
-require("mini.surround").setup({ respect_selection_type = true })
+require("mini.surround").setup({
+  mappings = {
+    add = "ys",
+    delete = "ds",
+    find = nil,
+    find_left = nil,
+    highlight = nil,
+    replace = "cs",
+    suffix_last = nil,
+    suffix_next = nil,
+  },
+  respect_selection_type = true,
+  search_method = "cover_or_next",
+})
 
 -- trailspace
 require("mini.trailspace").setup()
