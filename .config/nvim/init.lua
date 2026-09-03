@@ -22,8 +22,6 @@ vim.pack.add({
   src.gh("rafamadriz/friendly-snippets"),
   src.gh("nvim-mini/mini.nvim"),
   src.tngl("ronshavit.com/mini.diff.jj"),
-  -- TODO: replaces mini.surround until [this](https://github.com/nvim-mini/mini.nvim/issues/2546) resolves multicursor
-  { src = src.gh("kylechui/nvim-surround"), version = vim.version.range("4.x") },
   { src = src.gh("nvim-treesitter/nvim-treesitter"), version = "main" },
   { src = src.gh("nvim-treesitter/nvim-treesitter-textobjects"), version = "main" },
   src.gh("neovim/nvim-lspconfig"),
