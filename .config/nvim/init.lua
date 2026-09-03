@@ -38,10 +38,6 @@ vim.pack.add({
   -- src.gh("stevearc/oil.nvim"),
   src.gh("barrettruth/canola.nvim"),
   src.gh("mrjones2014/smart-splits.nvim"),
-  src.gh("mfussenegger/nvim-dap"),
-  src.gh("igorlfs/nvim-dap-view"),
-  src.gh("Weissle/persistent-breakpoints.nvim"),
-  src.gh("nvimtools/hydra.nvim"),
   src.gh("jake-stewart/multicursor.nvim"),
   src.gh("r0nsha/multinput.nvim"),
   src.gh("stevearc/quicker.nvim"),
@@ -77,6 +73,5 @@ require("plugins.quickfix")
 require("plugins.vcs")
 require("plugins.typst")
 require("plugins.undotree")
-require("plugins.dap")
 require("plugins.db")
 require("plugins.matchup")

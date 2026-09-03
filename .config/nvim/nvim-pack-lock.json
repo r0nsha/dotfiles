@@ -24,10 +24,6 @@
       "rev": "c8a8e7b6973576f63e5bf39aa8338d7f37f4dc53",
       "src": "https://github.com/julienvincent/hunk.nvim"
     },
-    "hydra.nvim": {
-      "rev": "8c4a9f621ec7cdc30411a1f3b6d5eebb12b469dc",
-      "src": "https://github.com/nvimtools/hydra.nvim"
-    },
     "jj-diffconflicts": {
       "rev": "a2aa9a247b56d2c1a6f6be81bcf41c5450cc82ff",
       "src": "https://github.com/rafikdraoui/jj-diffconflicts"
@@ -68,14 +64,6 @@
       "rev": "10fc361835c856ba4233ef5ea135b919bf3dce97",
       "src": "https://github.com/MunifTanjim/nui.nvim"
     },
-    "nvim-dap": {
-      "rev": "c9a0738e45f1bd41d792a126941348dce661cf9b",
-      "src": "https://github.com/mfussenegger/nvim-dap"
-    },
-    "nvim-dap-view": {
-      "rev": "e766b3d8acef97e7e8b29f7f421aa4977b9978e1",
-      "src": "https://github.com/igorlfs/nvim-dap-view"
-    },
     "nvim-lint": {
       "rev": "3d55c8f67c6ae5c15e1042571e107c7a3d5c5f4e",
       "src": "https://github.com/mfussenegger/nvim-lint"
@@ -106,10 +94,6 @@
     "nvim-ts-context-commentstring": {
       "rev": "1b212c2eee76d787bbea6aa5e92a2b534e7b4f8f",
       "src": "https://github.com/JoosepAlviste/nvim-ts-context-commentstring"
-    },
-    "persistent-breakpoints.nvim": {
-      "rev": "d1656221836207787b8a7969cc2dc72668c4742a",
-      "src": "https://github.com/Weissle/persistent-breakpoints.nvim"
     },
     "plenary.nvim": {
       "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
