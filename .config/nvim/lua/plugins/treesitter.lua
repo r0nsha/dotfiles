@@ -16,12 +16,10 @@ local function start_treesitter(buf, lang)
   vim.treesitter.start(buf, lang)
   vim.bo[buf].syntax = "on"
 
-  vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+  vim.wo.foldexpr = vim.treesitter.foldexpr
   vim.wo.foldmethod = "expr"
 
-  if vim.treesitter.query.get(lang, "idnents") then
-    vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-  end
+  if vim.treesitter.query.get(lang, "idnents") then vim.bo[buf].indentexpr = ts.indentexpr end
 end
 
 local available_parsers = ts.get_available()

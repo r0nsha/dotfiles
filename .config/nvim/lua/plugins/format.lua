@@ -72,4 +72,4 @@ vim.keymap.set(
   { remap = false, desc = "Conform: Format" }
 )
 
-vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+vim.o.formatexpr = conform.formatexpr
