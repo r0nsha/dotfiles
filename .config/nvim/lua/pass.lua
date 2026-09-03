@@ -3,29 +3,15 @@ local M = {}
 ---@param var string
 ---@param pass_name string
 local function read(var, pass_name)
-  local Job = require("plenary.job")
-
-  ---@diagnostic disable-next-line: missing-fields
-  local j = Job:new({
-    command = "pass",
-    args = { "show", pass_name },
-  })
-
-  j:after_success(function()
-    local result = table.concat(j:result(), "\n")
-    vim.schedule(function() vim.env[var] = result end)
-  end)
-
-  j:after_failure(function()
-    local error = table.concat(j:stderr_result(), "\n")
-    vim.schedule(
-      function()
-        vim.notify(string.format("Failed retrieving `%s` from `pass`. %s", pass_name, error))
+  vim.system({ "pass", "show", pass_name }, { text = true }, function(out)
+    vim.schedule(function()
+      if out.code == 0 and out.stdout then
+        vim.env[var] = vim.trim(out.stdout)
+      else
+        vim.notify(string.format("Failed retrieving `%s` from `pass`. %s", pass_name, out.stderr))
       end
-    )
+    end)
   end)
-
-  j:start()
 end
 
 function M.load() read("CODESTRAL_API_KEY", "console.mistral.ai/codestral") end
