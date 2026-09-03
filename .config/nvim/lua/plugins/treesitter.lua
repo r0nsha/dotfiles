@@ -1,7 +1,8 @@
+local augroup = require("augroup")
 local ts = require("nvim-treesitter")
 
 vim.api.nvim_create_autocmd("PackChanged", {
-  group = require("augroup"),
+  group = augroup,
   once = true,
   callback = function(args)
     if args.data.spec.name == "nvim-treesitter" then ts.update() end
@@ -26,7 +27,7 @@ local available_parsers = ts.get_available()
 
 -- Auto-install parsers and enable highlighting for filetypes
 vim.api.nvim_create_autocmd("FileType", {
-  group = require("augroup"),
+  group = augroup,
   callback = function(args)
     local buf, ft = args.buf, args.match
     local lang = vim.treesitter.language.get_lang(ft)

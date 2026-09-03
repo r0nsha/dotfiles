@@ -1,4 +1,4 @@
-local group = require("augroup")
+local augroup = require("augroup")
 
 -- bufremove
 local br = require("mini.bufremove")
@@ -148,7 +148,7 @@ snippets.setup({
 
 vim.api.nvim_create_autocmd("InsertLeave", {
   desc = "stop mini.snippets when leaving insert mode",
-  group = group,
+  group = augroup,
   pattern = "*",
   callback = function() snippets.session.stop() end,
 })
@@ -160,7 +160,7 @@ require("mini.surround").setup({ respect_selection_type = true })
 require("mini.trailspace").setup()
 
 vim.api.nvim_create_autocmd("FileType", {
-  group = group,
+  group = augroup,
   pattern = "jjdescription",
   callback = function(args)
     vim.b[args.buf].minitrailspace_disable = true
@@ -177,7 +177,7 @@ vim.api.nvim_set_hl(0, "MiniCompletionInfoBorderOutdated", { link = "FloatBorder
 
 vim.api.nvim_create_autocmd("BufEnter", {
   desc = "disable mini.completion for prompt buffers",
-  group = group,
+  group = augroup,
   pattern = "*",
   callback = function()
     if vim.bo.buftype == "prompt" then vim.b.minicompletion_disable = true end
@@ -186,7 +186,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 
 vim.api.nvim_create_autocmd("FileType", {
   desc = "set omnifunc for dadbod",
-  group = group,
+  group = augroup,
   pattern = "sql",
   callback = function() vim.bo.omnifunc = "vim_dadbod_completion#omni" end,
 })
