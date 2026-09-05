@@ -197,5 +197,3 @@ vim.api.nvim_create_autocmd("FileType", {
 require("mini.cmdline").setup({
   autopeek = { enable = false },
 })
-
-require("mini.splitjoin").setup({ mappings = { toggle = "gs" } })

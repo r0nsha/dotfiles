@@ -48,6 +48,9 @@ vim.keymap.set("n", "<leader>ih", "<cmd>Inspect<cr>", { desc = "TS: Inspect" })
 vim.keymap.set("n", "<leader>ip", "<cmd>InspectTree<cr>", { desc = "TS: Inspect Tree" })
 vim.keymap.set("n", "<leader>iq", "<cmd>EditQuery<cr>", { desc = "TS: Edit Query" })
 
-require("touchup").setup({
-  checkboxes = { enabled = false },
-})
+vim.keymap.set(
+  { "n", "x" },
+  "gs",
+  function() require("treesj").toggle() end,
+  { desc = "Splitjoin" }
+)
