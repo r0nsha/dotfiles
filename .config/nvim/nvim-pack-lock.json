@@ -40,6 +40,10 @@
       "rev": "2a6940af80375532e5e9e7c1f2fc6319a1b7a69d",
       "src": "https://github.com/williamboman/mason.nvim"
     },
+    "matchparen.nvim": {
+      "rev": "75398158ea5a4cee4f0cbbeefdbf8fb1c3343e28",
+      "src": "https://github.com/monkoose/matchparen.nvim"
+    },
     "mini.diff.jj": {
       "rev": "0c43dea746088ce07c1c60f2b3c50e0aa7ff11c2",
       "src": "https://tangled.org/ronshavit.com/mini.diff.jj"
@@ -106,10 +110,6 @@
       "rev": "882c996cf28183f4d63640de0b4c02ec886d01f2",
       "src": "https://github.com/folke/snacks.nvim"
     },
-    "touchup.nvim": {
-      "rev": "efc7df43515aeb29c84ef088f0197bde83e9ce12",
-      "src": "https://github.com/noisesfromspace/touchup.nvim"
-    },
     "treesj": {
       "rev": "79aedb401bbdc7e4202f7881eab5f6feb2105b0a",
       "src": "https://github.com/Wansmer/treesj"
@@ -138,10 +138,6 @@
     "vim-endwise": {
       "rev": "4994afb0cdf956d9a665a14b9c834869e602c396",
       "src": "https://github.com/tpope/vim-endwise"
-    },
-    "vim-matchup": {
-      "rev": "5e3c4a3274a9766aee520caebb52572c007fc4f8",
-      "src": "https://github.com/andymass/vim-matchup"
     }
   }
 }

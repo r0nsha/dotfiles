@@ -54,3 +54,5 @@ vim.keymap.set(
   function() require("treesj").toggle() end,
   { desc = "Splitjoin" }
 )
+
+require("matchparen").setup()
