@@ -51,7 +51,7 @@ vim.pack.add({
   src.gh("tpope/vim-dadbod"),
   src.gh("kristijanhusak/vim-dadbod-ui"),
   src.gh("kristijanhusak/vim-dadbod-completion"),
-  src.gh("monkoose/matchparen.nvim"),
+  src.gh("andymass/vim-matchup"),
   src.gh("brianhuster/unnest.nvim"),
   src.gh("Wansmer/treesj"),
 })
@@ -74,3 +74,4 @@ require("plugins.vcs")
 require("plugins.typst")
 require("plugins.undotree")
 require("plugins.db")
+require("plugins.matchparen")
