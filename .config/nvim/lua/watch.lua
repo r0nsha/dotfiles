@@ -8,23 +8,14 @@ local M = {}
 ---@alias Unwatch fun()
 ---@alias OnEvent fun(filename: string, events: table, unwatch: Unwatch)
 ---@alias OnError fun(error: function, unwatch: Unwatch)
----@alias Runnable string|{on_event: OnEvent, on_error: OnError}
-
----@param path string
----@param runnable Runnable
----@return OnError
-local make_default_error_cb = function(path, runnable)
-  return function(error, _)
-    error("fwatch.watch(" .. path .. ", " .. runnable .. ")" .. "encountered an error: " .. error)
-  end
-end
+---@alias Runnable {on_event: OnEvent, on_error: OnError}
 
 --- @param path string
 --- @param on_event function
 --- @param on_error OnError
 --- @param opts Opts
 --- @return uv.uv_fs_event_t|nil
-local function watch_with_function(path, on_event, on_error, opts)
+local function _watch(path, on_event, on_error, opts)
   local handle = uv.new_fs_event()
   if not handle then return nil end
 
@@ -45,38 +36,17 @@ local function watch_with_function(path, on_event, on_error, opts)
 end
 
 --- @param path string
---- @param string string
---- @param opts Opts
---- @return uv.uv_fs_event_t|nil
-local function watch_with_string(path, string, opts)
-  local on_event = function(_, _)
-    vim.schedule(function() vim.cmd(string) end)
-  end
-  local on_error = make_default_error_cb(path, string)
-  return watch_with_function(path, on_event, on_error, opts)
-end
-
---- @param path string
 --- @param runnable Runnable
 --- @param opts Opts
 --- @return uv.uv_fs_event_t|nil
 local function do_watch(path, runnable, opts)
-  if type(runnable) == "string" then
-    return watch_with_string(path, runnable, opts)
-  elseif type(runnable) == "table" then
-    assert(type(runnable.on_event) == "function", "on_event must be a function")
-
-    if runnable.on_error == nil then
-      runnable.on_error = make_default_error_cb(path, "on_event_cb")
+  if runnable.on_error == nil then
+    runnable.on_error = function(error, _)
+      error('watch("' .. path .. '", ...) ' .. "encountered an error: " .. error)
     end
-
-    return watch_with_function(path, runnable.on_event, runnable.on_error, opts)
-  else
-    error(
-      "Unknown runnable type given to watch,"
-        .. " must be string or {on_event = function, on_error = function}."
-    )
   end
+
+  return _watch(path, runnable.on_event, runnable.on_error, opts)
 end
 
 ---@param path string
@@ -99,10 +69,6 @@ end
 ---@param path string
 ---@param runnable Runnable
 ---@return uv.uv_fs_event_t|nil
-function M.once(path, runnable)
-  return do_watch(path, runnable, {
-    is_oneshot = true,
-  })
-end
+function M.once(path, runnable) return do_watch(path, runnable, { is_oneshot = true }) end
 
 return M
