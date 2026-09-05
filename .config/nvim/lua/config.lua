@@ -2,11 +2,6 @@ local augroup = require("augroup")
 local utils = require("utils")
 
 -- opts
-
--- disable matchparen
-vim.g.loaded_matchparen = 1
-
--- opts
 vim.opt.termguicolors = true
 vim.opt.exrc = true
 vim.opt.secure = true
@@ -133,25 +128,7 @@ vim.opt.foldmethod = "indent"
 vim.opt.foldcolumn = "0"
 vim.opt.foldlevelstart = 99
 
--- use system clipboard by default
-vim.opt.clipboard:append("unnamedplus")
-
-if vim.env.SSH_CONNECTION then
-  local function vim_paste()
-    local content = vim.fn.getreg('"')
-    return vim.split(content, "\n")
-  end
-
-  local osc52 = require("vim.ui.clipboard.osc52")
-  vim.g.clipboard = {
-    name = "OSC 52",
-    copy = { ["+"] = osc52.copy("+"), ["*"] = osc52.copy("*") },
-    paste = { ["+"] = vim_paste, ["*"] = vim_paste },
-  }
-end
-
 -- autocmd
-
 vim.api.nvim_create_autocmd("TermOpen", {
   group = augroup,
   desc = "Configure :terminal buffer",
@@ -395,7 +372,7 @@ end, { expr = true })
 -- vim.keymap.set("x", "K", ":m '<-2<cr>gv=gv", { desc = "Move Selection: Up" })
 
 -- Splitjoin the line below the cursor
-vim.keymap.set("n", "J", "mzJ`z", { desc = "Splitjoin" })
+-- vim.keymap.set("n", "J", "mzJ`z", { desc = "Splitjoin" })
 
 -- Justify center page up/down
 -- vim.keymap.set("n", "<C-d>", "<C-d>zz")
