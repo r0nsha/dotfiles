@@ -53,7 +53,6 @@ vim.pack.add({
   src.gh("kristijanhusak/vim-dadbod-ui"),
   src.gh("kristijanhusak/vim-dadbod-completion"),
   src.gh("andymass/vim-matchup"),
-  src.gh("brianhuster/unnest.nvim"),
   src.gh("Wansmer/treesj"),
 })
 

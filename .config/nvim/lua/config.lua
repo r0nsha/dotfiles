@@ -425,11 +425,6 @@ end, { desc = "Toggle all folds in buffer" })
 -- Spell
 vim.keymap.set("n", "<leader>cc", "1z=", { desc = "Correct spelling" })
 
--- Terminal
-vim.keymap.set("t", "<c-esc>", "<c-\\><c-n>", { desc = "Exit terminal mode" })
-vim.keymap.set("t", "<s-esc>", "<c-\\><c-n>", { desc = "Exit terminal mode" })
-vim.keymap.set("t", "<a-esc>", "<c-\\><c-n>", { desc = "Exit terminal mode" })
-
 -- Write
 vim.keymap.set("n", "<leader>w", "<cmd>noau w<cr>", { desc = "Write without autocmds" })
 
@@ -511,3 +506,75 @@ vim.keymap.set("n", "grQ", function()
     end
   )
 end, { desc = "Show Diagnostics (Filtered)" })
+
+-- terminal
+vim.keymap.set("t", "<C-w>", [[<C-\><C-n><C-w>]])
+vim.keymap.set({ "n", "t" }, "<C-w>1", [[<C-\><C-n>1gt]])
+vim.keymap.set({ "n", "t" }, "<C-w>2", [[<C-\><C-n>2gt]])
+vim.keymap.set({ "n", "t" }, "<C-w>3", [[<C-\><C-n>3gt]])
+vim.keymap.set({ "n", "t" }, "<C-w>4", [[<C-\><C-n>4gt]])
+vim.keymap.set({ "n", "t" }, "<C-w>5", [[<C-\><C-n>5gt]])
+vim.keymap.set({ "n", "t" }, "<C-w>6", [[<C-\><C-n>6gt]])
+vim.keymap.set({ "n", "t" }, "<C-w>7", [[<C-\><C-n>7gt]])
+vim.keymap.set({ "n", "t" }, "<C-w>8", [[<C-\><C-n>8gt]])
+vim.keymap.set({ "n", "t" }, "<C-w>9", [[<C-\><C-n>9gt]])
+
+local exit_term_mode = [[<C-\><C-n>]]
+vim.keymap.set("t", "<C-Esc>", exit_term_mode, { desc = "Exit terminal mode" })
+vim.keymap.set("t", "<S-Esc>", exit_term_mode, { desc = "Exit terminal mode" })
+vim.keymap.set("t", "<A-Esc>", exit_term_mode, { desc = "Exit terminal mode" })
+
+-- :terminal-nested Nvim:
+if vim.env.NVIM then
+  local function parent_chan()
+    local ok, chan = pcall(vim.fn.sockconnect, "pipe", vim.env.NVIM, { rpc = true })
+    if not ok then vim.notify(("failed to create channel to $NVIM: %s"):format(chan)) end
+    return ok and chan or nil
+  end
+
+  local didset = false
+  local chan = assert(parent_chan())
+  local function map_parent(lhs)
+    -- Map `lhs` in the parent so it gets sent to the child (this) Nvim.
+    local map = vim.rpcrequest(
+      chan,
+      "nvim_exec_lua",
+      [[return vim.fn.maparg(..., 't', false, true)]],
+      { lhs }
+    ) --[[@as table<string,any>]]
+    if map.rhs == exit_term_mode then
+      vim.rpcrequest(
+        chan,
+        "nvim_exec_lua",
+        [[vim.keymap.set('t', ..., '<Esc>', {buffer=0})]],
+        { lhs }
+      )
+      didset = true
+    end
+  end
+  map_parent("<C-Esc>")
+  map_parent("<S-Esc>")
+  map_parent("<A-Esc>")
+  vim.fn.chanclose(chan)
+
+  -- Restore the mapping(s) on VimLeave.
+  if didset then
+    vim.api.nvim_create_autocmd("VimLeave", {
+      group = augroup,
+      desc = "Restore parent nvim mappings",
+      callback = function()
+        local chan2 = assert(parent_chan())
+        vim.rpcrequest(
+          chan2,
+          "nvim_exec2",
+          [=[
+          silent! tunmap <buffer> <C-Esc>
+          silent! tunmap <buffer> <S-Esc>
+          silent! tunmap <buffer> <A-Esc>
+        ]=],
+          {}
+        )
+      end,
+    })
+  end
+end
