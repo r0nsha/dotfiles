@@ -477,12 +477,10 @@ vim.keymap.set("n", "]a", "<cmd>next<cr>", { desc = "Next file in arglist" })
 --   end
 -- end
 
-vim.diagnostic.config({
-  float = true,
-  -- jump = { on_jump = on_jump },
-  virtual_text = false,
-  virtual_lines = { current_line = true, overflow = "wrap" },
-})
+-- vim.diagnostic.config({
+--   -- jump = { on_jump = on_jump },
+--   virtual_text = false,
+-- })
 
 local qf_severity = {
   E = vim.diagnostic.severity.ERROR,
@@ -526,26 +524,3 @@ vim.keymap.set("n", "grQ", function()
     end
   )
 end, { desc = "Show Diagnostics (Filtered)" })
-
----@param enabled boolean
-local function enable_virtual_lines(enabled)
-  vim.notify("Virtual lines " .. utils.bool_to_enabled(enabled))
-  if enabled then
-    vim.diagnostic.config({ virtual_lines = true })
-  else
-    vim.diagnostic.config({ virtual_lines = { current_line = true } })
-  end
-end
-
-vim.keymap.set("n", "grl", function()
-  local config = vim.diagnostic.config() or {}
-  enable_virtual_lines(config.virtual_lines ~= true)
-end, { desc = "LSP: Toggle line diagnostics" })
-
-vim.api.nvim_create_autocmd("User", {
-  group = augroup,
-  pattern = "DiagnosticChanged",
-  callback = function()
-    if vim.diagnostic.count() == 0 then enable_virtual_lines(false) end
-  end,
-})

@@ -33,6 +33,7 @@ vim.pack.add({
   src.gh("kylechui/nvim-surround"),
   src.gh("tpope/vim-endwise"),
   src.gh("JoosepAlviste/nvim-ts-context-commentstring"),
+  src.gh("rachartier/tiny-inline-diagnostic.nvim"),
   src.gh("folke/snacks.nvim"),
   -- src.gh("milanglacier/minuet-ai.nvim"),
   -- src.gh("stevearc/oil.nvim"),
@@ -59,6 +60,7 @@ vim.pack.add({
 require("plugins.treesitter")
 require("plugins.treesitter_textobjects")
 require("plugins.comment")
+require("plugins.diagnostic")
 require("plugins.lsp")
 require("plugins.format")
 require("plugins.lint")
