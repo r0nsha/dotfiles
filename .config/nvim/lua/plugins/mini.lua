@@ -144,22 +144,10 @@ vim.api.nvim_create_autocmd("InsertLeave", {
   callback = function() snippets.session.stop() end,
 })
 
-require("mini.surround").setup({
-  mappings = {
-    add = "ys",
-    delete = "ds",
-    find = "",
-    find_left = "",
-    highlight = "",
-    replace = "cs",
-    suffix_last = "",
-    suffix_next = "",
-  },
-  respect_selection_type = true,
-  search_method = "cover_or_next",
-})
-
--- require("mini.pairs").setup()
+-- require("mini.surround").setup({
+--   respect_selection_type = true,
+--   search_method = "cover_or_next",
+-- })
 
 require("mini.trailspace").setup()
 

@@ -30,6 +30,7 @@ vim.pack.add({
   src.gh("b0o/schemastore.nvim"),
   src.gh("stevearc/conform.nvim"),
   src.gh("mfussenegger/nvim-lint"),
+  src.gh("kylechui/nvim-surround"),
   src.gh("tpope/vim-endwise"),
   src.gh("JoosepAlviste/nvim-ts-context-commentstring"),
   src.gh("folke/snacks.nvim"),
