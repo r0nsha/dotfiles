@@ -218,19 +218,6 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   callback = function() vim.bo.filetype = "gitconfig" end,
 })
 
-vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained", "InsertLeave", "WinEnter" }, {
-  group = augroup,
-  desc = "Set relativenumber when in normal mode, but not in insert mode",
-  pattern = "*",
-  command = "if &nu && mode() != 'i' | set rnu | endif",
-})
-vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
-  group = augroup,
-  desc = "Disable relativenumber when in insert mode",
-  pattern = "*",
-  command = "if &nu | set nornu | endif",
-})
-
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup,
   desc = "Enable spell checking for prose",
