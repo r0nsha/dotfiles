@@ -163,6 +163,7 @@ vim.api.nvim_create_autocmd("FileType", {
 require("mini.completion").setup({
   delay = { completion = 25, signature = 25 },
 })
+vim.keymap.set("i", "<C-S-Space>", function() MiniCompletion.complete_twostage() end)
 
 vim.api.nvim_set_hl(0, "MiniCompletionInfoBorderOutdated", { link = "FloatBorder" })
 

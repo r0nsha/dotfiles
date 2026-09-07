@@ -526,10 +526,14 @@ vim.keymap.set("t", "<A-Esc>", exit_term_mode, { desc = "Exit terminal mode" })
 
 -- :terminal-nested Nvim:
 if vim.env.NVIM then
+  ---@return integer?
   local function parent_chan()
     local ok, chan = pcall(vim.fn.sockconnect, "pipe", vim.env.NVIM, { rpc = true })
-    if not ok then vim.notify(("failed to create channel to $NVIM: %s"):format(chan)) end
-    return ok and chan or nil
+    if not ok then
+      vim.notify(("failed to create channel to $NVIM: %s"):format(chan))
+      return nil
+    end
+    return chan --[[@as integer?]]
   end
 
   local didset = false
@@ -578,3 +582,30 @@ if vim.env.NVIM then
     })
   end
 end
+
+-- tabline
+_G._myconfig = _G._myconfig or {}
+
+_G._myconfig.tablabel = function(n)
+  local buflist = vim.fn.tabpagebuflist(n)
+  local winnr = vim.fn.tabpagewinnr(n)
+  local tabdir = vim.fn.getcwd(-1, n)
+  local has_tabdir = vim.fn.getcwd(-1, -1) ~= tabdir
+  if has_tabdir then return ("CWD: %s/"):format(vim.fn.fnamemodify(tabdir, ":t")) end
+  local bufname = vim.fn.bufname(buflist[winnr])
+  local isdir = bufname:sub(#bufname) == "/"
+  local name = vim.fn.fnamemodify(bufname, isdir and ":h:t" or ":t") .. (isdir and "/" or "")
+  name = name:len() > 20 and name:sub(1, 20) .. "…" or name
+  return name == "" and "No Name" or name
+end
+_G._myconfig.tabline = function()
+  local s = ""
+  for i = 1, vim.fn.tabpagenr("$") do
+    local hlgroup = (i == vim.fn.tabpagenr() and "%#TabLineSel#" or "%#TabLine#")
+    s = s .. ("%s%%%dT %d: %%{v:lua._myconfig.tablabel(%d)} "):format(hlgroup, i, i, i)
+  end
+  -- return s .. "%#TabLineFill#%T%=%#TabLine#%999XX"
+  return s .. "%#TabLineFill#"
+end
+
+vim.opt.tabline = "%!v:lua._myconfig.tabline()"
