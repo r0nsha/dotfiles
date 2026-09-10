@@ -6,7 +6,7 @@ function Utils.is_macos() return vim.fn.has("macunix") == 1 end
 function Utils.bool_to_enabled(v) return v and "enabled" or "disabled" end
 
 ---@param callback function
----@param timeout number
+---@param timeout integer
 ---@return function | { cancel: function }
 function Utils.debounce(callback, timeout)
   local timer = vim.uv.new_timer()
@@ -31,7 +31,7 @@ function Utils.debounce(callback, timeout)
   return t
 end
 
----@return number, number
+---@return integer, integer
 function Utils.get_visual_range()
   local start_line = vim.fn.line("v") - 1
   local end_line = vim.fn.line(".") - 1

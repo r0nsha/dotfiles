@@ -9,6 +9,13 @@ local function toggle_checkbox()
   elseif line:match("^%s*%- %[x%]") then
     local new_line = line:gsub("%[x%]", "[ ]")
     vim.api.nvim_set_current_line(new_line)
+  else
+    local count = vim.v.count1
+    vim.api.nvim_feedkeys(
+      vim.api.nvim_replace_termcodes(count .. "<C-x>", true, false, true),
+      "n",
+      false
+    )
   end
 end
 
@@ -31,7 +38,10 @@ local function toggle_checkboxes_visual()
   end
 
   -- early return
-  if #checkbox_lines == 0 then return end
+  if #checkbox_lines == 0 then
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-x>gv", true, false, true), "n", false)
+    return
+  end
 
   -- decide target
   local turn_on

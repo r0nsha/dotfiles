@@ -268,7 +268,7 @@ vim.api.nvim_create_autocmd({ "TermRequest" }, {
   end,
 })
 
-require("vim._core.ui2").enable({ enable = true, msg = { target = "msg" } })
+require("vim._core.ui2").enable({ enable = true })
 
 -- remap
 
