@@ -10,7 +10,6 @@ require("nvim-treesitter-textobjects").setup({
 
 local ts_config = require("nvim-treesitter-textobjects.config")
 local ts_move = require("nvim-treesitter-textobjects.move")
-local ts_repeat_move = require("nvim-treesitter-textobjects.repeatable_move")
 local ts_select = require("nvim-treesitter-textobjects.select")
 local ts_shared = require("nvim-treesitter-textobjects.shared")
 
@@ -92,6 +91,3 @@ for id, config in pairs(textobjects) do
     { desc = "Previous " .. config.desc .. " end" }
   )
 end
-
-vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move_next)
-vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_previous)
