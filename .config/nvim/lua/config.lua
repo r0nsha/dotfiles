@@ -291,6 +291,11 @@ vim.keymap.set("x", "p", '"_dP', { remap = false })
 -- Remove `s`, it's useless
 vim.keymap.set("n", "s", "<Nop>")
 
+-- Inc/Dec
+vim.keymap.set("x", "<C-x>", "<C-x>gv")
+vim.keymap.set("n", "+", "<C-a>")
+vim.keymap.set("x", "+", "<C-a>gv")
+
 local function get_relative_file_path() return vim.fs.normalize(vim.fn.expand("%")) end
 
 ---@param lines string
