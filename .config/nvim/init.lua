@@ -2,7 +2,8 @@ require("extensions")
 require("config")
 require("theme")
 
-local src = require("utils").pack.src
+local pack = require("utils").pack
+local src = pack.src
 
 -- load colorscheme first
 vim.pack.add({
@@ -34,7 +35,6 @@ vim.pack.add({
   src.gh("tpope/vim-endwise"),
   src.gh("JoosepAlviste/nvim-ts-context-commentstring"),
   src.gh("rachartier/tiny-inline-diagnostic.nvim"),
-  src.gh("folke/snacks.nvim"),
   -- src.gh("milanglacier/minuet-ai.nvim"),
   -- src.gh("stevearc/oil.nvim"),
   src.gh("barrettruth/canola.nvim"),
@@ -56,6 +56,11 @@ vim.pack.add({
   src.gh("Wansmer/treesj"),
 })
 
+pack.add_with_build(
+  src.gh("dmtrKovalenko/fff"),
+  function() require("fff.download").download_or_build_binary() end
+)
+
 require("plugins.treesitter")
 require("plugins.treesitter_textobjects")
 require("plugins.comment")
@@ -66,7 +71,6 @@ require("plugins.lint")
 require("plugins.mini")
 require("plugins.smart_splits")
 require("plugins.explorer")
-require("plugins.snacks")
 -- require("plugins.ai")
 require("plugins.multicursor")
 require("plugins.multinput")

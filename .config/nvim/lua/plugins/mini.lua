@@ -1,5 +1,8 @@
 local augroup = require("augroup")
 
+local MiniExtra = require("mini.extra")
+MiniExtra.setup()
+
 local br = require("mini.bufremove")
 br.setup({})
 
@@ -97,16 +100,19 @@ diff.setup({
 })
 vim.keymap.set("n", "<leader>gh", diff.toggle_overlay, { desc = "Toggle diff overlay" })
 
-require("mini.hipatterns").setup({
+local MiniHipatterns = require("mini.hipatterns")
+MiniHipatterns.setup({
   highlighters = {
-    todo = { pattern = "TODO", group = "MiniHipatternsTodo" },
-    fixme = { pattern = "FIXME", group = "MiniHipatternsFixme" },
-    hack = { pattern = "HACK", group = "MiniHipatternsHack" },
-    note = { pattern = "NOTE", group = "MiniHipatternsNote" },
+    todo = MiniExtra.gen_highlighter.words({ "TODO", "Todo", "todo" }, "MiniHipatternsTodo"),
+    fixme = MiniExtra.gen_highlighter.words({ "FIXME", "Fixme", "fixme" }, "MiniHipatternsFixme"),
+    hack = MiniExtra.gen_highlighter.words({ "HACK", "Hack", "hack" }, "MiniHipatternsHack"),
+    note = MiniExtra.gen_highlighter.words({ "NOTE", "Note", "note" }, "MiniHipatternsNote"),
+    hex_color = MiniHipatterns.gen_highlighter.hex_color({ style = "line" }),
   },
 })
 
-require("mini.icons").setup()
+local MiniIcons = require("mini.icons")
+MiniIcons.setup()
 
 require("mini.jump").setup({
   mappings = { repeat_jump = "" },
@@ -149,7 +155,8 @@ vim.api.nvim_create_autocmd("InsertLeave", {
 --   search_method = "cover_or_next",
 -- })
 
-require("mini.trailspace").setup()
+local MiniTrailspace = require("mini.trailspace")
+MiniTrailspace.setup()
 
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup,
@@ -160,7 +167,8 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
-require("mini.completion").setup({
+local MiniCompletion = require("mini.completion")
+MiniCompletion.setup({
   delay = { completion = 25, signature = 25 },
 })
 vim.keymap.set("i", "<C-S-Space>", function() MiniCompletion.complete_twostage() end)
@@ -186,3 +194,5 @@ vim.api.nvim_create_autocmd("FileType", {
 require("mini.cmdline").setup({
   autopeek = { enable = false },
 })
+
+require("plugins.mini.pick")
