@@ -56,10 +56,6 @@
       "rev": "704b99f10a72cc05d370cfeb294ff83412a8ab55",
       "src": "https://github.com/jake-stewart/multicursor.nvim"
     },
-    "multinput.nvim": {
-      "rev": "f2959e1f5f4a64ae0c79c849d8e0a4af42a8e9e0",
-      "src": "https://github.com/r0nsha/multinput.nvim"
-    },
     "nor.nvim": {
       "rev": "578b9da4ed5ea2cc52fab81855e268cc1ab7f242",
       "src": "file:///home/ron/dev/nor.nvim"

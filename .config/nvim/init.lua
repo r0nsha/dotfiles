@@ -35,7 +35,6 @@ vim.pack.add({
   src.gh("barrettruth/canola.nvim"),
   src.gh("mrjones2014/smart-splits.nvim"),
   src.gh("jake-stewart/multicursor.nvim"),
-  src.gh("r0nsha/multinput.nvim"),
   src.gh("stevearc/quicker.nvim"),
   src.gh("esmuellert/codediff.nvim"),
   src.gh("ruifm/gitlinker.nvim"),
@@ -68,7 +67,6 @@ require("plugins.smart_splits")
 require("plugins.explorer")
 -- require("plugins.ai")
 require("plugins.multicursor")
-require("plugins.multinput")
 require("plugins.quickfix")
 require("plugins.vcs")
 require("plugins.typst")
