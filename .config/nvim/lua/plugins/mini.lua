@@ -63,7 +63,7 @@ clue.setup({
     clue.gen_clues.z(),
 
     { mode = "n", keys = "<Leader>b", desc = "+Buffers" },
-    { mode = "n", keys = "<Leader>g", desc = "+Source Control" },
+    { mode = "n", keys = "<Leader>g", desc = "+Source control" },
     { mode = "n", keys = "<Leader>c", desc = "+Misc" },
     { mode = "n", keys = "<Leader>t", desc = "+Tabs" },
     { mode = "n", keys = "<Leader>i", desc = "+Treesitter" },

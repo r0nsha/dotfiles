@@ -93,16 +93,16 @@ vim.api.nvim_create_autocmd("LspAttach", {
     ---@param desc string
     local opts = function(desc) return { buf = buf, desc = "LSP: " .. desc } end
 
-    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts("Go to Definition"))
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts("Go to definition"))
     vim.keymap.set("n", "<c-w>gd", function()
       vim.cmd("vsplit")
       vim.lsp.buf.definition()
-    end, opts("Go to Definition (split)"))
+    end, opts("Go to definition (split)"))
     vim.keymap.set("n", "grd", vim.lsp.buf.declaration, opts("Declarations"))
     vim.keymap.set("n", "grr", vim.lsp.buf.references, opts("References"))
-    vim.keymap.set("n", "grt", vim.lsp.buf.type_definition, opts("Type Definitions"))
+    vim.keymap.set("n", "grt", vim.lsp.buf.type_definition, opts("Type definitions"))
     vim.keymap.set("n", "gri", vim.lsp.buf.implementation, opts("Implementations"))
-    vim.keymap.set("n", "grs", vim.lsp.buf.workspace_symbol, opts("Workspace Symbols"))
+    vim.keymap.set("n", "grs", vim.lsp.buf.workspace_symbol, opts("Workspace symbols"))
     vim.keymap.set("n", "grS", vim.lsp.buf.document_symbol, opts("Symbols"))
     vim.keymap.set(
       "n",
@@ -113,14 +113,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
           apply = true,
         })
       end,
-      opts("Organize Imports")
+      opts("Organize imports")
     )
     vim.keymap.set("n", "grn", vim.lsp.buf.rename, opts("Rename"))
     vim.keymap.set("n", "grA", vim.lsp.codelens.run, opts("Rename"))
-    vim.keymap.set({ "n", "x" }, "gra", vim.lsp.buf.code_action, opts("Code Action"))
+    vim.keymap.set({ "n", "x" }, "gra", vim.lsp.buf.code_action, opts("Code action"))
     vim.keymap.set("n", "K", vim.lsp.buf.hover, opts("Hover"))
 
-    vim.keymap.set("i", "<C-s>", vim.lsp.buf.signature_help, opts("Signature Help"))
+    vim.keymap.set("i", "<C-s>", vim.lsp.buf.signature_help, opts("Signature help"))
   end,
 })
 
@@ -128,7 +128,7 @@ vim.keymap.set("n", "grh", function()
   local enable = not vim.lsp.inlay_hint.is_enabled()
   vim.lsp.inlay_hint.enable(enable)
   vim.notify("Inlay hints " .. utils.bool_to_enabled(enable))
-end, { desc = "LSP: Toggle Inlay Hints" })
+end, { desc = "LSP: Toggle inlay hints" })
 
 vim.keymap.set("n", "grc", function()
   local enable = not vim.lsp.codelens.is_enabled()

@@ -333,10 +333,10 @@ end, { remap = false, desc = "Copy line reference to clipboard" })
 
 -- Window mappings when tmux is not available
 if vim.fn.executable("tmux") ~= 1 then
-  vim.keymap.set("n", "<c-h>", "<c-w>h", { remap = false, desc = "Move Window: Left" })
-  vim.keymap.set("n", "<c-j>", "<c-w>j", { remap = false, desc = "Move Window: Down" })
-  vim.keymap.set("n", "<c-k>", "<c-w>k", { remap = false, desc = "Move Window: Up" })
-  vim.keymap.set("n", "<c-l>", "<c-w>l", { remap = false, desc = "Move Window: Right" })
+  vim.keymap.set("n", "<c-h>", "<c-w>h", { remap = false, desc = "Move window: left" })
+  vim.keymap.set("n", "<c-j>", "<c-w>j", { remap = false, desc = "Move window: down" })
+  vim.keymap.set("n", "<c-k>", "<c-w>k", { remap = false, desc = "Move window: up" })
+  vim.keymap.set("n", "<c-l>", "<c-w>l", { remap = false, desc = "Move window: right" })
 end
 
 -- Deal with word wrap
@@ -356,8 +356,8 @@ vim.keymap.set({ "n", "x" }, "k", function()
 end, { expr = true })
 
 -- replaced with mini.move
--- vim.keymap.set("x", "J", ":m '>+1<cr>gv=gv", { desc = "Move Selection: Down" })
--- vim.keymap.set("x", "K", ":m '<-2<cr>gv=gv", { desc = "Move Selection: Up" })
+-- vim.keymap.set("x", "J", ":m '>+1<cr>gv=gv", { desc = "Move selection: down" })
+-- vim.keymap.set("x", "K", ":m '<-2<cr>gv=gv", { desc = "Move selection: up" })
 
 -- Splitjoin the line below the cursor
 -- vim.keymap.set("n", "J", "mzJ`z", { desc = "Splitjoin" })
@@ -496,7 +496,7 @@ local function set_sorted_qflist(opts)
   vim.cmd.copen()
 end
 
-vim.keymap.set("n", "grq", set_sorted_qflist, { desc = "Show Diagnostics" })
+vim.keymap.set("n", "grq", set_sorted_qflist, { desc = "Show diagnostics" })
 vim.keymap.set("n", "grQ", function()
   vim.ui.select(
     { "Error", "Warn", "Info", "Hint" },
@@ -511,7 +511,7 @@ vim.keymap.set("n", "grQ", function()
       } --[[@as vim.diagnostic.GetOpts]])
     end
   )
-end, { desc = "Show Diagnostics (Filtered)" })
+end, { desc = "Show diagnostics (filtered)" })
 
 -- terminal
 vim.keymap.set("t", "<C-w>", [[<C-\><C-n><C-w>]])

@@ -26,11 +26,11 @@ require("codediff").setup({
 vim.keymap.set("n", "<leader>gdd", "<cmd>CodeDiff<cr>", { desc = "Diff" })
 vim.keymap.set("n", "<leader>gdD", "<cmd>CodeDiff %<cr>", { desc = "Diff (current file)" })
 
-vim.keymap.set("n", "<leader>gdf", "<cmd>CodeDiff history<cr>", { desc = "File History" })
-vim.keymap.set("x", "<leader>gdf", "<cmd>CodeDiff history<cr>", { desc = "File History (visual)" })
+vim.keymap.set("n", "<leader>gdf", "<cmd>CodeDiff history<cr>", { desc = "File history" })
+vim.keymap.set("x", "<leader>gdf", "<cmd>CodeDiff history<cr>", { desc = "File history (visual)" })
 vim.keymap.set(
   "n",
   "<leader>gdF",
   "<cmd>CodeDiff history %<cr>",
-  { desc = "File History (current file)" }
+  { desc = "File history (current file)" }
 )
