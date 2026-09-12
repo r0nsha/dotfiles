@@ -10,12 +10,7 @@ vim.pack.add({
   src.tngl("ronshavit.com/nor.nvim"),
   -- "file:///home/ron/dev/nor.nvim",
 })
-vim.g.nor_opts = {
-  transparent = true,
-  style = {
-    -- statusline = { bg = "none" },
-  },
-}
+vim.g.nor_opts = { transparent = true }
 vim.cmd.colorscheme("nor")
 
 vim.pack.add({

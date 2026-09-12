@@ -61,8 +61,8 @@
       "src": "https://github.com/r0nsha/multinput.nvim"
     },
     "nor.nvim": {
-      "rev": "61af8592a229d00e24139b5a9d845d8feab8de73",
-      "src": "https://tangled.org/ronshavit.com/nor.nvim"
+      "rev": "578b9da4ed5ea2cc52fab81855e268cc1ab7f242",
+      "src": "file:///home/ron/dev/nor.nvim"
     },
     "nui.nvim": {
       "rev": "10fc361835c856ba4233ef5ea135b919bf3dce97",
@@ -81,7 +81,7 @@
       "src": "https://github.com/kylechui/nvim-surround"
     },
     "nvim-treesitter": {
-      "rev": "de9f0f3dbdab1952f136dc7bd67ff3bafdf994da",
+      "rev": "9a168f6357ed21c3a636e1727bc7d382abc451b8",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
