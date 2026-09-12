@@ -23,6 +23,7 @@ vim.pack.add({
   src.gh("neovim/nvim-lspconfig"),
   src.gh("williamboman/mason.nvim"),
   src.gh("WhoIsSethDaniel/mason-tool-installer.nvim"),
+  src.gh("antonk52/filepaths_ls.nvim"),
   src.gh("b0o/schemastore.nvim"),
   src.gh("stevearc/conform.nvim"),
   src.gh("mfussenegger/nvim-lint"),

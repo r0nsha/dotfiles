@@ -16,6 +16,10 @@
       "rev": "c3f2c7f21ce6e528a320313e04d101a9dd4be833",
       "src": "https://github.com/dmtrKovalenko/fff"
     },
+    "filepaths_ls.nvim": {
+      "rev": "c5ebc0aa1cb0c7dc4509be834ca54f2c8364c11b",
+      "src": "https://github.com/antonk52/filepaths_ls.nvim"
+    },
     "friendly-snippets": {
       "rev": "b4d01b0fdf3c9a549961c2f9ffe8dc09be166219",
       "src": "https://github.com/rafamadriz/friendly-snippets"

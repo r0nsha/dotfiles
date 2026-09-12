@@ -63,6 +63,7 @@ end
 require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 vim.lsp.enable(vim.tbl_keys(servers))
+vim.lsp.enable("filepaths_ls")
 
 vim.api.nvim_create_autocmd("LspProgress", {
   callback = function(ev)
