@@ -27,11 +27,6 @@ conform.setup({
     toml = { "taplo" },
     yaml = { "prettierd", "yamlfmt", stop_after_first = true },
     xml = { "xmlformatter" },
-    go = {
-      "gofumpt",
-      "goimports-reviser",
-      "golines",
-    },
     typst = { "typstyle" },
     sql = { "sqruff" },
     kdl = { "kdlfmt" },
@@ -43,11 +38,7 @@ conform.setup({
   },
   format_on_save = function(bufnr)
     if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then return end
-
-    return {
-      lsp_format = "fallback",
-      timeout_ms = 2500,
-    }
+    return { lsp_format = "fallback", timeout_ms = 2500 } --[[@as conform.FormatOpts]]
   end,
   formatters = {
     qmkfmt = {
