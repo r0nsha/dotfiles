@@ -107,7 +107,7 @@ MiniHipatterns.setup({
     fixme = MiniExtra.gen_highlighter.words({ "FIXME", "Fixme", "fixme" }, "MiniHipatternsFixme"),
     hack = MiniExtra.gen_highlighter.words({ "HACK", "Hack", "hack" }, "MiniHipatternsHack"),
     note = MiniExtra.gen_highlighter.words({ "NOTE", "Note", "note" }, "MiniHipatternsNote"),
-    hex_color = MiniHipatterns.gen_highlighter.hex_color({ style = "line" }),
+    hex_color = MiniHipatterns.gen_highlighter.hex_color({ style = "#" }),
   },
 })
 
