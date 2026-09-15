@@ -604,89 +604,89 @@ end
 
 vim.opt.tabline = "%!v:lua._myconfig.tabline()"
 
--- atom ring
-local last_atom ---@type vim.event.cmdatom.data?
-local last_edit ---@type vim.event.cmdatom.data?
-local maxseq = {} ---@type table<integer, integer>
-
-vim.api.nvim_create_autocmd("CmdAtom", {
-  -- pattern = { 'motion', 'mapping' },
-  desc = "Remembers the most-recent user action",
-  group = augroup,
-  callback = function(ev)
-    local atom = ev.data --[[@as vim.event.cmdatom.data]]
-    local is_redo_or_undo = atom.changed and (atom.undoseq or 0) <= (maxseq[ev.buf] or 0)
-    maxseq[ev.buf] = vim.fn.undotree(ev.buf).seq_last
-    if atom.keys == "" then
-      -- Unreplayable Visual op.
-    elseif atom.changed and not is_redo_or_undo and atom.lhs ~= "." then
-      last_edit = atom
-    elseif not atom.changed and not is_redo_or_undo and not atom.lhs:match("^[,hjkl]$") then
-      last_atom = atom
-    elseif vim.g.debug then
-      local oneline = table.concat(vim.split(vim.inspect(atom), "%s*\n%s*"), " ")
-      vim.print(("skipped: %s"):format(oneline))
-    end
-  end,
-})
-
----@param atom? vim.event.cmdatom.data
-local function replay(atom)
-  if not atom then
-    vim.print("no `atom`")
-    return
-  end
-  local keys = atom.keys or atom.lhs
-  vim.schedule(function()
-    vim.api.nvim_feedkeys(keys, atom.keys and "n" or "m", false)
-    if vim.g.debug then
-      local oneline = table.concat(vim.split(vim.inspect(atom), "%s*\n%s*"), " ")
-      vim.print(('atom: sent "%s", %s'):format(keys, oneline))
-    end
-  end)
-end
-
--- Track the last atoms.
-local atom_ring_count = 20
-local atom_ring = {} ---@type vim.event.cmdatom.data[]
-vim.api.nvim_create_autocmd("CmdAtom", {
-  desc = "Remembers the " .. atom_ring_count .. " most-recent user actions",
-  group = augroup,
-  callback = function(ev)
-    if not ev.data.lhs:match("^[ ,.u]$") and vim.fn.getcmdwintype() == "" then
-      atom_ring[#atom_ring + 1] = ev.data
-      if #atom_ring > atom_ring_count then table.remove(atom_ring, 1) end
-    end
-  end,
-})
-
-vim.keymap.set("n", ",", function()
-  local count = vim.v.count
-
-  if count == 0 then
-    replay(last_atom)
-    return
-  end
-
-  vim.schedule(function()
-    count = math.min(count, #atom_ring)
-    if count == 0 then -- Replay the saved macro.
-      for _, step in ipairs(vim.g.atom_macro or {}) do
-        vim.api.nvim_feedkeys(vim.keycode(step.keys or step.lhs), step.keys and "n" or "m", false)
-      end
-      return
-    end
-    local parts = {}
-    for i = #atom_ring - count + 1, #atom_ring do
-      local a = atom_ring[i]
-      local keys = a.keys or ("%s%s"):format(a.count or "", a.lhs)
-      local field = a.keys and "keys" or "lhs"
-      parts[#parts + 1] = ("{%s=%q},"):format(field, vim.fn.keytrans(keys))
-    end
-    local cmd = ("lua vim.g.atom_macro = { %s }"):format(table.concat(parts, " "))
-    -- Draft it on the cmdline; CTRL-F opens the cmdwin to edit it.
-    vim.api.nvim_feedkeys((":%s%s"):format(cmd, vim.keycode("<C-f>")), "n", false)
-  end)
-end)
-
-vim.keymap.set("n", ".", function() replay(last_edit) end)
+-- -- atom ring
+-- local last_atom ---@type vim.event.cmdatom.data?
+-- local last_edit ---@type vim.event.cmdatom.data?
+-- local maxseq = {} ---@type table<integer, integer>
+--
+-- vim.api.nvim_create_autocmd("CmdAtom", {
+--   -- pattern = { 'motion', 'mapping' },
+--   desc = "Remembers the most-recent user action",
+--   group = augroup,
+--   callback = function(ev)
+--     local atom = ev.data --[[@as vim.event.cmdatom.data]]
+--     local is_redo_or_undo = atom.changed and (atom.undoseq or 0) <= (maxseq[ev.buf] or 0)
+--     maxseq[ev.buf] = vim.fn.undotree(ev.buf).seq_last
+--     if atom.keys == "" then
+--       -- Unreplayable Visual op.
+--     elseif atom.changed and not is_redo_or_undo and atom.lhs ~= "." then
+--       last_edit = atom
+--     elseif not atom.changed and not is_redo_or_undo and not atom.lhs:match("^[,hjkl]$") then
+--       last_atom = atom
+--     elseif vim.g.debug then
+--       local oneline = table.concat(vim.split(vim.inspect(atom), "%s*\n%s*"), " ")
+--       vim.print(("skipped: %s"):format(oneline))
+--     end
+--   end,
+-- })
+--
+-- ---@param atom? vim.event.cmdatom.data
+-- local function replay(atom)
+--   if not atom then
+--     vim.print("no `atom`")
+--     return
+--   end
+--   local keys = atom.keys or atom.lhs
+--   vim.schedule(function()
+--     vim.api.nvim_feedkeys(keys, atom.keys and "n" or "m", false)
+--     if vim.g.debug then
+--       local oneline = table.concat(vim.split(vim.inspect(atom), "%s*\n%s*"), " ")
+--       vim.print(('atom: sent "%s", %s'):format(keys, oneline))
+--     end
+--   end)
+-- end
+--
+-- -- Track the last atoms.
+-- local atom_ring_count = 20
+-- local atom_ring = {} ---@type vim.event.cmdatom.data[]
+-- vim.api.nvim_create_autocmd("CmdAtom", {
+--   desc = "Remembers the " .. atom_ring_count .. " most-recent user actions",
+--   group = augroup,
+--   callback = function(ev)
+--     if not ev.data.lhs:match("^[ ,.u]$") and vim.fn.getcmdwintype() == "" then
+--       atom_ring[#atom_ring + 1] = ev.data
+--       if #atom_ring > atom_ring_count then table.remove(atom_ring, 1) end
+--     end
+--   end,
+-- })
+--
+-- vim.keymap.set("n", ",", function()
+--   local count = vim.v.count
+--
+--   if count == 0 then
+--     replay(last_atom)
+--     return
+--   end
+--
+--   vim.schedule(function()
+--     count = math.min(count, #atom_ring)
+--     if count == 0 then -- Replay the saved macro.
+--       for _, step in ipairs(vim.g.atom_macro or {}) do
+--         vim.api.nvim_feedkeys(vim.keycode(step.keys or step.lhs), step.keys and "n" or "m", false)
+--       end
+--       return
+--     end
+--     local parts = {}
+--     for i = #atom_ring - count + 1, #atom_ring do
+--       local a = atom_ring[i]
+--       local keys = a.keys or ("%s%s"):format(a.count or "", a.lhs)
+--       local field = a.keys and "keys" or "lhs"
+--       parts[#parts + 1] = ("{%s=%q},"):format(field, vim.fn.keytrans(keys))
+--     end
+--     local cmd = ("lua vim.g.atom_macro = { %s }"):format(table.concat(parts, " "))
+--     -- Draft it on the cmdline; CTRL-F opens the cmdwin to edit it.
+--     vim.api.nvim_feedkeys((":%s%s"):format(cmd, vim.keycode("<C-f>")), "n", false)
+--   end)
+-- end)
+--
+-- vim.keymap.set("n", ".", function() replay(last_edit) end)
