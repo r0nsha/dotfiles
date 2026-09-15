@@ -434,18 +434,6 @@ vim.keymap.set("n", "<leader>cc", "1z=", { desc = "Correct spelling" })
 -- Write
 vim.keymap.set("n", "<leader>w", "<cmd>noau w<cr>", { desc = "Write without autocmds" })
 
--- Cmdline remaps
-vim.keymap.set("c", "<C-h>", "<Left>", { desc = "Move cursor left", noremap = true })
-vim.keymap.set("c", "<C-j>", "<Down>", { desc = "Move cursor down", noremap = true })
-vim.keymap.set("c", "<C-k>", "<Up>", { desc = "Move cursor up", noremap = true })
-vim.keymap.set("c", "<C-l>", "<Right>", { desc = "Move cursor right", noremap = true })
-vim.keymap.set("c", "<C-w>", "<S-Right>", { desc = "Next word", noremap = true })
-vim.keymap.set("c", "<C-b>", "<S-Left>", { desc = "Previous word", noremap = true })
-vim.keymap.set("c", "<C-S-I>", "<C-b>", { desc = "Insert at start", noremap = true })
-vim.keymap.set("c", "<C-S-A>", "<C-e>", { desc = "Insert at end", noremap = true })
-vim.keymap.set("c", "<C-x>", "<Del>", { desc = "Delete character", noremap = true })
-vim.keymap.set("c", "<C-d>", "<C-u>", { desc = "Delete to start", noremap = true })
-
 -- Arglist
 vim.keymap.set("n", "[a", "<cmd>prev<cr>", { desc = "Previous file in arglist" })
 vim.keymap.set("n", "]a", "<cmd>next<cr>", { desc = "Next file in arglist" })

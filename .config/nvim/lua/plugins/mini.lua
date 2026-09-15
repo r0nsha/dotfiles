@@ -185,7 +185,9 @@ vim.api.nvim_create_autocmd("BufEnter", {
 })
 
 require("mini.cmdline").setup({
-  autopeek = { enable = false },
+  -- autopeek = { enable = false },
 })
+
+require("mini.input").setup()
 
 require("plugins.mini.pick")
