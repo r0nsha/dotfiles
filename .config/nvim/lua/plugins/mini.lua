@@ -184,13 +184,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
   end,
 })
 
-vim.api.nvim_create_autocmd("FileType", {
-  desc = "set omnifunc for dadbod",
-  group = augroup,
-  pattern = "sql",
-  callback = function() vim.bo.omnifunc = "vim_dadbod_completion#omni" end,
-})
-
 require("mini.cmdline").setup({
   autopeek = { enable = false },
 })

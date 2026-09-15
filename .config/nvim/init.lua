@@ -44,9 +44,6 @@ vim.pack.add({
   src.gh("rafikdraoui/jj-diffconflicts"),
   src.tngl("ronshavit.com/jjannotate.nvim"),
   { src = src.gh("chomosuke/typst-preview.nvim"), version = "v1.4.1" },
-  src.gh("tpope/vim-dadbod"),
-  src.gh("kristijanhusak/vim-dadbod-ui"),
-  src.gh("kristijanhusak/vim-dadbod-completion"),
   src.gh("andymass/vim-matchup"),
   src.gh("Wansmer/treesj"),
 })
@@ -72,5 +69,4 @@ require("plugins.quickfix")
 require("plugins.vcs")
 require("plugins.typst")
 require("plugins.undotree")
-require("plugins.db")
 require("plugins.matchparen")
