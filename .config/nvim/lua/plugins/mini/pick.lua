@@ -29,6 +29,14 @@ local next_word_regex = vim.regex([=[^\([^[:keyword:][:space:]]\+\|\k\+\)\s*]=])
 
 MiniPick.setup({
   mappings = {
+    choose_alt = {
+      char = "<C-y>",
+      func = function()
+        local matches = MiniPick.get_picker_matches()
+        MiniPick.default_choose(matches and matches.current)
+        return true
+      end,
+    },
     choose_all_in_quickfix = {
       char = "<C-q>",
       func = function()
