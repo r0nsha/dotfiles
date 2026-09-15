@@ -42,7 +42,6 @@ vim.pack.add({
   src.gh("rafikdraoui/jj-diffconflicts"),
   src.tngl("ronshavit.com/jjannotate.nvim"),
   { src = src.gh("chomosuke/typst-preview.nvim"), version = "v1.4.1" },
-  src.gh("andymass/vim-matchup"),
   src.gh("Wansmer/treesj"),
 })
 
@@ -61,9 +60,8 @@ require("plugins.mini")
 require("plugins.smart_splits")
 require("plugins.explorer")
 -- require("plugins.ai")
-require("plugins.multicursor")
+-- require("plugins.multicursor")
 require("plugins.quickfix")
 require("plugins.vcs")
 require("plugins.typst")
 require("plugins.undotree")
-require("plugins.matchparen")

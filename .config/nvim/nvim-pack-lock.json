@@ -53,7 +53,7 @@
       "src": "https://github.com/jake-stewart/multicursor.nvim"
     },
     "nor.nvim": {
-      "rev": "e0165da84729f80e9664666122454d7551c458de",
+      "rev": "0d8e47fc6134ce28e7cbeee1b18423fc5b6a7a5e",
       "src": "https://tangled.org/ronshavit.com/nor.nvim"
     },
     "nui.nvim": {
@@ -118,10 +118,6 @@
     "vim-endwise": {
       "rev": "4994afb0cdf956d9a665a14b9c834869e602c396",
       "src": "https://github.com/tpope/vim-endwise"
-    },
-    "vim-matchup": {
-      "rev": "0106b1afd4a2f7e1098037b5ceb161bab7471088",
-      "src": "https://github.com/andymass/vim-matchup"
     }
   }
 }
