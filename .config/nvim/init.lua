@@ -52,7 +52,6 @@ pack.add_with_build(
 )
 
 require("plugins.treesitter")
-require("plugins.treesitter_textobjects")
 require("plugins.comment")
 require("plugins.diagnostic")
 require("plugins.lsp")
