@@ -50,8 +50,7 @@ pacman_deps=(
     lua
     rustup
     zig
-    npm
-    pnpm
+    fnm
     btop
     jq
     imagemagick
@@ -89,7 +88,6 @@ pacman_deps=(
     wl-clipboard
     python
     python-pip
-    python-pipx
     python-adblock
     ghostty
     fish
@@ -138,6 +136,26 @@ pacman_deps=(
     kanshi
     river-classic
     opencode
+
+    # lsps, formatters, linters
+    vscode-css-languageserver
+    vscode-json-languageserver
+    tailwindcss-language-server
+    clang
+    rust-analyzer
+    yaml-language-server
+    taplo-cli
+    tinymist
+    markdown-oxide
+    bash-language-server
+    zls
+    stylua
+    shfmt
+    yamlfmt
+    ruff
+    typstyle
+    eslint_d
+    uv
 )
 
 step "installing pacman packages"
@@ -172,18 +190,14 @@ aur_deps=(
     localsend-bin
     xdg-terminal-exec-git
     river-bsp-layout
+
+    # lsps, formatters, linters
+    emmylua-ls-bin
+    fish-lsp
 )
 
 step "installing AUR packages"
 yay -S --needed --noconfirm --devel ${aur_deps[@]}
-
-install_rust() {
-    rustup toolchain install stable
-    rustup toolchain install nightly
-    rustup default stable
-    cargo install cargo-update
-}
-install_wrapper rustup install_rust
 
 # systemd
 step "systemd: enable system services"

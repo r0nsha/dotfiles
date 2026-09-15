@@ -41,6 +41,35 @@ step "tools"
 source "$DOTFILES/install/platform.sh"
 success
 
+install_rust() {
+    rustup toolchain install stable
+    rustup toolchain install nightly
+    rustup default stable
+    rustup update
+}
+install_wrapper cargo install_rust
+
+if exists cargo; then
+    step "cargo packages"
+    cargo install cargo-update qmkfmt kdlfmt
+    success
+fi
+
+if exists fnm; then
+    step "node"
+    fnm install --lts
+    fnm default lts-latest
+    eval "$(fnm env --shell bash)"
+    npm i -g typescript @fsouza/prettierd
+    success
+fi
+
+if exists uv; then
+    step "basedpyright"
+    uv tool install basedpyright
+    success
+fi
+
 if [ ! -d "$PICTURES/backgrounds" ]; then
     step "backgrounds"
     jj git clone https://github.com/r0nsha/backgrounds "$PICTURES/backgrounds"

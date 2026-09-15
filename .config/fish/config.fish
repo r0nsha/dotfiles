@@ -2,8 +2,6 @@
 fish_add_path \
     $HOME/.cargo/bin \
     $HOME/.local/bin \
-    ./node_modules/.bin \
-    $PNPM_HOME \
     ~/.local/share/bob/nvim-bin \
     /opt/homebrew/opt/rustup/bin
 
@@ -31,6 +29,9 @@ if status is-interactive
     end
     if command -vq bob
         bob complete fish | source
+    end
+    if command -vq fnm
+        fnm env --use-on-cd --shell fish | source
     end
 
     function __update_theme --on-event fish_prompt

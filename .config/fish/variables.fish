@@ -34,15 +34,8 @@ set -Ux LC_ALL en_US.UTF-8
 set -Ux LANG en_US.UTF-8
 set -Ux LC_TYPE en_US.UTF-8
 
-# n node version manager
-set -Ux N_PREFIX $HOME/.n
-fish_add_path $N_PREFIX/bin
-
 # ripgrep
 set -Ux RIPGREP_CONFIG_PATH $XDG_CONFIG_HOME/ripgrep/config
 
 # ssh
 set -x SSH_AUTH_SOCK $XDG_RUNTIME_DIR/ssh-agent.socket
-
-set -gx NVM_DIR "$HOME/.nvm"
-set -gx PNPM_HOME "$HOME/.local/share/pnpm"

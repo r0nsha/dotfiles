@@ -15,12 +15,9 @@ local servers = {
   markdown_oxide = { name = "markdown-oxide" },
   bashls = { name = "bash-language-server" },
   fish_lsp = { name = "fish-lsp" },
-  sqls = {},
   basedpyright = {},
   zls = {},
 }
-
-require("mason").setup()
 
 local ensure_installed = {
   -- formatters
@@ -28,17 +25,11 @@ local ensure_installed = {
   "taplo",
   "stylua",
   "shfmt",
-  "xmlformatter",
   "clang-format",
   "yamlfmt",
   "ruff",
   "typstyle",
-  "sqruff",
   "kdlfmt",
-
-  -- dap
-  "js-debug-adapter",
-  "codelldb",
 
   -- linters
   "eslint_d",
@@ -54,8 +45,6 @@ for name, config in pairs(servers) do
   end
   table.insert(ensure_installed, server_name)
 end
-
-require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 vim.lsp.enable(vim.tbl_keys(servers))
 vim.lsp.enable("filepaths_ls")

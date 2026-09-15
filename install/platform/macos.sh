@@ -37,7 +37,7 @@ install_deps() {
         bat
         git
         git-delta
-        n
+        fnm
         just
         sd
         ffmpeg
@@ -62,7 +62,6 @@ install_deps() {
         pass-otp
         pass-git-helper
         pinentry-mac
-        n
         go
         fontforge
         qutebrowser
@@ -71,6 +70,29 @@ install_deps() {
         btop
         nikitabobko/tap/aerospace
         FelixKratz/formulae/borders
+
+        # lsps, formatters, linters
+        emmylua_ls
+        vscode-langservers-extracted
+        tailwindcss-language-server
+        llvm
+        clang-format
+        rust-analyzer
+        yaml-language-server
+        taplo
+        tinymist
+        markdown-oxide
+        bash-language-server
+        fish-lsp
+        zls
+        zig
+        stylua
+        shfmt
+        yamlfmt
+        ruff
+        typstyle
+        eslint_d
+        uv
     )
 
     brew trust nikitabobko/tap FelixKratz/formulae
