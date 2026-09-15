@@ -1,43 +1,39 @@
 require("nvim-treesitter-textobjects").setup({
   select = {
     lookahead = true,
-    include_surrounding_whitespace = false,
+    selection_modes = {
+      ["@statement.outer"] = "V",
+      ["@comment.outer"] = "V",
+    },
+    include_surrounding_whitespace = function(opts) return opts.selection_mode == "V" end,
   },
-  move = {
-    set_jumps = true,
-  },
+  move = { set_jumps = true },
 })
 
-local ts_config = require("nvim-treesitter-textobjects.config")
-local ts_move = require("nvim-treesitter-textobjects.move")
-local ts_select = require("nvim-treesitter-textobjects.select")
-local ts_shared = require("nvim-treesitter-textobjects.shared")
+local config = require("nvim-treesitter-textobjects.config")
+local move = require("nvim-treesitter-textobjects.move")
+local select = require("nvim-treesitter-textobjects.select")
+local shared = require("nvim-treesitter-textobjects.shared")
 
 local function select_textobject(queries)
-  if type(queries) == "string" then
-    ts_select.select_textobject(queries, "textobjects")
-    return
-  end
-
-  local opts = {
-    lookahead = ts_config.select.lookahead,
-    lookbehind = ts_config.select.lookbehind,
-  }
+  if type(queries) ~= "table" then return select.select_textobject(queries, "textobjects") end
 
   for _, query in ipairs(queries) do
-    if ts_shared.textobject_at_point(query, "textobjects", nil, nil, opts) then
-      ts_select.select_textobject(query, "textobjects")
-      return
+    if
+      shared.textobject_at_point(query, "textobjects", nil, nil, {
+        lookahead = config.select.lookahead,
+        lookbehind = config.select.lookbehind,
+      })
+    then
+      return select.select_textobject(query, "textobjects")
     end
   end
 end
 
 local textobjects = {
   b = { desc = "block", outer = "@block.outer", inner = "@block.inner" },
-  -- conflicts with [c and ]c keymaps for git conflicts
-  -- c = { desc = "comment", outer = "@comment.outer", inner = "@comment.inner" },
-  f = { desc = "function", outer = "@function.outer", inner = "@function.inner" },
   C = { desc = "class", outer = "@class.outer", inner = "@class.inner" },
+  f = { desc = "function", outer = "@function.outer", inner = "@function.inner" },
   m = { desc = "call", outer = "@call.outer", inner = "@call.inner" },
   v = { desc = "parameter", outer = "@parameter.outer", inner = "@parameter.inner" },
   o = {
@@ -45,49 +41,58 @@ local textobjects = {
     outer = { "@conditional.outer", "@loop.outer" },
     inner = { "@conditional.inner", "@loop.inner" },
   },
-  s = { desc = "statement", outer = "@statement.outer", inner = "@statement.outer" },
+  V = { desc = "statement", outer = "@statement.outer", inner = "@statement.outer" },
+  a = { desc = "assignment", outer = "@assignment.outer", inner = "@assignment.inner" },
+  c = {
+    desc = "comment",
+    outer = "@comment.outer",
+    inner = "@comment.inner",
+    move = false, -- ]c/[c are used for diff conflicts
+  },
 }
 
-for id, config in pairs(textobjects) do
+for id, obj in pairs(textobjects) do
   vim.keymap.set(
     { "x", "o" },
     "a" .. id,
-    function() select_textobject(config.outer) end,
-    { desc = "Around " .. config.desc }
+    function() select_textobject(obj.outer) end,
+    { desc = "Around " .. obj.desc }
   )
 
   vim.keymap.set(
     { "x", "o" },
     "i" .. id,
-    function() select_textobject(config.inner) end,
-    { desc = "Inside " .. config.desc }
+    function() select_textobject(obj.inner) end,
+    { desc = "Inside " .. obj.desc }
   )
 
-  vim.keymap.set(
-    { "n", "x", "o" },
-    "]" .. id,
-    function() ts_move.goto_next_start(config.outer, "textobjects") end,
-    { desc = "Next " .. config.desc .. " start" }
-  )
+  if obj.move ~= false then
+    vim.keymap.set(
+      { "n", "x", "o" },
+      "]" .. id,
+      function() move.goto_next_start(obj.outer, "textobjects") end,
+      { desc = "Next " .. obj.desc .. " start" }
+    )
 
-  vim.keymap.set(
-    { "n", "x", "o" },
-    "]" .. id:upper(),
-    function() ts_move.goto_next_end(config.outer, "textobjects") end,
-    { desc = "Next " .. config.desc .. " end" }
-  )
+    vim.keymap.set(
+      { "n", "x", "o" },
+      "]" .. id:upper(),
+      function() move.goto_next_end(obj.outer, "textobjects") end,
+      { desc = "Next " .. obj.desc .. " end" }
+    )
 
-  vim.keymap.set(
-    { "n", "x", "o" },
-    "[" .. id,
-    function() ts_move.goto_previous_start(config.outer, "textobjects") end,
-    { desc = "Previous " .. config.desc .. " start" }
-  )
+    vim.keymap.set(
+      { "n", "x", "o" },
+      "[" .. id,
+      function() move.goto_previous_start(obj.outer, "textobjects") end,
+      { desc = "Previous " .. obj.desc .. " start" }
+    )
 
-  vim.keymap.set(
-    { "n", "x", "o" },
-    "[" .. id:upper(),
-    function() ts_move.goto_previous_end(config.outer, "textobjects") end,
-    { desc = "Previous " .. config.desc .. " end" }
-  )
+    vim.keymap.set(
+      { "n", "x", "o" },
+      "[" .. id:upper(),
+      function() move.goto_previous_end(obj.outer, "textobjects") end,
+      { desc = "Previous " .. obj.desc .. " end" }
+    )
+  end
 end
