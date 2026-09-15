@@ -1,53 +1,23 @@
 local utils = require("utils")
 
--- servers
-local servers = {
-  emmylua_ls = {},
-  tsc = {},
-  cssls = { name = "css-lsp" },
-  tailwindcss = { name = "tailwindcss-language-server" },
-  clangd = {},
-  rust_analyzer = { name = "rust-analyzer" },
-  jsonls = { name = "json-lsp" },
-  yamlls = { name = "yaml-language-server" },
-  taplo = {},
-  tinymist = {},
-  markdown_oxide = { name = "markdown-oxide" },
-  bashls = { name = "bash-language-server" },
-  fish_lsp = { name = "fish-lsp" },
-  basedpyright = {},
-  zls = {},
-}
-
-local ensure_installed = {
-  -- formatters
-  "prettierd",
+vim.lsp.enable({
+  "emmylua_ls",
+  "tsc",
+  "cssls",
+  "tailwindcss",
+  "clangd",
+  "rust_analyzer",
+  "jsonls",
+  "yamlls",
   "taplo",
-  "stylua",
-  "shfmt",
-  "clang-format",
-  "yamlfmt",
-  "ruff",
-  "typstyle",
-  "kdlfmt",
-
-  -- linters
-  "eslint_d",
-}
-
-for name, config in pairs(servers) do
-  ---@type string
-  local server_name
-  if type(config) == "table" and config.name then
-    server_name = config.name
-  else
-    server_name = name
-  end
-  table.insert(ensure_installed, server_name)
-end
-
-vim.lsp.enable(vim.tbl_keys(servers))
-vim.lsp.enable("filepaths_ls")
+  "tinymist",
+  "markdown_oxide",
+  "bashls",
+  "fish_lsp",
+  "basedpyright",
+  "zls",
+  "filepaths_ls",
+})
 
 vim.api.nvim_create_autocmd("LspProgress", {
   callback = function(ev)

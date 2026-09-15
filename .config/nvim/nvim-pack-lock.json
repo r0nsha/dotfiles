@@ -5,7 +5,7 @@
       "src": "https://github.com/barrettruth/canola.nvim"
     },
     "codediff.nvim": {
-      "rev": "4b3ad7eb99dd0f02e64bbaf562ca1e87e8c07cc9",
+      "rev": "09d9ebef2cc5a5c04db7a349cd6c61bdf84ecc8e",
       "src": "https://github.com/esmuellert/codediff.nvim"
     },
     "conform.nvim": {
@@ -13,7 +13,7 @@
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "fff": {
-      "rev": "c3f2c7f21ce6e528a320313e04d101a9dd4be833",
+      "rev": "4083ea04d30537aaa653a2189616ab6b4ff19810",
       "src": "https://github.com/dmtrKovalenko/fff"
     },
     "filepaths_ls.nvim": {
@@ -45,7 +45,7 @@
       "src": "https://tangled.org/ronshavit.com/mini.diff.jj"
     },
     "mini.nvim": {
-      "rev": "6664ea9af6c43dc31934e27476bbe61c556c8dc1",
+      "rev": "ac5dffcc52b8378fbb15efeb0497a83e57a0b01c",
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "multicursor.nvim": {
@@ -53,8 +53,8 @@
       "src": "https://github.com/jake-stewart/multicursor.nvim"
     },
     "nor.nvim": {
-      "rev": "578b9da4ed5ea2cc52fab81855e268cc1ab7f242",
-      "src": "file:///home/ron/dev/nor.nvim"
+      "rev": "e0165da84729f80e9664666122454d7551c458de",
+      "src": "https://tangled.org/ronshavit.com/nor.nvim"
     },
     "nui.nvim": {
       "rev": "10fc361835c856ba4233ef5ea135b919bf3dce97",
@@ -95,7 +95,7 @@
       "src": "https://github.com/stevearc/quicker.nvim"
     },
     "schemastore.nvim": {
-      "rev": "05e938c0aa5dfbdbb11972fa4c8a85f27f402ba0",
+      "rev": "72d144a9e014646963b8a5c67a4fde19b9772528",
       "src": "https://github.com/b0o/schemastore.nvim"
     },
     "smart-splits.nvim": {
