@@ -15,6 +15,10 @@ if test -r $local_config
     source $local_config
 end
 
+if command -vq fnm
+    fnm env --use-on-cd --shell fish | source
+end
+
 if status is-interactive
     set fish_greeting # disable welcome message
     set fish_prompt_pwd_dir_length 1
@@ -29,9 +33,6 @@ if status is-interactive
     end
     if command -vq bob
         bob complete fish | source
-    end
-    if command -vq fnm
-        fnm env --use-on-cd --shell fish | source
     end
 
     function __update_theme --on-event fish_prompt
