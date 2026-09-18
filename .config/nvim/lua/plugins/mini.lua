@@ -103,10 +103,10 @@ vim.keymap.set("n", "<leader>gh", diff.toggle_overlay, { desc = "Toggle diff ove
 local MiniHipatterns = require("mini.hipatterns")
 MiniHipatterns.setup({
   highlighters = {
-    todo = MiniExtra.gen_highlighter.words({ "TODO", "Todo", "todo" }, "MiniHipatternsTodo"),
-    fixme = MiniExtra.gen_highlighter.words({ "FIXME", "Fixme", "fixme" }, "MiniHipatternsFixme"),
-    hack = MiniExtra.gen_highlighter.words({ "HACK", "Hack", "hack" }, "MiniHipatternsHack"),
-    note = MiniExtra.gen_highlighter.words({ "NOTE", "Note", "note" }, "MiniHipatternsNote"),
+    todo = MiniExtra.gen_highlighter.words({ "TODO" }, "MiniHipatternsTodo"),
+    fixme = MiniExtra.gen_highlighter.words({ "FIXME" }, "MiniHipatternsFixme"),
+    hack = MiniExtra.gen_highlighter.words({ "HACK" }, "MiniHipatternsHack"),
+    note = MiniExtra.gen_highlighter.words({ "NOTE" }, "MiniHipatternsNote"),
     hex_color = MiniHipatterns.gen_highlighter.hex_color({ style = "#" }),
   },
 })
