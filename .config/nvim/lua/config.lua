@@ -627,42 +627,33 @@ vim.keymap.set("n", "<Esc>", function()
   return "<Esc>"
 end, { expr = true })
 
--- I tried using `expr = true` first and just returning [C / ]C, but it
--- doesn't play nicely when follow-mode is on, since mcursors merge
-vim.keymap.set("n", "(", function()
-  if has_mcursors() then
-    vim.api.nvim_input(vcount() .. "[C")
-  else
-    vim.cmd("normal! " .. vcount() .. "(")
-  end
-end, { desc = "Previous cursor" })
+---@param dir "next" | "prev"
+---@return boolean
+local function rotate_cursor(dir)
+  if not has_mcursors() then return false end
+  local key = dir == "next" and "]" or "["
+  vim.api.nvim_input(vcount() .. key .. "C")
+  return true
+end
 
+vim.keymap.set("n", "(", function()
+  if not rotate_cursor("prev") then vim.cmd("normal! " .. vcount() .. "(") end
+end, { desc = "Previous cursor" })
 vim.keymap.set("n", ")", function()
-  if has_mcursors() then
-    vim.api.nvim_input(vcount() .. "]C")
-  else
-    vim.cmd("normal! " .. vcount() .. ")")
-  end
+  if not rotate_cursor("next") then vim.cmd("normal! " .. vcount() .. ")") end
+end, { desc = "Next cursor" })
+
+vim.keymap.set("n", "<Left>", function()
+  if not rotate_cursor("prev") then vim.api.nvim_feedkeys(vim.keycode("<Left>"), "n", false) end
+end, { desc = "Previous cursor" })
+vim.keymap.set("n", "<Right>", function()
+  if not rotate_cursor("next") then vim.api.nvim_feedkeys(vim.keycode("<Right>"), "n", false) end
 end, { desc = "Next cursor" })
 
 vim.keymap.set({ "n", "x" }, "<C-q>", "q=", { desc = "Toggle follow-mode" })
 
-vim.keymap.set("n", "<Up>", "Qk", { desc = "Add cursor above" })
-vim.keymap.set("n", "<Down>", "Qj", { desc = "Add cursor below" })
-vim.keymap.set("n", "<Left>", function()
-  if has_mcursors() then
-    vim.api.nvim_input(vcount() .. "[C")
-  else
-    vim.api.nvim_feedkeys(vim.keycode("<Left>"), "n", false)
-  end
-end, { desc = "Previous cursor" })
-vim.keymap.set("n", "<Right>", function()
-  if has_mcursors() then
-    vim.api.nvim_input(vcount() .. "]C")
-  else
-    vim.api.nvim_feedkeys(vim.keycode("<Right>"), "n", false)
-  end
-end, { desc = "Next cursor" })
+vim.keymap.set("n", "<Up>", "Qk1q=", { desc = "Add cursor above" })
+vim.keymap.set("n", "<Down>", "Qj1q=", { desc = "Add cursor below" })
 
 ---@param backwards boolean?
 local function cursor_add_match_normal(backwards)
