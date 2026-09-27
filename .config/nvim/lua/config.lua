@@ -427,6 +427,8 @@ map_ctrl_t("q", "<cmd>tabclose<cr>", "Close tabpage")
 map_ctrl_t("n", "<cmd>tabnext<cr>", "Next tabpage")
 map_ctrl_t("p", "<cmd>tabprevious<cr>", "Previous tabpage")
 map_ctrl_t("t", "g<Tab>", "Last accessed tabpage")
+map_ctrl_t("h", "<cmd>-tabmove<cr>", "Move tabpage to the left")
+map_ctrl_t("l", "<cmd>+tabmove<cr>", "Move tabpage to the right")
 map_ctrl_t("O", "<cmd>tabonly<cr>", "Close other tabpages")
 
 map_ctrl_t("1", "1gt", "Go to 1st tabpage")
