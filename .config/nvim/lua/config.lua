@@ -628,27 +628,37 @@ vim.keymap.set("n", "<Esc>", function()
 end, { expr = true })
 
 ---@param dir "next" | "prev"
----@return boolean
+---@return string?
 local function rotate_cursor(dir)
-  if not has_mcursors() then return false end
-  local key = dir == "next" and "]" or "["
-  vim.api.nvim_input(vcount() .. key .. "C")
-  return true
+  if not has_mcursors() then return nil end
+  return (dir == "next" and "]" or "[") .. "C"
 end
 
-vim.keymap.set("n", "(", function()
-  if not rotate_cursor("prev") then vim.cmd("normal! " .. vcount() .. "(") end
-end, { desc = "Previous cursor" })
-vim.keymap.set("n", ")", function()
-  if not rotate_cursor("next") then vim.cmd("normal! " .. vcount() .. ")") end
-end, { desc = "Next cursor" })
+vim.keymap.set(
+  "n",
+  "(",
+  function() return rotate_cursor("prev") or "(" end,
+  { expr = true, desc = "Previous cursor" }
+)
+vim.keymap.set(
+  "n",
+  ")",
+  function() return rotate_cursor("next") or ")" end,
+  { expr = true, desc = "Next cursor" }
+)
 
-vim.keymap.set("n", "<Left>", function()
-  if not rotate_cursor("prev") then vim.api.nvim_feedkeys(vim.keycode("<Left>"), "n", false) end
-end, { desc = "Previous cursor" })
-vim.keymap.set("n", "<Right>", function()
-  if not rotate_cursor("next") then vim.api.nvim_feedkeys(vim.keycode("<Right>"), "n", false) end
-end, { desc = "Next cursor" })
+vim.keymap.set(
+  "n",
+  "<Left>",
+  function() return rotate_cursor("prev") or "<Left>" end,
+  { expr = true, desc = "Previous cursor" }
+)
+vim.keymap.set(
+  "n",
+  "<Right>",
+  function() return rotate_cursor("next") or "<Right>" end,
+  { expr = true, desc = "Next cursor" }
+)
 
 vim.keymap.set({ "n", "x" }, "<C-q>", "q=", { desc = "Toggle follow-mode" })
 
