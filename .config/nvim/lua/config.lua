@@ -208,9 +208,13 @@ vim.api.nvim_create_autocmd("VimResized", {
 vim.api.nvim_create_autocmd("BufWritePre", {
   group = augroup,
   desc = "Create directories when saving files",
-  callback = function()
-    local dir = vim.fn.expand("<afile>:p:h") --[[@as string]]
-    if vim.fn.isdirectory(dir) == 0 and not dir:startswith("oil:/") then vim.fn.mkdir(dir, "p") end
+  callback = function(ev)
+    local dir = vim.fs.normalize(vim.fs.dirname(ev.file))
+    local stat = vim.uv.fs_stat(dir)
+    if not stat then return end
+    if stat.type ~= "directory" and not dir:startswith("oil:/") then
+      vim.fs.mkdir(dir, { parents = true })
+    end
   end,
 })
 
@@ -309,8 +313,7 @@ end, { remap = false, desc = "Copy file path to clipboard" })
 
 vim.keymap.set("n", "<c-g>", function()
   vim.api.nvim_feedkeys(vim.keycode("<C-g>"), "n", false)
-  local line = vim.fn.line(".")
-  copy_line_reference(tostring(line))
+  copy_line_reference(tostring(vim.api.nvim_win_get_cursor(0)[1]))
 end, { remap = false, desc = "Copy line reference to clipboard" })
 
 vim.keymap.set("x", "<c-g>", function()
@@ -323,14 +326,6 @@ vim.keymap.set("x", "<c-g>", function()
   copy_line_reference(lines)
   vim.api.nvim_feedkeys(vim.keycode("<Esc>"), "n", false)
 end, { remap = false, desc = "Copy line reference to clipboard" })
-
--- Window mappings when tmux is not available
-if vim.fn.executable("tmux") ~= 1 then
-  vim.keymap.set("n", "<c-h>", "<c-w>h", { remap = false, desc = "Move window: left" })
-  vim.keymap.set("n", "<c-j>", "<c-w>j", { remap = false, desc = "Move window: down" })
-  vim.keymap.set("n", "<c-k>", "<c-w>k", { remap = false, desc = "Move window: up" })
-  vim.keymap.set("n", "<c-l>", "<c-w>l", { remap = false, desc = "Move window: right" })
-end
 
 -- Deal with word wrap
 vim.keymap.set({ "n", "x" }, "j", function()
@@ -442,7 +437,7 @@ vim.keymap.set("n", "zT", "<cmd>normal! zA<cr>", { desc = "Toggle all folds unde
 
 vim.keymap.set("n", "za", function()
   local any_closed = false
-  for lnum = 1, vim.fn.line("$") do
+  for lnum = 1, vim.api.nvim_buf_line_count(0) do
     if vim.fn.foldclosed(lnum) ~= -1 then
       any_closed = true
       break

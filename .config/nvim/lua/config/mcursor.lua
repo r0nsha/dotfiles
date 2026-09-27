@@ -57,7 +57,8 @@ vim.keymap.set("n", "<Down>", "Qj1q=", { desc = "Add cursor below" })
 
 ---@param backwards boolean?
 local function cursor_add_match_normal(backwards)
-  local char = vim.fn.strcharpart(vim.fn.getline(".") --[[@as string]], vim.fn.col(".") - 1, 1)
+  local char =
+    vim.fn.strcharpart(vim.api.nvim_get_current_line(), vim.api.nvim_win_get_cursor(0)[2], 1)
   if char == "" then return end
 
   local pattern = vim.fn.match(char, "\\k") == 0 and ("\\V\\<" .. vim.fn.expand("<cword>") .. "\\>")
@@ -149,8 +150,8 @@ vim.keymap.set("x", "m", function()
 end, { desc = "Place cursor at every search match" })
 
 vim.keymap.set("x", "M", function()
-  local p_start, p_end = vim.fn.getpos("v"), vim.fn.getpos(".")
-  local region = vim.fn.getregion(p_start, p_end, { type = "v", exclusive = false })
+  local region =
+    vim.fn.getregion(vim.fn.getpos("v"), vim.fn.getpos("."), { type = "v", exclusive = false })
   local text = table.concat(region, "\n")
   if text == "" then return end
   local escaped = vim.fn.escape(text, [[\/]]):gsub("\n", "\\n")
@@ -162,16 +163,16 @@ end, { desc = "Place cursor at every visual selection match" })
 ---@param pos "start" | "end"
 local function cursor_add_at_visual_sel(pos)
   local is_start = pos == "start"
-  local place = vim.fn.line(".")
+  local place = vim.api.nvim_win_get_cursor(0)[1]
   local l1, l2 = math.min(vim.fn.line("v"), place), math.max(vim.fn.line("v"), place)
 
   local col
-  local mode = vim.fn.mode():sub(1, 1)
+  local mode = vim.api.nvim_get_mode().mode
   local linewise, blockwise = mode == "V", mode == "\22"
   if linewise then
     col = is_start and 0 or 0x7fffffff
   else
-    local c1, c2 = vim.fn.col("v"), vim.fn.col(".")
+    local c1, c2 = vim.fn.col("v"), vim.api.nvim_win_get_cursor(0)[2] + 1
     col = is_start and math.min(c1, c2) - 1 or math.max(c1, c2)
   end
 
@@ -179,7 +180,9 @@ local function cursor_add_at_visual_sel(pos)
   vim.api.nvim_feedkeys(vim.keycode("<Esc>"), "n", false)
   vim.schedule(function()
     for l = l1, l2 do
-      if l ~= place and not (blockwise and vim.fn.getline(l) == "") then
+      if
+        l ~= place and not (blockwise and vim.api.nvim_buf_get_lines(0, l - 1, l, false)[1] == "")
+      then
         vim.api.nvim_mcursor(0, { l, col })
       end
     end

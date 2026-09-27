@@ -73,7 +73,7 @@ vim.api.nvim_create_autocmd("TermRequest", {
     local dir, n = string.gsub(ev.data.sequence, "\027]7;file://[^/]*", "")
     if n > 0 then
       -- OSC 7: dir-change
-      assert(vim.fn.isdirectory(dir) ~= 0, "invalid dir: " .. dir)
+      assert((vim.uv.fs_stat(dir) or {}).type == "directory", "invalid dir: " .. dir)
       if vim.api.nvim_get_current_buf() == ev.buf then vim.cmd.bcd(dir) end
     end
 

@@ -146,7 +146,7 @@ end
 local fff_next_grep_mode = { fuzzy = "regex", regex = "fuzzy" }
 
 ---@type GrepMode
-local fff_grep_mode = "fuzzy"
+local fff_grep_mode = "regex"
 
 ---@param query string?
 ---@return FffGrepMiniPickItem[]
@@ -266,7 +266,7 @@ end
 
 ---@param query string?
 local function pick_fff_grep(query)
-  fff_grep_mode = "fuzzy"
+  fff_grep_mode = "regex"
 
   local function get_name() return string.format("Grep (%s)", fff_grep_mode) end
 
@@ -274,7 +274,7 @@ local function pick_fff_grep(query)
     vim.api.nvim_create_autocmd("User", {
       pattern = "MiniPickStart",
       once = true,
-      callback = function() MiniPick.set_picker_query(vim.fn.split(query, "\\zs")) end,
+      callback = function() MiniPick.set_picker_query(vim.split(query, "\\zs")) end,
     })
   end
 
@@ -333,9 +333,11 @@ local function pick_plugins()
       name = "Plugins",
       items = function()
         local items = vim
-          .iter(vim.fn.glob(opt_dir .. "/*", true, true))
-          :filter(function(path) return vim.fn.isdirectory(path) == 1 end)
-          :map(function(path) return { path = path, text = vim.fn.fnamemodify(path, ":t") } end)
+          .iter(vim.fs.dir(opt_dir))
+          :filter(
+            function(name) return (vim.uv.fs_stat(opt_dir .. "/" .. name) or {}).type == "directory" end
+          )
+          :map(function(name) return { path = opt_dir .. "/" .. name, text = name } end)
           :totable()
         table.sort(items, function(a, b) return a.text < b.text end)
         return items
@@ -379,7 +381,11 @@ vim.keymap.set("n", "<leader><leader>", MiniPick.builtin.resume, { desc = "Resum
 vim.keymap.set("n", "<leader>sf", pick_fff_files, { desc = "Files" })
 vim.keymap.set("n", "<leader>ss", pick_fff_grep, { desc = "Grep" })
 vim.keymap.set("x", "<leader>ss", function()
-  local lines = vim.fn.getregion(vim.fn.getpos("v"), vim.fn.getpos("."), { type = vim.fn.mode() })
+  local lines = vim.fn.getregion(
+    vim.fn.getpos("v"),
+    vim.fn.getpos("."),
+    { type = vim.api.nvim_get_mode().mode }
+  )
   pick_fff_grep(table.concat(lines, " "))
 end, { desc = "Grep selection" })
 vim.keymap.set("n", "<leader>sw", function()

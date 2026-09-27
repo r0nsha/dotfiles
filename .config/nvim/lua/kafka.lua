@@ -27,11 +27,17 @@ local function save_state()
 end
 
 local function load_state()
-  if vim.fn.filereadable(state_file) == 0 then return end
-  local lines = vim.fn.readfile(state_file)
+  if not vim.uv.fs_access(state_file, "R") then return end
+
+  local file = io.open(state_file)
+  if not file then return end
+
+  local lines = file:read("*a")
   if #lines == 0 then return end
+
   local ok, state = pcall(vim.json.decode, table.concat(lines, ""))
   if not ok or type(state) ~= "table" then return end
+
   namespace = state.namespace
   last_pod = state.last_pod
   last_topic = state.last_topic

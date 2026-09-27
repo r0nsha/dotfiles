@@ -25,7 +25,7 @@ end
 ---@return integer, integer
 function Utils.get_visual_range()
   local start_line = vim.fn.line("v") - 1
-  local end_line = vim.fn.line(".") - 1
+  local end_line = vim.api.nvim_win_get_cursor(0)[1] - 1
   if start_line > end_line then
     return end_line, start_line
   else

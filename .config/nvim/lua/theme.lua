@@ -1,6 +1,6 @@
 local types = { dark = "dark", light = "light" }
 
-local path = vim.fn.expand("~/.cache") .. "/theme"
+local path = vim.fs.normalize("~/.cache") .. "/theme"
 
 ---@return boolean
 local function validate_path()
