@@ -88,8 +88,186 @@ vim.api.nvim_create_autocmd("TermRequest", {
   end,
 })
 
+-- Better terminal-mode behavior
 vim.api.nvim_create_autocmd("TermOpen", {
   group = augroup,
   desc = "Automatically enter insert mode whe opening a terminal",
   command = "startinsert",
 })
+vim.api.nvim_create_autocmd({ "TermEnter", "InsertEnter" }, {
+  group = augroup,
+  desc = "Remember buffer was left in insert/terminal mode",
+  callback = function(ev) vim.b[ev.buf].term_insert = true end,
+})
+vim.api.nvim_create_autocmd({ "TermLeave", "InsertLeave" }, {
+  group = augroup,
+  desc = "Remember buffer was left out of insert/terminal mode",
+  callback = function(ev) vim.b[ev.buf].term_insert = false end,
+})
+vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
+  group = augroup,
+  desc = "Resume insert/terminal mode when focusing a terminal buffer",
+  callback = function(ev)
+    if vim.bo[ev.buf].buftype == "terminal" and vim.b[ev.buf].term_insert then
+      vim.cmd.startinsert()
+    end
+  end,
+})
+
+--- Is `buf` a stale, empty non-terminal buffer (left over from :mksession)?
+---@param buf integer
+---@return boolean
+local function is_stale_shell(buf)
+  return vim.bo[buf].buftype ~= "terminal"
+    and vim.api.nvim_buf_line_count(buf) == 1
+    and vim.api.nvim_buf_get_lines(buf, 0, 1, true)[1] == ""
+end
+
+local state = {} ---@type { prevwin: integer? }
+
+---@param win integer?
+---@return integer # buffer shown in `win`, or -1 if `win` is invalid
+local function win_buf(win)
+  return win ~= nil and vim.api.nvim_win_is_valid(win) and vim.api.nvim_win_get_buf(win) or -1
+end
+
+---@param win integer? window id
+---@return boolean # whether `win` exists and could be focused
+local function goto_win(win)
+  if win == nil or not vim.api.nvim_win_is_valid(win) then return false end
+  vim.api.nvim_set_current_win(win)
+  return true
+end
+
+--- Windows displaying `buf`, in `tabpage` or in every tabpage.
+---@param buf integer
+---@param tabpage? integer
+---@return integer[]
+local function wins_showing(buf, tabpage)
+  local wins = tabpage and vim.api.nvim_tabpage_list_wins(tabpage) or vim.api.nvim_list_wins()
+  return vim
+    .iter(wins)
+    :filter(function(win) return vim.api.nvim_win_get_buf(win) == buf end)
+    :totable()
+end
+
+--- Open a window for :shell: a new tab when `cnt == 0`, else a `cnt`-row split.
+---@param cnt integer
+local function open_shell_win(cnt)
+  if cnt == 0 then
+    vim.cmd("tab split")
+  else
+    vim.cmd(("%dsplit"):format(cnt))
+  end
+end
+
+local M = {}
+
+--- Toggle the :shell buffer.
+---@param cnt integer 0 opens a new tab, >0 opens a `cnt`-row split
+---@param here boolean edit the :shell buffer in the current window
+function M.shell(cnt, here)
+  state.prevwin = state.prevwin or vim.api.nvim_get_current_win()
+  local b = vim.fn.bufnr(":shell")
+  local exists = vim.api.nvim_buf_is_valid(b)
+
+  if exists and here then
+    -- Edit the :shell buffer in this window.
+    vim.api.nvim_set_current_buf(b)
+    vim.bo[b].buflisted = false
+    state.prevwin = vim.api.nvim_get_current_win()
+    return
+  end
+
+  if vim.api.nvim_get_current_buf() == b then
+    -- Return to previous window, maybe close the :shell tabpage.
+    local tab = vim.api.nvim_get_current_tabpage()
+    local term_prevwin = vim.api.nvim_get_current_win()
+    if not goto_win(state.prevwin) then vim.cmd.wincmd("p") end
+    local tabwins = vim.api.nvim_tabpage_list_wins(tab)
+    if #tabwins == 1 and vim.api.nvim_get_current_tabpage() ~= tab then
+      -- Close the :shell tabpage if it's the only window in the tabpage.
+      vim.api.nvim_win_close(tabwins[1], true)
+    end
+    if vim.api.nvim_get_current_buf() == b then
+      -- Edge-case: :shell buffer showing in multiple windows in curtab.
+      -- Find a non-:shell window in curtab.
+      local other = vim
+        .iter(vim.api.nvim_tabpage_list_wins(0))
+        :find(function(win) return vim.api.nvim_win_get_buf(win) ~= b end)
+      if other then
+        vim.api.nvim_set_current_win(other)
+      else
+        -- Last resort: can happen if :mksession restores an old :shell.
+        if is_stale_shell(vim.api.nvim_get_current_buf()) then
+          -- XXX: cleanup stale, empty :shell buffer (caused by :mksession).
+          vim.api.nvim_buf_delete(0, { force = true })
+          M.shell(cnt, here)
+        end
+        return
+      end
+    end
+    state.prevwin = term_prevwin
+    return
+  end
+
+  -- Go to existing :shell or create a new one.
+  local curwin = vim.api.nvim_get_current_win()
+  if cnt == 0 and exists and win_buf(state.prevwin) == b then
+    -- Go to :shell displayed in the previous window.
+    goto_win(state.prevwin)
+  elseif exists then
+    -- Go to existing :shell.
+    local w = wins_showing(b, 0)[1]
+    if cnt == 0 and w then
+      -- Found in current tabpage.
+      goto_win(w)
+    else
+      -- Not in current tabpage.
+      local ws = wins_showing(b)
+      if cnt == 0 and #ws > 0 then
+        -- Found in another tabpage.
+        goto_win(ws[1])
+      else
+        -- Not in any existing window; open a tabpage (or split-window if
+        -- [count] was given).
+        open_shell_win(cnt)
+        vim.api.nvim_set_current_buf(b)
+      end
+    end
+    if is_stale_shell(vim.api.nvim_get_current_buf()) then
+      goto_win(state.prevwin)
+      -- XXX: cleanup stale, empty :shell buffer (caused by :mksession).
+      vim.api.nvim_buf_delete(b, { force = true })
+      M.shell(cnt, here)
+    end
+  else
+    -- Create new :shell.
+    local origbuf = vim.api.nvim_get_current_buf()
+    if not here then open_shell_win(cnt) end
+    vim.cmd.terminal()
+    local shellbuf = vim.api.nvim_get_current_buf()
+    vim.bo[shellbuf].scrollback = -1
+    vim.api.nvim_buf_set_name(shellbuf, ":shell")
+    vim.bo[shellbuf].buflisted = false
+    -- Set the alternate buffer to something intuitive.
+    vim.fn.setreg("#", tostring(origbuf))
+    vim.keymap.set(
+      "t",
+      "<C-s>",
+      [[<C-\><C-n><cmd>let b:term_insert = v:true | lua require('config.term').shell(0, false)<cr>]],
+      { buffer = shellbuf, desc = "Toggle :shell" }
+    )
+  end
+  state.prevwin = curwin
+end
+
+vim.keymap.set("n", "<C-s>", function() M.shell(vim.v.count, false) end, { desc = "Toggle :shell" })
+vim.keymap.set(
+  "n",
+  "'<C-s>",
+  function() M.shell(vim.v.count, true) end,
+  { desc = "Open :shell here" }
+)
+
+return M
