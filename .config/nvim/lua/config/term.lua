@@ -63,3 +63,33 @@ if vim.env.NVIM then
     })
   end
 end
+
+-- local term_prompt_ns = vim.api.nvim_create_namespace("config.term.prompt")
+
+vim.api.nvim_create_autocmd("TermRequest", {
+  group = augroup,
+  desc = "Handles OSC 7 dir change requests and OSC 133 shell prompts",
+  callback = function(ev)
+    local dir, n = string.gsub(ev.data.sequence, "\027]7;file://[^/]*", "")
+    if n > 0 then
+      -- OSC 7: dir-change
+      assert(vim.fn.isdirectory(dir) ~= 0, "invalid dir: " .. dir)
+      if vim.api.nvim_get_current_buf() == ev.buf then vim.cmd.bcd(dir) end
+    end
+
+    -- if string.match(ev.data.sequence, "^\027]133;A") then
+    --   -- OSC 133: shell-prompt
+    --   local lnum = ev.data.cursor[1]
+    --   vim.api.nvim_buf_set_extmark(ev.buf, term_prompt_ns, lnum - 1, 0, {
+    --     sign_text = "∙",
+    --     -- sign_hl_group = "SpecialChar",
+    --   })
+    -- end
+  end,
+})
+
+vim.api.nvim_create_autocmd("TermOpen", {
+  group = augroup,
+  desc = "Automatically enter insert mode whe opening a terminal",
+  command = "startinsert",
+})
