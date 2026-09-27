@@ -19,11 +19,7 @@ if test (count $argv) -eq 1
     set name (basename $selected | tr . _)
     set dir $selected
 else
-    set search_dirs (
-            filter_dirs \
-            $HOME/dev \
-            $HOME/repos
-        )
+    set search_dirs (filter_dirs $HOME/dev)
 
     set include_dirs (
             filter_dirs \

@@ -13,7 +13,7 @@
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "fff": {
-      "rev": "e5dccede829cec037b3a6699aceaa9e61ec9244b",
+      "rev": "89c19270ea2dfc20829a7429f72022571558093e",
       "src": "https://github.com/dmtrKovalenko/fff"
     },
     "filepaths_ls.nvim": {
@@ -49,7 +49,7 @@
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "nor.nvim": {
-      "rev": "2ab1262634bacb02f0d6c0e3735b270f7a9dd2c6",
+      "rev": "601a4e5b64395d019f71741c2d173ebb7d249c01",
       "src": "https://tangled.org/ronshavit.com/nor.nvim"
     },
     "nui.nvim": {
@@ -91,8 +91,12 @@
       "src": "https://github.com/stevearc/quicker.nvim"
     },
     "schemastore.nvim": {
-      "rev": "cab3cff740114bd6a7d9f862839ed049f5701e47",
+      "rev": "411163b2be396495c76788a016cb1354f1e8acd0",
       "src": "https://github.com/b0o/schemastore.nvim"
+    },
+    "servery.nvim": {
+      "rev": "10be00380cc14283d50fa11d2cf49a6a4295af09",
+      "src": "https://github.com/wurli/servery.nvim"
     },
     "smart-splits.nvim": {
       "rev": "ec76708f1617ef9e2ac353357fe52d2c997a0f06",

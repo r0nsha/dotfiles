@@ -1,7 +1,3 @@
-require("extensions")
-require("config")
-require("theme")
-
 local pack = require("utils").pack
 local src = pack.src
 
@@ -42,12 +38,17 @@ vim.pack.add({
   -- "file:///home/ron/dev/jjannotate.nvim",
   { src = src.gh("chomosuke/typst-preview.nvim"), version = "v1.4.1" },
   src.gh("Wansmer/treesj"),
+  src.gh("wurli/servery.nvim"),
 })
 
 pack.add_with_build(
   src.gh("dmtrKovalenko/fff"),
   function() require("fff.download").download_or_build_binary() end
 )
+
+require("extensions")
+require("config")
+require("theme")
 
 require("plugins.treesitter")
 require("plugins.comment")
@@ -63,3 +64,4 @@ require("plugins.quickfix")
 require("plugins.vcs")
 require("plugins.typst")
 require("plugins.undotree")
+require("plugins.server")
