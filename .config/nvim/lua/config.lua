@@ -419,6 +419,10 @@ map_ctrl_t("h", "<cmd>-tabmove<cr>", "Move tabpage to the left")
 map_ctrl_t("l", "<cmd>+tabmove<cr>", "Move tabpage to the right")
 map_ctrl_t("O", "<cmd>tabonly<cr>", "Close other tabpages")
 
+map_ctrl_t("s", "<cmd>split | term<cr>", "New terminal (horizontal split)")
+map_ctrl_t("v", "<cmd>vsplit | term<cr>", "New terminal (vertical split)")
+map_ctrl_t("T", "<cmd>tab term<cr>", "New terminal (new tab)")
+
 map_ctrl_t("1", "1gt", "Go to 1st tabpage")
 map_ctrl_t("2", "2gt", "Go to 2nd tabpage")
 map_ctrl_t("3", "3gt", "Go to 3rd tabpage")
