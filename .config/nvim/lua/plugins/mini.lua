@@ -114,10 +114,9 @@ MiniHipatterns.setup({
 local MiniIcons = require("mini.icons")
 MiniIcons.setup()
 
--- FIXME: mini.jump doesn't work nicely with mcursor
--- require("mini.jump").setup({
---   mappings = { repeat_jump = "" },
--- })
+require("mini.jump").setup({
+  mappings = { repeat_jump = "" },
+})
 
 require("mini.move").setup({
   mappings = {
