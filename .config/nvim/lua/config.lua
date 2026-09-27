@@ -423,6 +423,7 @@ end
 
 map_ctrl_t("c", "<cmd>tabnew<cr>", "New tabpage")
 map_ctrl_t("x", "<cmd>tabclose<cr>", "Close tabpage")
+map_ctrl_t("q", "<cmd>tabclose<cr>", "Close tabpage")
 map_ctrl_t("n", "<cmd>tabnext<cr>", "Next tabpage")
 map_ctrl_t("p", "<cmd>tabprevious<cr>", "Previous tabpage")
 map_ctrl_t("t", "g<Tab>", "Last accessed tabpage")

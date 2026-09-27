@@ -28,7 +28,7 @@ clue.setup({
     { mode = "n", keys = "g" },
     { mode = "x", keys = "g" },
 
-    -- -- Marks
+    -- Marks
     { mode = "n", keys = "'" },
     { mode = "n", keys = "`" },
     { mode = "x", keys = "'" },
@@ -52,6 +52,9 @@ clue.setup({
     { mode = "x", keys = "[" },
     { mode = "n", keys = "]" },
     { mode = "x", keys = "]" },
+
+    -- Tabpage commands
+    { mode = "n", keys = "<C-t>" },
   },
   clues = {
     -- Enhance this by adding descriptions for <Leader> mapping groups
