@@ -410,10 +410,35 @@ vim.keymap.set("n", "<leader>cl", function()
   vim.notify("Conceal " .. conceal_enabled)
 end, { desc = "Toggle conceal" })
 
--- Tabs
-vim.keymap.set("n", "<c-t>n", "<cmd>tabnew<cr>", { desc = "New tab" })
-vim.keymap.set("n", "<c-t>x", "<cmd>tabclose<cr>", { desc = "Close tab" })
-vim.keymap.set("n", "<c-t>O", "<cmd>tabonly<cr>", { desc = "Close other tabs" })
+-- Tabs/Windows
+---@param char string
+---@param rhs string
+---@param desc string
+local function map_ctrl_t(char, rhs, desc)
+  vim.keymap.set("n", "<c-t>" .. char, rhs, { desc = desc })
+  vim.keymap.set("n", "<c-t><c-" .. char .. ">", rhs, { desc = desc })
+  vim.keymap.set("t", "<c-t>" .. char, [[<c-\><c-n>]] .. rhs, { desc = desc })
+  vim.keymap.set("t", "<c-t><c-" .. char .. ">", [[<c-\><c-n>]] .. rhs, { desc = desc })
+end
+
+map_ctrl_t("c", "<cmd>tabnew<cr>", "New tabpage")
+map_ctrl_t("x", "<cmd>tabclose<cr>", "Close tabpage")
+map_ctrl_t("n", "<cmd>tabnext<cr>", "Next tabpage")
+map_ctrl_t("p", "<cmd>tabprevious<cr>", "Previous tabpage")
+map_ctrl_t("t", "g<Tab>", "Last accessed tabpage")
+map_ctrl_t("O", "<cmd>tabonly<cr>", "Close other tabpages")
+
+map_ctrl_t("1", "1gt", "Go to 1st tabpage")
+map_ctrl_t("2", "2gt", "Go to 2nd tabpage")
+map_ctrl_t("3", "3gt", "Go to 3rd tabpage")
+map_ctrl_t("4", "4gt", "Go to 4th tabpage")
+map_ctrl_t("5", "5gt", "Go to 5th tabpage")
+map_ctrl_t("6", "6gt", "Go to 6th tabpage")
+map_ctrl_t("7", "7gt", "Go to 7th tabpage")
+map_ctrl_t("8", "8gt", "Go to 8th tabpage")
+map_ctrl_t("9", "9gt", "Go to 9th tabpage")
+
+vim.keymap.set("t", "<C-w>", [[<C-\><C-n><C-w>]])
 
 -- Easier toggle fold
 vim.keymap.set("n", "zt", "<cmd>normal! za<cr>", { desc = "Toggle fold under cursor" })

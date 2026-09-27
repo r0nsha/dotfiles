@@ -1,16 +1,5 @@
 local augroup = require("augroup")
 
-vim.keymap.set("t", "<C-w>", [[<C-\><C-n><C-w>]])
-vim.keymap.set({ "n", "t" }, "<C-w>1", [[<C-\><C-n>1gt]])
-vim.keymap.set({ "n", "t" }, "<C-w>2", [[<C-\><C-n>2gt]])
-vim.keymap.set({ "n", "t" }, "<C-w>3", [[<C-\><C-n>3gt]])
-vim.keymap.set({ "n", "t" }, "<C-w>4", [[<C-\><C-n>4gt]])
-vim.keymap.set({ "n", "t" }, "<C-w>5", [[<C-\><C-n>5gt]])
-vim.keymap.set({ "n", "t" }, "<C-w>6", [[<C-\><C-n>6gt]])
-vim.keymap.set({ "n", "t" }, "<C-w>7", [[<C-\><C-n>7gt]])
-vim.keymap.set({ "n", "t" }, "<C-w>8", [[<C-\><C-n>8gt]])
-vim.keymap.set({ "n", "t" }, "<C-w>9", [[<C-\><C-n>9gt]])
-
 local exit_term_mode = [[<C-\><C-n>]]
 vim.keymap.set("t", "<C-Esc>", exit_term_mode, { desc = "Exit terminal mode" })
 vim.keymap.set("t", "<S-Esc>", exit_term_mode, { desc = "Exit terminal mode" })
