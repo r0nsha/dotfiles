@@ -404,8 +404,9 @@ end, { desc = "Toggle conceal" })
 ---@param desc string
 local function map_ctrl_t(char, rhs, desc)
   vim.keymap.set("n", "<c-t>" .. char, rhs, { desc = desc })
-  vim.keymap.set("n", "<c-t><c-" .. char .. ">", rhs, { desc = desc })
   vim.keymap.set("t", "<c-t>" .. char, [[<c-\><c-n>]] .. rhs, { desc = desc })
+  if char ~= char:lower() then return end -- A and <C-a> are conflicting
+  vim.keymap.set("n", "<c-t><c-" .. char .. ">", rhs, { desc = desc })
   vim.keymap.set("t", "<c-t><c-" .. char .. ">", [[<c-\><c-n>]] .. rhs, { desc = desc })
 end
 
