@@ -1,9 +1,9 @@
 {
-  "lastChangelogVersion": "0.87.1",
   "defaultProvider": "opencode-go",
   "defaultModel": "deepseek-v4.1-flash",
-  "theme": "nor-light/nor-dark",
+  "lastChangelogVersion": "0.87.1",
   "quietStartup": true,
+  "theme": "nor-light/nor-dark",
   "tuiMode": "regular",
   "packages": [
     "npm:pi-memory",
