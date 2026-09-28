@@ -1,9 +1,12 @@
 local augroup = require("augroup")
 
-local exit_term_mode = [[<C-\><C-n>]]
-vim.keymap.set("t", "<C-Esc>", exit_term_mode, { desc = "Exit terminal mode" })
-vim.keymap.set("t", "<S-Esc>", exit_term_mode, { desc = "Exit terminal mode" })
-vim.keymap.set("t", "<A-Esc>", exit_term_mode, { desc = "Exit terminal mode" })
+local function exit_term_mode()
+  vim.b.term_insert = false
+  return [[<C-\><C-n>]]
+end
+vim.keymap.set("t", "<C-Esc>", exit_term_mode, { expr = true, desc = "Exit terminal mode" })
+vim.keymap.set("t", "<S-Esc>", exit_term_mode, { expr = true, desc = "Exit terminal mode" })
+vim.keymap.set("t", "<A-Esc>", exit_term_mode, { expr = true, desc = "Exit terminal mode" })
 
 -- :terminal-nested Nvim:
 if vim.env.NVIM then
@@ -95,28 +98,26 @@ vim.api.nvim_create_autocmd("TermRequest", {
 -- Better terminal-mode behavior
 vim.api.nvim_create_autocmd("TermOpen", {
   group = augroup,
-  desc = "Automatically enter insert mode whe opening a terminal",
   callback = function(args)
-    if vim.api.nvim_get_current_buf() == args.buf then vim.cmd.startinsert() end
+    local enter_term_mode = vim.schedule_wrap(function()
+      if vim.api.nvim_get_current_buf() == args.buf and vim.b[args.buf].term_insert ~= false then
+        vim.cmd.startinsert()
+      end
+    end)
+
+    enter_term_mode()
 
     vim.api.nvim_create_autocmd({ "TermEnter", "InsertEnter" }, {
-      group = augroup,
       desc = "Remember buffer was left in insert/terminal mode",
+      group = augroup,
+      buffer = args.buf,
       callback = function() vim.b[args.buf].term_insert = true end,
     })
-    vim.api.nvim_create_autocmd({ "TermLeave", "InsertLeave" }, {
-      group = augroup,
-      desc = "Remember buffer was left out of insert/terminal mode",
-      callback = function() vim.b[args.buf].term_insert = false end,
-    })
     vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
-      group = augroup,
       desc = "Resume insert/terminal mode when focusing a terminal buffer",
-      callback = function()
-        if vim.bo[args.buf].buftype == "terminal" and vim.b[args.buf].term_insert then
-          vim.cmd.startinsert()
-        end
-      end,
+      group = augroup,
+      buffer = args.buf,
+      callback = function() enter_term_mode() end,
     })
   end,
 })
