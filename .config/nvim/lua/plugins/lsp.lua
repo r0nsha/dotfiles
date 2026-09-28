@@ -20,16 +20,23 @@ vim.lsp.enable({
 })
 
 vim.api.nvim_create_autocmd("LspProgress", {
+  group = require("augroup"),
   callback = function(ev)
     local value = ev.data.params.value
+    local client_id = ev.data.client_id
+    local client = assert(vim.lsp.get_clients({ id = client_id })[1])
+    local id = ("progress-lsp-%s-%s"):format(client_id, value.title)
+    local title = ("[%s] %s"):format(client.name or client_id, value.title)
+
     vim.api.nvim_echo({ { value.message or "done" } }, false, {
-      id = "lsp." .. ev.data.params.token,
+      id = id,
       kind = "progress",
       source = "vim.lsp",
-      title = value.title,
+      title = title,
       status = value.kind ~= "end" and "running" or "success",
       percent = value.percentage,
     })
+    vim.cmd.redrawstatus()
   end,
 })
 

@@ -248,11 +248,6 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
-vim.api.nvim_create_autocmd("LspProgress", {
-  group = augroup,
-  command = "redrawstatus",
-})
-
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
   group = augroup,
   desc = "Disable swapfile, backup, and undofile for pass files",
