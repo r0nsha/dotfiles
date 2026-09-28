@@ -14,5 +14,5 @@ require("servery").setup({
   ui = { provider = "mini_pick" },
 })
 
-vim.keymap.set({ "n", "t" }, "<C-f>", "<cmd>Sv<cr>", { desc = "Switch nvim servers" })
+vim.keymap.set({ "n", "t" }, "<C-f>", [[<C-\><C-n><cmd>Sv<cr>]], { desc = "Switch nvim servers" })
 vim.keymap.set({ "n", "t" }, "<A-f>", "<cmd>1Sv<cr>", { desc = "Go to previous server" })

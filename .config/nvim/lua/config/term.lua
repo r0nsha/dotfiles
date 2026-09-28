@@ -28,11 +28,15 @@ if vim.env.NVIM then
       { lhs }
     ) --[[@as table<string,any>]]
     if map.rhs == exit_term_mode then
+      -- Map `lhs` to itself: in terminal mode that passes the key through to
+      -- the child unchanged. Mapping it to `<Esc>` instead would drop the
+      -- modifiers, so `<C-Esc>` would reach the child as a plain Escape and
+      -- any TUI there that aborts on Escape (e.g. pi) would abort.
       vim.rpcrequest(
         chan,
         "nvim_exec_lua",
-        [[vim.keymap.set('t', ..., '<Esc>', {buffer=0})]],
-        { lhs }
+        [[vim.keymap.set('t', ..., ..., {buffer=0})]],
+        { lhs, lhs }
       )
       didset = true
     end
@@ -92,25 +96,28 @@ vim.api.nvim_create_autocmd("TermRequest", {
 vim.api.nvim_create_autocmd("TermOpen", {
   group = augroup,
   desc = "Automatically enter insert mode whe opening a terminal",
-  command = "startinsert",
-})
-vim.api.nvim_create_autocmd({ "TermEnter", "InsertEnter" }, {
-  group = augroup,
-  desc = "Remember buffer was left in insert/terminal mode",
-  callback = function(ev) vim.b[ev.buf].term_insert = true end,
-})
-vim.api.nvim_create_autocmd({ "TermLeave", "InsertLeave" }, {
-  group = augroup,
-  desc = "Remember buffer was left out of insert/terminal mode",
-  callback = function(ev) vim.b[ev.buf].term_insert = false end,
-})
-vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
-  group = augroup,
-  desc = "Resume insert/terminal mode when focusing a terminal buffer",
-  callback = function(ev)
-    if vim.bo[ev.buf].buftype == "terminal" and vim.b[ev.buf].term_insert then
-      vim.cmd.startinsert()
-    end
+  callback = function(args)
+    if vim.api.nvim_get_current_buf() == args.buf then vim.cmd.startinsert() end
+
+    vim.api.nvim_create_autocmd({ "TermEnter", "InsertEnter" }, {
+      group = augroup,
+      desc = "Remember buffer was left in insert/terminal mode",
+      callback = function() vim.b[args.buf].term_insert = true end,
+    })
+    vim.api.nvim_create_autocmd({ "TermLeave", "InsertLeave" }, {
+      group = augroup,
+      desc = "Remember buffer was left out of insert/terminal mode",
+      callback = function() vim.b[args.buf].term_insert = false end,
+    })
+    vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
+      group = augroup,
+      desc = "Resume insert/terminal mode when focusing a terminal buffer",
+      callback = function()
+        if vim.bo[args.buf].buftype == "terminal" and vim.b[args.buf].term_insert then
+          vim.cmd.startinsert()
+        end
+      end,
+    })
   end,
 })
 

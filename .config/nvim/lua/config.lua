@@ -444,11 +444,40 @@ end, { desc = "Toggle all folds in buffer" })
 vim.keymap.set("n", "<leader>cc", "1z=", { desc = "Correct spelling" })
 vim.keymap.set("n", "<leader>w", "<cmd>noau w<cr>", { desc = "Write without autocmds" })
 
+---@param dir string
+---@return fun(): string?
+local function move_window(dir)
+  return function()
+    if vim.fn.winnr("$") == 1 then return nil end
+    return string.format("%s<C-w>%s", vim.bo.buftype == "terminal" and "<C-\\><C-n>" or "", dir)
+  end
+end
+
 -- Window management
-vim.keymap.set({ "n", "t" }, "<C-h>", "<C-w>h", { desc = "Move cursor left" })
-vim.keymap.set({ "n", "t" }, "<C-j>", "<C-w>j", { desc = "Move cursor down" })
-vim.keymap.set({ "n", "t" }, "<C-k>", "<C-w>k", { desc = "Move cursor up" })
-vim.keymap.set({ "n", "t" }, "<C-l>", "<C-w>l", { desc = "Move cursor right" })
+vim.keymap.set(
+  { "n", "t" },
+  "<C-h>",
+  move_window("h") or "<C-h>",
+  { expr = true, desc = "Move cursor left" }
+)
+vim.keymap.set(
+  { "n", "t" },
+  "<C-j>",
+  move_window("j") or "<C-j>",
+  { expr = true, desc = "Move cursor down" }
+)
+vim.keymap.set(
+  { "n", "t" },
+  "<C-k>",
+  move_window("k") or "<C-k>",
+  { expr = true, desc = "Move cursor up" }
+)
+vim.keymap.set(
+  { "n", "t" },
+  "<C-l>",
+  move_window("l") or "<C-l>",
+  { expr = true, desc = "Move cursor right" }
+)
 
 local resize = require("config.resize")
 vim.keymap.set(
