@@ -441,11 +441,40 @@ vim.keymap.set("n", "za", function()
   vim.cmd("normal! " .. (any_closed and "zR" or "zM"))
 end, { desc = "Toggle all folds in buffer" })
 
--- Spell
 vim.keymap.set("n", "<leader>cc", "1z=", { desc = "Correct spelling" })
-
--- Write
 vim.keymap.set("n", "<leader>w", "<cmd>noau w<cr>", { desc = "Write without autocmds" })
+
+-- Window management
+vim.keymap.set({ "n", "t" }, "<C-h>", "<C-w>h", { desc = "Move cursor left" })
+vim.keymap.set({ "n", "t" }, "<C-j>", "<C-w>j", { desc = "Move cursor down" })
+vim.keymap.set({ "n", "t" }, "<C-k>", "<C-w>k", { desc = "Move cursor up" })
+vim.keymap.set({ "n", "t" }, "<C-l>", "<C-w>l", { desc = "Move cursor right" })
+
+local resize = require("config.resize")
+vim.keymap.set(
+  { "n", "t" },
+  "<C-S-H>",
+  function() resize.resize_left(5) end,
+  { desc = "Resize window left" }
+)
+vim.keymap.set(
+  { "n", "t" },
+  "<C-S-J>",
+  function() resize.resize_down(1) end,
+  { desc = "Resize window down" }
+)
+vim.keymap.set(
+  { "n", "t" },
+  "<C-S-K>",
+  function() resize.resize_up(1) end,
+  { desc = "Resize window up" }
+)
+vim.keymap.set(
+  { "n", "t" },
+  "<C-S-L>",
+  function() resize.resize_right(5) end,
+  { desc = "Resize window right" }
+)
 
 require("config.diagnostics")
 require("config.mcursor")

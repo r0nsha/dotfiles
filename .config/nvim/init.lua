@@ -27,7 +27,7 @@ vim.pack.add({
   src.gh("rachartier/tiny-inline-diagnostic.nvim"),
   -- src.gh("milanglacier/minuet-ai.nvim"),
   "https://forge.barrettruth.com/barrettruth/canola.nvim",
-  src.gh("mrjones2014/smart-splits.nvim"),
+  -- src.gh("mrjones2014/smart-splits.nvim"),
   src.gh("stevearc/quicker.nvim"),
   src.gh("esmuellert/codediff.nvim"),
   src.gh("ruifm/gitlinker.nvim"),
@@ -57,7 +57,7 @@ require("plugins.lsp")
 require("plugins.format")
 require("plugins.lint")
 require("plugins.mini")
-require("plugins.smart_splits")
+-- require("plugins.smart_splits")
 require("plugins.explorer")
 -- require("plugins.ai")
 require("plugins.quickfix")

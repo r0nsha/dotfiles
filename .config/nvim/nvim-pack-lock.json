@@ -98,10 +98,6 @@
       "rev": "10be00380cc14283d50fa11d2cf49a6a4295af09",
       "src": "https://github.com/wurli/servery.nvim"
     },
-    "smart-splits.nvim": {
-      "rev": "ec76708f1617ef9e2ac353357fe52d2c997a0f06",
-      "src": "https://github.com/mrjones2014/smart-splits.nvim"
-    },
     "tiny-inline-diagnostic.nvim": {
       "rev": "6264451f14119d63a52580e5198d6baf8518b0b2",
       "src": "https://github.com/rachartier/tiny-inline-diagnostic.nvim"
