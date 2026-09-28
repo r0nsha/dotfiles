@@ -13,5 +13,6 @@
     "npm:@narumitw/pi-usage",
     "npm:@ff-labs/pi-fff",
     "npm:pi-simplify"
-  ]
+  ],
+  "hideThinkingBlock": true
 }

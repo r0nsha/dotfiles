@@ -1,71 +1,93 @@
 local augroup = require("augroup")
 
-local function exit_term_mode()
-  vim.b.term_insert = false
-  return [[<C-\><C-n>]]
-end
-vim.keymap.set("t", "<C-Esc>", exit_term_mode, { expr = true, desc = "Exit terminal mode" })
-vim.keymap.set("t", "<S-Esc>", exit_term_mode, { expr = true, desc = "Exit terminal mode" })
-vim.keymap.set("t", "<A-Esc>", exit_term_mode, { expr = true, desc = "Exit terminal mode" })
+local exit_term_expr = [[<C-\><C-n>]]
+vim.keymap.set("t", "<C-Esc>", exit_term_expr, { desc = "Exit terminal mode" })
+vim.keymap.set("t", "<S-Esc>", exit_term_expr, { desc = "Exit terminal mode" })
+vim.keymap.set("t", "<A-Esc>", exit_term_expr, { desc = "Exit terminal mode" })
 
 -- :terminal-nested Nvim:
-if vim.env.NVIM then
-  ---@return integer?
+--
+-- When Nvim runs inside a `:terminal` (parent), `$NVIM` points to the parent's
+-- server address.  In that case we ask the parent to pass `<C-Esc>` (etc.)
+-- through to us instead of consuming the key, so that TUI programs (e.g. pi)
+-- running in this terminal receive the original escape sequence.
+--
+-- A headless Nvim (e.g. one spawned by servery.nvim via `nvim --headless
+-- --listen`) also inherits `$NVIM` from the Nvim that spawned it, but it is not
+-- running in a terminal, so there is no parent terminal to rewrite.
+if vim.env.NVIM and not vim.tbl_contains(vim.v.argv, "--headless") then
+  local ESC_LHS = { "<C-Esc>", "<S-Esc>", "<A-Esc>" }
+
+  ---Connect to the parent ($NVIM) Nvim, if it is reachable.
+  ---@return integer? chan
   local function parent_chan()
     local ok, chan = pcall(vim.fn.sockconnect, "pipe", vim.env.NVIM, { rpc = true })
-    if not ok then
-      vim.notify(("failed to create channel to $NVIM: %s"):format(chan))
-      return nil
-    end
+    if not ok or chan == 0 then return nil end
     return chan --[[@as integer?]]
   end
 
-  local didset = false
-  local chan = assert(parent_chan())
-  local function map_parent(lhs)
-    -- Map `lhs` in the parent so it gets sent to the child (this) Nvim.
-    local map = vim.rpcrequest(
-      chan,
-      "nvim_exec_lua",
-      [[return vim.fn.maparg(..., 't', false, true)]],
-      { lhs }
-    ) --[[@as table<string,any>]]
-    if map.rhs == exit_term_mode then
-      -- Map `lhs` to itself: in terminal mode that passes the key through to
-      -- the child unchanged. Mapping it to `<Esc>` instead would drop the
-      -- modifiers, so `<C-Esc>` would reach the child as a plain Escape and
-      -- any TUI there that aborts on Escape (e.g. pi) would abort.
-      vim.rpcrequest(
-        chan,
-        "nvim_exec_lua",
-        [[vim.keymap.set('t', ..., ..., {buffer=0})]],
-        { lhs, lhs }
-      )
-      didset = true
-    end
+  ---Ask the parent to run Lua code.  Returns the result, or nil if the parent
+  ---could not run it (e.g. the connection died).  Never raises.
+  ---@param chan integer
+  ---@param code string
+  ---@param args any[]
+  ---@return any?
+  local function parent_exec(chan, code, args)
+    local ok, res = pcall(vim.rpcrequest, chan, "nvim_exec_lua", code, args)
+    if not ok then return nil end
+    return res
   end
-  map_parent("<C-Esc>")
-  map_parent("<S-Esc>")
-  map_parent("<A-Esc>")
-  vim.fn.chanclose(chan)
 
-  -- Restore the mapping(s) on VimLeave.
-  if didset then
+  -- The parent runs this chunk to find and rewrite any "Exit terminal mode"
+  -- t-mode mappings that this config created.  `maparg()` returns a
+  -- serializable dict only for string mappings; a Lua `callback` function
+  -- cannot cross the RPC boundary.  Only mappings whose rhs is exactly the
+  -- child's exit expr are touched.
+  local MAP_CODE = [==[
+    local lhs_list, exit_expr = ...
+    local changed = {}
+    for _, lhs in ipairs(lhs_list) do
+      local map = vim.fn.maparg(lhs, 't', false, true)
+      if type(map) == 'table' and map.rhs == exit_expr then
+        vim.keymap.set('t', lhs, lhs)
+        changed[#changed + 1] = lhs
+      end
+    end
+    return changed
+  ]==]
+
+  -- Best-effort: a dead / busy parent must never break Nvim startup.
+  local changed ---@type string[]?
+  local ok, err = pcall(function()
+    local chan = parent_chan()
+    if not chan then return end
+    changed = parent_exec(chan, MAP_CODE, { ESC_LHS, exit_term_expr })
+    vim.fn.chanclose(chan)
+  end)
+  if not ok then
+    vim.notify_once("config.term: parent-nvim setup failed: " .. tostring(err), vim.log.levels.WARN)
+  end
+
+  if type(changed) == "table" and #changed > 0 then
+    -- Restore the parent's original mappings when this Nvim exits.  Since
+    -- the original mappings were string-based, we re-create them from the
+    -- child's own definition (which is identical).
+    local RESTORE_CODE = ([[
+      local lhs_list, rhs = ...
+      for _, lhs in ipairs(lhs_list) do
+        vim.keymap.set('t', lhs, rhs, { desc = %q })
+      end
+    ]]):format("Exit terminal mode")
+
     vim.api.nvim_create_autocmd("VimLeave", {
       group = augroup,
       desc = "Restore parent nvim mappings",
       callback = function()
-        local chan2 = assert(parent_chan())
-        vim.rpcrequest(
-          chan2,
-          "nvim_exec2",
-          [=[
-          silent! tunmap <buffer> <C-Esc>
-          silent! tunmap <buffer> <S-Esc>
-          silent! tunmap <buffer> <A-Esc>
-        ]=],
-          {}
-        )
+        local c = parent_chan()
+        if c then
+          parent_exec(c, RESTORE_CODE, { changed, exit_term_expr })
+          vim.fn.chanclose(c)
+        end
       end,
     })
   end
@@ -112,6 +134,12 @@ vim.api.nvim_create_autocmd("TermOpen", {
       group = augroup,
       buffer = args.buf,
       callback = function() vim.b[args.buf].term_insert = true end,
+    })
+    vim.api.nvim_create_autocmd({ "TermLeave", "InsertLeave" }, {
+      desc = "Remember buffer was left out of insert/terminal mode",
+      group = augroup,
+      buffer = args.buf,
+      callback = function() vim.b[args.buf].term_insert = false end,
     })
     vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
       desc = "Resume insert/terminal mode when focusing a terminal buffer",
