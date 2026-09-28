@@ -36,11 +36,6 @@ if pgrep mako
     makoctl reload
 end
 
-# ghostty
-mkdir -p ~/.cache/ghostty
-ln -sfv ~/.config/ghostty/theme_$theme.ghostty ~/.cache/ghostty/current_theme.ghostty
-pkill -SIGUSR2 ghostty
-
 # kitty
 ln -sfv ~/.config/kitty/theme_$theme.conf ~/.config/kitty/current_theme.conf
 pkill -SIGUSR1 kitty
