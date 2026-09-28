@@ -141,7 +141,7 @@ vim.keymap.set(
 )
 
 vim.keymap.set("x", "m", function()
-  vim.ui.input({ prompt = "pattern", scope = "cursor" }, function(input)
+  vim.ui.input({ prompt = "Pattern > ", scope = "cursor" }, function(input)
     if not input then return end
     input = vim.trim(input)
     if input == "" then return end

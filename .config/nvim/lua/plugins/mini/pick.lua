@@ -303,6 +303,47 @@ end
 MiniPick.registry.fffiles = pick_fff_files
 MiniPick.registry.ffgrep = pick_fff_grep
 
+local rg_all_flags = { "--hidden", "--no-ignore", "--glob", "!.git" }
+
+local function show_with_icons(buf_id, items, query)
+  MiniPick.default_show(buf_id, items, query, { show_icons = true })
+end
+
+local function pick_all_files()
+  local command = { "rg", "--files", "--color=never" }
+  vim.list_extend(command, rg_all_flags)
+
+  MiniPick.builtin.cli({ command = command }, {
+    source = { name = "Files (all)", cwd = vim.fn.getcwd(), show = show_with_icons },
+  })
+end
+
+local function pick_all_grep()
+  vim.ui.input({ prompt = "Grep (all): " }, function(pattern)
+    if pattern == "" then return end
+
+    local command = {
+      "rg",
+      "--column",
+      "--line-number",
+      "--no-heading",
+      "--field-match-separator",
+      "\\x00",
+      "--color=never",
+      "--no-fixed-strings",
+    }
+    vim.list_extend(command, rg_all_flags)
+
+    local case = vim.o.ignorecase and (vim.o.smartcase and "smart-case" or "ignore-case")
+      or "case-sensitive"
+    vim.list_extend(command, { "--" .. case, "--", pattern })
+
+    MiniPick.builtin.cli({ command = command }, {
+      source = { name = "Grep (all)", cwd = vim.fn.getcwd(), show = show_with_icons },
+    })
+  end)
+end
+
 local function pick_plugins()
   local opt_dir = vim.fn.stdpath("data") .. "/site/pack/core/opt"
 
@@ -388,6 +429,8 @@ vim.keymap.set("x", "<leader>ss", function()
   )
   pick_fff_grep(table.concat(lines, " "))
 end, { desc = "Grep selection" })
+vim.keymap.set("n", "<leader>sF", pick_all_files, { desc = "Files (hidden+ignored)" })
+vim.keymap.set("n", "<leader>sS", pick_all_grep, { desc = "Grep (hidden+ignored)" })
 vim.keymap.set("n", "<leader>sw", function()
   pick_fff_grep(vim.fn.expand("<cword>") --[[@as string?]])
 end, { desc = "Grep word under cursor" })
