@@ -149,15 +149,18 @@ vim.keymap.set("x", "m", function()
   end)
 end, { desc = "Place cursor at every search match" })
 
-vim.keymap.set("x", "M", function()
+vim.keymap.set("x", "<C-n>", function()
   local region =
     vim.fn.getregion(vim.fn.getpos("v"), vim.fn.getpos("."), { type = "v", exclusive = false })
   local text = table.concat(region, "\n")
   if text == "" then return end
   local escaped = vim.fn.escape(text, [[\/]]):gsub("\n", "\\n")
-  local pattern = text:match("^[%w_]+$") and ("\\V\\<" .. escaped .. "\\>") or ("\\V" .. escaped)
+  local pattern = "\\V" .. escaped
   vim.api.nvim_feedkeys(vim.keycode("<Esc>"), "n", false)
-  vim.schedule(function() cursor_place_search_matches(pattern) end)
+  vim.schedule(function()
+    cursor_place_search_matches(pattern)
+    vim.api.nvim_feedkeys("gn", "n", false)
+  end)
 end, { desc = "Place cursor at every visual selection match" })
 
 ---@param pos "start" | "end"
