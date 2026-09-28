@@ -1,6 +1,7 @@
 wget-log*
 .venv
 __pycache__
+
 .config/nvim/lua/local.lua
 .config/qutebrowser/autoconfig.yml
 .config/qutebrowser/qsettings
@@ -15,3 +16,10 @@ __pycache__
 .config/qt5ct/colors
 .config/qt6ct/colors
 .config/mako/config
+
+.pi/agent/*
+!.pi/agent/settings.json
+!.pi/agent/keybindings.json
+!.pi/agent/AGENTS.md
+!.pi/agent/mcp-adapter.json
+!.pi/agent/themes/

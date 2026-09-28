@@ -60,7 +60,7 @@ if exists fnm; then
     fnm install --lts
     fnm default lts-latest
     eval "$(fnm env --shell bash)"
-    npm i -g typescript @fsouza/prettierd
+    npm i -g typescript @fsouza/prettierd @earendil-works/pi-coding-agent @tobilu/qmd
     success
 fi
 

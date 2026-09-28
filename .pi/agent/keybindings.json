@@ -1,0 +1,7 @@
+{
+  "app.model.cycleForward": [],
+  "app.model.cycleBackward": [],
+  "tui.select.up": ["up", "ctrl+p"],
+  "tui.select.down": ["down", "ctrl+n"],
+  "tui.select.confirm": ["enter", "ctrl+y"]
+}

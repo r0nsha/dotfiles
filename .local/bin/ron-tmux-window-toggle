@@ -1,0 +1,15 @@
+#!/usr/bin/env fish
+
+set program "$argv[1]"
+
+set current (tmux display-message -p '#W')
+if test "$current" = "$program"
+    tmux last-window
+else
+    set target (tmux list-windows -F '#{window_index}' -f "#{==:#{window_name},$program}" | head -n 1)
+    if test -n "$target"
+        tmux select-window -t "$target"
+    else
+        tmux new-window -n "$program" "$program"
+    end
+end
