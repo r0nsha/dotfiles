@@ -9,7 +9,16 @@ require("servery").setup({
     for name, type in vim.fs.dir(dev) do
       if type == "directory" then table.insert(dirs, vim.fs.joinpath(dev, name)) end
     end
-    return dirs
+
+    local active_dirs = vim.tbl_map(
+      function(s) return vim.fs.normalize(s.cwd) end,
+      require("servery").list_sessions("active")
+    )
+
+    return vim.tbl_filter(
+      function(dir) return not vim.tbl_contains(active_dirs, vim.fs.normalize(dir)) end,
+      dirs
+    )
   end,
   ui = { provider = "mini_pick" },
 })
