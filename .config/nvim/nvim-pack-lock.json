@@ -95,7 +95,7 @@
       "src": "https://github.com/b0o/schemastore.nvim"
     },
     "servery.nvim": {
-      "rev": "2ea5348afb11d8a3ac45164b0e4d8ac3475328be",
+      "rev": "2738e227d7d1739772534634f80be0145a8a01a4",
       "src": "https://github.com/wurli/servery.nvim"
     },
     "tiny-inline-diagnostic.nvim": {

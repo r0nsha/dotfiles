@@ -388,44 +388,6 @@ vim.keymap.set("n", "<leader>cl", function()
   vim.notify("Conceal " .. conceal_enabled)
 end, { desc = "Toggle conceal" })
 
--- Tabs/Windows
----@param char string
----@param rhs string
----@param desc string
-local function map_ctrl_t(char, rhs, desc)
-  vim.keymap.set("n", "<c-t>" .. char, rhs, { desc = desc })
-  vim.keymap.set("t", "<c-t>" .. char, [[<c-\><c-n>]] .. rhs, { desc = desc })
-  if char ~= char:lower() then return end -- A and <C-a> are conflicting
-  vim.keymap.set("n", "<c-t><c-" .. char .. ">", rhs, { desc = desc })
-  vim.keymap.set("t", "<c-t><c-" .. char .. ">", [[<c-\><c-n>]] .. rhs, { desc = desc })
-end
-
-map_ctrl_t("c", "<cmd>tabnew<cr>", "New tabpage")
-map_ctrl_t("x", "<cmd>tabclose<cr>", "Close tabpage")
-map_ctrl_t("q", "<cmd>tabclose<cr>", "Close tabpage")
-map_ctrl_t("n", "<cmd>tabnext<cr>", "Next tabpage")
-map_ctrl_t("p", "<cmd>tabprevious<cr>", "Previous tabpage")
-map_ctrl_t("t", "g<Tab>", "Last accessed tabpage")
-map_ctrl_t("h", "<cmd>-tabmove<cr>", "Move tabpage to the left")
-map_ctrl_t("l", "<cmd>+tabmove<cr>", "Move tabpage to the right")
-map_ctrl_t("O", "<cmd>tabonly<cr>", "Close other tabpages")
-
-map_ctrl_t("s", "<cmd>split | term<cr>", "New terminal (horizontal split)")
-map_ctrl_t("v", "<cmd>vsplit | term<cr>", "New terminal (vertical split)")
-map_ctrl_t("T", "<cmd>tab term<cr>", "New terminal (new tab)")
-
-map_ctrl_t("1", "1gt", "Go to 1st tabpage")
-map_ctrl_t("2", "2gt", "Go to 2nd tabpage")
-map_ctrl_t("3", "3gt", "Go to 3rd tabpage")
-map_ctrl_t("4", "4gt", "Go to 4th tabpage")
-map_ctrl_t("5", "5gt", "Go to 5th tabpage")
-map_ctrl_t("6", "6gt", "Go to 6th tabpage")
-map_ctrl_t("7", "7gt", "Go to 7th tabpage")
-map_ctrl_t("8", "8gt", "Go to 8th tabpage")
-map_ctrl_t("9", "9gt", "Go to 9th tabpage")
-
-vim.keymap.set("t", "<C-w>", [[<C-\><C-n><C-w>]])
-
 -- Easier toggle fold
 vim.keymap.set("n", "zt", "<cmd>normal! za<cr>", { desc = "Toggle fold under cursor" })
 vim.keymap.set("n", "zT", "<cmd>normal! zA<cr>", { desc = "Toggle all folds under cursor" })
@@ -444,70 +406,10 @@ end, { desc = "Toggle all folds in buffer" })
 vim.keymap.set("n", "<leader>cc", "1z=", { desc = "Correct spelling" })
 vim.keymap.set("n", "<leader>w", "<cmd>noau w<cr>", { desc = "Write without autocmds" })
 
----@param dir string
----@return fun(): string?
-local function move_window(dir)
-  return function()
-    if vim.fn.winnr("$") == 1 then return nil end
-    return string.format("%s<C-w>%s", vim.bo.buftype == "terminal" and "<C-\\><C-n>" or "", dir)
-  end
-end
-
--- Window management
-vim.keymap.set(
-  { "n", "t" },
-  "<C-h>",
-  move_window("h") or "<C-h>",
-  { expr = true, desc = "Move cursor left" }
-)
-vim.keymap.set(
-  { "n", "t" },
-  "<C-j>",
-  move_window("j") or "<C-j>",
-  { expr = true, desc = "Move cursor down" }
-)
-vim.keymap.set(
-  { "n", "t" },
-  "<C-k>",
-  move_window("k") or "<C-k>",
-  { expr = true, desc = "Move cursor up" }
-)
-vim.keymap.set(
-  { "n", "t" },
-  "<C-l>",
-  move_window("l") or "<C-l>",
-  { expr = true, desc = "Move cursor right" }
-)
-
-local resize = require("config.resize")
-vim.keymap.set(
-  { "n", "t" },
-  "<C-S-H>",
-  function() resize.resize_left(5) end,
-  { desc = "Resize window left" }
-)
-vim.keymap.set(
-  { "n", "t" },
-  "<C-S-J>",
-  function() resize.resize_down(1) end,
-  { desc = "Resize window down" }
-)
-vim.keymap.set(
-  { "n", "t" },
-  "<C-S-K>",
-  function() resize.resize_up(1) end,
-  { desc = "Resize window up" }
-)
-vim.keymap.set(
-  { "n", "t" },
-  "<C-S-L>",
-  function() resize.resize_right(5) end,
-  { desc = "Resize window right" }
-)
-
 require("config.diagnostics")
 require("config.mcursor")
 require("config.tabline")
+require("config.window")
 require("config.term")
 
 -- -- atom ring

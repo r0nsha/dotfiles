@@ -1,18 +1,18 @@
 {
+  "lastChangelogVersion": "1.0.0",
   "defaultProvider": "opencode-go",
   "defaultModel": "deepseek-v4.1-flash",
-  "lastChangelogVersion": "0.87.1",
+  "defaultThinkingLevel": "medium",
+  "hideThinkingBlock": true,
   "quietStartup": true,
   "theme": "nor-light/nor-dark",
   "tuiMode": "regular",
   "packages": [
     "npm:pi-memory",
-    "npm:pi-mcp-adapter",
     "npm:pi-web-access",
-    "npm:@gotgenes/pi-permission-system",
     "npm:@narumitw/pi-usage",
     "npm:@ff-labs/pi-fff",
     "npm:pi-simplify"
   ],
-  "hideThinkingBlock": true
+  "extensions": ["+builtin:mcp"]
 }

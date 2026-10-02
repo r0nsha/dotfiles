@@ -1,24 +1,95 @@
 local augroup = require("augroup")
 
-local exit_term_expr = [[<C-\><C-n>]]
-vim.keymap.set("t", "<C-Esc>", exit_term_expr, { desc = "Exit terminal mode" })
-vim.keymap.set("t", "<S-Esc>", exit_term_expr, { desc = "Exit terminal mode" })
-vim.keymap.set("t", "<A-Esc>", exit_term_expr, { desc = "Exit terminal mode" })
+local M = {}
+
+-- Mappings shadowed for nested children. This lives in the *parent's* Lua
+-- state; the module is cached there, so the table survives across RPC calls.
+---@type table<string, { buf: integer?, saved: (string|table)[] }>
+local passthrough = {}
+
+--- Leave terminal mode, remembering not to re-enter it on focus.
+local function exit_term_mode()
+  vim.b.term_insert = false
+  return [[<C-\><C-n>]]
+end
+for _, lhs in ipairs({ "<C-Esc>", "<S-Esc>", "<A-Esc>" }) do
+  vim.keymap.set("t", lhs, exit_term_mode, { expr = true, desc = "Exit terminal mode" })
+end
+
+-- The hooks below are *not* called in this Nvim.  A nested Nvim invokes them on
+-- its parent over RPC (`require('config.term').parent_start(...)`).  Keeping the
+-- originals in the parent's own Lua state lets Lua callbacks -- which cannot be
+-- serialized over RPC -- round-trip through `mapset()`.
+
+--- Shadow the parent's terminal-mode mappings so keys reach a nested child.
+--- Runs in the parent Nvim via RPC.
+---@param token string unique per child (its pid)
+---@param lhs_list string[] terminal-mode mappings the child handles
+---@param ppid integer the child's parent process (= this terminal's shell)
+---@return integer #mappings shadowed
+function M.parent_start(token, lhs_list, ppid)
+  -- The terminal buffer whose shell is the child's parent process.
+  local buf
+  for _, b in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.bo[b].buftype == "terminal" and vim.b[b].terminal_job_pid == ppid then
+      buf = b
+      break
+    end
+  end
+  if not buf then
+    local cur = vim.api.nvim_get_current_buf()
+    if vim.bo[cur].buftype == "terminal" then buf = cur end
+  end
+
+  -- Never clobber a mapping the user set directly in that buffer.
+  local keep = {}
+  if buf then
+    for _, m in ipairs(vim.api.nvim_buf_get_keymap(buf, "t")) do
+      keep[m.lhs] = true
+    end
+  end
+
+  local saved = {}
+  for _, lhs in ipairs(lhs_list) do
+    local map = vim.fn.maparg(lhs, "t", false, true)
+    if type(map) == "table" and next(map) ~= nil and not keep[lhs] then
+      saved[#saved + 1] = buf and lhs or map
+      if buf then
+        vim.keymap.set("t", lhs, lhs, { buffer = buf }) -- pass the key through
+      else
+        vim.keymap.set("t", lhs, lhs)
+      end
+    end
+  end
+  passthrough[token] = { buf = buf, saved = saved }
+  return #saved
+end
+
+--- Undo `M.parent_start`.  Runs in the parent Nvim via RPC.
+---@param token string
+---@return integer #mappings restored
+function M.parent_stop(token)
+  local entry = passthrough[token]
+  if not entry then return 0 end
+  passthrough[token] = nil
+  local buf, saved = entry.buf, entry.saved
+  for _, item in ipairs(saved) do
+    if buf and vim.api.nvim_buf_is_valid(buf) then
+      pcall(vim.keymap.del, "t", item, { buffer = buf })
+    elseif type(item) == "table" then
+      pcall(vim.fn.mapset, "t", false, item)
+    end
+  end
+  return #saved
+end
 
 -- :terminal-nested Nvim:
---
--- When Nvim runs inside a `:terminal` (parent), `$NVIM` points to the parent's
--- server address.  In that case we ask the parent to pass `<C-Esc>` (etc.)
--- through to us instead of consuming the key, so that TUI programs (e.g. pi)
--- running in this terminal receive the original escape sequence.
---
--- A headless Nvim (e.g. one spawned by servery.nvim via `nvim --headless
--- --listen`) also inherits `$NVIM` from the Nvim that spawned it, but it is not
--- running in a terminal, so there is no parent terminal to rewrite.
-if vim.env.NVIM and not vim.tbl_contains(vim.v.argv, "--headless") then
-  local ESC_LHS = { "<C-Esc>", "<S-Esc>", "<A-Esc>" }
+-- Handles both instances running inside a `:terminal`, and `nvim --headless --listen`
+-- instances that inherit `$NVIM` (i.e. from `servery.nvim`)
+local function setup_parent_passthrough()
+  if not vim.env.NVIM or vim.tbl_contains(vim.v.argv, "--headless") then return end
 
-  ---Connect to the parent ($NVIM) Nvim, if it is reachable.
+  ---Connect to the parent $NVIM, if it is reachable.
   ---@return integer? chan
   local function parent_chan()
     local ok, chan = pcall(vim.fn.sockconnect, "pipe", vim.env.NVIM, { rpc = true })
@@ -38,54 +109,40 @@ if vim.env.NVIM and not vim.tbl_contains(vim.v.argv, "--headless") then
     return res
   end
 
-  -- The parent runs this chunk to find and rewrite any "Exit terminal mode"
-  -- t-mode mappings that this config created.  `maparg()` returns a
-  -- serializable dict only for string mappings; a Lua `callback` function
-  -- cannot cross the RPC boundary.  Only mappings whose rhs is exactly the
-  -- child's exit expr are touched.
-  local MAP_CODE = [==[
-    local lhs_list, exit_expr = ...
-    local changed = {}
-    for _, lhs in ipairs(lhs_list) do
-      local map = vim.fn.maparg(lhs, 't', false, true)
-      if type(map) == 'table' and map.rhs == exit_expr then
-        vim.keymap.set('t', lhs, lhs)
-        changed[#changed + 1] = lhs
-      end
-    end
-    return changed
-  ]==]
+  -- The parent owns the keyboard while this Nvim runs in one of its terminals,
+  -- so forward every global terminal-mode mapping this session defines.  Only
+  -- `lhs` strings cross the RPC boundary; the parent resolves them (including
+  -- Lua callbacks) in its own table.
+  local lhs_list = vim.tbl_map(function(m) return m.lhs end, vim.api.nvim_get_keymap("t"))
+  if #lhs_list == 0 then return end
+
+  -- These run in the parent Nvim; see M.parent_start / M.parent_stop.
+  local START_CODE = "return require('config.term').parent_start(...)"
+  local STOP_CODE = "return require('config.term').parent_stop(...)"
+
+  local token = tostring(vim.uv.os_getpid())
 
   -- Best-effort: a dead / busy parent must never break Nvim startup.
-  local changed ---@type string[]?
+  local n_saved ---@type integer?
   local ok, err = pcall(function()
     local chan = parent_chan()
     if not chan then return end
-    changed = parent_exec(chan, MAP_CODE, { ESC_LHS, exit_term_expr })
+    n_saved = parent_exec(chan, START_CODE, { token, lhs_list, vim.uv.os_getppid() })
     vim.fn.chanclose(chan)
   end)
   if not ok then
     vim.notify_once("config.term: parent-nvim setup failed: " .. tostring(err), vim.log.levels.WARN)
   end
 
-  if type(changed) == "table" and #changed > 0 then
-    -- Restore the parent's original mappings when this Nvim exits.  Since
-    -- the original mappings were string-based, we re-create them from the
-    -- child's own definition (which is identical).
-    local RESTORE_CODE = ([[
-      local lhs_list, rhs = ...
-      for _, lhs in ipairs(lhs_list) do
-        vim.keymap.set('t', lhs, rhs, { desc = %q })
-      end
-    ]]):format("Exit terminal mode")
-
+  if n_saved and n_saved > 0 then
+    -- Restore the parent's original mappings when this Nvim exits.
     vim.api.nvim_create_autocmd("VimLeave", {
       group = augroup,
       desc = "Restore parent nvim mappings",
       callback = function()
         local c = parent_chan()
         if c then
-          parent_exec(c, RESTORE_CODE, { changed, exit_term_expr })
+          parent_exec(c, STOP_CODE, { token })
           vim.fn.chanclose(c)
         end
       end,
@@ -93,11 +150,11 @@ if vim.env.NVIM and not vim.tbl_contains(vim.v.argv, "--headless") then
   end
 end
 
--- local term_prompt_ns = vim.api.nvim_create_namespace("config.term.prompt")
+setup_parent_passthrough()
 
 vim.api.nvim_create_autocmd("TermRequest", {
   group = augroup,
-  desc = "Handles OSC 7 dir change requests and OSC 133 shell prompts",
+  desc = "Handles OSC 7 dir change requests",
   callback = function(ev)
     local dir, n = string.gsub(ev.data.sequence, "\027]7;file://[^/]*", "")
     if n > 0 then
@@ -105,19 +162,9 @@ vim.api.nvim_create_autocmd("TermRequest", {
       assert((vim.uv.fs_stat(dir) or {}).type == "directory", "invalid dir: " .. dir)
       if vim.api.nvim_get_current_buf() == ev.buf then vim.cmd.bcd(dir) end
     end
-
-    -- if string.match(ev.data.sequence, "^\027]133;A") then
-    --   -- OSC 133: shell-prompt
-    --   local lnum = ev.data.cursor[1]
-    --   vim.api.nvim_buf_set_extmark(ev.buf, term_prompt_ns, lnum - 1, 0, {
-    --     sign_text = "∙",
-    --     -- sign_hl_group = "SpecialChar",
-    --   })
-    -- end
   end,
 })
 
--- Better terminal-mode behavior
 vim.api.nvim_create_autocmd("TermOpen", {
   group = augroup,
   callback = function(args)
@@ -135,17 +182,11 @@ vim.api.nvim_create_autocmd("TermOpen", {
       buffer = args.buf,
       callback = function() vim.b[args.buf].term_insert = true end,
     })
-    vim.api.nvim_create_autocmd({ "TermLeave", "InsertLeave" }, {
-      desc = "Remember buffer was left out of insert/terminal mode",
-      group = augroup,
-      buffer = args.buf,
-      callback = function() vim.b[args.buf].term_insert = false end,
-    })
     vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
       desc = "Resume insert/terminal mode when focusing a terminal buffer",
       group = augroup,
       buffer = args.buf,
-      callback = function() enter_term_mode() end,
+      callback = enter_term_mode,
     })
   end,
 })
@@ -161,18 +202,38 @@ end
 
 local state = {} ---@type { prevwin: integer? }
 
+--- Scratch and temporary buffers are not places to land when leaving :shell.
+local tmp_buftypes = { "help", "nofile", "nowrite", "prompt", "quickfix" }
+local tmp_filetypes = { "cmd", "dialog", "msg", "pager" }
+
 ---@param win integer?
----@return integer # buffer shown in `win`, or -1 if `win` is invalid
-local function win_buf(win)
-  return win ~= nil and vim.api.nvim_win_is_valid(win) and vim.api.nvim_win_get_buf(win) or -1
+---@return boolean
+local function is_tmp_win(win)
+  if win == nil or not vim.api.nvim_win_is_valid(win) then return false end
+  local buf = vim.api.nvim_win_get_buf(win)
+  return vim.list_contains(tmp_buftypes, vim.bo[buf].buftype)
+    or vim.list_contains(tmp_filetypes, vim.bo[buf].filetype)
 end
 
 ---@param win integer? window id
 ---@return boolean # whether `win` exists and could be focused
 local function goto_win(win)
-  if win == nil or not vim.api.nvim_win_is_valid(win) then return false end
+  if win == nil or not vim.api.nvim_win_is_valid(win) or is_tmp_win(win) then return false end
   vim.api.nvim_set_current_win(win)
   return true
+end
+
+--- Non-temporary windows in `tabpage` (0 = current), optionally skipping `buf`.
+---@param tabpage? integer
+---@param skip_buf? integer
+---@return integer[]
+local function plain_wins(tabpage, skip_buf)
+  return vim
+    .iter(vim.api.nvim_tabpage_list_wins(tabpage or 0))
+    :filter(
+      function(win) return not is_tmp_win(win) and vim.api.nvim_win_get_buf(win) ~= skip_buf end
+    )
+    :totable()
 end
 
 --- Windows displaying `buf`, in `tabpage` or in every tabpage.
@@ -187,59 +248,47 @@ local function wins_showing(buf, tabpage)
     :totable()
 end
 
---- Open a window for :shell: a new tab when `cnt == 0`, else a `cnt`-row split.
----@param cnt integer
-local function open_shell_win(cnt)
-  if cnt == 0 then
-    vim.cmd("tab split")
-  else
-    vim.cmd(("%dsplit"):format(cnt))
-  end
+--- Delete a stale `:shell` buffer (see is_stale_shell) and retry.
+---@param buf integer
+---@param cnt? integer
+local function drop_stale_shell(buf, cnt)
+  vim.api.nvim_buf_delete(buf, { force = true })
+  M.shell(cnt)
 end
 
-local M = {}
-
---- Toggle the :shell buffer.
----@param cnt integer 0 opens a new tab, >0 opens a `cnt`-row split
----@param here boolean edit the :shell buffer in the current window
-function M.shell(cnt, here)
-  state.prevwin = state.prevwin or vim.api.nvim_get_current_win()
+--- Toggle or create a :[N]shell buffer.
+---@param cnt integer 0 toggles the last :shell, >0 opens the `cnt`th :shell.
+function M.shell(cnt)
+  if not state.prevwin or is_tmp_win(state.prevwin) then
+    local win = vim.api.nvim_get_current_win()
+    if is_tmp_win(win) then
+      local alt = vim.fn.win_getid(vim.fn.winnr("#"))
+      win = alt ~= 0 and not is_tmp_win(alt) and alt or plain_wins(0)[1]
+    end
+    state.prevwin = win
+  end
   local b = vim.fn.bufnr(":shell")
   local exists = vim.api.nvim_buf_is_valid(b)
 
-  if exists and here then
-    -- Edit the :shell buffer in this window.
-    vim.api.nvim_set_current_buf(b)
-    vim.bo[b].buflisted = false
-    state.prevwin = vim.api.nvim_get_current_win()
-    return
-  end
-
   if vim.api.nvim_get_current_buf() == b then
-    -- Return to previous window, maybe close the :shell tabpage.
+    -- Return to the previous window, closing a dedicated :shell tabpage.
     local tab = vim.api.nvim_get_current_tabpage()
     local term_prevwin = vim.api.nvim_get_current_win()
-    if not goto_win(state.prevwin) then vim.cmd.wincmd("p") end
-    local tabwins = vim.api.nvim_tabpage_list_wins(tab)
+    if not goto_win(state.prevwin) and not goto_win(plain_wins(0, b)[1]) then
+      vim.cmd.wincmd("p")
+    end
+    local tabwins = plain_wins(tab)
     if #tabwins == 1 and vim.api.nvim_get_current_tabpage() ~= tab then
-      -- Close the :shell tabpage if it's the only window in the tabpage.
       vim.api.nvim_win_close(tabwins[1], true)
     end
     if vim.api.nvim_get_current_buf() == b then
-      -- Edge-case: :shell buffer showing in multiple windows in curtab.
-      -- Find a non-:shell window in curtab.
-      local other = vim
-        .iter(vim.api.nvim_tabpage_list_wins(0))
-        :find(function(win) return vim.api.nvim_win_get_buf(win) ~= b end)
+      -- :shell is showing in more than one window in this tabpage.
+      local other = plain_wins(0, b)[1]
       if other then
         vim.api.nvim_set_current_win(other)
       else
         -- Last resort: can happen if :mksession restores an old :shell.
-        if is_stale_shell(vim.api.nvim_get_current_buf()) then
-          -- XXX: cleanup stale, empty :shell buffer (caused by :mksession).
-          vim.api.nvim_buf_delete(0, { force = true })
-          M.shell(cnt, here)
-        end
+        if is_stale_shell(vim.api.nvim_get_current_buf()) then drop_stale_shell(0, cnt) end
         return
       end
     end
@@ -247,40 +296,33 @@ function M.shell(cnt, here)
     return
   end
 
-  -- Go to existing :shell or create a new one.
   local curwin = vim.api.nvim_get_current_win()
-  if cnt == 0 and exists and win_buf(state.prevwin) == b then
-    -- Go to :shell displayed in the previous window.
+  if is_tmp_win(curwin) then
+    local alt = vim.fn.win_getid(vim.fn.winnr("#"))
+    curwin = alt ~= 0 and not is_tmp_win(alt) and alt or state.prevwin
+  end
+  if exists and vim.fn.winbufnr(state.prevwin or -1) == b then
     goto_win(state.prevwin)
   elseif exists then
-    -- Go to existing :shell.
     local w = wins_showing(b, 0)[1]
-    if cnt == 0 and w then
-      -- Found in current tabpage.
+    if w then
       goto_win(w)
     else
-      -- Not in current tabpage.
       local ws = wins_showing(b)
-      if cnt == 0 and #ws > 0 then
-        -- Found in another tabpage.
+      if #ws > 0 then
         goto_win(ws[1])
       else
-        -- Not in any existing window; open a tabpage (or split-window if
-        -- [count] was given).
-        open_shell_win(cnt)
+        vim.cmd("tab split")
         vim.api.nvim_set_current_buf(b)
       end
     end
     if is_stale_shell(vim.api.nvim_get_current_buf()) then
       goto_win(state.prevwin)
-      -- XXX: cleanup stale, empty :shell buffer (caused by :mksession).
-      vim.api.nvim_buf_delete(b, { force = true })
-      M.shell(cnt, here)
+      drop_stale_shell(b, cnt)
     end
   else
-    -- Create new :shell.
     local origbuf = vim.api.nvim_get_current_buf()
-    if not here then open_shell_win(cnt) end
+    vim.cmd("tab split")
     vim.cmd.terminal()
     local shellbuf = vim.api.nvim_get_current_buf()
     vim.bo[shellbuf].scrollback = -1
@@ -291,19 +333,18 @@ function M.shell(cnt, here)
     vim.keymap.set(
       "t",
       "<C-s>",
-      [[<C-\><C-n><cmd>let b:term_insert = v:true | lua require('config.term').shell(0, false)<cr>]],
+      [[<C-\><C-n><cmd>let b:term_insert = v:true | lua require('config.term').shell(0)<cr>]],
       { buffer = shellbuf, desc = "Toggle :shell" }
     )
   end
-  state.prevwin = curwin
+  if curwin and not is_tmp_win(curwin) then state.prevwin = curwin end
 end
 
-vim.keymap.set("n", "<C-s>", function() M.shell(vim.v.count, false) end, { desc = "Toggle :shell" })
 vim.keymap.set(
-  "n",
-  "'<C-s>",
-  function() M.shell(vim.v.count, true) end,
-  { desc = "Open :shell here" }
+  { "n", "t" },
+  "<C-s>",
+  function() M.shell(vim.v.count) end,
+  { desc = "Toggle :shell" }
 )
 
 return M

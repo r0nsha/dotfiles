@@ -209,3 +209,26 @@ vim.keymap.set(
   function() cursor_add_at_visual_sel("end") end,
   { desc = "Place cursor at end of visual selection" }
 )
+
+vim.api.nvim_create_autocmd("OptionSet", {
+  group = require("augroup"),
+  desc = "Change MCursor highlight based on follow-mode",
+  pattern = "follow",
+  callback = function()
+    local follow = vim.v.option_new --[[@type boolean]]
+    local bg = vim.api.nvim_get_hl(0, { name = "NorBg" }).bg
+    if follow then
+      vim.api.nvim_set_hl(
+        0,
+        "MCursor",
+        { fg = bg, bg = vim.api.nvim_get_hl(0, { name = "NorOrangeFg" }).fg }
+      )
+    else
+      vim.api.nvim_set_hl(
+        0,
+        "MCursor",
+        { fg = bg, bg = vim.api.nvim_get_hl(0, { name = "NorFgDim" }).fg }
+      )
+    end
+  end,
+})

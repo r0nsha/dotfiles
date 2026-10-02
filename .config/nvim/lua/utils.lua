@@ -9,7 +9,7 @@ function Utils.bool_to_enabled(v) return v and "enabled" or "disabled" end
 ---@param timeout integer
 ---@return async fun(...)
 function Utils.debounce(callback, timeout)
-  local pending ---@type vim.async.Task?
+  local pending ---@type vim.async.Task<any>?
 
   return function(...)
     local argv = { ... }
