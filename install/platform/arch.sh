@@ -177,10 +177,6 @@ aur_deps=(
     hyprpicker-git
     mpv-uosc-git
     mpv-thumbfast-git
-    mpv-autosub-git
-    mpv-autosubsync-git
-    alass
-    python-ffsubsync
     stremio
     xdg-desktop-portal-termfilechooser
     watchman-bin
