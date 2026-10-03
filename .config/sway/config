@@ -33,7 +33,6 @@ default_floating_border pixel 2
 hide_edge_borders smart
 smart_borders on
 focus_follows_mouse yes
-focus_on_window_activation smart
 focus_wrapping yes
 mouse_warping container
 seat * hide_cursor 5000
@@ -163,3 +162,9 @@ for_window [all] inhibit_idle fullscreen
 for_window [app_id="ron.terminal.floating"] floating enable
 for_window [app_id="^swayimg-picker$"] fullscreen enable
 for_window [app_id="^webcam$"] floating enable
+
+# games and steam stuff go to workspace 9
+for_window [instance="^cs2$"] move container to workspace 9
+for_window [class="^SDL Application$" title="^Counter-Strike 2$"] move container to workspace 9
+for_window [class="^steam_app_"] move container to workspace 9
+for_window [app_id="^steam_app_"] move container to workspace 9
