@@ -100,7 +100,7 @@ pacman_deps=(
     libva-utils
     xorg-xwayland
     xwayland-satellite
-    hyprlock
+    waylock
     hypridle
     hyprutils
     gnome-keyring

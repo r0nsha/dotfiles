@@ -68,7 +68,7 @@ floating_modifier $mod normal
 # general
 bindsym --no-repeat $mod+R reload, exec notify-send "reloaded sway config"
 bindsym --no-repeat $mod+Q kill
-bindsym --no-repeat $mod+Escape exec hyprlock
+bindsym --no-repeat $mod+Escape exec ron-lock
 bindsym --no-repeat --locked $mod+Alt+Control+Shift+Escape exit
 
 # windows

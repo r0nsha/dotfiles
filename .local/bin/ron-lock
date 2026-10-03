@@ -1,0 +1,15 @@
+#!/usr/bin/env fish
+
+load-color-vars
+
+set init (test -n "$color3"; and echo $color3 | sed 's/#/0x/'; or echo "#448088")
+set input (test -n "$color4"; and echo $color4 | sed 's/#/0x/'; or echo "#9e9e9e")
+set input_alt (test -n "$color5"; and echo $color5 | sed 's/#/0x/'; or echo "#c6c6c6")
+set fail 0xb84243
+
+waylock \
+    -init-color $init \
+    -input-color $input \
+    -input-alt-color $input_alt \
+    -fail-color $fail \
+    $argv
