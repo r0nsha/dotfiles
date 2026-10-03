@@ -2,11 +2,6 @@
 
 set theme (ron-theme-get)
 
-# niri
-if pgrep -x niri >/dev/null
-    niri msg action load-config-file
-end
-
 # qt
 mkdir -p ~/.config/qt5ct/colors
 mkdir -p ~/.config/qt6ct/colors
