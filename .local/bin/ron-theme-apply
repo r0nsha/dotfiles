@@ -43,11 +43,6 @@ pkill -SIGUSR1 kitty
 # tmux
 tmux source-file ~/.config/tmux/tmux.conf
 
-# river
-if pgrep river
-    source ~/.cache/hellwal/river-colors.fish
-end
-
 # sway
 if test -n "$SWAYSOCK"
     swaymsg reload

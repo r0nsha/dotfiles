@@ -133,7 +133,6 @@ pacman_deps=(
     wayland-utils
     wlr-randr
     wlopm
-    river-classic
     opencode
 
     # lsps, formatters, linters
@@ -188,7 +187,6 @@ aur_deps=(
     watchman-bin
     localsend-bin
     xdg-terminal-exec-git
-    river-bsp-layout
 
     # lsps, formatters, linters
     emmylua-ls-bin
