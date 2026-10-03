@@ -75,15 +75,6 @@ local function wins_showing(buf, tabpage)
     :totable()
 end
 
---- Delete a stale `:Shell` buffer (see is_stale_shell) and retry.
----@param buf integer
----@param nr integer
----@param prg string?
-local function drop_stale_shell(buf, nr, prg)
-  vim.api.nvim_buf_delete(buf, { force = true })
-  shell(nr, prg)
-end
-
 --- Last-used shell number, per program ("" is the default shell).
 ---@type table<string, integer>
 local last_shell = {}
@@ -97,7 +88,7 @@ local function shell(nr, prg)
   nr = nr ~= nil and nr > 0 and nr or last_shell[key] or 1
   last_shell[key] = nr
 
-  local curtab = vim.api.nvim_get_current_tabpage()
+  -- local curtab = vim.api.nvim_get_current_tabpage()
   local curwin = vim.api.nvim_get_current_win()
   local curbuf = vim.api.nvim_get_current_buf()
 
@@ -122,10 +113,10 @@ local function shell(nr, prg)
   if curbuf == buf then
     -- Return to the previous window, closing a dedicated :Shell tabpage.
     if not goto_prevwin() and not goto_win(plain_wins(0, buf)[1]) then vim.cmd.wincmd("p") end
-    local tabwins = plain_wins(curtab)
-    if #tabwins == 1 and vim.api.nvim_get_current_tabpage() ~= curtab then
-      vim.api.nvim_win_close(tabwins[1], true)
-    end
+    -- local tabwins = plain_wins(curtab)
+    -- if #tabwins == 1 and vim.api.nvim_get_current_tabpage() ~= curtab then
+    --   vim.api.nvim_win_close(tabwins[1], true)
+    -- end
     if vim.api.nvim_get_current_buf() == buf then
       -- :Shell is showing in more than one window in this tabpage.
       local other = plain_wins(0, buf)[1]
@@ -133,7 +124,10 @@ local function shell(nr, prg)
         vim.api.nvim_set_current_win(other)
       else
         -- Last resort: can happen if :mksession restores an old :Shell.
-        if is_stale_shell(curbuf) then drop_stale_shell(0, nr, prg) end
+        if is_stale_shell(curbuf) then
+          vim.api.nvim_buf_delete(buf, { force = true })
+          shell(nr, prg)
+        end
         return
       end
     end
@@ -162,19 +156,18 @@ local function shell(nr, prg)
     end
     if is_stale_shell(buf) then
       goto_prevwin()
-      drop_stale_shell(buf, nr, prg)
+      vim.api.nvim_buf_delete(buf, { force = true })
+      shell(nr, prg)
     end
   else
-    local origbuf = curbuf
-    vim.cmd("tab split")
-    vim.cmd.terminal(prg)
+    vim.cmd(string.format("tab split | tabmove $ | terminal %s", prg or ""))
     local shellbuf = vim.api.nvim_get_current_buf()
     vim.bo[shellbuf].scrollback = -1
     vim.api.nvim_buf_set_name(shellbuf, name)
     vim.bo[shellbuf].buflisted = false
     if prg then vim.b[shellbuf].shell_prg = prg end
     -- Set the alternate buffer to something intuitive.
-    vim.fn.setreg("#", tostring(origbuf))
+    vim.fn.setreg("#", tostring(curbuf))
     vim.keymap.set(
       "t",
       "<C-s>",

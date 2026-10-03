@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "1.0.0",
+  "lastChangelogVersion": "1.0.1",
   "defaultProvider": "opencode-go",
   "defaultModel": "deepseek-v4.1-flash",
   "defaultThinkingLevel": "medium",
@@ -14,5 +14,7 @@
     "npm:@ff-labs/pi-fff",
     "npm:pi-simplify"
   ],
-  "extensions": ["+builtin:mcp"]
+  "extensions": [
+    "+builtin:mcp"
+  ]
 }
