@@ -128,7 +128,6 @@ pacman_deps=(
     python-tldextract
     cronie
     xdg-desktop-portal
-    xdg-desktop-portal-gtk
     xdg-desktop-portal-wlr
     wayland-utils
     wlr-randr
