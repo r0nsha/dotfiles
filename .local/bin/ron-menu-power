@@ -8,7 +8,7 @@ set selected (
 
 switch $selected
     case 'lock screen'
-        loginctl lock-session $XDG_SESSION_ID
+        ron-lock -fork-on-lock
     case 'log out'
         ron-menu-confirm "log out?"; or exit 1
         loginctl terminate-session $XDG_SESSION_ID

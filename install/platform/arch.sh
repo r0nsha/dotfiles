@@ -131,7 +131,6 @@ pacman_deps=(
     xdg-desktop-portal-wlr
     wayland-utils
     wlr-randr
-    wlopm
     opencode
 
     # lsps, formatters, linters

@@ -51,7 +51,7 @@ include ~/.cache/hellwal/sway-colors
 
 # autostart
 exec mako
-exec hypridle
+exec ron-idle
 exec waybar
 exec wl-clip-persist --clipboard regular
 exec wl-paste --type text --watch cliphist store

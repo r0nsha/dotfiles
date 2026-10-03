@@ -1,0 +1,12 @@
+#!/usr/bin/env fish
+
+set lock 'pidof waylock || ron-lock -fork-on-lock'
+set output_on 'swaymsg "output * power on" && brightnessctl -r'
+
+swayidle -w \
+    timeout 600 $lock \
+    timeout 1800 'swaymsg "output * power off"' \
+    timeout 7200 'systemctl suspend' \
+    resume $output_on \
+    before-sleep $lock \
+    after-resume $output_on $argv
