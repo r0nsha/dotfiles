@@ -29,7 +29,7 @@ end
 ---@return integer #mappings shadowed
 function M.parent_start(token, lhs_list, ppid)
   -- The terminal buffer whose shell is the child's parent process.
-  local buf
+  local buf ---@type integer?
   for _, b in ipairs(vim.api.nvim_list_bufs()) do
     if vim.bo[b].buftype == "terminal" and vim.b[b].terminal_job_pid == ppid then
       buf = b
@@ -159,8 +159,12 @@ vim.api.nvim_create_autocmd("TermRequest", {
     local dir, n = string.gsub(ev.data.sequence, "\027]7;file://[^/]*", "")
     if n > 0 then
       -- OSC 7: dir-change
-      assert((vim.uv.fs_stat(dir) or {}).type == "directory", "invalid dir: " .. dir)
-      if vim.api.nvim_get_current_buf() == ev.buf then vim.cmd.bcd(dir) end
+      if
+        (vim.uv.fs_stat(dir) or {}).type == "directory"
+        and vim.api.nvim_get_current_buf() == ev.buf
+      then
+        vim.cmd.bcd(dir)
+      end
     end
   end,
 })
@@ -200,7 +204,7 @@ local function is_stale_shell(buf)
     and vim.api.nvim_buf_get_lines(buf, 0, 1, true)[1] == ""
 end
 
-local state = {} ---@type { prevwin: integer? }
+local prevwins = {} ---@type  integer[]
 
 --- Scratch and temporary buffers are not places to land when leaving :Shell.
 local tmp_buftypes = { "help", "nofile", "nowrite", "prompt", "quickfix" }
@@ -221,6 +225,26 @@ local function goto_win(win)
   if win == nil or not vim.api.nvim_win_is_valid(win) or is_tmp_win(win) then return false end
   vim.api.nvim_set_current_win(win)
   return true
+end
+
+--- Remember `win` as a place to return to when leaving the current shell.
+---@param win integer?
+local function push_prevwin(win)
+  if not win or not vim.api.nvim_win_is_valid(win) or is_tmp_win(win) then return end
+  local wins = prevwins
+  if wins[#wins] ~= win then wins[#wins + 1] = win end
+end
+
+--- Focus the most recent window on the stack, dropping stale entries as we go.
+---@return integer? win the window focused, if any
+local function goto_prevwin()
+  local wins = prevwins
+  while #wins > 0 do
+    local win = wins[#wins]
+    wins[#wins] = nil
+    if goto_win(win) then return win end
+  end
+  return nil
 end
 
 --- Non-temporary windows in `tabpage` (0 = current), optionally skipping `buf`.
@@ -274,13 +298,14 @@ function M.shell(nr, prg)
   local curwin = vim.api.nvim_get_current_win()
   local curbuf = vim.api.nvim_get_current_buf()
 
-  if not state.prevwin or is_tmp_win(state.prevwin) then
-    local win = curwin
+  -- Make sure there is somewhere to return to.
+  if #prevwins == 0 then
+    local win = curwin ---@type integer?
     if is_tmp_win(win) then
       local alt = vim.fn.win_getid(vim.fn.winnr("#"))
       win = alt ~= 0 and not is_tmp_win(alt) and alt or plain_wins(0)[1]
     end
-    state.prevwin = win
+    push_prevwin(win)
   end
 
   local name = vim.trim(string.format(":%dShell %s", nr, prg or ""))
@@ -293,10 +318,7 @@ function M.shell(nr, prg)
 
   if curbuf == buf then
     -- Return to the previous window, closing a dedicated :Shell tabpage.
-    local term_prevwin = curwin
-    if not goto_win(state.prevwin) and not goto_win(plain_wins(0, buf)[1]) then
-      vim.cmd.wincmd("p")
-    end
+    if not goto_prevwin() and not goto_win(plain_wins(0, buf)[1]) then vim.cmd.wincmd("p") end
     local tabwins = plain_wins(curtab)
     if #tabwins == 1 and vim.api.nvim_get_current_tabpage() ~= curtab then
       vim.api.nvim_win_close(tabwins[1], true)
@@ -312,17 +334,16 @@ function M.shell(nr, prg)
         return
       end
     end
-    state.prevwin = term_prevwin
     return
   end
 
   if is_tmp_win(curwin) then
     local alt = vim.fn.win_getid(vim.fn.winnr("#"))
-    curwin = alt ~= 0 and not is_tmp_win(alt) and alt or state.prevwin
+    curwin = alt ~= 0 and not is_tmp_win(alt) and alt or prevwins[#prevwins]
   end
 
-  if exists and vim.fn.winbufnr(state.prevwin or -1) == buf then
-    goto_win(state.prevwin)
+  if exists and vim.fn.winbufnr(prevwins[#prevwins] or -1) == buf then
+    goto_win(prevwins[#prevwins])
   elseif exists then
     local w = wins_showing(buf, 0)[1]
     if w then
@@ -337,7 +358,7 @@ function M.shell(nr, prg)
       end
     end
     if is_stale_shell(buf) then
-      goto_win(state.prevwin)
+      goto_prevwin()
       drop_stale_shell(buf, nr, prg)
     end
   else
@@ -359,7 +380,7 @@ function M.shell(nr, prg)
     )
   end
 
-  if curwin and not is_tmp_win(curwin) then state.prevwin = curwin end
+  push_prevwin(curwin)
 end
 
 vim.api.nvim_create_user_command("Shell", function(args) M.shell(args.count, args.args) end, {
