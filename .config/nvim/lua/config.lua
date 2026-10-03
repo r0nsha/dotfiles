@@ -411,6 +411,7 @@ require("config.mcursor")
 require("config.tabline")
 require("config.window")
 require("config.term")
+require("config.shell")
 
 -- -- atom ring
 -- local last_atom ---@type vim.event.cmdatom.data?
