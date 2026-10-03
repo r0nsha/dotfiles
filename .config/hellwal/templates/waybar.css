@@ -40,18 +40,10 @@ tooltip {
   padding: 0px;
 }
 
+.modules-left,
+.modules-center,
 .modules-right {
-  padding: 4px 8px;
-}
-
-#mode.normal {
-  font-size: 0;
-}
-
-#tags,
-#workspaces,
-#tray {
-  padding: 4px 8px;
+  padding: 4px;
 }
 
 #wireplumber,
@@ -67,18 +59,19 @@ tooltip {
   border-left: 1px solid @separator;
 }
 
-#tags button,
 #workspaces button {
   all: unset;
   min-width: 0;
-  margin-left: 8px;
-  margin-right: 8px;
+  margin-right: 16px;
   color: @color6;
 }
 
-#tags button.focused,
 #workspaces button.focused {
   color: @foreground;
+}
+
+#tray {
+  padding: 0px 4px;
 }
 
 #tray menu {
@@ -98,19 +91,12 @@ tooltip {
   color: @background-opaque;
 }
 
-#mpris {
-  padding: 4px 12px;
-  opacity: 0;
-}
-
 #mpris.playing {
-  opacity: 1;
   color: @foreground;
 }
 
 #mpris.paused,
 #mpris.stopped {
-  opacity: 1;
   color: @color6;
 }
 
@@ -118,23 +104,17 @@ tooltip {
 #privacy,
 #gamemode {
   color: @color13;
-  font-style: oblique;
 }
 
-#wireplumber.bluetooth,
-#pulseaudio.bluetooth {
+#wireplumber.bluetooth {
   color: @color13;
 }
 
-#wireplumber.muted,
-#pulseaudio.muted {
-  opacity: 0.5;
+#wireplumber.muted {
+  color: @color6;
 }
 
-#network.disabled {
-  opacity: 0.5;
-}
-
+#network.disabled,
 #network.disconnected {
   color: @color14;
 }
