@@ -3,7 +3,8 @@
 @define-color foreground #%%foreground%%;
 @define-color cursor #%%cursor%%;
 @define-color border alpha(#%%color7%%, 0.9);
-@define-color separator alpha(#%%color7%%, 0.9);
+@define-color separator alpha(#%%foreground%%, 0.5);
+@define-color dim alpha(#%%foreground%%, 0.5);
 
 @define-color color0 #%%color0%%;
 @define-color color1 #%%color1%%;
@@ -51,12 +52,18 @@ tooltip {
 #bluetooth,
 #network,
 #clock,
-#hardware,
-#privacy,
-#gamemode {
+#hardware {
   margin-left: 12px;
   padding-left: 12px;
   border-left: 1px solid @separator;
+}
+
+#custom-recording,
+#privacy,
+#gamemode {
+  margin-right: 12px;
+  padding-right: 12px;
+  border-right: 1px solid @separator;
 }
 
 #workspaces button {
@@ -100,21 +107,15 @@ tooltip {
   color: @color6;
 }
 
-#custom-recording,
-#privacy,
-#gamemode {
-  color: @color13;
-}
-
 #wireplumber.bluetooth {
   color: @color13;
 }
 
 #wireplumber.muted {
-  color: @color6;
+  color: @dim;
 }
 
 #network.disabled,
 #network.disconnected {
-  color: @color14;
+  color: @dim;
 }

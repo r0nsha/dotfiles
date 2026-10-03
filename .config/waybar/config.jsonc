@@ -33,10 +33,14 @@
     },
   },
   "gamemode": {
-    // "use-icon": false,
-    "glyph": "󰮂 ",
+    "glyph": "󰮂",
+    "use-icon": false,
     "icon-size": 14,
     "icon-spacing": 8,
+  },
+  "sway/language": {
+    "format": "{short}",
+    "tooltip-format": "{flag} {long}",
   },
   "custom/recording": {
     "exec": "exec ~/.config/waybar/scripts/recording.fish",
@@ -46,6 +50,14 @@
     "on-click": "ron-capture-screenrecord --stop-recording",
   },
   "privacy": {
+    "modules": [
+      { "type": "screenshare", "icon-name": "screen-share-symbolic" },
+      {
+        "type": "audio-in",
+        "icon-name": "microphone-sensitivity-high-symbolic",
+      },
+      { "type": "audio-out", "icon-name": "audio-speakers-symbolic" },
+    ],
     "icon-size": 14,
     "icon-spacing": 8,
   },
