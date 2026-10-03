@@ -17,8 +17,7 @@
     "spacing": 8,
   },
   "mpris": {
-    "format": "{player_icon} {player} | {status_icon} {status} | {dynamic}",
-    "interval": 1,
+    "format": "{player_icon} {player} ({status}): {dynamic}",
     "player-icons": {
       "default": "󰐊",
       "chromium": "󰊯",
