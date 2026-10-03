@@ -156,7 +156,8 @@ vim.api.nvim_create_autocmd("TermRequest", {
   group = augroup,
   desc = "Handles OSC 7 dir change requests",
   callback = function(ev)
-    local dir, n = string.gsub(ev.data.sequence, "\027]7;file://[^/]*", "")
+    local data = ev.data ---@type vim.event.termrequest.data
+    local dir, n = string.gsub(data.sequence, "\027]7;file://[^/]*", "")
     if n > 0 then
       -- OSC 7: dir-change
       if

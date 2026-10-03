@@ -97,7 +97,7 @@ local function shell(nr, prg)
   local curwin = vim.api.nvim_get_current_win()
   local curbuf = vim.api.nvim_get_current_buf()
 
-  local name = vim.trim(string.format(":%dShell %s", nr, prg or ""))
+  local name = vim.trim(string.format("%s %d", prg or "shell", nr))
   local buf = -1
   for _, b in ipairs(vim.api.nvim_list_bufs()) do
     local bn = vim.api.nvim_buf_get_name(b)
