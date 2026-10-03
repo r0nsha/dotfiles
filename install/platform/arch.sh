@@ -214,7 +214,6 @@ systemctl --user enable --now \
     ssh-agent.service \
     ssh-agent.socket \
     xdg-desktop-portal.service \
-    xdg-desktop-portal-wlr.service \
     hyprpolkitagent.service
 success
 
