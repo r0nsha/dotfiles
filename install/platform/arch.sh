@@ -133,7 +133,6 @@ pacman_deps=(
     wayland-utils
     wlr-randr
     wlopm
-    kanshi
     river-classic
     opencode
 
