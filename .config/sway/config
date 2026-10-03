@@ -59,6 +59,7 @@ exec wl-paste --type image --watch cliphist store
 exec udiskie --smart-tray
 exec ron-volume-notify
 exec ron-background-random ~/pictures/backgrounds
+exec fuzzel-polkit-agent
 
 # bindings
 set $mod Super

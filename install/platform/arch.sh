@@ -103,7 +103,6 @@ pacman_deps=(
     hyprlock
     hypridle
     hyprutils
-    hyprpolkitagent
     gnome-keyring
     qt5-wayland
     qt6-wayland
@@ -182,6 +181,7 @@ aur_deps=(
     xdg-desktop-portal-termfilechooser
     watchman-bin
     localsend-bin
+    cmd-polkit-git
 
     # lsps, formatters, linters
     emmylua-ls-bin
@@ -206,8 +206,7 @@ systemctl --user enable --now \
     ssh-agent.service \
     ssh-agent.socket \
     xdg-desktop-portal.service \
-    xdg-desktop-portal-wlr.service \
-    hyprpolkitagent.service
+    xdg-desktop-portal-wlr.service
 success
 
 # login shell
