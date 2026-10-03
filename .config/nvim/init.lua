@@ -39,6 +39,7 @@ vim.pack.add({
   { src = src.gh("chomosuke/typst-preview.nvim"), version = "v1.4.1" },
   src.gh("Wansmer/treesj"),
   src.gh("wurli/servery.nvim"),
+  src.gh("chentoast/marks.nvim"),
 })
 
 pack.add_with_build(
@@ -65,3 +66,4 @@ require("plugins.vcs")
 require("plugins.typst")
 require("plugins.undotree")
 require("plugins.server")
+require("plugins.marks")

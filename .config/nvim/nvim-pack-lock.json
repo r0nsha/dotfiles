@@ -40,6 +40,10 @@
       "rev": "1d815041db4d44e05376b2cf4c2e999ccc7422a1",
       "src": "https://tangled.org/ronshavit.com/jjannotate.nvim"
     },
+    "marks.nvim": {
+      "rev": "f353e8c08c50f39e99a9ed474172df7eddd89b72",
+      "src": "https://github.com/chentoast/marks.nvim"
+    },
     "mini.diff.jj": {
       "rev": "0c43dea746088ce07c1c60f2b3c50e0aa7ff11c2",
       "src": "https://tangled.org/ronshavit.com/mini.diff.jj"
