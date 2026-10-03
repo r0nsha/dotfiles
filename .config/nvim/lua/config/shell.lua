@@ -31,9 +31,14 @@ local function goto_win(win)
 end
 
 --- Remember `win` as a place to return to when leaving the current shell.
+--- Never remember a window already showing the shell being opened: `goto_prevwin`
+--- would "succeed" by focusing the current window and consume the entry without
+--- actually going anywhere, stranding the user in the shell.
 ---@param win integer?
-local function push_prevwin(win)
+---@param shell_buf? integer the buffer of the shell being opened
+local function push_prevwin(win, shell_buf)
   if not win or not vim.api.nvim_win_is_valid(win) or is_tmp_win(win) then return end
+  if shell_buf ~= nil and vim.api.nvim_win_get_buf(win) == shell_buf then return end
   local wins = prevwins
   if wins[#wins] ~= win then wins[#wins + 1] = win end
 end
@@ -88,19 +93,9 @@ local function shell(nr, prg)
   nr = nr ~= nil and nr > 0 and nr or last_shell[key] or 1
   last_shell[key] = nr
 
-  -- local curtab = vim.api.nvim_get_current_tabpage()
+  local curtab = vim.api.nvim_get_current_tabpage()
   local curwin = vim.api.nvim_get_current_win()
   local curbuf = vim.api.nvim_get_current_buf()
-
-  -- Make sure there is somewhere to return to.
-  if #prevwins == 0 then
-    local win = curwin ---@type integer?
-    if is_tmp_win(win) then
-      local alt = vim.fn.win_getid(vim.fn.winnr("#"))
-      win = alt ~= 0 and not is_tmp_win(alt) and alt or plain_wins(0)[1]
-    end
-    push_prevwin(win)
-  end
 
   local name = vim.trim(string.format(":%dShell %s", nr, prg or ""))
   local buf = -1
@@ -110,13 +105,23 @@ local function shell(nr, prg)
   end
   local exists = vim.api.nvim_buf_is_valid(buf)
 
+  -- Make sure there is somewhere to return to.
+  if #prevwins == 0 then
+    local win = curwin ---@type integer?
+    if is_tmp_win(win) then
+      local alt = vim.fn.win_getid(vim.fn.winnr("#"))
+      win = alt ~= 0 and not is_tmp_win(alt) and alt or plain_wins(0, buf)[1]
+    end
+    push_prevwin(win, buf)
+  end
+
   if curbuf == buf then
     -- Return to the previous window, closing a dedicated :Shell tabpage.
     if not goto_prevwin() and not goto_win(plain_wins(0, buf)[1]) then vim.cmd.wincmd("p") end
-    -- local tabwins = plain_wins(curtab)
-    -- if #tabwins == 1 and vim.api.nvim_get_current_tabpage() ~= curtab then
-    --   vim.api.nvim_win_close(tabwins[1], true)
-    -- end
+    local tabwins = plain_wins(curtab)
+    if #tabwins == 1 and vim.api.nvim_get_current_tabpage() ~= curtab then
+      vim.api.nvim_win_close(tabwins[1], true)
+    end
     if vim.api.nvim_get_current_buf() == buf then
       -- :Shell is showing in more than one window in this tabpage.
       local other = plain_wins(0, buf)[1]
@@ -176,7 +181,7 @@ local function shell(nr, prg)
     )
   end
 
-  push_prevwin(curwin)
+  push_prevwin(curwin, buf)
 end
 
 vim.api.nvim_create_user_command("Shell", function(args) shell(args.count, args.args) end, {
