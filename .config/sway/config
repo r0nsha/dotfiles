@@ -53,6 +53,7 @@ include ~/.cache/hellwal/sway-colors
 exec mako
 exec hypridle
 exec waybar
+exec wl-clip-persist --clipboard regular
 exec wl-paste --type text --watch cliphist store
 exec wl-paste --type image --watch cliphist store
 exec udiskie --smart-tray
