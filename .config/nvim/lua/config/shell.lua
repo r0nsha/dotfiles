@@ -195,6 +195,6 @@ vim.api.nvim_create_user_command("Shell", function(args) shell(args.count, args.
 vim.keymap.set({ "n", "t" }, "<C-s>", "<cmd>1Shell<cr>", { desc = "Toggle :1Shell" })
 vim.keymap.set({ "n", "t" }, "<C-S-S>", "<cmd>2Shell<cr>", { desc = "Toggle :2Shell" })
 
--- vim.keymap.set({ "n", "t" }, "<A-u>", "<cmd>1Shell pi<cr>", { desc = "Toggle 1st pi" })
--- vim.keymap.set({ "n", "t" }, "<A-i>", "<cmd>2Shell pi<cr>", { desc = "Toggle 2nd pi" })
--- vim.keymap.set({ "n", "t" }, "<A-o>", "<cmd>3Shell pi<cr>", { desc = "Toggle 3rd pi" })
+vim.keymap.set({ "n", "t" }, "<A-u>", "<cmd>1Shell pi<cr>", { desc = "Toggle 1st pi" })
+vim.keymap.set({ "n", "t" }, "<A-i>", "<cmd>2Shell pi<cr>", { desc = "Toggle 2nd pi" })
+vim.keymap.set({ "n", "t" }, "<A-o>", "<cmd>3Shell pi<cr>", { desc = "Toggle 3rd pi" })
