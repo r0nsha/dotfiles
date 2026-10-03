@@ -8,9 +8,9 @@ set selected (
 
 switch $selected
     case "files (fuzzy)"
-        xdg-terminal-exec --app-id=ron.terminal.floating ron-share files
+        ghostty --class=ron.terminal.floating --command="ron-share files"
     case "files (explorer)"
-        xdg-terminal-exec --app-id=ron.terminal.floating ron-share --picker explorer files
+        ghostty --class=ron.terminal.floating --command="ron-share --picker explorer files"
     case clipboard
         ron-share clipboard
 end

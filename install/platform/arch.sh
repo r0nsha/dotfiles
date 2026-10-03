@@ -181,7 +181,6 @@ aur_deps=(
     xdg-desktop-portal-termfilechooser
     watchman-bin
     localsend-bin
-    xdg-terminal-exec-git
 
     # lsps, formatters, linters
     emmylua-ls-bin

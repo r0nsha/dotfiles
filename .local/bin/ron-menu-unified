@@ -72,7 +72,7 @@ function menu_main
         case backgrounds
             ron-menu-background
         case bluetooth
-            xdg-terminal-exec --app-id=ron.terminal.floating bluetui
+            ghostty --class=ron.terminal.floating --command=bluetui
         case capture
             menu_capture
         case "color picker"
@@ -86,7 +86,7 @@ function menu_main
         case webcam
             ron-launch-webcam
         case wifi
-            xdg-terminal-exec --app-id=ron.terminal.floating impala
+            ghostty --class=ron.terminal.floating --command=impala
         case power
             ron-menu-power
     end
