@@ -31,4 +31,4 @@ require("servery").setup({
 async.install()
 
 vim.keymap.set({ "n", "t" }, "<A-s>", "<cmd>Sv<cr>", { desc = "Switch nvim servers" })
-vim.keymap.set({ "n", "t" }, "<A-d>", "<cmd>1Sv<cr>", { desc = "Go to previous server" })
+vim.keymap.set({ "n", "t" }, "<A-f>", "<cmd>1Sv<cr>", { desc = "Go to previous server" })
