@@ -77,7 +77,7 @@ tooltip {
 }
 
 #tags button.focused,
-#workspaces button.active {
+#workspaces button.focused {
   color: @foreground;
 }
 
