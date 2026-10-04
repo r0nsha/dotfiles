@@ -1,7 +1,7 @@
 #!/usr/bin/env fish
 
 function usage
-    echo "usage: ron-capture-screenshot -r/--region <region|screen> [-h/--help]"
+    echo "usage: ron-capture-screenshot -r/--region <region|monitor> [-h/--help]"
 end
 
 argparse h/help "r/region=" -- $argv
@@ -33,7 +33,7 @@ function notify_error
     notify-send -t 10000 -u critical "capture error" "$argv"
 end
 
-set dir $XDG_PICTURES_DIR/screenshots
+set dir "$XDG_PICTURES_DIR/screenshots"
 mkdir -p $dir
 set file "$dir/$(get-date).png"
 
@@ -45,8 +45,11 @@ if test $region = region
     if test -z "$geom"
         return
     end
-else
+else if test $region = monitor
     set geom ""
+else
+    notify_error "invalid region: $region"
+    exit 1
 end
 
 set shot_args

@@ -1,5 +1,13 @@
 # .config
 set -Ux XDG_CONFIG_HOME ~/.config
+set -Ux XDG_DESKTOP_DIR ~/Desktop
+set -Ux XDG_DOWNLOAD_DIR ~/Downloads
+set -Ux XDG_TEMPLATES_DIR ~/Templates
+set -Ux XDG_PUBLICSHARE_DIR ~/Public
+set -Ux XDG_DOCUMENTS_DIR ~/Documents
+set -Ux XDG_MUSIC_DIR ~/Music
+set -Ux XDG_PICTURES_DIR ~/Pictures
+set -Ux XDG_VIDEOS_DIR ~/Videos
 
 # Default terminal
 set -Ux TERMINAL ghostty

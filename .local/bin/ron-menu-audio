@@ -40,7 +40,7 @@ function list_devices
 end
 
 function select_sink
-    set -l sinks (pactl list sinks | rg "Name:" | cut -d' ' -f2-)
+    set -l sinks (pactl list sinks | rg "Name:" | string split ' ' --fields 2)
     set -l options (
         for sink in $sinks
             echo "$sink\t$(get_sink_display_name $sink)"
@@ -55,7 +55,7 @@ function select_sink
 end
 
 function select_source
-    set -l sources (pactl list sources | rg "Name:" | cut -d' ' -f2-)
+    set -l sources (pactl list sources | rg "Name:" | string split ' ' --fields 2)
     set -l options (
         for source in $sources
             echo "$source\t$(get_source_display_name $source)"

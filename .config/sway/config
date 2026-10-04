@@ -125,9 +125,9 @@ bindsym --no-repeat $mod+Space exec fuzzel
 bindsym --no-repeat $mod+Period exec ron-menu-unified
 bindsym --no-repeat $mod+Shift+Escape exec ron-menu-power
 bindsym --no-repeat $mod+S exec ron-capture-screenshot --region=region
-bindsym --no-repeat $mod+Shift+S exec ron-capture-screenshot --region=screen
+bindsym --no-repeat $mod+Shift+S exec ron-capture-screenshot --region=monitor
 bindsym --no-repeat $mod+Alt+S exec ron-capture-screenrecord --region=region
-bindsym --no-repeat $mod+Alt+Shift+S exec ron-capture-screenrecord --region=screen
+bindsym --no-repeat $mod+Alt+Shift+S exec ron-capture-screenrecord --region=monitor
 bindsym --no-repeat $mod+C exec ron-menu-clip
 bindsym --no-repeat $mod+Alt+C exec ron-menu-clip-img
 bindsym --no-repeat $mod+Shift+C exec ron-color-picker
@@ -166,6 +166,7 @@ for_window [all] inhibit_idle fullscreen
 for_window [app_id="ron.terminal.floating"] floating enable
 for_window [app_id="^swayimg-picker$"] fullscreen enable
 for_window [app_id="^webcam$"] floating enable
+for_window [app_id="localsend"] floating enable
 
 ## games and steam stuff go to workspace 9
 for_window [instance="^cs2$"] move container to workspace 9

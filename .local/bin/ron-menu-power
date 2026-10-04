@@ -1,9 +1,9 @@
 #!/usr/bin/env fish
 
 set selected (
-    printf  "󰌾 lock screen\n󰍃 log out\n󰤄 suspend\n󰏦 hibernate\n󰜉 reboot\n󰐥 shut down" \
+    printf  "󰌾  lock screen\n󰍃  log out\n󰤄  suspend\n󰏦  hibernate\n󰜉  reboot\n󰐥  shut down" \
     | fuzzel --dmenu --minimal-lines --prompt "power> " \
-    | cut -d' ' -f2-
+    | string split '  ' --fields 2
 )
 
 switch $selected
