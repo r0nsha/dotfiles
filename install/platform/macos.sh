@@ -43,8 +43,6 @@ install_deps() {
         ffmpeg
         sevenzip
         jq
-        poppler
-        resvg
         imagemagick
         font-symbols-only-nerd-font
         lf
@@ -65,7 +63,7 @@ install_deps() {
         pinentry-mac
         go
         fontforge
-        qutebrowser
+        # qutebrowser
         watchman
         localsend
         btop
