@@ -1,6 +1,6 @@
 [filechooser]
 cmd=/usr/share/xdg-desktop-portal-termfilechooser/lf-wrapper.sh
 default_dir=$HOME
-env=TERMCMD='ghostty -e'
+env=TERMCMD='foot'
 open_mode=suggested
 save_mode=last

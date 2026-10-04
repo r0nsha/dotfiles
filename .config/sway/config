@@ -50,6 +50,7 @@ client.placeholder #000000 #555555 #ffffff #555555 #555555
 include ~/.cache/hellwal/sway-colors
 
 # autostart
+exec foot --server
 exec mako
 exec ron-idle
 exec waybar
@@ -137,7 +138,7 @@ bindsym --no-repeat $mod+E exec rofimoji --selector=fuzzel --skin-tone=medium-li
 bindsym --no-repeat $mod+Shift+T exec ron-theme-set toggle
 
 # spawn
-bindsym --no-repeat $mod+Return exec ghostty
+bindsym --no-repeat $mod+Return exec footclient
 bindsym --no-repeat $mod+Shift+Return exec qutebrowser
 bindsym --no-repeat $mod+Alt+Shift+Return exec qutebrowser --target private-window
 

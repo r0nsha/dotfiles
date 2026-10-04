@@ -1,4 +1,4 @@
-# nor.nvim light for ghostty
+# nor.nvim light for tmux
 # auto generated with https://tangled.org/ronshavit.com/nor.nvim/blob/master/lua/nor/extras/tmux.lua
 
 set -gF default-terminal 'tmux-256color'

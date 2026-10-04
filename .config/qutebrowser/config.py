@@ -29,25 +29,16 @@ c.auto_save.interval = 15000
 c.auto_save.session = True
 c.tabs.position = "top"
 c.tabs.show = "multiple"
-c.editor.command = ["ghostty", "nvim", "{file}", "+{line}"]
+c.editor.command = ["footclient", "nvim", "{file}", "+{line}"]
 c.fileselect.handler = "external"
-c.fileselect.single_file.command = [
-    "ghostty",
-    "-e",
-    "lf",
-    "-selection-path={}",
-    homedir,
-]
+c.fileselect.single_file.command = ["footclient", "lf", "-selection-path={}", homedir]
 c.fileselect.multiple_files.command = [
-    "ghostty",
-    "-e",
+    "footclient",
     "lf",
     "-selection-path={}",
     homedir,
 ]
-# lf's `open` enters a directory instead of selecting it, so folder
-# selection uses -last-dir-path (same trick as lf-wrapper.sh)
-c.fileselect.folder.command = ["ghostty", "-e", "lf", "-last-dir-path={}", homedir]
+c.fileselect.folder.command = ["footclient", "lf", "-last-dir-path={}", homedir]
 c.new_instance_open_target = "tab"
 c.new_instance_open_target_window = "last-focused"
 c.input.insert_mode.auto_enter = True

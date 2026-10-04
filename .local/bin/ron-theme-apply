@@ -35,6 +35,15 @@ end
 ln -sfv ~/.config/kitty/theme_$theme.conf ~/.config/kitty/current_theme.conf
 pkill -SIGUSR1 kitty
 
+# foot
+rm -f ~/.config/foot/current_theme.ini
+printf '[main]\ninitial-color-theme=%s\n' $theme >~/.config/foot/current_theme.ini
+if test "$theme" = light
+    pkill -SIGUSR2 foot
+else
+    pkill -SIGUSR1 foot
+end
+
 # tmux
 tmux source-file ~/.config/tmux/tmux.conf
 

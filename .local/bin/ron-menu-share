@@ -8,9 +8,9 @@ set selected (
 
 switch $selected
     case "files (fuzzy)"
-        ghostty --class=ron.terminal.floating --command="ron-share files"
+        footclient --app-id=ron.terminal.floating ron-share files
     case "files (explorer)"
-        ghostty --class=ron.terminal.floating --command="ron-share --picker explorer files"
+        footclient --app-id=ron.terminal.floating ron-share --picker explorer files
     case clipboard
         ron-share clipboard
 end

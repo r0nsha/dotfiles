@@ -89,6 +89,8 @@ pacman_deps=(
     python-pip
     python-adblock
     ghostty
+    foot
+    foot-terminfo
     fish
     tmux
     bob             # neovim version manager

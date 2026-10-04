@@ -76,7 +76,7 @@ function menu_main
         case backgrounds
             ron-menu-background
         case bluetooth
-            ghostty --class=ron.terminal.floating --command=bluetui
+            footclient --app-id=ron.terminal.floating bluetui
         case capture
             menu_capture
         case "color picker"
@@ -90,7 +90,7 @@ function menu_main
         case webcam
             ron-launch-webcam
         case wifi
-            ghostty --class=ron.terminal.floating --command=impala
+            footclient --app-id=ron.terminal.floating impala
         case power
             ron-menu-power
     end

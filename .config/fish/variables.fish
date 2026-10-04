@@ -9,10 +9,6 @@ set -Ux XDG_MUSIC_DIR ~/Music
 set -Ux XDG_PICTURES_DIR ~/Pictures
 set -Ux XDG_VIDEOS_DIR ~/Videos
 
-# Default terminal
-set -Ux TERMINAL ghostty
-set -Ux TERMCMD ghostty
-
 # Default editor
 set -l nvim (which nvim)
 set -Ux VISUAL "$nvim"
@@ -20,11 +16,14 @@ set -Ux EDITOR "$nvim"
 set -Ux SUDO_EDITOR "$nvim"
 set -Ux MANPAGER "$nvim +Man!"
 
-# Default browser
+# OS specific vars
 switch (uname)
     case Darwin
-        # Do nothing
+        set -Ux TERMINAL ghostty
+        set -Ux TERMCMD ghostty
     case '*'
+        set -Ux TERMINAL footclient
+        set -Ux TERMCMD footclient
         set -Ux BROWSER qutebrowser
 end
 
