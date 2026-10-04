@@ -181,6 +181,7 @@ aur_deps=(
     watchman-bin
     localsend-bin
     cmd-polkit-git
+    wayfreeze
 
     # lsps, formatters, linters
     emmylua-ls-bin

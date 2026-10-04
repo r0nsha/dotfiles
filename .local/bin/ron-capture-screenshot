@@ -38,9 +38,12 @@ mkdir -p $dir
 set file "$dir/$(get-date).png"
 
 if test $region = region
+    wayfreeze --hide-cursor --enable-keyboard &
+    sleep 0.1
     set geom (ron-select-screen-region)
-    if test $status -ne 0
-        exit 1
+    pkill wayfreeze
+    if test -z "$geom"
+        return
     end
 else
     set geom ""
@@ -51,16 +54,11 @@ if test -n "$geom"
     set shot_args -g "$geom"
 end
 
-sleep 0.2 # wait for launcher to disappear
-
 grim $shot_args -t png $file
-
 if test $status -ne 0
     notify_error "grim failed"
     exit 1
 end
-
-wait # wait for grim to exit
 
 wl-copy <$file
 
