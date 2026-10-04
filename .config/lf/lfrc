@@ -1,0 +1,6 @@
+set watch
+set preview
+set previewer ~/.config/lf/previewer
+
+map <esc> quit
+map . set hidden!

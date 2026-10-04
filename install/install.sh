@@ -33,7 +33,8 @@ step "chmod"
 chmod -v ug+x \
     $DOTFILES/.local/bin/* \
     $DOTFILES/.config/waybar/scripts/* \
-    $DOTFILES/.config/borders/bordersrc
+    $DOTFILES/.config/borders/bordersrc \
+    $DOTFILES/.config/lf/previewer
 success
 
 # install tools

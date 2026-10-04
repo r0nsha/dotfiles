@@ -1,0 +1,14 @@
+#!/usr/bin/fish
+
+set file "$argv[1]"
+set w "$argv[2]"
+set h "$argv[3]"
+
+switch (file -Lb --mime-type -- $file)
+    case 'image/*'
+        notify-send "$w $h"
+        chafa -f kitty -s "$(echo $w)x$(echo $h)" --animate off -t 1 --bg black $file
+    case 'text/*'
+        bat --strip-ansi=always --color=always --style=plain --line-range=:200 -- "$file" ||
+            cat -v -- "$file"
+end

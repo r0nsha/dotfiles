@@ -50,6 +50,7 @@ oil.setup({
     ["<C-j>"] = false,
     ["<C-k>"] = false,
     ["<C-l>"] = false,
+    ["<C-s>"] = false, -- conflicts with :Shell
 
     ["-"] = "actions.parent",
     ["_"] = "actions.open_cwd",

@@ -167,7 +167,7 @@ for_window [app_id="ron.terminal.floating"] floating enable
 for_window [app_id="^swayimg-picker$"] fullscreen enable
 for_window [app_id="^webcam$"] floating enable
 
-# games and steam stuff go to workspace 9
+## games and steam stuff go to workspace 9
 for_window [instance="^cs2$"] move container to workspace 9
 for_window [class="^SDL Application$" title="^Counter-Strike 2$"] move container to workspace 9
 for_window [class="^steam_app_"] move container to workspace 9

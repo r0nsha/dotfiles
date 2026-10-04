@@ -37,7 +37,7 @@ else if test (count $argv) -gt 0
 else
     if test "$PICKER" = explorer
         set CHOSEN_FILE (mktemp)
-        yazi --chooser-file="$CHOSEN_FILE" $HOME
+        lf -selection-path="$CHOSEN_FILE" $HOME
         set FILES (cat "$CHOSEN_FILE")
         rm -f "$CHOSEN_FILE"
     else

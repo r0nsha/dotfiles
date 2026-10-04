@@ -40,10 +40,6 @@ else if command -vq bat
     abbr -a cat bat
 end
 
-if command -vq yazi
-    abbr -a y yazi
-end
-
 if command -vq opencode
     alias q 'opencode run --agent plan --model opencode/big-pickle'
 end

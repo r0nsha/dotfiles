@@ -55,9 +55,7 @@ pacman_deps=(
     jq
     imagemagick
     ffmpeg
-    yazi
-    poppler # for yazi
-    resvg   # for yazi
+    lf
     v4l-utils
     xdotool
     wtype

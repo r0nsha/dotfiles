@@ -1,5 +1,5 @@
 [filechooser]
-cmd=yazi-wrapper.sh
+cmd=/usr/share/xdg-desktop-portal-termfilechooser/lf-wrapper.sh
 default_dir=$HOME
 env=TERMCMD='ghostty -e'
 open_mode=suggested

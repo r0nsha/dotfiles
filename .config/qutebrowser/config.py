@@ -34,18 +34,20 @@ c.fileselect.handler = "external"
 c.fileselect.single_file.command = [
     "ghostty",
     "-e",
-    "yazi",
-    "--chooser-file={}",
+    "lf",
+    "-selection-path={}",
     homedir,
 ]
 c.fileselect.multiple_files.command = [
     "ghostty",
     "-e",
-    "yazi",
-    "--chooser-file={}",
+    "lf",
+    "-selection-path={}",
     homedir,
 ]
-c.fileselect.folder.command = ["ghostty", "-e", "yazi", "--chooser-file={}", homedir]
+# lf's `open` enters a directory instead of selecting it, so folder
+# selection uses -last-dir-path (same trick as lf-wrapper.sh)
+c.fileselect.folder.command = ["ghostty", "-e", "lf", "-last-dir-path={}", homedir]
 c.new_instance_open_target = "tab"
 c.new_instance_open_target_window = "last-focused"
 c.input.insert_mode.auto_enter = True

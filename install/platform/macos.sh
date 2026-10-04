@@ -47,7 +47,8 @@ install_deps() {
         resvg
         imagemagick
         font-symbols-only-nerd-font
-        yazi
+        lf
+        chafa
         docker
         colima
         ghostty
