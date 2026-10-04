@@ -1,7 +1,7 @@
 #!/usr/bin/env fish
 
 function usage
-    echo "usage: ron-capture-screenshot -r/--region <region|monitor> [-h/--help]"
+    echo "usage: ron-capture-screenshot -r/--region <region|monitor|active-window> [-h/--help]"
 end
 
 argparse h/help "r/region=" -- $argv
@@ -40,13 +40,25 @@ set file "$dir/$(get-date).png"
 if test $region = region
     wayfreeze --hide-cursor --enable-keyboard &
     sleep 0.1
-    set geom (ron-select-screen-region)
+    set geom (ron-select-region)
     pkill wayfreeze
     if test -z "$geom"
         return
     end
 else if test $region = monitor
     set geom ""
+else if test $region = active-window
+    set geom (swaymsg -t get_tree | jq -r '
+        .. | objects
+        | select(.focused == true)
+        | (.rect.x + .window_rect.x) as $x
+        | (.rect.y + .window_rect.y) as $y
+        | "\($x),\($y) \(.window_rect.width)x\(.window_rect.height)"
+    ')
+    if test -z "$geom"
+        notify_error "no active window found"
+        exit 1
+    end
 else
     notify_error "invalid region: $region"
     exit 1

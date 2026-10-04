@@ -28,18 +28,22 @@ function menu_capture
 end
 
 function menu_capture_shot
-    switch (icon_menu "  region" "󰍹  monitor" -p "shot> ")
+    switch (icon_menu "  region" "󰖯  active window" "󰍹  monitor" -p "shot> ")
         case region
             ron-capture-screenshot --region=region
+        case "active window"
+            ron-capture-screenshot --region=active-window
         case monitor
             ron-capture-screenshot --region=monitor
     end
 end
 
 function menu_capture_record
-    switch (icon_menu "  region" "󰍹  monitor" -p "record> ")
+    switch (icon_menu "  region" "󰖯  active window" "󰍹  monitor" -p "record> ")
         case region
             menu_capture_record_options region
+        case "active window"
+            menu_capture_record_options active-window
         case monitor
             menu_capture_record_options screen
     end
