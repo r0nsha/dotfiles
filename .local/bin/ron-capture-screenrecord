@@ -129,14 +129,7 @@ if test -z "$region"
     exit 1
 end
 
-set base_dir $XDG_VIDEOS_DIR
-if test -z "$base_dir"
-    set base_dir $XDG_PICTURES_DIR
-end
-if test -z "$base_dir"
-    set base_dir "$HOME/videos"
-end
-
+set base_dir (string join \n $XDG_VIDEOS_DIR $XDG_PICTURES_DIR ~/Videos)[1]
 set dir "$base_dir/screenrecords"
 mkdir -p "$dir"
 

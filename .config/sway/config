@@ -58,7 +58,7 @@ exec wl-paste --type text --watch cliphist store
 exec wl-paste --type image --watch cliphist store
 exec udiskie --smart-tray
 exec ron-volume-notify
-exec ron-background-random ~/pictures/backgrounds
+exec ron-background-random ~/Pictures/backgrounds
 exec fuzzel-polkit-agent
 
 # bindings

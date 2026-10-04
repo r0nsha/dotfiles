@@ -1,7 +1,7 @@
 #!/usr/bin/env fish
 
 set dir $argv[1]
-set -q dir[1] || set dir ~/pictures/backgrounds
+set -q dir[1] || set dir ~/Pictures/backgrounds
 
 set selected (swayimg $dir -g --appid=swayimg-picker -c ~/.config/swayimg/picker.lua \
     -e 'swayimg.imagelist.order = "alpha"')

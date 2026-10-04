@@ -5,8 +5,8 @@ require("servery").setup({
   dirs = function()
     local dirs = {
       "~/dotfiles",
-      "~/documents",
-      "~/pictures/backgrounds",
+      "~/Documents",
+      "~/Pictures/backgrounds",
     }
     local dev = vim.fs.normalize("~/dev")
     for name, type in vim.fs.dir(dev) do

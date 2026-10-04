@@ -10,9 +10,9 @@ LOCAL_BIN="$HOME/.local/bin"
 LOCAL_OPT="$HOME/.local/opt"
 LOCAL_SHARE="${XDG_DATA_HOME:-$HOME/.local/share}"
 DEV="$HOME/dev"
-DOWNLOADS="${XDG_DOWNLOAD_DIR:-$HOME/downloads}"
-PICTURES="${XDG_PICTURES_DIR:-$HOME/pictures}"
-VIDEOS="${XDG_VIDEOS_DIR:-$HOME/videos}"
+DOWNLOADS="${XDG_DOWNLOAD_DIR:-$HOME/Downloads}"
+PICTURES="${XDG_PICTURES_DIR:-$HOME/Pictures}"
+VIDEOS="${XDG_VIDEOS_DIR:-$HOME/Videos}"
 
 cat "$DOTFILES/install/pepe.txt"
 

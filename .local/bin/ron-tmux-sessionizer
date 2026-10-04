@@ -24,8 +24,8 @@ else
     set include_dirs (
             filter_dirs \
             $HOME/dotfiles \
-            $HOME/documents \
-            $HOME/pictures/backgrounds
+            $HOME/Documents \
+            $HOME/Pictures/backgrounds
         )
 
     set existing_sessions (get_existing_sessions)
