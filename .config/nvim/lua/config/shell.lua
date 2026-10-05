@@ -102,7 +102,7 @@ local function toggle(lhs, opts)
   local curwin = vim.api.nvim_get_current_win()
   local curbuf = vim.api.nvim_get_current_buf()
 
-  local name = vim.trim(string.format("%s %d", opts.prg or "shell", opts.nr))
+  local name = vim.trim(string.format("%s %d (%s)", opts.prg or "shell", opts.nr, lhs))
   local buf = -1
   for _, b in ipairs(vim.api.nvim_list_bufs()) do
     local bn = vim.api.nvim_buf_get_name(b)
