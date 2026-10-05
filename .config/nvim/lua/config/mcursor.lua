@@ -24,6 +24,14 @@ local mc_ns = vim.api.nvim_create_namespace("nvim.multicursor")
 ---@return boolean
 local function has_mcursors() return #vim.api.nvim_buf_get_extmarks(0, mc_ns, 0, -1) > 0 end
 
+---Adds an mcursor at (row, col), clamped to the line length.
+---@param row integer 1-indexed line
+---@param col integer 0-indexed byte offset
+local function set_mcursor(row, col)
+  local line = vim.api.nvim_buf_get_lines(0, row - 1, row, false)[1]
+  vim.api.nvim_buf_set_extmark(0, mc_ns, row - 1, math.min(col, #line), {})
+end
+
 vim.keymap.set("n", "<Esc>", function()
   if vim.v.hlsearch == 1 then
     vim.cmd.nohlsearch()
@@ -86,7 +94,8 @@ local function cursor_add_match_normal(backwards)
     or ("\\V" .. vim.fn.escape(char, "\\"))
 
   local row, col = unpack(vim.fn.searchpos(pattern, "bcnW"))
-  vim.api.nvim_mcursor(0, { row, col - 1 })
+  if row == 0 then return end
+  set_mcursor(row, col - 1)
   vim.fn.setreg("/", pattern)
   vim.fn.search(pattern, backwards and "b" or "")
 end
@@ -136,7 +145,7 @@ end
 local function cursor_place_search_matches(pattern)
   if pattern ~= "" then vim.fn.setreg("/", pattern) end
   vim.cmd.nohlsearch()
-  vim.cmd("normal! 1Q")
+  vim.cmd("normal! zqgn")
   set_cursor_to_nearest_mcursor()
 end
 
@@ -207,7 +216,7 @@ local function cursor_add_at_visual_sel(pos)
       if
         l ~= place and not (blockwise and vim.api.nvim_buf_get_lines(0, l - 1, l, false)[1] == "")
       then
-        vim.api.nvim_mcursor(0, { l, col })
+        set_mcursor(l, col)
       end
     end
     vim.api.nvim_win_set_cursor(0, { place, col })
