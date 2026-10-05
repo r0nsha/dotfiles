@@ -35,8 +35,6 @@ smart_borders on
 focus_follows_mouse yes
 focus_wrapping yes
 mouse_warping container
-seat * hide_cursor 5000
-seat * hide_cursor when-typing enable
 
 # colors
 client.background #000000
