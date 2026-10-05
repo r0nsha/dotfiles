@@ -1,3 +1,24 @@
+---@param follow boolean is follow-mode on?
+local function update_mcursor_hl(follow)
+  local bg = vim.api.nvim_get_hl(0, { name = "NorBg" }).bg
+  if follow then
+    vim.api.nvim_set_hl(
+      0,
+      "MCursor",
+      { fg = bg, bg = vim.api.nvim_get_hl(0, { name = "NorOrangeFg" }).fg }
+    )
+  else
+    vim.api.nvim_set_hl(
+      0,
+      "MCursor",
+      { fg = bg, bg = vim.api.nvim_get_hl(0, { name = "NorFgDim" }).fg }
+    )
+  end
+end
+
+vim.opt.follow = true
+update_mcursor_hl(vim.opt.follow)
+
 local mc_ns = vim.api.nvim_create_namespace("nvim.multicursor")
 
 ---@return boolean
@@ -52,8 +73,8 @@ vim.keymap.set(
 
 vim.keymap.set({ "n", "x" }, "<C-q>", "q=", { desc = "Toggle follow-mode" })
 
-vim.keymap.set("n", "<Up>", "Qk1q=", { desc = "Add cursor above" })
-vim.keymap.set("n", "<Down>", "Qj1q=", { desc = "Add cursor below" })
+vim.keymap.set("n", "<Up>", "Qk", { desc = "Add cursor above" })
+vim.keymap.set("n", "<Down>", "Qj", { desc = "Add cursor below" })
 
 ---@param backwards boolean?
 local function cursor_add_match_normal(backwards)
@@ -115,7 +136,7 @@ end
 local function cursor_place_search_matches(pattern)
   if pattern ~= "" then vim.fn.setreg("/", pattern) end
   vim.cmd.nohlsearch()
-  vim.cmd("normal! 1Q1q=") -- Place cursor at every match and enable follow-mode
+  vim.cmd("normal! 1Q")
   set_cursor_to_nearest_mcursor()
 end
 
@@ -190,9 +211,7 @@ local function cursor_add_at_visual_sel(pos)
       end
     end
     vim.api.nvim_win_set_cursor(0, { place, col })
-    vim.schedule(
-      function() vim.api.nvim_feedkeys("1q=" .. (is_start and "i" or "a"), "n", false) end
-    )
+    vim.schedule(function() vim.api.nvim_feedkeys("" .. (is_start and "i" or "a"), "n", false) end)
   end)
 end
 
@@ -216,19 +235,6 @@ vim.api.nvim_create_autocmd("OptionSet", {
   pattern = "follow",
   callback = function()
     local follow = vim.v.option_new --[[@type boolean]]
-    local bg = vim.api.nvim_get_hl(0, { name = "NorBg" }).bg
-    if follow then
-      vim.api.nvim_set_hl(
-        0,
-        "MCursor",
-        { fg = bg, bg = vim.api.nvim_get_hl(0, { name = "NorOrangeFg" }).fg }
-      )
-    else
-      vim.api.nvim_set_hl(
-        0,
-        "MCursor",
-        { fg = bg, bg = vim.api.nvim_get_hl(0, { name = "NorFgDim" }).fg }
-      )
-    end
+    update_mcursor_hl(follow)
   end,
 })
