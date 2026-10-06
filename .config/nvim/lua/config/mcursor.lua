@@ -38,7 +38,7 @@ vim.keymap.set("n", "<Esc>", function()
   return "<Esc>"
 end, { expr = true })
 
-vim.keymap.set({ "n", "x" }, ",", "zq")
+vim.keymap.set({ "n", "x" }, "s", "zq") -- `s` for select!
 
 ---@param dir "next" | "prev"
 ---@return string?
