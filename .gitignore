@@ -1,6 +1,7 @@
 wget-log*
 .venv
 __pycache__
+.DS_Store
 
 .config/nvim/lua/local.lua
 .config/qutebrowser/autoconfig.yml

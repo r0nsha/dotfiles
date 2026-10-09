@@ -3,7 +3,7 @@
 
 background = #000000
 foreground = #c6c6c6
-selection-background = #474747
+selection-background = #404040
 selection-foreground = #ffffff
 cursor-color = #ffffff
 cursor-text = #000000

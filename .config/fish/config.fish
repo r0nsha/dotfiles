@@ -1,9 +1,12 @@
 # paths
 fish_add_path \
     $HOME/.cargo/bin \
-    $HOME/.local/bin \
-    ~/.local/share/bob/nvim-bin \
-    /opt/homebrew/opt/rustup/bin
+    $HOME/.local/bin
+
+switch (uname)
+    case Darwin
+        fish_add_path /opt/homebrew/opt/rustup/bin
+end
 
 set config_dir (status dirname)
 source "$config_dir/functions.fish"
@@ -32,6 +35,7 @@ if status is-interactive
         COMPLETE=fish jj | source
     end
     if command -vq bob
+        bob use nightly --no-install 1>/dev/null
         bob complete fish | source
     end
 
