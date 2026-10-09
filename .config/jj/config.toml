@@ -64,13 +64,80 @@ register-snapshot-trigger = true
 [snapshot]
 auto-update-stale = true
 
+[revset-aliases]
+"d:x" = "diff_lines(substring:x)"
+"di:x" = "diff_lines(substring-i:x)"
+tip = "exactly(heads(@-::~@), 1)"
+"branch_start(to)" = "heads(::to & trunk())+ & ::to"
+"why_immutable(r)" = "(r & immutable()) | roots(r:: & immutable_heads())"
+
 [aliases]
-retrunk = ["rebase", "--skip-emptied", "-d", "trunk()"]
-pullup = ['retrunk', '-s', 'roots(mutable())']
 d = ["diff"]
 e = ["edit"]
 n = ["new"]
+l = ["log", "-r"]
+collapse = ["squash", "-f", "branch_start(@)+::@", "-t", "branch_start(@)"]
+retrunk = ["rebase", "--skip-emptied", "-d", "trunk()"]
+pullup = ['retrunk', '-s', 'roots(mutable())']
 gc = ["abandon", "-r", "empty() & mutable()"]
 fetch = ["git", "fetch"]
 push = ["git", "push"]
 send-email = ["util", "exec", "--", "ron-jj-send-email"]
+# Prefixes all change descriptions in the current branch with some string
+# Usage: jj prefix <prefix>
+prefix = [
+  "util",
+  "exec",
+  "--",
+  "bash",
+  "-c",
+  """
+set -euo pipefail
+
+PREFIX="$1 "
+# We don't actually need the editor, since we format the commit using the commit description template,
+# but we want a command that returns success.
+export JJ_EDITOR=/usr/bin/true
+# Change all offending commits at once, to get only one operation in the operation log.
+jj desc -r "((trunk()..@) | @::) ~ subject(glob:'\\[*')" --config templates.draft_commit_description="concat(\\"$PREFIX\\",coalesce(description, default_commit_description, \\"\n\\"))\"
+""",
+  "",
+]
+# Splits the current change at the provided revision from its evolog
+#
+# Usage: jj chop <rev>
+#
+# The updates after <rev> are put in a new change on top of <rev>.
+# <rev> keeps its bookmarks original commit ID (useful for shared branches).
+#
+# Example:
+# jj evolog -p  # --> Found lvn/2
+# jj chop lvn/2
+chop = ["util", "exec", "--", "bash", "-c", """
+    set -euo pipefail
+
+    START_OP=$(jj op log -n1 -G -T 'id.short()')
+
+    # FIRST_REV and SECOND_REV will be the final change revisions.
+    # The code never explictly refers to SECOND_REV.
+
+    # Make sure the provided rev is a commit ID and not a change offset or a
+    # branch name, to protect from changes.
+    FIRST_REV=$(jj log -n1 -G -T "commit_id" -r "$1")
+    FIRST_CHANGE=$(jj log -G -T 'change_id.short()' -r "$FIRST_REV")
+    START_REV="$(jj log -n1 -G -T "commit_id" -r @)"
+
+    # Create a new change (SECOND_REV) on top of the first revision. The change
+    # will diverge.
+    jj new "$FIRST_REV" -m "Chopped from $FIRST_CHANGE"
+    # Get the contents from the start revision into the change
+    jj restore --from "$START_REV"
+
+    # Move bookmarks to the first revision
+    jj bookmark move --from "$START_REV" --to "$FIRST_REV" --allow-backwards
+    # Resolve the divergence by dropping the first, left-over, revision.
+    jj abandon "$START_REV"
+
+    echo ""
+    echo "Chopped! Undo with: jj op restore $START_OP"
+""", ""]
