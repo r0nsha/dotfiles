@@ -66,7 +66,7 @@ install_deps() {
         # qutebrowser
         watchman
         localsend
-        btop
+        bottom
         nikitabobko/tap/aerospace
         FelixKratz/formulae/borders
 

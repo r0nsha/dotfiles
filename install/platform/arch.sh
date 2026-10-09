@@ -51,7 +51,7 @@ pacman_deps=(
     rustup
     zig
     fnm
-    btop
+    bottom
     jq
     imagemagick
     ffmpeg
