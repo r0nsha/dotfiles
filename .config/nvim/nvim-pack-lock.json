@@ -4,13 +4,13 @@
       "rev": "407c8949deafb39c5aa373bb06f9796c09e0635e",
       "src": "https://forge.barrettruth.com/barrettruth/canola.nvim"
     },
-    "codediff.nvim": {
-      "rev": "09d9ebef2cc5a5c04db7a349cd6c61bdf84ecc8e",
-      "src": "https://github.com/esmuellert/codediff.nvim"
-    },
     "conform.nvim": {
       "rev": "016802de402556da54c36bd7359b441266b01cdd",
       "src": "https://github.com/stevearc/conform.nvim"
+    },
+    "diffview-plus.nvim": {
+      "rev": "814ddc9fab8e55688c6403e2d2a3ece7f92d9dcf",
+      "src": "https://github.com/dlyongemallo/diffview-plus.nvim"
     },
     "fff": {
       "rev": "89c19270ea2dfc20829a7429f72022571558093e",

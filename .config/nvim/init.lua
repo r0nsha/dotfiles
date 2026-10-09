@@ -29,7 +29,7 @@ vim.pack.add({
   "https://forge.barrettruth.com/barrettruth/canola.nvim",
   -- src.gh("mrjones2014/smart-splits.nvim"),
   src.gh("stevearc/quicker.nvim"),
-  src.gh("esmuellert/codediff.nvim"),
+  src.gh("dlyongemallo/diffview-plus.nvim"),
   src.gh("ruifm/gitlinker.nvim"),
   src.gh("MunifTanjim/nui.nvim"),
   src.gh("julienvincent/hunk.nvim"),
