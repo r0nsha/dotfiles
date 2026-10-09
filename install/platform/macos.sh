@@ -36,7 +36,7 @@ install_deps() {
         rustup
         bat
         git
-        git-delta
+        difftastic
         fnm
         just
         sd

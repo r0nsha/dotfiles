@@ -24,7 +24,7 @@ pacman_deps=(
     rsync
     git
     github-cli
-    git-delta
+    difftastic
     jujutsu
     mergiraf
     perl-authen-sasl
