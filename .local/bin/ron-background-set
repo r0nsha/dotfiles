@@ -7,11 +7,13 @@ if not test -f "$img"
     exit 1
 end
 
-set pid (pidof swaybg)
+set pids (pgrep -x swaybg)
 swaybg --mode fill --output '*' --image "$img" &
-if test -n "$pid"
-    kill $pid
+for p in $pids
+    kill $p
 end
 
-ln -sf "$img" ~/.cache/current_background # link to cache so that other apps can reference it
+# link to cache so that others can reference it
+ln -sf "$img" ~/.cache/current_background
+
 ron-theme-generate

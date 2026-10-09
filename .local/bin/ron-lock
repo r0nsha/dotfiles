@@ -2,14 +2,53 @@
 
 load-color-vars
 
-set init (test -n "$color3"; and echo $color3 | sed 's/#/0x/'; or echo "#448088")
-set input (test -n "$color4"; and echo $color4 | sed 's/#/0x/'; or echo "#9e9e9e")
-set input_alt (test -n "$color5"; and echo $color5 | sed 's/#/0x/'; or echo "#c6c6c6")
-set fail 0xb84243
+function get_color -a value fallback
+    if test -n "$value"
+        string replace -r '^#' '' -- $value
+    else
+        echo $fallback
+    end
+end
 
-waylock \
-    -init-color $init \
-    -input-color $input \
-    -input-alt-color $input_alt \
-    -fail-color $fail \
+set bg (get_color "$background" 14110e)
+set fg (get_color "$foreground" ffffff)
+set ring (get_color "$color6" 8b8887)
+set key (get_color "$color14" adaaa8)
+set bs (get_color "$color8" 55483d)
+set ver (get_color "$color4" 715c59)
+set ver_alt (get_color "$color5" 715e5a)
+set fail_bg 50231f
+set fail b84243
+set fail_text e26d6d
+
+swaylock \
+    --ignore-empty-password \
+    --show-failed-attempts \
+    --daemonize \
+    --image ~/.cache/current_background \
+    --scaling fit \
+    --show-keyboard-layout \
+    --font BerkeleyMono \
+    --indicator-radius 80 \
+    --indicator-thickness 10 \
+    --inside-color {$bg}cc \
+    --line-color $bg \
+    --ring-color $ring \
+    --key-hl-color $key \
+    --bs-hl-color $bs \
+    --caps-lock-key-hl-color $key \
+    --caps-lock-bs-hl-color $bs \
+    --separator-color $ring \
+    --text-color $fg \
+    --inside-ver-color {$bg}cc \
+    --line-ver-color $bg \
+    --ring-ver-color $ver \
+    --text-ver-color $ver_alt \
+    --inside-wrong-color {$fail_bg}cc \
+    --line-wrong-color $fail_bg \
+    --ring-wrong-color $fail \
+    --text-wrong-color $fail_text \
+    --layout-bg-color {$bg}cc \
+    --layout-border-color $ring \
+    --layout-text-color $fg \
     $argv

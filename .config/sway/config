@@ -5,6 +5,9 @@ output "Samsung Electric Company LC49G95T H4ZTA00002" {
     enable
 }
 
+# managed by ron-background-set
+swaybg_command -
+
 input "type:keyboard" {
     xkb_layout us,il
     xkb_options grp:alt_space_toggle

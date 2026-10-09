@@ -100,7 +100,7 @@ pacman_deps=(
     libva-utils
     xorg-xwayland
     xwayland-satellite
-    waylock
+    swaylock
     gnome-keyring
     qt5-wayland
     qt6-wayland

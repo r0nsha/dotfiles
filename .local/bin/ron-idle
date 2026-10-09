@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 
-set lock 'pidof waylock || ron-lock -fork-on-lock'
+set lock 'pidof swaylock || ron-lock -fork-on-lock'
 set output_off 'swaymsg "output * power off"'
 set output_on 'swaymsg "output * power on"'
 

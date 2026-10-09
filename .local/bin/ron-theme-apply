@@ -45,7 +45,9 @@ else
 end
 
 # tmux
-tmux source-file ~/.config/tmux/tmux.conf
+if pgrep tmux
+    tmux source-file ~/.config/tmux/tmux.conf
+end
 
 # sway
 if test -n "$SWAYSOCK"
