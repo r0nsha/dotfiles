@@ -40,6 +40,7 @@ vim.pack.add({
   src.gh("Wansmer/treesj"),
   src.gh("wurli/servery.nvim"),
   src.gh("chentoast/marks.nvim"),
+  src.gh("justinmk/guh.nvim"),
 })
 
 pack.add_with_build(
