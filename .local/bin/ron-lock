@@ -26,7 +26,7 @@ swaylock \
     --show-failed-attempts \
     --daemonize \
     --image ~/.cache/current_background \
-    --scaling fit \
+    --scaling fill \
     --show-keyboard-layout \
     --font BerkeleyMono \
     --indicator-radius 80 \
