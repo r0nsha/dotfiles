@@ -1,6 +1,15 @@
 local augroup = require("augroup")
 local utils = require("utils")
 
+---@generic T
+---
+---@param v T
+---@return T
+function _G.dbg(v)
+  vim.schedule(function() print(vim.inspect(v)) end)
+  return v
+end
+
 -- opts
 vim.opt.termguicolors = true
 vim.opt.exrc = true
@@ -212,7 +221,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     local dir = vim.fs.normalize(vim.fs.dirname(ev.file))
     local stat = vim.uv.fs_stat(dir)
     if not stat then return end
-    if stat.type ~= "directory" and not dir:startswith("oil:/") then
+    if stat.type ~= "directory" and not vim.startswith(dir, "oil:/") then
       vim.fs.mkdir(dir, { parents = true })
     end
   end,
@@ -408,7 +417,15 @@ vim.keymap.set("n", "<leader>w", "<cmd>noau w<cr>", { desc = "Write without auto
 
 require("config.diagnostics")
 require("config.mcursor")
-require("config.tabline")
 require("config.window")
 require("config.term")
-require("config.shell")
+local shell = require("config.shell")
+require("config.tabline")
+
+shell.new({ lhs = "<C-s>" })
+shell.new({ lhs = "<A-m>" })
+shell.new({ lhs = "<A-,>" })
+shell.new({ lhs = "<A-.>" })
+shell.new({ lhs = "<A-u>", prg = "pi" })
+shell.new({ lhs = "<A-i>", prg = "pi" })
+shell.new({ lhs = "<A-o>", prg = "pi" })

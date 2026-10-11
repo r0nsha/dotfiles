@@ -10,6 +10,8 @@ _G._myconfig.tablabel = function(n)
   if has_tabdir then return ("CWD: %s/"):format(vim.fs.basename(tabdir)) end
   local win = vim.api.nvim_tabpage_get_win(tabpage)
   local bufname = vim.api.nvim_buf_get_name(vim.api.nvim_win_get_buf(win))
+  local shell_title = require("config.shell").title(bufname)
+  if shell_title then return shell_title end
   local isdir = bufname:sub(#bufname) == "/"
   local name = vim.fs.basename(isdir and vim.fs.dirname(bufname) or bufname)
     .. (isdir and "/" or "")

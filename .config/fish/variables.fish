@@ -10,11 +10,10 @@ set -Ux XDG_PICTURES_DIR ~/Pictures
 set -Ux XDG_VIDEOS_DIR ~/Videos
 
 # Default editor
-set -l nvim (which nvim)
-set -Ux VISUAL "$nvim"
-set -Ux EDITOR "$nvim"
-set -Ux SUDO_EDITOR "$nvim"
-set -Ux MANPAGER "$nvim +Man!"
+set -Ux VISUAL nvim
+set -Ux EDITOR nvim
+set -Ux SUDO_EDITOR nvim
+set -Ux MANPAGER "nvim +Man!"
 
 # OS specific vars
 switch (uname)

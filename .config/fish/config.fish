@@ -19,7 +19,7 @@ if test -r $local_config
 end
 
 if command -vq fnm
-    fnm env --use-on-cd --shell fish | source
+    fnm env --use-on-cd --log-level quiet --shell fish | source
 end
 
 if status is-interactive

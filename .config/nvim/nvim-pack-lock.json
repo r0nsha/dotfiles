@@ -9,11 +9,11 @@
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "diffview-plus.nvim": {
-      "rev": "e2699210207b525bc6d9857b65fe90cd78b0ec86",
+      "rev": "42b49c29f6eeb61ec07a492ae993b245e73e79fd",
       "src": "https://github.com/dlyongemallo/diffview-plus.nvim"
     },
     "fff": {
-      "rev": "d978416f77aec3f9928d56e00c9e56ba39ca1fda",
+      "rev": "4b17d9b278c3818fb380855b7d77424b239b3b91",
       "src": "https://github.com/dmtrKovalenko/fff"
     },
     "filepaths_ls.nvim": {
@@ -53,7 +53,7 @@
       "src": "https://tangled.org/ronshavit.com/mini.diff.jj"
     },
     "mini.nvim": {
-      "rev": "9ee72c26ac1440ee6c95ce708c1d739684be316a",
+      "rev": "8831fa150fa26492cfe135801fa498132f1491d2",
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "nor.nvim": {
@@ -69,7 +69,7 @@
       "src": "https://github.com/mfussenegger/nvim-lint"
     },
     "nvim-lspconfig": {
-      "rev": "c59fc922f718fa055f69f5f3bc888f23211571eb",
+      "rev": "ac062d0d01c019c0dbdb798968f3e5d8b35c3853",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-surround": {
@@ -99,11 +99,11 @@
       "src": "https://github.com/stevearc/quicker.nvim"
     },
     "schemastore.nvim": {
-      "rev": "b463a5e79f84fd9ca22dd47f41754387d8fe7af4",
+      "rev": "1c6d5e0b721c877c4c8061d2361f8fc20adaf896",
       "src": "https://github.com/b0o/schemastore.nvim"
     },
     "servery.nvim": {
-      "rev": "3da0c6f8b5ac62ffe9c58afff9e05bf409487f2a",
+      "rev": "d92f742117aa49a7a579f1d61faf0a910a640980",
       "src": "https://github.com/wurli/servery.nvim"
     },
     "tiny-inline-diagnostic.nvim": {
