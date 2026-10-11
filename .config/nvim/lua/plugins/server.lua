@@ -1,7 +1,6 @@
 local async = require("plugins.server.async")
 
 require("servery").setup({
-  session_dir = vim.fs.joinpath(vim.fn.stdpath("run"), "servery"),
   servers = async.servers,
   dirs = function()
     local dirs = {

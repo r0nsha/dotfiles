@@ -48,7 +48,6 @@ pack.add_with_build(
   function() require("fff.download").download_or_build_binary() end
 )
 
-require("extensions")
 require("config")
 require("theme")
 

@@ -198,12 +198,8 @@ local function usable(addr)
 end
 
 ---Fast, non-blocking replacement for the default `servers`.
----
----Enumerates peer sockets in `stdpath('run')` plus servery's managed
----`session_dir`, instead of `vim.fn.serverlist({ peer = true })`.
 ---@return string[]
 function M.servers()
-  local servery = require("servery")
   local out, seen = {}, {}
 
   local function add(path)
@@ -213,19 +209,28 @@ function M.servers()
     end
   end
 
-  local run = vim.fn.stdpath("run")
-  if vim.fn.isdirectory(run) == 1 then
-    for name, ty in vim.fs.dir(run) do
-      if ty == "socket" and vim.startswith(name, "nvim.") then add(vim.fs.joinpath(run, name)) end
+  ---@param dir string
+  ---@param prefix string?
+  local function add_sockets(dir, prefix)
+    if vim.fn.isdirectory(dir) ~= 1 then return end
+    for name, ty in vim.fs.dir(dir) do
+      if ty == "socket" and (not prefix or vim.startswith(name, prefix)) then
+        add(vim.fs.joinpath(dir, name))
+      end
     end
   end
 
-  local session_dir = servery.get_cfg().session_dir
-  if vim.fn.isdirectory(session_dir) == 1 then
-    for name, ty in vim.fs.dir(session_dir) do
-      if ty == "socket" then add(vim.fs.joinpath(session_dir, name)) end
+  add(vim.v.servername)
+
+  local run = vim.fn.stdpath("run") --[[@as string]]
+  local parent = vim.fs.dirname(run)
+  if vim.fn.isdirectory(parent) == 1 then
+    for name, ty in vim.fs.dir(parent) do
+      if ty == "directory" then add_sockets(vim.fs.joinpath(parent, name), "nvim.") end
     end
   end
+
+  add_sockets(require("servery").get_cfg().session_dir)
 
   return out
 end
