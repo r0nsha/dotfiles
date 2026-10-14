@@ -1,7 +1,5 @@
 local Utils = {}
 
-function Utils.is_macos() return vim.fn.has("macunix") == 1 end
-
 ---@param v boolean
 function Utils.bool_to_enabled(v) return v and "enabled" or "disabled" end
 

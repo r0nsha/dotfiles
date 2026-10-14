@@ -173,7 +173,7 @@ vim.api.nvim_create_autocmd("BufWritePost", {
   desc = "Reload kitty.conf when it's modified",
   pattern = "*/kitty/*.conf",
   callback = function()
-    local pgrep = utils.is_macos() and "pgrep -a kitty" or "pgrep kitty"
+    local pgrep = vim.fn.has("mac") and "pgrep -a kitty" or "pgrep kitty"
 
     vim.system({ "fish", "-c", "kill -SIGUSR1 (" .. pgrep .. ")" }, {}, function(out)
       vim.schedule(function()
