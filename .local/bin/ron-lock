@@ -13,8 +13,6 @@ end
 set bg (get_color "$background" 14110e)
 set fg (get_color "$foreground" ffffff)
 set ring (get_color "$color6" 8b8887)
-set key (get_color "$color14" adaaa8)
-set bs (get_color "$color8" 55483d)
 set ver (get_color "$color4" 715c59)
 set ver_alt (get_color "$color5" 715e5a)
 set fail_bg 50231f
@@ -32,12 +30,12 @@ swaylock \
     --indicator-radius 80 \
     --indicator-thickness 10 \
     --inside-color {$bg}cc \
-    --line-color $bg \
-    --ring-color $ring \
-    --key-hl-color $key \
-    --bs-hl-color $bs \
-    --caps-lock-key-hl-color $key \
-    --caps-lock-bs-hl-color $bs \
+    --line-color {$bg}cc \
+    --ring-color {$bg}cc \
+    --key-hl-color $fg \
+    --bs-hl-color $fg \
+    --caps-lock-key-hl-color $fg \
+    --caps-lock-bs-hl-color $fg \
     --separator-color $ring \
     --text-color $fg \
     --inside-ver-color {$bg}cc \
