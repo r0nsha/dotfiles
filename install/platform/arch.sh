@@ -129,6 +129,7 @@ pacman_deps=(
     xdg-desktop-portal-wlr
     wayland-utils
     wlr-randr
+    ly
     opencode
     unzip
 
@@ -219,8 +220,11 @@ systemctl --user enable --now \
     xdg-desktop-portal-wlr.service
 success
 
-# login shell
-sudo systemctl enable getty@tty1.service
+step "display manager: ly"
+sudo ln -sfv "$DOTFILES/ly/config.ini" /etc/ly/config.ini
+sudo systemctl enable ly@tty2.service
+sudo systemctl disable getty@tty2.service
+success
 
 # chrony
 sudo chronyc online

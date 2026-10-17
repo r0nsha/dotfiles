@@ -54,10 +54,3 @@ if status is-interactive
         fisher update
     end
 end
-
-# autostart WM on tty1
-if status is-login
-    and test (uname) = Linux
-    and test "$(tty)" = /dev/tty1
-    sway-run
-end

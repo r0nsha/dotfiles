@@ -12,7 +12,10 @@ local function exit_term_mode()
   vim.b.term_insert = false
   return [[<C-\><C-n>]]
 end
-vim.keymap.set("t", "<C-Esc>", exit_term_mode, { expr = true, desc = "Exit terminal mode" })
+
+for _, lhs in ipairs({ "<C-Esc>", "<C-/>" }) do
+  vim.keymap.set("t", lhs, exit_term_mode, { expr = true, desc = "Exit terminal mode" })
+end
 
 -- The hooks below are *not* called in this Nvim.  A nested Nvim invokes them on
 -- its parent over RPC (`require('config.term').parent_start(...)`).  Keeping the

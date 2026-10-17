@@ -130,9 +130,10 @@
       "critical": 15,
     },
     "format": "{icon} {capacity}%",
-    "format-charging": "󰢟 {capacity}% ({time})",
-    "format-full": "󰁹 100%",
-    "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+    "format-icons": {
+      "default": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+      "charging": ["󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
+    },
     "format-time": "{H}h{M}m",
     "max-length": 25,
   },
