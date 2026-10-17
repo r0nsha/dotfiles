@@ -42,14 +42,6 @@ step "tools"
 source "$DOTFILES/install/platform.sh"
 success
 
-install_rust() {
-    rustup toolchain install stable
-    rustup toolchain install nightly
-    rustup default stable
-    rustup update
-}
-install_wrapper cargo install_rust
-
 if exists cargo; then
     step "cargo packages"
     cargo install cargo-update qmkfmt kdlfmt

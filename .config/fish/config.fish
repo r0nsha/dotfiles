@@ -1,7 +1,8 @@
 # paths
 fish_add_path \
     $HOME/.cargo/bin \
-    $HOME/.local/bin
+    $HOME/.local/bin \
+    $HOME/.local/share/bob/nvim-bin
 
 switch (uname)
     case Darwin

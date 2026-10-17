@@ -130,6 +130,7 @@ pacman_deps=(
     wayland-utils
     wlr-randr
     opencode
+    unzip
 
     # lsps, formatters, linters
     vscode-css-languageserver
@@ -155,6 +156,13 @@ pacman_deps=(
 step "installing pacman packages"
 sudo pacman -Syu --needed --noconfirm ${pacman_deps[@]}
 
+install_rust() {
+    rustup toolchain install stable
+    rustup default stable
+    rustup update
+}
+install_wrapper cargo install_rust
+
 install_yay() {
     cd $DOWNLOADS
     git clone https://aur.archlinux.org/yay.git
@@ -169,21 +177,20 @@ install_wrapper yay install_yay
 aur_deps=(
     tessen
     pass-git-helper
-    vesktop
+    vesktop-bin
     hellwal
     hyprpicker-git
     mpv-uosc-git
     mpv-thumbfast-git
-    stremio
-    xdg-desktop-portal-termfilechooser
+    xdg-desktop-portal-termfilechooser-boydaihungst-git
     watchman-bin
     localsend-bin
     cmd-polkit-git
-    wayfreeze
+    wayfreeze-git
 
     # lsps, formatters, linters
     emmylua-ls-bin
-    fish-lsp
+    fish-lsp-git
 )
 
 step "installing AUR packages"
@@ -192,7 +199,12 @@ yay -S --needed --noconfirm --devel ${aur_deps[@]}
 # systemd
 step "systemd: enable system services"
 sudo systemctl disable --now systemd-timesyncd.service
-sudo systemctl enable --now chronyd.service chrony-wait.service cronie.service iwd.service
+sudo systemctl enable --now \
+    chronyd.service \
+    chrony-wait.service \
+    cronie.service \
+    systemd-resolved \
+    iwd.service
 success
 
 step "systemd: enable user services"
@@ -217,13 +229,11 @@ sudo chronyc online
 sudo gpasswd -a $USER gamemode
 sudo gpasswd -a $USER network
 sudo gpasswd -a $USER input
-sudo gpasswd -a $USER i2c
 
 # bluetooth
 sudo systemctl enable --now bluetooth.service
 
 # docker
-newgrp docker
 sudo usermod -aG docker $USER
 sudo systemctl enable --now docker
 

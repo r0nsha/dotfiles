@@ -10,7 +10,7 @@ swaybg_command -
 
 input "type:keyboard" {
     xkb_layout us,il
-    xkb_options grp:alt_space_toggle
+    xkb_options grp:alt_space_toggle,caps:swapescape
     repeat_rate 50
     repeat_delay 300
 }

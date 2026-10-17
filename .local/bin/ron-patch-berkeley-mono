@@ -69,7 +69,7 @@ if test (count $patched_fonts) -eq 0
     exit 1
 end
 
-sudo yes | cp $patched_fonts $system_fonts
+yes | sudo cp $patched_fonts $system_fonts
 
 rm -rf $base_dir
 cd $original_path

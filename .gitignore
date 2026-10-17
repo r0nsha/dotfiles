@@ -19,6 +19,13 @@ __pycache__
 .config/qt6ct/colors
 .config/mako/config
 
+.gnupg/*
+!.gnupg/gpg.conf
+!.gnupg/gpg-agent.conf
+
+.ssh/*
+!.ssh/config
+
 .pi/agent/*
 !.pi/agent/settings.json
 !.pi/agent/keybindings.json

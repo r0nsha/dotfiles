@@ -102,6 +102,13 @@ install_wrapper brew install_brew
 install_deps
 echo ""
 
+install_rust() {
+    rustup toolchain install stable
+    rustup default stable
+    rustup update
+}
+
+install_wrapper cargo install_rust
 if exists "qutebrowser"; then
     rm -rf "$HOME/.qutebrowser"
     ln -sv "$DOTFILES/.config/qutebrowser" "$HOME/.qutebrowser"
