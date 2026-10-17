@@ -11,6 +11,7 @@
     "wireplumber",
     "network",
     "clock",
+    "battery",
   ],
   "tray": {
     "icon-size": 16,

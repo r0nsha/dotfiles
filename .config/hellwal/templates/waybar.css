@@ -51,8 +51,8 @@ tooltip {
 #pulseaudio,
 #bluetooth,
 #network,
-#clock,
-#hardware {
+#battery,
+#clock {
   margin-left: 12px;
   padding-left: 12px;
   border-left: 1px solid @separator;
