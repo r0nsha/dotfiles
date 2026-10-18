@@ -19,6 +19,8 @@ set fail_bg 50231f
 set fail b84243
 set fail_text e26d6d
 
+playerctl pause
+
 swaylock \
     --ignore-empty-password \
     --show-failed-attempts \

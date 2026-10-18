@@ -170,6 +170,9 @@ bindsym --no-repeat XF86AudioNext exec "swayosd-client --playerctl next"
 bindsym XF86MonBrightnessUp exec "swayosd-client --brightness raise"
 bindsym XF86MonBrightnessDown exec "swayosd-client --brightness lower"
 
+# laptop
+bindswitch --reload --locked lid:toggle exec ron-lock
+
 # rules
 for_window [all] inhibit_idle fullscreen
 for_window [app_id="ron.terminal.floating"] floating enable

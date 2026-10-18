@@ -221,6 +221,21 @@ systemctl --user enable --now \
     xdg-desktop-portal-wlr.service
 success
 
+step "systemd-logind: ignore lid switch"
+logind_conf=/etc/systemd/logind.conf
+for key in HandleLidSwitch HandleLidSwitchExternalPower HandleLidSwitchDocked; do
+    if rg -q "^${key}=" "$logind_conf"; then
+        info "$key: skipped (already set)"
+    elif rg -q "^#${key}=" "$logind_conf"; then
+        sudo sd "(?m)^#${key}=.*" "${key}=ignore" "$logind_conf"
+        info "$key: set to ignore"
+    else
+        sudo sd "(?m)^\[Login\]$" "[Login]\n${key}=ignore" "$logind_conf"
+        info "$key: set to ignore"
+    fi
+done
+success
+
 step "display manager: ly"
 sudo ln -sfv "$DOTFILES/ly/config.ini" /etc/ly/config.ini
 sudo systemctl enable ly@tty2.service
