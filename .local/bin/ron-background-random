@@ -32,16 +32,25 @@ else
     set interval $default_interval
 end
 
+function update-bg
+    ron-background-set "$(fd . $dir -tf | shuf -n 1)"
+end
+
+set cached_image (awww query -j | jq .[""][0].displaying.image)
+if test "$cached_image" = null
+    update-bg
+end
+
 while true
+    sleep $interval
+
+    # don't update bg while a game is running
     if pgrep gamemoded
         set gamemode_status (gamemoded -s)
         if string match -q -- 'gamemode is active' -- $gamemode_status
-            sleep $interval
             continue
         end
     end
 
-    set img (fd . $dir -tf | shuf -n 1)
-    ron-background-set "$img"
-    sleep $interval
+    update-bg
 end
