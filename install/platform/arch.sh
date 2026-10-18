@@ -109,7 +109,7 @@ pacman_deps=(
     qt5ct
     qt6ct
     sway
-    swaybg
+    awww
     swayimg
     waybar
     gamemode

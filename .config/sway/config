@@ -54,6 +54,7 @@ include ~/.cache/hellwal/sway-colors
 exec foot --server
 exec mako
 exec ron-idle
+exec awww-daemon
 exec waybar
 exec wl-clip-persist --clipboard regular
 exec wl-paste --type text --watch cliphist store

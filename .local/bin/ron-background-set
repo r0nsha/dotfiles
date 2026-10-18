@@ -7,11 +7,11 @@ if not test -f "$img"
     exit 1
 end
 
-set pids (pgrep -x swaybg)
-swaybg --mode fill --output '*' --image "$img" &
-for p in $pids
-    kill $p
-end
+awww img \
+    --resize crop "$img" \
+    --transition-type fade \
+    --transition-duration 1 \
+    --transition-fps 30
 
 # link to cache so that others can reference it
 ln -sf "$img" ~/.cache/current_background
