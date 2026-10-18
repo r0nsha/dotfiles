@@ -1,0 +1,43 @@
+@define-color background #%%background%%;
+@define-color foreground #%%foreground%%;
+@define-color accent #%%color7%%;
+
+window#osd {
+  border-radius: 0;
+  border: 1px solid alpha(@accent, 0.3);
+  background: alpha(@background, 0.95);
+}
+
+window#osd #container {
+  margin: 4px 8px;
+}
+
+window#osd image,
+window#osd label {
+  color: @foreground;
+}
+
+window#osd image {
+  -gtk-icon-transform: scale(0.75);
+}
+
+window#osd label {
+  font-family: "BerkeleyMono Nerd Font Propo";
+  font-size: 16px;
+}
+
+window#osd progressbar:disabled,
+window#osd image:disabled {
+  opacity: 0.5;
+}
+
+window#osd progressbar {
+  min-height: 6px;
+  border-radius: 0;
+  background: alpha(@foreground, 0.2);
+}
+
+window#osd progressbar progress {
+  border-radius: 0;
+  background: @accent;
+}

@@ -1,0 +1,4 @@
+[server]
+top_margin = 0.85
+max_volume = 100
+show_percentage = true

@@ -18,6 +18,7 @@ __pycache__
 .config/qt5ct/colors
 .config/qt6ct/colors
 .config/mako/config
+.config/swayosd/style.css
 
 .gnupg/*
 !.gnupg/gpg.conf

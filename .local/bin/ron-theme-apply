@@ -23,6 +23,9 @@ pkill nautilus
 # waybar
 ln -sfv ~/.cache/hellwal/waybar.css ~/.config/waybar/style.css
 
+# swayosd
+ln -sfv ~/.cache/hellwal/swayosd.css ~/.config/swayosd/style.css
+
 # mako
 mkdir -p ~/.config/mako
 rm -f ~/.config/mako/config
@@ -48,6 +51,13 @@ end
 if pgrep tmux
     tmux source-file ~/.config/tmux/tmux.conf
 end
+
+# swayosd
+if pgrep swayosd-server
+    pkill swayosd-server
+    sleep 0.2
+end
+setsid swayosd-server </dev/null >/dev/null 2>&1 &
 
 # sway
 if test -n "$SWAYSOCK"

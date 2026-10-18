@@ -83,6 +83,7 @@ pacman_deps=(
     pavucontrol
     libnotify
     mako
+    swayosd
     wl-clipboard
     wl-clip-persist
     python
