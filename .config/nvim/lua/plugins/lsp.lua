@@ -17,6 +17,8 @@ vim.lsp.enable({
   "basedpyright",
   "zls",
   "filepaths_ls",
+  "ols",
+  "janet-lsp",
 })
 
 vim.api.nvim_create_autocmd("LspProgress", {
