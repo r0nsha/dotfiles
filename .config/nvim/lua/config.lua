@@ -105,6 +105,7 @@ vim.filetype.add({
     [".gitconfig.local"] = "gitconfig",
     ["jsconfig.json"] = "jsonc",
     ["tsconfig.json"] = "jsonc",
+    ["TODO"] = "markdown",
   },
   pattern = {
     [".*/%.vscode/.*%.json"] = "jsonc",
