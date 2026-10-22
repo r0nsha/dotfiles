@@ -29,6 +29,8 @@ conform.setup({
     typst = { "typstyle" },
     kdl = { "kdlfmt" },
     zig = { "zls" },
+    odin = { "odinfmt" },
+    janet = { "janet-format" },
     ["_"] = { "trim_whitespace" },
   },
   default_format_opts = {
