@@ -102,6 +102,7 @@ pacman_deps=(
     xorg-xwayland
     xwayland-satellite
     swaylock
+    swayidle
     gnome-keyring
     qt5-wayland
     qt6-wayland
